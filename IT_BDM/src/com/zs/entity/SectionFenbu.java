@@ -1,5 +1,7 @@
 package com.zs.entity;
 
+import java.util.List;
+
 /**
  * SectionFenbu entity. @author MyEclipse Persistence Tools
  */
@@ -15,8 +17,18 @@ public class SectionFenbu implements java.io.Serializable {
 	private String fbPhoneCompany;
 	private String fbPhoneShort;
 	private String qbId;
-
+	
+	private List<SectionFenbodian> fbds;
+	
 	// Constructors
+
+	public List<SectionFenbodian> getFbds() {
+		return fbds;
+	}
+
+	public void setFbds(List<SectionFenbodian> fbds) {
+		this.fbds = fbds;
+	}
 
 	/** default constructor */
 	public SectionFenbu() {

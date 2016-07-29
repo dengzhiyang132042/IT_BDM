@@ -18,6 +18,12 @@
   <action name="section" class="zs_section_yjz">	
   	 <interceptor-ref name="mydefault" />
      <result>/index.jsp</result>
+     <result name="qubu">/yjz_jsp/section_qubu.jsp</result>
+  </action>
+  <action name="index" class="zs_index">	
+  	 <interceptor-ref name="mydefault" />
+     <result>/index.jsp</result>
+     <result name="left">/left.jsp</result>
   </action>
 </package>
 </struts>    

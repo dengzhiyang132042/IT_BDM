@@ -1,5 +1,7 @@
 package com.zs.entity;
 
+import java.util.List;
+
 /**
  * SectionQubu entity. @author MyEclipse Persistence Tools
  */
@@ -15,7 +17,17 @@ public class SectionQubu implements java.io.Serializable {
 	private String qbPhoneCompany;
 	private String qbPhoneShort;
 
+	private List<SectionFenbu> fbs;
+	
 	// Constructors
+
+	public List<SectionFenbu> getFbs() {
+		return fbs;
+	}
+
+	public void setFbs(List<SectionFenbu> fbs) {
+		this.fbs = fbs;
+	}
 
 	/** default constructor */
 	public SectionQubu() {

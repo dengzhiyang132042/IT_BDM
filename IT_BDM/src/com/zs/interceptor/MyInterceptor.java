@@ -78,6 +78,7 @@ public class MyInterceptor extends AbstractInterceptor{
 			}
 		}
 		*/
+//		System.out.println(path);
 		close();
 		return arg0.invoke();
 	}

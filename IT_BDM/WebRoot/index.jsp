@@ -1,5 +1,4 @@
 <%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -10,29 +9,30 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <head>
     <base href="<%=basePath%>">
     
-    <title>My JSP 'index.jsp' starting page</title>
+    <title>首页</title>
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
 	<meta http-equiv="expires" content="0">    
 	<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
 	<meta http-equiv="description" content="This is my page">
-	<!--
-	<link rel="stylesheet" type="text/css" href="styles.css">
-	-->
+	
+	<link rel="stylesheet" type="text/css" href="<%=path %>/FRAMEWORK/jquery-easyui/themes/gray/easyui.css">
+	<link rel="stylesheet" type="text/css" href="<%=path %>/FRAMEWORK/jquery-easyui/themes/icon.css">
+	<link rel="stylesheet" type="text/css" href="<%=path %>/FRAMEWORK/jquery-easyui/demo/demo.css">
+	<script type="text/javascript" src="<%=path %>/FRAMEWORK/jquery-easyui/jquery.min.js"></script>
+	<script type="text/javascript" src="<%=path %>/FRAMEWORK/jquery-easyui/jquery.easyui.min.js"></script>
+	
+	<link rel="stylesheet" type="text/css" href="<%=path %>/FRAMEWORK/css/mycss.css">
+	
   </head>
-  
-  <body>
-    This is my JSP page. <br>
-    <a href="<%=path %>/section">测试</a>
-    <a href="<%=path %>/section!add">添加</a>
-    <table border="1" width="100%">
-    <c:forEach items="${qbs}" var="qb">
-    <tr>
-		<td>${qb.qbId }</td>
-		<td>${qb.qbMaster }</td>
-		<td>${qb.qbName }</td>
-    </tr>
-    </c:forEach>
-    </table>
-  </body>
+<frameset rows="100px,*" border="0">
+	<frame name="top"  src="top.jsp" noresize="noresize"/>
+	<frameset cols="200px,*" frameborder="yes">
+		<frame name="left" src="<%=path%>/index!other" noresize="noresize"/>
+		<frameset rows="*,50px" frameborder="yes">
+			<frame name="right" src="<%=path%>/welcom.jsp" noresize="noresize"/>
+			<frame name="bottom" src="bottom.jsp" noresize="noresize"/>
+		</frameset> 
+	</frameset>
+</frameset>
 </html>
