@@ -12,21 +12,21 @@ public class SectionFenbu implements java.io.Serializable {
 
 	private String fbId;
 	private String fbName;
-	private String fbMaser;
+	private String fbMaster;
 	private String fbPhonePrivate;
 	private String fbPhoneCompany;
 	private String fbPhoneShort;
 	private String qbId;
+	private List fbds;
 	
-	private List<SectionFenbodian> fbds;
 	
 	// Constructors
 
-	public List<SectionFenbodian> getFbds() {
+	public List getFbds() {
 		return fbds;
 	}
 
-	public void setFbds(List<SectionFenbodian> fbds) {
+	public void setFbds(List fbds) {
 		this.fbds = fbds;
 	}
 
@@ -40,12 +40,12 @@ public class SectionFenbu implements java.io.Serializable {
 	}
 
 	/** full constructor */
-	public SectionFenbu(String fbId, String fbName, String fbMaser,
+	public SectionFenbu(String fbId, String fbName, String fbMaster,
 			String fbPhonePrivate, String fbPhoneCompany, String fbPhoneShort,
 			String qbId) {
 		this.fbId = fbId;
 		this.fbName = fbName;
-		this.fbMaser = fbMaser;
+		this.fbMaster = fbMaster;
 		this.fbPhonePrivate = fbPhonePrivate;
 		this.fbPhoneCompany = fbPhoneCompany;
 		this.fbPhoneShort = fbPhoneShort;
@@ -70,12 +70,12 @@ public class SectionFenbu implements java.io.Serializable {
 		this.fbName = fbName;
 	}
 
-	public String getFbMaser() {
-		return this.fbMaser;
+	public String getFbMaster() {
+		return this.fbMaster;
 	}
 
-	public void setFbMaser(String fbMaser) {
-		this.fbMaser = fbMaser;
+	public void setFbMaster(String fbMaster) {
+		this.fbMaster = fbMaster;
 	}
 
 	public String getFbPhonePrivate() {

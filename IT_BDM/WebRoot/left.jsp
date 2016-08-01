@@ -18,7 +18,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
 	<meta http-equiv="description" content="This is my page">
 	
-	<link rel="stylesheet" type="text/css" href="<%=path %>/FRAMEWORK/jquery-easyui/themes/black/easyui.css">
+	<link rel="stylesheet" type="text/css" href="<%=path %>/FRAMEWORK/jquery-easyui/themes/gray/easyui.css">
 	<link rel="stylesheet" type="text/css" href="<%=path %>/FRAMEWORK/jquery-easyui/themes/icon.css">
 	<link rel="stylesheet" type="text/css" href="<%=path %>/FRAMEWORK/jquery-easyui/demo/demo.css">
 	<script type="text/javascript" src="<%=path %>/FRAMEWORK/jquery-easyui/jquery.min.js"></script>
@@ -28,64 +28,24 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 	<script type="text/javascript">
 	$(function(){
-		$('#tree1').tree('collapseAll');
+		$('#tt').tree('collapseAll');
 	});
 	</script>
 	
   </head>
   
-<body style="width: 200px;margin: 0px;padding: 0px;background-color: #3D3D3D;">
+<body style="width: 200px;margin: 0px;padding: 0px;background-color: ;height: 100%;">
 
-<div class="easyui-accordion" style="width:200px;height:auto;">
+<div class="easyui-accordion" style="width:200px;height:100%;" data-options="fillSpace:true,fit: true,animate: true,selected:false">
 	<div title="数据中心" data-options="iconCls:'icon-add'" style="overflow:auto;padding:10px;">
 		<a href="<%=path %>/file!gotoInputInDate" target="right" class="easyui-linkbutton c1" style="width:100%">上传源数据</a>
 		<a href="<%=path %>/file!gotoInputOutDate" target="right" class="easyui-linkbutton c1" style="width:100%;margin-top: 2px;">上传最终模版</a>		
 	</div>
 	<div title="通讯录" data-options="iconCls:'icon-print'" style="padding:10px;">
-		<a href="<%=path %>/section!queryOfFenye" target="right" class="easyui-linkbutton c1" style="width:100%">区部</a>
-		
-		<ul id="tree1" class="easyui-tree" data-options="animate:true,lines:true">
-        
-        <li>
-            <span>外部</span>
-            <ul>
-	        	<c:forEach items="${qbs}" var="qb">
-     	                <li><span>${qb.qbName }</span></li>
-     	                <ul>
-     	                	<li>
-     	                		<span>分部</span>
-     	                		<ul>
-     	                		<c:forEach items="${qb.fbs}" var="fb">
-    								<li><span>${fb.fbName }</span></li>
-    								<ul>
-	       	                	<li>
-	       	                		<span>分拨点</span>
-	       	                		<ul>
-	       	                		<c:forEach items="${qb.fbds}" var="fbd">
-	      								<li><span>${fbd.fbdName }</span></li>
-	       	                		</c:forEach>
-	       	                		</ul>
-	       	                	</li>
-	       	                </ul>	 	                		
-     	                		</c:forEach>
-     	                		</ul>
-     	                	</li>
-     	                </ul>
-	        	</c:forEach>
-            </ul>
-        </li>
-        <li>
-        	<span>内部</span>
-       		<ul>
-       			<li>
-       				<span>一级部门</span>
-	       			<ul>
-		       			<li>asda</li>
-		       			<li>asda</li>
-	       			</ul>
-     			</li>
-       		</ul>
-       	</li>
+		<ul id="tt" class="easyui-tree" data-options="animate:true,lines:true">
+        <li><span><a href="<%=path %>/section!gotoAdd" target="right">添加</a></span></li>
+        <li><span>移动</span></li>
+        <li><span><a href="<%=path%>/index!contacts" target="right">查看</a></span></li>
     </ul>
 	</div>
 	<div title="数据分析" data-options="iconCls:'icon-large-shapes'" style="padding:10px;">
@@ -101,5 +61,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<a href="<%=path %>/model!delete" target="right" class="easyui-linkbutton c1" style="width:100%;margin-top: 2px;">删除模版</a>
 	</div>
 </div>
+
 </body>
 </html>

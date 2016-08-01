@@ -36,6 +36,10 @@
 		<mapping resource="com/zs/entity/SectionQubu.hbm.xml" />
 		<mapping resource="com/zs/entity/FbdComputer.hbm.xml" />
 		<mapping resource="com/zs/entity/Timeline.hbm.xml" />
+		<mapping resource="com/zs/entity/CompanySection5.hbm.xml" />
+		<mapping resource="com/zs/entity/CompanySection7.hbm.xml" />
+		<mapping resource="com/zs/entity/CompanySection8.hbm.xml" />
+		<mapping resource="com/zs/entity/CompanySection6.hbm.xml" />
 	</session-factory>
 
 </hibernate-configuration>

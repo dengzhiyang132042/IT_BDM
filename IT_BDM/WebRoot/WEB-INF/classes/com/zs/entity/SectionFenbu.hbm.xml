@@ -13,8 +13,8 @@
         <property name="fbName" type="java.lang.String">
             <column name="fb_name" />
         </property>
-        <property name="fbMaser" type="java.lang.String">
-            <column name="fb_maser" />
+        <property name="fbMaster" type="java.lang.String">
+            <column name="fb_master" />
         </property>
         <property name="fbPhonePrivate" type="java.lang.String">
             <column name="fb_phone_private" />

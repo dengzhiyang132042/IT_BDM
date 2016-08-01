@@ -85,7 +85,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<td width="14%">${qb.qbPhoneShort }</td>
 		<td width="8%" align="center">
 			<a onclick="update('${qb.qbId }','${qb.qbName }','${qb.qbMaster }','${qb.qbPhonePrivate }','${qb.qbPhoneCompany }','${qb.qbPhoneShort }')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-edit'" title="修改"></a>
-			<a href="<%=path %>/section!delete?id=${qb.qbId}" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-delete'" title="删除"></a>
+			<a href="<%=path %>/section!deleteQb?id=${qb.qbId}" onclick="return confirm('确定删除吗?')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-delete'" title="删除"></a>
 		</td>
     </tr>
     </c:forEach>
@@ -94,7 +94,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<br/>
 	
 	<div class="easyui-panel" style="padding:5px;width: 100%;display: none;">
-		<form id="f1" action="<%=path %>/section!queryOfFenye" method="post">
+		<form id="f1" action="<%=path %>/section!queryOfFenyeQb" method="post">
 		<select id="sele" style="float: left;margin-top: 3px;margin-left: 5px;" name="page.size" onchange="$('#f1').submit();">
 			<option value="5">5</option>
 			<option value="10">10</option>
@@ -124,7 +124,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</div>
 	
 	<div id="u" class="easyui-window" title="修改" data-options="modal:true,closed:true" style="width:400px;height:auto;padding:10px;display: none;">
-		<form action="<%=path %>/section!update" method="post">
+		<form action="<%=path %>/section!updateQb" method="post">
 		<table border="0" class="table1">
 			<tr>
 				<td>编号：</td>
@@ -172,7 +172,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</div>
 	
 	<div id="a" class="easyui-window" title="添加" data-options="modal:true,closed:true" style="width:400px;height:auto;padding:10px;display: none;">
-		<form action="<%=path %>/section!add" method="post">
+		<form action="<%=path %>/section!addQb" method="post">
 		<table border="0" class="table1">
 			<tr>
 				<td>区部：</td>
@@ -215,7 +215,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	
 	
 	<div id="tt" style="display: none;">
-		<form id="f2" action="<%=path %>/section!queryOfFenye" method="post">
+		<form id="f2" action="<%=path %>/section!queryOfFenyeQb" method="post">
 			<input class="easyui-searchbox" name="qb.qbId" type="text"data-options="prompt:'请输入编号进行模糊查询',searcher:doSearch" style="width:300px;height: 16px;" value="${qb.qbId }"/>
 		</form>
 		<a class="icon-add" onclick="$('#a').window('open')" style="margin-left: 10px;" title="添加"></a>

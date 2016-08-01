@@ -3,6 +3,8 @@ package com.zs.service;
 import java.io.Serializable;
 import java.util.List;
 
+import com.zs.tools.Page;
+
 public interface IService {
 	
 	public List find(String hql,String[] ss);
@@ -17,5 +19,10 @@ public interface IService {
 	public void update(Object obj);
 	
 	public void delete(Object obj);
+
+	
+	public List query(String hql1,String ss[],String hql2,Page page,IService ser);
+	
+	public void timeLine(String state,String tableName,String id);
 
 }

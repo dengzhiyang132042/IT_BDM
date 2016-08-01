@@ -26,9 +26,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	
   </head>
 <frameset rows="100px,*" border="0">
-	<frame name="top"  src="top.jsp" noresize="noresize"/>
+	<frame name="top"  src="top.jsp" noresize="noresize" scrolling="no"/>
 	<frameset cols="200px,*" frameborder="yes">
-		<frame name="left" src="<%=path%>/index!other" noresize="noresize"/>
+		<frame name="left" src="<%=path%>/left.jsp" noresize="noresize" scrolling="no"/>
 		<frameset rows="*,50px" frameborder="yes">
 			<frame name="right" src="<%=path%>/welcom.jsp" noresize="noresize"/>
 			<frame name="bottom" src="bottom.jsp" noresize="noresize"/>

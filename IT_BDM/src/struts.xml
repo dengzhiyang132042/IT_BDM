@@ -19,11 +19,32 @@
   	 <interceptor-ref name="mydefault" />
      <result>/index.jsp</result>
      <result name="qubu">/yjz_jsp/section_qubu.jsp</result>
+     <result name="fenbu">/yjz_jsp/section_fenbu.jsp</result>
+     <result name="fenbodian">/yjz_jsp/section_fenbodian.jsp</result>
+     <result name="add">/yjz_jsp/add_section.jsp</result>
+     <result name="succ">/success.jsp</result>
+     <result name="fail">/fail.jsp</result>
   </action>
   <action name="index" class="zs_index">	
   	 <interceptor-ref name="mydefault" />
      <result>/index.jsp</result>
      <result name="left">/left.jsp</result>
+     <result name="structure">/yjz_jsp/structure.jsp</result>
+  </action>
+  <action name="csection" class="zs_csection_yjz">	
+  	 <interceptor-ref name="mydefault" />
+     <result>/index.jsp</result>
+     <result name="cs1">/yjz_jsp/csection1.jsp</result>
+     <result name="cs2">/yjz_jsp/csection2.jsp</result>
+     <result name="cs3">/yjz_jsp/csection3.jsp</result>
+     <result name="cs4">/yjz_jsp/csection4.jsp</result>
+     <result name="cs5">/yjz_jsp/csection5.jsp</result>
+     <result name="cs6">/yjz_jsp/csection6.jsp</result>
+     <result name="cs7">/yjz_jsp/csection7.jsp</result>
+     <result name="cs8">/yjz_jsp/csection8.jsp</result>
+     <result name="add">/yjz_jsp/add_section.jsp</result>
+     <result name="succ">/success.jsp</result>
+     <result name="fail">/fail.jsp</result>
   </action>
 </package>
 </struts>    

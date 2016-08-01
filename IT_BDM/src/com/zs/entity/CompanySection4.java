@@ -1,5 +1,7 @@
 package com.zs.entity;
 
+import java.util.List;
+
 /**
  * CompanySection4 entity. @author MyEclipse Persistence Tools
  */
@@ -18,6 +20,16 @@ public class CompanySection4 implements java.io.Serializable {
 	private String SIdLast;
 	private String s4Note;
 
+	private List nexts;
+	
+	public List getNexts() {
+		return nexts;
+	}
+
+	public void setNexts(List nexts) {
+		this.nexts = nexts;
+	}
+	
 	// Constructors
 
 	/** default constructor */

@@ -20,7 +20,9 @@
 	<bean id="zs_index" class="com.zs.action.IndexAction">
 		<property name="ser" ref="zs_ser"></property>
 	</bean>	
-	
+	<bean id="zs_csection_yjz" class="com.zs.action.yjz.CSectionAction">
+		<property name="ser" ref="zs_ser"></property>
+	</bean>	
 	
 	<!-- ************************************* -->
 	<bean id="zs_dao" class="com.zs.dao.BaseDaoOfSpring">
