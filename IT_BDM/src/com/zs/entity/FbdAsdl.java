@@ -21,7 +21,17 @@ public class FbdAsdl implements java.io.Serializable {
 	private String asdlNote;
 	private String asdlState;
 
+	private SectionFenbodian fbd;
+	
 	// Constructors
+
+	public SectionFenbodian getFbd() {
+		return fbd;
+	}
+
+	public void setFbd(SectionFenbodian fbd) {
+		this.fbd = fbd;
+	}
 
 	/** default constructor */
 	public FbdAsdl() {

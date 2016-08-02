@@ -19,8 +19,17 @@ public class SectionFenbu implements java.io.Serializable {
 	private String qbId;
 	private List fbds;
 	
+	private SectionQubu qb;
 	
 	// Constructors
+
+	public SectionQubu getQb() {
+		return qb;
+	}
+
+	public void setQb(SectionQubu qb) {
+		this.qb = qb;
+	}
 
 	public List getFbds() {
 		return fbds;

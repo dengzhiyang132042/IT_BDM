@@ -28,18 +28,35 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 	<script type="text/javascript">
 	$(function(){
-		$('#tt').tree('collapseAll');
+		//$('#tt').tree('collapseAll');
 	});
 	</script>
 	
   </head>
   
-<body style="width: 200px;margin: 0px;padding: 0px;background-color: ;height: 100%;">
+<body style="padding: 0px;background-color: ;height: 100%;">
 
-<div class="easyui-accordion" style="width:200px;height:100%;" data-options="fillSpace:true,fit: true,animate: true,selected:false">
+<div class="easyui-accordion" style="width:100%;height:100%;" data-options="fillSpace:true,fit: true,animate: true,selected:false">
 	<div title="数据中心" data-options="iconCls:'icon-add'" style="overflow:auto;padding:10px;">
-		<a href="<%=path %>/file!gotoInputInDate" target="right" class="easyui-linkbutton c1" style="width:100%">上传源数据</a>
-		<a href="<%=path %>/file!gotoInputOutDate" target="right" class="easyui-linkbutton c1" style="width:100%;margin-top: 2px;">上传最终模版</a>		
+		<ul id="tt" class="easyui-tree" data-options="animate:true,lines:true">
+        <li><span>数据与流程管理部</span>
+        	<ul>
+        		<li><span>硬件组</span>
+        			<ul>
+						<li><span><a href="<%=path %>/fbd_asdl!queryOfFenyeAsdl?cz=yes" target="right">分拨点宽带登记ASDL</a></span></li>
+						<li><span><a href="<%=path %>/fbd_asdl!queryOfFenyeAsdl?cz=yes" target="right">分拨点监控登记</a></span></li>
+						<li><span>分拨点电脑登记</span></li>
+						<li><span>分拨点监控材料申请清单</span></li>
+						<li><span>SIM费用报销</span></li>
+						<li><span>内件收发登记</span></li>
+						<li><span>外出登记</span></li>        			
+        			</ul>
+        		</li>
+        		<li><span>系统组</span></li>
+        		<li><span>桌面组</span></li>
+        		<li><span>开发组</span></li>
+        	</ul>
+        </li>
 	</div>
 	<div title="通讯录" data-options="iconCls:'icon-print'" style="padding:10px;">
 		<ul id="tt" class="easyui-tree" data-options="animate:true,lines:true">

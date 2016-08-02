@@ -96,7 +96,7 @@ public class SectionAction extends MyBaseAction{
 	 * 主要是带数据过去
 	 * */
 	public String gotoAdd() throws UnsupportedEncodingException {
-		receiveStructure();
+		ser.receiveStructure(getRequest());
 		return result4;
 	}
 	
@@ -229,60 +229,11 @@ public class SectionAction extends MyBaseAction{
 			String hql2="from SectionFenbu";
 			fbs=ser.query(hql, ss, hql2, page, ser);
 		}
-		receiveStructure();
+		ser.receiveStructure(getRequest());
 		return result3;
 	}
 	//--------------------------------------------------------------------
-	/*2016年7月30日14:08:24
-	 *张顺 
-	 *用来取结构关系
-	 * */
-	private void receiveStructure() throws UnsupportedEncodingException{
-		//外部
-		List<SectionQubu> qbsList;
-		qbsList=ser.find("from SectionQubu", new String[]{});
-		for (int i = 0; i < qbsList.size(); i++) {
-			List<SectionFenbu> fbsList=ser.find("from SectionFenbu where qbId=?",new String[]{qbsList.get(i).getQbId()});
-			for (int j = 0; j < fbsList.size(); j++) {
-				List<SectionFenbodian> fbdsList=ser.find("from SectionFenbodian where fbId=?", new String[]{fbsList.get(j).getFbId()});
-				fbsList.get(j).setFbds(fbdsList);
-			}
-			qbsList.get(i).setFbs(fbsList);
-		}
-		getRequest().setAttribute("structure", qbsList);
-		// 内部
-		List<CompanySection1> cs1List;
-		cs1List=ser.find("from CompanySection1", new String[]{});
-		for (int i = 0; i < cs1List.size(); i++) {
-			List<CompanySection2> cs2List=ser.find("from CompanySection2 where SIdLast=?", new String[]{cs1List.get(i).getS1Id()});
-			for (int j = 0; j < cs2List.size(); j++) {
-				List<CompanySection3> cs3List=ser.find("from CompanySection3 where SIdLast=?", new String[]{cs2List.get(j).getS2Id()});
-				for (int k = 0; k < cs3List.size(); k++) {
-					List<CompanySection4> cs4List=ser.find("from CompanySection4 where SIdLast=?", new String[]{cs3List.get(k).getS3Id()});
-					for (int l = 0; l < cs4List.size(); l++) {
-						List<CompanySection5> cs5=ser.find("from CompanySection5 where SIdLast=?", new String[]{cs4List.get(l).getS4Id()});
-						for (int m = 0; m < cs5.size(); m++) {
-							List<CompanySection6> cs6=ser.find("from CompanySection6 where SIdLast=?", new String[]{cs5.get(m).getS5Id()});
-							for (int n = 0; n < cs6.size(); n++) {
-								List<CompanySection7> cs7=ser.find("from CompanySection7 where SIdLast=?", new String[]{cs6.get(n).getS6Id()});
-								for (int o = 0; o < cs7.size(); o++) {
-									List<CompanySection8> cs8=ser.find("from CompanySection8 where SIdLast=?", new String[]{cs7.get(o).getS7Id()});
-									cs7.get(o).setNexts(cs8);
-								}
-								cs6.get(n).setNexts(cs7);
-							}
-							cs5.get(m).setNexts(cs6);
-						}
-						cs4List.get(l).setNexts(cs5);
-					}
-					cs3List.get(k).setNexts(cs4List);
-				}
-				cs2List.get(j).setNexts(cs3List);
-			}
-			cs1List.get(i).setNexts(cs2List);
-		}
-		getRequest().setAttribute("structure2", cs1List);
-	}
+	
 	//---------------------------------------------------------------------------------------
 	public String deleteFbd() throws Exception {
 		String id=getRequest().getParameter("id");
@@ -332,7 +283,7 @@ public class SectionAction extends MyBaseAction{
 			String hql2="from SectionFenbodian where fbdId = '"+id+"'";
 			fbds=ser.query(hql, ss, hql2, page, ser);
 		}
-		receiveStructure();
+		ser.receiveStructure(getRequest());
 		return result7;
 	}
 	//--------------------------------------------------------------------

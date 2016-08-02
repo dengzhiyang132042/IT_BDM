@@ -46,6 +46,13 @@
      <result name="succ">/success.jsp</result>
      <result name="fail">/fail.jsp</result>
   </action>
+  <action name="fbd_asdl" class="zs_fbd_asdl_yjz">	
+  	 <interceptor-ref name="mydefault" />
+     <result>/index.jsp</result>
+     <result name="asdl">/yjz_jsp/fbd_asdl.jsp</result>
+     <result name="succ">/success.jsp</result>
+     <result name="fail">/fail.jsp</result>
+  </action>
 </package>
 </struts>    
   

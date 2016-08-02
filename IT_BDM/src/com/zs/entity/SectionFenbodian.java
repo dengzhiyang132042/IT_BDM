@@ -17,7 +17,17 @@ public class SectionFenbodian implements java.io.Serializable {
 	private String fbdAddress;
 	private String fbId;
 
+	private SectionFenbu fb;
+
 	// Constructors
+
+	public SectionFenbu getFb() {
+		return fb;
+	}
+
+	public void setFb(SectionFenbu fb) {
+		this.fb = fb;
+	}
 
 	/** default constructor */
 	public SectionFenbodian() {

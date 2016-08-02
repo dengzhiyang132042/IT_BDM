@@ -1,7 +1,10 @@
 package com.zs.service;
 
 import java.io.Serializable;
+import java.io.UnsupportedEncodingException;
 import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
 
 import com.zs.tools.Page;
 
@@ -25,4 +28,6 @@ public interface IService {
 	
 	public void timeLine(String state,String tableName,String id);
 
+	
+	public void receiveStructure(HttpServletRequest req) throws UnsupportedEncodingException;
 }

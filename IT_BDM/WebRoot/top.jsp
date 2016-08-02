@@ -30,12 +30,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	
   </head>
   
-<body style="background-color: #F9BE00;margin: 0px;padding: 0px;" >
+<body style="background-image:url('<%=path %>/FRAMEWORK/image/bag3.png');margin: 0px;padding: 0px;" >
 	<div style="margin-left: 30px;margin-top: 25px;">
-		<img alt="" src="FRAMEWORK/image/logo2.png" height="50" border="0"/>
+		<img alt="" src="FRAMEWORK/image/logo2-transparent.png" height="50" border="0"/>
 	</div>
 	<center style="margin-top: -52px;">
-		<span style="color: #282828;font-size: 40px;font-weight: bold;font-family: Microsoft YaHei;">IT基础数据管理系统</span>
+		<span style="color: #3E3A38;font-size: 40px;font-weight: bold;font-family: Microsoft YaHei;">IT基础数据管理系统</span>
 	</center>
 	<c:choose>
 		<c:when test="${user==null}">

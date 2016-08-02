@@ -76,13 +76,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<form action="<%=path %>/section!addFb?cz=yes" method="post">
 			<table border="1" class="table1">
 				<tr>
-					<td>区部：</td>
+					<td>分部：</td>
 					<td>
 						<input id="u_name" name="fb.fbName" type="text" style="width: 100%;"/>
 					</td>
 				</tr>
 				<tr>
-					<td>区部经理：</td>
+					<td>分部经理：</td>
 					<td>
 						<input id="u_master" name="fb.fbMaster" type="text" style="width: 100%;"/>
 					</td>
@@ -153,13 +153,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<tr>
 					<td>短号：</td>
 					<td>
-						<input id="u_ps" name="fbd.fbdAddress" type="text" style="width: 100%;"/>
+						<input id="u_ps" name="fbd.fbdPhoneShort" type="number" style="width: 100%;"/>
 					</td>
 				</tr>
 				<tr>
 					<td>地址：</td>
 					<td>
-						<input id="u_ps" name="fbd.fbdPhoneShort" type="number" style="width: 100%;"/>
+						<input id="u_ps" name="fbd.fbdAddress" type="text" style="width: 100%;"/>
 					</td>
 				</tr>
 				<tr>
