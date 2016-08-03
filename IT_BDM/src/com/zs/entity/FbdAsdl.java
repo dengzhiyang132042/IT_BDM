@@ -22,9 +22,6 @@ public class FbdAsdl implements java.io.Serializable {
 	private String asdlState;
 
 	private SectionFenbodian fbd;
-	
-	// Constructors
-
 	public SectionFenbodian getFbd() {
 		return fbd;
 	}
@@ -32,6 +29,9 @@ public class FbdAsdl implements java.io.Serializable {
 	public void setFbd(SectionFenbodian fbd) {
 		this.fbd = fbd;
 	}
+	// Constructors
+
+	
 
 	/** default constructor */
 	public FbdAsdl() {

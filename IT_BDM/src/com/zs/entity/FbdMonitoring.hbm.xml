@@ -19,6 +19,9 @@
         <property name="MDisk" type="java.lang.Integer">
             <column name="m_disk" />
         </property>
+        <property name="MDiskCapacity" type="java.lang.String">
+            <column name="m_disk_capacity" />
+        </property>
         <property name="MNum" type="java.lang.String">
             <column name="m_num" />
         </property>

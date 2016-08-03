@@ -26,7 +26,12 @@
 	<bean id="zs_fbd_asdl_yjz" class="com.zs.action.yjz.FbdAsdlAction">
 		<property name="ser" ref="zs_ser"></property>
 	</bean>	
-	
+	<bean id="zs_fbd_m_yjz" class="com.zs.action.yjz.FbdMAction">
+		<property name="ser" ref="zs_ser"></property>
+	</bean>
+	<bean id="zs_fbd_c_yjz" class="com.zs.action.yjz.FbdComputerAction">
+		<property name="ser" ref="zs_ser"></property>
+	</bean>	  
 	
 	<!-- ************************************* -->
 	<bean id="zs_dao" class="com.zs.dao.BaseDaoOfSpring">

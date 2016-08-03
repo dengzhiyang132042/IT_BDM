@@ -34,10 +34,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		$('#tt').show();
 	});
 	
-	function update(u1,u2,u3,u4,u5,u6,u7,u8,u9,u10){
+	function update(u1,u2,u3,u4,u5,u6,u7,u8,u9,u10,u11,u12,u13,u14,u15,u16,u17){
 		$('#u').window('open');
-		$("#u_1 option[value='"+u1+"']").attr("selected",true);
-		$('#u_2').val(u2);
+		$('#u_1').val(u1);
+		$("#u_2 option[value='"+u2+"']").attr("selected",true);
 		$('#u_3').val(u3);
 		$('#u_4').val(u4);
 		$('#u_5').val(u5);
@@ -46,6 +46,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		$('#u_8').val(u8);
 		$('#u_9').val(u9);
 		$('#u_10').val(u10);
+		$('#u_11').val(u11);
+		$('#u_12').val(u12);
+		$('#u_13').val(u13);
+		$('#u_14').val(u14);
+		$('#u_15').val(u15);
+		$('#u_16').val(u16);
+		$('#u_17').val(u17);
 	}
 	function page(no,cz){
 		var num1=$('#page').val();
@@ -69,10 +76,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   
   <body>
     
-    <div class="easyui-panel" title="分拨点宽带登记ASDL" style="padding: 5px;display: none;" data-options="tools:'#tt'">
+    <div class="easyui-panel" title="分拨点监控登记" style="padding: 5px;display: none;" data-options="tools:'#tt'">
     <div style="height: 455px;">
     
-    <table border="1" id="eidtASubjectWindow1" style="font-size: 5px;">
+    <table border="1" id="eidtASubjectWindow1" style="font-size: 12px;">
     <tr align="center" style="height: 28px;background-color: #E6E6E6;">
     	<td>编号</td>
     	<td>区部</td>
@@ -80,41 +87,49 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     	<td>分部经理</td>
     	<td>联系电话</td>
     	<td>分拨点</td>
-    	<td>承包人</td>
-    	<td>联系电话</td>
-    	<td>地址</td>
-    	<td>接入号</td>
-    	<td>账号</td>
-    	<td>密码</td>
-    	<td>包年资费</td>
-    	<td>合约到期</td>
-    	<td>续约提醒</td>
-    	<td>备注</td>
+    	<td>摄像头</td>
+    	<td>硬盘数</td>
+    	<td>硬盘容量</td>
+    	<td>监控账号</td>
+    	<td>监控密码</td>
+    	<td>显示器</td>
+    	<td>监控主机</td>
+    	<td>主机型号</td>
+    	<td>监控总接口数</td>
+    	<td>监控主机使用时间</td>
+    	<td>使用年限</td>
+    	<td>是否可报废</td>
+    	<td>录像周期（天）</td>
+    	<td>备注说明</td>
     	<td>状态</td>
     	<td>操作</td>
     </tr>
-    <c:forEach items="${asdls}" var="asdl">
+    <c:forEach items="${ms}" var="m">
     <tr>
-		<td width="">${asdl.asdlId }</td>
-		<td width="">${asdl.fbd.fb.qb.qbName }</td>
-		<td width="">${asdl.fbd.fb.fbName }</td>
-		<td width="">${asdl.fbd.fb.fbMaster }</td>
-		<td width="">${asdl.fbd.fb.fbPhonePrivate }</td>
-		<td width="">${asdl.fbd.fbdName }</td>
-		<td width="">${asdl.fbd.fbdMaster }</td>
-		<td width="">${asdl.fbd.fbdPhonePrivate }</td>
-		<td width="">${asdl.fbd.fbdAddress }</td>
-		<td width="">${asdl.asdlInput }</td>
-		<td width="">${asdl.asdlNum }</td>
-		<td width="">${asdl.asdlPass }</td>
-		<td width="">${asdl.asdlFeeYear }</td>
-		<td width=""><fmt:formatDate value="${asdl.asdlTimeExpire }" pattern="yyyy/M/d" /></td>
-		<td width="">${asdl.asdlContract }</td>
-		<td width="">${asdl.asdlNote }</td>
-		<td width="">${asdl.asdlState }</td>
+		<td width="">${m.MId }</td>
+		<td width="">${m.fbd.fb.qb.qbName }</td>
+		<td width="">${m.fbd.fb.fbName }</td>
+		<td width="">${m.fbd.fb.fbMaster }</td>
+		<td width="">${m.fbd.fb.fbPhonePrivate }</td>
+		<td width="">${m.fbd.fbdName }</td>
+		<td width="">${m.MCamera }</td>
+		<td width="">${m.MDisk }</td>
+		<td width="">${m.MDiskCapacity }</td>
+		<td width="">${m.MNum }</td>
+		<td width="">${m.MPass }</td>
+		<td width="">${m.MDisplayer }</td>
+		<td width="">${m.MMainframeBrand }</td>
+		<td width="">${m.MMainframeNumber }</td>
+		<td width="">${m.MInterface }</td>
+		<td width=""><fmt:formatDate value="${m.MTimeStart }" pattern="yyyy/M/d" /></td>
+		<td width="">${m.MUsedYear }</td>
+		<td width="">${m.MScrap }</td>
+		<td width="">${m.MPeriod }</td>
+		<td width="">${m.MNote }</td>
+		<td width="">${m.MState }</td>
 		<td width="5%" align="center">
-			<a onclick="update('${asdl.fbd.fbdId }','${asdl.asdlInput }','${asdl.asdlNum }','${asdl.asdlPass }','${asdl.asdlFeeYear }','${asdl.asdlTimeExpire }','${asdl.asdlContract }','${asdl.asdlNote }','${asdl.asdlState }','${asdl.asdlId }')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-edit'" title="修改"></a>
-			<a href="<%=path %>/fbd_asdl!deleteAsdl?id=${asdl.asdlId}" onclick="return confirm('确定删除吗?')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-delete'" title="删除"></a>
+			<a onclick="update('${m.MId }','${m.fbd.fbdId }','${m.MCamera }','${m.MDisk }','${m.MDiskCapacity }','${m.MNum }','${m.MPass }','${m.MDisplayer }','${m.MMainframeBrand }','${m.MMainframeNumber }','${m.MInterface }','${m.MTimeStart }','${m.MUsedYear }','${m.MScrap }','${m.MPeriod }','${m.MNote }','${m.MState }')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-edit'" title="修改"></a>
+			<a href="<%=path %>/fbd_m!deleteM?id=${m.MId}" onclick="return confirm('确定删除吗?')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-delete'" title="删除"></a>
 		</td>
     </tr>
     </c:forEach>
@@ -123,7 +138,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<br/>
 	
 	<div class="easyui-panel" style="padding:5px;width: 100%;display: none;">
-		<form id="f1" action="<%=path %>/fbd_asdl!queryOfFenyeAsdl" method="post">
+		<form id="f1" action="<%=path %>/fbd_m!queryOfFenyeM" method="post">
 		<select id="sele" style="float: left;margin-top: 3px;margin-left: 5px;" name="page.size" onchange="$('#f1').submit();">
 			<option value="5">5</option>
 			<option value="10">10</option>
@@ -153,18 +168,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</div>
 	
 	<div id="u" class="easyui-window" title="修改" data-options="modal:true,closed:true" style="width:400px;height:auto;padding:10px;display: none;">
-		<form action="<%=path %>/fbd_asdl!updateAsdl" method="post">
+		<form action="<%=path %>/fbd_m!updateM" method="post">
 		<table border="0" class="table1">
 			<tr>
 				<td>编号</td>
 				<td>
-					<input id="u_10" type="text" name="asdl.asdlId" readonly="readonly"/>
+					<input id="u_1" name="m.MId" type="text" readonly="readonly"/>
 				</td>
 			</tr>
 			<tr>
 				<td>分拨点：</td>
 				<td>
-					<select id="u_1" name="asdl.fbdId">
+					<select id="u_2" name="m.fbdId">
 						<c:forEach items="${structure}" var="qb">
 							<c:forEach items="${qb.fbs}" var="fb">
 								<c:forEach items="${fb.fbds}" var="fbd">
@@ -176,51 +191,93 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				</td>
 			</tr>
 			<tr>
-				<td>接入号：</td>
+				<td>摄像头数量：</td>
 				<td>
-					<input id="u_2" name="asdl.asdlInput" type="text" style="width: 100%;"/>
+					<input id="u_3" name="m.MCamera" type="number" style="width: 100%;"/>
 				</td>
 			</tr>
 			<tr>
-				<td>账号：</td>
+				<td>硬盘数：</td>
 				<td>
-					<input id="u_3" name="asdl.asdlNum" type="text" style="width: 100%;"/>
+					<input id="u_4" name="m.MDisk" type="number" style="width: 100%;"/>
 				</td>
 			</tr>
 			<tr>
-				<td>密码：</td>
+				<td>硬盘容量：</td>
 				<td>
-					<input id="u_4" name="asdl.asdlPass" type="text" style="width: 100%;"/>
+					<input id="u_5" name="m.MDiskCapacity" type="text" style="width: 100%;"/>
 				</td>
 			</tr>
 			<tr>
-				<td>包年资费：</td>
+				<td>监控账号：</td>
 				<td>
-					<input id="u_5" name="asdl.asdlFeeYear" type="text" style="width: 100%;"/>
+					<input id="u_6" name="m.MNum" type="text" style="width: 100%;"/>
 				</td>
 			</tr>
 			<tr>
-				<td>合约到期：</td>
+				<td>监控密码：</td>
 				<td>
-					<input id="u_6" type="date" name="asdl.asdlTimeExpire" style="width: 100%;"/>
+					<input id="u_7" name="m.MPass" type="text" style="width: 100%;"/>
 				</td>
 			</tr>
 			<tr>
-				<td>续约提醒：</td>
+				<td>显示器数量：</td>
 				<td>
-					<input id="u_7" name="asdl.asdlContract" type="text" style="width: 100%;"/>
+					<input id="u_8" name="m.MDisplayer" type="number" style="width: 100%;"/>
 				</td>
 			</tr>
 			<tr>
-				<td>备注：</td>
+				<td>主机（品牌）：</td>
 				<td>
-					<input id="u_8" name="asdl.asdlNote" type="text" style="width: 100%;"/>
+					<input id="u_9" name="m.MMainframeBrand" type="text" style="width: 100%;"/>
+				</td>
+			</tr>
+			<tr>
+				<td>主机型号：</td>
+				<td>
+					<input id="u_10" name="m.MMainframeNumber" type="text" style="width: 100%;"/>
+				</td>
+			</tr>
+			<tr>
+				<td>监控总接口数：</td>
+				<td>
+					<input id="u_11" name="m.MInterface" type="number" style="width: 100%;"/>
+				</td>
+			</tr>
+			<tr>
+				<td>主机开始使用时间：</td>
+				<td>
+					<input id="u_12" name="m.MTimeStart" type="date" style="width: 100%;"/>
+				</td>
+			</tr>
+			<tr>
+				<td>使用年限：</td>
+				<td>
+					<input id="u_13" name="m.MUsedYear" type="text" style="width: 100%;"/>
+				</td>
+			</tr>
+			<tr>
+				<td>是否可报废：</td>
+				<td>
+					<input id="u_14" name="m.MScrap" type="text" style="width: 100%;"/>
+				</td>
+			</tr>
+			<tr>
+				<td>监控周期（天数）：</td>
+				<td>
+					<input id="u_15" name="m.MPeriod" type="number" style="width: 100%;"/>
+				</td>
+			</tr>
+			<tr>
+				<td>备注说明：</td>
+				<td>
+					<input id="u_16" name="m.MNote" type="text" style="width: 100%;"/>
 				</td>
 			</tr>
 			<tr>
 				<td>状态：</td>
 				<td>
-					<input id="u_9" name="asdl.asdlState" type="text" style="width: 100%;"/>
+					<input id="u_17" name="m.MState" type="text" style="width: 100%;"/>
 				</td>
 			</tr>
 			<tr>
@@ -233,12 +290,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</div>
 	
 	<div id="a" class="easyui-window" title="添加" data-options="modal:true,closed:true" style="width:400px;height:auto;padding:10px;display: none;">
-		<form action="<%=path %>/fbd_asdl!addAsdl" method="post">
+		<form action="<%=path %>/fbd_m!addM" method="post">
 		<table border="0" class="table1">
 			<tr>
 				<td>分拨点：</td>
 				<td>
-					<select name="asdl.fbdId">
+					<select name="m.fbdId">
 						<c:forEach items="${structure}" var="qb">
 							<c:forEach items="${qb.fbs}" var="fb">
 								<c:forEach items="${fb.fbds}" var="fbd">
@@ -250,51 +307,93 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				</td>
 			</tr>
 			<tr>
-				<td>接入号：</td>
+				<td>摄像头数量：</td>
 				<td>
-					<input name="asdl.asdlInput" type="text" style="width: 100%;"/>
+					<input name="m.MCamera" type="number" style="width: 100%;"/>
 				</td>
 			</tr>
 			<tr>
-				<td>账号：</td>
+				<td>硬盘数：</td>
 				<td>
-					<input name="asdl.asdlNum" type="text" style="width: 100%;"/>
+					<input name="m.MDisk" type="number" style="width: 100%;"/>
 				</td>
 			</tr>
 			<tr>
-				<td>密码：</td>
+				<td>硬盘容量：</td>
 				<td>
-					<input name="asdl.asdlPass" type="text" style="width: 100%;"/>
+					<input name="m.MDiskCapacity" type="text" style="width: 100%;"/>
 				</td>
 			</tr>
 			<tr>
-				<td>包年资费：</td>
+				<td>监控账号：</td>
 				<td>
-					<input name="asdl.asdlFeeYear" type="text" style="width: 100%;"/>
+					<input name="m.MNum" type="text" style="width: 100%;"/>
 				</td>
 			</tr>
 			<tr>
-				<td>合约到期：</td>
+				<td>监控密码：</td>
 				<td>
-					<input type="date" name="asdl.asdlTimeExpire" style="width: 100%;"/>
+					<input name="m.MPass" type="text" style="width: 100%;"/>
 				</td>
 			</tr>
 			<tr>
-				<td>续约提醒：</td>
+				<td>显示器数量：</td>
 				<td>
-					<input name="asdl.asdlContract" type="text" style="width: 100%;"/>
+					<input name="m.MDisplayer" type="number" style="width: 100%;"/>
 				</td>
 			</tr>
 			<tr>
-				<td>备注：</td>
+				<td>主机（品牌）：</td>
 				<td>
-					<input name="asdl.asdlNote" type="text" style="width: 100%;"/>
+					<input name="m.MMainframeBrand" type="text" style="width: 100%;"/>
+				</td>
+			</tr>
+			<tr>
+				<td>主机型号：</td>
+				<td>
+					<input name="m.MMainframeNumber" type="text" style="width: 100%;"/>
+				</td>
+			</tr>
+			<tr>
+				<td>监控总接口数：</td>
+				<td>
+					<input name="m.MInterface" type="number" style="width: 100%;"/>
+				</td>
+			</tr>
+			<tr>
+				<td>主机开始使用时间：</td>
+				<td>
+					<input name="m.MTimeStart" type="date" style="width: 100%;"/>
+				</td>
+			</tr>
+			<tr>
+				<td>使用年限：</td>
+				<td>
+					<input name="m.MUsedYear" type="text" style="width: 100%;"/>
+				</td>
+			</tr>
+			<tr>
+				<td>是否可报废：</td>
+				<td>
+					<input name="m.MScrap" type="text" style="width: 100%;"/>
+				</td>
+			</tr>
+			<tr>
+				<td>监控周期（天数）：</td>
+				<td>
+					<input name="m.MPeriod" type="number" style="width: 100%;"/>
+				</td>
+			</tr>
+			<tr>
+				<td>备注说明：</td>
+				<td>
+					<input name="m.MNote" type="text" style="width: 100%;"/>
 				</td>
 			</tr>
 			<tr>
 				<td>状态：</td>
 				<td>
-					<input name="asdl.asdlState" type="text" style="width: 100%;"/>
+					<input name="m.MState" type="text" style="width: 100%;"/>
 				</td>
 			</tr>
 			<tr>

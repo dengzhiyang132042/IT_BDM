@@ -90,8 +90,6 @@ public class FbdAsdlAction extends MyBaseAction{
 		String id=getRequest().getParameter("id");
 		if (id!=null) {
 			asdl=(FbdAsdl) ser.get(FbdAsdl.class, id);
-
-			
 			ser.delete(asdl);
 		}
 		asdl=null;

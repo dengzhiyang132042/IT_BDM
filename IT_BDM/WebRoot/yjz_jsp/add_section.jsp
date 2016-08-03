@@ -26,12 +26,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script type="text/javascript" src="<%=path %>/FRAMEWORK/jquery-easyui/jquery.easyui.min.js"></script>
 	
 	<link rel="stylesheet" type="text/css" href="<%=path %>/FRAMEWORK/css/mycss.css">
+	
+	<script type="text/javascript">
+	$(function(){
+		$(".easyui-tabs").show();
+	});
+	</script>
   </head>
   
   <body style="margin: 0px;padding: 0px;">
     
-    <div class="easyui-tabs" style="width:100%;height:100%;" data-options="border:false">
-		<div title="添加区部" style="padding:10px">
+    <div class="easyui-tabs" style="width:100%;height:100%;;display: none;" data-options="border:false">
+		<div title="添加区部" style="padding:10px;">
 			<form action="<%=path %>/section!addQb?cz=yes" method="post">
 			<table border="1" class="table1">
 				<tr>
@@ -66,13 +72,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				</tr>
 				<tr>
 					<td colspan="2" align="center">
-						<input class="easyui-linkbutton" type="submit" style="width: 95%;padding: 5px;" value="提交"/>
+						<input class="easyui-linkbutton" type="submit" style="width: 500px;padding: 5px;" value="提交"/>
 					</td>			
 				</tr>
 			</table>
 			</form>	
 		</div>
-		<div title="添加分部" style="padding:10px">
+		<div id="div1" title="添加分部" style="padding:10px">
 			<form action="<%=path %>/section!addFb?cz=yes" method="post">
 			<table border="1" class="table1">
 				<tr>
@@ -117,7 +123,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				</tr>
 				<tr>
 					<td colspan="2" align="center">
-						<input class="easyui-linkbutton" type="submit" style="width: 95%;padding: 5px;" value="提交"/>
+						<input class="easyui-linkbutton" type="submit" style="width: 500px;padding: 5px;" value="提交"/>
 					</td>			
 				</tr>
 			</table>
@@ -176,7 +182,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				</tr>
 				<tr>
 					<td colspan="2" align="center">
-						<input class="easyui-linkbutton" type="submit" style="width: 95%;padding: 5px;" value="提交"/>
+						<input class="easyui-linkbutton" type="submit" style="width: 500px;padding: 5px;" value="提交"/>
 					</td>			
 				</tr>
 			</table>
@@ -229,7 +235,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				</tr>
 				<tr>
 					<td colspan="2" align="center">
-						<input class="easyui-linkbutton" type="submit" style="width: 95%;padding: 5px;" value="提交"/>
+						<input class="easyui-linkbutton" type="submit" style="width: 500px;padding: 5px;" value="提交"/>
 					</td>			
 				</tr>
 			</table>
@@ -292,7 +298,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				</tr>
 				<tr>
 					<td colspan="2" align="center">
-						<input class="easyui-linkbutton" type="submit" style="width: 95%;padding: 5px;" value="提交"/>
+						<input class="easyui-linkbutton" type="submit" style="width: 500px;padding: 5px;" value="提交"/>
 					</td>			
 				</tr>
 			</table>
@@ -357,7 +363,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				</tr>
 				<tr>
 					<td colspan="2" align="center">
-						<input class="easyui-linkbutton" type="submit" style="width: 95%;padding: 5px;" value="提交"/>
+						<input class="easyui-linkbutton" type="submit" style="width: 500px;padding: 5px;" value="提交"/>
 					</td>			
 				</tr>
 			</table>
@@ -424,7 +430,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				</tr>
 				<tr>
 					<td colspan="2" align="center">
-						<input class="easyui-linkbutton" type="submit" style="width: 95%;padding: 5px;" value="提交"/>
+						<input class="easyui-linkbutton" type="submit" style="width: 500px;padding: 5px;" value="提交"/>
 					</td>			
 				</tr>
 			</table>
@@ -493,7 +499,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				</tr>
 				<tr>
 					<td colspan="2" align="center">
-						<input class="easyui-linkbutton" type="submit" style="width: 95%;padding: 5px;" value="提交"/>
+						<input class="easyui-linkbutton" type="submit" style="width: 500px;padding: 5px;" value="提交"/>
 					</td>			
 				</tr>
 			</table>
@@ -564,7 +570,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				</tr>
 				<tr>
 					<td colspan="2" align="center">
-						<input class="easyui-linkbutton" type="submit" style="width: 95%;padding: 5px;" value="提交"/>
+						<input class="easyui-linkbutton" type="submit" style="width: 500px;padding: 5px;" value="提交"/>
 					</td>			
 				</tr>
 			</table>
@@ -637,7 +643,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				</tr>
 				<tr>
 					<td colspan="2" align="center">
-						<input class="easyui-linkbutton" type="submit" style="width: 95%;padding: 5px;" value="提交"/>
+						<input class="easyui-linkbutton" type="submit" style="width: 500px;padding: 5px;" value="提交"/>
 					</td>			
 				</tr>
 			</table>
@@ -712,7 +718,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				</tr>
 				<tr>
 					<td colspan="2" align="center">
-						<input class="easyui-linkbutton" type="submit" style="width: 95%;padding: 5px;" value="提交"/>
+						<input class="easyui-linkbutton" type="submit" style="width: 500px;padding: 5px;" value="提交"/>
 					</td>			
 				</tr>
 			</table>

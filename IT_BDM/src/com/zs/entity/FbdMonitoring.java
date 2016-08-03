@@ -14,6 +14,7 @@ public class FbdMonitoring implements java.io.Serializable {
 	private String fbdId;
 	private Integer MCamera;
 	private Integer MDisk;
+	private String MDiskCapacity;
 	private String MNum;
 	private String MPass;
 	private Integer MDisplayer;
@@ -26,11 +27,28 @@ public class FbdMonitoring implements java.io.Serializable {
 	private Integer MPeriod;
 	private String MNote;
 	private String MState;
+	
+	private SectionFenbodian fbd;
+	public SectionFenbodian getFbd() {
+		return fbd;
+	}
 
+	public void setFbd(SectionFenbodian fbd) {
+		this.fbd = fbd;
+	}
+	
 	// Constructors
 
 	/** default constructor */
 	public FbdMonitoring() {
+	}
+
+	public String getMDiskCapacity() {
+		return MDiskCapacity;
+	}
+
+	public void setMDiskCapacity(String mDiskCapacity) {
+		MDiskCapacity = mDiskCapacity;
 	}
 
 	/** minimal constructor */

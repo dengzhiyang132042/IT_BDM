@@ -23,6 +23,14 @@ public class FbdComputer  implements java.io.Serializable {
     private String CNote;
     private String CState;
 	
+    private SectionFenbodian fbd;
+	public SectionFenbodian getFbd() {
+		return fbd;
+	}
+
+	public void setFbd(SectionFenbodian fbd) {
+		this.fbd = fbd;
+	}
 	/** default constructor */
 	public FbdComputer() {
 	}
@@ -49,11 +57,12 @@ public class FbdComputer  implements java.io.Serializable {
     
     //***************
     public String getcId() {
-		return cId;
-	}
-	public void setcId(String cId) {
-		this.cId = cId;
-	}
+    	return cId;
+    }
+    
+    public void setcId(String cId) {
+    	this.cId = cId;
+    }
 	public String getFbdId() {
 		return fbdId;
 	}
