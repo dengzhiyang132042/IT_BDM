@@ -120,6 +120,78 @@ public class BaseService implements IService{
 		}
 		req.setAttribute("structure2", cs1List);
 	}
+	
+	
+	public String idToMaster(String id) {
+		String master=""; 
+		char cnumber=id.charAt(2);
+		int inumber=Integer.valueOf(cnumber+"");
+		switch (inumber) {
+		case 1:
+			master=(((CompanySection1)this.get(CompanySection1.class, id)).getS1Master());
+			break;
+		case 2:
+			master=(((CompanySection2)this.get(CompanySection2.class, id)).getS2Master());
+			break;
+		case 3:
+			master=(((CompanySection3)this.get(CompanySection3.class, id)).getS3Master());
+			break;
+		case 4:
+			master=(((CompanySection4)this.get(CompanySection4.class, id)).getS4Master());
+			break;
+		case 5:
+			master=(((CompanySection5)this.get(CompanySection5.class, id)).getS5Master());
+			break;
+		case 6:
+			master=(((CompanySection6)this.get(CompanySection6.class, id)).getS6Master());
+			break;
+		case 7:
+			master=(((CompanySection7)this.get(CompanySection7.class, id)).getS7Master());
+			break;
+		case 8:
+			master=(((CompanySection8)this.get(CompanySection8.class, id)).getS8Master());
+			break;
+		default:
+			break;
+		}
+		return master;
+	}
+	
+	
+	public String idToName(String id) {
+		String name=""; 
+		char cnumber=id.charAt(2);
+		int inumber=Integer.valueOf(cnumber+"");
+		switch (inumber) {
+		case 1:
+			name=(((CompanySection1)this.get(CompanySection1.class, id)).getS1Name());
+			break;
+		case 2:
+			name=(((CompanySection2)this.get(CompanySection2.class, id)).getS2Name());
+			break;
+		case 3:
+			name=(((CompanySection3)this.get(CompanySection3.class, id)).getS3Name());
+			break;
+		case 4:
+			name=(((CompanySection4)this.get(CompanySection4.class, id)).getS4Name());
+			break;
+		case 5:
+			name=(((CompanySection5)this.get(CompanySection5.class, id)).getS5Name());
+			break;
+		case 6:
+			name=(((CompanySection6)this.get(CompanySection6.class, id)).getS6Name());
+			break;
+		case 7:
+			name=(((CompanySection7)this.get(CompanySection7.class, id)).getS7Name());
+			break;
+		case 8:
+			name=(((CompanySection8)this.get(CompanySection8.class, id)).getS8Name());
+			break;
+		default:
+			break;
+		}
+		return name;
+	}
 
 	
 }

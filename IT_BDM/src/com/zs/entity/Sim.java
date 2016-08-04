@@ -18,7 +18,17 @@ public class Sim implements java.io.Serializable {
 	private Date SDate;
 	private String SNote;
 
+	private String csName;
+	
 	// Constructors
+
+	public String getCsName() {
+		return csName;
+	}
+
+	public void setCsName(String csName) {
+		this.csName = csName;
+	}
 
 	/** default constructor */
 	public Sim() {

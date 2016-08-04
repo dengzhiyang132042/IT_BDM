@@ -30,4 +30,11 @@ public interface IService {
 
 	
 	public void receiveStructure(HttpServletRequest req) throws UnsupportedEncodingException;
+	
+	//通过id找到一个具体的master
+	public String idToMaster(String id);
+	
+	//通过id找到一个具体部门名称
+	public String idToName(String id);
+		
 }

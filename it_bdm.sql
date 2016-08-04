@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50617
 File Encoding         : 65001
 
-Date: 2016-08-02 15:11:54
+Date: 2016-08-04 15:55:52
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -162,6 +162,7 @@ INSERT INTO `company_section_6` VALUES ('cs6011724259902610', '开发专员', '�
 INSERT INTO `company_section_6` VALUES ('cs6020941178491903', '坂田分部', '文韬', '分部经理', '18666204664', '', '', 'cs5020940203108683', '');
 INSERT INTO `company_section_6` VALUES ('cs6020942035309643', '布吉分部', '曾抒月', '分部经理', '13925210734', '', '660734', 'cs5020940203108683', '');
 INSERT INTO `company_section_6` VALUES ('cs6020943386795698', '呼叫话务组', '无', '', '', '', '', 'cs5020942539524056', '');
+INSERT INTO `company_section_6` VALUES ('cs6041346377133578', '硬件专员', '谢剑文', '硬件专员', '', '', '', 'cs5011727123887637', '');
 
 -- ----------------------------
 -- Table structure for `company_section_7`
@@ -254,6 +255,7 @@ CREATE TABLE `fbd_computer` (
 -- ----------------------------
 -- Records of fbd_computer
 -- ----------------------------
+INSERT INTO `fbd_computer` VALUES ('c031403206979471', 'fbd021005077193149', '1', '1', '1', '1', '1', '1', '2016-08-02', '1.00', '否', '111', '1');
 
 -- ----------------------------
 -- Table structure for `fbd_list_link`
@@ -278,6 +280,7 @@ CREATE TABLE `fbd_list_link` (
 -- ----------------------------
 -- Records of fbd_list_link
 -- ----------------------------
+INSERT INTO `fbd_list_link` VALUES ('ll041359346729080', 'fbd021005077193149', 'cs6041346377133578', '2016-08-04', '2016-08-04', '12', '12', '12', '12', 'http://www.baidu.com', '112', '12');
 
 -- ----------------------------
 -- Table structure for `fbd_monitoring`
@@ -288,6 +291,7 @@ CREATE TABLE `fbd_monitoring` (
   `fbd_id` varchar(255) DEFAULT NULL,
   `m_camera` int(11) DEFAULT NULL,
   `m_disk` int(11) DEFAULT NULL,
+  `m_disk_capacity` varchar(255) DEFAULT NULL,
   `m_num` varchar(255) DEFAULT NULL,
   `m_pass` varchar(255) DEFAULT NULL,
   `m_displayer` int(11) DEFAULT NULL,
@@ -306,6 +310,7 @@ CREATE TABLE `fbd_monitoring` (
 -- ----------------------------
 -- Records of fbd_monitoring
 -- ----------------------------
+INSERT INTO `fbd_monitoring` VALUES ('m021638365765781', 'fbd021006423989684', '1', '1', '1T', '1232', '13213', '1', 'dell', '01231dc131313', '1', '2016-08-03', '1.22', '是', '1', '12312', '123123');
 
 -- ----------------------------
 -- Table structure for `goods`
@@ -436,6 +441,7 @@ CREATE TABLE `sim` (
 -- ----------------------------
 -- Records of sim
 -- ----------------------------
+INSERT INTO `sim` VALUES ('sim041545084054258', 'cs4020936173635935', '123', '123', '123.00', '2016-08-04', '1111');
 
 -- ----------------------------
 -- Table structure for `timeline`

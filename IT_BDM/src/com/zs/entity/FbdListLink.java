@@ -23,6 +23,29 @@ public class FbdListLink implements java.io.Serializable {
 	private String llNote;
 	private String llState;
 
+	private String csMaster;
+
+	
+	private SectionFenbodian fbd;
+	
+	
+
+
+	public String getCsMaster() {
+		return csMaster;
+	}
+
+	public void setCsMaster(String csMaster) {
+		this.csMaster = csMaster;
+	}
+
+	public SectionFenbodian getFbd() {
+		return fbd;
+	}
+
+	public void setFbd(SectionFenbodian fbd) {
+		this.fbd = fbd;
+	}
 	// Constructors
 
 	/** default constructor */

@@ -46,8 +46,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<li><span><a href="<%=path %>/fbd_asdl!queryOfFenyeAsdl?cz=yes" target="right">分拨点宽带登记ASDL</a></span></li>
 						<li><span><a href="<%=path %>/fbd_m!queryOfFenyeM?cz=yes" target="right">分拨点监控登记</a></span></li>
 						<li><span><a href="<%=path %>/fbd_c!queryOfFenyeC?cz=yes" target="right">分拨点电脑登记</a></span></li>
-						<li><span>分拨点监控材料申请清单</span></li>
-						<li><span>SIM费用报销</span></li>
+						<li><span><a href="<%=path %>/fbd_ll!queryOfFenyeLL?cz=yes" target="right">分拨点监控材料申请清单</a></span></li>
+						<li><span><a href="<%=path %>/fbd_sim!queryOfFenyeSIM?cz=yes" target="right">SIM费用报销</a></span></li>
 						<li><span>内件收发登记</span></li>
 						<li><span>外出登记</span></li>        			
         			</ul>
