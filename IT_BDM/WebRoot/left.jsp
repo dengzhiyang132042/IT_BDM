@@ -47,12 +47,25 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<li><span><a href="<%=path %>/fbd_m!queryOfFenyeM?cz=yes" target="right">分拨点监控登记</a></span></li>
 						<li><span><a href="<%=path %>/fbd_c!queryOfFenyeC?cz=yes" target="right">分拨点电脑登记</a></span></li>
 						<li><span><a href="<%=path %>/fbd_ll!queryOfFenyeLL?cz=yes" target="right">分拨点监控材料申请清单</a></span></li>
-						<li><span><a href="<%=path %>/fbd_sim!queryOfFenyeSIM?cz=yes" target="right">SIM费用报销</a></span></li>
-						<li><span>内件收发登记</span></li>
-						<li><span>外出登记</span></li>        			
+						<li><span><a href="<%=path %>/sim!queryOfFenyeSIM?cz=yes" target="right">SIM费用报销</a></span></li>
+						<li><span><a href="<%=path %>/goods!queryOfFenyeGoods?cz=yes" target="right">内件收发登记</a></span></li>
+						<li><span><a href="<%=path %>/go!queryOfFenyeGo?cz=yes" target="right">外出登记</a></span></li>        			
         			</ul>
         		</li>
-        		<li><span>系统组</span></li>
+        		<li><span>系统组</span>
+        			<ul>
+						<li><span><a href="<%=path %>/site!queryOfFenye?cz=yes" target="right">站点资料</a></span></li>
+						<li><span><a href="<%=path %>/branches!queryOfFenye?cz=yes" target="right">二级网点资料</a></span></li>
+						<li><span><a href="<%=path %>/fbd_c!queryOfFenyeC?cz=yes" target="right">哲盟账号</a></span></li>
+						<li><span><a href="<%=path %>/fbd_ll!queryOfFenyeLL?cz=yes" target="right">哲盟数据检查登记</a></span></li>
+						<li><span><a href="<%=path %>/sim!queryOfFenyeSIM?cz=yes" target="right">停止站点</a></span></li>
+						<li><span><a href="<%=path %>/goods!queryOfFenyeGoods?cz=yes" target="right">哲盟开发会议纪要</a></span></li>
+						<li><span><a href="<%=path %>/go!queryOfFenyeGo?cz=yes" target="right">开发效率</a></span></li> 
+						<li><span><a href="<%=path %>/go!queryOfFenyeGo?cz=yes" target="right">日程表</a></span></li> 
+						<li><span><a href="<%=path %>/go!queryOfFenyeGo?cz=yes" target="right">系统开发项目优先级清单</a></span></li> 
+						<li><span><a href="<%=path %>/go!queryOfFenyeGo?cz=yes" target="right">哲盟异常数据跟进</a></span></li> 
+        			</ul>
+        		</li>
         		<li><span>桌面组</span></li>
         		<li><span>开发组</span></li>
         	</ul>

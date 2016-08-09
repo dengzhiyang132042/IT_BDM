@@ -38,6 +38,19 @@
 	<bean id="zs_fbd_sim_yjz" class="com.zs.action.yjz.SIMAction">
 		<property name="ser" ref="zs_ser"></property>
 	</bean>	 
+	<bean id="zs_fbd_goods_yjz" class="com.zs.action.yjz.GoodsAction">
+		<property name="ser" ref="zs_ser"></property>
+	</bean>	
+	<bean id="zs_fbd_go_yjz" class="com.zs.action.yjz.GoOutAction">
+		<property name="ser" ref="zs_ser"></property>
+	</bean>
+	<bean id="zs_site_xtz" class="com.zs.action.xtz.SiteAction">
+		<property name="ser" ref="zs_ser"></property>
+	</bean>
+	<bean id="zs_b_xtz" class="com.zs.action.xtz.BranchesAction">
+		<property name="ser" ref="zs_ser"></property>
+	</bean>
+	
 	
 	<!-- ************************************* -->
 	<bean id="zs_dao" class="com.zs.dao.BaseDaoOfSpring">

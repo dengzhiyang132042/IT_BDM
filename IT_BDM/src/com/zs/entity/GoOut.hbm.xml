@@ -16,6 +16,9 @@
         <property name="goNumberAccept" type="java.lang.Integer">
             <column name="go_number_accept" />
         </property>
+      	<property name="goDestination" type="java.lang.String">
+            <column name="go_destination" />
+        </property>
         <property name="csIdApplicant" type="java.lang.String">
             <column name="cs_id_applicant" />
         </property>

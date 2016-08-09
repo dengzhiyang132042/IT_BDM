@@ -40,6 +40,9 @@
 		<mapping resource="com/zs/entity/CompanySection7.hbm.xml" />
 		<mapping resource="com/zs/entity/CompanySection8.hbm.xml" />
 		<mapping resource="com/zs/entity/CompanySection6.hbm.xml" />
+		<mapping resource="com/zs/entity/XtSite.hbm.xml" />
+		<mapping resource="com/zs/entity/XtBranches.hbm.xml" />
+		<mapping resource="com/zs/entity/Users.hbm.xml" />
 	</session-factory>
 
 </hibernate-configuration>

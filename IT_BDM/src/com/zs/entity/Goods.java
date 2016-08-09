@@ -20,7 +20,26 @@ public class Goods implements java.io.Serializable {
 	private String csIdOut;
 	private String GNote;
 
+	private String csIdInMaster;
+	private String csIdOutMaster;
+	
 	// Constructors
+
+	public String getCsIdInMaster() {
+		return csIdInMaster;
+	}
+
+	public void setCsIdInMaster(String csIdInMaster) {
+		this.csIdInMaster = csIdInMaster;
+	}
+
+	public String getCsIdOutMaster() {
+		return csIdOutMaster;
+	}
+
+	public void setCsIdOutMaster(String csIdOutMaster) {
+		this.csIdOutMaster = csIdOutMaster;
+	}
 
 	/** default constructor */
 	public Goods() {

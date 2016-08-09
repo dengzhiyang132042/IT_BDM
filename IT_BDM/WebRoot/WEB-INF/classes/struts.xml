@@ -74,13 +74,42 @@
      <result name="succ">/success.jsp</result>
      <result name="fail">/fail.jsp</result>
   </action>
-  <action name="fbd_sim" class="zs_fbd_sim_yjz">	
+  <action name="sim" class="zs_fbd_sim_yjz">	
   	 <interceptor-ref name="mydefault" />
      <result>/index.jsp</result>
      <result name="sim">/yjz_jsp/sim.jsp</result>
      <result name="succ">/success.jsp</result>
      <result name="fail">/fail.jsp</result>
   </action>
+  <action name="goods" class="zs_fbd_goods_yjz">	
+  	 <interceptor-ref name="mydefault" />
+     <result>/index.jsp</result>
+     <result name="goods">/yjz_jsp/goods.jsp</result>
+     <result name="succ">/success.jsp</result>
+     <result name="fail">/fail.jsp</result>
+  </action>
+  <action name="go" class="zs_fbd_go_yjz">	
+  	 <interceptor-ref name="mydefault" />
+     <result>/index.jsp</result>
+     <result name="go">/yjz_jsp/go_out.jsp</result>
+     <result name="succ">/success.jsp</result>
+     <result name="fail">/fail.jsp</result>
+  </action>
+  <action name="site" class="zs_site_xtz">	
+  	 <interceptor-ref name="mydefault" />
+     <result>/index.jsp</result>
+     <result name="site">/xtz_jsp/site.jsp</result>
+     <result name="succ">/success.jsp</result>
+     <result name="fail">/fail.jsp</result>
+  </action>
+  <action name="branches" class="zs_b_xtz">	
+  	 <interceptor-ref name="mydefault" />
+     <result>/index.jsp</result>
+     <result name="branches">/xtz_jsp/branches.jsp</result>
+     <result name="succ">/success.jsp</result>
+     <result name="fail">/fail.jsp</result>
+  </action>
+  
 </package>
 </struts>    
   

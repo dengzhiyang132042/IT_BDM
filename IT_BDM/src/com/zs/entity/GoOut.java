@@ -13,12 +13,20 @@ public class GoOut implements java.io.Serializable {
 	private String goId;
 	private Date goDateAccept;
 	private Integer goNumberAccept;
+	private String goDestination;
+	
 	private String csIdApplicant;
+	private String csIdApplicantMaster;
+	
 	private String goType;
 	private String csIdRegiste;
+	private String csIdRegisteMaster;
+	
 	private Date goDateExpect;
 	private String goDescriptionFault;
 	private String csIdService;
+	private String csIdServiceMaster;
+	
 	private Date goDateComplete;
 	private Integer goNumberComplete;
 	private Integer goTimeout;
@@ -31,6 +39,38 @@ public class GoOut implements java.io.Serializable {
 
 	/** default constructor */
 	public GoOut() {
+	}
+
+	public String getGoDestination() {
+		return goDestination;
+	}
+
+	public void setGoDestination(String goDestination) {
+		this.goDestination = goDestination;
+	}
+
+	public String getCsIdApplicantMaster() {
+		return csIdApplicantMaster;
+	}
+
+	public void setCsIdApplicantMaster(String csIdApplicantMaster) {
+		this.csIdApplicantMaster = csIdApplicantMaster;
+	}
+
+	public String getCsIdRegisteMaster() {
+		return csIdRegisteMaster;
+	}
+
+	public void setCsIdRegisteMaster(String csIdRegisteMaster) {
+		this.csIdRegisteMaster = csIdRegisteMaster;
+	}
+
+	public String getCsIdServiceMaster() {
+		return csIdServiceMaster;
+	}
+
+	public void setCsIdServiceMaster(String csIdServiceMaster) {
+		this.csIdServiceMaster = csIdServiceMaster;
 	}
 
 	/** minimal constructor */

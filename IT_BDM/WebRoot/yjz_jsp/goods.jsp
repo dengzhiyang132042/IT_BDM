@@ -34,15 +34,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		$('#tt').show();
 	});
 	
-	function update(u1,u2,u3,u4,u5,u6,u7){
+	function update(u1,u2,u3,u4,u5,u6,u7,u8,u9){
 		$('#u').window('open');
 		$('#u_1').val(u1);
-		$("#u_2 option[value='"+u2+"']").attr("selected",true);
+		$('#u_2').val(u2);
 		$('#u_3').val(u3);
 		$('#u_4').val(u4);
 		$('#u_5').val(u5);
-		$('#u_6').val(u6);
+		$("#u_6 option[value='"+u6+"']").attr("selected",true);
 		$('#u_7').val(u7);
+		$("#u_8 option[value='"+u8+"']").attr("selected",true);
+		$('#u_9').val(u9);
 	}
 	function page(no,cz){
 		var num1=$('#page').val();
@@ -66,32 +68,36 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   
   <body>
     
-    <div class="easyui-panel" title="SIM费用报销" style="padding: 5px;display: none;" data-options="tools:'#tt'">
+    <div class="easyui-panel" title="内件收发登记" style="padding: 5px;display: none;" data-options="tools:'#tt'">
     <div style="height: 455px;">
     
     <table border="1" id="eidtASubjectWindow1" style="font-size: 12px;">
     <tr align="center" style="height: 28px;background-color: #E6E6E6;">
     	<td>编号</td>
-    	<td>部门</td>
-    	<td>SIM数量 </td>
-    	<td>月数</td>
-    	<td>公司总费用</td>
-    	<td>登记时间</td>
+    	<td>物品名称</td>
+    	<td>数量 </td>
+    	<td>单位</td>
+    	<td>接受日期</td>
+    	<td>接受人员</td>
+    	<td>发送日期</td>
+    	<td>发送人员</td>
     	<td>备注</td>
     	<td>操作</td>
     </tr>
-    <c:forEach items="${sims}" var="sim">
+    <c:forEach items="${goods}" var="good">
     <tr>
-		<td width="">${sim.SId }</td>
-		<td width="">${sim.csName }</td>
-		<td width="">${sim.SNumber }</td>
-		<td width="">${sim.SMonth }</td>
-		<td width="">${sim.SFeeSum }</td>
-		<td width=""><fmt:formatDate value="${sim.SDate }" pattern="yyyy/M/d" /></td>
-		<td width="">${sim.SNote }</td>
+		<td width="">${good.GId }</td>
+		<td width="">${good.GName }</td>
+		<td width="">${good.GNumber }</td>
+		<td width="">${good.GUnit }</td>
+		<td width=""><fmt:formatDate value="${good.GDateIn }" pattern="yyyy/M/d" /></td>
+		<td width="">${good.csIdInMaster }</td>
+		<td width=""><fmt:formatDate value="${good.GDateOut }" pattern="yyyy/M/d" /></td>
+		<td width="">${good.csIdOutMaster }</td>
+		<td width="">${good.GNote }</td>
 		<td width="5%" align="center">
-			<a onclick="update('${sim.SId }','${sim.csId }','${sim.SNumber }','${sim.SMonth }','${sim.SFeeSum }','${sim.SDate }','${sim.SNote }')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-edit'" title="修改"></a>
-			<a href="<%=path %>/sim!deleteSIM?id=${sim.SId}" onclick="return confirm('确定删除吗?')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-delete'" title="删除"></a>
+			<a onclick="update('${good.GId }','${good.GName }','${good.GNumber }','${good.GUnit }','${good.GDateIn }','${good.csIdIn }','${good.GDateOut }','${good.csIdOut }','${good.GNote }')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-edit'" title="修改"></a>
+			<a href="<%=path %>/goods!deleteGoods?id=${good.GId}" onclick="return confirm('确定删除吗?')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-delete'" title="删除"></a>
 		</td>
     </tr>
     </c:forEach>
@@ -100,7 +106,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<br/>
 	
 	<div class="easyui-panel" style="padding:5px;width: 100%;display: none;">
-		<form id="f1" action="<%=path %>/sim!queryOfFenyeSIM" method="post">
+		<form id="f1" action="<%=path %>/goods!queryOfFenyeGoods" method="post">
 		<select id="sele" style="float: left;margin-top: 3px;margin-left: 5px;" name="page.size" onchange="$('#f1').submit();">
 			<option value="5">5</option>
 			<option value="10">10</option>
@@ -130,18 +136,42 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</div>
 	
 	<div id="u" class="easyui-window" title="修改" data-options="modal:true,closed:true" style="width:400px;height:auto;padding:10px;display: none;">
-		<form action="<%=path %>/sim!updateSIM" method="post">
+		<form action="<%=path %>/goods!updateGoods" method="post">
 		<table border="0" class="table1">
 			<tr>
-				<td>编号</td>
+				<td>编号：</td>
 				<td>
-					<input id="u_1" name="sim.SId" type="text"/>
+					<input id="u_1" name="good.GId" type="text" style="width: 100%;" readonly="readonly"/>
 				</td>
 			</tr>
 			<tr>
-				<td>部门：</td>
+				<td>物品名称：</td>
 				<td>
-					<select id="u_2" name="sim.csId">
+					<input id="u_2" name="good.GName" type="text" style="width: 100%;"/>
+				</td>
+			</tr>
+			<tr>
+				<td>数量：</td>
+				<td>
+					<input id="u_3" name="good.GNumber" type="number" style="width: 100%;"/>
+				</td>
+			</tr>
+			<tr>
+				<td>单位：</td>
+				<td>
+					<input id="u_4" name="good.GUnit" type="text" style="width: 100%;"/>
+				</td>
+			</tr>
+			<tr>
+				<td>接受日期：</td>
+				<td>
+					<input id="u_5" name="good.GDateIn" type="date" style="width: 100%;"/>
+				</td>
+			</tr>
+			<tr>
+				<td>接受人员：</td>
+				<td>
+					<select id="u_6" name="good.csIdIn">
 						<c:forEach items="${structure2}" var="cs1">
 						<option value="${cs1.s1Id }">${cs1.s1Name}(${cs1.s1Master })</option>
 							<c:forEach items="${cs1.nexts}" var="cs2">
@@ -170,33 +200,46 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				</td>
 			</tr>
 			<tr>
-				<td>SIM数量：</td>
+				<td>发送日期：</td>
 				<td>
-					<input id="u_3" name="sim.SNumber" type="number" style="width: 100%;"/>
+					<input id="u_7" name="good.GDateOut" type="date" style="width: 100%;"/>
 				</td>
 			</tr>
 			<tr>
-				<td>月数：</td>
+				<td>发送人员：</td>
 				<td>
-					<input id="u_4" name="sim.SMonth" type="number" style="width: 100%;"/>
-				</td>
-			</tr>
-			<tr>
-				<td>公司总费用：</td>
-				<td>
-					<input id="u_5" name="sim.SFeeSum" type="text" style="width: 100%;"/>
-				</td>
-			</tr>
-			<tr>
-				<td>登记时间：</td>
-				<td>
-					<input id="u_6" name="sim.SDate" type="date" style="width: 100%;"/>
+					<select id="u_8" name="good.csIdOut">
+						<c:forEach items="${structure2}" var="cs1">
+						<option value="${cs1.s1Id }">${cs1.s1Name}(${cs1.s1Master })</option>
+							<c:forEach items="${cs1.nexts}" var="cs2">
+							<option value="${cs2.s2Id }">${cs2.s2Name}(${cs2.s2Master })</option>
+								<c:forEach items="${cs2.nexts}" var="cs3">
+								<option value="${cs3.s3Id }">${cs3.s3Name}(${cs3.s3Master })</option>
+									<c:forEach items="${cs3.nexts}" var="cs4">
+									<option value="${cs4.s4Id }">${cs4.s4Name}(${cs4.s4Master })</option>
+										<c:forEach items="${cs4.nexts}" var="cs5">
+										<option value="${cs5.s5Id }">${cs5.s5Name}(${cs5.s5Master })</option>
+											<c:forEach items="${cs5.nexts}" var="cs6">
+											<option value="${cs6.s6Id }">${cs6.s6Name}(${cs6.s6Master })</option>
+												<c:forEach items="${cs6.nexts}" var="cs7">
+													<option value="${cs7.s7Id }">${cs7.s7Name}(${cs7.s7Master })</option>
+													<c:forEach items="${cs7.nexts}" var="cs8">
+														<option value="${cs8.s8Id }">${cs8.s8Name}(${cs8.s8Master })</option>
+													</c:forEach>		
+												</c:forEach>
+											</c:forEach>
+										</c:forEach>
+									</c:forEach>			
+								</c:forEach>
+							</c:forEach>
+						</c:forEach>
+					</select>
 				</td>
 			</tr>
 			<tr>
 				<td>备注：</td>
 				<td>
-					<input id="u_7" name="sim.SNote" type="text" style="width: 100%;"/>
+					<input id="u_9" name="good.GNote" type="text" style="width: 100%;"/>
 				</td>
 			</tr>
 			<tr>
@@ -209,12 +252,36 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</div>
 	
 	<div id="a" class="easyui-window" title="添加" data-options="modal:true,closed:true" style="width:400px;height:auto;padding:10px;display: none;">
-		<form action="<%=path %>/sim!addSIM" method="post">
+		<form action="<%=path %>/goods!addGoods" method="post">
 		<table border="0" class="table1">
 			<tr>
-				<td>部门：</td>
+				<td>物品名称：</td>
 				<td>
-					<select name="sim.csId">
+					<input name="good.GName" type="text" style="width: 100%;"/>
+				</td>
+			</tr>
+			<tr>
+				<td>数量：</td>
+				<td>
+					<input name="good.GNumber" type="number" style="width: 100%;"/>
+				</td>
+			</tr>
+			<tr>
+				<td>单位：</td>
+				<td>
+					<input name="good.GUnit" type="text" style="width: 100%;"/>
+				</td>
+			</tr>
+			<tr>
+				<td>接受日期：</td>
+				<td>
+					<input name="good.GDateIn" type="date" style="width: 100%;"/>
+				</td>
+			</tr>
+			<tr>
+				<td>接受人员：</td>
+				<td>
+					<select name="good.csIdIn">
 						<c:forEach items="${structure2}" var="cs1">
 						<option value="${cs1.s1Id }">${cs1.s1Name}(${cs1.s1Master })</option>
 							<c:forEach items="${cs1.nexts}" var="cs2">
@@ -243,33 +310,46 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				</td>
 			</tr>
 			<tr>
-				<td>SIM数量：</td>
+				<td>发送日期：</td>
 				<td>
-					<input name="sim.SNumber" type="number" style="width: 100%;"/>
+					<input name="good.GDateOut" type="date" style="width: 100%;"/>
 				</td>
 			</tr>
 			<tr>
-				<td>月数：</td>
+				<td>发送人员：</td>
 				<td>
-					<input name="sim.SMonth" type="number" style="width: 100%;"/>
-				</td>
-			</tr>
-			<tr>
-				<td>公司总费用：</td>
-				<td>
-					<input name="sim.SFeeSum" type="text" style="width: 100%;"/>
-				</td>
-			</tr>
-			<tr>
-				<td>登记时间：</td>
-				<td>
-					<input name="sim.SDate" type="date" style="width: 100%;"/>
+					<select name="good.csIdOut">
+						<c:forEach items="${structure2}" var="cs1">
+						<option value="${cs1.s1Id }">${cs1.s1Name}(${cs1.s1Master })</option>
+							<c:forEach items="${cs1.nexts}" var="cs2">
+							<option value="${cs2.s2Id }">${cs2.s2Name}(${cs2.s2Master })</option>
+								<c:forEach items="${cs2.nexts}" var="cs3">
+								<option value="${cs3.s3Id }">${cs3.s3Name}(${cs3.s3Master })</option>
+									<c:forEach items="${cs3.nexts}" var="cs4">
+									<option value="${cs4.s4Id }">${cs4.s4Name}(${cs4.s4Master })</option>
+										<c:forEach items="${cs4.nexts}" var="cs5">
+										<option value="${cs5.s5Id }">${cs5.s5Name}(${cs5.s5Master })</option>
+											<c:forEach items="${cs5.nexts}" var="cs6">
+											<option value="${cs6.s6Id }">${cs6.s6Name}(${cs6.s6Master })</option>
+												<c:forEach items="${cs6.nexts}" var="cs7">
+													<option value="${cs7.s7Id }">${cs7.s7Name}(${cs7.s7Master })</option>
+													<c:forEach items="${cs7.nexts}" var="cs8">
+														<option value="${cs8.s8Id }">${cs8.s8Name}(${cs8.s8Master })</option>
+													</c:forEach>		
+												</c:forEach>
+											</c:forEach>
+										</c:forEach>
+									</c:forEach>			
+								</c:forEach>
+							</c:forEach>
+						</c:forEach>
+					</select>
 				</td>
 			</tr>
 			<tr>
 				<td>备注：</td>
 				<td>
-					<input name="sim.SNote" type="text" style="width: 100%;"/>
+					<input name="good.GNote" type="text" style="width: 100%;"/>
 				</td>
 			</tr>
 			<tr>
