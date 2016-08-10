@@ -31,12 +31,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   </head>
   
   <body>
-    <form action="" method="post">
-    	账号：<input name="u.num" type="text"/>
+    <form action="<%=path %>/login!login" method="post">
+    	账号：<input name="u.UNum" type="text"/>
     	<br/>
-    	密码：<input name="u.pass" type="password"/>
+    	密码：<input name="u.UPass" type="password"/>
     	<br/>
     	<input type="submit" value="登录"/>
     </form>
+    <h1 style="color: red;">${hint }</h1>
   </body>
 </html>

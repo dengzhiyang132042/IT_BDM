@@ -43,6 +43,9 @@
 		<mapping resource="com/zs/entity/XtSite.hbm.xml" />
 		<mapping resource="com/zs/entity/XtBranches.hbm.xml" />
 		<mapping resource="com/zs/entity/Users.hbm.xml" />
+		<mapping resource="com/zs/entity/Role.hbm.xml" />
+		<mapping resource="com/zs/entity/RolePermission.hbm.xml" />
+		<mapping resource="com/zs/entity/Permission.hbm.xml" />
 	</session-factory>
 
 </hibernate-configuration>

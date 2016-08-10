@@ -1,4 +1,7 @@
-a{ text-decoration:none;} 
+a{ text-decoration:none;}
+body{
+	padding: 3px;
+}
 table{
 	border: #C1C1C1;
 	border-collapse:collapse;

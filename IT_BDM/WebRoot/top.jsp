@@ -43,11 +43,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<span style="font-size: 14px;font-weight: bold;color: #0052A3;float: right;margin-right: 0px;">您还没有登录，请先</span>
 		</c:when>
 		<c:otherwise>
-			<a onclick="return confirm('确定注销吗?')" href="<%=path %>/center!logout" target="_parent" style="float: right;margin-right: 30px;font-size: 14px;font-weight: bold;color: red;">注销</a>
+			<a onclick="return confirm('确定注销吗?')" href="<%=path %>/login!logout" target="_parent" style="float: right;margin-right: 30px;font-size: 14px;font-weight: bold;color: red;">注销</a>
 			<a href="<%=path %>/center!query" target="right">
-			<span style="font-size: 14px;font-weight: bold;color: #0052A3;float: right;margin-right: 30px;">${user.name }</span>
-			<span style="font-size: 14px;font-weight: bold;color: green;float: right;margin-right: 5px;">${user.r.name}</span>
+			<span style="font-size: 14px;font-weight: bold;color: #0052A3;float: right;margin-right: 30px;">${user.UName }</span>
 			</a>
+			<span style="float: right;font-size: 14px;font-weight: bold;color: red;margin-right: 5px;">${user.r.RName }</span>
 			<span style="float: right;font-size: 14px;font-weight: bold;color: #282828;">登陆者：</span>
 		</c:otherwise>
 	</c:choose>

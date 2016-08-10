@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50617
 File Encoding         : 65001
 
-Date: 2016-08-09 17:52:08
+Date: 2016-08-10 18:44:19
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -230,6 +230,7 @@ CREATE TABLE `fbd_asdl` (
 -- Records of fbd_asdl
 -- ----------------------------
 INSERT INTO `fbd_asdl` VALUES ('asdl021404578472704', 'fbd021005077193149', 'ADSLD6057749', 'sz00000000744686951@163.gd', '87654321', '1982.00', '2016-08-08', '续约', '站点网络', '已查');
+INSERT INTO `fbd_asdl` VALUES ('asdl101510532563090', 'fbd021002107147666', '', '', '', null, null, '', '', '');
 
 -- ----------------------------
 -- Table structure for `fbd_computer`
@@ -365,6 +366,56 @@ CREATE TABLE `go_out` (
 INSERT INTO `go_out` VALUES ('go081353063587955', '2016-08-08', '1', '123', 'cs6041346377133578', '123', 'cs6011724259902610', '2016-08-08', '123', 'cs5011726484884565', '2016-08-08', '123', '1', '13.00', '1', '1.00', '1');
 
 -- ----------------------------
+-- Table structure for `permission`
+-- ----------------------------
+DROP TABLE IF EXISTS `permission`;
+CREATE TABLE `permission` (
+  `p_id` varchar(255) NOT NULL DEFAULT '',
+  `p_name` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`p_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of permission
+-- ----------------------------
+INSERT INTO `permission` VALUES ('1', 'asdl查看');
+INSERT INTO `permission` VALUES ('2', 'asdl添加');
+INSERT INTO `permission` VALUES ('3', 'asdl删除');
+INSERT INTO `permission` VALUES ('4', 'asdl修改');
+
+-- ----------------------------
+-- Table structure for `role`
+-- ----------------------------
+DROP TABLE IF EXISTS `role`;
+CREATE TABLE `role` (
+  `r_id` varchar(255) NOT NULL DEFAULT '',
+  `r_name` varchar(255) DEFAULT NULL,
+  `r_description` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`r_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of role
+-- ----------------------------
+INSERT INTO `role` VALUES ('1', '测试者', '测试用，由开发者手动编写');
+
+-- ----------------------------
+-- Table structure for `role_permission`
+-- ----------------------------
+DROP TABLE IF EXISTS `role_permission`;
+CREATE TABLE `role_permission` (
+  `rp_id` varchar(255) NOT NULL DEFAULT '',
+  `r_id` varchar(255) DEFAULT NULL,
+  `p_id` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`rp_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of role_permission
+-- ----------------------------
+INSERT INTO `role_permission` VALUES ('1', '1', '1');
+
+-- ----------------------------
 -- Table structure for `section_fenbodian`
 -- ----------------------------
 DROP TABLE IF EXISTS `section_fenbodian`;
@@ -463,6 +514,12 @@ CREATE TABLE `timeline` (
 -- ----------------------------
 -- Records of timeline
 -- ----------------------------
+INSERT INTO `timeline` VALUES ('tl101509431357182', 'yd-7111', '2016-08-10 15:09:43', '查看', 'FbdAsdl', null);
+INSERT INTO `timeline` VALUES ('tl101509584837849', 'yd-7111', '2016-08-10 15:09:58', '查看', 'FbdAsdl', null);
+INSERT INTO `timeline` VALUES ('tl101510015647185', 'yd-7111', '2016-08-10 15:10:01', '删除', 'FbdAsdl', 'asdl101509571691921');
+INSERT INTO `timeline` VALUES ('tl101510030306963', 'yd-7111', '2016-08-10 15:10:03', '查看', 'FbdAsdl', null);
+INSERT INTO `timeline` VALUES ('tl101510508578056', 'yd-7111', '2016-08-10 15:10:50', '查看', 'FbdAsdl', null);
+INSERT INTO `timeline` VALUES ('tl101510551945759', 'yd-7111', '2016-08-10 15:10:55', '查看', 'FbdAsdl', null);
 
 -- ----------------------------
 -- Table structure for `users`
@@ -482,6 +539,7 @@ CREATE TABLE `users` (
 -- ----------------------------
 -- Records of users
 -- ----------------------------
+INSERT INTO `users` VALUES ('yd-7111', '123456', '张顺', '信息与流程管理部', '开发专员', '2016-08-10 14:45:00', '1');
 
 -- ----------------------------
 -- Table structure for `xt_branches`

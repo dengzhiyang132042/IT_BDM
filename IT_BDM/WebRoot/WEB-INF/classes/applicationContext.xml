@@ -50,8 +50,15 @@
 	<bean id="zs_b_xtz" class="com.zs.action.xtz.BranchesAction">
 		<property name="ser" ref="zs_ser"></property>
 	</bean>
+	<bean id="zs_login_xtz" class="com.zs.action.LoginAction">
+		<property name="ser" ref="zs_ser"></property>
+	</bean>
 	
 	
+	<!-- **************拦截器************* -->
+	<bean id="zs_interceptor" class="com.zs.interceptor.MyInterceptor">
+		<property name="ser" ref="zs_ser"></property>
+	</bean>
 	<!-- ************************************* -->
 	<bean id="zs_dao" class="com.zs.dao.BaseDaoOfSpring">
 		<property name="ht" ref="hibtemp"></property>

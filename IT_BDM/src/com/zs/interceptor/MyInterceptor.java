@@ -1,5 +1,8 @@
 package com.zs.interceptor;
 
+import java.sql.Timestamp;
+import java.util.Date;
+import java.util.List;
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -10,11 +13,18 @@ import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionInvocation;
 import com.opensymphony.xwork2.interceptor.AbstractInterceptor;
 import com.zs.dao.IBaseDaoOfSpring;
+import com.zs.entity.Permission;
+import com.zs.entity.Role;
+import com.zs.entity.RolePermission;
+import com.zs.entity.Timeline;
+import com.zs.entity.Users;
+import com.zs.service.IService;
+import com.zs.tools.NameOfDate;
 
 public class MyInterceptor extends AbstractInterceptor{
 
 	
-	IBaseDaoOfSpring dao=null;
+	IService ser;
 	HttpServletRequest request;
 	HttpServletResponse response;
 	ApplicationContext appContext;
@@ -22,14 +32,24 @@ public class MyInterceptor extends AbstractInterceptor{
 	String path;
 	String reqPamrs;
 	Object user;
+	private static final String PRO_NAME="/IT_BDM";
 	
+	
+	
+	public IService getSer() {
+		return ser;
+	}
+	public void setSer(IService ser) {
+		this.ser = ser;
+	}
+
 	private void allInit(ActionInvocation arg0) {
 		// 取得请求相关的ActionContext实例  
 		request = ServletActionContext.getRequest();
 		response = ServletActionContext.getResponse();
 		//获取bean
-		appContext = new ClassPathXmlApplicationContext("/applicationContext.xml");
-    	dao = (IBaseDaoOfSpring) appContext.getBean("zs_dao");
+//		appContext = new ClassPathXmlApplicationContext("/applicationContext.xml");
+//    	dao = (IBaseDaoOfSpring) appContext.getBean("zs_dao");
     	//获取其他信息
 		ActionContext ctx = arg0.getInvocationContext();  
         session = ctx.getSession();  
@@ -50,36 +70,62 @@ public class MyInterceptor extends AbstractInterceptor{
         System.out.println(path);  
         */
 		//以下是权限控制的核心代码
-		/*
 		if (user==null) {//将登录的url排除在外
-			if ("/TransExc/login!login".equals(path)) {
+			if ((PRO_NAME+"/login!login").equals(path)) {
+				String result=arg0.invoke();
 				close();
-				return arg0.invoke();
+				return result;
 			}else {
 				response.sendRedirect("error1.jsp");
 				close();
 				return null;
 			}
-		}else if ("/TransExc/center!update".equals(path)) {//修改个人基本信息
-				if (role!=null) {
-					rps=dao.find("from RolePermission where RId='"+role.getId()+"' and PId='36'");
-					if (rps.size()>0) {
-						close();
-						return arg0.invoke();
-					}else {
-						response.sendRedirect("error2.jsp");
-						close();
-						return null;
-					}
+		}else{ 
+			Users u=(Users)user;
+			Role r=u.getR();
+			if ((PRO_NAME+"/fbd_asdl!queryOfFenyeAsdl").equals(path)) {//硬件组-ASDL-分页
+				List<RolePermission> rps=ser.find("from RolePermission where RId=? and PId=?", new String[]{r.getRId(),"1"});
+				if(rps.size()>0){
+					Timeline tl=new Timeline("tl"+NameOfDate.getNum(), u.getUNum(), new Timestamp(new Date().getTime()), "查看", "FbdAsdl", request.getParameter("id"));
+					ser.save(tl);
+					String result=arg0.invoke();
+					close();
+					return result;
+				}else {
+					response.sendRedirect("error2.jsp");
+					close();
+					return null;
 				}
-			}else {
-				close();
-				return arg0.invoke();
+			}else if ((PRO_NAME+"/fbd_asdl!deleteAsdl").equals(path)) {//硬件组-ASDL-删除
+				List<RolePermission> rps=ser.find("from RolePermission where RId=? and PId=?", new String[]{r.getRId(),"3"});
+				if(rps.size()>0){
+					Timeline tl=new Timeline("tl"+NameOfDate.getNum(), u.getUNum(), new Timestamp(new Date().getTime()), "删除", "FbdAsdl", request.getParameter("id"));
+					ser.save(tl);
+					String result=arg0.invoke();
+					close();
+					return result;
+				}else {
+					response.sendRedirect("error2.jsp");
+					close();
+					return null;
+				}
+			}else if ((PRO_NAME+"/fbd_asdl!addAsdl").equals(path)) {//硬件组-ASDL-添加
+				List<RolePermission> rps=ser.find("from RolePermission where RId=? and PId=?", new String[]{r.getRId(),"2"});
+				if(rps.size()>0){
+					String result=arg0.invoke();
+					Timeline tl=new Timeline("tl"+NameOfDate.getNum(), u.getUNum(), new Timestamp(new Date().getTime()), "添加", "FbdAsdl", request.getParameter("id"));
+					ser.save(tl);
+					close();
+					return result;
+				}else {
+					response.sendRedirect("error2.jsp");
+					close();
+					return null;
+				}
 			}
 		}
-		*/
 //		System.out.println(path);
-		close();
+		close(); 
 		return arg0.invoke();
 	}
 	

@@ -1,5 +1,11 @@
 package com.zs.action;
 
+import java.io.IOException;
+import java.util.List;
+
+import com.zs.entity.Permission;
+import com.zs.entity.Role;
+import com.zs.entity.RolePermission;
 import com.zs.entity.Users;
 import com.zs.service.IService;
 
@@ -9,7 +15,9 @@ public class LoginAction extends MyBaseAction{
 	Users u;
 	
 	String hint="";
-	String result="";
+	String result_login="login";
+	String result_succ="succ";
+	String result_fail="fail";
 	
 	public Users getU() {
 		return u;
@@ -30,12 +38,34 @@ public class LoginAction extends MyBaseAction{
 		this.ser = ser;
 	}
 	
-	public String login() {
-		
-		
-		
-		
-		return result; 
+	public String login() throws IOException {
+		if (u!=null) {
+			Users user=(Users) ser.get(Users.class, u.getUNum());
+			if (user==null) {
+				hint="用户不存在";
+				return result_login;
+			}else if (user.getUPass().equals(u.getUPass())) {
+				hint="登录成功";
+				Role r=(Role) ser.get(Role.class, user.getRId());
+				List<Permission> ps=ser.find("from Permission where PId in(select PId from RolePermission where RId=?)", new String[]{r.getRId()});
+				r.setPs(ps);
+				user.setR(r);
+				getSession().setAttribute("user", user);
+				getResponse().sendRedirect("index.jsp");
+				return SUCCESS;
+			}else {
+				hint="密码错误";
+				return result_login;
+			}
+		}else {
+			return result_fail; 
+		}
+	}
+	
+	public String logout() {
+		hint="";
+		getSession().removeAttribute("user");
+		return result_login;
 	}
 		
 }

@@ -18,17 +18,22 @@ public class Users implements java.io.Serializable {
 	private Timestamp UStartTime;
 	private String RId;
 
+	private Role r;
+	
 	// Constructors
-
+	public Role getR() {
+		return r;
+	}
+	public void setR(Role r) {
+		this.r = r;
+	}
 	/** default constructor */
 	public Users() {
 	}
-
 	/** minimal constructor */
 	public Users(String UNum) {
 		this.UNum = UNum;
 	}
-
 	/** full constructor */
 	public Users(String UNum, String UPass, String UName, String UCs,
 			String UJob, Timestamp UStartTime, String RId) {
@@ -97,6 +102,12 @@ public class Users implements java.io.Serializable {
 
 	public void setRId(String RId) {
 		this.RId = RId;
+	}
+	
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return getUNum()+" "+getUPass()+" "+getUName();
 	}
 
 }
