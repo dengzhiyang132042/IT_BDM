@@ -1,4 +1,6 @@
 <%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -9,13 +11,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <head>
     <base href="<%=basePath%>">
     
-    <title>首页</title>
+    <title>区部信息</title>
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
 	<meta http-equiv="expires" content="0">    
 	<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
 	<meta http-equiv="description" content="This is my page">
-	
+	<!--
+	<link rel="stylesheet" type="text/css" href="styles.css">
+	-->
 	<link rel="stylesheet" type="text/css" href="<%=path %>/FRAMEWORK/jquery-easyui/themes/gray/easyui.css">
 	<link rel="stylesheet" type="text/css" href="<%=path %>/FRAMEWORK/jquery-easyui/themes/icon.css">
 	<link rel="stylesheet" type="text/css" href="<%=path %>/FRAMEWORK/jquery-easyui/demo/demo.css">
@@ -25,16 +29,21 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<link rel="stylesheet" type="text/css" href="<%=path %>/FRAMEWORK/css/mycss.css">
 	
   </head>
-<frameset rows="100px,6px,*" frameborder="no" bordercolor="#E6E6E6" style="border-style: solid">
-	<frame name="top" src="top.jsp" noresize="noresize" scrolling="no"/>
-	<frame name="top_center" src="<%=path%>/left_center.jsp" noresize="noresize" scrolling="no"/>
-	<frameset cols="250px,6px,*">
-		<frame name="left" src="<%=path%>/left.jsp" noresize="noresize" scrolling="no"/>
-		<frame name="left_center" src="<%=path%>/left_center.jsp" noresize="noresize" scrolling="no"/>
-		<frameset rows="*,50px">
-			<frame name="right" src="<%=path%>/welcom.jsp" noresize="noresize"/>
-			<frame name="bottom" src="bottom.jsp" noresize="noresize"/>
-		</frameset> 
-	</frameset>
-</frameset>
+  
+  <body>
+  	今天的时间轴:
+	<table border="1">
+	<c:forEach items="${tls}" var="tl">
+	<tr>
+		<td>${tl.tlTime }</td>
+		<td>${tl.tlState }</td>
+		<td>${tl.tlTableName }</td>
+		<td>${tl.tlTableId }</td>	
+	</tr>	
+	</c:forEach>
+	</table>
+	
+	
+	    
+  </body>
 </html>

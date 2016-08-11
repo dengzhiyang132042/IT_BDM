@@ -101,6 +101,7 @@ public class SIMAction extends MyBaseAction{
 		if(sim!=null && sim.getSId()!=null && !"".equals(sim.getSId().trim())){
 			ser.update(sim);
 		}
+		getRequest().setAttribute("sim", sim);
 		sim=null;
 		return result_succ;
 	}
@@ -110,6 +111,7 @@ public class SIMAction extends MyBaseAction{
 			sim.setSId("sim"+NameOfDate.getNum());
 			ser.save(sim);
 		}
+		getRequest().setAttribute("sim", sim);
 		sim=null;
 		return result_succ;
 	}

@@ -100,6 +100,7 @@ public class FbdMAction extends MyBaseAction{
 		if(m!=null && m.getMId()!=null && !"".equals(m.getMId().trim())){
 			ser.update(m);
 		}
+		getRequest().setAttribute("m", m);
 		m=null;
 		return result_succ;
 	}
@@ -109,6 +110,7 @@ public class FbdMAction extends MyBaseAction{
 			m.setMId("m"+NameOfDate.getNum());
 			ser.save(m);
 		}
+		getRequest().setAttribute("m", m);
 		m=null;
 		return result_succ;
 	}

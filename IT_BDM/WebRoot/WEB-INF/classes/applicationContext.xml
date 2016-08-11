@@ -55,6 +55,17 @@
 	</bean>
 	
 	
+	<!-- *************system**************** -->
+	<bean id="zs_users" class="com.zs.action.system.UsersAction">
+		<property name="ser" ref="zs_ser"></property>
+	</bean>
+	<bean id="zs_role" class="com.zs.action.system.RoleAction">
+		<property name="ser" ref="zs_ser"></property>
+	</bean>
+	<!-- ***************个人中心********************** -->
+	<bean id="zs_timeline" class="com.zs.action.oneself.TimelineAction">
+		<property name="ser" ref="zs_ser"></property>
+	</bean>
 	<!-- **************拦截器************* -->
 	<bean id="zs_interceptor" class="com.zs.interceptor.MyInterceptor">
 		<property name="ser" ref="zs_ser"></property>

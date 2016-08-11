@@ -30,7 +30,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	
   </head>
   
-<body style="background-image:url('<%=path %>/FRAMEWORK/image/bag3.png');margin: 0px;padding: 0px;" >
+<body style="margin: 0px;padding: 0px;" >
 	<div style="margin-left: 30px;margin-top: 25px;">
 		<img alt="" src="FRAMEWORK/image/logo2-transparent.png" height="50" border="0"/>
 	</div>
@@ -52,6 +52,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</c:otherwise>
 	</c:choose>
 	
-	
+	<span style="position: absolute;right: 30px;top: 5px;">消息：</span>
 </body>
 </html>

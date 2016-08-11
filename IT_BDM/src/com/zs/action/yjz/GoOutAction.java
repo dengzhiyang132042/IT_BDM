@@ -90,6 +90,7 @@ public class GoOutAction extends MyBaseAction{
 		if(go!=null && go.getGoId()!=null && !"".equals(go.getGoId().trim())){
 			ser.update(go);
 		}
+		getRequest().setAttribute("go", go);
 		go=null;
 		return result_succ;
 	}
@@ -99,6 +100,7 @@ public class GoOutAction extends MyBaseAction{
 			go.setGoId("go"+NameOfDate.getNum());
 			ser.save(go);
 		}
+		getRequest().setAttribute("go", go);
 		go=null;
 		return result_succ;
 	}

@@ -23,7 +23,7 @@ public class BaseDaoOfSpring implements IBaseDaoOfSpring{
 	}
 	
 	//待预编译的多条件查询
-	public List find(String hql,String[] ss) {
+	public List find(String hql,Object[] ss) {
 		return ht.find(hql, ss);
 	}
 	

@@ -95,6 +95,7 @@ public class GoodsAction extends MyBaseAction{
 		if(good!=null && good.getGId()!=null && !"".equals(good.getGId().trim())){
 			ser.update(good);
 		}
+		getRequest().setAttribute("good", good);
 		good=null;
 		return result_succ;
 	}
@@ -104,6 +105,7 @@ public class GoodsAction extends MyBaseAction{
 			good.setGId("g"+NameOfDate.getNum());
 			ser.save(good);
 		}
+		getRequest().setAttribute("good", good);
 		good=null;
 		return result_succ;
 	}

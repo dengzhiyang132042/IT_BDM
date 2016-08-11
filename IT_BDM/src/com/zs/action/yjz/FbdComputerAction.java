@@ -112,6 +112,7 @@ public class FbdComputerAction extends MyBaseAction{
 		if(c!=null && c.getcId()!=null && !"".equals(c.getcId().trim())){
 			ser.update(c);
 		}
+		getRequest().setAttribute("c", c);
 		c=null;
 		return result_succ;
 	}
@@ -121,6 +122,7 @@ public class FbdComputerAction extends MyBaseAction{
 			c.setcId("c"+NameOfDate.getNum());
 			ser.save(c);
 		}
+		getRequest().setAttribute("c", c);
 		c=null;
 		return result_succ;
 	}

@@ -100,6 +100,7 @@ public class FbdAsdlAction extends MyBaseAction{
 		if(asdl!=null && asdl.getAsdlId()!=null && !"".equals(asdl.getAsdlId().trim())){
 			ser.update(asdl);
 		}
+		getRequest().setAttribute("asdl", asdl); 
 		asdl=null;
 		return result_succ;
 	}
@@ -109,6 +110,8 @@ public class FbdAsdlAction extends MyBaseAction{
 			asdl.setAsdlId("asdl"+NameOfDate.getNum());
 			ser.save(asdl);
 		}
+		getRequest().setAttribute("asdl", asdl);
+		System.out.println("1111  "+asdl.getAsdlId());
 		asdl=null;
 		return result_succ;
 	}

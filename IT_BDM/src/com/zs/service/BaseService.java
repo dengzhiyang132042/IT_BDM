@@ -34,7 +34,7 @@ public class BaseService implements IService{
 	public void delete(Object obj) {
 		dao.delete(obj);
 	}
-	public List find(String hql,String[] ss) {
+	public List find(String hql,Object[] ss) {
 		return dao.find(hql,ss);
 	}
 	public List findOfFenYe(String hql, int start, int size) {

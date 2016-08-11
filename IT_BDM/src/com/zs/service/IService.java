@@ -10,7 +10,7 @@ import com.zs.tools.Page;
 
 public interface IService {
 	
-	public List find(String hql,String[] ss);
+	public List find(String hql,Object[] ss);
 	
 	//分页查询
 	public List findOfFenYe(String hql,int start,int size);

@@ -108,6 +108,7 @@ public class FbdListLinkAction extends MyBaseAction{
 		if(ll!=null && ll.getLlId()!=null && !"".equals(ll.getLlId().trim())){
 			ser.update(ll);
 		}
+		getRequest().setAttribute("ll", ll);
 		ll=null;
 		return result_succ;
 	}
@@ -117,6 +118,7 @@ public class FbdListLinkAction extends MyBaseAction{
 			ll.setLlId("ll"+NameOfDate.getNum());
 			ser.save(ll);
 		}
+		getRequest().setAttribute("ll", ll);
 		ll=null;
 		return result_succ;
 	}
