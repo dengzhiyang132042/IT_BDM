@@ -52,6 +52,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</c:otherwise>
 	</c:choose>
 	
-	<span style="position: absolute;right: 30px;top: 5px;">消息：</span>
+	<a href="<%=path %>/information!query" target="right">
+		<span style="position: absolute;right: 30px;top: 10px;font-weight: lighter;color:#282828;">提醒：
+			今天您还有<span style="color: red;">${suminfo }</span>张表没有操作.
+		</span>
+	</a>
 </body>
 </html>

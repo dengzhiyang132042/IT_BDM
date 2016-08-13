@@ -51,7 +51,7 @@ public class LoginAction extends MyBaseAction{
 				r.setPs(ps);
 				user.setR(r);
 				getSession().setAttribute("user", user);
-				getResponse().sendRedirect("index.jsp");
+				getResponse().sendRedirect("safe.jsp");
 				return SUCCESS;
 			}else {
 				hint="密码错误";

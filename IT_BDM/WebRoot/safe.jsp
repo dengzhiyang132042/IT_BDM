@@ -1,4 +1,4 @@
-<%@ page language="java" import="java.util.*" pageEncoding="ISO-8859-1"%>
+<%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -9,7 +9,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <head>
     <base href="<%=basePath%>">
     
-    <title>My JSP 'left_center.jsp' starting page</title>
+    <title>My JSP 'safe.jsp' starting page</title>
     
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
@@ -22,7 +22,35 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
   </head>
   
-  <body style="padding: 0px;background-color: #FFB895;">
-    This is my JSP page. <br>
+  <body>
+  做安全跳转用的
+  <script type="text/javascript">
+		window.location.href="<%=path%>/information!gotoIndex";  
+  </script>
+  
+  <table border='1' width='300' style='background-color: red;'>
+  	<tr>
+  		<td>1</td>
+  		<td>1</td>
+  		<td>1</td>
+  		<td>1</td>
+  		<td>1</td>
+  	</tr>
+  <tr>
+  		<td>1</td>
+  		<td>1</td>
+  		<td>1</td>
+  		<td>1</td>
+  		<td>1</td>
+  	</tr>
+  	<tr>
+  		<td>1</td>
+  		<td>1</td>
+  		<td>1</td>
+  		<td>1</td>
+  		<td>1</td>
+  	</tr>
+  </table>
+  
   </body>
 </html>

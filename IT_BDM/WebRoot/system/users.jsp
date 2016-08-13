@@ -34,7 +34,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		$('#tt').show();
 	});
 	
-	function update(u1,u2,u3,u4,u5,u6){
+	function update(u1,u2,u3,u4,u5,u6,u7){
 		$('#u').window('open');
 		$('#u_1').val(u1);
 		$('#u_2').val(u2);
@@ -42,6 +42,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		$("#u_4 option[value='"+u4+"']").attr("selected",true);
 		$("#u_5 option[value='"+u5+"']").attr("selected",true);
 		$("#u_6 option[value='"+u6+"']").attr("selected",true);
+		$('#u_7').val(u7);
 	}
 	function page(no,cz){
 		var num1=$('#page').val();
@@ -75,6 +76,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     	<td>名字</td>
     	<td>部门</td>
     	<td>职位</td>
+    	<td>邮箱</td>
     	<td>创建时间</td>
     	<td>角色</td>
     	<td>操作</td>
@@ -86,10 +88,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<td width="">${u.UName }</td>
 		<td width="">${u.UCs }</td>
 		<td width="">${u.UJob }</td>
+		<td width="">${u.UMail }</td>
 		<td width="">${u.UStartTime }</td>
 		<td width="">${u.r.RName }</td>
 		<td width="5%" align="center">
-			<a onclick="update('${u.UNum }','${u.UPass }','${u.UName }','${u.UCs }','${u.UJob }','${u.RId }')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-edit'" title="修改"></a>
+			<a onclick="update('${u.UNum }','${u.UPass }','${u.UName }','${u.UCs }','${u.UJob }','${u.RId }','${u.UMail }')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-edit'" title="修改"></a>
 			<a href="<%=path %>/users!delete?id=${u.UNum}" onclick="return confirm('确定删除吗?')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-delete'" title="删除"></a>
 		</td>
     </tr>
@@ -212,6 +215,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				</td>
 			</tr>
 			<tr>
+				<td>邮箱</td>
+				<td>
+					<input id="u_7" name="u.UMail" type="email"/>
+				</td>
+			</tr>
+			<tr>
 				<td>角色：</td>
 				<td>
 					<select id="u_6" name="u.RId">
@@ -311,6 +320,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							</c:forEach>
 						</c:forEach>
 					</select>
+				</td>
+			</tr>
+			<tr>
+				<td>邮箱</td>
+				<td>
+					<input name="u.UMail" type="email"/>
 				</td>
 			</tr>
 			<tr>

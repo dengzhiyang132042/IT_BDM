@@ -57,7 +57,7 @@ public class TimelineAction extends MyBaseAction{
 		//得到登陆者
 		Users user=(Users) getSession().getAttribute("user");
 		//查找登陆者今天的时间轴
-		tls=ser.find("from Timeline where userNum=? and tlTime>? and tlTime<? and tlState!=?", new Object[]{user.getUNum(),timestamp1,timestamp2,"查看"});
+		tls=ser.find("from Timeline where userNum=? and tlTime>? and tlTime<?", new Object[]{user.getUNum(),timestamp1,timestamp2});
 		return result;
 	}
 	

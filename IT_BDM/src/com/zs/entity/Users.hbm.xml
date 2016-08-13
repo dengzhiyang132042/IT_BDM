@@ -22,6 +22,9 @@
         <property name="UJob" type="java.lang.String">
             <column name="u_job" />
         </property>
+        <property name="UMail" type="java.lang.String">
+            <column name="u_mail" />
+        </property>
         <property name="UStartTime" type="java.sql.Timestamp">
             <column name="u_start_time" length="19" />
         </property>

@@ -85,7 +85,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<a href="<%=path %>/manual!queryHz" target="right" class="easyui-linkbutton c1" style="width:100%;margin-top: 2px;">移动汇总表数据编辑</a>
 		<a href="<%=path %>/manual!queryDetail" target="right" class="easyui-linkbutton c1" style="width:100%;margin-top: 2px;">最终表数据编辑</a>
 	</div>
-	<div title="权限管理" data-options="iconCls:'icon-large-smartart'" style="padding:10px;">
+	<div title="系统管理" data-options="iconCls:'icon-large-smartart'" style="padding:10px;">
 		<ul id="tt" class="easyui-tree" data-options="animate:true,lines:true">
       		<li><span><a href="<%=path %>/users!queryOfFenye?cz=yes" target="right">用户管理</a></span></li>
       		<li><span><a href="<%=path %>/role!queryOfFenye?cz=yes" target="right">角色管理</a></span></li>
@@ -94,6 +94,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<div title="个人中心" data-options="iconCls:'icon-large-smartart'" style="padding:10px;">
 		<ul id="tt" class="easyui-tree" data-options="animate:true,lines:true">
        		<li><span><a href="<%=path %>/timeline!query" target="right">时间轴</a></span></li>
+       		<li><span><a href="<%=path %>/information!query" target="right">提醒</a></span></li>
         </ul>
 	</div>
 </div>

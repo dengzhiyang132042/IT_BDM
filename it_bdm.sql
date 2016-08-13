@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50617
 File Encoding         : 65001
 
-Date: 2016-08-10 18:44:19
+Date: 2016-08-13 16:09:50
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -230,7 +230,6 @@ CREATE TABLE `fbd_asdl` (
 -- Records of fbd_asdl
 -- ----------------------------
 INSERT INTO `fbd_asdl` VALUES ('asdl021404578472704', 'fbd021005077193149', 'ADSLD6057749', 'sz00000000744686951@163.gd', '87654321', '1982.00', '2016-08-08', '续约', '站点网络', '已查');
-INSERT INTO `fbd_asdl` VALUES ('asdl101510532563090', 'fbd021002107147666', '', '', '', null, null, '', '', '');
 
 -- ----------------------------
 -- Table structure for `fbd_computer`
@@ -333,7 +332,7 @@ CREATE TABLE `goods` (
 -- ----------------------------
 -- Records of goods
 -- ----------------------------
-INSERT INTO `goods` VALUES ('g051525324657918', '工资单', '11', '封', '2016-08-05', 'cs6011724259902610', '2016-08-05', 'cs5011726484884565', '？');
+INSERT INTO `goods` VALUES ('g051525324657918', '工资单', '11', '封', '2016-08-13', 'cs6011724259902610', '2016-08-13', 'cs5011726484884565', 'adads');
 
 -- ----------------------------
 -- Table structure for `go_out`
@@ -370,7 +369,7 @@ INSERT INTO `go_out` VALUES ('go081353063587955', '2016-08-08', '1', '123', 'cs6
 -- ----------------------------
 DROP TABLE IF EXISTS `permission`;
 CREATE TABLE `permission` (
-  `p_id` varchar(255) NOT NULL DEFAULT '',
+  `p_id` int(11) NOT NULL,
   `p_name` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`p_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -382,6 +381,30 @@ INSERT INTO `permission` VALUES ('1', 'asdl查看');
 INSERT INTO `permission` VALUES ('2', 'asdl添加');
 INSERT INTO `permission` VALUES ('3', 'asdl删除');
 INSERT INTO `permission` VALUES ('4', 'asdl修改');
+INSERT INTO `permission` VALUES ('5', '分拨点监控查看');
+INSERT INTO `permission` VALUES ('6', '分拨点监控删除');
+INSERT INTO `permission` VALUES ('7', '分拨点监控修改');
+INSERT INTO `permission` VALUES ('8', '分拨点监控添加');
+INSERT INTO `permission` VALUES ('9', '分拨点电脑监控查看');
+INSERT INTO `permission` VALUES ('10', '分拨点电脑监控删除');
+INSERT INTO `permission` VALUES ('11', '分拨点电脑监控修改');
+INSERT INTO `permission` VALUES ('12', '分拨点电脑监控添加');
+INSERT INTO `permission` VALUES ('13', '分拨点监控材料清单查看');
+INSERT INTO `permission` VALUES ('14', '分拨点监控材料清单删除');
+INSERT INTO `permission` VALUES ('15', '分拨点监控材料清单修改');
+INSERT INTO `permission` VALUES ('16', '分拨点监控材料清单添加');
+INSERT INTO `permission` VALUES ('17', 'sim费用报销查看');
+INSERT INTO `permission` VALUES ('18', 'sim费用报销删除');
+INSERT INTO `permission` VALUES ('19', 'sim费用修改');
+INSERT INTO `permission` VALUES ('20', 'sim费用添加');
+INSERT INTO `permission` VALUES ('21', '内件收发查看');
+INSERT INTO `permission` VALUES ('22', '内件收发删除');
+INSERT INTO `permission` VALUES ('23', '内件收发修改');
+INSERT INTO `permission` VALUES ('24', '内件收发添加');
+INSERT INTO `permission` VALUES ('25', '外出登记查看');
+INSERT INTO `permission` VALUES ('26', '外出登记删除');
+INSERT INTO `permission` VALUES ('27', '外出登记修改');
+INSERT INTO `permission` VALUES ('28', '外出登记添加');
 
 -- ----------------------------
 -- Table structure for `role`
@@ -397,7 +420,8 @@ CREATE TABLE `role` (
 -- ----------------------------
 -- Records of role
 -- ----------------------------
-INSERT INTO `role` VALUES ('1', '测试者', '测试用，由开发者手动编写');
+INSERT INTO `role` VALUES ('r111613371752208', '开发者', '测试用，由开发者手动编写');
+INSERT INTO `role` VALUES ('r131526334505203', '硬件组', '只有硬件组相关的权限');
 
 -- ----------------------------
 -- Table structure for `role_permission`
@@ -413,7 +437,62 @@ CREATE TABLE `role_permission` (
 -- ----------------------------
 -- Records of role_permission
 -- ----------------------------
-INSERT INTO `role_permission` VALUES ('1', '1', '1');
+INSERT INTO `role_permission` VALUES ('rp111614317822988', 'r111613371752208', '1');
+INSERT INTO `role_permission` VALUES ('rp111614318097807', 'r111613371752208', '2');
+INSERT INTO `role_permission` VALUES ('rp111614318287194', 'r111613371752208', '3');
+INSERT INTO `role_permission` VALUES ('rp111614318511365', 'r111613371752208', '4');
+INSERT INTO `role_permission` VALUES ('rp111614318705880', 'r111613371752208', '5');
+INSERT INTO `role_permission` VALUES ('rp111614318926953', 'r111613371752208', '6');
+INSERT INTO `role_permission` VALUES ('rp111614319128238', 'r111613371752208', '7');
+INSERT INTO `role_permission` VALUES ('rp111614319342359', 'r111613371752208', '8');
+INSERT INTO `role_permission` VALUES ('rp111614319545039', 'r111613371752208', '9');
+INSERT INTO `role_permission` VALUES ('rp111614319755085', 'r111613371752208', '10');
+INSERT INTO `role_permission` VALUES ('rp111614319951171', 'r111613371752208', '11');
+INSERT INTO `role_permission` VALUES ('rp111614320175295', 'r111613371752208', '12');
+INSERT INTO `role_permission` VALUES ('rp111614320458678', 'r111613371752208', '13');
+INSERT INTO `role_permission` VALUES ('rp111614320675601', 'r111613371752208', '14');
+INSERT INTO `role_permission` VALUES ('rp111614320871919', 'r111613371752208', '15');
+INSERT INTO `role_permission` VALUES ('rp111614321093657', 'r111613371752208', '16');
+INSERT INTO `role_permission` VALUES ('rp111614321456836', 'r111613371752208', '17');
+INSERT INTO `role_permission` VALUES ('rp111614321676782', 'r111613371752208', '18');
+INSERT INTO `role_permission` VALUES ('rp111614322049315', 'r111613371752208', '19');
+INSERT INTO `role_permission` VALUES ('rp111614322261070', 'r111613371752208', '20');
+INSERT INTO `role_permission` VALUES ('rp111614322708932', 'r111613371752208', '21');
+INSERT INTO `role_permission` VALUES ('rp111614323122895', 'r111613371752208', '22');
+INSERT INTO `role_permission` VALUES ('rp111614323545196', 'r111613371752208', '23');
+INSERT INTO `role_permission` VALUES ('rp111614323959400', 'r111613371752208', '24');
+INSERT INTO `role_permission` VALUES ('rp111614324376945', 'r111613371752208', '25');
+INSERT INTO `role_permission` VALUES ('rp111614324593742', 'r111613371752208', '26');
+INSERT INTO `role_permission` VALUES ('rp111614324959300', 'r111613371752208', '27');
+INSERT INTO `role_permission` VALUES ('rp111614325172919', 'r111613371752208', '28');
+INSERT INTO `role_permission` VALUES ('rp131526334567954', 'r131526334505203', '1');
+INSERT INTO `role_permission` VALUES ('rp131526335511630', 'r131526334505203', '2');
+INSERT INTO `role_permission` VALUES ('rp131526335731055', 'r131526334505203', '3');
+INSERT INTO `role_permission` VALUES ('rp131526335926188', 'r131526334505203', '4');
+INSERT INTO `role_permission` VALUES ('rp131526336154992', 'r131526334505203', '5');
+INSERT INTO `role_permission` VALUES ('rp131526336819715', 'r131526334505203', '6');
+INSERT INTO `role_permission` VALUES ('rp131526337177172', 'r131526334505203', '7');
+INSERT INTO `role_permission` VALUES ('rp131526337903101', 'r131526334505203', '8');
+INSERT INTO `role_permission` VALUES ('rp131526338331922', 'r131526334505203', '9');
+INSERT INTO `role_permission` VALUES ('rp131526338604177', 'r131526334505203', '10');
+INSERT INTO `role_permission` VALUES ('rp131526338845645', 'r131526334505203', '11');
+INSERT INTO `role_permission` VALUES ('rp131526339026905', 'r131526334505203', '12');
+INSERT INTO `role_permission` VALUES ('rp131526339248599', 'r131526334505203', '13');
+INSERT INTO `role_permission` VALUES ('rp131526339444429', 'r131526334505203', '14');
+INSERT INTO `role_permission` VALUES ('rp131526339668885', 'r131526334505203', '15');
+INSERT INTO `role_permission` VALUES ('rp131526339851539', 'r131526334505203', '16');
+INSERT INTO `role_permission` VALUES ('rp131526340163883', 'r131526334505203', '17');
+INSERT INTO `role_permission` VALUES ('rp131526340676628', 'r131526334505203', '18');
+INSERT INTO `role_permission` VALUES ('rp131526340935334', 'r131526334505203', '19');
+INSERT INTO `role_permission` VALUES ('rp131526341162480', 'r131526334505203', '20');
+INSERT INTO `role_permission` VALUES ('rp131526341353342', 'r131526334505203', '21');
+INSERT INTO `role_permission` VALUES ('rp131526341601417', 'r131526334505203', '22');
+INSERT INTO `role_permission` VALUES ('rp131526341858869', 'r131526334505203', '23');
+INSERT INTO `role_permission` VALUES ('rp131526342087747', 'r131526334505203', '24');
+INSERT INTO `role_permission` VALUES ('rp131526342276801', 'r131526334505203', '25');
+INSERT INTO `role_permission` VALUES ('rp131526342494731', 'r131526334505203', '26');
+INSERT INTO `role_permission` VALUES ('rp131526342872338', 'r131526334505203', '27');
+INSERT INTO `role_permission` VALUES ('rp131526343287795', 'r131526334505203', '28');
 
 -- ----------------------------
 -- Table structure for `section_fenbodian`
@@ -514,12 +593,119 @@ CREATE TABLE `timeline` (
 -- ----------------------------
 -- Records of timeline
 -- ----------------------------
-INSERT INTO `timeline` VALUES ('tl101509431357182', 'yd-7111', '2016-08-10 15:09:43', '查看', 'FbdAsdl', null);
-INSERT INTO `timeline` VALUES ('tl101509584837849', 'yd-7111', '2016-08-10 15:09:58', '查看', 'FbdAsdl', null);
-INSERT INTO `timeline` VALUES ('tl101510015647185', 'yd-7111', '2016-08-10 15:10:01', '删除', 'FbdAsdl', 'asdl101509571691921');
-INSERT INTO `timeline` VALUES ('tl101510030306963', 'yd-7111', '2016-08-10 15:10:03', '查看', 'FbdAsdl', null);
-INSERT INTO `timeline` VALUES ('tl101510508578056', 'yd-7111', '2016-08-10 15:10:50', '查看', 'FbdAsdl', null);
-INSERT INTO `timeline` VALUES ('tl101510551945759', 'yd-7111', '2016-08-10 15:10:55', '查看', 'FbdAsdl', null);
+INSERT INTO `timeline` VALUES ('tl111713459525418', 'yd-7111', '2016-08-11 17:13:45', '查看', 'GoOut', null);
+INSERT INTO `timeline` VALUES ('tl111713480972069', 'yd-7111', '2016-08-11 17:13:48', '删除', 'GoOut', 'go111713135894366');
+INSERT INTO `timeline` VALUES ('tl111713493859779', 'yd-7111', '2016-08-11 17:13:49', '查看', 'GoOut', null);
+INSERT INTO `timeline` VALUES ('tl111713512324694', 'yd-7111', '2016-08-11 17:13:51', '删除', 'GoOut', 'go111704165454605');
+INSERT INTO `timeline` VALUES ('tl111713520508413', 'yd-7111', '2016-08-11 17:13:52', '查看', 'GoOut', null);
+INSERT INTO `timeline` VALUES ('tl111713539896194', 'yd-7111', '2016-08-11 17:13:53', '删除', 'GoOut', 'go111701023478381');
+INSERT INTO `timeline` VALUES ('tl111713546982512', 'yd-7111', '2016-08-11 17:13:54', '查看', 'GoOut', null);
+INSERT INTO `timeline` VALUES ('tl111713554283727', 'yd-7111', '2016-08-11 17:13:55', '查看', 'Goods', null);
+INSERT INTO `timeline` VALUES ('tl111713573816178', 'yd-7111', '2016-08-11 17:13:57', '删除', 'Goods', 'g111704417471122');
+INSERT INTO `timeline` VALUES ('tl111713595244715', 'yd-7111', '2016-08-11 17:13:59', '查看', 'FbdListLink', null);
+INSERT INTO `timeline` VALUES ('tl111713598535970', 'yd-7111', '2016-08-11 17:13:59', '查看', 'FbdListLink', null);
+INSERT INTO `timeline` VALUES ('tl111714011841090', 'yd-7111', '2016-08-11 17:14:01', '查看', 'FbdListLink', null);
+INSERT INTO `timeline` VALUES ('tl111714040498910', 'yd-7111', '2016-08-11 17:14:04', '删除', 'FbdListLink', 'll111704587952641');
+INSERT INTO `timeline` VALUES ('tl111714050482836', 'yd-7111', '2016-08-11 17:14:05', '查看', 'FbdComputer', null);
+INSERT INTO `timeline` VALUES ('tl111714067085429', 'yd-7111', '2016-08-11 17:14:06', '查看', 'FbdMonitoring', null);
+INSERT INTO `timeline` VALUES ('tl111714074304298', 'yd-7111', '2016-08-11 17:14:07', '查看', 'FbdAsdl', null);
+INSERT INTO `timeline` VALUES ('tl111718419565657', 'yd-7111', '2016-08-11 17:18:41', '查看', 'FbdListLink', null);
+INSERT INTO `timeline` VALUES ('tl111718424091596', 'yd-7111', '2016-08-11 17:18:42', '查看', 'Goods', null);
+INSERT INTO `timeline` VALUES ('tl111718444538739', 'yd-7111', '2016-08-11 17:18:44', '查看', 'FbdAsdl', null);
+INSERT INTO `timeline` VALUES ('tl111718577743038', 'yd-7111', '2016-08-11 17:18:57', '查看', 'FbdAsdl', null);
+INSERT INTO `timeline` VALUES ('tl111738129485765', 'yd-7111', '2016-08-11 17:38:12', '查看', 'FbdAsdl', null);
+INSERT INTO `timeline` VALUES ('tl111738514136076', 'yd-7111', '2016-08-11 17:38:51', '查看', 'FbdAsdl', null);
+INSERT INTO `timeline` VALUES ('tl111739113917409', 'yd-7111', '2016-08-11 17:39:11', '查看', 'FbdAsdl', null);
+INSERT INTO `timeline` VALUES ('tl111740175796294', 'yd-7111', '2016-08-11 17:40:17', '查看', 'FbdAsdl', null);
+INSERT INTO `timeline` VALUES ('tl111740336376081', 'yd-7111', '2016-08-11 17:40:33', '查看', 'FbdAsdl', null);
+INSERT INTO `timeline` VALUES ('tl111744303058206', 'yd-7111', '2016-08-11 17:44:30', '查看', 'FbdAsdl', null);
+INSERT INTO `timeline` VALUES ('tl111746274373291', 'yd-7111', '2016-08-11 17:46:27', '查看', 'FbdAsdl', null);
+INSERT INTO `timeline` VALUES ('tl111800109249054', 'yd-7111', '2016-08-11 18:00:10', '查看', 'FbdAsdl', null);
+INSERT INTO `timeline` VALUES ('tl111800318949782', 'yd-7111', '2016-08-11 18:00:31', '查看', 'FbdAsdl', null);
+INSERT INTO `timeline` VALUES ('tl111800357055657', 'yd-7111', '2016-08-11 18:00:35', '查看', 'FbdMonitoring', null);
+INSERT INTO `timeline` VALUES ('tl111800380769081', 'yd-7111', '2016-08-11 18:00:38', '查看', 'FbdComputer', null);
+INSERT INTO `timeline` VALUES ('tl111800391886860', 'yd-7111', '2016-08-11 18:00:39', '查看', 'FbdListLink', null);
+INSERT INTO `timeline` VALUES ('tl111800420464683', 'yd-7111', '2016-08-11 18:00:42', '查看', 'FbdComputer', null);
+INSERT INTO `timeline` VALUES ('tl111800439877883', 'yd-7111', '2016-08-11 18:00:43', '查看', 'FbdAsdl', null);
+INSERT INTO `timeline` VALUES ('tl111800513196952', 'yd-7111', '2016-08-11 18:00:51', '查看', 'FbdAsdl', null);
+INSERT INTO `timeline` VALUES ('tl111801044595249', 'yd-7111', '2016-08-11 18:01:04', '查看', 'FbdAsdl', null);
+INSERT INTO `timeline` VALUES ('tl111802145704919', 'yd-7111', '2016-08-11 18:02:14', '查看', 'FbdMonitoring', null);
+INSERT INTO `timeline` VALUES ('tl111802541349289', 'yd-7111', '2016-08-11 18:02:54', '查看', 'FbdAsdl', null);
+INSERT INTO `timeline` VALUES ('tl111804167304951', 'yd-7111', '2016-08-11 18:04:16', '查看', 'FbdAsdl', null);
+INSERT INTO `timeline` VALUES ('tl121120190753671', 'yd-7111', '2016-08-12 11:20:19', '查看', 'FbdAsdl', null);
+INSERT INTO `timeline` VALUES ('tl121120195698325', 'yd-7111', '2016-08-12 11:20:19', '查看', 'FbdAsdl', null);
+INSERT INTO `timeline` VALUES ('tl121120225776433', 'yd-7111', '2016-08-12 11:20:22', '查看', 'GoOut', null);
+INSERT INTO `timeline` VALUES ('tl121120242093223', 'yd-7111', '2016-08-12 11:20:24', '查看', 'FbdListLink', null);
+INSERT INTO `timeline` VALUES ('tl121121582595799', 'yd-7111', '2016-08-12 11:21:58', '查看', 'FbdAsdl', null);
+INSERT INTO `timeline` VALUES ('tl121136508556223', 'yd-7111', '2016-08-12 11:36:50', '查看', 'FbdAsdl', null);
+INSERT INTO `timeline` VALUES ('tl121136511379968', 'yd-7111', '2016-08-12 11:36:51', '查看', 'FbdAsdl', null);
+INSERT INTO `timeline` VALUES ('tl121137551634075', 'yd-7111', '2016-08-12 11:37:55', '查看', 'FbdComputer', null);
+INSERT INTO `timeline` VALUES ('tl121137579435449', 'yd-7111', '2016-08-12 11:37:57', '添加', 'FbdComputer', 'c121137578007608');
+INSERT INTO `timeline` VALUES ('tl121137592117084', 'yd-7111', '2016-08-12 11:37:59', '查看', 'FbdComputer', null);
+INSERT INTO `timeline` VALUES ('tl121138014147584', 'yd-7111', '2016-08-12 11:38:01', '删除', 'FbdComputer', 'c121137578007608');
+INSERT INTO `timeline` VALUES ('tl121138021373209', 'yd-7111', '2016-08-12 11:38:02', '查看', 'FbdComputer', null);
+INSERT INTO `timeline` VALUES ('tl121138184724806', 'yd-7111', '2016-08-12 11:38:18', '查看', 'FbdComputer', null);
+INSERT INTO `timeline` VALUES ('tl121356333447566', 'yd-7111', '2016-08-12 13:56:33', '查看', 'FbdAsdl', null);
+INSERT INTO `timeline` VALUES ('tl121540180436688', 'yd-7111', '2016-08-12 15:40:18', '查看', 'FbdAsdl', null);
+INSERT INTO `timeline` VALUES ('tl121541372435299', 'yd-7111', '2016-08-12 15:41:37', '查看', 'FbdAsdl', null);
+INSERT INTO `timeline` VALUES ('tl121546412697088', 'yd-7111', '2016-08-12 15:46:41', '查看', 'FbdAsdl', null);
+INSERT INTO `timeline` VALUES ('tl121546438369135', 'yd-7111', '2016-08-12 15:46:43', '查看', 'FbdListLink', null);
+INSERT INTO `timeline` VALUES ('tl121546441559434', 'yd-7111', '2016-08-12 15:46:44', '查看', 'FbdListLink', null);
+INSERT INTO `timeline` VALUES ('tl121546468298028', 'yd-7111', '2016-08-12 15:46:46', '添加', 'FbdListLink', 'sim121546465904880');
+INSERT INTO `timeline` VALUES ('tl121546481027963', 'yd-7111', '2016-08-12 15:46:48', '查看', 'FbdListLink', null);
+INSERT INTO `timeline` VALUES ('tl121546524898366', 'yd-7111', '2016-08-12 15:46:52', '修改', 'FbdListLink', 'sim121546465904880');
+INSERT INTO `timeline` VALUES ('tl121551466949026', 'yd-7111', '2016-08-12 15:51:46', '查看', 'FbdAsdl', null);
+INSERT INTO `timeline` VALUES ('tl121554453539225', 'yd-7111', '2016-08-12 15:54:45', '查看', 'FbdAsdl', null);
+INSERT INTO `timeline` VALUES ('tl121556071566718', 'yd-7111', '2016-08-12 15:56:07', '查看', 'FbdComputer', null);
+INSERT INTO `timeline` VALUES ('tl121556103236230', 'yd-7111', '2016-08-12 15:56:10', '添加', 'FbdComputer', 'c121556102828299');
+INSERT INTO `timeline` VALUES ('tl121556321042879', 'yd-7111', '2016-08-12 15:56:32', '查看', 'GoOut', null);
+INSERT INTO `timeline` VALUES ('tl121556346061259', 'yd-7111', '2016-08-12 15:56:34', '添加', 'GoOut', 'go121556345469318');
+INSERT INTO `timeline` VALUES ('tl121556473568701', 'yd-7111', '2016-08-12 15:56:47', '查看', 'FbdMonitoring', null);
+INSERT INTO `timeline` VALUES ('tl121556478561207', 'yd-7111', '2016-08-12 15:56:47', '查看', 'FbdComputer', null);
+INSERT INTO `timeline` VALUES ('tl121556503786713', 'yd-7111', '2016-08-12 15:56:50', '删除', 'FbdComputer', 'c121556102828299');
+INSERT INTO `timeline` VALUES ('tl121556529218732', 'yd-7111', '2016-08-12 15:56:52', '查看', 'FbdListLink', null);
+INSERT INTO `timeline` VALUES ('tl121556549959691', 'yd-7111', '2016-08-12 15:56:54', '查看', 'FbdAsdl', null);
+INSERT INTO `timeline` VALUES ('tl121556566724683', 'yd-7111', '2016-08-12 15:56:56', '查看', 'FbdMonitoring', null);
+INSERT INTO `timeline` VALUES ('tl121556575127874', 'yd-7111', '2016-08-12 15:56:57', '查看', 'FbdComputer', null);
+INSERT INTO `timeline` VALUES ('tl121556582504586', 'yd-7111', '2016-08-12 15:56:58', '查看', 'FbdListLink', null);
+INSERT INTO `timeline` VALUES ('tl121556589857955', 'yd-7111', '2016-08-12 15:56:58', '查看', 'FbdListLink', null);
+INSERT INTO `timeline` VALUES ('tl121557002815640', 'yd-7111', '2016-08-12 15:57:00', '查看', 'Goods', null);
+INSERT INTO `timeline` VALUES ('tl121557005492134', 'yd-7111', '2016-08-12 15:57:00', '查看', 'FbdListLink', null);
+INSERT INTO `timeline` VALUES ('tl121557042169545', 'yd-7111', '2016-08-12 15:57:04', '删除', 'FbdListLink', 'sim121546465904880');
+INSERT INTO `timeline` VALUES ('tl121557057791552', 'yd-7111', '2016-08-12 15:57:05', '查看', 'Goods', null);
+INSERT INTO `timeline` VALUES ('tl121557071314803', 'yd-7111', '2016-08-12 15:57:07', '查看', 'GoOut', null);
+INSERT INTO `timeline` VALUES ('tl121557095128864', 'yd-7111', '2016-08-12 15:57:09', '删除', 'GoOut', 'go121556345469318');
+INSERT INTO `timeline` VALUES ('tl121613585685195', 'yd-7111', '2016-08-12 16:13:58', '查看', 'FbdAsdl', null);
+INSERT INTO `timeline` VALUES ('tl121628260414439', 'yd-7111', '2016-08-12 16:28:26', '查看', 'FbdAsdl', null);
+INSERT INTO `timeline` VALUES ('tl121722592586867', 'yd-7111', '2016-08-12 17:22:59', '查看', 'FbdAsdl', null);
+INSERT INTO `timeline` VALUES ('tl121723016606978', 'yd-7111', '2016-08-12 17:23:01', '查看', 'FbdListLink', null);
+INSERT INTO `timeline` VALUES ('tl121723045919364', 'yd-7111', '2016-08-12 17:23:04', '添加', 'FbdListLink', 'll121723044773809');
+INSERT INTO `timeline` VALUES ('tl121723075472580', 'yd-7111', '2016-08-12 17:23:07', '查看', 'FbdListLink', null);
+INSERT INTO `timeline` VALUES ('tl121723133069088', 'yd-7111', '2016-08-12 17:23:13', '删除', 'FbdListLink', 'll121723044773809');
+INSERT INTO `timeline` VALUES ('tl121723146344439', 'yd-7111', '2016-08-12 17:23:14', '查看', 'FbdListLink', null);
+INSERT INTO `timeline` VALUES ('tl121723164413484', 'yd-7111', '2016-08-12 17:23:16', '查看', 'FbdAsdl', null);
+INSERT INTO `timeline` VALUES ('tl121723186415251', 'yd-7111', '2016-08-12 17:23:18', '查看', 'FbdMonitoring', null);
+INSERT INTO `timeline` VALUES ('tl121723197652408', 'yd-7111', '2016-08-12 17:23:19', '查看', 'FbdComputer', null);
+INSERT INTO `timeline` VALUES ('tl121723209811548', 'yd-7111', '2016-08-12 17:23:20', '查看', 'FbdAsdl', null);
+INSERT INTO `timeline` VALUES ('tl121723219144231', 'yd-7111', '2016-08-12 17:23:21', '查看', 'GoOut', null);
+INSERT INTO `timeline` VALUES ('tl121723254796336', 'yd-7111', '2016-08-12 17:23:25', '查看', 'GoOut', null);
+INSERT INTO `timeline` VALUES ('tl121724178496790', 'yd-7111', '2016-08-12 17:24:17', '查看', 'FbdAsdl', null);
+INSERT INTO `timeline` VALUES ('tl121724276066018', 'yd-7111', '2016-08-12 17:24:27', '查看', 'FbdAsdl', null);
+INSERT INTO `timeline` VALUES ('tl121724588222097', 'yd-7111', '2016-08-12 17:24:58', '查看', 'FbdAsdl', null);
+INSERT INTO `timeline` VALUES ('tl131402574396028', 'yd-7111', '2016-08-13 14:02:57', '查看', 'FbdAsdl', null);
+INSERT INTO `timeline` VALUES ('tl131402574398045', 'yd-7111', '2016-08-13 14:02:57', '查看', 'FbdAsdl', null);
+INSERT INTO `timeline` VALUES ('tl131402587243983', 'yd-7111', '2016-08-13 14:02:58', '查看', 'FbdMonitoring', null);
+INSERT INTO `timeline` VALUES ('tl131403041772829', 'yd-7111', '2016-08-13 14:03:04', '查看', 'FbdAsdl', null);
+INSERT INTO `timeline` VALUES ('tl131425465913522', 'yd-7111', '2016-08-13 14:25:46', '查看', 'FbdAsdl', null);
+INSERT INTO `timeline` VALUES ('tl131516165288592', 'yd-7111', '2016-08-13 15:16:16', '查看', 'FbdAsdl', null);
+INSERT INTO `timeline` VALUES ('tl131516194564281', 'yd-7111', '2016-08-13 15:16:19', '查看', 'FbdListLink', null);
+INSERT INTO `timeline` VALUES ('tl131516203145372', 'yd-7111', '2016-08-13 15:16:20', '查看', 'FbdListLink', null);
+INSERT INTO `timeline` VALUES ('tl131516228268908', 'yd-7111', '2016-08-13 15:16:22', '查看', 'Goods', null);
+INSERT INTO `timeline` VALUES ('tl131516236797400', 'yd-7111', '2016-08-13 15:16:23', '查看', 'GoOut', null);
+INSERT INTO `timeline` VALUES ('tl131516246824026', 'yd-7111', '2016-08-13 15:16:24', '查看', 'Goods', null);
+INSERT INTO `timeline` VALUES ('tl131516296999131', 'yd-7111', '2016-08-13 15:16:29', '修改', 'Goods', 'g051525324657918');
+INSERT INTO `timeline` VALUES ('tl131516315511377', 'yd-7111', '2016-08-13 15:16:31', '查看', 'Goods', null);
+INSERT INTO `timeline` VALUES ('tl131516403281306', 'yd-7111', '2016-08-13 15:16:40', '修改', 'Goods', 'g051525324657918');
 
 -- ----------------------------
 -- Table structure for `users`
@@ -533,13 +719,14 @@ CREATE TABLE `users` (
   `u_job` varchar(255) DEFAULT NULL,
   `u_start_time` datetime DEFAULT NULL,
   `r_id` varchar(255) DEFAULT NULL,
+  `u_mail` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`u_num`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of users
 -- ----------------------------
-INSERT INTO `users` VALUES ('yd-7111', '123456', '张顺', '信息与流程管理部', '开发专员', '2016-08-10 14:45:00', '1');
+INSERT INTO `users` VALUES ('yd-7111', '123456', '张顺', '信息与流程管理部', '开发专员', '2016-08-10 14:45:00', 'r131526334505203', 'shun_zhang@szexpress.com.cn');
 
 -- ----------------------------
 -- Table structure for `xt_branches`

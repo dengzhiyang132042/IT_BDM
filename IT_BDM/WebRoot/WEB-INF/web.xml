@@ -28,5 +28,9 @@
     <param-value>/WEB-INF/classes/applicationContext.xml</param-value>
   </context-param>
   
+  <!-- *******定时器监听****** -->
+  <listener>  
+    <listener-class>com.zs.listener.InforListener</listener-class>  
+  </listener>  
   
   </web-app>

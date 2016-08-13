@@ -17,9 +17,16 @@ public class Users implements java.io.Serializable {
 	private String UJob;
 	private Timestamp UStartTime;
 	private String RId;
-
+	private String UMail;
+	
 	private Role r;
 	
+	public String getUMail() {
+		return UMail;
+	}
+	public void setUMail(String uMail) {
+		UMail = uMail;
+	}
 	// Constructors
 	public Role getR() {
 		return r;
@@ -36,7 +43,7 @@ public class Users implements java.io.Serializable {
 	}
 	/** full constructor */
 	public Users(String UNum, String UPass, String UName, String UCs,
-			String UJob, Timestamp UStartTime, String RId) {
+			String UJob, Timestamp UStartTime, String RId,String UMail) {
 		this.UNum = UNum;
 		this.UPass = UPass;
 		this.UName = UName;
@@ -44,6 +51,7 @@ public class Users implements java.io.Serializable {
 		this.UJob = UJob;
 		this.UStartTime = UStartTime;
 		this.RId = RId;
+		this.UMail=UMail;
 	}
 
 	// Property accessors

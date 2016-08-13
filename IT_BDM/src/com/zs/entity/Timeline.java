@@ -17,7 +17,17 @@ public class Timeline implements java.io.Serializable {
 	private String tlTableName;
 	private String tlTableId;
 
+	private String tlTableName2;//新加的中文表名
+	
 	// Constructors
+
+	public String getTlTableName2() {
+		return tlTableName2;
+	}
+
+	public void setTlTableName2(String tlTableName2) {
+		this.tlTableName2 = tlTableName2;
+	}
 
 	/** default constructor */
 	public Timeline() {

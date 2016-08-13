@@ -2,7 +2,10 @@ package com.zs.service;
 
 import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -19,6 +22,7 @@ import com.zs.entity.FbdComputer;
 import com.zs.entity.SectionFenbodian;
 import com.zs.entity.SectionFenbu;
 import com.zs.entity.SectionQubu;
+import com.zs.entity.Timeline;
 import com.zs.tools.Page;
 
 public class BaseService implements IService{
@@ -193,5 +197,106 @@ public class BaseService implements IService{
 		return name;
 	}
 
+	/*2016年8月13日15:02:49
+	 * 张顺
+	 * 转换   时间轴、提醒专用
+	 * */
+	public List<Map> transtion(List<Timeline> list) {
+		List<Map> tlData=new ArrayList<Map>();
+		
+		Map map1=new HashMap();
+		List<Timeline> l1=new ArrayList<Timeline>();
+		map1.put("name", "分拨点ASDL登记");
+		map1.put("list", l1);
+		tlData.add(map1);
+		
+		Map map2=new HashMap();
+		List<Timeline> l2=new ArrayList<Timeline>();
+		map2.put("name", "分拨点电脑登记");
+		map2.put("list", l2);
+		tlData.add(map2);
+		
+		Map map3=new HashMap();
+		List<Timeline> l3=new ArrayList<Timeline>();
+		map3.put("name", "分拨点监控登记");
+		map3.put("list", l3);
+		tlData.add(map3);
+		
+		Map map4=new HashMap();
+		List<Timeline> l4=new ArrayList<Timeline>();
+		map4.put("name", "分拨点监控材料申请清单登记");
+		map4.put("list", l4);
+		tlData.add(map4);
+		
+		Map map5=new HashMap();
+		List<Timeline> l5=new ArrayList<Timeline>();
+		map5.put("name", "SIM费用报销登记");
+		map5.put("list", l5);
+		tlData.add(map5);
+		
+		Map map6=new HashMap();
+		List<Timeline> l6=new ArrayList<Timeline>();
+		map6.put("name", "内件收发登记");
+		map6.put("list", l6);
+		tlData.add(map6);
+		
+		Map map7=new HashMap();
+		List<Timeline> l7=new ArrayList<Timeline>();
+		map7.put("name", "硬件组外出登记");
+		map7.put("list", l7);
+		tlData.add(map7);
+		
+		for (int i = 0; i < list.size(); i++) {
+			Timeline timeline=list.get(i);
+			String tableName=timeline.getTlTableName();
+			timeline.setTlTableName2(transtion(timeline.getTlTableName()));
+			if (tableName!=null) {
+				if ("FbdAsdl".equals(tableName)) {
+					l1.add(timeline);
+				}else if ("FbdComputer".equals(tableName)) {
+					l2.add(timeline);
+				}else if ("FbdMonitoring".equals(tableName)) {
+					l3.add(timeline);
+				}else if ("FbdListLink".equals(tableName)) {
+					l4.add(timeline);
+				}else if ("Sim".equals(tableName)) {
+					l5.add(timeline);
+				}else if ("Goods".equals(tableName)) {
+					l6.add(timeline);
+				}else if ("GoOut".equals(tableName)) {
+					l7.add(timeline);
+				}
+			}
+		}
+		return tlData;
+	}
 	
+	/*2016年8月12日14:17:37
+	 * 张顺
+	 * 数据库表名转成实际名称
+	 * */
+	private String transtion(String tableName) {
+		// TODO Auto-generated method stub
+		if (tableName!=null) {
+			if ("FbdAsdl".equals(tableName)) {
+				return "分拨点ASDL登记";
+			}else if ("FbdComputer".equals(tableName)) {
+				return "分拨点电脑登记";
+			}else if ("FbdMonitoring".equals(tableName)) {
+				return "分拨点监控登记";
+			}else if ("FbdListLink".equals(tableName)) {
+				return "分拨点监控材料申请清单登记";
+			}else if ("Sim".equals(tableName)) {
+				return "SIM费用报销登记";
+			}else if ("Goods".equals(tableName)) {
+				return "内件收发登记";
+			}else if ("GoOut".equals(tableName)) {
+				return "硬件组外出登记";
+			}else {
+				return null;
+			}
+		}else {
+			return null;
+		}
+	}
 }

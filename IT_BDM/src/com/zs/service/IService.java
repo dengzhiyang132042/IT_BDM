@@ -3,9 +3,11 @@ package com.zs.service;
 import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.zs.entity.Timeline;
 import com.zs.tools.Page;
 
 public interface IService {
@@ -37,4 +39,6 @@ public interface IService {
 	//通过id找到一个具体部门名称
 	public String idToName(String id);
 		
+	// 转换   时间轴、提醒专用
+	public List<Map> transtion(List<Timeline> list) ;
 }
