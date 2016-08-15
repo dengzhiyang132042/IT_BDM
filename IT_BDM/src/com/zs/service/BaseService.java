@@ -10,6 +10,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 
 import com.zs.dao.IBaseDaoOfSpring;
+import com.zs.entity.CompanySection;
 import com.zs.entity.CompanySection1;
 import com.zs.entity.CompanySection2;
 import com.zs.entity.CompanySection3;
@@ -52,6 +53,21 @@ public class BaseService implements IService{
 	}
 	public void update(Object obj) {
 		dao.update(obj);
+	}
+	
+	
+	/*2016年8月15日15:02:13
+	 * 张顺
+	 * 递归算法设计——封装cs
+	 * 新版取公司结构
+	 * */
+	public List<CompanySection> initCs(CompanySection cs) {
+		List<CompanySection> css1=dao.find("from CompanySection where csLast=?", new Object[]{cs.getCsId()});
+		for (int i = 0; i < css1.size(); i++) {
+			css1.get(i).setNexts(initCs(css1.get(i)));
+			css1.get(i).setLast(cs);
+		}
+		return css1;
 	}
 	
 	/*2016年7月30日14:08:24

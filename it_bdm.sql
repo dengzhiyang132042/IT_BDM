@@ -10,10 +10,38 @@ Target Server Type    : MYSQL
 Target Server Version : 50617
 File Encoding         : 65001
 
-Date: 2016-08-13 16:09:50
+Date: 2016-08-15 18:23:35
 */
 
 SET FOREIGN_KEY_CHECKS=0;
+
+-- ----------------------------
+-- Table structure for `company_section`
+-- ----------------------------
+DROP TABLE IF EXISTS `company_section`;
+CREATE TABLE `company_section` (
+  `cs_id` varchar(255) NOT NULL,
+  `cs_name` varchar(255) DEFAULT NULL,
+  `cs_master` varchar(255) DEFAULT NULL,
+  `cs_number` varchar(255) DEFAULT NULL,
+  `cs_position` varchar(255) DEFAULT NULL,
+  `cs_phone_p` varchar(255) DEFAULT NULL,
+  `cs_phone_c` varchar(255) DEFAULT NULL,
+  `cs_phone_s` varchar(255) DEFAULT NULL,
+  `cs_note` varchar(255) DEFAULT NULL,
+  `cs_last` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`cs_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of company_section
+-- ----------------------------
+INSERT INTO `company_section` VALUES ('1', '1', '1', '1', '1', '1', '1', '1', '1', '0');
+INSERT INTO `company_section` VALUES ('2', '2', '2', null, null, null, null, null, null, '1');
+INSERT INTO `company_section` VALUES ('3', null, null, null, null, null, null, null, null, '2');
+INSERT INTO `company_section` VALUES ('4', null, null, null, null, null, null, null, null, '1');
+INSERT INTO `company_section` VALUES ('5', null, null, null, null, null, null, null, null, '1');
+INSERT INTO `company_section` VALUES ('6', null, null, null, null, null, null, null, null, '3');
 
 -- ----------------------------
 -- Table structure for `company_section_1`
@@ -281,6 +309,8 @@ CREATE TABLE `fbd_list_link` (
 -- Records of fbd_list_link
 -- ----------------------------
 INSERT INTO `fbd_list_link` VALUES ('ll041359346729080', 'fbd021005077193149', 'cs6041346377133578', '2016-08-04', '2016-08-04', '12', '12', '12', '12', 'http://www.baidu.com', '112', '12');
+INSERT INTO `fbd_list_link` VALUES ('ll150944498043717', 'fbd021002107147666', 'cs1011701386104462', null, null, '', null, '', '', '', '', '');
+INSERT INTO `fbd_list_link` VALUES ('ll150944529121605', 'fbd021002107147666', 'cs1011701386104462', null, null, '', null, '', '', '', '', '');
 
 -- ----------------------------
 -- Table structure for `fbd_monitoring`
@@ -706,6 +736,68 @@ INSERT INTO `timeline` VALUES ('tl131516246824026', 'yd-7111', '2016-08-13 15:16
 INSERT INTO `timeline` VALUES ('tl131516296999131', 'yd-7111', '2016-08-13 15:16:29', '修改', 'Goods', 'g051525324657918');
 INSERT INTO `timeline` VALUES ('tl131516315511377', 'yd-7111', '2016-08-13 15:16:31', '查看', 'Goods', null);
 INSERT INTO `timeline` VALUES ('tl131516403281306', 'yd-7111', '2016-08-13 15:16:40', '修改', 'Goods', 'g051525324657918');
+INSERT INTO `timeline` VALUES ('tl131725157609710', 'yd-7111', '2016-08-13 17:25:15', '查看', 'FbdAsdl', null);
+INSERT INTO `timeline` VALUES ('tl131725168596750', 'yd-7111', '2016-08-13 17:25:16', '查看', 'FbdAsdl', null);
+INSERT INTO `timeline` VALUES ('tl150931129288411', 'yd-7111', '2016-08-15 09:31:12', '查看', 'FbdAsdl', null);
+INSERT INTO `timeline` VALUES ('tl150932123893501', 'yd-7111', '2016-08-15 09:32:12', '查看', 'FbdAsdl', null);
+INSERT INTO `timeline` VALUES ('tl150932300685758', 'yd-7111', '2016-08-15 09:32:30', '查看', 'FbdAsdl', null);
+INSERT INTO `timeline` VALUES ('tl150936139452012', 'yd-7111', '2016-08-15 09:36:13', '查看', 'FbdAsdl', null);
+INSERT INTO `timeline` VALUES ('tl150936515366370', 'yd-7111', '2016-08-15 09:36:51', '查看', 'FbdAsdl', null);
+INSERT INTO `timeline` VALUES ('tl150937138331171', 'yd-7111', '2016-08-15 09:37:13', '查看', 'FbdAsdl', null);
+INSERT INTO `timeline` VALUES ('tl150937205502468', 'yd-7111', '2016-08-15 09:37:20', '查看', 'FbdAsdl', null);
+INSERT INTO `timeline` VALUES ('tl150937260495910', 'yd-7111', '2016-08-15 09:37:26', '查看', 'FbdAsdl', null);
+INSERT INTO `timeline` VALUES ('tl150937292859007', 'yd-7111', '2016-08-15 09:37:29', '查看', 'FbdComputer', null);
+INSERT INTO `timeline` VALUES ('tl150937303873689', 'yd-7111', '2016-08-15 09:37:30', '查看', 'FbdMonitoring', null);
+INSERT INTO `timeline` VALUES ('tl150937309278183', 'yd-7111', '2016-08-15 09:37:30', '查看', 'FbdAsdl', null);
+INSERT INTO `timeline` VALUES ('tl150937394017509', 'yd-7111', '2016-08-15 09:37:39', '查看', 'FbdAsdl', null);
+INSERT INTO `timeline` VALUES ('tl150937490004762', 'yd-7111', '2016-08-15 09:37:49', '查看', 'FbdAsdl', null);
+INSERT INTO `timeline` VALUES ('tl150938173403063', 'yd-7111', '2016-08-15 09:38:17', '查看', 'FbdAsdl', null);
+INSERT INTO `timeline` VALUES ('tl150938410423086', 'yd-7111', '2016-08-15 09:38:41', '查看', 'FbdAsdl', null);
+INSERT INTO `timeline` VALUES ('tl150939095737202', 'yd-7111', '2016-08-15 09:39:09', '查看', 'FbdAsdl', null);
+INSERT INTO `timeline` VALUES ('tl150939379374554', 'yd-7111', '2016-08-15 09:39:37', '查看', 'FbdMonitoring', null);
+INSERT INTO `timeline` VALUES ('tl150939382878547', 'yd-7111', '2016-08-15 09:39:38', '查看', 'FbdMonitoring', null);
+INSERT INTO `timeline` VALUES ('tl150939448149975', 'yd-7111', '2016-08-15 09:39:44', '查看', 'FbdAsdl', null);
+INSERT INTO `timeline` VALUES ('tl150941009283247', 'yd-7111', '2016-08-15 09:41:00', '查看', 'FbdAsdl', null);
+INSERT INTO `timeline` VALUES ('tl150941282732429', 'yd-7111', '2016-08-15 09:41:28', '查看', 'FbdAsdl', null);
+INSERT INTO `timeline` VALUES ('tl150941479873539', 'yd-7111', '2016-08-15 09:41:47', '查看', 'FbdAsdl', null);
+INSERT INTO `timeline` VALUES ('tl150942134596799', 'yd-7111', '2016-08-15 09:42:13', '查看', 'FbdAsdl', null);
+INSERT INTO `timeline` VALUES ('tl150942465455846', 'yd-7111', '2016-08-15 09:42:46', '查看', 'FbdAsdl', null);
+INSERT INTO `timeline` VALUES ('tl150942507444668', 'yd-7111', '2016-08-15 09:42:50', '查看', 'FbdMonitoring', null);
+INSERT INTO `timeline` VALUES ('tl150943004386640', 'yd-7111', '2016-08-15 09:43:00', '查看', 'FbdAsdl', null);
+INSERT INTO `timeline` VALUES ('tl150943255252688', 'yd-7111', '2016-08-15 09:43:25', '查看', 'FbdMonitoring', null);
+INSERT INTO `timeline` VALUES ('tl150943379935692', 'yd-7111', '2016-08-15 09:43:37', '查看', 'FbdAsdl', null);
+INSERT INTO `timeline` VALUES ('tl150943428855443', 'yd-7111', '2016-08-15 09:43:42', '查看', 'FbdMonitoring', null);
+INSERT INTO `timeline` VALUES ('tl150943451231649', 'yd-7111', '2016-08-15 09:43:45', '查看', 'FbdAsdl', null);
+INSERT INTO `timeline` VALUES ('tl150943474167259', 'yd-7111', '2016-08-15 09:43:47', '查看', 'FbdMonitoring', null);
+INSERT INTO `timeline` VALUES ('tl150943522136114', 'yd-7111', '2016-08-15 09:43:52', '查看', 'FbdAsdl', null);
+INSERT INTO `timeline` VALUES ('tl150943536265864', 'yd-7111', '2016-08-15 09:43:53', '查看', 'FbdMonitoring', null);
+INSERT INTO `timeline` VALUES ('tl150944166271629', 'yd-7111', '2016-08-15 09:44:16', '查看', 'FbdMonitoring', null);
+INSERT INTO `timeline` VALUES ('tl150944210539555', 'yd-7111', '2016-08-15 09:44:21', '查看', 'FbdAsdl', null);
+INSERT INTO `timeline` VALUES ('tl150944369661727', 'yd-7111', '2016-08-15 09:44:36', '查看', 'FbdAsdl', null);
+INSERT INTO `timeline` VALUES ('tl150944453739808', 'yd-7111', '2016-08-15 09:44:45', '查看', 'FbdMonitoring', null);
+INSERT INTO `timeline` VALUES ('tl150944462042565', 'yd-7111', '2016-08-15 09:44:46', '查看', 'FbdComputer', null);
+INSERT INTO `timeline` VALUES ('tl150944475891716', 'yd-7111', '2016-08-15 09:44:47', '查看', 'FbdListLink', null);
+INSERT INTO `timeline` VALUES ('tl150944498485206', 'yd-7111', '2016-08-15 09:44:49', '添加', 'FbdListLink', 'll150944498043717');
+INSERT INTO `timeline` VALUES ('tl150944506706536', 'yd-7111', '2016-08-15 09:44:50', '查看', 'FbdListLink', null);
+INSERT INTO `timeline` VALUES ('tl150944529418753', 'yd-7111', '2016-08-15 09:44:52', '添加', 'FbdListLink', 'll150944529121605');
+INSERT INTO `timeline` VALUES ('tl150944540971592', 'yd-7111', '2016-08-15 09:44:54', '查看', 'FbdListLink', null);
+INSERT INTO `timeline` VALUES ('tl150944567745798', 'yd-7111', '2016-08-15 09:44:56', '查看', 'FbdListLink', null);
+INSERT INTO `timeline` VALUES ('tl150944578261948', 'yd-7111', '2016-08-15 09:44:57', '查看', 'FbdListLink', null);
+INSERT INTO `timeline` VALUES ('tl150944584353801', 'yd-7111', '2016-08-15 09:44:58', '查看', 'FbdListLink', null);
+INSERT INTO `timeline` VALUES ('tl150944592139573', 'yd-7111', '2016-08-15 09:44:59', '查看', 'FbdListLink', null);
+INSERT INTO `timeline` VALUES ('tl150945174405609', 'yd-7111', '2016-08-15 09:45:17', '查看', 'FbdAsdl', null);
+INSERT INTO `timeline` VALUES ('tl150945201388188', 'yd-7111', '2016-08-15 09:45:20', '查看', 'FbdMonitoring', null);
+INSERT INTO `timeline` VALUES ('tl150946142329029', 'yd-7111', '2016-08-15 09:46:14', '查看', 'FbdAsdl', null);
+INSERT INTO `timeline` VALUES ('tl150949050479522', 'yd-7111', '2016-08-15 09:49:05', '查看', 'FbdMonitoring', null);
+INSERT INTO `timeline` VALUES ('tl150954477676179', 'yd-7111', '2016-08-15 09:54:47', '查看', 'FbdMonitoring', null);
+INSERT INTO `timeline` VALUES ('tl150954504514203', 'yd-7111', '2016-08-15 09:54:50', '查看', 'FbdComputer', null);
+INSERT INTO `timeline` VALUES ('tl150954509051358', 'yd-7111', '2016-08-15 09:54:50', '查看', 'FbdListLink', null);
+INSERT INTO `timeline` VALUES ('tl150955174876289', 'yd-7111', '2016-08-15 09:55:17', '查看', 'FbdComputer', null);
+INSERT INTO `timeline` VALUES ('tl150958230491655', 'yd-7111', '2016-08-15 09:58:23', '查看', 'FbdMonitoring', null);
+INSERT INTO `timeline` VALUES ('tl150958249171193', 'yd-7111', '2016-08-15 09:58:24', '查看', 'FbdListLink', null);
+INSERT INTO `timeline` VALUES ('tl150958273357170', 'yd-7111', '2016-08-15 09:58:27', '查看', 'FbdListLink', null);
+INSERT INTO `timeline` VALUES ('tl150958287395875', 'yd-7111', '2016-08-15 09:58:28', '查看', 'FbdListLink', null);
+INSERT INTO `timeline` VALUES ('tl150958323439586', 'yd-7111', '2016-08-15 09:58:32', '查看', 'Goods', null);
 
 -- ----------------------------
 -- Table structure for `users`
@@ -740,10 +832,6 @@ CREATE TABLE `xt_branches` (
   `b_num_1` varchar(255) DEFAULT NULL,
   `b_name_1` varchar(255) DEFAULT NULL,
   `b_master_1` varchar(255) DEFAULT NULL,
-  `b_phone_1` varchar(255) DEFAULT NULL,
-  `b_master_2` varchar(255) DEFAULT NULL,
-  `b_card_2` varchar(255) DEFAULT NULL,
-  `b_phone_2` varchar(255) DEFAULT NULL,
   `b_num_2` varchar(255) DEFAULT NULL,
   `b_name_2` varchar(255) DEFAULT NULL,
   `b_note` varchar(255) DEFAULT NULL,
@@ -753,7 +841,7 @@ CREATE TABLE `xt_branches` (
 -- ----------------------------
 -- Records of xt_branches
 -- ----------------------------
-INSERT INTO `xt_branches` VALUES ('b091551235416676', '2016-08-09', '2016-08-09', '12', '12312423123', '按时打算方法阿萨达是', '阿萨德', '1231311123123', '爱绿茶', '1234652352345413', '12353214513', '127865434', '很优惠', '1');
+INSERT INTO `xt_branches` VALUES ('b091551235416676', '2016-08-09', '2016-08-09', '12', '12312423123', '按时打算方法阿萨达是', '阿萨德', '127865434', '很优惠', '1');
 
 -- ----------------------------
 -- Table structure for `xt_priority`
@@ -785,14 +873,12 @@ CREATE TABLE `xt_site` (
   `s_id` varchar(255) NOT NULL DEFAULT '',
   `s_num` varchar(255) DEFAULT NULL,
   `s_name` varchar(255) DEFAULT NULL,
-  `s_fbd` varchar(255) DEFAULT NULL,
   `s_start_date` date DEFAULT NULL,
   `s_maintain_date` date DEFAULT NULL,
   `s_maintain_cycle` int(11) DEFAULT NULL,
   `s_maintain_type` varchar(255) DEFAULT NULL,
   `s_maintain_man` varchar(255) DEFAULT NULL,
   `s_notice` varchar(255) DEFAULT NULL,
-  `s_handing` varchar(255) DEFAULT NULL,
   `s_note` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`s_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -800,7 +886,7 @@ CREATE TABLE `xt_site` (
 -- ----------------------------
 -- Records of xt_site
 -- ----------------------------
-INSERT INTO `xt_site` VALUES ('s091508433924168', '793327', '广东深圳公司骨头案撒爱上来的啊', '骏达分拨点', '2016-08-09', '2016-08-09', '29', '大客户', '王科', '通知网点管理部', '已OK', '');
+INSERT INTO `xt_site` VALUES ('s091508433924168', '793327', '广东深圳公司骨头案撒爱上来的啊', '2016-08-13', '2016-08-13', '29', '大客户', '王科', '通知网点管理部', '1111');
 
 -- ----------------------------
 -- Table structure for `xt_stop_site`
@@ -862,8 +948,6 @@ CREATE TABLE `xt_zm_data` (
   `d_no_package` int(11) DEFAULT NULL,
   `d_data_package` int(11) DEFAULT NULL,
   `d_data_car` int(11) DEFAULT NULL,
-  `d_anomaly_9` int(11) DEFAULT NULL,
-  `d_anomaly_18` int(11) DEFAULT NULL,
   `d_note` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`d_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -871,6 +955,7 @@ CREATE TABLE `xt_zm_data` (
 -- ----------------------------
 -- Records of xt_zm_data
 -- ----------------------------
+INSERT INTO `xt_zm_data` VALUES ('d151125481587821', null, '1', '1', '1', '11', '1', '1', '1', '1');
 
 -- ----------------------------
 -- Table structure for `xt_zm_data_unusual`
@@ -962,11 +1047,8 @@ CREATE TABLE `xt_zm_number` (
   `zm_apply_date` date DEFAULT NULL,
   `zm_apply_cs` varchar(255) DEFAULT NULL,
   `zm_apply_master` varchar(255) DEFAULT NULL,
-  `zm_apply_position` varchar(255) DEFAULT NULL,
   `zm_number` varchar(255) DEFAULT NULL,
-  `zm_pda` varchar(255) DEFAULT NULL,
   `zm_on_job` varchar(255) DEFAULT NULL,
-  `zm_service_time` varchar(255) DEFAULT NULL,
   `zm_service_master` varchar(255) DEFAULT NULL,
   `zm_service_date` date DEFAULT NULL,
   `zm_service_week` int(11) DEFAULT NULL,
@@ -977,3 +1059,4 @@ CREATE TABLE `xt_zm_number` (
 -- ----------------------------
 -- Records of xt_zm_number
 -- ----------------------------
+INSERT INTO `xt_zm_number` VALUES ('s151102171851282', '2016-08-15', '1', '1', '12', '12', '12', '2016-08-15', '1', '1');

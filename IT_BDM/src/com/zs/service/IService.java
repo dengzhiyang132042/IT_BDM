@@ -7,6 +7,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.zs.entity.CompanySection;
 import com.zs.entity.Timeline;
 import com.zs.tools.Page;
 
@@ -41,4 +42,6 @@ public interface IService {
 		
 	// 转换   时间轴、提醒专用
 	public List<Map> transtion(List<Timeline> list) ;
+	
+	public List<CompanySection> initCs(CompanySection cs);
 }

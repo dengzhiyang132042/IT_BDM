@@ -34,7 +34,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		$('#tt').show();
 	});
 	
-	function update(u1,u2,u3,u4,u5,u6,u7,u8,u9,u10,u11,u12,u13,u14){
+	function update(u1,u2,u3,u4,u5,u6,u7,u8,u9,u10){
 		$('#u').window('open');
 		$('#u_1').val(u1);
 		$('#u_2').val(u2);
@@ -46,10 +46,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		$('#u_8').val(u8);
 		$('#u_9').val(u9);
 		$('#u_10').val(u10);
-		$('#u_11').val(u11);
-		$('#u_12').val(u12);
-		$('#u_13').val(u13);
-		$('#u_14').val(u14);
 	}
 	function page(no,cz){
 		var num1=$('#page').val();
@@ -85,10 +81,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     	<td>一级网点条码</td>
     	<td>一级网点名称</td>
     	<td>一级网点负责人姓名</td>
-    	<td>一级网点负责人电话</td>
-    	<td>二级网点负责人姓名</td>
-    	<td>身份证</td>
-    	<td>联系电话</td>
     	<td>二级网点条码</td>
     	<td>二级网点名称</td>
     	<td>备注</td>
@@ -103,15 +95,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<td width="">${b.BNum1 }</td>
 		<td width="">${b.BName1 }</td>
 		<td width="">${b.BMaster1 }</td>
-		<td width="">${b.BPhone1 }</td>
-		<td width="">${b.BMaster2 }</td>
-		<td width="">${b.BCard2 }</td>
-		<td width="">${b.BPhone2 }</td>
 		<td width="">${b.BNum2 }</td>
 		<td width="">${b.BName2 }</td>
 		<td width="">${b.BNote }</td>
 		<td width="5%" align="center">
-			<a onclick="update('${b.BId }','${b.BDate }','${b.BMaintainDate }','${b.BMaintainWeek }','${b.BNum1 }','${b.BName1 }','${b.BMaster1 }','${b.BPhone1 }','${b.BMaster2 }','${b.BCard2 }','${b.BPhone2 }','${b.BNum2 }','${b.BName2 }','${b.BNote }')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-edit'" title="修改"></a>
+			<a onclick="update('${b.BId }','${b.BDate }','${b.BMaintainDate }','${b.BMaintainWeek }','${b.BNum1 }','${b.BName1 }','${b.BMaster1 }','${b.BNum2 }','${b.BName2 }','${b.BNote }')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-edit'" title="修改"></a>
 			<a href="<%=path %>/branches!delete?id=${b.BId}" onclick="return confirm('确定删除吗?')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-delete'" title="删除"></a>
 		</td>
     </tr>
@@ -196,45 +184,21 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				</td>
 			</tr>
 			<tr>
-				<td>一级网点负责人电话：</td>
-				<td>
-					<input id="u_8" name="b.BPhone1" type="text" style="width: 100%;"/>
-				</td>
-			</tr>
-			<tr>
-				<td>二级网点负责人姓名：</td>
-				<td>
-					<input id="u_9" name="b.BMaster2" type="text" style="width: 100%;"/>
-				</td>
-			</tr>
-			<tr>
-				<td>身份证：</td>
-				<td>
-					<input id="u_10" name="b.BCard2" type="text" style="width: 100%;"/>
-				</td>
-			</tr>
-			<tr>
-				<td>联系电话：</td>
-				<td>
-					<input id="u_11" name="b.BPhone2" type="text" style="width: 100%;"/>
-				</td>
-			</tr>
-			<tr>
 				<td>二级网点条码：</td>
 				<td>
-					<input id="u_12" name="b.BNum2" type="text" style="width: 100%;"/>
+					<input id="u_8" name="b.BNum2" type="text" style="width: 100%;"/>
 				</td>
 			</tr>
 			<tr>
 				<td>二级网点名称：</td>
 				<td>
-					<input id="u_13" name="b.BName2" type="text" style="width: 100%;"/>
+					<input id="u_9" name="b.BName2" type="text" style="width: 100%;"/>
 				</td>
 			</tr>
 			<tr>
 				<td>备注：</td>
 				<td>
-					<input id="u_14" name="b.BNote" type="text" style="width: 100%;"/>
+					<input id="u_10" name="b.BNote" type="text" style="width: 100%;"/>
 				</td>
 			</tr>
 			<tr>
@@ -283,30 +247,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<td>一级网点负责人姓名：</td>
 				<td>
 					<input name="b.BMaster1" type="text" style="width: 100%;"/>
-				</td>
-			</tr>
-			<tr>
-				<td>一级网点负责人电话：</td>
-				<td>
-					<input name="b.BPhone1" type="text" style="width: 100%;"/>
-				</td>
-			</tr>
-			<tr>
-				<td>二级网点负责人姓名：</td>
-				<td>
-					<input name="b.BMaster2" type="text" style="width: 100%;"/>
-				</td>
-			</tr>
-			<tr>
-				<td>身份证：</td>
-				<td>
-					<input name="b.BCard2" type="text" style="width: 100%;"/>
-				</td>
-			</tr>
-			<tr>
-				<td>联系电话：</td>
-				<td>
-					<input name="b.BPhone2" type="text" style="width: 100%;"/>
 				</td>
 			</tr>
 			<tr>

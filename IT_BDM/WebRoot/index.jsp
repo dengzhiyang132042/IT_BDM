@@ -25,10 +25,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<link rel="stylesheet" type="text/css" href="<%=path %>/FRAMEWORK/css/mycss.css">
 	
   </head>
-<frameset rows="100px,6px,*" frameborder="no" bordercolor="#E6E6E6" style="border-style: solid">
+<frameset rows="100px,1px,*" frameborder="no" bordercolor="#E6E6E6" style="border-style: solid">
 	<frame name="top" src="top.jsp" noresize="noresize" scrolling="no"/>
 	<frame name="top_center" src="<%=path%>/left_center.jsp" noresize="noresize" scrolling="no"/>
-	<frameset cols="250px,6px,*">
+	<frameset cols="250px,1px,*">
 		<frame name="left" src="<%=path%>/left.jsp" noresize="noresize" scrolling="no"/>
 		<frame name="left_center" src="<%=path%>/left_center.jsp" noresize="noresize" scrolling="no"/>
 		<frameset rows="*,50px">

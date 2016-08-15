@@ -16,9 +16,6 @@
         <property name="SName" type="java.lang.String">
             <column name="s_name" />
         </property>
-        <property name="SFbd" type="java.lang.String">
-            <column name="s_fbd" />
-        </property>
         <property name="SStartDate" type="java.util.Date">
             <column name="s_start_date" length="10" />
         </property>
@@ -36,9 +33,6 @@
         </property>
         <property name="SNotice" type="java.lang.String">
             <column name="s_notice" />
-        </property>
-        <property name="SHanding" type="java.lang.String">
-            <column name="s_handing" />
         </property>
         <property name="SNote" type="java.lang.String">
             <column name="s_note" />

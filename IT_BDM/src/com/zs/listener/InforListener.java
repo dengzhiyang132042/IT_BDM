@@ -25,7 +25,7 @@ public class InforListener implements ServletContextListener {
         logger.debug("定时器已启动");  
         logger.debug("定时器已启动");  
         // 调用InforTimer，0表示任务无延迟，5*1000表示每隔5秒执行任务，60*60*1000表示一个小时，24*60*60*1000表示一天。  
-        timer.schedule(new InforTimer(sce.getServletContext(),ser), 0, 1*60*1000); //每2分钟执行一次GoogleTimer类  
+        timer.schedule(new InforTimer(sce.getServletContext(),ser), 0, 60*60*1000); //每2分钟执行一次GoogleTimer类  
         logger.debug("已经添加任务");  
         logger.debug("定时器已添加"); 
 	}

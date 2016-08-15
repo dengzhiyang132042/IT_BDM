@@ -23,34 +23,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   </head>
   
   <body>
-  做安全跳转用的
+  正在安全跳转。。。
   <script type="text/javascript">
 		window.location.href="<%=path%>/information!gotoIndex";  
   </script>
   
-  <table border='1' width='300' style='background-color: red;'>
-  	<tr>
-  		<td>1</td>
-  		<td>1</td>
-  		<td>1</td>
-  		<td>1</td>
-  		<td>1</td>
-  	</tr>
-  <tr>
-  		<td>1</td>
-  		<td>1</td>
-  		<td>1</td>
-  		<td>1</td>
-  		<td>1</td>
-  	</tr>
-  	<tr>
-  		<td>1</td>
-  		<td>1</td>
-  		<td>1</td>
-  		<td>1</td>
-  		<td>1</td>
-  	</tr>
-  </table>
   
   </body>
 </html>

@@ -34,7 +34,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		$('#tt').show();
 	});
 	
-	function update(u1,u2,u3,u4,u5,u6,u7,u8,u9,u10,u11,u12){
+	function update(u1,u2,u3,u4,u5,u6,u7,u8,u9,u10){
 		$('#u').window('open');
 		$('#u_1').val(u1);
 		$('#u_2').val(u2);
@@ -46,8 +46,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		$('#u_8').val(u8);
 		$('#u_9').val(u9);
 		$('#u_10').val(u10);
-		$('#u_11').val(u11);
-		$('#u_12').val(u12);
 	}
 	function page(no,cz){
 		var num1=$('#page').val();
@@ -79,14 +77,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     	<td>编号</td>
     	<td>网点条码</td>
     	<td>网点名称</td>
-    	<td>分拨点</td>
     	<td>开通日期</td>
     	<td>维护日期</td>
     	<td>维护周期</td>
     	<td>维护类型</td>
     	<td>维护IT</td>
     	<td>通知方式</td>
-    	<td>处理情况</td>
     	<td>备注说明</td>
     	<td>操作</td>
     </tr>
@@ -95,17 +91,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<td width="">${site.SId }</td>
 		<td width="">${site.SNum }</td>
 		<td width="">${site.SName }</td>
-		<td width="">${site.SFbd }</td>
 		<td width=""><fmt:formatDate value="${site.SStartDate }" pattern="yyyy/M/d" /></td>
 		<td width=""><fmt:formatDate value="${site.SMaintainDate }" pattern="yyyy/M/d" /></td>
 		<td width="">${site.SMaintainCycle }</td>
 		<td width="">${site.SMaintainType }</td>
 		<td width="">${site.SMaintainMan }</td>
 		<td width="">${site.SNotice }</td>
-		<td width="">${site.SHanding }</td>
 		<td width="">${site.SNote }</td>
 		<td width="5%" align="center">
-			<a onclick="update('${site.SId }','${site.SNum }','${site.SName }','${site.SFbd }','${site.SStartDate }','${site.SMaintainDate }','${site.SMaintainCycle }','${site.SMaintainType }','${site.SMaintainMan }','${site.SNotice }','${site.SHanding }','${site.SNote }')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-edit'" title="修改"></a>
+			<a onclick="update('${site.SId }','${site.SNum }','${site.SName }','${site.SStartDate }','${site.SMaintainDate }','${site.SMaintainCycle }','${site.SMaintainType }','${site.SMaintainMan }','${site.SNotice }','${site.SNote }')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-edit'" title="修改"></a>
 			<a href="<%=path %>/site!delete?id=${site.SId}" onclick="return confirm('确定删除吗?')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-delete'" title="删除"></a>
 		</td>
     </tr>
@@ -166,57 +160,45 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				</td>
 			</tr>
 			<tr>
-				<td>分拨点：</td>
-				<td>
-					<input id="u_4" name="site.SFbd" type="text" style="width: 100%;"/>
-				</td>
-			</tr>
-			<tr>
 				<td>开通日期：</td>
 				<td>
-					<input id="u_5" name="site.SStartDate" type="date" style="width: 100%;"/>
+					<input id="u_4" name="site.SStartDate" type="date" style="width: 100%;"/>
 				</td>
 			</tr>
 			<tr>
 				<td>维护日期：</td>
 				<td>
-					<input id="u_6" name="site.SMaintainDate" type="date" style="width: 100%;"/>
+					<input id="u_5" name="site.SMaintainDate" type="date" style="width: 100%;"/>
 				</td>
 			</tr>
 			<tr>
 				<td>维护周期：</td>
 				<td>
-					<input id="u_7" name="site.SMaintainCycle" type="number" style="width: 100%;"/>
+					<input id="u_6" name="site.SMaintainCycle" type="number" style="width: 100%;"/>
 				</td>
 			</tr>
 			<tr>
 				<td>维护类型：</td>
 				<td>
-					<input id="u_8" name="site.SMaintainType" type="text" style="width: 100%;"/>
+					<input id="u_7" name="site.SMaintainType" type="text" style="width: 100%;"/>
 				</td>
 			</tr>
 			<tr>
 				<td>维护IT：</td>
 				<td>
-					<input id="u_9" name="site.SMaintainMan" type="text" style="width: 100%;"/>
+					<input id="u_8" name="site.SMaintainMan" type="text" style="width: 100%;"/>
 				</td>
 			</tr>
 			<tr>
 				<td>通知方式：</td>
 				<td>
-					<input id="u_10" name="site.SNotice" type="text" style="width: 100%;"/>
-				</td>
-			</tr>
-			<tr>
-				<td>处理情况：</td>
-				<td>
-					<input id="u_11" name="site.SHanding" type="text" style="width: 100%;"/>
+					<input id="u_9" name="site.SNotice" type="text" style="width: 100%;"/>
 				</td>
 			</tr>
 			<tr>
 				<td>备注说明：</td>
 				<td>
-					<input id="u_12" name="site.SNote" type="text" style="width: 100%;"/>
+					<input id="u_10" name="site.SNote" type="text" style="width: 100%;"/>
 				</td>
 			</tr>
 			<tr>
@@ -241,12 +223,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<td>网点名称：</td>
 				<td>
 					<input name="site.SName" type="text" style="width: 100%;"/>
-				</td>
-			</tr>
-			<tr>
-				<td>分拨点：</td>
-				<td>
-					<input name="site.SFbd" type="text" style="width: 100%;"/>
 				</td>
 			</tr>
 			<tr>
@@ -283,12 +259,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<td>通知方式：</td>
 				<td>
 					<input name="site.SNotice" type="text" style="width: 100%;"/>
-				</td>
-			</tr>
-			<tr>
-				<td>处理情况：</td>
-				<td>
-					<input name="site.SHanding" type="text" style="width: 100%;"/>
 				</td>
 			</tr>
 			<tr>

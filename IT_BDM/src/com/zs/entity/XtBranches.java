@@ -17,10 +17,6 @@ public class XtBranches implements java.io.Serializable {
 	private String BNum1;
 	private String BName1;
 	private String BMaster1;
-	private String BPhone1;
-	private String BMaster2;
-	private String BCard2;
-	private String BPhone2;
 	private String BNum2;
 	private String BName2;
 	private String BNote;
@@ -39,8 +35,7 @@ public class XtBranches implements java.io.Serializable {
 	/** full constructor */
 	public XtBranches(String BId, Date BDate, Date BMaintainDate,
 			Integer BMaintainWeek, String BNum1, String BName1,
-			String BMaster1, String BPhone1, String BMaster2, String BCard2,
-			String BPhone2, String BNum2, String BName2, String BNote) {
+			String BMaster1, String BNum2, String BName2, String BNote) {
 		this.BId = BId;
 		this.BDate = BDate;
 		this.BMaintainDate = BMaintainDate;
@@ -48,10 +43,6 @@ public class XtBranches implements java.io.Serializable {
 		this.BNum1 = BNum1;
 		this.BName1 = BName1;
 		this.BMaster1 = BMaster1;
-		this.BPhone1 = BPhone1;
-		this.BMaster2 = BMaster2;
-		this.BCard2 = BCard2;
-		this.BPhone2 = BPhone2;
 		this.BNum2 = BNum2;
 		this.BName2 = BName2;
 		this.BNote = BNote;
@@ -113,38 +104,6 @@ public class XtBranches implements java.io.Serializable {
 
 	public void setBMaster1(String BMaster1) {
 		this.BMaster1 = BMaster1;
-	}
-
-	public String getBPhone1() {
-		return this.BPhone1;
-	}
-
-	public void setBPhone1(String BPhone1) {
-		this.BPhone1 = BPhone1;
-	}
-
-	public String getBMaster2() {
-		return this.BMaster2;
-	}
-
-	public void setBMaster2(String BMaster2) {
-		this.BMaster2 = BMaster2;
-	}
-
-	public String getBCard2() {
-		return this.BCard2;
-	}
-
-	public void setBCard2(String BCard2) {
-		this.BCard2 = BCard2;
-	}
-
-	public String getBPhone2() {
-		return this.BPhone2;
-	}
-
-	public void setBPhone2(String BPhone2) {
-		this.BPhone2 = BPhone2;
 	}
 
 	public String getBNum2() {

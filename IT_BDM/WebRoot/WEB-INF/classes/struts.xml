@@ -95,6 +95,7 @@
      <result name="succ">/success.jsp</result>
      <result name="fail">/fail.jsp</result>
   </action>
+  <!-- **************系统组**************** -->
   <action name="site" class="zs_site_xtz">	
   	 <interceptor-ref name="mydefault" />
      <result>/index.jsp</result>
@@ -109,6 +110,32 @@
      <result name="succ">/success.jsp</result>
      <result name="fail">/fail.jsp</result>
   </action>
+  <action name="zmn" class="zs_zmn_xtz">	
+  	 <interceptor-ref name="mydefault" />
+     <result>/index.jsp</result>
+     <result name="zmn">/xtz_jsp/zm_number.jsp</result>
+     <result name="succ">/success.jsp</result>
+     <result name="fail">/fail.jsp</result>
+  </action>
+  <action name="zmd" class="zs_zmd_xtz">	
+  	 <interceptor-ref name="mydefault" />
+     <result>/index.jsp</result>
+     <result name="zmd">/xtz_jsp/zm_data.jsp</result>
+     <result name="succ">/success.jsp</result>
+     <result name="fail">/fail.jsp</result>
+  </action>
+  
+  
+  <!-- **********CompanySection************* -->
+  <action name="cs" class="zs_cs">	
+  	 <interceptor-ref name="mydefault" />
+     <result>/index.jsp</result>
+     <result name="cs">/cs/cs.jsp</result>
+     <result name="gotoAdd">/cs/gotoAdd.jsp</result>
+     <result name="succ">/success.jsp</result>
+     <result name="fail">/fail.jsp</result>
+  </action>
+  <!-- **********login************* -->
   <action name="login" class="zs_login_xtz">	
   	 <interceptor-ref name="mydefault" />
      <result>/index.jsp</result>

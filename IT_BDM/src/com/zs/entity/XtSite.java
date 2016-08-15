@@ -13,14 +13,12 @@ public class XtSite implements java.io.Serializable {
 	private String SId;
 	private String SNum;
 	private String SName;
-	private String SFbd;
 	private Date SStartDate;
 	private Date SMaintainDate;
 	private Integer SMaintainCycle;
 	private String SMaintainType;
 	private String SMaintainMan;
 	private String SNotice;
-	private String SHanding;
 	private String SNote;
 
 	// Constructors
@@ -35,21 +33,18 @@ public class XtSite implements java.io.Serializable {
 	}
 
 	/** full constructor */
-	public XtSite(String SId, String SNum, String SName, String SFbd,
-			Date SStartDate, Date SMaintainDate, Integer SMaintainCycle,
-			String SMaintainType, String SMaintainMan, String SNotice,
-			String SHanding, String SNote) {
+	public XtSite(String SId, String SNum, String SName, Date SStartDate,
+			Date SMaintainDate, Integer SMaintainCycle, String SMaintainType,
+			String SMaintainMan, String SNotice, String SNote) {
 		this.SId = SId;
 		this.SNum = SNum;
 		this.SName = SName;
-		this.SFbd = SFbd;
 		this.SStartDate = SStartDate;
 		this.SMaintainDate = SMaintainDate;
 		this.SMaintainCycle = SMaintainCycle;
 		this.SMaintainType = SMaintainType;
 		this.SMaintainMan = SMaintainMan;
 		this.SNotice = SNotice;
-		this.SHanding = SHanding;
 		this.SNote = SNote;
 	}
 
@@ -77,14 +72,6 @@ public class XtSite implements java.io.Serializable {
 
 	public void setSName(String SName) {
 		this.SName = SName;
-	}
-
-	public String getSFbd() {
-		return this.SFbd;
-	}
-
-	public void setSFbd(String SFbd) {
-		this.SFbd = SFbd;
 	}
 
 	public Date getSStartDate() {
@@ -133,14 +120,6 @@ public class XtSite implements java.io.Serializable {
 
 	public void setSNotice(String SNotice) {
 		this.SNotice = SNotice;
-	}
-
-	public String getSHanding() {
-		return this.SHanding;
-	}
-
-	public void setSHanding(String SHanding) {
-		this.SHanding = SHanding;
 	}
 
 	public String getSNote() {
