@@ -19,8 +19,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<!--
 	<link rel="stylesheet" type="text/css" href="styles.css">
 	-->
+	<link rel="stylesheet" type="text/css" href="<%=path %>/FRAMEWORK/css/mycss.css">
   </head>
-  
+  	
   <body>
    错误：691<br/>  
    请先登录!<a href="<%=path %>/login.jsp" target="_parent">登录</a> <br>

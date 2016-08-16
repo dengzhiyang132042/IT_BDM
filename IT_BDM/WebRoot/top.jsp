@@ -26,11 +26,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script type="text/javascript" src="<%=path %>/FRAMEWORK/jquery-easyui/jquery.min.js"></script>
 	<script type="text/javascript" src="<%=path %>/FRAMEWORK/jquery-easyui/jquery.easyui.min.js"></script>
 	
-	<link rel="stylesheet" type="text/css" href="<%=path %>/FRAMEWORK/css/mycss.css">	
 	
   </head>
   
-<body style="margin: 0px;padding: 0px;" >
+<body style="margin: 0px;padding: 0px;background-color:#4B9898;" >
 	<div style="margin-left: 30px;margin-top: 25px;">
 		<img alt="" src="FRAMEWORK/image/logo2-transparent.png" height="50" border="0"/>
 	</div>

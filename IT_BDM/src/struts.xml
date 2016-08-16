@@ -132,6 +132,7 @@
      <result>/index.jsp</result>
      <result name="cs">/cs/cs.jsp</result>
      <result name="gotoAdd">/cs/gotoAdd.jsp</result>
+     <result name="update">/cs/update.jsp</result>
      <result name="succ">/success.jsp</result>
      <result name="fail">/fail.jsp</result>
   </action>
@@ -175,5 +176,6 @@
      <result name="fail">/fail.jsp</result>
   </action>
 </package>
+
 </struts>    
   

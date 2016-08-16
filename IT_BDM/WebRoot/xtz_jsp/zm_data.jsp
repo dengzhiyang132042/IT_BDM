@@ -150,7 +150,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<tr>
 				<td>日期：</td>
 				<td>
-					<input id="u_2" name="zmd.DData" type="date" style="width: 100%;"/>
+					<input id="u_2" name="zmd.DDate" type="date" style="width: 100%;"/>
 				</td>
 			</tr>
 			<tr>
@@ -216,7 +216,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<tr>
 				<td>日期：</td>
 				<td>
-					<input name="zmd.DData" type="date" style="width: 100%;"/>
+					<input name="zmd.DDate" type="date" style="width: 100%;"/>
 				</td>
 			</tr>
 			<tr>

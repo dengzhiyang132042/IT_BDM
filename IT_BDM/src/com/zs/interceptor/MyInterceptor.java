@@ -177,9 +177,8 @@ public class MyInterceptor extends AbstractInterceptor{
 				return addTimeline(result,arg0, r, "28", u, "添加", "GoOut", go.getGoId());
 			}
 		}
-//		System.out.println(path);
 		close(); 
-		return arg0.invoke();
+		return null; 
 	}
 	
 	private void close() {

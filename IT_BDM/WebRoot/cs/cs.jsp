@@ -28,10 +28,45 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script type="text/javascript" src="<%=path %>/FRAMEWORK/jquery-easyui/jquery.easyui.min.js"></script>
 	
 	<link rel="stylesheet" type="text/css" href="<%=path %>/FRAMEWORK/css/mycss.css">
-	
+	<script type="text/javascript">
+	</script>
   </head>
   
   <body>
-  ${html }  
+  <div style="width: 40%;float: left; ">
+ 	 ${html }  
+  </div>
+  <div style="width: 2px;float: left;height:100%; background-color: #0092DC;margin-left: 10px; ">
+  </div>
+  <div style="float: left;margin-left: 10px; ">
+  	<div id="right" class="easyui-panel" title="公司组织架构详情" style="padding: 5px;display: none;width: 512px;">
+  	</div>
+  </div>
+  
+  <script type="text/javascript">
+  $(function(){
+  	$('ul li div').click(function(){
+		var f = $(this).find('font').text();
+		var t = $(this).find('.tree-title');
+		var str=$("<span>"+t.html()+"</span>");
+		str.find('font').remove();
+		$.post(
+			"cs!queryInfor",
+			{id:f},
+			function(data){
+				$("#right").html(data);
+			}
+		);
+	});
+  });
+  function update(id){
+  	window.location.href="<%=path%>/cs!gotoUpdate?id="+id;
+  }
+  function my_delete(id){
+  	if(confirm("确定删除吗?删除该级会导致下级全部删除，如果想只删除该级，请先移动其下级，使该级没有下级，这时删除即可只删除这一级。")){
+  		window.location.href="<%=path%>/cs!myDelete?id="+id;
+  	}
+  }
+  </script>
   </body>
 </html>

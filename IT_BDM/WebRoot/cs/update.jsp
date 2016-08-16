@@ -32,80 +32,107 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   </head>
   
   <body>
-  	<div class="easyui-panel" title="添加公司组织架构" style="padding: 5px;display: none;width: 512px;">
-  	<form action="<%=path %>/cs!add" method="post">
+  	<div class="easyui-panel" title="修改公司组织架构" style="padding: 5px;display: none;width: 512px;">
+  	<form action="<%=path %>/cs!update" method="post">
   	<table border="1" style="width: 500px;"> 
-  	<tr>
-  		<td style="width: 100px;">部门名称：</td>
-  		<td>
-  			<input name="cs.csName" type="text"/>
-		</td>
-  	</tr>
-  	<tr>
-  		<td>职员名字：</td>
-  		<td>
-  			<input name="cs.csMaster" type="text"/>
-		</td>
-  	</tr>
-  	<tr>
-  		<td>工号：</td>
-  		<td>
-  			<input name="cs.csNumber" type="text"/>
-		</td>
-  	</tr>
-  	<tr>
-  		<td>职位：</td>
-  		<td>
-  			<input name="cs.csPosition" type="text"/>
-		</td>
-  	</tr>
-  	<tr>
-  		<td>私人电话：</td>
-  		<td>
-  			<input name="cs.csPhoneP" type="text"/>
-		</td>
-  	</tr>
-  	<tr>
-  		<td>公司电话：</td>
-  		<td>
-  			<input name="cs.csPhoneC" type="text"/>
-		</td>
-  	</tr>
-  	<tr>
-  		<td>短号：</td>
-  		<td>
-  			<input name="cs.csPhoneS" type="text"/>
-		</td>
-  	</tr>
-  	<tr>
-  		<td>上级：</td>
-  		<td>
-			<select name="cs.csLast" id="cc" style="width:150px;"></select>
-			<div id="sp">
-				<div style="color:#99BBE8;background:#fafafa;padding:5px;">选择上级架构</div>
-				${html }
-			</div>
-  		</td>
-  	</tr>
-  	<tr>
-  		<td colspan="2">
-  			<input onclick="return check()" type="submit" value="提交" style="width: 100%;height: 25px;"/>
-  		</td>
-  	</tr>
+  		<tr>
+  			<td style="width: 100px;">编号:</td>
+  			<td>
+  				<input type="text" value="${cs.csId }"/>
+  			</td>
+  		</tr>
+  		<tr>
+  			<td>部门名称:</td>
+  			<td>
+  				<input type="text" value="${cs.csName }"/>
+  			</td>
+  		</tr>
+  		<tr>
+  			<td>职员名字：</td>
+  			<td>
+  				<input type="text" value="${cs.csMaster }"/>
+  			</td>
+  		</tr>
+  		<tr>
+  			<td>工号：</td>
+  			<td>
+  				<input type="text" value="${cs.csNumber }"/>
+  			</td>
+  		</tr>
+  		<tr>
+  			<td>职位：</td>
+  			<td>
+  				<input type="text" value="${cs.csPosition }"/>
+  			</td>
+  		</tr>
+  		<tr>
+  			<td>私人电话：</td>
+  			<td>
+  				<input type="text" value="${cs.csPhoneP }"/>
+  			</td>
+  		</tr>
+  		<tr>
+  			<td>公司电话：</td>
+  			<td>
+  				<input type="text" value="${cs.csPhoneC }"/>
+  			</td>
+  		</tr>
+  		<tr>
+  			<td>短号：</td>
+  			<td>
+  				<input type="text" value="${cs.csPhoneS }"/>
+  			</td>
+  		</tr>
+  		<tr>
+  			<td>备注：</td>
+  			<td>
+  				<input type="text" value="${cs.csNote }"/>
+  			</td>
+  		</tr>
+  		<tr>
+  			<td>上级：</td>
+  			<td>
+  				<select name="cs.csLast" id="cc" style="width:150px;" value="${cs.csLast }"></select>
+				<div id="sp">
+					<div style="color:#99BBE8;background:#fafafa;padding:5px;">选择上级架构</div>
+					${html }
+				</div>
+  			</td>
+  		</tr>
+  		<te>
+  			<td colspan="2">
+  				<input onclick="return check()" type="submit" value="提交" style="width: 100%;height: 25px;"/>
+  			</td>
+  		</te>
   	</table>
   	</form>
   	</div>
-	<!--
-	测试按钮 
-	<a id="a" onclick="">测试组合下拉控件</a>
-	 -->
-	
-	
-	<script type="text/javascript">
+  
+  <script type="text/javascript">
+  $(function(){
+  	$('ul li div').click(function(){
+		var f = $(this).find('font').text();
+		var t = $(this).find('.tree-title');
+		var str=$("<span>"+t.html()+"</span>");
+		str.find('font').remove();
+		$.post(
+			"cs!queryInfor",
+			{id:f},
+			function(data){
+				$("#right").html(data);
+			}
+		);
+	});
+  });
+  function update(u1,u2,u3,u4,u5,u6,u7,u8,u9){
+  	window.location.href="<%=path%>/cs!gotoUpdate";
+  }
+  </script>
+  <script type="text/javascript">
 		$(function(){
 			$('#cc').combo({
 				required:true,
-				editable:false
+				editable:true
 			});
 			$('#sp').appendTo($('#cc').combo('panel'));
 			$('#sp li div').click(function(){

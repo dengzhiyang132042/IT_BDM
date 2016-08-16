@@ -33,6 +33,7 @@ public class MyBaseAction extends ActionSupport{
 	public HttpServletResponse getResponse() {
 		response=ServletActionContext.getResponse();
 		response.setCharacterEncoding("utf-8");
+		response.setContentType("text/html;charset=UTF-8");
 		return response;
 	}
 	public void setResponse(HttpServletResponse response) {

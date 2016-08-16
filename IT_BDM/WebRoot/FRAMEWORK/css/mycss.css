@@ -1,6 +1,8 @@
 a{ text-decoration:none;}
 body{
+	margin:0px;
 	padding: 10px;
+	border-top: 1px solid black; 
 }
 table{
 	border: #D3D3D3;
