@@ -29,6 +29,9 @@ public class InforTimer extends TimerTask{
         this.context = context;  
         this.ser=ser;
     }
+	private String title="IT基础数据管理系统——消息提醒";
+	
+	
 	
     public void run(){  
     	/*
@@ -92,11 +95,14 @@ public class InforTimer extends TimerTask{
 				}
 				logger.debug(str);
 				String content="<div style='color: blue;font-weight: bold;'>"
-					+"硬件组——今天："
+					+"硬件组——今天：<br/>"
+					+u.getUName()+"("
+					+u.getUNum()
+					+")"
 					+"</div>"
 					+str;
 				try {
-					MailTest.outputMail(u.getUMail(), MailTest.props.getProperty("mail.user"), content);
+					MailTest.outputMail(u.getUMail(), MailTest.props.getProperty("mail.user"), content,title);
 				} catch (MessagingException e) {
 					e.printStackTrace();
 					logger.error("监听器--定时器--发送邮件出问题了,出异常账号:"+u.getUName()+"   "+u.getUNum());

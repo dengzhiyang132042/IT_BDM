@@ -39,16 +39,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<td>${tl.tlTime }</td>
 		<td>
 			<c:if test="${tl.tlState=='查看' }">
-				<span style="background-color: #00FF00;">
+				<span style="color: #00FF00;font-weight: bold;">
 			</c:if>
 			<c:if test="${tl.tlState=='添加' }">
-				<span style="background-color: green;">
+				<span style="color: green;font-weight: bold;">
 			</c:if>
 			<c:if test="${tl.tlState=='删除' }">
-				<span style="background-color: red;">
+				<span style="color: red;font-weight: bold;">
 			</c:if>
 			<c:if test="${tl.tlState=='修改' }">
-				<span style="background-color: #FF00FF;">
+				<span style="color: #FF00FF;font-weight: bold;">
 			</c:if>
 			${tl.tlState }
 			</span>

@@ -88,6 +88,7 @@ public class ZmDataAction extends MyBaseAction{
 	public String update() throws Exception {
 		if(zmd!=null && zmd.getDId()!=null && !"".equals(zmd.getDId().trim())){
 			ser.update(zmd);
+			getRequest().setAttribute("zmd", zmd);
 		}
 		zmd=null;
 		return result_succ;
@@ -97,6 +98,7 @@ public class ZmDataAction extends MyBaseAction{
 		if(zmd!=null){
 			zmd.setDId("d"+NameOfDate.getNum());
 			ser.save(zmd);
+			getRequest().setAttribute("zmd", zmd);
 		}
 		zmd=null;
 		return result_succ;

@@ -5,14 +5,18 @@ body{
 	border-top: 1px solid black; 
 }
 table{
-	border: #D3D3D3;
+	border: #224466;
 	border-collapse:collapse;
 	width: 100%;
 }
+table tr th{
+	background-color: #336699;
+	color: white;
+	font-weight: bold;
+}
 td{
 	text-align:center;
-	padding-left: 10px;
-	padding-right: 10px;
+	padding:5px;
 }
 .table1{
 	width: 100%;

@@ -84,6 +84,7 @@ public class SiteAction extends MyBaseAction{
 	public String update() throws Exception {
 		if(site!=null && site.getSId()!=null && !"".equals(site.getSId().trim())){
 			ser.update(site);
+			getRequest().setAttribute("site", site);
 		}
 		site=null;
 		return result_succ;
@@ -93,6 +94,7 @@ public class SiteAction extends MyBaseAction{
 		if(site!=null){
 			site.setSId("s"+NameOfDate.getNum());
 			ser.save(site);
+			getRequest().setAttribute("site", site);
 		}
 		site=null;
 		return result_succ;

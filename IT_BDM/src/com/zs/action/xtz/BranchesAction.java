@@ -84,6 +84,7 @@ public class BranchesAction extends MyBaseAction{
 	public String update() throws Exception {
 		if(b!=null && b.getBId()!=null && !"".equals(b.getBId().trim())){
 			ser.update(b);
+			getRequest().setAttribute("b", b);
 		}
 		b=null;
 		return result_succ;
@@ -93,6 +94,7 @@ public class BranchesAction extends MyBaseAction{
 		if(b!=null){
 			b.setBId("b"+NameOfDate.getNum());
 			ser.save(b);
+			getRequest().setAttribute("b", b);
 		}
 		b=null;
 		return result_succ;

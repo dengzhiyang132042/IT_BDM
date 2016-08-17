@@ -29,7 +29,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	
   </head>
   
-<body style="margin: 0px;padding: 0px;background-color:#4B9898;" >
+<body style="margin: 0px;padding: 0px;background-color:#F9BE00;" >
 	<div style="margin-left: 30px;margin-top: 25px;">
 		<img alt="" src="FRAMEWORK/image/logo2-transparent.png" height="50" border="0"/>
 	</div>

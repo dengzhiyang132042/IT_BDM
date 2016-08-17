@@ -37,7 +37,7 @@ public class MailTest {
 	 */
 	private static Logger logger = Logger.getLogger(MailTest.class);
 	
-	public static String outputMail(String toAddress,String ccAddress,String mailContent) throws MessagingException {
+	public static String outputMail(String toAddress,String ccAddress,String mailContent,String title) throws MessagingException {
         // 构建授权信息，用于进行SMTP进行身份验证
         Authenticator authenticator = new Authenticator() {
             @Override
@@ -64,10 +64,10 @@ public class MailTest {
         message.setRecipient(RecipientType.CC, cc);
 
         // 设置密送，其他的收件人不能看到密送的邮件地址
-        InternetAddress bcc = new InternetAddress("1217360619@qq.com");
+        InternetAddress bcc = new InternetAddress(props.getProperty("mail.user"));
         message.setRecipient(RecipientType.CC, bcc);
         // 设置邮件标题
-        message.setSubject("IT基础数据管理系统——消息提醒邮件");
+        message.setSubject(title);
 
         // 设置邮件的内容体
         message.setContent(mailContent, "text/html;charset=UTF-8");

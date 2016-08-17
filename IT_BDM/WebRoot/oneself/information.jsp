@@ -29,12 +29,24 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	
 	<link rel="stylesheet" type="text/css" href="<%=path %>/FRAMEWORK/css/mycss.css">
 	
+	<style type="text/css">
+	table{
+		border-color: black;
+	}
+	
+	table tr td{
+		text-align: left;
+	}
+	
+	</style>
+	
   </head>
   
   <body style="padding-right: 40px;">
+	<!-- 
   	<div style="color: blue;font-weight: bold;">硬件组——今天：</div>
 	<c:forEach items="${tlData}" var="data">
-		<div style="border: 0px solid black;margin-top: 15px;background-color: #FFFFA2;">
+		<div style="border: 0px solid black;margin-top: 15px;background-color: #FFFFA2;padding: 5px;">
 		<span style="color: green;font-weight: bold;">${data.name }</span>——${fn:length(data.list) }
 		<br/>
 		<c:if test="${fn:length(data.list)>0 }">
@@ -49,8 +61,42 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</c:if>
 		</div>
 	</c:forEach>
+	 -->
 	
-		
+	<div style="color: blue;font-weight: bold;">硬件组——今天：</div>
+	<br/>
+	<table border="1">
+		<c:forEach items="${tlData}" var="data">
+		<tr>
+			<td colspan="4" style="background-color: #336699;">
+				<span style="color:white;font-weight: bold;">${data.name }——${fn:length(data.list) }</span>
+			</td>
+		</tr>
+		<c:if test="${fn:length(data.list)>0 }">
+		<tr bgcolor="#C2C2C2">
+			<td>时间</td>
+			<td>操作</td>
+			<td>表</td>
+			<td>编号</td>
+		</tr>
+		<c:forEach items="${data.list}" var="tl">
+		<tr>
+			<td>${tl.tlTime }</td>
+			<td>${tl.tlState }</td>
+			<td>${tl.tlTableName }</td>
+			<td>${tl.tlTableId }</td>
+		</tr>
+		</c:forEach>
+		</c:if>
+		<c:if test="${fn:length(data.list)<=0 }">
+		<tr>
+			<td colspan="4">
+				<span style="color: red;">这张表的数据您还没有登记。</span>
+			</td>
+		</tr>
+		</c:if>
+		</c:forEach>
+	</table>	
 	
 	    
   </body>

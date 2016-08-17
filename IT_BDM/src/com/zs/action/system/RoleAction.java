@@ -100,6 +100,11 @@ public class RoleAction extends MyBaseAction{
 	
 	public String update() throws Exception {
 		if(r!=null && r.getRId()!=null && !"".equals(r.getRId().trim())){
+			//保存之前先清空;
+			List<RolePermission> rpslist=ser.find("from RolePermission where RId=?", new String[]{r.getRId()});
+			for (int i = 0; i < rpslist.size(); i++) {
+				ser.delete(rpslist.get(i));
+			}
 			//保存角色-权限关系
 			List<Permission> list=new ArrayList<Permission>();
 			List<Permission> pers=ser.find("from Permission",new String[]{});

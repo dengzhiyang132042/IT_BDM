@@ -87,6 +87,7 @@ public class ZmNumberAction extends MyBaseAction{
 	public String update() throws Exception {
 		if(zmn!=null && zmn.getZmId()!=null && !"".equals(zmn.getZmId().trim())){
 			ser.update(zmn);
+			getRequest().setAttribute("zmn", zmn);
 		}
 		zmn=null;
 		return result_succ;
@@ -96,6 +97,7 @@ public class ZmNumberAction extends MyBaseAction{
 		if(zmn!=null){
 			zmn.setZmId("zm"+NameOfDate.getNum());
 			ser.save(zmn);
+			getRequest().setAttribute("zmn", zmn);
 		}
 		zmn=null;
 		return result_succ;

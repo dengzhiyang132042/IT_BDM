@@ -20,7 +20,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<!--
 	<link rel="stylesheet" type="text/css" href="styles.css">
 	-->
-	<link rel="stylesheet" type="text/css" href="<%=path %>/FRAMEWORK/jquery-easyui/themes/gray/easyui.css">
+	<link rel="stylesheet" type="text/css" href="<%=path %>/FRAMEWORK/jquery-easyui/themes/yellow/easyui.css">
 	<link rel="stylesheet" type="text/css" href="<%=path %>/FRAMEWORK/jquery-easyui/themes/icon.css">
 	<link rel="stylesheet" type="text/css" href="<%=path %>/FRAMEWORK/jquery-easyui/demo/demo.css">
 	<script type="text/javascript" src="<%=path %>/FRAMEWORK/jquery-easyui/jquery.min.js"></script>
@@ -83,11 +83,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     
     <table border="1" id="eidtASubjectWindow1" style="font-size: 12px;">
     <tr align="center" style="height: 28px;background-color: #E6E6E6;">
-    	<td>编号</td>
-    	<td>名称</td>
-    	<td>描述</td>
-    	<td>权限明细</td>
-    	<td>操作</td>
+    	<th>编号</td>
+    	<th>名称</td>
+    	<th>描述</td>
+    	<th>权限明细</td>
+    	<th>操作</td>
     </tr>
     <c:forEach items="${rs}" var="r">
     <tr>

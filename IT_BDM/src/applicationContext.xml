@@ -81,7 +81,10 @@
 		<property name="ser" ref="zs_ser"></property>
 	</bean>
 	<!-- **************拦截器************* -->
-	<bean id="zs_interceptor" class="com.zs.interceptor.MyInterceptor">
+	<bean id="zs_interceptor_role" class="com.zs.interceptor.RoleInterceptor">
+		<property name="ser" ref="zs_ser"></property>
+	</bean>
+	<bean id="zs_interceptor_timeline" class="com.zs.interceptor.TimelineInterceptor">
 		<property name="ser" ref="zs_ser"></property>
 	</bean>
 	<!-- ************************************* -->

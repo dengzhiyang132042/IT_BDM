@@ -6,12 +6,15 @@
 <package name="a" extends="struts-default" namespace="/">
   <!-- 定义一个拦截器 -->  
   <interceptors>  
-      <interceptor name="authority" class="zs_interceptor">  
+      <interceptor name="role_inter" class="zs_interceptor_role">  
       </interceptor>  
+      <interceptor name="timeline_inter" class="zs_interceptor_timeline">
+      </interceptor>
       <!-- 拦截器栈 -->  
       <interceptor-stack name="mydefault">  
           <interceptor-ref name="defaultStack" />  
-          <interceptor-ref name="authority" />  
+          <interceptor-ref name="role_inter" />  
+          <interceptor-ref name="timeline_inter" />  
       </interceptor-stack>  
   </interceptors>  
   

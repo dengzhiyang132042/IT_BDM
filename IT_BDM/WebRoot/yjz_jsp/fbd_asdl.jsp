@@ -20,7 +20,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<!--
 	<link rel="stylesheet" type="text/css" href="styles.css">
 	-->
-	<link rel="stylesheet" type="text/css" href="<%=path %>/FRAMEWORK/jquery-easyui/themes/gray/easyui.css">
+	<link rel="stylesheet" type="text/css" href="<%=path %>/FRAMEWORK/jquery-easyui/themes/yellow/easyui.css">
 	<link rel="stylesheet" type="text/css" href="<%=path %>/FRAMEWORK/jquery-easyui/themes/icon.css">
 	<link rel="stylesheet" type="text/css" href="<%=path %>/FRAMEWORK/jquery-easyui/demo/demo.css">
 	<script type="text/javascript" src="<%=path %>/FRAMEWORK/jquery-easyui/jquery.min.js"></script>
@@ -74,24 +74,24 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     
     <table border="1" id="eidtASubjectWindow1" style="font-size: 12px;">
     <tr align="center" style="height: 28px;background-color: #E6E6E6;">
-    	<td>编号</td>
-    	<td>区部</td>
-    	<td>分部</td>
-    	<td>分部经理</td>
-    	<td>联系电话</td>
-    	<td>分拨点</td>
-    	<td>承包人</td>
-    	<td>联系电话</td>
-    	<td>地址</td>
-    	<td>接入号</td>
-    	<td>账号</td>
-    	<td>密码</td>
-    	<td>包年资费</td>
-    	<td>合约到期</td>
-    	<td>续约提醒</td>
-    	<td>备注</td>
-    	<td>状态</td>
-    	<td>操作</td>
+    	<th>编号</td>
+    	<th>区部</td>
+    	<th>分部</td>
+    	<th>分部经理</td>
+    	<th>联系电话</td>
+    	<th>分拨点</td>
+    	<th>承包人</td>
+    	<th>联系电话</td>
+    	<th>地址</td>
+    	<th>接入号</td>
+    	<th>账号</td>
+    	<th>密码</td>
+    	<th>包年资费</td>
+    	<th>合约到期</td>
+    	<th>续约提醒</td>
+    	<th>备注</td>
+    	<th>状态</td>
+    	<th>操作</td>
     </tr>
     <c:forEach items="${asdls}" var="asdl">
     <tr>
