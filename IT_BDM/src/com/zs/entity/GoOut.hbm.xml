@@ -16,17 +16,17 @@
         <property name="goNumberAccept" type="java.lang.Integer">
             <column name="go_number_accept" />
         </property>
-      	<property name="goDestination" type="java.lang.String">
+        <property name="goDestination" type="java.lang.String">
             <column name="go_destination" />
         </property>
-        <property name="csIdApplicant" type="java.lang.String">
-            <column name="cs_id_applicant" />
+        <property name="csMasterApplicant" type="java.lang.String">
+            <column name="cs_master_applicant" />
         </property>
         <property name="goType" type="java.lang.String">
             <column name="go_type" />
         </property>
-        <property name="csIdRegiste" type="java.lang.String">
-            <column name="cs_id_registe" />
+        <property name="csMasterRegiste" type="java.lang.String">
+            <column name="cs_master_registe" />
         </property>
         <property name="goDateExpect" type="java.util.Date">
             <column name="go_date_expect" length="10" />
@@ -34,8 +34,8 @@
         <property name="goDescriptionFault" type="java.lang.String">
             <column name="go_description_fault" />
         </property>
-        <property name="csIdService" type="java.lang.String">
-            <column name="cs_id_service" />
+        <property name="csMasterService" type="java.lang.String">
+            <column name="cs_master_service" />
         </property>
         <property name="goDateComplete" type="java.util.Date">
             <column name="go_date_complete" length="10" />

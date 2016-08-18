@@ -16,6 +16,7 @@ import com.opensymphony.xwork2.ActionInvocation;
 import com.opensymphony.xwork2.interceptor.AbstractInterceptor;
 import com.zs.action.xtz.SiteAction;
 import com.zs.dao.IBaseDaoOfSpring;
+import com.zs.entity.CompanySection;
 import com.zs.entity.FbdAsdl;
 import com.zs.entity.FbdComputer;
 import com.zs.entity.FbdListLink;
@@ -25,6 +26,9 @@ import com.zs.entity.Goods;
 import com.zs.entity.Permission;
 import com.zs.entity.Role;
 import com.zs.entity.RolePermission;
+import com.zs.entity.SectionFenbodian;
+import com.zs.entity.SectionFenbu;
+import com.zs.entity.SectionQubu;
 import com.zs.entity.Sim;
 import com.zs.entity.Timeline;
 import com.zs.entity.Users;
@@ -227,6 +231,86 @@ public class TimelineInterceptor extends AbstractInterceptor{
 				addTimeline(u, "添加", "XtZmData", zmd.getDId());
 			}
 			//---------------------------系统组结束，系统设置开始----------------------------------------
+			else if ((PRO_NAME+"/users!queryOfFenye").equals(path)) {//用户管理查看
+				addTimeline(u, "查看", "Users", request.getParameter("id"));
+			}else if ((PRO_NAME+"/users!delete").equals(path)) {//用户管理删除
+				addTimeline(u, "删除", "Users", request.getParameter("id"));
+			}else if ((PRO_NAME+"/users!update").equals(path)) {//用户管理修改
+				Users users=(Users) request.getAttribute("u");
+				addTimeline(u, "修改", "Users", users.getUNum());
+			}else if ((PRO_NAME+"/users!add").equals(path)) {//用户管理添加
+				Users users=(Users) request.getAttribute("u");
+				addTimeline(u, "添加", "Users", users.getUNum());
+			}
+			
+			else if ((PRO_NAME+"/role!queryOfFenye").equals(path)) {//角色管理查看
+				addTimeline(u, "查看", "Role", request.getParameter("id"));
+			}else if ((PRO_NAME+"/role!delete").equals(path)) {//角色管理删除
+				addTimeline(u, "删除", "Role", request.getParameter("id"));
+			}else if ((PRO_NAME+"/role!update").equals(path)) {//角色管理修改
+				Role role=(Role) request.getAttribute("r");
+				addTimeline(u, "修改", "Role", role.getRId());
+			}else if ((PRO_NAME+"/role!add").equals(path)) {//角色管理添加
+				Role role=(Role) request.getAttribute("r");
+				addTimeline(u, "添加", "Role", role.getRId());
+			}
+			//---------------------------个人中心开始----------------------------------------
+			
+			else if ((PRO_NAME+"/timeline!query").equals(path)) {//时间轴查看
+				addTimeline(u, "查看", "时间轴", request.getParameter("id"));
+			}
+			
+			else if ((PRO_NAME+"/information!query").equals(path)) {//消息提醒查看
+				addTimeline(u, "查看", "消息提醒", request.getParameter("id"));
+			}
+			//------------------------------通讯录---------------------------------------
+			else if ((PRO_NAME+"/section!queryOfFenyeQb").equals(path)) {//区部信息查看
+				addTimeline(u, "查看", "SectionQubu", request.getParameter("id"));
+			}else if ((PRO_NAME+"/section!deleteQb").equals(path)) {//区部信息删除
+				addTimeline(u, "删除", "SectionQubu", request.getParameter("id"));
+			}else if ((PRO_NAME+"/section!updateQb").equals(path)) {//区部信息修改
+				SectionQubu qb=(SectionQubu) request.getAttribute("qb");
+				addTimeline(u, "修改", "SectionQubu", qb.getQbId());
+			}else if ((PRO_NAME+"/section!addQb").equals(path)) {//区部信息添加
+				SectionQubu qb=(SectionQubu) request.getAttribute("qb");
+				addTimeline(u, "添加", "SectionQubu", qb.getQbId());
+			}
+			
+			else if ((PRO_NAME+"/section!queryOfFenyeFb").equals(path)) {//分部信息查看
+				addTimeline(u, "查看", "SectionFenbu", request.getParameter("id"));
+			}else if ((PRO_NAME+"/section!deleteFb").equals(path)) {//分部信息删除
+				addTimeline(u, "删除", "SectionFenbu", request.getParameter("id"));
+			}else if ((PRO_NAME+"/section!updateFb").equals(path)) {//分部信息修改
+				SectionFenbu fb=(SectionFenbu) request.getAttribute("fb");
+				addTimeline(u, "修改", "SectionFenbu", fb.getFbId());
+			}else if ((PRO_NAME+"/section!addFb").equals(path)) {//分部信息添加
+				SectionFenbu fb=(SectionFenbu) request.getAttribute("fb");
+				addTimeline(u, "添加", "SectionFenbu", fb.getFbId());
+			}
+			
+			else if ((PRO_NAME+"/section!queryOfFenyeFbd").equals(path)) {//分拨点信息查看
+				addTimeline(u, "查看", "SectionFenbodian", request.getParameter("id"));
+			}else if ((PRO_NAME+"/section!deleteFbd").equals(path)) {//分拨点信息删除
+				addTimeline(u, "删除", "SectionFenbodian", request.getParameter("id"));
+			}else if ((PRO_NAME+"/section!updateFbd").equals(path)) {//分拨点信息修改
+				SectionFenbodian fbd=(SectionFenbodian) request.getAttribute("fbd");
+				addTimeline(u, "修改", "SectionFenbodian", fbd.getFbdId());
+			}else if ((PRO_NAME+"/section!addFbd").equals(path)) {//分拨点信息添加
+				SectionFenbodian fbd=(SectionFenbodian) request.getAttribute("fbd");
+				addTimeline(u, "添加", "SectionFenbodian", fbd.getFbdId());
+			}
+			//-------公司内部--------
+			else if ((PRO_NAME+"/cs!query").equals(path) || (PRO_NAME+"/cs!queryInfor").equals(path)) {//公司组织架构查看
+				addTimeline(u, "查看", "CompanySection", request.getParameter("id"));
+			}else if ((PRO_NAME+"/cs!myDelete").equals(path)) {//公司组织架构删除
+				addTimeline(u, "删除", "CompanySection", request.getParameter("id"));
+			}else if ((PRO_NAME+"/cs!update").equals(path)) {//公司组织架构修改
+				CompanySection cs=(CompanySection) request.getAttribute("cs");
+				addTimeline(u, "修改", "SectionFenbodian", cs.getCsId());
+			}else if ((PRO_NAME+"/cs!add").equals(path)) {//公司组织架构添加
+				CompanySection cs=(CompanySection) request.getAttribute("cs");
+				addTimeline(u, "添加", "SectionFenbodian", cs.getCsId());
+			}
 		}
 		close(); 
 		return result; 

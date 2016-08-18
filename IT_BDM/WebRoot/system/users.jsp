@@ -20,7 +20,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<!--
 	<link rel="stylesheet" type="text/css" href="styles.css">
 	-->
-	<link rel="stylesheet" type="text/css" href="<%=path %>/FRAMEWORK/jquery-easyui/themes/gray/easyui.css">
+	<link rel="stylesheet" type="text/css" href="<%=path %>/FRAMEWORK/jquery-easyui/themes/yellow/easyui.css">
 	<link rel="stylesheet" type="text/css" href="<%=path %>/FRAMEWORK/jquery-easyui/themes/icon.css">
 	<link rel="stylesheet" type="text/css" href="<%=path %>/FRAMEWORK/jquery-easyui/demo/demo.css">
 	<script type="text/javascript" src="<%=path %>/FRAMEWORK/jquery-easyui/jquery.min.js"></script>
@@ -59,7 +59,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		}
 		$('#f1').submit();
 	}
-	
+	function check(){
+		var a=$("#a_1").val();
+		if($.trim(a)==""){
+			alert("账号不能为空!");
+			return false;
+		}else{
+			return true;
+		}
+	}
 	</script>
 	
   </head>
@@ -71,15 +79,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     
     <table border="1" id="eidtASubjectWindow1" style="font-size: 12px;">
     <tr align="center" style="height: 28px;background-color: #E6E6E6;">
-    	<td>账号</td>
-    	<td>密码</td>
-    	<td>名字</td>
-    	<td>部门</td>
-    	<td>职位</td>
-    	<td>邮箱</td>
-    	<td>创建时间</td>
-    	<td>角色</td>
-    	<td>操作</td>
+    	<th>账号</th>
+    	<th>密码</th>
+    	<th>名字</th>
+    	<th>部门</th>
+    	<th>职位</th>
+    	<th>邮箱</th>
+    	<th>创建时间</th>
+    	<th>角色</th>
+    	<th>操作</th>
     </tr>
     <c:forEach items="${us}" var="u">
     <tr>
@@ -245,7 +253,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<tr>
 				<td>账号：</td>
 				<td>
-					<input name="u.UNum" type="text" style="width: 100%;"/>
+					<input id="a_1" name="u.UNum" type="text" style="width: 100%;"/>
 				</td>
 			</tr>
 			<tr>
@@ -340,7 +348,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</tr>
 			<tr>
 				<td colspan="2" align="center">
-					<input class="easyui-linkbutton" type="submit" style="width: 95%;padding: 5px;" value="提交"/>
+					<input onclick="return check()" class="easyui-linkbutton" type="submit" style="width: 95%;padding: 5px;" value="提交"/>
 				</td>			
 			</tr>
 		</table>

@@ -66,13 +66,6 @@ public class GoOutAction extends MyBaseAction{
 			String hql2="from GoOut";
 			gos=ser.query(hql, ss, hql2, page, ser);
 		}
-		for (int i = 0; i < gos.size(); i++) {
-			//带上硬件专员姓名
-			gos.get(i).setCsIdApplicantMaster(ser.idToMaster(gos.get(i).getCsIdApplicant()));
-			gos.get(i).setCsIdRegisteMaster(ser.idToMaster(gos.get(i).getCsIdRegiste()));
-			gos.get(i).setCsIdServiceMaster(ser.idToMaster(gos.get(i).getCsIdService()));
-		}
-		ser.receiveStructure(getRequest());
 		return result_go;
 	}
 	

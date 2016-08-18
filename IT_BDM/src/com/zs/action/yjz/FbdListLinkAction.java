@@ -4,6 +4,7 @@ import java.io.UnsupportedEncodingException;
 import java.util.List;
 
 import com.zs.action.MyBaseAction;
+import com.zs.entity.CompanySection;
 import com.zs.entity.CompanySection1;
 import com.zs.entity.CompanySection2;
 import com.zs.entity.CompanySection3;
@@ -87,8 +88,6 @@ public class FbdListLinkAction extends MyBaseAction{
 			fb.setQb(qb);
 			fbd.setFb(fb);
 			lls.get(i).setFbd(fbd);
-			//带上硬件专员姓名
-			lls.get(i).setCsMaster(ser.idToMaster(lls.get(i).getCsId()));
 		}
 		ser.receiveStructure(getRequest());
 		return result_ll;

@@ -20,7 +20,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<!--
 	<link rel="stylesheet" type="text/css" href="styles.css">
 	-->
-	<link rel="stylesheet" type="text/css" href="<%=path %>/FRAMEWORK/jquery-easyui/themes/gray/easyui.css">
+	<link rel="stylesheet" type="text/css" href="<%=path %>/FRAMEWORK/jquery-easyui/themes/yellow/easyui.css">
 	<link rel="stylesheet" type="text/css" href="<%=path %>/FRAMEWORK/jquery-easyui/themes/icon.css">
 	<link rel="stylesheet" type="text/css" href="<%=path %>/FRAMEWORK/jquery-easyui/demo/demo.css">
 	<script type="text/javascript" src="<%=path %>/FRAMEWORK/jquery-easyui/jquery.min.js"></script>
@@ -75,25 +75,25 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <div style="height: 455px;">
     
     <table border="1" id="eidtASubjectWindow1" style="font-size: 12px;">
-    <tr align="center" style="height: 28px;background-color: #E6E6E6;">
-    	<td>编号</td>
-    	<td>区部</td>
-    	<td>分部</td>
-    	<td>分部经理</td>
-    	<td>联系电话</td>
-    	<td>分拨点</td>
-    	<td>CPU</td>
-    	<td>主板</td>
-    	<td>内存</td>
-    	<td>硬盘</td>
-    	<td>MAC</td>
-    	<td>显示器</td>
-    	<td>主板使用日期</td>
-    	<td>主板使用年限</td>
-    	<td>是否可报废</td>
-    	<td>备注</td>
-    	<td>状态</td>
-    	<td>操作</td>
+    <tr>
+    	<th>编号</th>
+    	<th>区部</th>
+    	<th>分部</th>
+    	<th>分部经理</th>
+    	<th>联系电话</th>
+    	<th>分拨点</th>
+    	<th>CPU</th>
+    	<th>主板</th>
+    	<th>内存</th>
+    	<th>硬盘</th>
+    	<th>MAC</th>
+    	<th>显示器</th>
+    	<th>主板使用日期</th>
+    	<th>主板使用年限</th>
+    	<th>是否可报废</th>
+    	<th>备注</th>
+    	<th>状态</th>
+    	<th>操作</th>
     </tr>
     <c:forEach items="${cs}" var="c">
     <tr>

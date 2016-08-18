@@ -210,6 +210,74 @@ public class RoleInterceptor extends AbstractInterceptor{
 				return roleControl(arg0, r, "44");
 			}
 			//---------------------------系统组结束，系统设置开始----------------------------------------
+			else if ((PRO_NAME+"/users!queryOfFenye").equals(path)) {//用户管理查看
+				return roleControl(arg0, r, "45");
+			}else if ((PRO_NAME+"/users!delete").equals(path)) {//用户管理删除
+				return roleControl(arg0, r, "46");
+			}else if ((PRO_NAME+"/users!update").equals(path)) {//用户管理修改
+				return roleControl(arg0, r, "47");
+			}else if ((PRO_NAME+"/users!add").equals(path)) {//用户管理添加
+				return roleControl(arg0, r, "48");
+			}
+			
+			else if ((PRO_NAME+"/role!queryOfFenye").equals(path)) {//角色管理查看
+				return roleControl(arg0, r, "49");
+			}else if ((PRO_NAME+"/role!delete").equals(path)) {//角色管理删除
+				return roleControl(arg0, r, "50");
+			}else if ((PRO_NAME+"/role!update").equals(path)) {//角色管理修改
+				return roleControl(arg0, r, "51");
+			}else if ((PRO_NAME+"/role!add").equals(path)) {//角色管理添加
+				return roleControl(arg0, r, "52");
+			}
+			//---------------------------个人中心开始----------------------------------------
+			else if ((PRO_NAME+"/timeline!query").equals(path)) {//时间轴查看
+				return roleControl(arg0, r, "53");
+			}
+			
+			else if ((PRO_NAME+"/information!query").equals(path)) {//消息提醒查看
+				return roleControl(arg0, r, "54");
+			}
+			//------------------------------通讯录---------------------------------------
+			else if ((PRO_NAME+"/section!queryOfFenyeQb").equals(path)) {//区部信息查看
+				return roleControl(arg0, r, "55");
+			}else if ((PRO_NAME+"/section!deleteQb").equals(path)) {//区部信息删除
+				return roleControl(arg0, r, "56");
+			}else if ((PRO_NAME+"/section!updateQb").equals(path)) {//区部信息修改
+				return roleControl(arg0, r, "57");
+			}else if ((PRO_NAME+"/section!addQb").equals(path)) {//区部信息添加
+				return roleControl(arg0, r, "58");
+			}
+			
+			else if ((PRO_NAME+"/section!queryOfFenyeFb").equals(path)) {//分部信息查看
+				return roleControl(arg0, r, "59");
+			}else if ((PRO_NAME+"/section!deleteFb").equals(path)) {//分部信息删除
+				return roleControl(arg0, r, "60");
+			}else if ((PRO_NAME+"/section!updateFb").equals(path)) {//分部信息修改
+				return roleControl(arg0, r, "61");
+			}else if ((PRO_NAME+"/section!addFb").equals(path)) {//分部信息添加
+				return roleControl(arg0, r, "62");
+			}
+			
+			else if ((PRO_NAME+"/section!queryOfFenyeFbd").equals(path)) {//分拨点信息查看
+				return roleControl(arg0, r, "63");
+			}else if ((PRO_NAME+"/section!deleteFbd").equals(path)) {//分拨点信息删除
+				return roleControl(arg0, r, "64");
+			}else if ((PRO_NAME+"/section!updateFbd").equals(path)) {//分拨点信息修改
+				return roleControl(arg0, r, "65");
+			}else if ((PRO_NAME+"/section!addFbd").equals(path)) {//分拨点信息添加
+				return roleControl(arg0, r, "66");
+			}
+			//-----公司内部------
+			else if ((PRO_NAME+"/cs!query").equals(path) || (PRO_NAME+"/cs!queryInfor").equals(path)) {//公司组织架构查看
+				return roleControl(arg0, r, "67");
+			}else if ((PRO_NAME+"/cs!myDelete").equals(path)) {//公司组织架构删除
+				return roleControl(arg0, r, "68");
+			}else if ((PRO_NAME+"/cs!update").equals(path)) {//公司组织架构修改
+				return roleControl(arg0, r, "69");
+			}else if ((PRO_NAME+"/cs!add").equals(path)) {//公司组织架构添加
+				return roleControl(arg0, r, "70");
+			}
+			
 		}
 		close(); 
 		return arg0.invoke(); 

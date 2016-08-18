@@ -132,6 +132,7 @@ public class SectionAction extends MyBaseAction{
 	public String updateQb() throws Exception {
 		if(qb!=null && qb.getQbId()!=null && !"".equals(qb.getQbId().trim())){
 			ser.update(qb);
+			getRequest().setAttribute("qb", qb);
 		}
 		qb=null;
 		return result5;
@@ -191,6 +192,7 @@ public class SectionAction extends MyBaseAction{
 		if(fb!=null && fb.getFbId()!=null && !"".equals(fb.getFbId().trim())){
 			fb.setQbId(structure);
 			ser.update(fb);
+			getRequest().setAttribute("fb", fb);
 		}
 		fb=null;
 		return result5;
@@ -202,6 +204,7 @@ public class SectionAction extends MyBaseAction{
 			fb.setFbId("fb"+NameOfDate.getNum());
 			fb.setQbId(structure);
 			ser.save(fb);
+			getRequest().setAttribute("fb", fb);
 		}
 		fb=null;
 		return result5;
@@ -250,6 +253,7 @@ public class SectionAction extends MyBaseAction{
 		if(fbd!=null && fbd.getFbdId()!=null && !"".equals(fbd.getFbdId().trim())){
 			fbd.setFbId(structure);
 			ser.update(fbd);
+			getRequest().setAttribute("fbd", fbd);
 		}
 		fbd=null;
 		return result5;
@@ -261,6 +265,7 @@ public class SectionAction extends MyBaseAction{
 			fbd.setFbdId("fbd"+NameOfDate.getNum());
 			fbd.setFbId(structure);
 			ser.save(fbd);
+			getRequest().setAttribute("fbd", fbd);
 		}
 		fbd=null;
 		return result5;

@@ -22,14 +22,14 @@
         <property name="GDateIn" type="java.util.Date">
             <column name="g_date_in" length="10" />
         </property>
-        <property name="csIdIn" type="java.lang.String">
-            <column name="cs_id_in" />
+        <property name="csMasterIn" type="java.lang.String">
+            <column name="cs_master_in" />
         </property>
         <property name="GDateOut" type="java.util.Date">
             <column name="g_date_out" length="10" />
         </property>
-        <property name="csIdOut" type="java.lang.String">
-            <column name="cs_id_out" />
+        <property name="csMasterOut" type="java.lang.String">
+            <column name="cs_master_out" />
         </property>
         <property name="GNote" type="java.lang.String">
             <column name="g_note" />

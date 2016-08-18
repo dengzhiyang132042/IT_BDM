@@ -12,7 +12,7 @@ public class FbdListLink implements java.io.Serializable {
 
 	private String llId;
 	private String fbdId;
-	private String csId;
+	private String csMaster;
 	private Date llDateNeed;
 	private Date llDateCommit;
 	private String llName;
@@ -23,21 +23,10 @@ public class FbdListLink implements java.io.Serializable {
 	private String llNote;
 	private String llState;
 
-	private String csMaster;
-
 	
 	private SectionFenbodian fbd;
-	
-	
 
-
-	public String getCsMaster() {
-		return csMaster;
-	}
-
-	public void setCsMaster(String csMaster) {
-		this.csMaster = csMaster;
-	}
+	// Constructors
 
 	public SectionFenbodian getFbd() {
 		return fbd;
@@ -46,7 +35,6 @@ public class FbdListLink implements java.io.Serializable {
 	public void setFbd(SectionFenbodian fbd) {
 		this.fbd = fbd;
 	}
-	// Constructors
 
 	/** default constructor */
 	public FbdListLink() {
@@ -58,12 +46,13 @@ public class FbdListLink implements java.io.Serializable {
 	}
 
 	/** full constructor */
-	public FbdListLink(String llId, String fbdId, String csId, Date llDateNeed,
-			Date llDateCommit, String llName, Integer llNumber, String llUnit,
-			String llNorms, String llLink, String llNote, String llState) {
+	public FbdListLink(String llId, String fbdId, String csMaster,
+			Date llDateNeed, Date llDateCommit, String llName,
+			Integer llNumber, String llUnit, String llNorms, String llLink,
+			String llNote, String llState) {
 		this.llId = llId;
 		this.fbdId = fbdId;
-		this.csId = csId;
+		this.csMaster = csMaster;
 		this.llDateNeed = llDateNeed;
 		this.llDateCommit = llDateCommit;
 		this.llName = llName;
@@ -93,12 +82,12 @@ public class FbdListLink implements java.io.Serializable {
 		this.fbdId = fbdId;
 	}
 
-	public String getCsId() {
-		return this.csId;
+	public String getCsMaster() {
+		return this.csMaster;
 	}
 
-	public void setCsId(String csId) {
-		this.csId = csId;
+	public void setCsMaster(String csMaster) {
+		this.csMaster = csMaster;
 	}
 
 	public Date getLlDateNeed() {

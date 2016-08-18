@@ -14,19 +14,12 @@ public class GoOut implements java.io.Serializable {
 	private Date goDateAccept;
 	private Integer goNumberAccept;
 	private String goDestination;
-	
-	private String csIdApplicant;
-	private String csIdApplicantMaster;
-	
+	private String csMasterApplicant;
 	private String goType;
-	private String csIdRegiste;
-	private String csIdRegisteMaster;
-	
+	private String csMasterRegiste;
 	private Date goDateExpect;
 	private String goDescriptionFault;
-	private String csIdService;
-	private String csIdServiceMaster;
-	
+	private String csMasterService;
 	private Date goDateComplete;
 	private Integer goNumberComplete;
 	private Integer goTimeout;
@@ -41,38 +34,6 @@ public class GoOut implements java.io.Serializable {
 	public GoOut() {
 	}
 
-	public String getGoDestination() {
-		return goDestination;
-	}
-
-	public void setGoDestination(String goDestination) {
-		this.goDestination = goDestination;
-	}
-
-	public String getCsIdApplicantMaster() {
-		return csIdApplicantMaster;
-	}
-
-	public void setCsIdApplicantMaster(String csIdApplicantMaster) {
-		this.csIdApplicantMaster = csIdApplicantMaster;
-	}
-
-	public String getCsIdRegisteMaster() {
-		return csIdRegisteMaster;
-	}
-
-	public void setCsIdRegisteMaster(String csIdRegisteMaster) {
-		this.csIdRegisteMaster = csIdRegisteMaster;
-	}
-
-	public String getCsIdServiceMaster() {
-		return csIdServiceMaster;
-	}
-
-	public void setCsIdServiceMaster(String csIdServiceMaster) {
-		this.csIdServiceMaster = csIdServiceMaster;
-	}
-
 	/** minimal constructor */
 	public GoOut(String goId) {
 		this.goId = goId;
@@ -80,19 +41,21 @@ public class GoOut implements java.io.Serializable {
 
 	/** full constructor */
 	public GoOut(String goId, Date goDateAccept, Integer goNumberAccept,
-			String csIdApplicant, String goType, String csIdRegiste,
-			Date goDateExpect, String goDescriptionFault, String csIdService,
+			String goDestination, String csMasterApplicant, String goType,
+			String csMasterRegiste, Date goDateExpect,
+			String goDescriptionFault, String csMasterService,
 			Date goDateComplete, Integer goNumberComplete, Integer goTimeout,
 			Double goFeeMeal, Integer goWork, Double goFeeTraffic, String goNote) {
 		this.goId = goId;
 		this.goDateAccept = goDateAccept;
 		this.goNumberAccept = goNumberAccept;
-		this.csIdApplicant = csIdApplicant;
+		this.goDestination = goDestination;
+		this.csMasterApplicant = csMasterApplicant;
 		this.goType = goType;
-		this.csIdRegiste = csIdRegiste;
+		this.csMasterRegiste = csMasterRegiste;
 		this.goDateExpect = goDateExpect;
 		this.goDescriptionFault = goDescriptionFault;
-		this.csIdService = csIdService;
+		this.csMasterService = csMasterService;
 		this.goDateComplete = goDateComplete;
 		this.goNumberComplete = goNumberComplete;
 		this.goTimeout = goTimeout;
@@ -128,12 +91,20 @@ public class GoOut implements java.io.Serializable {
 		this.goNumberAccept = goNumberAccept;
 	}
 
-	public String getCsIdApplicant() {
-		return this.csIdApplicant;
+	public String getGoDestination() {
+		return this.goDestination;
 	}
 
-	public void setCsIdApplicant(String csIdApplicant) {
-		this.csIdApplicant = csIdApplicant;
+	public void setGoDestination(String goDestination) {
+		this.goDestination = goDestination;
+	}
+
+	public String getCsMasterApplicant() {
+		return this.csMasterApplicant;
+	}
+
+	public void setCsMasterApplicant(String csMasterApplicant) {
+		this.csMasterApplicant = csMasterApplicant;
 	}
 
 	public String getGoType() {
@@ -144,12 +115,12 @@ public class GoOut implements java.io.Serializable {
 		this.goType = goType;
 	}
 
-	public String getCsIdRegiste() {
-		return this.csIdRegiste;
+	public String getCsMasterRegiste() {
+		return this.csMasterRegiste;
 	}
 
-	public void setCsIdRegiste(String csIdRegiste) {
-		this.csIdRegiste = csIdRegiste;
+	public void setCsMasterRegiste(String csMasterRegiste) {
+		this.csMasterRegiste = csMasterRegiste;
 	}
 
 	public Date getGoDateExpect() {
@@ -168,12 +139,12 @@ public class GoOut implements java.io.Serializable {
 		this.goDescriptionFault = goDescriptionFault;
 	}
 
-	public String getCsIdService() {
-		return this.csIdService;
+	public String getCsMasterService() {
+		return this.csMasterService;
 	}
 
-	public void setCsIdService(String csIdService) {
-		this.csIdService = csIdService;
+	public void setCsMasterService(String csMasterService) {
+		this.csMasterService = csMasterService;
 	}
 
 	public Date getGoDateComplete() {

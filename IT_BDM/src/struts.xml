@@ -18,7 +18,7 @@
       </interceptor-stack>  
   </interceptors>  
   
-  <action name="section" class="zs_section_yjz">	
+  <action name="section" class="zs_section_yjz">	   
   	 <interceptor-ref name="mydefault" />
      <result>/index.jsp</result>
      <result name="qubu">/yjz_jsp/section_qubu.jsp</result>

@@ -41,7 +41,15 @@ public interface IService {
 	public String idToName(String id);
 		
 	// 转换   时间轴、提醒专用
-	public List<Map> transtion(List<Timeline> list) ;
+	public List<Map> transtion(List<Timeline> list);
 	
 	public List<CompanySection> initCs(CompanySection cs);
+	
+	public CompanySection queryFirst() ;
+	
+	public String fitting1(CompanySection cs);
+	
+	public String fitting2(CompanySection cs);
+
+
 }

@@ -66,16 +66,16 @@ public class CompanySectionAction extends MyBaseAction{
         jsonConfig.setCycleDetectionStrategy(CycleDetectionStrategy.LENIENT);  
         JSONObject json = JSONObject.fromObject(cs, jsonConfig);  
 		*/
-		cs=queryFirst();
-		getRequest().setAttribute("html",fitting2(cs));
+		cs=ser.queryFirst();
+		getRequest().setAttribute("html",ser.fitting2(cs));
 		return result;
 	}
 	
 	
 	
 	public String gotoAdd() throws UnsupportedEncodingException {
-		cs=queryFirst();
-		getRequest().setAttribute("html",fitting2(cs));
+		cs=ser.queryFirst();
+		getRequest().setAttribute("html",ser.fitting2(cs));
 		return result_add;
 	}
 	
@@ -83,8 +83,8 @@ public class CompanySectionAction extends MyBaseAction{
 		String id=getRequest().getParameter("id");
 		if (id!=null && !id.trim().equals("")) {
 			cs=(CompanySection) ser.get(CompanySection.class, id);
-			CompanySection first=queryFirst();
-			getRequest().setAttribute("html",fitting2(first));
+			CompanySection first=ser.queryFirst();
+			getRequest().setAttribute("html",ser.fitting2(first));
 		}
 		return result_update;
 	}
@@ -108,47 +108,7 @@ public class CompanySectionAction extends MyBaseAction{
 		return result_succ;
 	}
 	
-	/*找到头
-	 * */
-	private CompanySection queryFirst() {
-		List<CompanySection> css=ser.find("from CompanySection where csLast=? or csLast=?", new Object[]{"null","0"});
-		CompanySection cs=null;
-		if (css.size()>0) {
-			cs=css.get(0);
-			cs.setNexts(ser.initCs(cs));
-		}
-		return cs;
-	}
 	
-	//组装1——查看
-	private String fitting1() {
-		String str="<ul class='easyui-tree' data-options='animate:true,lines:true'>" +
-				"<li>" +
-				"<span>"+
-				cs.getCsId()+
-				"</span>"+
-				tell(cs)+
-				"</li>" +
-				"</ul>";
-		return str;
-	}
-	
-	//组装2——添加
-	private String fitting2(CompanySection cs) {
-		cs.setNexts(ser.initCs(cs));
-		String str="<ul class='easyui-tree' data-options='lines:true'>" +
-				"<li>" +
-				"<span>"+
-				cs.getCsName()+
-				"<font style='display: none;'>"+
-				cs.getCsId()+
-				"</font>"+
-				"</span>"+
-				tell(cs)+
-				"</li>" +
-				"</ul>";
-		return str;
-	}
 	
 	public String add() {
 		if (cs!=null) {
@@ -271,28 +231,5 @@ public class CompanySectionAction extends MyBaseAction{
 		return null;
 	}
 	
-	
-	/*组装html
-	 * 2016年8月15日17:14:07
-	 * 张顺
-	 * 因为前台靠无法使用递归，所以不好实现
-	 * */
-	private String tell(CompanySection cs) {
-		String str="<ul>" ;
-		for (int i = 0; i < cs.getNexts().size(); i++) {
-			str=str+"<li>" +
-					"<span>"
-					+cs.getNexts().get(i).getCsName()
-					+"<font style='display: none;'>"
-					+cs.getNexts().get(i).getCsId()
-					+"</font>"
-					+"</span>"
-					+tell(cs.getNexts().get(i))
-					+"</li>";
-		}
-		str=str
-			+"</ul>";
-		return str;
-	}	
 	
 }

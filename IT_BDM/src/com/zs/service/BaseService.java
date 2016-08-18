@@ -291,7 +291,7 @@ public class BaseService implements IService{
 	 * 张顺
 	 * 数据库表名转成实际名称
 	 * */
-	private String transtion(String tableName) {
+	public String transtion(String tableName) {
 		// TODO Auto-generated method stub
 		if (tableName!=null) {
 			if ("FbdAsdl".equals(tableName)) {
@@ -315,4 +315,105 @@ public class BaseService implements IService{
 			return null;
 		}
 	}
+	
+	
+	//通讯录内部的
+	/*找到头
+	 * */
+	public CompanySection queryFirst() {
+		List<CompanySection> css=dao.find("from CompanySection where csLast=? or csLast=?", new Object[]{"null","0"});
+		CompanySection cs=null;
+		if (css.size()>0) {
+			cs=css.get(0);
+			cs.setNexts(initCs(cs));
+		}
+		return cs;
+	}
+	
+	//组装1——查看     value——name，显示——name
+	public String fitting1(CompanySection cs) {
+		String str="<ul class='easyui-tree' data-options='animate:true,lines:true'>" +
+				"<li>" +
+				"<span>"+
+				cs.getCsName()+
+				"(" +
+				cs.getCsMaster()+
+				")"+
+				"<font style='display: none;'>"+
+				cs.getCsName()+
+				"</font>"+
+				"</span>"+
+				tell1(cs)+
+				"</li>" +
+				"</ul>";
+		return str;
+	}
+	
+	//组装2——添加     value——id，显示——name
+	public String fitting2(CompanySection cs) {
+		cs.setNexts(initCs(cs));
+		String str="<ul class='easyui-tree' data-options='animate:true,lines:true'>" +
+				"<li>" +
+				"<span>"+
+				cs.getCsName()+
+				"(" +
+				cs.getCsMaster()+
+				")"+
+				"<font style='display: none;'>"+
+				cs.getCsId()+
+				"</font>"+
+				"</span>"+
+				tell2(cs)+
+				"</li>" +
+				"</ul>";
+		return str;
+	}
+
+	/*组装html
+	 * 2016年8月15日17:14:07
+	 * 张顺
+	 * 因为前台靠无法使用递归，所以不好实现
+	 * */
+	public String tell1(CompanySection cs) {
+		String str="<ul>" ;
+		for (int i = 0; i < cs.getNexts().size(); i++) {
+			str=str+"<li>" +
+					"<span>"
+					+cs.getNexts().get(i).getCsName()
+					+"(" +
+					cs.getNexts().get(i).getCsMaster()+
+					")"
+					+"<font style='display: none;'>"
+					+cs.getNexts().get(i).getCsName()
+					+"</font>"
+					+"</span>"
+					+tell1(cs.getNexts().get(i))
+					+"</li>";
+		}
+		str=str
+			+"</ul>";
+		return str;
+	}	
+	
+	public String tell2(CompanySection cs) {
+		String str="<ul>" ;
+		for (int i = 0; i < cs.getNexts().size(); i++) {
+			str=str+"<li>" +
+					"<span>"
+					+cs.getNexts().get(i).getCsName()
+					+"(" +
+					cs.getNexts().get(i).getCsMaster()+
+					")"
+					+"<font style='display: none;'>"
+					+cs.getNexts().get(i).getCsId()
+					+"</font>"
+					+"</span>"
+					+tell2(cs.getNexts().get(i))
+					+"</li>";
+		}
+		str=str
+			+"</ul>";
+		return str;
+	}	
+	
 }

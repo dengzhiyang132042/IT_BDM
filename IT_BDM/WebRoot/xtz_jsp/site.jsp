@@ -20,7 +20,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<!--
 	<link rel="stylesheet" type="text/css" href="styles.css">
 	-->
-	<link rel="stylesheet" type="text/css" href="<%=path %>/FRAMEWORK/jquery-easyui/themes/gray/easyui.css">
+	<link rel="stylesheet" type="text/css" href="<%=path %>/FRAMEWORK/jquery-easyui/themes/yellow/easyui.css">
 	<link rel="stylesheet" type="text/css" href="<%=path %>/FRAMEWORK/jquery-easyui/themes/icon.css">
 	<link rel="stylesheet" type="text/css" href="<%=path %>/FRAMEWORK/jquery-easyui/demo/demo.css">
 	<script type="text/javascript" src="<%=path %>/FRAMEWORK/jquery-easyui/jquery.min.js"></script>
@@ -73,18 +73,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <div style="height: 455px;">
     
     <table border="1" id="eidtASubjectWindow1" style="font-size: 12px;">
-    <tr align="center" style="height: 28px;background-color: #E6E6E6;">
-    	<td>编号</td>
-    	<td>网点条码</td>
-    	<td>网点名称</td>
-    	<td>开通日期</td>
-    	<td>维护日期</td>
-    	<td>维护周期</td>
-    	<td>维护类型</td>
-    	<td>维护IT</td>
-    	<td>通知方式</td>
-    	<td>备注说明</td>
-    	<td>操作</td>
+    <tr>
+    	<th>编号</th>
+    	<th>网点条码</th>
+    	<th>网点名称</th>
+    	<th>开通日期</th>
+    	<th>维护日期</th>
+    	<th>维护周期</th>
+    	<th>维护类型</th>
+    	<th>维护IT</th>
+    	<th>通知方式</th>
+    	<th>备注说明</th>
+    	<th>操作</th>
     </tr>
     <c:forEach items="${sites}" var="site">
     <tr>

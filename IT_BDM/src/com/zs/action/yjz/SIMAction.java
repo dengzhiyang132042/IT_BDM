@@ -4,6 +4,7 @@ import java.io.UnsupportedEncodingException;
 import java.util.List;
 
 import com.zs.action.MyBaseAction;
+import com.zs.entity.CompanySection;
 import com.zs.entity.CompanySection1;
 import com.zs.entity.CompanySection2;
 import com.zs.entity.CompanySection3;
@@ -79,11 +80,9 @@ public class SIMAction extends MyBaseAction{
 			String hql2="from Sim";
 			sims=ser.query(hql, ss, hql2, page, ser);
 		}
-		for (int i = 0; i < sims.size(); i++) {
-			//带上部门信息
-			sims.get(i).setCsName(ser.idToName(sims.get(i).getCsId()));
-		}
-		ser.receiveStructure(getRequest());
+		//带上部门
+		CompanySection cs=ser.queryFirst();
+		getRequest().setAttribute("html",ser.fitting1(cs));
 		return result_sim;
 	}
 	

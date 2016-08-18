@@ -30,14 +30,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<link rel="stylesheet" type="text/css" href="<%=path %>/FRAMEWORK/css/mycss.css">
 	
 	<style type="text/css">
-	table{
-		border-color: black;
-	}
-	
 	table tr td{
-		text-align: left;
+		padding: 3px;
 	}
-	
 	</style>
 	
   </head>
@@ -68,19 +63,21 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<table border="1">
 		<c:forEach items="${tlData}" var="data">
 		<tr>
-			<td colspan="4" style="background-color: #336699;">
+			<th colspan="5" style="background-color: #336699;">
 				<span style="color:white;font-weight: bold;">${data.name }——${fn:length(data.list) }</span>
-			</td>
+			</th>
 		</tr>
 		<c:if test="${fn:length(data.list)>0 }">
 		<tr bgcolor="#C2C2C2">
-			<td>时间</td>
-			<td>操作</td>
-			<td>表</td>
-			<td>编号</td>
+			<th>序号</th>
+			<th>时间</th>
+			<th>操作</th>
+			<th>表</th>
+			<th>编号</th>
 		</tr>
-		<c:forEach items="${data.list}" var="tl">
+		<c:forEach items="${data.list}" var="tl" varStatus="sta">
 		<tr>
+			<td>${sta.index+1 }</td>
 			<td>${tl.tlTime }</td>
 			<td>${tl.tlState }</td>
 			<td>${tl.tlTableName }</td>
@@ -90,7 +87,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</c:if>
 		<c:if test="${fn:length(data.list)<=0 }">
 		<tr>
-			<td colspan="4">
+			<td colspan="5">
 				<span style="color: red;">这张表的数据您还没有登记。</span>
 			</td>
 		</tr>

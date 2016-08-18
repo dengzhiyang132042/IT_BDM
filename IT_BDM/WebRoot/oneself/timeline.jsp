@@ -27,15 +27,27 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script type="text/javascript" src="<%=path %>/FRAMEWORK/jquery-easyui/jquery.easyui.min.js"></script>
 	
 	<link rel="stylesheet" type="text/css" href="<%=path %>/FRAMEWORK/css/mycss.css">
-	
+	<style type="text/css">
+	td{
+		padding: 3px;
+	}
+	</style>
   </head>
   
   <body style="padding-right: 40px;">
   	<div style="color: blue;font-weight: bold;">今天的时间轴:</div>
   	<br/>
 	<table border="1">
-	<c:forEach items="${tls}" var="tl">
 	<tr>
+		<th>序号</th>
+		<th>时间</th>
+		<th>操作</th>
+		<th>操作的表</th>
+		<th>表的编号</th>
+	</tr>
+	<c:forEach items="${tls}" var="tl" varStatus="sta">
+	<tr>
+		<td>${sta.index+1 }</td>
 		<td>${tl.tlTime }</td>
 		<td>
 			<c:if test="${tl.tlState=='查看' }">

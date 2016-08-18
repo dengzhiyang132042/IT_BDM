@@ -11,24 +11,14 @@ public class Sim implements java.io.Serializable {
 	// Fields
 
 	private String SId;
-	private String csId;
+	private String csName;
 	private Integer SNumber;
 	private Integer SMonth;
 	private Double SFeeSum;
 	private Date SDate;
 	private String SNote;
 
-	private String csName;
-	
 	// Constructors
-
-	public String getCsName() {
-		return csName;
-	}
-
-	public void setCsName(String csName) {
-		this.csName = csName;
-	}
 
 	/** default constructor */
 	public Sim() {
@@ -40,10 +30,10 @@ public class Sim implements java.io.Serializable {
 	}
 
 	/** full constructor */
-	public Sim(String SId, String csId, Integer SNumber, Integer SMonth,
+	public Sim(String SId, String csName, Integer SNumber, Integer SMonth,
 			Double SFeeSum, Date SDate, String SNote) {
 		this.SId = SId;
-		this.csId = csId;
+		this.csName = csName;
 		this.SNumber = SNumber;
 		this.SMonth = SMonth;
 		this.SFeeSum = SFeeSum;
@@ -61,12 +51,12 @@ public class Sim implements java.io.Serializable {
 		this.SId = SId;
 	}
 
-	public String getCsId() {
-		return this.csId;
+	public String getCsName() {
+		return this.csName;
 	}
 
-	public void setCsId(String csId) {
-		this.csId = csId;
+	public void setCsName(String csName) {
+		this.csName = csName;
 	}
 
 	public Integer getSNumber() {

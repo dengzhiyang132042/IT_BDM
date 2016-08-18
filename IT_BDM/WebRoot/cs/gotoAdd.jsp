@@ -21,20 +21,29 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<!--
 	<link rel="stylesheet" type="text/css" href="styles.css">
 	-->
-	<link rel="stylesheet" type="text/css" href="<%=path %>/FRAMEWORK/jquery-easyui/themes/gray/easyui.css">
+	<link rel="stylesheet" type="text/css" href="<%=path %>/FRAMEWORK/jquery-easyui/themes/yellow/easyui.css">
 	<link rel="stylesheet" type="text/css" href="<%=path %>/FRAMEWORK/jquery-easyui/themes/icon.css">
 	<link rel="stylesheet" type="text/css" href="<%=path %>/FRAMEWORK/jquery-easyui/demo/demo.css">
 	<script type="text/javascript" src="<%=path %>/FRAMEWORK/jquery-easyui/jquery.min.js"></script>
 	<script type="text/javascript" src="<%=path %>/FRAMEWORK/jquery-easyui/jquery.easyui.min.js"></script>
 	
 	<link rel="stylesheet" type="text/css" href="<%=path %>/FRAMEWORK/css/mycss.css">
-	
+	<style type="text/css">
+	td{
+		padding: 3px;
+	}
+	</style>
+	<script type="text/javascript">
+	$(function(){
+		$('.easyui-tree').tree('collapseAll');
+	});
+	</script>
   </head>
   
   <body>
   	<div class="easyui-panel" title="添加公司组织架构" style="padding: 5px;display: none;width: 512px;">
   	<form action="<%=path %>/cs!add" method="post">
-  	<table border="1" style="width: 500px;"> 
+  	<table border="1" style="width: 100%;" align="center"> 
   	<tr>
   		<td style="width: 100px;">部门名称：</td>
   		<td>
@@ -80,7 +89,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   	<tr>
   		<td>上级：</td>
   		<td>
-			<select name="cs.csLast" id="cc" style="width:150px;"></select>
+			<select name="cs.csLast" id="cc" style="width:100%;"></select>
 			<div id="sp">
 				<div style="color:#99BBE8;background:#fafafa;padding:5px;">选择上级架构</div>
 				${html }

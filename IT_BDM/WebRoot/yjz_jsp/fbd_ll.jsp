@@ -20,7 +20,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<!--
 	<link rel="stylesheet" type="text/css" href="styles.css">
 	-->
-	<link rel="stylesheet" type="text/css" href="<%=path %>/FRAMEWORK/jquery-easyui/themes/gray/easyui.css">
+	<link rel="stylesheet" type="text/css" href="<%=path %>/FRAMEWORK/jquery-easyui/themes/yellow/easyui.css">
 	<link rel="stylesheet" type="text/css" href="<%=path %>/FRAMEWORK/jquery-easyui/themes/icon.css">
 	<link rel="stylesheet" type="text/css" href="<%=path %>/FRAMEWORK/jquery-easyui/demo/demo.css">
 	<script type="text/javascript" src="<%=path %>/FRAMEWORK/jquery-easyui/jquery.min.js"></script>
@@ -38,7 +38,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		$('#u').window('open');
 		$('#u_1').val(u1);
 		$("#u_2 option[value='"+u2+"']").attr("selected",true);
-		$("#u_3 option[value='"+u3+"']").attr("selected",true);
+		$("#u_3").val(u3);
 		$('#u_4').val(u4);
 		$('#u_5').val(u5);
 		$('#u_6').val(u6);
@@ -64,9 +64,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		}
 		$('#f1').submit();
 	}
-	
 	</script>
-	
   </head>
   
   <body>
@@ -75,21 +73,21 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <div style="height: 455px;">
     
     <table border="1" id="eidtASubjectWindow1" style="font-size: 12px;">
-    <tr align="center" style="height: 28px;background-color: #E6E6E6;">
-    	<td>编号</td>
-    	<td>分部</td>
-    	<td>分拨点</td>
-    	<td>硬件专员</td>
-    	<td>需求日期</td>
-    	<td>提交日期</td>
-    	<td>名称</td>
-    	<td>数量</td>
-    	<td>单位</td>
-    	<td>规格</td>
-    	<td>链接</td>
-    	<td>备注</td>
-    	<td>状态</td>
-    	<td>操作</td>
+    <tr>
+    	<th>编号</th>
+    	<th>分部</th>
+    	<th>分拨点</th>
+    	<th>硬件专员</th>
+    	<th>需求日期</th>
+    	<th>提交日期</th>
+    	<th>名称</th>
+    	<th>数量</th>
+    	<th>单位</th>
+    	<th>规格</th>
+    	<th>链接</th>
+    	<th>备注</th>
+    	<th>状态</th>
+    	<th>操作</th>
     </tr>
     <c:forEach items="${lls}" var="ll">
     <tr>
@@ -107,7 +105,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<td width="">${ll.llNote }</td>
 		<td width="">${ll.llState }</td>
 		<td width="5%" align="center">
-			<a onclick="update('${ll.llId }','${ll.fbd.fbdId }','${ll.csId }','${ll.llDateNeed }','${ll.llDateCommit }','${ll.llName }','${ll.llNumber }','${ll.llUnit }','${ll.llNorms }','${ll.llLink }','${ll.llNote }','${ll.llState }')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-edit'" title="修改"></a>
+			<a onclick="update('${ll.llId }','${ll.fbd.fbdId }','${ll.csMaster }','${ll.llDateNeed }','${ll.llDateCommit }','${ll.llName }','${ll.llNumber }','${ll.llUnit }','${ll.llNorms }','${ll.llLink }','${ll.llNote }','${ll.llState }')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-edit'" title="修改"></a>
 			<a href="<%=path %>/fbd_ll!deleteLL?id=${ll.llId}" onclick="return confirm('确定删除吗?')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-delete'" title="删除"></a>
 		</td>
     </tr>
@@ -172,32 +170,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<tr>
 				<td>硬件专员：</td>
 				<td>
-					<select id="u_3" name="ll.csId">
-						<c:forEach items="${structure2}" var="cs1">
-						<option value="${cs1.s1Id }">${cs1.s1Name}(${cs1.s1Master })</option>
-							<c:forEach items="${cs1.nexts}" var="cs2">
-							<option value="${cs2.s2Id }">${cs2.s2Name}(${cs2.s2Master })</option>
-								<c:forEach items="${cs2.nexts}" var="cs3">
-								<option value="${cs3.s3Id }">${cs3.s3Name}(${cs3.s3Master })</option>
-									<c:forEach items="${cs3.nexts}" var="cs4">
-									<option value="${cs4.s4Id }">${cs4.s4Name}(${cs4.s4Master })</option>
-										<c:forEach items="${cs4.nexts}" var="cs5">
-										<option value="${cs5.s5Id }">${cs5.s5Name}(${cs5.s5Master })</option>
-											<c:forEach items="${cs5.nexts}" var="cs6">
-											<option value="${cs6.s6Id }">${cs6.s6Name}(${cs6.s6Master })</option>
-												<c:forEach items="${cs6.nexts}" var="cs7">
-													<option value="${cs7.s7Id }">${cs7.s7Name}(${cs7.s7Master })</option>
-													<c:forEach items="${cs7.nexts}" var="cs8">
-														<option value="${cs8.s8Id }">${cs8.s8Name}(${cs8.s8Master })</option>
-													</c:forEach>		
-												</c:forEach>
-											</c:forEach>
-										</c:forEach>
-									</c:forEach>			
-								</c:forEach>
-							</c:forEach>
-						</c:forEach>
-					</select>
+					<input id="u_3" name="ll.csMaster" type="text" style="width: 100%;"/>
 				</td>
 			</tr>
 			<tr>
@@ -283,32 +256,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<tr>
 				<td>硬件专员：</td>
 				<td>
-					<select name="ll.csId">
-						<c:forEach items="${structure2}" var="cs1">
-						<option value="${cs1.s1Id }">${cs1.s1Name}(${cs1.s1Master })</option>
-							<c:forEach items="${cs1.nexts}" var="cs2">
-							<option value="${cs2.s2Id }">${cs2.s2Name}(${cs2.s2Master })</option>
-								<c:forEach items="${cs2.nexts}" var="cs3">
-								<option value="${cs3.s3Id }">${cs3.s3Name}(${cs3.s3Master })</option>
-									<c:forEach items="${cs3.nexts}" var="cs4">
-									<option value="${cs4.s4Id }">${cs4.s4Name}(${cs4.s4Master })</option>
-										<c:forEach items="${cs4.nexts}" var="cs5">
-										<option value="${cs5.s5Id }">${cs5.s5Name}(${cs5.s5Master })</option>
-											<c:forEach items="${cs5.nexts}" var="cs6">
-											<option value="${cs6.s6Id }">${cs6.s6Name}(${cs6.s6Master })</option>
-												<c:forEach items="${cs6.nexts}" var="cs7">
-													<option value="${cs7.s7Id }">${cs7.s7Name}(${cs7.s7Master })</option>
-													<c:forEach items="${cs7.nexts}" var="cs8">
-														<option value="${cs8.s8Id }">${cs8.s8Name}(${cs8.s8Master })</option>
-													</c:forEach>		
-												</c:forEach>
-											</c:forEach>
-										</c:forEach>
-									</c:forEach>			
-								</c:forEach>
-							</c:forEach>
-						</c:forEach>
-					</select>
+					<input name="ll.csMaster" type="text" style="width: 100%;"/>
 				</td>
 			</tr>
 			<tr>

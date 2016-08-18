@@ -10,8 +10,8 @@
             <column name="s_id" />
             <generator class="assigned" />
         </id>
-        <property name="csId" type="java.lang.String">
-            <column name="cs_id" />
+        <property name="csName" type="java.lang.String">
+            <column name="cs_name" />
         </property>
         <property name="SNumber" type="java.lang.Integer">
             <column name="s_number" />

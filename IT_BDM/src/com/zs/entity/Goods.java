@@ -15,31 +15,12 @@ public class Goods implements java.io.Serializable {
 	private Integer GNumber;
 	private String GUnit;
 	private Date GDateIn;
-	private String csIdIn;
+	private String csMasterIn;
 	private Date GDateOut;
-	private String csIdOut;
+	private String csMasterOut;
 	private String GNote;
 
-	private String csIdInMaster;
-	private String csIdOutMaster;
-	
 	// Constructors
-
-	public String getCsIdInMaster() {
-		return csIdInMaster;
-	}
-
-	public void setCsIdInMaster(String csIdInMaster) {
-		this.csIdInMaster = csIdInMaster;
-	}
-
-	public String getCsIdOutMaster() {
-		return csIdOutMaster;
-	}
-
-	public void setCsIdOutMaster(String csIdOutMaster) {
-		this.csIdOutMaster = csIdOutMaster;
-	}
 
 	/** default constructor */
 	public Goods() {
@@ -52,16 +33,16 @@ public class Goods implements java.io.Serializable {
 
 	/** full constructor */
 	public Goods(String GId, String GName, Integer GNumber, String GUnit,
-			Date GDateIn, String csIdIn, Date GDateOut, String csIdOut,
+			Date GDateIn, String csMasterIn, Date GDateOut, String csMasterOut,
 			String GNote) {
 		this.GId = GId;
 		this.GName = GName;
 		this.GNumber = GNumber;
 		this.GUnit = GUnit;
 		this.GDateIn = GDateIn;
-		this.csIdIn = csIdIn;
+		this.csMasterIn = csMasterIn;
 		this.GDateOut = GDateOut;
-		this.csIdOut = csIdOut;
+		this.csMasterOut = csMasterOut;
 		this.GNote = GNote;
 	}
 
@@ -107,12 +88,12 @@ public class Goods implements java.io.Serializable {
 		this.GDateIn = GDateIn;
 	}
 
-	public String getCsIdIn() {
-		return this.csIdIn;
+	public String getCsMasterIn() {
+		return this.csMasterIn;
 	}
 
-	public void setCsIdIn(String csIdIn) {
-		this.csIdIn = csIdIn;
+	public void setCsMasterIn(String csMasterIn) {
+		this.csMasterIn = csMasterIn;
 	}
 
 	public Date getGDateOut() {
@@ -123,12 +104,12 @@ public class Goods implements java.io.Serializable {
 		this.GDateOut = GDateOut;
 	}
 
-	public String getCsIdOut() {
-		return this.csIdOut;
+	public String getCsMasterOut() {
+		return this.csMasterOut;
 	}
 
-	public void setCsIdOut(String csIdOut) {
-		this.csIdOut = csIdOut;
+	public void setCsMasterOut(String csMasterOut) {
+		this.csMasterOut = csMasterOut;
 	}
 
 	public String getGNote() {

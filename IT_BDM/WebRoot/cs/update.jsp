@@ -21,14 +21,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<!--
 	<link rel="stylesheet" type="text/css" href="styles.css">
 	-->
-	<link rel="stylesheet" type="text/css" href="<%=path %>/FRAMEWORK/jquery-easyui/themes/gray/easyui.css">
+	<link rel="stylesheet" type="text/css" href="<%=path %>/FRAMEWORK/jquery-easyui/themes/yellow/easyui.css">
 	<link rel="stylesheet" type="text/css" href="<%=path %>/FRAMEWORK/jquery-easyui/themes/icon.css">
 	<link rel="stylesheet" type="text/css" href="<%=path %>/FRAMEWORK/jquery-easyui/demo/demo.css">
 	<script type="text/javascript" src="<%=path %>/FRAMEWORK/jquery-easyui/jquery.min.js"></script>
 	<script type="text/javascript" src="<%=path %>/FRAMEWORK/jquery-easyui/jquery.easyui.min.js"></script>
 	
 	<link rel="stylesheet" type="text/css" href="<%=path %>/FRAMEWORK/css/mycss.css">
-	
+	<style type="text/css">
+	td{
+		padding: 3px;
+	}
+	</style>
   </head>
   
   <body>
@@ -38,61 +42,61 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   		<tr>
   			<td style="width: 100px;">编号:</td>
   			<td>
-  				<input type="text" value="${cs.csId }"/>
+  				<input name="cs.csId" type="text" value="${cs.csId }"/>
   			</td>
   		</tr>
   		<tr>
   			<td>部门名称:</td>
   			<td>
-  				<input type="text" value="${cs.csName }"/>
+  				<input name="cs.csName" type="text" value="${cs.csName }"/>
   			</td>
   		</tr>
   		<tr>
   			<td>职员名字：</td>
   			<td>
-  				<input type="text" value="${cs.csMaster }"/>
+  				<input name="cs.csMaster" type="text" value="${cs.csMaster }"/>
   			</td>
   		</tr>
   		<tr>
   			<td>工号：</td>
   			<td>
-  				<input type="text" value="${cs.csNumber }"/>
+  				<input name="cs.csNumber" type="text" value="${cs.csNumber }"/>
   			</td>
   		</tr>
   		<tr>
   			<td>职位：</td>
   			<td>
-  				<input type="text" value="${cs.csPosition }"/>
+  				<input name="cs.csPosition" type="text" value="${cs.csPosition }"/>
   			</td>
   		</tr>
   		<tr>
   			<td>私人电话：</td>
   			<td>
-  				<input type="text" value="${cs.csPhoneP }"/>
+  				<input name="cs.csPhoneP" type="text" value="${cs.csPhoneP }"/>
   			</td>
   		</tr>
   		<tr>
   			<td>公司电话：</td>
   			<td>
-  				<input type="text" value="${cs.csPhoneC }"/>
+  				<input name="cs.csPhoneC" type="text" value="${cs.csPhoneC }"/>
   			</td>
   		</tr>
   		<tr>
   			<td>短号：</td>
   			<td>
-  				<input type="text" value="${cs.csPhoneS }"/>
+  				<input name="cs.csPhoneS" type="text" value="${cs.csPhoneS }"/>
   			</td>
   		</tr>
   		<tr>
   			<td>备注：</td>
   			<td>
-  				<input type="text" value="${cs.csNote }"/>
+  				<input name="cs.csNote" type="text" value="${cs.csNote }"/>
   			</td>
   		</tr>
   		<tr>
   			<td>上级：</td>
   			<td>
-  				<select name="cs.csLast" id="cc" style="width:150px;" value="${cs.csLast }"></select>
+  				<select name="cs.csLast" id="cc" style="width:100%;" value="${cs.csLast }"></select>
 				<div id="sp">
 					<div style="color:#99BBE8;background:#fafafa;padding:5px;">选择上级架构</div>
 					${html }

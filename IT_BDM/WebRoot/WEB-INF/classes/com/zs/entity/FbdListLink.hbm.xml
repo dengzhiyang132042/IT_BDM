@@ -13,8 +13,8 @@
         <property name="fbdId" type="java.lang.String">
             <column name="fbd_id" />
         </property>
-        <property name="csId" type="java.lang.String">
-            <column name="cs_id" />
+        <property name="csMaster" type="java.lang.String">
+            <column name="cs_master" />
         </property>
         <property name="llDateNeed" type="java.util.Date">
             <column name="ll_date_need" length="10" />

@@ -20,7 +20,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<!--
 	<link rel="stylesheet" type="text/css" href="styles.css">
 	-->
-	<link rel="stylesheet" type="text/css" href="<%=path %>/FRAMEWORK/jquery-easyui/themes/gray/easyui.css">
+	<link rel="stylesheet" type="text/css" href="<%=path %>/FRAMEWORK/jquery-easyui/themes/yellow/easyui.css">
 	<link rel="stylesheet" type="text/css" href="<%=path %>/FRAMEWORK/jquery-easyui/themes/icon.css">
 	<link rel="stylesheet" type="text/css" href="<%=path %>/FRAMEWORK/jquery-easyui/demo/demo.css">
 	<script type="text/javascript" src="<%=path %>/FRAMEWORK/jquery-easyui/jquery.min.js"></script>
@@ -73,18 +73,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <div style="height: 455px;">
     
     <table border="1" id="eidtASubjectWindow1" style="font-size: 12px;">
-    <tr align="center" style="height: 28px;background-color: #E6E6E6;">
-    	<td>编号</td>
-    	<td>申请时间</td>
-    	<td>申请部门</td>
-    	<td>申请人</td>
-    	<td>哲盟</td>
-    	<td>在职情况</td>
-    	<td>维护IT</td>
-    	<td>维护日期</td>
-    	<td>维护周数</td>
-    	<td>备注</td>
-    	<td>操作</td>
+    <tr>
+    	<th>编号</th>
+    	<th>申请时间</th>
+    	<th>申请部门</th>
+    	<th>申请人</th>
+    	<th>哲盟</th>
+    	<th>在职情况</th>
+    	<th>维护IT</th>
+    	<th>维护日期</th>
+    	<th>维护周数</th>
+    	<th>备注</th>
+    	<th>操作</th>
     </tr>
     <c:forEach items="${zmns}" var="zmn">
     <tr>

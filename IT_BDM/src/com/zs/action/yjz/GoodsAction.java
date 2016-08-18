@@ -72,12 +72,6 @@ public class GoodsAction extends MyBaseAction{
 			String hql2="from Goods";
 			goods=ser.query(hql, ss, hql2, page, ser);
 		}
-		for (int i = 0; i < goods.size(); i++) {
-			//带上硬件专员姓名
-			goods.get(i).setCsIdInMaster(ser.idToMaster(goods.get(i).getCsIdIn()));
-			goods.get(i).setCsIdOutMaster(ser.idToMaster(goods.get(i).getCsIdOut()));
-		}
-		ser.receiveStructure(getRequest());
 		return result_goods;
 	}
 	

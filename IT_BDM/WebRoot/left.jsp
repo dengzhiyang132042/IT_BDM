@@ -27,7 +27,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<link rel="stylesheet" type="text/css" href="<%=path %>/FRAMEWORK/css/mycss.css">
 	<style type="text/css">
 	a{
-		color: #00FF00;
+		color: #FFAAFF;
 	}
 	
 	</style>

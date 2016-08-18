@@ -20,7 +20,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<!--
 	<link rel="stylesheet" type="text/css" href="styles.css">
 	-->
-	<link rel="stylesheet" type="text/css" href="<%=path %>/FRAMEWORK/jquery-easyui/themes/gray/easyui.css">
+	<link rel="stylesheet" type="text/css" href="<%=path %>/FRAMEWORK/jquery-easyui/themes/yellow/easyui.css">
 	<link rel="stylesheet" type="text/css" href="<%=path %>/FRAMEWORK/jquery-easyui/themes/icon.css">
 	<link rel="stylesheet" type="text/css" href="<%=path %>/FRAMEWORK/jquery-easyui/demo/demo.css">
 	<script type="text/javascript" src="<%=path %>/FRAMEWORK/jquery-easyui/jquery.min.js"></script>
@@ -73,18 +73,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <div style="height: 455px;">
     
     <table border="1" id="eidtASubjectWindow1" style="font-size: 12px;">
-    <tr align="center" style="height: 28px;background-color: #E6E6E6;">
-    	<td>编号</td>
-    	<td>日期</td>
-    	<td>9点末上传数据</td>
-    	<td>18点末上传数据</td>
-    	<td>深圳公司离线扫描</td>
-    	<td>集包到件</td>
-    	<td>集包未到件</td>
-    	<td>集包数据</td>
-    	<td>装车数据</td>
-    	<td>备注</td>
-    	<td>操作</td>
+    <tr>
+    	<th>编号</th>
+    	<th>日期</th>
+    	<th>9点末上传数据</th>
+    	<th>18点末上传数据</th>
+    	<th>深圳公司离线扫描</th>
+    	<th>集包到件</th>
+    	<th>集包未到件</th>
+    	<th>集包数据</th>
+    	<th>装车数据</th>
+    	<th>备注</th>
+    	<th>操作</th>
     </tr>
     <c:forEach items="${zmds}" var="zmd">
     <tr>
