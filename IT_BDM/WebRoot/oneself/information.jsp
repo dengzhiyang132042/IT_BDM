@@ -58,7 +58,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</c:forEach>
 	 -->
 	
-	<div style="color: blue;font-weight: bold;">硬件组——今天：</div>
+	<div style="color: blue;font-weight: bold;">${user.r.RName }——今天：
+	<br/>
+	${user.UName }(${user.UNum })
+	</div>
 	<br/>
 	<table border="1">
 		<c:forEach items="${tlData}" var="data">

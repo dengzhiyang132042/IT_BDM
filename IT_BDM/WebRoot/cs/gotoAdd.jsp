@@ -107,8 +107,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<!--
 	测试按钮 
 	<a id="a" onclick="">测试组合下拉控件</a>
+	<a href="javascript:void(0)" class="easyui-linkbutton" onclick="setvalue()">SetValue</a>
+	<a href="javascript:void(0)" class="easyui-linkbutton" onclick="alert($('#cc').combobox('getText'))">GetValue</a>
 	 -->
-	
 	
 	<script type="text/javascript">
 		$(function(){
@@ -140,6 +141,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				return true;
 			}
 		} 
+		function setvalue(){
+			$.messager.prompt('SetValue','Please input the value(CO,NV,UT,etc):',function(v){
+				if (v){
+					$('#cc').combobox('setText',v);
+				}
+			});
+		}
 	</script>
   </body>
 </html>

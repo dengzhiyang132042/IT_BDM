@@ -70,6 +70,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		$('#u').window('open');
 		$('#u_1').val(u1);
 		//-----------------------
+		$('#cc1').combobox('setText',u2);
+		
 		$('#u_3').val(u3);
 		$('#u_4').val(u4);
 		$('#u_5').val(u5);
@@ -89,7 +91,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		}else if($('#page').val()*1>${page.pageMax}*1){
 			$('#page').val(${page.pageMax});
 		}
-		$('#f1').submit();
 	}
 	
 	</script>

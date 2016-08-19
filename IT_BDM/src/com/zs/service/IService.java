@@ -42,6 +42,7 @@ public interface IService {
 		
 	// 转换   时间轴、提醒专用
 	public List<Map> transtion(List<Timeline> list);
+	public List<Map> transtionXt(List<Timeline> list);
 	
 	public List<CompanySection> initCs(CompanySection cs);
 	

@@ -7,8 +7,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.log4j.Logger;
+
 import com.sun.org.apache.xml.internal.security.Init;
 import com.zs.action.MyBaseAction;
+import com.zs.entity.Role;
 import com.zs.entity.Timeline;
 import com.zs.entity.Users;
 import com.zs.service.IService;
@@ -25,6 +28,8 @@ public class InformationAction extends MyBaseAction{
 	String result="information";
 	String result_succ="succ";
 	String result_fail="fail";
+	
+	Logger logger=Logger.getLogger(InformationAction.class);
 	
 	public Timeline getTl() {
 		return tl;
@@ -68,10 +73,17 @@ public class InformationAction extends MyBaseAction{
 		Timestamp timestamp2=new Timestamp(date.getYear(), date.getMonth(), date.getDate(), 23, 59, 59, 999);
 		//得到登陆者
 		Users user=(Users) getSession().getAttribute("user");
+		Role role=user.getR();
 		//查找登陆者今天的时间轴
 		tls=ser.find("from Timeline where userNum=? and tlTime>? and tlTime<? and tlState!=?", new Object[]{user.getUNum(),timestamp1,timestamp2,"查看"});
 		//开始构建数据结构
-		this.tlData=ser.transtion(tls);
+		if (role!=null && role.getRName().equals("硬件组")) {
+			this.tlData=ser.transtion(tls);
+		}else if (role!=null && role.getRName().equals("系统组")) {
+			this.tlData=ser.transtionXt(tls);
+		}else {
+			this.tlData=null;
+		}
 		return result;
 	}
 	
@@ -88,16 +100,25 @@ public class InformationAction extends MyBaseAction{
 		Timestamp timestamp2=new Timestamp(date.getYear(), date.getMonth(), date.getDate(), 23, 59, 59, 999);
 		//得到登陆者
 		Users user=(Users) getSession().getAttribute("user");
+		Role role=user.getR();
 		//查找登陆者今天的时间轴
 		tls=ser.find("from Timeline where userNum=? and tlTime>? and tlTime<? and tlState!=?", new Object[]{user.getUNum(),timestamp1,timestamp2,"查看"});
 		//开始构建数据结构
-		this.tlData=ser.transtion(tls);
+		if (role!=null && role.getRName().equals("硬件组")) {
+			this.tlData=ser.transtion(tls);
+		}else if (role!=null && role.getRName().equals("系统组")) {
+			this.tlData=ser.transtionXt(tls);
+		}else {
+			this.tlData=null;
+		}
 		int suminfo=0;
-		for (int i = 0; i < tlData.size(); i++) {
-			Map map=tlData.get(i);
-			List list=(List) map.get("list");
-			if (list.size()==0) {
-				suminfo++;
+		if (tlData!=null) {
+			for (int i = 0; i < tlData.size(); i++) {
+				Map map=tlData.get(i);
+				List list=(List) map.get("list");
+				if (list.size()==0) {
+					suminfo++;
+				}
 			}
 		}
 		getSession().setAttribute("suminfo", suminfo);// 提醒数

@@ -32,6 +32,38 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		$("#sele option[value='"+${page.size}+"']").attr("selected",true);
 		$("#eidtASubjectWindow1").show();
 		$('#tt').show();
+		
+		$('.easyui-tree').tree('collapseAll');
+		
+		$('#cc1').combo({
+			required:true,
+			editable:false
+		});
+		$('#sp1').appendTo($('#cc1').combo('panel'));
+		$('#sp1 li div').click(function(){
+			var f = $(this).find('font').text();
+			var t = $(this).find('.tree-title');
+			var str=$("<span>"+t.html()+"</span>");
+			str.find('font').remove();
+			//alert(f+"*"+str.text() );
+			$('#cc1').combo('setValue', f).combo('setText', str.text());
+		});
+		
+		$('#cc2').combo({
+			required:true,
+			editable:false
+		});
+		$('#sp2').appendTo($('#cc2').combo('panel'));
+		$('#sp2 li div').click(function(){
+			var f = $(this).find('font').text();
+			var t = $(this).find('.tree-title');
+			var str=$("<span>"+t.html()+"</span>");
+			str.find('font').remove();
+			//alert(f+"*"+str.text() );
+			$('#cc2').combo('setValue', f).combo('setText', str.text());
+		});
+		
+		
 	});
 	
 	function update(u1,u2,u3,u4,u5,u6,u7){
@@ -69,7 +101,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		}
 	}
 	</script>
-	
   </head>
   
   <body>
@@ -139,7 +170,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</div>
 	</div>
 	
-	<div id="u" class="easyui-window" title="修改" data-options="modal:true,closed:true" style="width:400px;height:auto;padding:10px;display: none;">
+	<div id="u" class="easyui-window" title="修改" data-options="modal:true,closed:true" style="width:400px;height:auto;padding:10px;display: none;top: 200px;">
 		<form action="<%=path %>/users!update" method="post">
 		<table border="0" class="table1">
 			<tr>
@@ -163,69 +194,23 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<tr>
 				<td>部门：</td>
 				<td>
-					<select id="u_4" name="u.UCs">
-						<c:forEach items="${structure2}" var="cs1">
-						<option value="${cs1.s1Name }">${cs1.s1Name}(${cs1.s1Master })</option>
-							<c:forEach items="${cs1.nexts}" var="cs2">
-							<option value="${cs2.s2Name }">${cs2.s2Name}(${cs2.s2Master })</option>
-								<c:forEach items="${cs2.nexts}" var="cs3">
-								<option value="${cs3.s3Name }">${cs3.s3Name}(${cs3.s3Master })</option>
-									<c:forEach items="${cs3.nexts}" var="cs4">
-									<option value="${cs4.s4Name }">${cs4.s4Name}(${cs4.s4Master })</option>
-										<c:forEach items="${cs4.nexts}" var="cs5">
-										<option value="${cs5.s5Name }">${cs5.s5Name}(${cs5.s5Master })</option>
-											<c:forEach items="${cs5.nexts}" var="cs6">
-											<option value="${cs6.s6Name }">${cs6.s6Name}(${cs6.s6Master })</option>
-												<c:forEach items="${cs6.nexts}" var="cs7">
-													<option value="${cs7.s7Name }">${cs7.s7Name}(${cs7.s7Master })</option>
-													<c:forEach items="${cs7.nexts}" var="cs8">
-														<option value="${cs8.s8Name }">${cs8.s8Name}(${cs8.s8Master })</option>
-													</c:forEach>		
-												</c:forEach>
-											</c:forEach>
-										</c:forEach>
-									</c:forEach>			
-								</c:forEach>
-							</c:forEach>
-						</c:forEach>
-					</select>
+					<select name="u.UCs" id="cc2" style="width:100%;"></select>
+					<div id="sp2">
+						<div style="color:#99BBE8;background:#fafafa;padding:5px;">选择公司组织架构</div>
+						${html }
+					</div>
 				</td>
 			</tr>
 			<tr>
 				<td>职位：</td>
 				<td>
-					<select id="u_5" name="u.UJob">
-						<c:forEach items="${structure2}" var="cs1">
-						<option value="${cs1.s1Name }">${cs1.s1Name}(${cs1.s1Master })</option>
-							<c:forEach items="${cs1.nexts}" var="cs2">
-							<option value="${cs2.s2Name }">${cs2.s2Name}(${cs2.s2Master })</option>
-								<c:forEach items="${cs2.nexts}" var="cs3">
-								<option value="${cs3.s3Name }">${cs3.s3Name}(${cs3.s3Master })</option>
-									<c:forEach items="${cs3.nexts}" var="cs4">
-									<option value="${cs4.s4Name }">${cs4.s4Name}(${cs4.s4Master })</option>
-										<c:forEach items="${cs4.nexts}" var="cs5">
-										<option value="${cs5.s5Name }">${cs5.s5Name}(${cs5.s5Master })</option>
-											<c:forEach items="${cs5.nexts}" var="cs6">
-											<option value="${cs6.s6Name }">${cs6.s6Name}(${cs6.s6Master })</option>
-												<c:forEach items="${cs6.nexts}" var="cs7">
-													<option value="${cs7.s7Name }">${cs7.s7Name}(${cs7.s7Master })</option>
-													<c:forEach items="${cs7.nexts}" var="cs8">
-														<option value="${cs8.s8Name }">${cs8.s8Name}(${cs8.s8Master })</option>
-													</c:forEach>		
-												</c:forEach>
-											</c:forEach>
-										</c:forEach>
-									</c:forEach>			
-								</c:forEach>
-							</c:forEach>
-						</c:forEach>
-					</select>
+					<input id="u_5" name="u.UJob" type="text" style="width: 100%;"/>
 				</td>
 			</tr>
 			<tr>
 				<td>邮箱</td>
 				<td>
-					<input id="u_7" name="u.UMail" type="email"/>
+					<input id="u_7" name="u.UMail" type="email" style="width: 100%;"/>
 				</td>
 			</tr>
 			<tr>
@@ -247,7 +232,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</form>
 	</div>
 	
-	<div id="a" class="easyui-window" title="添加" data-options="modal:true,closed:true" style="width:400px;height:auto;padding:10px;display: none;">
+	<div id="a" class="easyui-window" title="添加" data-options="modal:true,closed:true" style="width:400px;height:auto;padding:10px;display: none;top: 200px;">
 		<form action="<%=path %>/users!add" method="post">
 		<table border="0" class="table1">
 			<tr>
@@ -271,63 +256,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<tr>
 				<td>部门：</td>
 				<td>
-					<select name="u.UCs">
-						<c:forEach items="${structure2}" var="cs1">
-						<option value="${cs1.s1Name }">${cs1.s1Name}(${cs1.s1Master })</option>
-							<c:forEach items="${cs1.nexts}" var="cs2">
-							<option value="${cs2.s2Name }">${cs2.s2Name}(${cs2.s2Master })</option>
-								<c:forEach items="${cs2.nexts}" var="cs3">
-								<option value="${cs3.s3Name }">${cs3.s3Name}(${cs3.s3Master })</option>
-									<c:forEach items="${cs3.nexts}" var="cs4">
-									<option value="${cs4.s4Name }">${cs4.s4Name}(${cs4.s4Master })</option>
-										<c:forEach items="${cs4.nexts}" var="cs5">
-										<option value="${cs5.s5Name }">${cs5.s5Name}(${cs5.s5Master })</option>
-											<c:forEach items="${cs5.nexts}" var="cs6">
-											<option value="${cs6.s6Name }">${cs6.s6Name}(${cs6.s6Master })</option>
-												<c:forEach items="${cs6.nexts}" var="cs7">
-													<option value="${cs7.s7Name }">${cs7.s7Name}(${cs7.s7Master })</option>
-													<c:forEach items="${cs7.nexts}" var="cs8">
-														<option value="${cs8.s8Name }">${cs8.s8Name}(${cs8.s8Master })</option>
-													</c:forEach>		
-												</c:forEach>
-											</c:forEach>
-										</c:forEach>
-									</c:forEach>			
-								</c:forEach>
-							</c:forEach>
-						</c:forEach>
-					</select>
+					<select name="sim.csName" id="cc1" style="width:100%;"></select>
+					<div id="sp1">
+						<div style="color:#99BBE8;background:#fafafa;padding:5px;">选择公司组织架构</div>
+						${html }
+					</div>
 				</td>
 			</tr>
 			<tr>
 				<td>职位：</td>
 				<td>
-					<select name="u.UJob">
-						<c:forEach items="${structure2}" var="cs1">
-						<option value="${cs1.s1Name }">${cs1.s1Name}(${cs1.s1Master })</option>
-							<c:forEach items="${cs1.nexts}" var="cs2">
-							<option value="${cs2.s2Name }">${cs2.s2Name}(${cs2.s2Master })</option>
-								<c:forEach items="${cs2.nexts}" var="cs3">
-								<option value="${cs3.s3Name }">${cs3.s3Name}(${cs3.s3Master })</option>
-									<c:forEach items="${cs3.nexts}" var="cs4">
-									<option value="${cs4.s4Name }">${cs4.s4Name}(${cs4.s4Master })</option>
-										<c:forEach items="${cs4.nexts}" var="cs5">
-										<option value="${cs5.s5Name }">${cs5.s5Name}(${cs5.s5Master })</option>
-											<c:forEach items="${cs5.nexts}" var="cs6">
-											<option value="${cs6.s6Name }">${cs6.s6Name}(${cs6.s6Master })</option>
-												<c:forEach items="${cs6.nexts}" var="cs7">
-													<option value="${cs7.s7Name }">${cs7.s7Name}(${cs7.s7Master })</option>
-													<c:forEach items="${cs7.nexts}" var="cs8">
-														<option value="${cs8.s8Name }">${cs8.s8Name}(${cs8.s8Master })</option>
-													</c:forEach>		
-												</c:forEach>
-											</c:forEach>
-										</c:forEach>
-									</c:forEach>			
-								</c:forEach>
-							</c:forEach>
-						</c:forEach>
-					</select>
+					<input name="u.UJob" type="text"/>
 				</td>
 			</tr>
 			<tr>

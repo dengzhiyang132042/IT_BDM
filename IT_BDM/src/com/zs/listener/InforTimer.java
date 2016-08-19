@@ -53,6 +53,7 @@ public class InforTimer extends TimerTask{
 		Timestamp timestamp1=new Timestamp(date.getYear(), date.getMonth(), date.getDate(), 0, 0, 0, 0);
 		Timestamp timestamp2=new Timestamp(date.getYear(), date.getMonth(), date.getDate(), 23, 59, 59, 999);
     	List<Users> us=ser.find("from Users", new String[]{});
+    	String css="<style>table{	border: #224466;	border-collapse:collapse;	width: 100%;}table tr th{	background-color: #336699;	color: white;	font-weight: bold;	padding: 7px;	font-size: 12px;}td{	text-align:center;	padding:1px;	font-size: 12px;}</style>";
     	for (int i = 0; i < us.size(); i++) {
     		Users u=us.get(i);
 			Role r=(Role)ser.get(Role.class, u.getRId());
@@ -62,45 +63,148 @@ public class InforTimer extends TimerTask{
 				//开始构建数据结构
 				List<Map> data=ser.transtion(tls);
 				//开始组装邮件内容
-				String str="";
+				String str="<div style='color: blue;font-weight: bold;'>"
+							+r.getRName() +
+							"——今天：<br/>"
+							+u.getUName()+"("
+							+u.getUNum()
+							+")"
+							+"</div>"+
+							"<table border=\"1\">";
 				for (int j = 0; j < data.size(); j++) {
 					Map map=data.get(j);
 					String name=(String) map.get("name");
 					List<Timeline> list=(List)map.get("list");
-					str=str
-						+"<div style='border: 0px solid black;margin-top: 15px;background-color: #FFFFA2;'>"
-						+name
-						+"——"
-						+list.size()
-						+"<br/>";
+					str=str +
+						"<tr>" +
+						"<th colspan=\"5\">" +
+						name+"——"+
+						list.size()+
+						"</th>" +
+						"</tr>";
 					if (list.size()>0) {
+						str=str+
+						"<tr>" +
+						"<th>" +
+						"序号"+
+						"</th>" +
+						"<th>" +
+						"时间"+
+						"</th>" +
+						"<th>" +
+						"操作"+
+						"</th>" +
+						"<th>" +
+						"表"+
+						"</th>" +
+						"<th>" +
+						"编号"+
+						"</th>" +
+						"</tr>";
 						for (int k = 0; k < list.size(); k++) {
-							str=str
-								+"<span style='color:#6E6E6E;'>"
-								+list.get(k).getTlTime()
-								+"——"
-								+list.get(k).getTlState()
-								+"</span>"
-								+"<br/>";
+							str=str+
+								"<tr>" +
+								"<td>" +
+								(k+1)+
+								"</td>" +
+								"<td>" +
+								list.get(k).getTlTime()+
+								"</td>" +
+								"<td>" +
+								list.get(k).getTlState()+
+								"</td>" +
+								"<td>" +
+								list.get(k).getTlTableName()+
+								"</td>" +
+								"<td>" +
+								list.get(k).getTlTableId()+
+								"</td>" +
+								"</tr>";
 						}
 					}else {
-						str=str
-							+"<span style='color:red;'>"
-							+"这张表的数据您还没有登记。"
-							+"</span>";
+						str=str+
+						"<tr><td colspan=\"5\"><span style=\"color: red;\">这张表的数据您还没有登记。</span></td></tr>";
 					}
-					str=str
-						+"</div>";
-					
 				}
-				logger.debug(str);
-				String content="<div style='color: blue;font-weight: bold;'>"
-					+"硬件组——今天：<br/>"
-					+u.getUName()+"("
-					+u.getUNum()
-					+")"
-					+"</div>"
-					+str;
+				String content=css+str+"</table>";
+				logger.debug(content);
+				try {
+					MailTest.outputMail(u.getUMail(), MailTest.props.getProperty("mail.user"), content,title);
+				} catch (MessagingException e) {
+					e.printStackTrace();
+					logger.error("监听器--定时器--发送邮件出问题了,出异常账号:"+u.getUName()+"   "+u.getUNum());
+				}
+			}else if (r.getRName().equals("系统组")) {
+				//查找该用户的系统组日常事项
+				List<Timeline> tls=ser.find("from Timeline where userNum=? and tlTime>? and tlTime<? and tlState!=?", new Object[]{u.getUNum(),timestamp1,timestamp2,"查看"});
+				//开始构建数据结构
+				List<Map> data=ser.transtionXt(tls);
+				//开始组装邮件内容
+				String str="<div style='color: blue;font-weight: bold;'>"
+							+r.getRName() +
+							"——今天：<br/>"
+							+u.getUName()+"("
+							+u.getUNum()
+							+")"
+							+"</div>"+
+							"<table border=\"1\">";
+				for (int j = 0; j < data.size(); j++) {
+					Map map=data.get(j);
+					String name=(String) map.get("name");
+					List<Timeline> list=(List)map.get("list");
+					str=str +
+						"<tr>" +
+						"<th colspan=\"5\">" +
+						name+"——"+
+						list.size()+
+						"</th>" +
+						"</tr>";
+					if (list.size()>0) {
+						str=str+
+						"<tr>" +
+						"<th>" +
+						"序号"+
+						"</th>" +
+						"<th>" +
+						"时间"+
+						"</th>" +
+						"<th>" +
+						"操作"+
+						"</th>" +
+						"<th>" +
+						"表"+
+						"</th>" +
+						"<th>" +
+						"编号"+
+						"</th>" +
+						"</tr>";
+						for (int k = 0; k < list.size(); k++) {
+							str=str+
+								"<tr>" +
+								"<td>" +
+								(k+1)+
+								"</td>" +
+								"<td>" +
+								list.get(k).getTlTime()+
+								"</td>" +
+								"<td>" +
+								list.get(k).getTlState()+
+								"</td>" +
+								"<td>" +
+								list.get(k).getTlTableName()+
+								"</td>" +
+								"<td>" +
+								list.get(k).getTlTableId()+
+								"</td>" +
+								"</tr>";
+						}
+					}else {
+						str=str+
+						"<tr><td colspan=\"5\"><span style=\"color: red;\">这张表的数据您还没有登记。</span></td></tr>";
+					}
+				}
+				String content=css+str+"</table>";
+				logger.debug(content);
 				try {
 					MailTest.outputMail(u.getUMail(), MailTest.props.getProperty("mail.user"), content,title);
 				} catch (MessagingException e) {
@@ -108,6 +212,11 @@ public class InforTimer extends TimerTask{
 					logger.error("监听器--定时器--发送邮件出问题了,出异常账号:"+u.getUName()+"   "+u.getUNum());
 				}
 			}
+			
+			
+			
+			
+			
 		}
 	}
     	 

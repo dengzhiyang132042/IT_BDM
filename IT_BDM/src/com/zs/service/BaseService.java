@@ -286,7 +286,51 @@ public class BaseService implements IService{
 		}
 		return tlData;
 	}
-	
+	public List<Map> transtionXt(List<Timeline> list) {
+		List<Map> tlData=new ArrayList<Map>();
+		
+		Map map1=new HashMap();
+		List<Timeline> l1=new ArrayList<Timeline>();
+		map1.put("name", "站点资料");
+		map1.put("list", l1);
+		tlData.add(map1);
+		
+		Map map2=new HashMap();
+		List<Timeline> l2=new ArrayList<Timeline>();
+		map2.put("name", "二级站点资料");
+		map2.put("list", l2);
+		tlData.add(map2);
+		
+		Map map3=new HashMap();
+		List<Timeline> l3=new ArrayList<Timeline>();
+		map3.put("name", "哲盟账号申请登记");
+		map3.put("list", l3);
+		tlData.add(map3);
+		
+		Map map4=new HashMap();
+		List<Timeline> l4=new ArrayList<Timeline>();
+		map4.put("name", "哲盟数据检查登记");
+		map4.put("list", l4);
+		tlData.add(map4);
+		
+		for (int i = 0; i < list.size(); i++) {
+			Timeline timeline=list.get(i);
+			String tableName=timeline.getTlTableName();
+			timeline.setTlTableName2(transtion(timeline.getTlTableName()));
+			if (tableName!=null) {
+				if ("XtSite".equals(tableName)) {
+					l1.add(timeline);
+				}else if ("XtBranches".equals(tableName)) {
+					l2.add(timeline);
+				}else if ("XtZmNumber".equals(tableName)) {
+					l3.add(timeline);
+				}else if ("XtZmData".equals(tableName)) {
+					l4.add(timeline);
+				}
+			}
+		}
+		return tlData;
+	}
 	/*2016年8月12日14:17:37
 	 * 张顺
 	 * 数据库表名转成实际名称

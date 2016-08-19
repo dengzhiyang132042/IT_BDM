@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.List;
 
 import com.zs.action.MyBaseAction;
+import com.zs.entity.CompanySection;
 import com.zs.entity.Role;
 import com.zs.entity.Users;
 import com.zs.entity.XtBranches;
@@ -75,7 +76,8 @@ public class UsersAction extends MyBaseAction{
 			us.get(i).setR(r);
 		}
 		//带上通讯录信息
-		ser.receiveStructure(getRequest());
+		CompanySection cs=ser.queryFirst();
+		getRequest().setAttribute("html",ser.fitting1(cs));
 		//带上角色列表
 		List<Role> rs=ser.find("from Role", new String[]{});
 		getRequest().setAttribute("rs", rs);

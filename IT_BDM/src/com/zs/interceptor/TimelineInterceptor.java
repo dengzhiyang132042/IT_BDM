@@ -187,10 +187,10 @@ public class TimelineInterceptor extends AbstractInterceptor{
 				addTimeline(u, "查看", "XtSite", request.getParameter("id"));
 			}else if ((PRO_NAME+"/site!delete").equals(path)) {//站点资料删除
 				addTimeline(u, "删除", "XtSite", request.getParameter("id"));
-			}else if ((PRO_NAME+"/site!delete").equals(path)) {//站点资料修改
+			}else if ((PRO_NAME+"/site!update").equals(path)) {//站点资料修改
 				XtSite site=(XtSite) request.getAttribute("site");
 				addTimeline(u,"修改", "XtSite", site.getSId());
-			}else if ((PRO_NAME+"/site!delete").equals(path)) {//站点资料添加
+			}else if ((PRO_NAME+"/site!add").equals(path)) {//站点资料添加
 				XtSite site=(XtSite) request.getAttribute("site");
 				addTimeline(u, "添加", "XtSite", site.getSId());
 			}

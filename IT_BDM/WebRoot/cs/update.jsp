@@ -33,6 +33,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		padding: 3px;
 	}
 	</style>
+	
   </head>
   
   <body>
@@ -96,7 +97,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   		<tr>
   			<td>上级：</td>
   			<td>
-  				<select name="cs.csLast" id="cc" style="width:100%;" value="${cs.csLast }"></select>
+  				<select name="cs.csLast" id="cc" style="width:100%;"></select>
 				<div id="sp">
 					<div style="color:#99BBE8;background:#fafafa;padding:5px;">选择上级架构</div>
 					${html }
@@ -127,6 +128,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			}
 		);
 	});
+	
+	$('.easyui-tree').tree('collapseAll');
+	//$('#cc').combobox('setText',${cs.csLast });
+	//$('#cc').combobox('setValue',${cs.csLast });
+	
   });
   function update(u1,u2,u3,u4,u5,u6,u7,u8,u9){
   	window.location.href="<%=path%>/cs!gotoUpdate";
