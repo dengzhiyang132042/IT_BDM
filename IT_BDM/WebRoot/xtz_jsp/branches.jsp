@@ -148,24 +148,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				</td>
 			</tr>
 			<tr>
-				<td>申请时间：</td>
-				<td>
-					<input id="u_2" name="b.BDate" type="date" style="width: 100%;"/>
-				</td>
-			</tr>
-			<tr>
-				<td>维护日期：</td>
-				<td>
-					<input id="u_3" name="b.BMaintainDate" type="date" style="width: 100%;"/>
-				</td>
-			</tr>
-			<tr>
-				<td>维护周数：</td>
-				<td>
-					<input id="u_4" name="b.BMaintainWeek" type="number" style="width: 100%;"/>
-				</td>
-			</tr>
-			<tr>
 				<td>一级网点条码：</td>
 				<td>
 					<input id="u_5" name="b.BNum1" type="text" style="width: 100%;"/>
@@ -213,24 +195,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<div id="a" class="easyui-window" title="添加" data-options="modal:true,closed:true" style="width:500px;height:auto;padding:10px;display: none;">
 		<form action="<%=path %>/branches!add" method="post">
 		<table border="0" class="table1">
-			<tr>
-				<td>申请时间：</td>
-				<td>
-					<input name="b.BDate" type="date" style="width: 100%;"/>
-				</td>
-			</tr>
-			<tr>
-				<td>维护日期：</td>
-				<td>
-					<input name="b.BMaintainDate" type="date" style="width: 100%;"/>
-				</td>
-			</tr>
-			<tr>
-				<td>维护周数：</td>
-				<td>
-					<input name="b.BMaintainWeek" type="number" style="width: 100%;"/>
-				</td>
-			</tr>
 			<tr>
 				<td>一级网点条码：</td>
 				<td>

@@ -101,6 +101,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<ul id="tt" class="easyui-tree" data-options="animate:true,lines:true">
        		<li><span><a href="<%=path %>/timeline!query" target="right">时间轴</a></span></li>
        		<li><span><a href="<%=path %>/information!query" target="right">提醒</a></span></li>
+       		<li><span><a href="<%=path %>/jobLog!gotoJob" target="right">工作日志</a></span></li>
         </ul>
 	</div>
 </div>

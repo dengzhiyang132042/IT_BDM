@@ -114,31 +114,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   	</div>
   
   <script type="text/javascript">
-  $(function(){
-  	$('ul li div').click(function(){
-		var f = $(this).find('font').text();
-		var t = $(this).find('.tree-title');
-		var str=$("<span>"+t.html()+"</span>");
-		str.find('font').remove();
-		$.post(
-			"cs!queryInfor",
-			{id:f},
-			function(data){
-				$("#right").html(data);
-			}
-		);
-	});
-	
-	$('.easyui-tree').tree('collapseAll');
-	//$('#cc').combobox('setText',${cs.csLast });
-	//$('#cc').combobox('setValue',${cs.csLast });
-	
-  });
-  function update(u1,u2,u3,u4,u5,u6,u7,u8,u9){
-  	window.location.href="<%=path%>/cs!gotoUpdate";
-  }
-  </script>
-  <script type="text/javascript">
 		$(function(){
 			$('#cc').combo({
 				required:true,
@@ -158,6 +133,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				alert($('#cc').combobox('getValue'));
 			});
 			
+			$('.easyui-tree').tree('collapseAll');
 		});
 		function check(){
 			var s=$('#cc').combobox('getValue');

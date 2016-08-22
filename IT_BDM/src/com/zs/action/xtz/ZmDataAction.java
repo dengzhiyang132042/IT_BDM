@@ -1,6 +1,8 @@
 package com.zs.action.xtz;
 
 import java.io.UnsupportedEncodingException;
+import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -87,6 +89,8 @@ public class ZmDataAction extends MyBaseAction{
 	
 	public String update() throws Exception {
 		if(zmd!=null && zmd.getDId()!=null && !"".equals(zmd.getDId().trim())){
+			XtZmData data=(XtZmData) ser.get(XtZmData.class, zmd.getDId());
+			zmd.setDDate(data.getDDate());
 			ser.update(zmd);
 			getRequest().setAttribute("zmd", zmd);
 		}
@@ -97,6 +101,7 @@ public class ZmDataAction extends MyBaseAction{
 	public String add() throws Exception {
 		if(zmd!=null){
 			zmd.setDId("d"+NameOfDate.getNum());
+			zmd.setDDate(new Timestamp(new Date().getTime()));
 			ser.save(zmd);
 			getRequest().setAttribute("zmd", zmd);
 		}

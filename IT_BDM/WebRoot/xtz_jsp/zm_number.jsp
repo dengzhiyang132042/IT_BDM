@@ -32,16 +32,45 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		$("#sele option[value='"+${page.size}+"']").attr("selected",true);
 		$("#eidtASubjectWindow1").show();
 		$('#tt').show();
+		
+		$('.easyui-tree').tree('collapseAll');
+		
+		$('#cc1').combo({
+			required:true,
+			editable:false
+		});
+		$('#sp1').appendTo($('#cc1').combo('panel'));
+		$('#sp1 li div').click(function(){
+			var f = $(this).find('font').text();
+			var t = $(this).find('.tree-title');
+			var str=$("<span>"+t.html()+"</span>");
+			str.find('font').remove();
+			$('#cc1').combo('setValue', f).combo('setText', str.text());
+		});
+		
+		$('#cc2').combo({
+			required:true,
+			editable:false
+		});
+		$('#sp2').appendTo($('#cc2').combo('panel'));
+		$('#sp2 li div').click(function(){
+			var f = $(this).find('font').text();
+			var t = $(this).find('.tree-title');
+			var str=$("<span>"+t.html()+"</span>");
+			str.find('font').remove();
+			$('#cc2').combo('setValue', f).combo('setText', str.text());
+		});
 	});
 	
 	function update(u1,u2,u3,u4,u5,u6,u7,u8,u9,u10){
 		$('#u').window('open');
 		$('#u_1').val(u1);
 		$('#u_2').val(u2);
-		$('#u_3').val(u3);
+		$('#cc1').combo('setText',u3);
+		$('#cc1').combo('setValue',u3);
 		$('#u_4').val(u4);
 		$('#u_5').val(u5);
-		$('#u_6').val(u6);
+		$("#u_6 option[value='"+u6+"']").attr("selected",true);
 		$('#u_7').val(u7);
 		$('#u_8').val(u8);
 		$('#u_9').val(u9);
@@ -138,7 +167,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</div>
 	</div>
 	
-	<div id="u" class="easyui-window" title="修改" data-options="modal:true,closed:true" style="width:500px;height:auto;padding:10px;display: none;">
+	<div id="u" class="easyui-window" title="修改" data-options="modal:true,closed:true" style="width:500px;height:auto;padding:10px;display: none;top:200px;">
 		<form action="<%=path %>/zmn!update" method="post">
 		<table border="0" class="table1">
 			<tr>
@@ -148,15 +177,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				</td>
 			</tr>
 			<tr>
-				<td>申请时间：</td>
-				<td>
-					<input id="u_2" name="zmn.zmApplyDate" type="date" style="width: 100%;"/>
-				</td>
-			</tr>
-			<tr>
 				<td>申请部门：</td>
 				<td>
-					<input id="u_3" name="zmn.zmApplyCs" type="text" style="width: 100%;"/>
+					<select name="zmn.zmApplyCs" id="cc1" style="width:100%;"></select>
+					<div id="sp1">
+						<div style="color:#99BBE8;background:#fafafa;padding:5px;">选择公司组织架构</div>
+						${html }
+					</div>
 				</td>
 			</tr>
 			<tr>
@@ -174,25 +201,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<tr>
 				<td>在职情况：</td>
 				<td>
-					<input id="u_6" name="zmn.zmOnJob" type="text" style="width: 100%;"/>
+					<select id="u_6" name="zmn.zmOnJob">
+						<option value="入职">入职</option>
+						<option value="离职">离职</option>
+					</select>
 				</td>
 			</tr>
 			<tr>
 				<td>维护IT：</td>
 				<td>
 					<input id="u_7" name="zmn.zmServiceMaster" type="text" style="width: 100%;"/>
-				</td>
-			</tr>
-			<tr>
-				<td>维护日期：</td>
-				<td>
-					<input id="u_8" name="zmn.zmServiceDate" type="date" style="width: 100%;"/>
-				</td>
-			</tr>
-			<tr>
-				<td>维护周数：</td>
-				<td>
-					<input id="u_9" name="zmn.zmServiceWeek" type="number" style="width: 100%;"/>
 				</td>
 			</tr>
 			<tr>
@@ -210,19 +228,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</form>
 	</div>
 	
-	<div id="a" class="easyui-window" title="添加" data-options="modal:true,closed:true" style="width:500px;height:auto;padding:10px;display: none;">
+	<div id="a" class="easyui-window" title="添加" data-options="modal:true,closed:true" style="width:500px;height:auto;padding:10px;display: none;top:200px;">
 		<form action="<%=path %>/zmn!add" method="post">
 		<table border="0" class="table1">
 			<tr>
-				<td>申请时间：</td>
-				<td>
-					<input name="zmn.zmApplyDate" type="date" style="width: 100%;"/>
-				</td>
-			</tr>
-			<tr>
 				<td>申请部门：</td>
 				<td>
-					<input name="zmn.zmApplyCs" type="text" style="width: 100%;"/>
+					<select name="zmn.zmApplyCs" id="cc2" style="width:100%;"></select>
+					<div id="sp2">
+						<div style="color:#99BBE8;background:#fafafa;padding:5px;">选择公司组织架构</div>
+						${html }
+					</div>
 				</td>
 			</tr>
 			<tr>
@@ -240,25 +256,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<tr>
 				<td>在职情况：</td>
 				<td>
-					<input name="zmn.zmOnJob" type="text" style="width: 100%;"/>
+					<select id="u_6" name="zmn.zmOnJob">
+						<option value="入职">入职</option>
+						<option value="离职">离职</option>
+					</select>
 				</td>
 			</tr>
 			<tr>
 				<td>维护IT：</td>
 				<td>
 					<input name="zmn.zmServiceMaster" type="text" style="width: 100%;"/>
-				</td>
-			</tr>
-			<tr>
-				<td>维护日期：</td>
-				<td>
-					<input name="zmn.zmServiceDate" type="date" style="width: 100%;"/>
-				</td>
-			</tr>
-			<tr>
-				<td>维护周数：</td>
-				<td>
-					<input name="zmn.zmServiceWeek" type="number" style="width: 100%;"/>
 				</td>
 			</tr>
 			<tr>

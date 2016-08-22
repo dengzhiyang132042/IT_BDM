@@ -80,6 +80,9 @@
 	<bean id="zs_information" class="com.zs.action.oneself.InformationAction">
 		<property name="ser" ref="zs_ser"></property>
 	</bean>
+	<bean id="zs_job_log" class="com.zs.action.oneself.JobLogAction">
+		<property name="ser" ref="zs_ser"></property>
+	</bean>
 	<!-- **************拦截器************* -->
 	<bean id="zs_interceptor_role" class="com.zs.interceptor.RoleInterceptor">
 		<property name="ser" ref="zs_ser"></property>

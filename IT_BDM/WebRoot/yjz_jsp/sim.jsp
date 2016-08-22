@@ -70,7 +70,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		$('#u').window('open');
 		$('#u_1').val(u1);
 		//-----------------------
-		$('#cc1').combobox('setText',u2);
+		$('#cc1').combo('setText',u2);
+		$('#cc1').combo('setValue',u2);
 		
 		$('#u_3').val(u3);
 		$('#u_4').val(u4);

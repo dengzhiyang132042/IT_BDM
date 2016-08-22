@@ -34,18 +34,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		$('#tt').show();
 	});
 	
-	function update(u1,u2,u3,u4,u5,u6,u7,u8,u9,u10){
+	function update(u1,u2,u3,u4,u5,u6){
 		$('#u').window('open');
 		$('#u_1').val(u1);
 		$('#u_2').val(u2);
 		$('#u_3').val(u3);
-		$('#u_4').val(u4);
-		$('#u_5').val(u5);
+		$("#u_4 option[value='"+u4+"']").attr("selected",true);
+		$("#u_5 option[value='"+u5+"']").attr("selected",true);
 		$('#u_6').val(u6);
-		$('#u_7').val(u7);
-		$('#u_8').val(u8);
-		$('#u_9').val(u9);
-		$('#u_10').val(u10);
 	}
 	function page(no,cz){
 		var num1=$('#page').val();
@@ -99,7 +95,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<td width="">${site.SNotice }</td>
 		<td width="">${site.SNote }</td>
 		<td width="5%" align="center">
-			<a onclick="update('${site.SId }','${site.SNum }','${site.SName }','${site.SStartDate }','${site.SMaintainDate }','${site.SMaintainCycle }','${site.SMaintainType }','${site.SMaintainMan }','${site.SNotice }','${site.SNote }')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-edit'" title="修改"></a>
+			<a onclick="update('${site.SId }','${site.SNum }','${site.SName }','${site.SMaintainType }','${site.SNotice }','${site.SNote }')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-edit'" title="修改"></a>
 			<a href="<%=path %>/site!delete?id=${site.SId}" onclick="return confirm('确定删除吗?')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-delete'" title="删除"></a>
 		</td>
     </tr>
@@ -160,45 +156,31 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				</td>
 			</tr>
 			<tr>
-				<td>开通日期：</td>
-				<td>
-					<input id="u_4" name="site.SStartDate" type="date" style="width: 100%;"/>
-				</td>
-			</tr>
-			<tr>
-				<td>维护日期：</td>
-				<td>
-					<input id="u_5" name="site.SMaintainDate" type="date" style="width: 100%;"/>
-				</td>
-			</tr>
-			<tr>
-				<td>维护周期：</td>
-				<td>
-					<input id="u_6" name="site.SMaintainCycle" type="number" style="width: 100%;"/>
-				</td>
-			</tr>
-			<tr>
 				<td>维护类型：</td>
 				<td>
-					<input id="u_7" name="site.SMaintainType" type="text" style="width: 100%;"/>
-				</td>
-			</tr>
-			<tr>
-				<td>维护IT：</td>
-				<td>
-					<input id="u_8" name="site.SMaintainMan" type="text" style="width: 100%;"/>
+					<select id="u_4" name="site.SMaintainType">
+						<option value="变更负责人">变更负责人</option>
+						<option value="新开大客户">新开大客户</option>
+						<option value="新开站点">新开站点</option>
+						<option value="停止操作">停止操作</option>
+					</select>
 				</td>
 			</tr>
 			<tr>
 				<td>通知方式：</td>
 				<td>
-					<input id="u_9" name="site.SNotice" type="text" style="width: 100%;"/>
+					<select id="u_5" name="site.SNotice">
+						<option value="电话通知">电话通知</option>
+						<option value="短信通知">短信通知</option>
+						<option value="布谷鸟通知">布谷鸟通知</option>
+						<option value="告知网点管理部">告知网点管理部</option>
+					</select>
 				</td>
 			</tr>
 			<tr>
 				<td>备注说明：</td>
 				<td>
-					<input id="u_10" name="site.SNote" type="text" style="width: 100%;"/>
+					<input id="u_6" name="site.SNote" type="text" style="width: 100%;"/>
 				</td>
 			</tr>
 			<tr>
@@ -226,39 +208,25 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				</td>
 			</tr>
 			<tr>
-				<td>开通日期：</td>
-				<td>
-					<input name="site.SStartDate" type="date" style="width: 100%;"/>
-				</td>
-			</tr>
-			<tr>
-				<td>维护日期：</td>
-				<td>
-					<input name="site.SMaintainDate" type="date" style="width: 100%;"/>
-				</td>
-			</tr>
-			<tr>
-				<td>维护周期：</td>
-				<td>
-					<input name="site.SMaintainCycle" type="number" style="width: 100%;"/>
-				</td>
-			</tr>
-			<tr>
 				<td>维护类型：</td>
 				<td>
-					<input name="site.SMaintainType" type="text" style="width: 100%;"/>
-				</td>
-			</tr>
-			<tr>
-				<td>维护IT：</td>
-				<td>
-					<input name="site.SMaintainMan" type="text" style="width: 100%;"/>
+					<select name="site.SMaintainType">
+						<option value="变更负责人">变更负责人</option>
+						<option value="新开大客户">新开大客户</option>
+						<option value="新开站点">新开站点</option>
+						<option value="停止操作">停止操作</option>
+					</select>
 				</td>
 			</tr>
 			<tr>
 				<td>通知方式：</td>
 				<td>
-					<input name="site.SNotice" type="text" style="width: 100%;"/>
+					<select name="site.SNotice">
+						<option value="电话通知">电话通知</option>
+						<option value="短信通知">短信通知</option>
+						<option value="布谷鸟通知">布谷鸟通知</option>
+						<option value="告知网点管理部">告知网点管理部</option>
+					</select>
 				</td>
 			</tr>
 			<tr>

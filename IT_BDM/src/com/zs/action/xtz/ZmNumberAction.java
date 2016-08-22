@@ -1,11 +1,15 @@
 package com.zs.action.xtz;
 
 import java.io.UnsupportedEncodingException;
+import java.sql.Timestamp;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import org.apache.log4j.Logger;
 
 import com.zs.action.MyBaseAction;
+import com.zs.entity.Users;
 import com.zs.entity.XtSite;
 import com.zs.entity.XtZmNumber;
 import com.zs.service.IService;
@@ -71,6 +75,8 @@ public class ZmNumberAction extends MyBaseAction{
 			String hql2="from XtZmNumber";
 			zmns=ser.query(hql, ss, hql2, page, ser);
 		}
+		//带上通讯录信息
+		getRequest().setAttribute("html", ser.fitting1(ser.queryFirst()));
 		return result;
 	}
 	
@@ -86,6 +92,10 @@ public class ZmNumberAction extends MyBaseAction{
 	
 	public String update() throws Exception {
 		if(zmn!=null && zmn.getZmId()!=null && !"".equals(zmn.getZmId().trim())){
+			XtZmNumber number=(XtZmNumber) ser.get(XtZmNumber.class, zmn.getZmId());
+			zmn.setZmApplyDate(number.getZmApplyDate());
+			zmn.setZmServiceDate(number.getZmServiceDate());
+			zmn.setZmServiceWeek(number.getZmServiceWeek());
 			ser.update(zmn);
 			getRequest().setAttribute("zmn", zmn);
 		}
@@ -96,6 +106,14 @@ public class ZmNumberAction extends MyBaseAction{
 	public String add() throws Exception {
 		if(zmn!=null){
 			zmn.setZmId("zm"+NameOfDate.getNum());
+
+			Date date=new Date();
+			Calendar ca = Calendar.getInstance();//创建一个日期实例
+			ca.setTime(date);//实例化一个日期
+			zmn.setZmApplyDate(new Timestamp(date.getTime()));
+			zmn.setZmServiceDate(new Timestamp(date.getTime()));
+			zmn.setZmServiceWeek(ca.get(Calendar.WEEK_OF_YEAR));
+			
 			ser.save(zmn);
 			getRequest().setAttribute("zmn", zmn);
 		}

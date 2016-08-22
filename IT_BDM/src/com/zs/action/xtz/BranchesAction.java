@@ -1,6 +1,9 @@
 package com.zs.action.xtz;
 
 import java.io.UnsupportedEncodingException;
+import java.sql.Timestamp;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import com.zs.action.MyBaseAction;
@@ -83,6 +86,10 @@ public class BranchesAction extends MyBaseAction{
 	
 	public String update() throws Exception {
 		if(b!=null && b.getBId()!=null && !"".equals(b.getBId().trim())){
+			XtBranches branches=(XtBranches) ser.get(XtBranches.class, b.getBId());
+			b.setBDate(branches.getBDate());
+			b.setBMaintainDate(branches.getBMaintainDate());
+			b.setBMaintainWeek(branches.getBMaintainWeek());
 			ser.update(b);
 			getRequest().setAttribute("b", b);
 		}
@@ -93,6 +100,13 @@ public class BranchesAction extends MyBaseAction{
 	public String add() throws Exception {
 		if(b!=null){
 			b.setBId("b"+NameOfDate.getNum());
+			
+			Date date=new Date();
+			Calendar ca = Calendar.getInstance();//创建一个日期实例
+			ca.setTime(date);//实例化一个日期
+			b.setBDate(new Timestamp(date.getTime()));
+			b.setBMaintainDate(new Timestamp(date.getTime()));
+			b.setBMaintainWeek(ca.get(Calendar.WEEK_OF_YEAR));
 			ser.save(b);
 			getRequest().setAttribute("b", b);
 		}

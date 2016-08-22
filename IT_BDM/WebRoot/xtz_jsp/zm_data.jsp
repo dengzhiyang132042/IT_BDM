@@ -148,12 +148,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				</td>
 			</tr>
 			<tr>
-				<td>日期：</td>
-				<td>
-					<input id="u_2" name="zmd.DDate" type="date" style="width: 100%;"/>
-				</td>
-			</tr>
-			<tr>
 				<td>9点末上传数据：</td>
 				<td>
 					<input id="u_3" name="zmd.DNoUpload9" type="number" style="width: 100%;"/>
@@ -213,12 +207,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<div id="a" class="easyui-window" title="添加" data-options="modal:true,closed:true" style="width:500px;height:auto;padding:10px;display: none;">
 		<form action="<%=path %>/zmd!add" method="post">
 		<table border="0" class="table1">
-			<tr>
-				<td>日期：</td>
-				<td>
-					<input name="zmd.DDate" type="date" style="width: 100%;"/>
-				</td>
-			</tr>
 			<tr>
 				<td>9点末上传数据：</td>
 				<td>
