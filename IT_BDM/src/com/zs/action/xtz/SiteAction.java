@@ -63,16 +63,26 @@ public class SiteAction extends MyBaseAction{
 			page=new Page(1, 0, 5);
 		}
 		if (id!=null) {
-			String hql="from XtSite where SId  = ?";
+			String hql="from XtSite where SId  = ? order by SMaintainDate desc";
 			String ss[]={id};
-			String hql2="from XtSite where SId = '"+id+"'";
+			String hql2="from XtSite where SId = '"+id+"' order by SMaintainDate desc";
 			sites=ser.query(hql, ss, hql2, page, ser);
 		}else {
-			String hql="from XtSite";
+			String hql="from XtSite order by SMaintainDate desc";
 			String ss[]={};
-			String hql2="from XtSite";
+			String hql2="from XtSite order by SMaintainDate desc";
 			sites=ser.query(hql, ss, hql2, page, ser);
 		}
+		ser.receiveStructure(getRequest());
+		return result_site;
+	}
+	
+	private String gotoQuery() throws UnsupportedEncodingException {
+		String hql="from XtSite order by SMaintainDate desc";
+		String ss[]={};
+		String hql2="from XtSite order by SMaintainDate desc";
+		sites=ser.query(hql, ss, hql2, page, ser);
+		
 		ser.receiveStructure(getRequest());
 		return result_site;
 	}
@@ -84,7 +94,8 @@ public class SiteAction extends MyBaseAction{
 			ser.delete(site);
 		}
 		site=null;
-		return result_succ;
+		
+		return gotoQuery();
 	}
 	
 	public String update() throws Exception {
@@ -98,7 +109,8 @@ public class SiteAction extends MyBaseAction{
 			getRequest().setAttribute("site", site);
 		}
 		site=null;
-		return result_succ;
+
+		return gotoQuery();
 	}
 	
 	public String add() throws Exception {
@@ -119,7 +131,7 @@ public class SiteAction extends MyBaseAction{
 			getRequest().setAttribute("site", site);
 		}
 		site=null;
-		return result_succ;
+		return gotoQuery();
 	}	
 	
 }

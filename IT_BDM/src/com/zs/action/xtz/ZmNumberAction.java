@@ -65,16 +65,26 @@ public class ZmNumberAction extends MyBaseAction{
 			page=new Page(1, 0, 5);
 		}
 		if (id!=null) {
-			String hql="from XtZmNumber where zmId  = ?";
+			String hql="from XtZmNumber where zmId  = ? order by zmServiceDate desc";
 			String ss[]={id};
-			String hql2="from XtZmNumber where zmId = '"+id+"'";
+			String hql2="from XtZmNumber where zmId = '"+id+"' order by zmServiceDate desc";
 			zmns=ser.query(hql, ss, hql2, page, ser);
 		}else {
-			String hql="from XtZmNumber";
+			String hql="from XtZmNumber order by zmServiceDate desc";
 			String ss[]={};
-			String hql2="from XtZmNumber";
+			String hql2="from XtZmNumber order by zmServiceDate desc";
 			zmns=ser.query(hql, ss, hql2, page, ser);
 		}
+		//带上通讯录信息
+		getRequest().setAttribute("html", ser.fitting1(ser.queryFirst()));
+		return result;
+	}
+	
+	private String gotoQuery() throws UnsupportedEncodingException {
+		String hql="from XtZmNumber order by zmServiceDate desc";
+		String ss[]={};
+		String hql2="from XtZmNumber order by zmServiceDate desc";
+		zmns=ser.query(hql, ss, hql2, page, ser);
 		//带上通讯录信息
 		getRequest().setAttribute("html", ser.fitting1(ser.queryFirst()));
 		return result;
@@ -87,7 +97,7 @@ public class ZmNumberAction extends MyBaseAction{
 			ser.delete(zmn);
 		}
 		zmn=null;
-		return result_succ;
+		return gotoQuery();
 	}
 	
 	public String update() throws Exception {
@@ -100,7 +110,7 @@ public class ZmNumberAction extends MyBaseAction{
 			getRequest().setAttribute("zmn", zmn);
 		}
 		zmn=null;
-		return result_succ;
+		return gotoQuery();
 	}
 	
 	public String add() throws Exception {
@@ -118,7 +128,7 @@ public class ZmNumberAction extends MyBaseAction{
 			getRequest().setAttribute("zmn", zmn);
 		}
 		zmn=null;
-		return result_succ;
+		return gotoQuery();
 	}	
 	
 }

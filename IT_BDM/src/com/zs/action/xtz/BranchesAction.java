@@ -60,16 +60,25 @@ public class BranchesAction extends MyBaseAction{
 			page=new Page(1, 0, 5);
 		}
 		if (id!=null) {
-			String hql="from XtBranches where BId  = ?";
+			String hql="from XtBranches where BId  = ? order by BMaintainDate desc";
 			String ss[]={id};
-			String hql2="from XtBranches where BId = '"+id+"'";
+			String hql2="from XtBranches where BId = '"+id+"' order by BMaintainDate desc";
 			bs=ser.query(hql, ss, hql2, page, ser);
 		}else {
-			String hql="from XtBranches";
+			String hql="from XtBranches order by BMaintainDate desc";
 			String ss[]={};
-			String hql2="from XtBranches";
+			String hql2="from XtBranches order by BMaintainDate desc";
 			bs=ser.query(hql, ss, hql2, page, ser);
 		}
+		ser.receiveStructure(getRequest());
+		return result_b;
+	}
+	
+	private String gotoQuery() throws UnsupportedEncodingException {
+		String hql="from XtBranches order by BMaintainDate desc";
+		String ss[]={};
+		String hql2="from XtBranches order by BMaintainDate desc";
+		bs=ser.query(hql, ss, hql2, page, ser);
 		ser.receiveStructure(getRequest());
 		return result_b;
 	}
@@ -81,7 +90,7 @@ public class BranchesAction extends MyBaseAction{
 			ser.delete(b);
 		}
 		b=null;
-		return result_succ;
+		return gotoQuery();
 	}
 	
 	public String update() throws Exception {
@@ -94,7 +103,7 @@ public class BranchesAction extends MyBaseAction{
 			getRequest().setAttribute("b", b);
 		}
 		b=null;
-		return result_succ;
+		return gotoQuery();
 	}
 	
 	public String add() throws Exception {
@@ -111,7 +120,7 @@ public class BranchesAction extends MyBaseAction{
 			getRequest().setAttribute("b", b);
 		}
 		b=null;
-		return result_succ;
+		return gotoQuery();
 	}	
 	
 }

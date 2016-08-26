@@ -64,16 +64,24 @@ public class ZmDataAction extends MyBaseAction{
 			page=new Page(1, 0, 5);
 		}
 		if (id!=null) {
-			String hql="from XtZmData where DId  = ?";
+			String hql="from XtZmData where DId  = ? order by DDate desc";
 			String ss[]={id};
-			String hql2="from XtZmData where DId = '"+id+"'";
+			String hql2="from XtZmData where DId = '"+id+"' order by DDate desc";
 			zmds=ser.query(hql, ss, hql2, page, ser);
 		}else {
-			String hql="from XtZmData";
+			String hql="from XtZmData order by DDate desc";
 			String ss[]={};
-			String hql2="from XtZmData";
+			String hql2="from XtZmData order by DDate desc";
 			zmds=ser.query(hql, ss, hql2, page, ser);
 		}
+		return result;
+	}
+	
+	private String gotoQuery() {
+		String hql="from XtZmData order by DDate desc";
+		String ss[]={};
+		String hql2="from XtZmData order by DDate desc";
+		zmds=ser.query(hql, ss, hql2, page, ser);
 		return result;
 	}
 	
@@ -84,7 +92,7 @@ public class ZmDataAction extends MyBaseAction{
 			ser.delete(zmd);
 		}
 		zmd=null;
-		return result_succ;
+		return gotoQuery();
 	}
 	
 	public String update() throws Exception {
@@ -95,7 +103,7 @@ public class ZmDataAction extends MyBaseAction{
 			getRequest().setAttribute("zmd", zmd);
 		}
 		zmd=null;
-		return result_succ;
+		return gotoQuery();
 	}
 	
 	public String add() throws Exception {
@@ -106,7 +114,7 @@ public class ZmDataAction extends MyBaseAction{
 			getRequest().setAttribute("zmd", zmd);
 		}
 		zmd=null;
-		return result_succ;
+		return gotoQuery();
 	}	
 	
 }

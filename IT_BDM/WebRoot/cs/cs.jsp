@@ -64,8 +64,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   </head>
   
   <body>
-  <div id="div1" style="width: 40%;float: left; display: none;">
- 	 ${html }  
+  <div id="div1" style="width: 40%; float: left; display: none;">
+  	<div style="height:100%;overflow: scroll;">
+	  	<input type="button" value="全部收缩" onclick="$('.easyui-tree').tree('collapseAll')"/>
+	  	<input type="button" value="全部展开" onclick="$('.easyui-tree').tree('expandAll')"/>
+	 	 ${html }  
+  	</div>
   </div>
   <div style="width: 2px;float: left;height:100%; background-color: #0092DC;margin-left: 10px; ">
   </div>
