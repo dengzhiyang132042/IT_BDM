@@ -74,7 +74,7 @@ public class BaseService implements IService{
 	 *张顺 
 	 *用来取结构关系
 	 * */
-	public List query(String hql1,String ss[],String hql2,Page page,IService ser) {
+	public List query(String hql1,Object ss[],String hql2,Page page,IService ser) {
 		String hql="from SectionQubu where qbId like ?"; 
 		if (page==null) {
 			page=new Page(1, 0, 5);

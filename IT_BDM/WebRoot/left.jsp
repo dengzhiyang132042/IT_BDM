@@ -40,9 +40,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	
   </head>
   
-<body style="padding: 0px;background-color: ;height: 100%;">
+<body style="padding: 0px;">
 
-<div class="easyui-accordion" style="width:100%;height:100%;" data-options="fillSpace:true,fit: true,animate: true,selected:false">
+<div class="easyui-accordion" style="width:100%;" data-options="fillSpace:true,fit: true,animate: true,selected:false">
 	<div title="基础数据" data-options="iconCls:'icon-add'" style="overflow:auto;padding:10px;">
 		<ul id="tt" class="easyui-tree" data-options="animate:true,lines:true">
         <li><span>数据与流程管理部</span>

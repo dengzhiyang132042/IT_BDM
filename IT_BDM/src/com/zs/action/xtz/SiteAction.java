@@ -2,11 +2,15 @@ package com.zs.action.xtz;
 
 import java.io.UnsupportedEncodingException;
 import java.sql.Timestamp;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
 import javax.xml.registry.infomodel.User;
+
+import org.apache.log4j.Logger;
 
 import com.zs.action.MyBaseAction;
 import com.zs.entity.GoOut;
@@ -27,7 +31,56 @@ public class SiteAction extends MyBaseAction{
 	String result_succ="succ";
 	String result_fail="fail";
 	
+	String id;
+	String num;
+	String dates;
+	String datee;
+	String it;
+	String type;
 	
+	
+	
+	private Logger logger=Logger.getLogger(SiteAction.class);
+	
+	
+	
+	
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
+	}
+	public String getNum() {
+		return num;
+	}
+	public void setNum(String num) {
+		this.num = num;
+	}
+	public String getDates() {
+		return dates;
+	}
+	public void setDates(String dates) {
+		this.dates = dates;
+	}
+	public String getDatee() {
+		return datee;
+	}
+	public void setDatee(String datee) {
+		this.datee = datee;
+	}
+	public String getIt() {
+		return it;
+	}
+	public void setIt(String it) {
+		this.it = it;
+	}
+	public String getType() {
+		return type;
+	}
+	public void setType(String type) {
+		this.type = type;
+	}
 	public IService getSer() {
 		return ser;
 	}
@@ -53,9 +106,22 @@ public class SiteAction extends MyBaseAction{
 		this.sites = sites;
 	}	
 	//------------------------------------------------
-	public String queryOfFenye() throws UnsupportedEncodingException {
+	private void clearOptions() {
+		id=null;
+		num=null;
+		dates=null;
+		datee=null;
+		it=null;
+		type=null;
+	}
+	
+	public String queryOfFenye() throws UnsupportedEncodingException, ParseException {
 		String id=getRequest().getParameter("id");
 		String cz=getRequest().getParameter("cz");//用于判断是否清理page，yes清理，no不清理
+		
+		
+		SimpleDateFormat formatter = new SimpleDateFormat( "yyyy-MM-dd");
+		
 		if (page==null) {
 			page=new Page(1, 0, 5);
 		}
@@ -63,10 +129,25 @@ public class SiteAction extends MyBaseAction{
 			page=new Page(1, 0, 5);
 		}
 		if (id!=null) {
-			String hql="from XtSite where SId  = ? order by SMaintainDate desc";
-			String ss[]={id};
-			String hql2="from XtSite where SId = '"+id+"' order by SMaintainDate desc";
-			sites=ser.query(hql, ss, hql2, page, ser);
+			String hql2="from XtSite where SId like '%"+id+"%'";
+			if (num!=null && !num.trim().equals("")) {
+				hql2=hql2+" and SNum like '%"+num+"%'";
+			}
+			if (dates!=null && !dates.trim().equals("")) {
+				hql2=hql2+" and SMaintainDate>='"+dates+"'";
+			}
+			if (datee!=null && !datee.trim().equals("")) {
+				hql2=hql2+" and SMaintainDate<='"+datee+"'";
+			}
+			if (it!=null && !it.trim().equals("")) {
+				hql2=hql2+" and SMaintainMan like '%"+it+"%'";
+			}
+			if (type!=null && !type.trim().equals("")) {
+				hql2=hql2+" and SMaintainType like '%"+type+"%'";
+			}
+			hql2=hql2+" order by SMaintainDate desc";
+			
+			sites=ser.query(hql2, null, hql2, page, ser);
 		}else {
 			String hql="from XtSite order by SMaintainDate desc";
 			String ss[]={};
@@ -78,11 +159,11 @@ public class SiteAction extends MyBaseAction{
 	}
 	
 	private String gotoQuery() throws UnsupportedEncodingException {
+		clearOptions();
 		String hql="from XtSite order by SMaintainDate desc";
 		String ss[]={};
 		String hql2="from XtSite order by SMaintainDate desc";
 		sites=ser.query(hql, ss, hql2, page, ser);
-		
 		ser.receiveStructure(getRequest());
 		return result_site;
 	}

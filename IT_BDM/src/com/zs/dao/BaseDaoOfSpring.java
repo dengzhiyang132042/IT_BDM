@@ -24,6 +24,9 @@ public class BaseDaoOfSpring implements IBaseDaoOfSpring{
 	
 	//待预编译的多条件查询
 	public List find(String hql,Object[] ss) {
+		if (ss==null) {
+			return ht.find(hql);
+		}
 		return ht.find(hql, ss);
 	}
 	

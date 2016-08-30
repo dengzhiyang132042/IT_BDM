@@ -11,6 +11,7 @@ import com.zs.entity.CompanySection;
 import com.zs.entity.Timeline;
 import com.zs.tools.Page;
 
+
 public interface IService {
 	
 	public List find(String hql,Object[] ss);
@@ -27,7 +28,7 @@ public interface IService {
 	public void delete(Object obj);
 
 	
-	public List query(String hql1,String ss[],String hql2,Page page,IService ser);
+	public List query(String hql1,Object ss[],String hql2,Page page,IService ser);
 	
 	public void timeLine(String state,String tableName,String id);
 
