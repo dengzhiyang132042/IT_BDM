@@ -183,9 +183,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   
   <form action="<%=path %>/jobLog!send" method="post">
   	  <input id="send_body" type="text" name="content" style="display: none;"/>
-  	  收件人：<input name="sj" type="text" value=""/>
+  	  收件人：<input name="sj" type="text" value="${user.UMail }"/>
   	  <br/>
-  	  抄送：<input name="cs" type="text" value=""/>
+  	  抄送：<input name="cs" type="text" value="1217360619@qq.com"/>
 	 <br/>
 	  <input onclick="return send()" type="submit" value="发送"/>
   </form>

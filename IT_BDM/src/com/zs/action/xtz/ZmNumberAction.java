@@ -29,7 +29,44 @@ public class ZmNumberAction extends MyBaseAction{
 	String result_succ="succ";
 	String result_fail="fail";
 	
+	String id;
+	String section;
+	String men;
+	String dates;
+	String datee;
 	
+	
+	
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
+	}
+	public String getSection() {
+		return section;
+	}
+	public void setSection(String section) {
+		this.section = section;
+	}
+	public String getMen() {
+		return men;
+	}
+	public void setMen(String men) {
+		this.men = men;
+	}
+	public String getDates() {
+		return dates;
+	}
+	public void setDates(String dates) {
+		this.dates = dates;
+	}
+	public String getDatee() {
+		return datee;
+	}
+	public void setDatee(String datee) {
+		this.datee = datee;
+	}
 	public IService getSer() {
 		return ser;
 	}
@@ -55,6 +92,14 @@ public class ZmNumberAction extends MyBaseAction{
 		this.zmns = zmns;
 	}
 	//------------------------------------------------
+	private void clearOptions() {
+		id=null;
+		section=null;
+		men=null;
+		dates=null;
+		datee=null;
+	}
+	
 	public String queryOfFenye() throws UnsupportedEncodingException {
 		String id=getRequest().getParameter("id");
 		String cz=getRequest().getParameter("cz");//用于判断是否清理page，yes清理，no不清理
@@ -63,12 +108,24 @@ public class ZmNumberAction extends MyBaseAction{
 		}
 		if (cz!=null && cz.equals("yes")) {
 			page=new Page(1, 0, 5);
+			clearOptions();
 		}
 		if (id!=null) {
-			String hql="from XtZmNumber where zmId  = ? order by zmServiceDate desc";
-			String ss[]={id};
-			String hql2="from XtZmNumber where zmId = '"+id+"' order by zmServiceDate desc";
-			zmns=ser.query(hql, ss, hql2, page, ser);
+			String hql="from XtZmNumber where zmId like '%"+id+"%'";
+			if (section!=null && !section.trim().equals("")) {
+				hql=hql+" and zmApplyCs like '%"+section+"%'";
+			}
+			if (men!=null && !men.trim().equals("")) {
+				hql=hql+" and zmApplyMaster like '%"+men+"%'";
+			}
+			if (dates!=null && !dates.trim().equals("")) {
+				hql=hql+" and zmApplyDate >= '"+dates+"'";
+			}
+			if (datee!=null && !datee.trim().equals("")) {
+				hql=hql+" and zmApplyDate <= '"+datee+"'";
+			}
+			hql=hql+" order by zmServiceDate desc";
+			zmns=ser.query(hql, null, hql, page, ser);
 		}else {
 			String hql="from XtZmNumber order by zmServiceDate desc";
 			String ss[]={};
@@ -81,6 +138,7 @@ public class ZmNumberAction extends MyBaseAction{
 	}
 	
 	private String gotoQuery() throws UnsupportedEncodingException {
+		clearOptions();
 		String hql="from XtZmNumber order by zmServiceDate desc";
 		String ss[]={};
 		String hql2="from XtZmNumber order by zmServiceDate desc";

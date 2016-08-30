@@ -24,7 +24,57 @@ public class BranchesAction extends MyBaseAction{
 	String result_succ="succ";
 	String result_fail="fail";
 	
+	String id;
+	String num1;
+	String num2;
+	String name1;
+	String name2;
+	String dates;
+	String datee;
 	
+	
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
+	}
+	public String getNum1() {
+		return num1;
+	}
+	public void setNum1(String num1) {
+		this.num1 = num1;
+	}
+	public String getNum2() {
+		return num2;
+	}
+	public void setNum2(String num2) {
+		this.num2 = num2;
+	}
+	public String getName1() {
+		return name1;
+	}
+	public void setName1(String name1) {
+		this.name1 = name1;
+	}
+	public String getName2() {
+		return name2;
+	}
+	public void setName2(String name2) {
+		this.name2 = name2;
+	}
+	public String getDates() {
+		return dates;
+	}
+	public void setDates(String dates) {
+		this.dates = dates;
+	}
+	public String getDatee() {
+		return datee;
+	}
+	public void setDatee(String datee) {
+		this.datee = datee;
+	}
 	public IService getSer() {
 		return ser;
 	}
@@ -50,6 +100,16 @@ public class BranchesAction extends MyBaseAction{
 		this.bs = bs;
 	}
 	//------------------------------------------------
+	private void clearOptions() {
+		id=null;
+		num1=null;
+		name1=null;
+		num2=null;
+		name2=null;
+		dates=null;
+		datee=null;
+	}
+	
 	public String queryOfFenye() throws UnsupportedEncodingException {
 		String id=getRequest().getParameter("id");
 		String cz=getRequest().getParameter("cz");//用于判断是否清理page，yes清理，no不清理
@@ -58,12 +118,30 @@ public class BranchesAction extends MyBaseAction{
 		}
 		if (cz!=null && cz.equals("yes")) {
 			page=new Page(1, 0, 5);
+			clearOptions();
 		}
 		if (id!=null) {
-			String hql="from XtBranches where BId  = ? order by BMaintainDate desc";
-			String ss[]={id};
-			String hql2="from XtBranches where BId = '"+id+"' order by BMaintainDate desc";
-			bs=ser.query(hql, ss, hql2, page, ser);
+			String hql="from XtBranches where BId like '%"+id+"%'";
+			if (num1!=null && !num1.trim().equals("")) {
+				hql=hql+" and BNum1 like '%"+num1+"%'";
+			}
+			if (num2!=null && !num2.trim().equals("")) {
+				hql=hql+" and BNum2 like '%"+num2+"%'";
+			}
+			if (name1!=null && !name1.trim().equals("")) {
+				hql=hql+" and BName1 like '%"+name1+"%'";
+			}
+			if (name2!=null && !name2.trim().equals("")) {
+				hql=hql+" and BName2 like '%"+name2+"%'";
+			}
+			if (dates!=null && !dates.trim().equals("")) {
+				hql=hql+" and BMaintainDate >= '"+dates+"'";
+			}
+			if (datee!=null && !datee.trim().equals("")) {
+				hql=hql+" and BMaintainDate <= '"+datee+"'";
+			}
+			hql=hql+" order by BMaintainDate desc";
+			bs=ser.query(hql, null, hql, page, ser);
 		}else {
 			String hql="from XtBranches order by BMaintainDate desc";
 			String ss[]={};
@@ -75,6 +153,7 @@ public class BranchesAction extends MyBaseAction{
 	}
 	
 	private String gotoQuery() throws UnsupportedEncodingException {
+		clearOptions();
 		String hql="from XtBranches order by BMaintainDate desc";
 		String ss[]={};
 		String hql2="from XtBranches order by BMaintainDate desc";

@@ -85,7 +85,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     		<input type="submit" value="查询"/>
     	</form>	
     </div>
-    <div style="height: 455px;">
+    <div style="margin-bottom: 5px;">
     
     <table border="1" id="eidtASubjectWindow1" style="font-size: 12px;">
     <tr>
@@ -121,9 +121,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     </c:forEach>
     </table>
 	</div>
-	<br/>
 	
-	<div class="easyui-panel" style="padding:5px;width: 100%;display: none;">
+	<div class="easyui-panel" style="padding:5px;width: 100%;display: none;background-color: white;">
 		<form id="f1" action="<%=path %>/site!queryOfFenye?id=${id}&num=${num}&dates=${dates}&datee=${datee}&it=${it}&type=${type}" method="post">
 		<select id="sele" style="float: left;margin-top: 3px;margin-left: 5px;" name="page.size" onchange="$('#f1').submit();">
 			<option value="5">5</option>

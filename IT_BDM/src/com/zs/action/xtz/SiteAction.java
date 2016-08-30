@@ -127,6 +127,7 @@ public class SiteAction extends MyBaseAction{
 		}
 		if (cz!=null && cz.equals("yes")) {
 			page=new Page(1, 0, 5);
+			clearOptions();
 		}
 		if (id!=null) {
 			String hql2="from XtSite where SId like '%"+id+"%'";

@@ -99,7 +99,26 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <body>
     
     <div class="easyui-panel" title="哲盟账号申请记录登记" style="padding: 5px;display: none;" data-options="tools:'#tt'">
-    <div style="height: 455px;">
+    
+    <div style="background-color:white;margin-bottom: 5px;padding: 5px;border: 1px solid #224466; ">
+    	快速查询
+    	<br/>
+    	<form action="<%=path %>/zmn!queryOfFenye" method="post">
+    		编号:<input name="id" type="text" value="${id }"/>
+    		&nbsp;&nbsp;&nbsp;&nbsp;
+    		申请部门：<input name="section" type="text" value="${section }"/>
+    		&nbsp;&nbsp;&nbsp;&nbsp;
+    		申请人：<input name="men" type="text" value="${men }"/>
+    		&nbsp;&nbsp;&nbsp;&nbsp;
+    		申请时间:<input name="dates" type="date" value="${dates }"/>
+    		~
+    		<input name="datee" type="date" value="${datee }"/>
+    		<br/>
+    		<input type="submit" value="查询"/>
+    	</form>	
+    </div>
+    <div style="margin-bottom: 5px;">
+    
     
     <table border="1" id="eidtASubjectWindow1" style="font-size: 12px;">
     <tr>
@@ -135,10 +154,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     </c:forEach>
     </table>
 	</div>
-	<br/>
 	
 	<div class="easyui-panel" style="padding:5px;width: 100%;display: none;">
-		<form id="f1" action="<%=path %>/zmn!queryOfFenye" method="post">
+		<form id="f1" action="<%=path %>/zmn!queryOfFenye?id=${id}&section=${section}&men=${men}&dates=${dates}&datee=${datee}" method="post">
 		<select id="sele" style="float: left;margin-top: 3px;margin-left: 5px;" name="page.size" onchange="$('#f1').submit();">
 			<option value="5">5</option>
 			<option value="10">10</option>

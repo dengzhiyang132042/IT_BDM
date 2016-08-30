@@ -70,7 +70,30 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <body>
     
     <div class="easyui-panel" title="二级网点资料" style="padding: 5px;display: none;" data-options="tools:'#tt'">
-    <div style="height: 455px;">
+    
+    <div style="background-color:white;margin-bottom: 5px;padding: 5px;border: 1px solid #224466; ">
+    	快速查询
+    	<br/>
+    	<form action="<%=path %>/branches!queryOfFenye" method="post">
+    		编号:<input name="id" type="text" value="${id }"/>
+    		&nbsp;&nbsp;&nbsp;&nbsp;
+    		一级网点条码：<input name="num1" type="text" value="${num1 }"/>
+    		&nbsp;&nbsp;&nbsp;&nbsp;
+    		一级网点名称：<input name="name1" type="text" value="${name1 }"/>
+    		&nbsp;&nbsp;&nbsp;&nbsp;
+    		二级网点条码：<input name="num2" type="text" value="${num2 }"/>
+    		&nbsp;&nbsp;&nbsp;&nbsp;
+    		二级网点名称：<input name="name2" type="text" value="${name2 }"/>
+    		<br/>
+    		维护日期:<input name="dates" type="date" value="${dates }"/>
+    		~
+    		<input name="datee" type="date" value="${datee }"/>
+    		<br/>
+    		<input type="submit" value="查询"/>
+    	</form>	
+    </div>
+    
+    <div style="margin-bottom: 5px;">
     
     <table border="1" id="eidtASubjectWindow1" style="font-size: 12px;">
     <tr>
@@ -106,10 +129,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     </c:forEach>
     </table>
 	</div>
-	<br/>
 	
 	<div class="easyui-panel" style="padding:5px;width: 100%;display: none;">
-		<form id="f1" action="<%=path %>/branches!queryOfFenye" method="post">
+		<form id="f1" action="<%=path %>/branches!queryOfFenye?id=${id}&num1=${num1}&name1=${name1}&num2=${num2}&name2=${name2}&dates=${dates}&datee=${datee}" method="post">
 		<select id="sele" style="float: left;margin-top: 3px;margin-left: 5px;" name="page.size" onchange="$('#f1').submit();">
 			<option value="5">5</option>
 			<option value="10">10</option>
