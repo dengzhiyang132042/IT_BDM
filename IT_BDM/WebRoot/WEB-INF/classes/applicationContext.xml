@@ -56,6 +56,9 @@
 	<bean id="zs_zmd_xtz" class="com.zs.action.xtz.ZmDataAction">
 		<property name="ser" ref="zs_ser"></property>
 	</bean>
+	<bean id="zs_vpn_zmz" class="com.zs.action.zmz.VpnAction">
+		<property name="ser" ref="zs_ser"></property>
+	</bean>
 	
 	
 	<!-- *****************cs******************* -->

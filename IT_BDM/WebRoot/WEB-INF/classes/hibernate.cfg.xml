@@ -18,7 +18,7 @@
 			<property name="dialect">
 			org.hibernate.dialect.MySQLDialect
 			</property>
-
+			
 
 		<!-- 
 		<property name="myeclipse.connection.profile">
@@ -66,6 +66,7 @@
 		<mapping resource="com/zs/entity/XtZmData.hbm.xml" />
 		<mapping resource="com/zs/entity/XtZmNumber.hbm.xml" />
 		<mapping resource="com/zs/entity/CompanySection.hbm.xml" />
+		<mapping resource="com/zs/entity/ZmVpn.hbm.xml" />
 	</session-factory>
 
 </hibernate-configuration>

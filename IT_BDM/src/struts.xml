@@ -127,7 +127,14 @@
      <result name="succ">/success.jsp</result>
      <result name="fail">/fail.jsp</result>
   </action>
-  
+  <!-- **************桌面组**************** -->
+  <action name="vpn" class="zs_vpn_zmz">	
+  	 <interceptor-ref name="mydefault" />
+     <result>/index.jsp</result>
+     <result name="vpn">/zmz_jsp/vpn.jsp</result>
+     <result name="succ">/success.jsp</result>
+     <result name="fail">/fail.jsp</result>
+  </action>
   
   <!-- **********CompanySection************* -->
   <action name="cs" class="zs_cs">	

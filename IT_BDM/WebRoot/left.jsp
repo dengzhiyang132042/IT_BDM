@@ -66,7 +66,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<li><span><a href="<%=path %>/zmd!queryOfFenye?cz=yes" target="right">哲盟数据检查登记</a></span></li>
         			</ul>
         		</li>
-        		<li><span>桌面组</span></li>
+        		<li><span>桌面组</span>
+        			<ul>
+						<li><span><a href="<%=path %>/vpn!queryOfFenye?cz=yes" target="right">VPN账号登记</a></span></li>
+						<li><span><a href="<%=path %>/branches!queryOfFenye?cz=yes" target="right">布谷鸟、邮箱账号</a></span></li>
+						<li><span><a href="<%=path %>/zmn!queryOfFenye?cz=yes" target="right">oa账号</a></span></li>
+						<li><span><a href="<%=path %>/zmd!queryOfFenye?cz=yes" target="right">打印机登记</a></span></li>
+						<li><span><a href="<%=path %>/zmd!queryOfFenye?cz=yes" target="right">管理电脑统计</a></span></li>
+						<li><span><a href="<%=path %>/zmd!queryOfFenye?cz=yes" target="right">小仓巴枪电脑登记</a></span></li>
+						<li><span><a href="<%=path %>/zmd!queryOfFenye?cz=yes" target="right">园区wifi管理</a></span></li>
+						<li><span><a href="<%=path %>/zmd!queryOfFenye?cz=yes" target="right">电话线分布</a></span></li>
+        			</ul>
+        		</li>
         		<li><span>开发组</span></li>
         	</ul>
         </li>

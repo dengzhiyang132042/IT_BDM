@@ -28,7 +28,29 @@ public class ZmDataAction extends MyBaseAction{
 	String result_succ="succ";
 	String result_fail="fail";
 	
+	String id;
+	String dates;
+	String datee;
 	
+	
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
+	}
+	public String getDates() {
+		return dates;
+	}
+	public void setDates(String dates) {
+		this.dates = dates;
+	}
+	public String getDatee() {
+		return datee;
+	}
+	public void setDatee(String datee) {
+		this.datee = datee;
+	}
 	public IService getSer() {
 		return ser;
 	}
@@ -54,6 +76,12 @@ public class ZmDataAction extends MyBaseAction{
 		this.zmds = zmds;
 	}
 	//------------------------------------------------
+	private void clearOptions() {
+		id=null;
+		dates=null;
+		datee=null;
+	}
+	
 	public String queryOfFenye() throws UnsupportedEncodingException {
 		String id=getRequest().getParameter("id");
 		String cz=getRequest().getParameter("cz");//用于判断是否清理page，yes清理，no不清理
@@ -62,12 +90,18 @@ public class ZmDataAction extends MyBaseAction{
 		}
 		if (cz!=null && cz.equals("yes")) {
 			page=new Page(1, 0, 5);
+			clearOptions();
 		}
 		if (id!=null) {
-			String hql="from XtZmData where DId  = ? order by DDate desc";
-			String ss[]={id};
-			String hql2="from XtZmData where DId = '"+id+"' order by DDate desc";
-			zmds=ser.query(hql, ss, hql2, page, ser);
+			String hql="from XtZmData where DId like '%"+id+"%'";
+			if (dates!=null && !dates.trim().equals("")) {
+				hql=hql+" and DDate >= '"+dates+"'";
+			}
+			if (datee!=null && !datee.trim().equals("")) {
+				hql=hql+" and DDate <= '"+datee+"'";
+			}
+			hql=hql+" order by DDate desc";
+			zmds=ser.query(hql, null, hql, page, ser);
 		}else {
 			String hql="from XtZmData order by DDate desc";
 			String ss[]={};
@@ -78,6 +112,7 @@ public class ZmDataAction extends MyBaseAction{
 	}
 	
 	private String gotoQuery() {
+		clearOptions();
 		String hql="from XtZmData order by DDate desc";
 		String ss[]={};
 		String hql2="from XtZmData order by DDate desc";

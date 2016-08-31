@@ -11,7 +11,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <head>
     <base href="<%=basePath%>">
     
-    <title>哲盟数据检查登记</title>
+    <title>vpn账号登记</title>
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
 	<meta http-equiv="expires" content="0">    
@@ -69,16 +69,20 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   
   <body>
     
-    <div class="easyui-panel" title="哲盟数据检查登记" style="padding: 5px;display: none;" data-options="tools:'#tt'">
-    
-    
+    <div class="easyui-panel" title="站点资料" style="padding: 5px;display: none;" data-options="tools:'#tt'">
     <div style="background-color:white;margin-bottom: 5px;padding: 5px;border: 1px solid #224466; ">
     	快速查询
     	<br/>
-    	<form action="<%=path %>/zmd!queryOfFenye" method="post">
+    	<form action="<%=path %>/vpn!queryOfFenye" method="post">
     		编号:<input name="id" type="text" value="${id }"/>
     		&nbsp;&nbsp;&nbsp;&nbsp;
-    		日期:<input name="dates" type="date" value="${dates }"/>
+    		账号：<input name="num" type="text" value="${num }"/>
+    		&nbsp;&nbsp;&nbsp;&nbsp;
+    		姓名:<input name="name" type="text" value="${name }"/>
+    		&nbsp;&nbsp;&nbsp;&nbsp;
+    		部门:<input name="section" type="text" value="${section }"/>
+    		&nbsp;&nbsp;&nbsp;&nbsp;
+    		登记时间:<input name="dates" type="date" value="${dates }"/>
     		~
     		<input name="datee" type="date" value="${datee }"/>
     		<br/>
@@ -87,44 +91,45 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     </div>
     <div style="margin-bottom: 5px;">
     
-    
     <table border="1" id="eidtASubjectWindow1" style="font-size: 12px;">
     <tr>
     	<th>编号</th>
-    	<th>日期</th>
-    	<th>9点末上传数据</th>
-    	<th>18点末上传数据</th>
-    	<th>深圳公司离线扫描</th>
-    	<th>集包到件</th>
-    	<th>集包未到件</th>
-    	<th>集包数据</th>
-    	<th>装车数据</th>
-    	<th>备注</th>
+    	<th>账号</th>
+    	<th>修改密码(后)</th>
+    	<th>姓名</th>
+    	<th>部门</th>
+    	<th> 注册身份证</th>
+    	<th>注册手机号</th>
+    	<th>SOA密码</th>
+    	<th>VPN密码</th>
+    	<th>登记时间</th>
+    	<th>备注说明</th>
     	<th>操作</th>
     </tr>
-    <c:forEach items="${zmds}" var="zmd">
+    <c:forEach items="${vpns}" var="vpn">
     <tr>
-		<td width="">${zmd.DId }</td>
-		<td width=""><fmt:formatDate value="${zmd.DDate }" pattern="yyyy/M/d" /></td>
-		<td width="">${zmd.DNoUpload9 }</td>
-		<td width="">${zmd.DNoUpload18 }</td>
-		<td width="">${zmd.DOffline }</td>
-		<td width="">${zmd.DPackage }</td>
-		<td width="">${zmd.DNoPackage }</td>
-		<td width="">${zmd.DDataPackage }</td>
-		<td width="">${zmd.DDataCar }</td>
-		<td width="">${zmd.DNote }</td>
+		<td width="">${vpn.VId }</td>
+		<td width="">${vpn.VNum }</td>
+		<td width="">${vpn.VPass }</td>
+		<td width="">${vpn.VName }</td>
+		<td width="">${vpn.VSection }</td>
+		<td width="">${vpn.VCard }</td>
+		<td width="">${vpn.VPhone }</td>
+		<td width="">${vpn.VSoaPass }</td>
+		<td width="">${vpn.VVpnPass }</td>
+		<td width=""><fmt:formatDate value="${vpn.VDate }" pattern="yyyy/M/d" /></td>
+		<td width="">${vpn.VNote }</td>
 		<td width="5%" align="center">
-			<a onclick="update('${zmd.DId }','${zmd.DDate }','${zmd.DNoUpload9 }','${zmd.DNoUpload18 }','${zmd.DOffline }','${zmd.DPackage }','${zmd.DNoPackage }','${zmd.DDataPackage }','${zmd.DDataCar }','${zmd.DNote }')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-edit'" title="修改"></a>
-			<a href="<%=path %>/zmd!delete?id=${zmd.DId}" onclick="return confirm('确定删除吗?')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-delete'" title="删除"></a>
+			<a onclick="update('${vpn.VId }','${vpn.VNum }','${vpn.VPass }','${vpn.VName }','${vpn.VSection }','${vpn.VCard }','${vpn.VPhone }','${vpn.VSoaPass }','${vpn.VVpnPass }','${vpn.VNote }')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-edit'" title="修改"></a>
+			<a href="<%=path %>/vpn!delete?id=${vpn.VId}" onclick="return confirm('确定删除吗?')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-delete'" title="删除"></a>
 		</td>
     </tr>
     </c:forEach>
     </table>
 	</div>
 	
-	<div class="easyui-panel" style="padding:5px;width: 100%;display: none;">
-		<form id="f1" action="<%=path %>/zmd!queryOfFenye" method="post">
+	<div class="easyui-panel" style="padding:5px;width: 100%;display: none;background-color: white;">
+		<form id="f1" action="<%=path %>/vpn!queryOfFenye?id=${id}&num=${num}&name=${name }&section=${section }&dates=${dates}&datee=${datee}" method="post">
 		<select id="sele" style="float: left;margin-top: 3px;margin-left: 5px;" name="page.size" onchange="$('#f1').submit();">
 			<option value="5">5</option>
 			<option value="10">10</option>
@@ -153,61 +158,67 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</div>
 	</div>
 	
-	<div id="u" class="easyui-window" title="修改" data-options="modal:true,closed:true" style="width:500px;height:auto;padding:10px;display: none;">
-		<form action="<%=path %>/zmd!update" method="post">
+	<div id="u" class="easyui-window" title="修改" data-options="modal:true,closed:true" style="width:400px;height:auto;padding:10px;display: none;">
+		<form action="<%=path %>/vpn!update" method="post">
 		<table border="0" class="table1">
 			<tr>
 				<td>编号：</td>
 				<td>
-					<input id="u_1" name="zmd.DId" type="text" style="width: 100%;" readonly="readonly"/>
+					<input id="u_1" name="vpn.VId" type="text" style="width: 100%;" readonly="readonly"/>
 				</td>
 			</tr>
 			<tr>
-				<td>9点末上传数据：</td>
+				<td>账号：</td>
 				<td>
-					<input id="u_3" name="zmd.DNoUpload9" type="number" style="width: 100%;"/>
+					<input id="u_2" name="vpn.VNum" type="text" style="width: 100%;"/>
 				</td>
 			</tr>
 			<tr>
-				<td>18点末上传数据：</td>
+				<td>修改密码(后)：</td>
 				<td>
-					<input id="u_4" name="zmd.DNoUpload18" type="number" style="width: 100%;"/>
+					<input id="u_3" name="vpn.VPass" type="text" style="width: 100%;"/>
 				</td>
 			</tr>
 			<tr>
-				<td>深圳公司离线扫描：</td>
+				<td>姓名：</td>
 				<td>
-					<input id="u_5" name="zmd.DOffline" type="number" style="width: 100%;"/>
+					<input id="u_4" name="vpn.VName" type="text" style="width: 100%;"/>
 				</td>
 			</tr>
 			<tr>
-				<td>集包到件：</td>
+				<td>部门：</td>
 				<td>
-					<input id="u_6" name="zmd.DPackage" type="number" style="width: 100%;"/>
+					<input id="u_5" name="vpn.VSection" type="text" style="width: 100%;"/>
 				</td>
 			</tr>
 			<tr>
-				<td>集包未到件：</td>
+				<td>注册身份证：</td>
 				<td>
-					<input id="u_7" name="zmd.DNoPackage" type="number" style="width: 100%;"/>
+					<input id="u_6" name="vpn.VCard" type="text" style="width: 100%;"/>
 				</td>
 			</tr>
 			<tr>
-				<td>集包数据：</td>
+				<td>注册手机号：</td>
 				<td>
-					<input id="u_8" name="zmd.DDataPackage" type="number" style="width: 100%;"/>
+					<input id="u_7" name="vpn.VPhone" type="text" style="width: 100%;"/>
 				</td>
 			</tr>
 			<tr>
-				<td>装车数据：</td>
+				<td>SOA密码：</td>
 				<td>
-					<input id="u_9" name="zmd.DDataCar" type="number" style="width: 100%;"/>
+					<input id="u_8" name="vpn.VSoaPass" type="text" style="width: 100%;"/>
 				</td>
 			</tr>
 			<tr>
-				<td>备注：</td>
+				<td>VPN密码：</td>
 				<td>
-					<input id="u_10" name="zmd.DNote" type="text" style="width: 100%;"/>
+					<input id="u_9" name="vpn.VVpnPass" type="text" style="width: 100%;"/>
+				</td>
+			</tr>
+			<tr>
+				<td>备注说明：</td>
+				<td>
+					<input id="u_10" name="vpn.VNote" type="text" style="width: 100%;"/>
 				</td>
 			</tr>
 			<tr>
@@ -219,55 +230,61 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</form>
 	</div>
 	
-	<div id="a" class="easyui-window" title="添加" data-options="modal:true,closed:true" style="width:500px;height:auto;padding:10px;display: none;">
-		<form action="<%=path %>/zmd!add" method="post">
+	<div id="a" class="easyui-window" title="添加" data-options="modal:true,closed:true" style="width:400px;height:auto;padding:10px;display: none;">
+		<form action="<%=path %>/vpn!add" method="post">
 		<table border="0" class="table1">
 			<tr>
-				<td>9点末上传数据：</td>
+				<td>账号：</td>
 				<td>
-					<input name="zmd.DNoUpload9" type="number" style="width: 100%;"/>
+					<input name="vpn.VNum" type="text" style="width: 100%;"/>
 				</td>
 			</tr>
 			<tr>
-				<td>18点末上传数据：</td>
+				<td>修改密码(后)：</td>
 				<td>
-					<input name="zmd.DNoUpload18" type="number" style="width: 100%;"/>
+					<input name="vpn.VPass" type="text" style="width: 100%;"/>
 				</td>
 			</tr>
 			<tr>
-				<td>深圳公司离线扫描：</td>
+				<td>姓名：</td>
 				<td>
-					<input name="zmd.DOffline" type="number" style="width: 100%;"/>
+					<input name="vpn.VName" type="text" style="width: 100%;"/>
 				</td>
 			</tr>
 			<tr>
-				<td>集包到件：</td>
+				<td>部门：</td>
 				<td>
-					<input name="zmd.DPackage" type="number" style="width: 100%;"/>
+					<input name="vpn.VSection" type="text" style="width: 100%;"/>
 				</td>
 			</tr>
 			<tr>
-				<td>集包未到件：</td>
+				<td>注册身份证：</td>
 				<td>
-					<input name="zmd.DNoPackage" type="number" style="width: 100%;"/>
+					<input name="vpn.VCard" type="text" style="width: 100%;"/>
 				</td>
 			</tr>
 			<tr>
-				<td>集包数据：</td>
+				<td>注册手机号：</td>
 				<td>
-					<input name="zmd.DDataPackage" type="number" style="width: 100%;"/>
+					<input name="vpn.VPhone" type="text" style="width: 100%;"/>
 				</td>
 			</tr>
 			<tr>
-				<td>装车数据：</td>
+				<td>SOA密码：</td>
 				<td>
-					<input name="zmd.DDataCar" type="number" style="width: 100%;"/>
+					<input name="vpn.VSoaPass" type="text" style="width: 100%;"/>
 				</td>
 			</tr>
 			<tr>
-				<td>备注：</td>
+				<td>VPN密码：</td>
 				<td>
-					<input name="zmd.DNote" type="text" style="width: 100%;"/>
+					<input name="vpn.VVpnPass" type="text" style="width: 100%;"/>
+				</td>
+			</tr>
+			<tr>
+				<td>备注说明：</td>
+				<td>
+					<input name="vpn.VNote" type="text" style="width: 100%;"/>
 				</td>
 			</tr>
 			<tr>
