@@ -59,6 +59,9 @@
 	<bean id="zs_vpn_zmz" class="com.zs.action.zmz.VpnAction">
 		<property name="ser" ref="zs_ser"></property>
 	</bean>
+	<bean id="zs_by_zmz" class="com.zs.action.zmz.ByAction">
+		<property name="ser" ref="zs_ser"></property>
+	</bean>
 	
 	
 	<!-- *****************cs******************* -->

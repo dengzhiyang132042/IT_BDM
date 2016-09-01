@@ -11,7 +11,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <head>
     <base href="<%=basePath%>">
     
-    <title>vpn账号登记</title>
+    <title>布谷鸟、邮箱账号</title>
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
 	<meta http-equiv="expires" content="0">    
@@ -34,7 +34,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		$('#tt').show();
 	});
 	
-	function update(u1,u2,u3,u4,u5,u6,u7,u8,u9,u10){
+	function update(u1,u2,u3,u4,u5,u6,u7,u8,u9,u10,u11,u12,u13,u14){
 		$('#u').window('open');
 		$('#u_1').val(u1);
 		$('#u_2').val(u2);
@@ -46,6 +46,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		$('#u_8').val(u8);
 		$('#u_9').val(u9);
 		$('#u_10').val(u10);
+		$('#u_11').val(u11);
+		$('#u_12').val(u12);
+		$('#u_13').val(u13);
+		$('#u_14').val(u14);
 	}
 	function page(no,cz){
 		var num1=$('#page').val();
@@ -62,27 +66,23 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		}
 		$('#f1').submit();
 	}
-	
 	</script>
 	
   </head>
   
   <body>
-    
-    <div class="easyui-panel" title="vpn账号登记" style="padding: 5px;display: none;" data-options="tools:'#tt'">
+    <div class="easyui-panel" title="布谷鸟、邮箱账号" style="padding: 5px;display: none;" data-options="tools:'#tt'">
     <div style="background-color:white;margin-bottom: 5px;padding: 5px;border: 1px solid #224466; ">
     	快速查询
     	<br/>
-    	<form action="<%=path %>/vpn!queryOfFenye" method="post">
+    	<form action="<%=path %>/by!queryOfFenye" method="post">
     		编号:<input name="id" type="text" value="${id }"/>
     		&nbsp;&nbsp;&nbsp;&nbsp;
-    		账号：<input name="num" type="text" value="${num }"/>
-    		&nbsp;&nbsp;&nbsp;&nbsp;
-    		姓名:<input name="name" type="text" value="${name }"/>
+    		姓名  :<input name="name" type="text" value="${name }"/>
     		&nbsp;&nbsp;&nbsp;&nbsp;
     		部门:<input name="section" type="text" value="${section }"/>
     		&nbsp;&nbsp;&nbsp;&nbsp;
-    		登记时间:<input name="dates" type="date" value="${dates }"/>
+    		维护时间:<input name="dates" type="date" value="${dates }"/>
     		~
     		<input name="datee" type="date" value="${datee }"/>
     		<br/>
@@ -94,34 +94,40 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <table border="1" id="eidtASubjectWindow1" style="font-size: 12px;">
     <tr>
     	<th>编号</th>
-    	<th>账号</th>
-    	<th>修改密码(后)</th>
-    	<th>姓名</th>
+    	<th>oa登记日期</th>
     	<th>部门</th>
-    	<th>注册身份证</th>
-    	<th>注册手机号</th>
-    	<th>SOA密码</th>
-    	<th>VPN密码</th>
-    	<th>登记时间</th>
+    	<th>姓名</th>
+    	<th>布谷鸟</th>
+    	<th>邮箱</th>
+    	<th>邮箱默认密码</th>
+    	<th>维护IT</th>
+    	<th>入职情况</th>
+    	<th>维护日期</th>
+    	<th>维护周数</th>
+    	<th>维护时间(分钟)</th>
+    	<th>及时与否</th>
     	<th>备注说明</th>
     	<th>操作</th>
     </tr>
-    <c:forEach items="${vpns}" var="vpn">
+    <c:forEach items="${bys}" var="by">
     <tr>
-		<td width="">${vpn.VId }</td>
-		<td width="">${vpn.VNum }</td>
-		<td width="">${vpn.VPass }</td>
-		<td width="">${vpn.VName }</td>
-		<td width="">${vpn.VSection }</td>
-		<td width="">${vpn.VCard }</td>
-		<td width="">${vpn.VPhone }</td>
-		<td width="">${vpn.VSoaPass }</td>
-		<td width="">${vpn.VVpnPass }</td>
-		<td width=""><fmt:formatDate value="${vpn.VDate }" pattern="yyyy/M/d" /></td>
-		<td width="">${vpn.VNote }</td>
+		<td width="">${by.byId }</td>
+		<td width=""><fmt:formatDate value="${by.byOaDate }" pattern="yyyy/M/d" /></td>
+		<td width="">${by.bySection}</td>
+		<td width="">${by.byName }</td>
+		<td width="">${by.byBgn }</td>
+		<td width="">${by.byMail }</td>
+		<td width="">${by.byMailPass }</td>
+		<td width="">${by.byService }</td>
+		<td width="">${by.byOnJob }</td>
+		<td width=""><fmt:formatDate value="${by.byServiceDate }" pattern="yyyy/M/d" /></td>
+		<td width="">${by.byServiceWeek }</td>
+		<td width="">${by.byServiceTime }</td>
+		<td width="">${by.byIsTimely }</td>
+		<td width="">${by.byNote }</td>
 		<td width="5%" align="center">
-			<a onclick="update('${vpn.VId }','${vpn.VNum }','${vpn.VPass }','${vpn.VName }','${vpn.VSection }','${vpn.VCard }','${vpn.VPhone }','${vpn.VSoaPass }','${vpn.VVpnPass }','${vpn.VNote }')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-edit'" title="修改"></a>
-			<a href="<%=path %>/vpn!delete?id=${vpn.VId}" onclick="return confirm('确定删除吗?')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-delete'" title="删除"></a>
+			<a onclick="update('${by.byId }','${by.byOaDate }','${by.bySection }','${by.byName }','${by.byBgn }','${by.byMail }','${by.byMailPass }','${by.byService }','${by.byOnJob }','${by.byServiceDate }','${by.byServiceWeek }','${by.byServiceTime }','${by.byIsTimely }','${by.byNote }')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-edit'" title="修改"></a>
+			<a href="<%=path %>/by!delete?id=${by.byId}" onclick="return confirm('确定删除吗?')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-delete'" title="删除"></a>
 		</td>
     </tr>
     </c:forEach>
@@ -129,7 +135,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</div>
 	
 	<div class="easyui-panel" style="padding:5px;width: 100%;display: none;background-color: white;">
-		<form id="f1" action="<%=path %>/vpn!queryOfFenye?id=${id}&num=${num}&name=${name }&section=${section }&dates=${dates}&datee=${datee}" method="post">
+		<form id="f1" action="<%=path %>/by!queryOfFenye?id=${id}&name=${name }&section=${section }&dates=${dates}&datee=${datee}" method="post">
 		<select id="sele" style="float: left;margin-top: 3px;margin-left: 5px;" name="page.size" onchange="$('#f1').submit();">
 			<option value="5">5</option>
 			<option value="10">10</option>
@@ -159,66 +165,90 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</div>
 	
 	<div id="u" class="easyui-window" title="修改" data-options="modal:true,closed:true" style="width:400px;height:auto;padding:10px;display: none;">
-		<form action="<%=path %>/vpn!update" method="post">
+		<form action="<%=path %>/by!update" method="post">
 		<table border="0" class="table1">
 			<tr>
 				<td>编号：</td>
 				<td>
-					<input id="u_1" name="vpn.VId" type="text" style="width: 100%;" readonly="readonly"/>
+					<input id="u_1" name="by.byId" type="text" style="width: 100%;" readonly="readonly"/>
 				</td>
 			</tr>
 			<tr>
-				<td>账号：</td>
+				<td>OA登记日期：</td>
 				<td>
-					<input id="u_2" name="vpn.VNum" type="text" style="width: 100%;"/>
-				</td>
-			</tr>
-			<tr>
-				<td>修改密码(后)：</td>
-				<td>
-					<input id="u_3" name="vpn.VPass" type="text" style="width: 100%;"/>
-				</td>
-			</tr>
-			<tr>
-				<td>姓名：</td>
-				<td>
-					<input id="u_4" name="vpn.VName" type="text" style="width: 100%;"/>
+					<input id="u_2" name="by.byOaDate" type="date" style="width: 100%;"/>
 				</td>
 			</tr>
 			<tr>
 				<td>部门：</td>
 				<td>
-					<input id="u_5" name="vpn.VSection" type="text" style="width: 100%;"/>
+					<input id="u_3" name="by.bySection" type="text" style="width: 100%;"/>
 				</td>
 			</tr>
 			<tr>
-				<td>注册身份证：</td>
+				<td>姓名：</td>
 				<td>
-					<input id="u_6" name="vpn.VCard" type="text" style="width: 100%;"/>
+					<input id="u_4" name="by.byName" type="text" style="width: 100%;"/>
 				</td>
 			</tr>
 			<tr>
-				<td>注册手机号：</td>
+				<td>布谷鸟：</td>
 				<td>
-					<input id="u_7" name="vpn.VPhone" type="text" style="width: 100%;"/>
+					<input id="u_5" name="by.byBgn" type="text" style="width: 100%;"/>
 				</td>
 			</tr>
 			<tr>
-				<td>SOA密码：</td>
+				<td>邮箱：</td>
 				<td>
-					<input id="u_8" name="vpn.VSoaPass" type="text" style="width: 100%;"/>
+					<input id="u_6" name="by.byMail" type="text" style="width: 100%;"/>
 				</td>
 			</tr>
 			<tr>
-				<td>VPN密码：</td>
+				<td>邮箱默认密码：</td>
 				<td>
-					<input id="u_9" name="vpn.VVpnPass" type="text" style="width: 100%;"/>
+					<input id="u_7" name="by.byMailPass" type="text" style="width: 100%;"/>
+				</td>
+			</tr>
+			<tr>
+				<td>维护IT：</td>
+				<td>
+					<input id="u_8" name="by.byService" type="text" style="width: 100%;"/>
+				</td>
+			</tr>
+			<tr>
+				<td>入职情况：</td>
+				<td>
+					<input id="u_9" name="by.byOnJob" type="text" style="width: 100%;"/>
+				</td>
+			</tr>
+			<tr>
+				<td>维护日期：</td>
+				<td>
+					<input id="u_10" name="by.byServiceDate" type="date" style="width: 100%;"/>
+				</td>
+			</tr>
+			<tr>
+				<td>维护周数：</td>
+				<td>
+					<input id="u_11" name="by.byServiceWeek" type="number" style="width: 100%;"/>
+				</td>
+			</tr>
+			<tr>
+				<td>维护时间(分钟)：</td>
+				<td>
+					<input id="u_12" name="by.byServiceTime" type="number" style="width: 100%;"/>
+				</td>
+			</tr>
+			<tr>
+				<td>及时与否：</td>
+				<td>
+					<input id="u_13" name="by.byIsTimely" type="text" style="width: 100%;"/>
 				</td>
 			</tr>
 			<tr>
 				<td>备注说明：</td>
 				<td>
-					<input id="u_10" name="vpn.VNote" type="text" style="width: 100%;"/>
+					<input id="u_14" name="by.byNote" type="text" style="width: 100%;"/>
 				</td>
 			</tr>
 			<tr>
@@ -231,60 +261,84 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</div>
 	
 	<div id="a" class="easyui-window" title="添加" data-options="modal:true,closed:true" style="width:400px;height:auto;padding:10px;display: none;">
-		<form action="<%=path %>/vpn!add" method="post">
+		<form action="<%=path %>/by!add" method="post">
 		<table border="0" class="table1">
 			<tr>
-				<td>账号：</td>
+				<td>OA登记日期：</td>
 				<td>
-					<input name="vpn.VNum" type="text" style="width: 100%;"/>
-				</td>
-			</tr>
-			<tr>
-				<td>修改密码(后)：</td>
-				<td>
-					<input name="vpn.VPass" type="text" style="width: 100%;"/>
-				</td>
-			</tr>
-			<tr>
-				<td>姓名：</td>
-				<td>
-					<input name="vpn.VName" type="text" style="width: 100%;"/>
+					<input name="by.byOaDate" type="date" style="width: 100%;"/>
 				</td>
 			</tr>
 			<tr>
 				<td>部门：</td>
 				<td>
-					<input name="vpn.VSection" type="text" style="width: 100%;"/>
+					<input name="by.bySection" type="text" style="width: 100%;"/>
 				</td>
 			</tr>
 			<tr>
-				<td>注册身份证：</td>
+				<td>姓名：</td>
 				<td>
-					<input name="vpn.VCard" type="text" style="width: 100%;"/>
+					<input name="by.byName" type="text" style="width: 100%;"/>
 				</td>
 			</tr>
 			<tr>
-				<td>注册手机号：</td>
+				<td>布谷鸟：</td>
 				<td>
-					<input name="vpn.VPhone" type="text" style="width: 100%;"/>
+					<input name="by.byBgn" type="text" style="width: 100%;"/>
 				</td>
 			</tr>
 			<tr>
-				<td>SOA密码：</td>
+				<td>邮箱：</td>
 				<td>
-					<input name="vpn.VSoaPass" type="text" style="width: 100%;"/>
+					<input name="by.byMail" type="text" style="width: 100%;"/>
 				</td>
 			</tr>
 			<tr>
-				<td>VPN密码：</td>
+				<td>邮箱默认密码：</td>
 				<td>
-					<input name="vpn.VVpnPass" type="text" style="width: 100%;"/>
+					<input name="by.byMailPass" type="text" style="width: 100%;"/>
+				</td>
+			</tr>
+			<tr>
+				<td>维护IT：</td>
+				<td>
+					<input name="by.byService" type="text" style="width: 100%;"/>
+				</td>
+			</tr>
+			<tr>
+				<td>入职情况：</td>
+				<td>
+					<input name="by.byOnJob" type="text" style="width: 100%;"/>
+				</td>
+			</tr>
+			<tr>
+				<td>维护日期：</td>
+				<td>
+					<input name="by.byServiceDate" type="date" style="width: 100%;"/>
+				</td>
+			</tr>
+			<tr>
+				<td>维护周数：</td>
+				<td>
+					<input name="by.byServiceWeek" type="number" style="width: 100%;"/>
+				</td>
+			</tr>
+			<tr>
+				<td>维护时间(分钟)：</td>
+				<td>
+					<input name="by.byServiceTime" type="number" style="width: 100%;"/>
+				</td>
+			</tr>
+			<tr>
+				<td>及时与否：</td>
+				<td>
+					<input name="by.byIsTimely" type="text" style="width: 100%;"/>
 				</td>
 			</tr>
 			<tr>
 				<td>备注说明：</td>
 				<td>
-					<input name="vpn.VNote" type="text" style="width: 100%;"/>
+					<input name="by.byNote" type="text" style="width: 100%;"/>
 				</td>
 			</tr>
 			<tr>

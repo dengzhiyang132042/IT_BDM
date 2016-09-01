@@ -69,7 +69,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         		<li><span>桌面组</span>
         			<ul>
 						<li><span><a href="<%=path %>/vpn!queryOfFenye?cz=yes" target="right">VPN账号登记</a></span></li>
-						<li><span><a href="<%=path %>/branches!queryOfFenye?cz=yes" target="right">布谷鸟、邮箱账号</a></span></li>
+						<li><span><a href="<%=path %>/by!queryOfFenye?cz=yes" target="right">布谷鸟、邮箱账号</a></span></li>
 						<li><span><a href="<%=path %>/zmn!queryOfFenye?cz=yes" target="right">oa账号</a></span></li>
 						<li><span><a href="<%=path %>/zmd!queryOfFenye?cz=yes" target="right">打印机登记</a></span></li>
 						<li><span><a href="<%=path %>/zmd!queryOfFenye?cz=yes" target="right">管理电脑统计</a></span></li>

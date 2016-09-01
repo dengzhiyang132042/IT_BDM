@@ -11,7 +11,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <head>
     <base href="<%=basePath%>">
     
-    <title>vpn账号登记</title>
+    <title>oa账号</title>
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
 	<meta http-equiv="expires" content="0">    
@@ -69,7 +69,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   
   <body>
     
-    <div class="easyui-panel" title="vpn账号登记" style="padding: 5px;display: none;" data-options="tools:'#tt'">
+    <div class="easyui-panel" title="oa账号" style="padding: 5px;display: none;" data-options="tools:'#tt'">
     <div style="background-color:white;margin-bottom: 5px;padding: 5px;border: 1px solid #224466; ">
     	快速查询
     	<br/>
@@ -94,10 +94,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <table border="1" id="eidtASubjectWindow1" style="font-size: 12px;">
     <tr>
     	<th>编号</th>
-    	<th>账号</th>
-    	<th>修改密码(后)</th>
-    	<th>姓名</th>
+    	<th>OA登记日期</th>
+    	<th>维护周数</th>
     	<th>部门</th>
+    	<th>申请人</th>
     	<th>注册身份证</th>
     	<th>注册手机号</th>
     	<th>SOA密码</th>
