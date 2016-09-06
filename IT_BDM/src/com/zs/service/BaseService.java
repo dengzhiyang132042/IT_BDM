@@ -56,11 +56,7 @@ public class BaseService implements IService{
 	}
 	
 	
-	/*2016年8月15日15:02:13
-	 * 张顺
-	 * 递归算法设计——封装cs
-	 * 新版取公司结构
-	 * */
+	
 	public List<CompanySection> initCs(CompanySection cs) {
 		List<CompanySection> css1=dao.find("from CompanySection where csLast=?", new Object[]{cs.getCsId()});
 		for (int i = 0; i < css1.size(); i++) {
@@ -70,7 +66,7 @@ public class BaseService implements IService{
 		return css1;
 	}
 	
-	/*2016年7月30日14:08:24
+	/**2016年7月30日14:08:24
 	 *张顺 
 	 *用来取结构关系
 	 * */
@@ -213,7 +209,7 @@ public class BaseService implements IService{
 		return name;
 	}
 
-	/*2016年8月13日15:02:49
+	/**2016年8月13日15:02:49
 	 * 张顺
 	 * 转换   时间轴、提醒专用
 	 * */
@@ -331,7 +327,7 @@ public class BaseService implements IService{
 		}
 		return tlData;
 	}
-	/*2016年8月12日14:17:37
+	/**2016年8月12日14:17:37
 	 * 张顺
 	 * 数据库表名转成实际名称
 	 * */
@@ -361,9 +357,6 @@ public class BaseService implements IService{
 	}
 	
 	
-	//通讯录内部的
-	/*找到头
-	 * */
 	public CompanySection queryFirst() {
 		List<CompanySection> css=dao.find("from CompanySection where csLast=? or csLast=?", new Object[]{"null","0"});
 		CompanySection cs=null;
@@ -374,7 +367,7 @@ public class BaseService implements IService{
 		return cs;
 	}
 	
-	//组装1——查看     value——name，显示——name
+	
 	public String fitting1(CompanySection cs) {
 		String str="<ul class='easyui-tree' data-options='animate:true,lines:true'>" +
 				"<li>" +
@@ -393,7 +386,7 @@ public class BaseService implements IService{
 		return str;
 	}
 	
-	//组装2——添加     value——id，显示——name
+	
 	public String fitting2(CompanySection cs) {
 		cs.setNexts(initCs(cs));
 		String str="<ul class='easyui-tree' data-options='animate:true,lines:true'>" +
@@ -413,10 +406,10 @@ public class BaseService implements IService{
 		return str;
 	}
 
-	/*组装html
-	 * 2016年8月15日17:14:07
-	 * 张顺
-	 * 因为前台靠无法使用递归，所以不好实现
+	/**组装html
+	 * <br>2016年8月15日17:14:07
+	 * <br>张顺
+	 * <br>因为前台靠无法使用递归，所以不好实现
 	 * */
 	public String tell1(CompanySection cs) {
 		String str="<ul>" ;
@@ -439,6 +432,12 @@ public class BaseService implements IService{
 		return str;
 	}	
 	
+	/**组装html
+	 * <br>2016年9月2日11:18:19
+	 * <br>张顺
+	 * <br>因为前台靠无法使用递归，所以不好实现
+	 * <br>配合fitting2使用的
+	 * */
 	public String tell2(CompanySection cs) {
 		String str="<ul>" ;
 		for (int i = 0; i < cs.getNexts().size(); i++) {

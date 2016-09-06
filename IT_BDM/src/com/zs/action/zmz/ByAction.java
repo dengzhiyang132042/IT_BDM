@@ -12,6 +12,7 @@ import javax.xml.registry.infomodel.User;
 
 import org.apache.log4j.Logger;
 
+import com.zs.action.IMyBaseAction;
 import com.zs.action.MyBaseAction;
 import com.zs.entity.GoOut;
 import com.zs.entity.Users;
@@ -22,12 +23,12 @@ import com.zs.service.IService;
 import com.zs.tools.NameOfDate;
 import com.zs.tools.Page;
 
-public class ByAction extends MyBaseAction{
+public class ByAction extends MyBaseAction implements IMyBaseAction{
 	IService ser;
 	Page page;
 	
 	ZmByNumber by;
-	List<ZmByNumber> bys;
+	List bys;
 	
 	String result="by";
 	String result_succ="succ";
@@ -100,7 +101,7 @@ public class ByAction extends MyBaseAction{
 	}
 
 	//------------------------------------------------
-	private void clearOptions() {
+	public void clearOptions() {
 		id=null;     
 		name=null;   
 		section=null;
@@ -108,7 +109,7 @@ public class ByAction extends MyBaseAction{
 		datee=null;  
 	}
 	
-	public String queryOfFenye() throws UnsupportedEncodingException, ParseException {
+	public String queryOfFenye() throws UnsupportedEncodingException {
 		String id=getRequest().getParameter("id");
 		String cz=getRequest().getParameter("cz");//用于判断是否清理page，yes清理，no不清理
 		if (page==null) {
@@ -144,7 +145,7 @@ public class ByAction extends MyBaseAction{
 		return result;
 	}
 	
-	private String gotoQuery() throws UnsupportedEncodingException {
+	public String gotoQuery() throws UnsupportedEncodingException {
 		clearOptions();
 		String hql="from ZmByNumber order by byServiceDate desc";
 		String ss[]={};
@@ -186,6 +187,6 @@ public class ByAction extends MyBaseAction{
 		}
 		by=null;
 		return gotoQuery();
-	}	
+	}
 	
 }

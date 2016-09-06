@@ -16,7 +16,7 @@ public class MailTest {
 	// 配置发送邮件的环境属性
 	public final static Properties props = new Properties();
 	
-	/*
+	/**
      * 可用的属性： mail.store.protocol / mail.transport.protocol / mail.host /
      * mail.user / mail.from
      */
@@ -31,12 +31,18 @@ public class MailTest {
         props.put("mail.password", "ilutyakvrbligadh");
 	}
 	
-	/**
-	 * @param args
-	 * @throws MessagingException 
-	 */
 	private static Logger logger = Logger.getLogger(MailTest.class);
 	
+	/**张顺
+	 * <br>2016年9月2日11:35:15
+	 * <br>发邮件
+	 * @param toAddress
+	 * @param ccAddress
+	 * @param mailContent
+	 * @param title
+	 * @return
+	 * @throws MessagingException
+	 */
 	public static String outputMail(String toAddress,String ccAddress,String mailContent,String title) throws MessagingException {
         // 构建授权信息，用于进行SMTP进行身份验证
         Authenticator authenticator = new Authenticator() {

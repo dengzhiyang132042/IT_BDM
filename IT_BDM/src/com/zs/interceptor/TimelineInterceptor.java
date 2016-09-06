@@ -75,6 +75,14 @@ public class TimelineInterceptor extends AbstractInterceptor{
         user =session.get("user"); 
 	}
 	
+	/**
+	 * 保存时间轴
+	 * @param u1
+	 * @param state
+	 * @param tableName
+	 * @param tableId
+	 * @throws Exception
+	 */
 	private void addTimeline(Users u,String state,String tableName,String tableId) throws Exception {
 		Timeline tl=new Timeline("tl"+NameOfDate.getNum(), u.getUNum(), new Timestamp(new Date().getTime()), state, tableName, tableId);
 		ser.save(tl);

@@ -5,7 +5,7 @@ import com.zs.entity.FbdComputer;
 
 public class Test {
 
-	/**
+	/**测试
 	 * @param args
 	 */
 	public static void main(String[] args) {
