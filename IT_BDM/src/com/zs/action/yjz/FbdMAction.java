@@ -3,6 +3,8 @@ package com.zs.action.yjz;
 import java.io.UnsupportedEncodingException;
 import java.util.List;
 
+import org.apache.log4j.Logger;
+
 import com.zs.action.MyBaseAction;
 import com.zs.entity.FbdAsdl;
 import com.zs.entity.FbdMonitoring;
@@ -26,6 +28,52 @@ public class FbdMAction extends MyBaseAction{
 	String result_succ="succ";
 	String result_fail="fail";
 	
+	String id;
+	String fbdName;
+	String MNum;
+	Double MUsedYear;
+	String MScrap;
+
+	String MState;
+	
+	public String getMScrap() {
+		return MScrap;
+	}
+	public void setMScrap(String mScrap) {
+		MScrap = mScrap;
+	}
+	public Double getMUsedYear() {
+		return MUsedYear;
+	}
+	public void setMUsedYear(Double mUsedYear) {
+		MUsedYear = mUsedYear;
+	}
+	public String getMState() {
+		return MState;
+	}
+	public void setMState(String mState) {
+		MState = mState;
+	}
+	public String getMNum() {
+		return MNum;
+	}
+	public void setMNum(String MNum) {
+		this.MNum = MNum;
+	}
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
+	}
+	public String getFbdName() {
+		return fbdName;
+	}
+	public void setFbdName(String fbdName) {
+		this.fbdName = fbdName;
+	}
+
+	private Logger logger=Logger.getLogger(FbdAsdlAction.class);
 	
 	public IService getSer() {
 		return ser;
@@ -53,6 +101,16 @@ public class FbdMAction extends MyBaseAction{
 	}
 	
 	//------------------------------------------------
+	private void clearOptions() {
+		id=null;
+		fbdName =null;
+		MNum =null;
+		MUsedYear =null;
+		MScrap =null;
+		MState =null;
+		
+	}
+	
 	public String queryOfFenyeM() throws UnsupportedEncodingException {
 		String id=getRequest().getParameter("id");
 		String cz=getRequest().getParameter("cz");//用于判断是否清理page，yes清理，no不清理
@@ -61,12 +119,26 @@ public class FbdMAction extends MyBaseAction{
 		}
 		if (cz!=null && cz.equals("yes")) {
 			page=new Page(1, 0, 5);
+			clearOptions();
 		}
 		if (id!=null) {
-			String hql="from FbdMonitoring where MId  = ?";
-			String ss[]={id};
-			String hql2="from FbdMonitoring where MId = '"+id+"'";
-			ms=ser.query(hql, ss, hql2, page, ser);
+			String hql2="from FbdMonitoring where MId like '%"+id+"%'";
+			if(fbdName != null && !"".equals(fbdName)){
+				hql2="from FbdMonitoring where fbdId in (select fbdId from SectionFenbodian where fbdName like '%"+fbdName+"%')";
+			}
+			if(MNum != null && !"".equals(MNum)){
+				hql2=hql2+" and MNum like '%"+MNum+"%'";
+			}
+			if(MUsedYear !=null && !"".equals(MUsedYear)){
+				hql2=hql2+" and MUsedYear > '"+MUsedYear+"'";
+			}
+			if(MScrap!=null && ! "".equals(MScrap)){
+				hql2=hql2+" and MScrap like '%"+MScrap+"%'";
+			}
+			if(MState!=null && ! "".equals(MState)){
+				hql2=hql2+" and MState like '%"+MState+"%'";
+			}
+			ms=ser.query(hql2, null, hql2, page, ser);
 		}else {
 			String hql="from FbdMonitoring";
 			String ss[]={};
