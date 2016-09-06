@@ -3,7 +3,10 @@ package com.zs.action.yjz;
 import java.io.UnsupportedEncodingException;
 import java.util.List;
 
+import org.apache.log4j.Logger;
+
 import com.zs.action.MyBaseAction;
+import com.zs.action.xtz.SiteAction;
 import com.zs.entity.FbdAsdl;
 import com.zs.entity.SectionFenbodian;
 import com.zs.entity.SectionFenbu;
@@ -24,7 +27,52 @@ public class FbdAsdlAction extends MyBaseAction{
 	String result_succ="succ";
 	String result_fail="fail";
 	
+	String id;
+	String fbdName;
+	String fbdMaster;
+	String asdlInput;
+	String asdlNum;
+	String asdlState;
 	
+	private Logger logger=Logger.getLogger(FbdAsdlAction.class);
+	
+	
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
+	}
+	public String getFbdName() {
+		return fbdName;
+	}
+	public void setFbdName(String fbdName) {
+		this.fbdName = fbdName;
+	}
+	public String getFbdMaster() {
+		return fbdMaster;
+	}
+	public void setFbdMaster(String fbdMaster) {
+		this.fbdMaster = fbdMaster;
+	}
+	public String getAsdlInput() {
+		return asdlInput;
+	}
+	public void setAsdlInput(String asdlInput) {
+		this.asdlInput = asdlInput;
+	}
+	public String getAsdlNum() {
+		return asdlNum;
+	}
+	public void setAsdlNum(String asdlNum) {
+		this.asdlNum = asdlNum;
+	}
+	public String getAsdlState() {
+		return asdlState;
+	}
+	public void setAsdlState(String asdlState) {
+		this.asdlState = asdlState;
+	}
 	public Page getPage() {
 		return page;
 	}
@@ -50,6 +98,17 @@ public class FbdAsdlAction extends MyBaseAction{
 		this.ser = ser;
 	}
 	//--------------------------------------------------
+	private void clearOptions() {
+		id=null;
+		fbdName=null;
+		fbdMaster=null;
+		asdlInput=null;
+		asdlNum=null;
+		asdlState=null;
+	}
+	
+	
+	
 	public String queryOfFenyeAsdl() throws UnsupportedEncodingException {
 		String id=getRequest().getParameter("id");
 		String cz=getRequest().getParameter("cz");//用于判断是否清理page，yes清理，no不清理
@@ -58,15 +117,24 @@ public class FbdAsdlAction extends MyBaseAction{
 		}
 		if (cz!=null && cz.equals("yes")) {
 			page=new Page(1, 0, 5);
+			clearOptions();
 		}
 		if (asdl==null) {
 			asdl=new FbdAsdl("");
 		}
+		
 		if (id!=null) {
-			String hql="from FbdAsdl where asdlId  = ?";
-			String ss[]={id};
-			String hql2="from FbdAsdl where asdlId = '"+id+"'";
-			asdls=ser.query(hql, ss, hql2, page, ser);
+			String hql2="from FbdAsdl where asdlId like '%"+id+"%'";
+			if (fbdName!=null && !"".equals(fbdName)) {
+				hql2="from FbdAsdl where fbdId in (select fbdId from SectionFenbodian where fbdName like '%"+fbdName+"%')";
+			}
+			if (fbdMaster!=null &&!"".equals(fbdMaster)){
+				hql2="from FbdAsdl where fbdId in (select fbdId from SectionFenbodian where fbdMaster like'%"+fbdMaster+"%')";
+			}
+			if (asdlInput!=null &&!"".equals(asdlInput)){
+				hql2 = hql2 + " and asdlInput";
+			}
+			asdls=ser.query(hql2, null, hql2, page, ser);
 		}else {
 			String hql="from FbdAsdl";
 			String ss[]={};

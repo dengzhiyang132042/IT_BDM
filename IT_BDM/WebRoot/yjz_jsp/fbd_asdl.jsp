@@ -70,7 +70,26 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <body>
     
     <div class="easyui-panel" title="分拨点宽带登记ASDL" style="padding: 5px;display: none;" data-options="tools:'#tt'">
-    <div style="height: 455px;">
+    <div style="background-color:white;margin-bottom: 5px;padding: 5px;border: 1px solid #224466; ">
+    	快速查询
+    	<br/>
+    	<form action="<%=path %>/fbd_asdl!queryOfFenyeAsdl" method="post">
+    		编号:<input name="id" type="text" value="${id }"/>
+    		&nbsp;&nbsp;&nbsp;&nbsp;
+    		分拨点：<input name="fbdName" type="text" value="${fbdName }"/>
+    		&nbsp;&nbsp;&nbsp;&nbsp;
+    		承包人：<input name="fbdMaster" type="text" value="${fbdMaster }"/>
+    		&nbsp;&nbsp;&nbsp;&nbsp;
+    		接入号：<input name="asdlInput" type="text" value="${asdlInput }"/>
+    		&nbsp;&nbsp;&nbsp;&nbsp;
+    		账号：<input name="asdlNum" type="text" value="${asdlNum }"/>
+    		&nbsp;&nbsp;&nbsp;&nbsp;
+    		状态：<input name="asdlState" type="text" value="${asdlState }"/>
+    		<br/>
+    		<input type="submit" value="查询" style="margin:5px;"/>
+    	</form>	
+    </div>
+    <div style="margin-bottom: 5px;">
     
     <table border="1" id="eidtASubjectWindow1" style="font-size: 12px;">
     <tr align="center" style="height: 28px;background-color: #E6E6E6;">
@@ -120,7 +139,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     </c:forEach>
     </table>
 	</div>
-	<br/>
 	
 	<div class="easyui-panel" style="padding:5px;width: 100%;display: none;">
 		<form id="f1" action="<%=path %>/fbd_asdl!queryOfFenyeAsdl" method="post">
@@ -149,7 +167,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<a onclick="page('${page.pageMax}',2)" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-next'" title="末页"></a>
 		</span>
 		</form>
-	</div>
 	</div>
 	
 	<div id="u" class="easyui-window" title="修改" data-options="modal:true,closed:true" style="width:400px;height:auto;padding:10px;display: none;">
