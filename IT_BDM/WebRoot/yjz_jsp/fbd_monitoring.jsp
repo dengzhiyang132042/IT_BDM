@@ -77,8 +77,25 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <body>
     
     <div class="easyui-panel" title="分拨点监控登记" style="padding: 5px;display: none;" data-options="tools:'#tt'">
-    <div style="height: 455px;">
-    
+    <div style="background-color:white;margin-bottom: 5px;padding: 5px;border: 1px solid #224466; ">
+    	快速查询
+    	<br/>
+    	<form action="<%=path %>/fbd_m!queryOfFenyeM" method="post">
+    		编号:<input name="id" type="text" value="${id }"/>
+    		&nbsp;&nbsp;&nbsp;&nbsp;
+    		分拨点：<input name="fbdName" type="text" value="${fbdName }"/>
+    		&nbsp;&nbsp;&nbsp;&nbsp;
+    		监控账号：<input name="MNum" type="text" value="${MNum }"/>
+    		&nbsp;&nbsp;&nbsp;&nbsp;
+    		使用年限：<input name="MUsedYear" type="text" value="${MUsedYear }"/>
+    		&nbsp;&nbsp;&nbsp;&nbsp;
+    		是否可报废：<input name="MScrap" type="text" value="${MScrap }"/>
+    		&nbsp;&nbsp;&nbsp;&nbsp;
+    		状态：<input name="MState" type="text" value="${MState }"/>
+    		<br/>
+    		<input type="submit" value="查询" style="margin:5px;"/>
+    	</form>	 
+    </div>
     <table border="1" id="eidtASubjectWindow1" style="font-size: 12px;">
     <tr>
     	<th>编号</th>

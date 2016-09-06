@@ -132,7 +132,13 @@ public class FbdAsdlAction extends MyBaseAction{
 				hql2="from FbdAsdl where fbdId in (select fbdId from SectionFenbodian where fbdMaster like'%"+fbdMaster+"%')";
 			}
 			if (asdlInput!=null &&!"".equals(asdlInput)){
-				hql2 = hql2 + " and asdlInput";
+				hql2 = hql2 + " and asdlInput like '%"+asdlInput+"%'";
+			}
+			if (asdlNum != null && !"".equals(asdlNum)){
+				hql2 = hql2 + "and asdlNum like '%"+asdlNum+"%'";
+			}
+			if (asdlState != null && !"".equals(asdlState)){
+				hql2 = hql2 + "and asdlState like '%"+asdlState+"%'";
 			}
 			asdls=ser.query(hql2, null, hql2, page, ser);
 		}else {
