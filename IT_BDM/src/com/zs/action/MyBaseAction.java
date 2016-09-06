@@ -16,12 +16,22 @@ public class MyBaseAction extends ActionSupport{
 	HttpServletResponse response;
 	HttpSession session;
 	
+	/**
+	 * 张顺
+	 * 2016年9月2日10:35:53
+	 * @return 获得session
+	 */
 	public HttpSession getSession() {
 		return ServletActionContext.getRequest().getSession();
 	}
 	public void setSession(HttpSession session) {
 		this.session = session;
 	}
+	/**
+	 * 张顺
+	 * 2016年9月2日10:35:53
+	 * @return 获得request
+	 */
 	public HttpServletRequest getRequest() throws UnsupportedEncodingException {
 		request=ServletActionContext.getRequest();
 		request.setCharacterEncoding("utf-8");
@@ -30,6 +40,12 @@ public class MyBaseAction extends ActionSupport{
 	public void setRequest(HttpServletRequest request) {
 		this.request = request;
 	}
+	
+	/**
+	 * 张顺
+	 * 2016年9月2日10:35:53
+	 * @return 获得response
+	 */
 	public HttpServletResponse getResponse() {
 		response=ServletActionContext.getResponse();
 		response.setCharacterEncoding("utf-8");

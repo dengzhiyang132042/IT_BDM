@@ -35,6 +35,11 @@ import com.zs.entity.XtZmNumber;
 import com.zs.service.IService;
 import com.zs.tools.NameOfDate;
 
+/**
+ * @author 张顺
+ *<br>2016年9月2日11:37:48
+ *<br>权限拦截器（前拦截器）
+ */
 public class RoleInterceptor extends AbstractInterceptor{
 
 	
@@ -71,6 +76,14 @@ public class RoleInterceptor extends AbstractInterceptor{
         user =session.get("user"); 
 	}
 	
+	/**
+	 * 权限判断方法
+	 * @param arg0
+	 * @param r
+	 * @param pid
+	 * @return
+	 * @throws Exception
+	 */
 	private String roleControl(ActionInvocation arg0,Role r,String pid) throws Exception {
 		List<RolePermission> rps=ser.find("from RolePermission where RId=? and PId=?", new String[]{r.getRId(),pid});
 		if(rps.size()>0){

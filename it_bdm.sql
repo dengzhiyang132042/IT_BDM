@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50617
 File Encoding         : 65001
 
-Date: 2016-08-31 16:31:59
+Date: 2016-09-06 14:26:17
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -789,6 +789,8 @@ CREATE TABLE `timeline` (
 -- ----------------------------
 -- Records of timeline
 -- ----------------------------
+INSERT INTO `timeline` VALUES ('tl011013304573862', 'yd-7111', '2016-09-01 10:13:30', '查看', 'XtBranches', null);
+INSERT INTO `timeline` VALUES ('tl011434233067302', 'yd-7111', '2016-09-01 14:34:23', '查看', 'XtZmNumber', null);
 INSERT INTO `timeline` VALUES ('tl111713459525418', 'yd-7111', '2016-08-11 17:13:45', '查看', 'GoOut', null);
 INSERT INTO `timeline` VALUES ('tl111713480972069', 'yd-7111', '2016-08-11 17:13:48', '删除', 'GoOut', 'go111713135894366');
 INSERT INTO `timeline` VALUES ('tl111713493859779', 'yd-7111', '2016-08-11 17:13:49', '查看', 'GoOut', null);
@@ -6705,6 +6707,13 @@ CREATE TABLE `zm_by_number` (
 -- ----------------------------
 -- Records of zm_by_number
 -- ----------------------------
+INSERT INTO `zm_by_number` VALUES ('by011024093872571', null, '', '张顺', '', '', '', '', '', null, null, null, '', '');
+INSERT INTO `zm_by_number` VALUES ('by011024138799307', null, '', '', '', '', '', '', '', null, null, null, '', '');
+INSERT INTO `zm_by_number` VALUES ('by011024185225689', null, '', '', '', '', '', '', '', null, null, null, '', '');
+INSERT INTO `zm_by_number` VALUES ('by011024207858067', null, '', '', '', '', '', '', '', null, null, null, '', '');
+INSERT INTO `zm_by_number` VALUES ('by011040247062641', null, '', '张顺', '', '', '', '', '', null, null, null, '', '');
+INSERT INTO `zm_by_number` VALUES ('by011041408901772', null, '', ', 张顺', '', '', '', '', '', null, null, null, '', '');
+INSERT INTO `zm_by_number` VALUES ('by011041583104620', null, '1', '2016-09-01, 张顺', '1', '1', '1', '1', '1', '2016-09-01', '1', '1', '1', '1');
 
 -- ----------------------------
 -- Table structure for `zm_computer`
