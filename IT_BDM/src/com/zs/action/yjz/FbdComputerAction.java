@@ -3,6 +3,8 @@ package com.zs.action.yjz;
 import java.io.UnsupportedEncodingException;
 import java.util.List;
 
+import org.apache.log4j.Logger;
+
 import com.zs.action.MyBaseAction;
 import com.zs.entity.FbdAsdl;
 import com.zs.entity.FbdComputer;
@@ -27,8 +29,55 @@ public class FbdComputerAction extends MyBaseAction{
 	String result_succ="succ";
 	String result_fail="fail";
 	
+	String id;
+	String fbdName;
+	String CMac;
+	String CScrap;
+	String CState;
+	
+	private Logger logger=Logger.getLogger(FbdComputerAction.class);
 	
 	
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	public String getFbdName() {
+		return fbdName;
+	}
+
+	public void setFbdName(String fbdName) {
+		this.fbdName = fbdName;
+	}
+
+	public String getCMac() {
+		return CMac;
+	}
+
+	public void setCMac(String cMac) {
+		CMac = cMac;
+	}
+
+	public String getCScrap() {
+		return CScrap;
+	}
+
+	public void setCScrap(String cScrap) {
+		CScrap = cScrap;
+	}
+
+	public String getCState() {
+		return CState;
+	}
+
+	public void setCState(String cState) {
+		CState = cState;
+	}
+
 	public IService getSer() {
 		return ser;
 	}
@@ -62,6 +111,14 @@ public class FbdComputerAction extends MyBaseAction{
 	}
 
 	//------------------------------------------------
+	private void clearOptions() {
+		id=null;
+		fbdName=null;
+		CMac=null;
+		CScrap=null;
+		CState=null;
+	}
+	
 	public String queryOfFenyeC() throws UnsupportedEncodingException {
 		String id=getRequest().getParameter("id");
 		String cz=getRequest().getParameter("cz");//用于判断是否清理page，yes清理，no不清理
@@ -70,12 +127,23 @@ public class FbdComputerAction extends MyBaseAction{
 		}
 		if (cz!=null && cz.equals("yes")) {
 			page=new Page(1, 0, 5);
+			clearOptions();
 		}
 		if (id!=null) {
-			String hql="from FbdComputer where cId  = ?";
-			String ss[]={id};
-			String hql2="from FbdComputer where cId = '"+id+"'";
-			cs=ser.query(hql, ss, hql2, page, ser);
+			String hql2="from FbdComputer where cId like '%"+id+"%'";
+			if(fbdName!=null && !"".equals(fbdName)){
+				hql2="from FbdComputer where fbdId in (select fbdId from SectionFenbodian where fbdName like '%"+fbdName+"%')";
+			}
+			if(CMac!=null&& !"".equals(CMac)){
+				hql2=hql2+" and CMac like '%"+CMac+"%'";
+			}
+			if(CScrap!=null&& !"".equals(CScrap)){
+				hql2=hql2+" and CScrap like '%"+CScrap+"%'";
+			}
+			if(CState!=null&& !"".equals(CState)){
+				hql2=hql2+" and CState like '%"+CState+"%'";
+			}
+			cs=ser.query(hql2, null, hql2, page, ser);
 		}else {
 			String hql="from FbdComputer";
 			String ss[]={};

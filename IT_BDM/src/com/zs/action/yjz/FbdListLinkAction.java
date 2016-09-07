@@ -34,6 +34,38 @@ public class FbdListLinkAction extends MyBaseAction{
 	String result_succ="succ";
 	String result_fail="fail";
 	
+	String id;
+	String fbdName;
+	String llName;
+	String llState;
+	
+	
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
+	}
+	
+	public String getFbdName() {
+		return fbdName;
+	}
+	public void setFbdName(String fbdName) {
+		this.fbdName = fbdName;
+	}
+	public String getLlName() {
+		return llName;
+	}
+	public void setLlName(String llName) {
+		this.llName = llName;
+	}
+	public String getLlState() {
+		return llState;
+	}
+	public void setLlState(String llState) {
+		this.llState = llState;
+	}
+
 	public IService getSer() {
 		return ser;
 	}
@@ -60,6 +92,14 @@ public class FbdListLinkAction extends MyBaseAction{
 	}
 	
 	//------------------------------------------------
+	private void clearOptions() {
+		id=null;
+		fbdName=null;
+		llName=null;
+		llState=null;
+	}
+	
+	
 	public String queryOfFenyeLL() throws UnsupportedEncodingException {
 		String id=getRequest().getParameter("id");
 		String cz=getRequest().getParameter("cz");//用于判断是否清理page，yes清理，no不清理
@@ -68,12 +108,20 @@ public class FbdListLinkAction extends MyBaseAction{
 		}
 		if (cz!=null && cz.equals("yes")) {
 			page=new Page(1, 0, 5);
+			clearOptions();
 		}
 		if (id!=null) {
-			String hql="from FbdListLink where llId  = ?";
-			String ss[]={id};
-			String hql2="from FbdListLink where llId = '"+id+"'";
-			lls=ser.query(hql, ss, hql2, page, ser);
+			String hql2="from FbdListLink where llId like '%"+id+"%'";
+			if(fbdName!=null&&!"".equals(fbdName)){
+				hql2="from FbdListLink where fbdId in (select fbdId from SectionFenbodian where fbdName like '%"+fbdName+"%')";
+			}
+			if(llName!=null&&!"".equals(llName)){
+				hql2=hql2+ " and llName like '%"+llName+"%'";
+			}
+			if(llState!=null&&!"".equals(llState)){
+				hql2=hql2+" and llState like '%"+llState+"%'";
+			}
+			lls=ser.query(hql2, null, hql2, page, ser);
 		}else {
 			String hql="from FbdListLink";
 			String ss[]={};

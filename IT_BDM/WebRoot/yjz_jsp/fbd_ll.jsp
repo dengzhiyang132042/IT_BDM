@@ -70,7 +70,21 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <body>
     
     <div class="easyui-panel" title="分拨点监控材料申请清单链接" style="padding: 5px;display: none;" data-options="tools:'#tt'">
-    <div style="height: 455px;">
+    <div style="background-color:white;margin-bottom: 5px;padding: 5px;border: 1px solid #224466; ">
+    	快速查询
+    	<br/>
+    	<form action="<%=path %>/fbd_ll!queryOfFenyeLL" method="post">
+    		编号:<input name="id" type="text" value="${id }"/>
+    		&nbsp;&nbsp;&nbsp;&nbsp;
+    		分拨点：<input name="fbdName" type="text" value="${fbdName }"/>
+    		&nbsp;&nbsp;&nbsp;&nbsp;
+    		名称：<input name="llName" type="text" value="${llName }"/>
+    		&nbsp;&nbsp;&nbsp;&nbsp;
+    		状态：<input name="llState" type="text" value="${llState }"/>
+    		<br/>
+    		<input type="submit" value="查询" style="margin:5px;"/>
+    	</form>	
+    </div>
     
     <table border="1" id="eidtASubjectWindow1" style="font-size: 12px;">
     <tr>
