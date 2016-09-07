@@ -100,7 +100,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <body>
     
     <div class="easyui-panel" title="SIM费用报销" style="padding: 5px;display: none;" data-options="tools:'#tt'">
-    <div style="height: 455px;">
+    <div style="background-color:white;margin-bottom: 5px;padding: 5px;border: 1px solid #224466; ">
+    	快速查询
+    	<br/>
+    	<form action="<%=path %>/sim!queryOfFenyeSIM" method="post">
+    		编号:<input name="id" type="text" value="${id }"/>
+    		&nbsp;&nbsp;&nbsp;&nbsp;
+    		部门：<input name="csName" type="text" value="${csName }"/>
+    		<input type="submit" value="查询" style="margin:5px;"/>
+    	</form>	
+    </div>
     
     <table border="1" id="eidtASubjectWindow1" style="font-size: 12px;">
     <tr>
@@ -133,7 +142,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<br/>
 	
 	<div class="easyui-panel" style="padding:5px;width: 100%;display: none;">
-		<form id="f1" action="<%=path %>/sim!queryOfFenyeSIM" method="post">
+		<form id="f1" action="<%=path %>/sim!queryOfFenyeSIM?id=${id}&csName={csName}" method="post">
 		<select id="sele" style="float: left;margin-top: 3px;margin-left: 5px;" name="page.size" onchange="$('#f1').submit();">
 			<option value="5">5</option>
 			<option value="10">10</option>

@@ -99,6 +99,15 @@ public class FbdListLinkAction extends MyBaseAction{
 		llState=null;
 	}
 	
+	private void clearSpace(){
+		if(id!=null){
+			id=id.trim();
+			fbdName=fbdName.trim();
+			llName=llName.trim();
+			llState=llState.trim();
+			
+		}
+	}
 	
 	public String queryOfFenyeLL() throws UnsupportedEncodingException {
 		String id=getRequest().getParameter("id");
@@ -110,6 +119,7 @@ public class FbdListLinkAction extends MyBaseAction{
 			page=new Page(1, 0, 5);
 			clearOptions();
 		}
+		clearSpace();
 		if (id!=null) {
 			String hql2="from FbdListLink where llId like '%"+id+"%'";
 			if(fbdName!=null&&!"".equals(fbdName)){

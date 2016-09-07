@@ -97,7 +97,15 @@ public class ZmNumberAction extends MyBaseAction{
 		section=null;
 		men=null;
 		dates=null;
-		datee=null;
+		datee=null; 
+	}
+	
+	private void clearSpace(){
+		if(id!=null){
+			id=id.trim();
+			section=section.trim();
+			men=men.trim();
+		}
 	}
 	
 	public String queryOfFenye() throws UnsupportedEncodingException {
@@ -110,6 +118,7 @@ public class ZmNumberAction extends MyBaseAction{
 			page=new Page(1, 0, 5);
 			clearOptions();
 		}
+		clearSpace();
 		if (id!=null) {
 			String hql="from XtZmNumber where zmId like '%"+id+"%'";
 			if (section!=null && !section.trim().equals("")) {

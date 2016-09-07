@@ -107,6 +107,16 @@ public class FbdAsdlAction extends MyBaseAction{
 		asdlState=null;
 	}
 	
+	private void clearSpace() {
+		if (id!=null) {
+			id=id.trim();
+			fbdName=fbdName.trim();
+			fbdMaster=fbdMaster.trim();
+			asdlInput=asdlInput.trim();
+			asdlNum=asdlNum.trim();
+			asdlState=asdlState.trim();
+		}
+	}
 	
 	
 	public String queryOfFenyeAsdl() throws UnsupportedEncodingException {
@@ -123,21 +133,23 @@ public class FbdAsdlAction extends MyBaseAction{
 			asdl=new FbdAsdl("");
 		}
 		
+		clearSpace();
+		logger.debug(id);
 		if (id!=null) {
 			String hql2="from FbdAsdl where asdlId like '%"+id+"%'";
-			if (fbdName!=null && !"".equals(fbdName)) {
+			if (fbdName!=null && !fbdName.trim().equals("")) {
 				hql2="from FbdAsdl where fbdId in (select fbdId from SectionFenbodian where fbdName like '%"+fbdName+"%')";
 			}
-			if (fbdMaster!=null &&!"".equals(fbdMaster)){
+			if (fbdMaster!=null &&!fbdMaster.trim().equals("")){
 				hql2="from FbdAsdl where fbdId in (select fbdId from SectionFenbodian where fbdMaster like'%"+fbdMaster+"%')";
 			}
-			if (asdlInput!=null &&!"".equals(asdlInput)){
+			if (asdlInput!=null &&!asdlInput.trim().equals("")){
 				hql2 = hql2 + " and asdlInput like '%"+asdlInput+"%'";
 			}
-			if (asdlNum != null && !"".equals(asdlNum)){
+			if (asdlNum != null && !asdlNum.trim().equals("")){
 				hql2 = hql2 + "and asdlNum like '%"+asdlNum+"%'";
 			}
-			if (asdlState != null && !"".equals(asdlState)){
+			if (asdlState != null && !asdlState.trim().equals("")){
 				hql2 = hql2 + "and asdlState like '%"+asdlState+"%'";
 			}
 			asdls=ser.query(hql2, null, hql2, page, ser);

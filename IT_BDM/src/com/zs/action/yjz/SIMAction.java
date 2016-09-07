@@ -34,6 +34,21 @@ public class SIMAction extends MyBaseAction{
 	String result_succ="succ";
 	String result_fail="fail";
 	
+	String id;
+	String csName;
+	
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
+	}
+	public String getCsName() {
+		return csName;
+	}
+	public void setCsName(String csName) {
+		this.csName = csName;
+	}
 	public IService getSer() {
 		return ser;
 	}
@@ -60,6 +75,19 @@ public class SIMAction extends MyBaseAction{
 	}
 	
 	//------------------------------------------------
+	
+	private void clearOption(){
+		id=null;
+		csName=null;
+	}
+	
+	private void clearSpace(){
+		if(id!=null){
+			id=id.trim();
+			csName=csName.trim();
+		}
+	}
+	
 	public String queryOfFenyeSIM() throws UnsupportedEncodingException {
 		String id=getRequest().getParameter("id");
 		String cz=getRequest().getParameter("cz");//用于判断是否清理page，yes清理，no不清理
@@ -68,12 +96,15 @@ public class SIMAction extends MyBaseAction{
 		}
 		if (cz!=null && cz.equals("yes")) {
 			page=new Page(1, 0, 5);
+			clearOption();
 		}
+		clearSpace();
 		if (id!=null) {
-			String hql="from Sim where SId  = ?";
-			String ss[]={id};
-			String hql2="from Sim where SId = '"+id+"'";
-			sims=ser.query(hql, ss, hql2, page, ser);
+			String hql2="from Sim where SId like '%"+id+"%'";
+			if(csName!=null){
+				hql2=hql2+" and csName like '%"+csName+"%'";
+			}
+			sims=ser.query(hql2, null, hql2, page, ser);
 		}else {
 			String hql="from Sim";
 			String ss[]={};

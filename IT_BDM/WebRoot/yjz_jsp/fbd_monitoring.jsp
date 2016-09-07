@@ -87,8 +87,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     		&nbsp;&nbsp;&nbsp;&nbsp;
     		监控账号：<input name="MNum" type="text" value="${MNum }"/>
     		&nbsp;&nbsp;&nbsp;&nbsp;
-    		使用年限：<input name="MUsedYear" type="text" value="${MUsedYear }"/>
-    		&nbsp;&nbsp;&nbsp;&nbsp;
     		是否可报废：<input name="MScrap" type="text" value="${MScrap }"/>
     		&nbsp;&nbsp;&nbsp;&nbsp;
     		状态：<input name="MState" type="text" value="${MState }"/>
@@ -155,7 +153,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<br/>
 	
 	<div class="easyui-panel" style="padding:5px;width: 100%;display: none;">
-		<form id="f1" action="<%=path %>/fbd_m!queryOfFenyeM" method="post">
+		<form id="f1" action="<%=path %>/fbd_m!queryOfFenyeM?id=${id }&fbdName=${fbdName }&MNum=${MNum }&MScrap=${MScrap }&MState=${MState }" method="post">
 		<select id="sele" style="float: left;margin-top: 3px;margin-left: 5px;" name="page.size" onchange="$('#f1').submit();">
 			<option value="5">5</option>
 			<option value="10">10</option>

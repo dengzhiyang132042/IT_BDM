@@ -77,7 +77,21 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <body>
     
     <div class="easyui-panel" title="硬件组外出登记" style="padding: 5px;display: none;" data-options="tools:'#tt'">
-    <div style="height: 455px;">
+    <div style="background-color:white;margin-bottom: 5px;padding: 5px;border: 1px solid #224466; ">
+    	快速查询
+    	<br/>
+    	<form action="<%=path %>/go!queryOfFenyeGo" method="post">
+    		编号:<input name="id" type="text" value="${id }"/>
+    		&nbsp;&nbsp;&nbsp;&nbsp;
+    		申请人：<input name="csMasterApplicant" type="text" value="${csMasterApplicant }"/>
+    		&nbsp;&nbsp;&nbsp;&nbsp;
+    		完成日期：<input name="Dates " type="date" value="${Dates }"/>
+    		~
+    		<input name="Datee " type="date" value="${Datee }"/>
+    		<br/>
+    		<input type="submit" value="查询" style="margin:5px;"/>
+    	</form>	
+    </div>
     
     <table border="1" id="eidtASubjectWindow1" style="font-size: 12px;">
     <tr align="center" style="height: 28px;background-color: #E6E6E6;">
@@ -130,7 +144,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<br/>
 	
 	<div class="easyui-panel" style="padding:5px;width: 100%;display: none;">
-		<form id="f1" action="<%=path %>/go!queryOfFenyeGo" method="post">
+		<form id="f1" action="<%=path %>/go!queryOfFenyeGo?id=${id }&csMasterApplicant=${csMasterApplicant }&Dates=${Dates }&Datee${Datee }" method="post">
 		<select id="sele" style="float: left;margin-top: 3px;margin-left: 5px;" name="page.size" onchange="$('#f1').submit();">
 			<option value="5">5</option>
 			<option value="10">10</option>

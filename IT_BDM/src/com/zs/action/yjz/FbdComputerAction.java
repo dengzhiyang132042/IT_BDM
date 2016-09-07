@@ -119,6 +119,16 @@ public class FbdComputerAction extends MyBaseAction{
 		CState=null;
 	}
 	
+	private void clearSpace(){
+		if(id!=null){
+			id=id.trim();
+			fbdName=fbdName.trim();
+			CMac=CMac.trim();
+			CScrap=CScrap.trim();
+			CState=CState.trim();
+		}
+	}
+	
 	public String queryOfFenyeC() throws UnsupportedEncodingException {
 		String id=getRequest().getParameter("id");
 		String cz=getRequest().getParameter("cz");//用于判断是否清理page，yes清理，no不清理
@@ -129,6 +139,7 @@ public class FbdComputerAction extends MyBaseAction{
 			page=new Page(1, 0, 5);
 			clearOptions();
 		}
+		clearSpace();
 		if (id!=null) {
 			String hql2="from FbdComputer where cId like '%"+id+"%'";
 			if(fbdName!=null && !"".equals(fbdName)){

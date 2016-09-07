@@ -31,9 +31,7 @@ public class FbdMAction extends MyBaseAction{
 	String id;
 	String fbdName;
 	String MNum;
-	Double MUsedYear;
 	String MScrap;
-
 	String MState;
 	
 	public String getMScrap() {
@@ -41,12 +39,6 @@ public class FbdMAction extends MyBaseAction{
 	}
 	public void setMScrap(String mScrap) {
 		MScrap = mScrap;
-	}
-	public Double getMUsedYear() {
-		return MUsedYear;
-	}
-	public void setMUsedYear(Double mUsedYear) {
-		MUsedYear = mUsedYear;
 	}
 	public String getMState() {
 		return MState;
@@ -105,10 +97,18 @@ public class FbdMAction extends MyBaseAction{
 		id=null;
 		fbdName =null;
 		MNum =null;
-		MUsedYear =null;
 		MScrap =null;
 		MState =null;
-		
+	}
+	
+	private void clearSpace(){
+		if(id!=null){
+			id=id.trim();
+			fbdName=fbdName.trim();
+			MNum=MNum.trim();
+			MScrap=MScrap.trim();
+			MState=MState.trim();
+		}
 	}
 	
 	public String queryOfFenyeM() throws UnsupportedEncodingException {
@@ -121,6 +121,7 @@ public class FbdMAction extends MyBaseAction{
 			page=new Page(1, 0, 5);
 			clearOptions();
 		}
+		clearSpace();
 		if (id!=null) {
 			String hql2="from FbdMonitoring where MId like '%"+id+"%'";
 			if(fbdName != null && !"".equals(fbdName)){
@@ -128,9 +129,6 @@ public class FbdMAction extends MyBaseAction{
 			}
 			if(MNum != null && !"".equals(MNum)){
 				hql2=hql2+" and MNum like '%"+MNum+"%'";
-			}
-			if(MUsedYear !=null && !"".equals(MUsedYear)){
-				hql2=hql2+" and MUsedYear > '"+MUsedYear+"'";
 			}
 			if(MScrap!=null && ! "".equals(MScrap)){
 				hql2=hql2+" and MScrap like '%"+MScrap+"%'";

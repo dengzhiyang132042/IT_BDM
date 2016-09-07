@@ -141,7 +141,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</div>
 	
 	<div class="easyui-panel" style="padding:5px;width: 100%;display: none;">
-		<form id="f1" action="<%=path %>/fbd_asdl!queryOfFenyeAsdl" method="post">
+		<form id="f1" action="<%=path %>/fbd_asdl!queryOfFenyeAsdl?id=${id}&fbdName=${fbdName }&fbdMaster=${fbdMaster }&asdlInput=${asdlInput }&asdlNum=${asdlNum }&asdlState=${asdlState }"" method="post">
 		<select id="sele" style="float: left;margin-top: 3px;margin-left: 5px;" name="page.size" onchange="$('#f1').submit();">
 			<option value="5">5</option>
 			<option value="10">10</option>
