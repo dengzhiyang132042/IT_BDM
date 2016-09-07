@@ -110,6 +110,17 @@ public class BranchesAction extends MyBaseAction{
 		datee=null;
 	}
 	
+	private void clearSpace(){
+		if(id!=null){
+			id=id.trim();
+			num1=num1.trim();
+			name1=name1.trim();
+			num2=num2.trim();
+			name2=name2.trim();
+		}
+		
+	}
+	
 	public String queryOfFenye() throws UnsupportedEncodingException {
 		String id=getRequest().getParameter("id");
 		String cz=getRequest().getParameter("cz");//用于判断是否清理page，yes清理，no不清理
@@ -120,6 +131,7 @@ public class BranchesAction extends MyBaseAction{
 			page=new Page(1, 0, 5);
 			clearOptions();
 		}
+		clearSpace();
 		if (id!=null) {
 			String hql="from XtBranches where BId like '%"+id+"%'";
 			if (num1!=null && !num1.trim().equals("")) {

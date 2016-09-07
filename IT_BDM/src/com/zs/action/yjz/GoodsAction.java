@@ -3,6 +3,8 @@ package com.zs.action.yjz;
 import java.io.UnsupportedEncodingException;
 import java.util.List;
 
+import org.apache.log4j.Logger;
+
 import com.zs.action.MyBaseAction;
 import com.zs.entity.FbdListLink;
 import com.zs.entity.Goods;
@@ -25,7 +27,37 @@ public class GoodsAction extends MyBaseAction{
 	String result_succ="succ";
 	String result_fail="fail";
 	
+	String id;
+	String GName;
+	String GUnit;
+	String csMasterIn;
 	
+	private Logger logger=Logger.getLogger(GoodsAction.class);
+	
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
+	}
+	public String getGName() {
+		return GName;
+	}
+	public void setGName(String gName) {
+		GName = gName;
+	}
+	public String getGUnit() {
+		return GUnit;
+	}
+	public void setGUnit(String gUnit) {
+		GUnit = gUnit;
+	}
+	public String getCsMasterIn() {
+		return csMasterIn;
+	}
+	public void setCsMasterIn(String csMasterIn) {
+		this.csMasterIn = csMasterIn;
+	}
 	public List<Goods> getGoods() {
 		return goods;
 	}
@@ -52,6 +84,22 @@ public class GoodsAction extends MyBaseAction{
 	}
 	
 	//------------------------------------------------
+	private void clearOption(){
+		id=null;
+		GName=null;
+		GUnit=null;
+		csMasterIn=null;
+	}
+	
+	private void clearSpace(){
+		if(id!=null){
+			id=id.trim();
+			GName=GName.trim();
+			GUnit=GUnit.trim();
+			csMasterIn=csMasterIn.trim();
+		}
+	}
+	
 	public String queryOfFenyeGoods() throws UnsupportedEncodingException {
 		String id=getRequest().getParameter("id");
 		String cz=getRequest().getParameter("cz");//用于判断是否清理page，yes清理，no不清理
@@ -60,12 +108,21 @@ public class GoodsAction extends MyBaseAction{
 		}
 		if (cz!=null && cz.equals("yes")) {
 			page=new Page(1, 0, 5);
+			clearOption();
 		}
+		clearSpace();
 		if (id!=null) {
-			String hql="from Goods where GId  = ?";
-			String ss[]={id};
-			String hql2="from Goods where GId = '"+id+"'";
-			goods=ser.query(hql, ss, hql2, page, ser);
+			String hql2="from Goods where GId like '%"+id+"%'";
+			if(GName!=null){
+				hql2=hql2+" and GName like '%"+GName+"%'";
+			}
+			if(GUnit!=null){
+				hql2=hql2+" and GUnit like '%"+GUnit+"%'";
+			}
+			if(csMasterIn!=null){
+				hql2=hql2+" and csMasterIn like '%"+csMasterIn+"%'";
+			}
+			goods=ser.query(hql2, null, hql2, page, ser);
 		}else {
 			String hql="from Goods";
 			String ss[]={};

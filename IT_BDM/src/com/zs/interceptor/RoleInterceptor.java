@@ -113,6 +113,7 @@ public class RoleInterceptor extends AbstractInterceptor{
 		}else{ 
 			Users u=(Users)user;
 			Role r=u.getR();
+			
 			if ((PRO_NAME+"/fbd_asdl!queryOfFenyeAsdl").equals(path)) {//硬件组-ASDL-分页
 				return roleControl(arg0, r, "1");
 			}else if ((PRO_NAME+"/fbd_asdl!deleteAsdl").equals(path)) {//硬件组-ASDL-删除

@@ -82,6 +82,12 @@ public class ZmDataAction extends MyBaseAction{
 		datee=null;
 	}
 	
+	private void clearSpace(){
+		if(id!=null){
+			id=id.trim();
+		}
+	}
+	
 	public String queryOfFenye() throws UnsupportedEncodingException {
 		String id=getRequest().getParameter("id");
 		String cz=getRequest().getParameter("cz");//用于判断是否清理page，yes清理，no不清理
@@ -92,6 +98,7 @@ public class ZmDataAction extends MyBaseAction{
 			page=new Page(1, 0, 5);
 			clearOptions();
 		}
+		clearSpace();
 		if (id!=null) {
 			String hql="from XtZmData where DId like '%"+id+"%'";
 			if (dates!=null && !dates.trim().equals("")) {
