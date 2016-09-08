@@ -142,6 +142,13 @@
      <result name="succ">/success.jsp</result>
      <result name="fail">/fail.jsp</result>
   </action>
+  <action name="bq" class="zs_bq_zmz">	
+  	 <interceptor-ref name="mydefault" />
+     <result>/index.jsp</result>
+     <result name="bq">/zmz_jsp/bq.jsp</result>
+     <result name="succ">/success.jsp</result>
+     <result name="fail">/fail.jsp</result>
+  </action>
   
   <!-- **********CompanySection************* -->
   <action name="cs" class="zs_cs">	

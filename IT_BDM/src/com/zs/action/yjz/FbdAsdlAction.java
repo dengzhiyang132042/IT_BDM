@@ -134,7 +134,6 @@ public class FbdAsdlAction extends MyBaseAction{
 		}
 		
 		clearSpace();
-		logger.debug(id);
 		if (id!=null) {
 			String hql2="from FbdAsdl where asdlId like '%"+id+"%'";
 			if (fbdName!=null && !fbdName.trim().equals("")) {
