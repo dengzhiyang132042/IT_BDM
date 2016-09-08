@@ -68,6 +68,8 @@
 		<mapping resource="com/zs/entity/CompanySection.hbm.xml" />
 		<mapping resource="com/zs/entity/ZmVpn.hbm.xml" />
 		<mapping resource="com/zs/entity/ZmByNumber.hbm.xml" />
+		<mapping resource="com/zs/entity/ZmBq.hbm.xml" />
+		<mapping resource="com/zs/entity/ZmWifi.hbm.xml" />
 	</session-factory>
 
 </hibernate-configuration>

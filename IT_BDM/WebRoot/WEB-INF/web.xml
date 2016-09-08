@@ -31,6 +31,6 @@
   <!-- *******定时器监听****** -->
   <listener>  
     <listener-class>com.zs.listener.InforListener</listener-class>  
-  </listener>  
+  </listener>
   
   </web-app>
