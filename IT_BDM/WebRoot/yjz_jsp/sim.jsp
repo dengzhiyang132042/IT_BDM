@@ -107,6 +107,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     		编号:<input name="id" type="text" value="${id }"/>
     		&nbsp;&nbsp;&nbsp;&nbsp;
     		部门：<input name="csName" type="text" value="${csName }"/>
+    		<br/>
     		<input type="submit" value="查询" style="margin:5px;"/>
     	</form>	
     </div>
