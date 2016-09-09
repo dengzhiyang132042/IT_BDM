@@ -26,10 +26,67 @@ public class BqAction extends MyBaseAction implements IMyBaseAction{
 	String result_succ="succ";
 	String result_fail="fail";
 	
+	String id;
+	String BPda;
+	String BModel;
+	String BType;
+	String BNum;
+	String BSn;
+	
+	
 	private Logger logger=Logger.getLogger(BqAction.class);
 	
 	
 	
+	
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	public String getBPda() {
+		return BPda;
+	}
+
+	public void setBPda(String bPda) {
+		BPda = bPda;
+	}
+
+	public String getBModel() {
+		return BModel;
+	}
+
+	public void setBModel(String bModel) {
+		BModel = bModel;
+	}
+
+	public String getBType() {
+		return BType;
+	}
+
+	public void setBType(String bType) {
+		BType = bType;
+	}
+
+	public String getBNum() {
+		return BNum;
+	}
+
+	public void setBNum(String bNum) {
+		BNum = bNum;
+	}
+
+	public String getBSn() {
+		return BSn;
+	}
+
+	public void setBSn(String bSn) {
+		BSn = bSn;
+	}
+
 	public IService getSer() {
 		return ser;
 	}
@@ -64,8 +121,23 @@ public class BqAction extends MyBaseAction implements IMyBaseAction{
 
 	//**********************************************
 	public void clearOptions() {
-		// TODO Auto-generated method stub
-		
+		id=null;
+		BPda=null;
+		BModel=null;
+		BType=null;
+		BNum=null;
+		BSn=null;
+	}
+	
+	private void clearSpace(){
+		if(id!=null){
+			id=id.trim();
+			BPda=BPda.trim();
+			BModel=BModel.trim();
+			BType=BType.trim();
+			BNum=BNum.trim();
+			BSn=BSn.trim();
+		}
 	}
 	
 	public String queryOfFenye() throws UnsupportedEncodingException {
@@ -79,10 +151,25 @@ public class BqAction extends MyBaseAction implements IMyBaseAction{
 			page=new Page(1, 0, 5);
 			clearOptions();
 		}
+		clearSpace();
 		if(id!=null){
-			String hql="from ZmBq";
-			hql=hql+" order by BDate desc";
-			bqs=ser.query(hql, null, hql, page, ser);
+			String hql2="from ZmBq where BId like '%"+id+"%'";
+			if(BPda!=null){
+				hql2=hql2+" and BPda like '%"+BPda+"%'";
+			}
+			if(BModel!=null){
+				hql2=hql2+" and BModel like '%"+BModel+"%'";
+			}
+			if(BType!=null){
+				hql2=hql2+" and BType like '%"+BType+"%'";
+			}
+			if(BNum!=null){
+				hql2=hql2+" and BNum like '%"+BNum+"%'";
+			}
+			if(BSn!=null){
+				hql2=hql2+" and BSn like '%"+BSn+"%'";
+			}
+			bqs=ser.query(hql2, null, hql2, page, ser);
 		}else {
 			String hql="from ZmBq order by BDate desc";
 			String ss[]={};

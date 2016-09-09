@@ -86,7 +86,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     		&nbsp;&nbsp;&nbsp;&nbsp;
     		SN:<input name="BSn" type="text" value="${BSn }"/>
     		<br/>
-    		<input type="submit" value="查询"/>
+    		<input type="submit" value="查询" style="margin:5px;"/>
     	</form>	
     </div>
     <div style="margin-bottom: 5px;">
