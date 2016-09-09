@@ -36,8 +36,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   	$("#txt_username").addClass("input_blur");
   	$("#txt_password").addClass("input_blur");
   	if ($.cookie("rmbUser") == "true") {
-	    $("#ck_rmbUser").attr("
-", true);
+	    $("#ck_rmbUser").attr("", true);
 	    $("#txt_username").val($.cookie("username"));
 	    $("#txt_password").val($.cookie("password"));
 	};

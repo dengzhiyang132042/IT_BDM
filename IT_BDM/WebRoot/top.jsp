@@ -34,7 +34,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<img alt="" src="FRAMEWORK/image/logo2-transparent.png" height="50" border="0"/>
 	</div>
 	<center style="margin-top: -52px;">
-		<span style="color: #3E3A38;font-size: 40px;font-weight: bold;font-family: Microsoft YaHei;">IT基础数据管理系统</span>
+		<span style="color: #3E3A38;font-size: 40px;font-weight: bold;font-family: Microsoft YaHei;"><a href="welcom.jsp" target="right" style="text-decoration: none;color:#3E3A38;">IT基础数据管理系统</a></span>
 	</center>
 	<c:choose>
 		<c:when test="${user==null}">
