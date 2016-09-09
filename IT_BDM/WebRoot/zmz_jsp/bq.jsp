@@ -11,7 +11,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <head>
     <base href="<%=basePath%>">
     
-    <title>vpn账号登记</title>
+    <title>小仓巴枪电脑登记</title>
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
 	<meta http-equiv="expires" content="0">    
@@ -69,22 +69,22 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   
   <body>
     
-    <div class="easyui-panel" title="vpn账号登记" style="padding: 5px;display: none;" data-options="tools:'#tt'">
+    <div class="easyui-panel" title="小仓巴枪电脑登记" style="padding: 5px;display: none;" data-options="tools:'#tt'">
     <div style="background-color:white;margin-bottom: 5px;padding: 5px;border: 1px solid #224466; ">
     	快速查询
     	<br/>
-    	<form action="<%=path %>/vpn!queryOfFenye" method="post">
+    	<form action="<%=path %>/bq!queryOfFenye" method="post">
     		编号:<input name="id" type="text" value="${id }"/>
     		&nbsp;&nbsp;&nbsp;&nbsp;
-    		账号：<input name="num" type="text" value="${num }"/>
+    		PDA品牌：<input name="BPda" type="text" value="${BPda }"/>
     		&nbsp;&nbsp;&nbsp;&nbsp;
-    		姓名:<input name="name" type="text" value="${name }"/>
+    		型号:<input name="BModel" type="text" value="${BModel }"/>
     		&nbsp;&nbsp;&nbsp;&nbsp;
-    		部门:<input name="section" type="text" value="${section }"/>
+    		组别:<input name="BType" type="text" value="${BType }"/>
     		&nbsp;&nbsp;&nbsp;&nbsp;
-    		登记时间:<input name="dates" type="date" value="${dates }"/>
-    		~
-    		<input name="datee" type="date" value="${datee }"/>
+    		巴枪编号:<input name="BNum" type="text" value="${BNum }"/>
+    		&nbsp;&nbsp;&nbsp;&nbsp;
+    		SN:<input name="BSn" type="text" value="${BSn }"/>
     		<br/>
     		<input type="submit" value="查询"/>
     	</form>	
@@ -118,8 +118,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<td width="">${bq.BWifiPass }</td>
 		<td width="">${bq.BNote }</td>
 		<td width="5%" align="center">
-			<a onclick="update('${bq.BId  }','${bq.BPda }','${bq.BModel }','${bq.BType }','${bq.BNum }','${bq.BSn }','${bq.BMac }','${bq.BWifi }','${bq.BWifiPass }','${bq.BNote }')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-edit'" title="修改"></a>
-			<a href="<%=path %>/vpn!delete?id=${vpn.VId}" onclick="return confirm('确定删除吗?')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-delete'" title="删除"></a>
+			<a onclick="update('${bq.BId }','${bq.BPda }','${bq.BModel }','${bq.BType }','${bq.BNum }','${bq.BSn }','${bq.BMac }','${bq.BWifi }','${bq.BWifiPass }','${bq.BNote }')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-edit'" title="修改"></a>
+			<a href="<%=path %>/bq!delete?id=${bq.BId}" onclick="return confirm('确定删除吗?')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-delete'" title="删除"></a>
 		</td>
     </tr>
     </c:forEach>
@@ -127,7 +127,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</div>
 	
 	<div class="easyui-panel" style="padding:5px;width: 100%;display: none;background-color: white;">
-		<form id="f1" action="<%=path %>/vpn!queryOfFenye?id=${id}&num=${num}&name=${name }&section=${section }&dates=${dates}&datee=${datee}" method="post">
+		<form id="f1" action="<%=path %>/bq!queryOfFenye?id=${id}&BPda=${BPda }&BModel=${BModel }&BType=${BType }&BNum=${BNum }&BSn=${BSn }" method="post">
 		<select id="sele" style="float: left;margin-top: 3px;margin-left: 5px;" name="page.size" onchange="$('#f1').submit();">
 			<option value="5">5</option>
 			<option value="10">10</option>
@@ -157,66 +157,66 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</div>
 	
 	<div id="u" class="easyui-window" title="修改" data-options="modal:true,closed:true" style="width:400px;height:auto;padding:10px;display: none;">
-		<form action="<%=path %>/vpn!update" method="post">
+		<form action="<%=path %>/bq!update" method="post">
 		<table border="0" class="table1">
 			<tr>
 				<td>编号：</td>
 				<td>
-					<input id="u_1" name="vpn.VId" type="text" style="width: 100%;" readonly="readonly"/>
+					<input id="u_1" name="bq.BId" type="text" style="width: 100%;" readonly="readonly"/>
 				</td>
 			</tr>
 			<tr>
-				<td>账号：</td>
+				<td>PDA品牌：</td>
 				<td>
-					<input id="u_2" name="vpn.VNum" type="text" style="width: 100%;"/>
+					<input id="u_2" name="bq.BPda" type="text" style="width: 100%;"/>
 				</td>
 			</tr>
 			<tr>
-				<td>修改密码(后)：</td>
+				<td>型号：</td>
 				<td>
-					<input id="u_3" name="vpn.VPass" type="text" style="width: 100%;"/>
+					<input id="u_3" name="bq.BModel" type="text" style="width: 100%;"/>
 				</td>
 			</tr>
 			<tr>
-				<td>姓名：</td>
+				<td>组别：</td>
 				<td>
-					<input id="u_4" name="vpn.VName" type="text" style="width: 100%;"/>
+					<input id="u_4" name="bq.BType" type="text" style="width: 100%;"/>
 				</td>
 			</tr>
 			<tr>
-				<td>部门：</td>
+				<td>巴枪编号：</td>
 				<td>
-					<input id="u_5" name="vpn.VSection" type="text" style="width: 100%;"/>
+					<input id="u_5" name="bq.BNum" type="text" style="width: 100%;"/>
 				</td>
 			</tr>
 			<tr>
-				<td>注册身份证：</td>
+				<td>SN：</td>
 				<td>
-					<input id="u_6" name="vpn.VCard" type="text" style="width: 100%;"/>
+					<input id="u_6" name="bq.BSn" type="text" style="width: 100%;"/>
 				</td>
 			</tr>
 			<tr>
-				<td>注册手机号：</td>
+				<td>MAC：</td>
 				<td>
-					<input id="u_7" name="vpn.VPhone" type="text" style="width: 100%;"/>
+					<input id="u_7" name="bq.BMac" type="text" style="width: 100%;"/>
 				</td>
 			</tr>
 			<tr>
-				<td>SOA密码：</td>
+				<td>分配WIFI：</td>
 				<td>
-					<input id="u_8" name="vpn.VSoaPass" type="text" style="width: 100%;"/>
+					<input id="u_8" name="bq.BWifi" type="text" style="width: 100%;"/>
 				</td>
 			</tr>
 			<tr>
-				<td>VPN密码：</td>
+				<td>WIFI密码：</td>
 				<td>
-					<input id="u_9" name="vpn.VVpnPass" type="text" style="width: 100%;"/>
+					<input id="u_9" name="bq.BWifiPass" type="text" style="width: 100%;"/>
 				</td>
 			</tr>
 			<tr>
 				<td>备注说明：</td>
 				<td>
-					<input id="u_10" name="vpn.VNote" type="text" style="width: 100%;"/>
+					<input id="u_10" name="bq.BNote" type="text" style="width: 100%;"/>
 				</td>
 			</tr>
 			<tr>
@@ -229,60 +229,66 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</div>
 	
 	<div id="a" class="easyui-window" title="添加" data-options="modal:true,closed:true" style="width:400px;height:auto;padding:10px;display: none;">
-		<form action="<%=path %>/vpn!add" method="post">
+		<form action="<%=path %>/bq!add" method="post">
 		<table border="0" class="table1">
 			<tr>
-				<td>账号：</td>
+				<td>编号：</td>
 				<td>
-					<input name="vpn.VNum" type="text" style="width: 100%;"/>
+					<input name="bq.BId" type="text" style="width: 100%;"/>
 				</td>
 			</tr>
 			<tr>
-				<td>修改密码(后)：</td>
+				<td>PDA品牌：</td>
 				<td>
-					<input name="vpn.VPass" type="text" style="width: 100%;"/>
+					<input name="bq.BPda" type="text" style="width: 100%;"/>
 				</td>
 			</tr>
 			<tr>
-				<td>姓名：</td>
+				<td>型号：</td>
 				<td>
-					<input name="vpn.VName" type="text" style="width: 100%;"/>
+					<input name="bq.BModel" type="text" style="width: 100%;"/>
 				</td>
 			</tr>
 			<tr>
-				<td>部门：</td>
+				<td>组别：</td>
 				<td>
-					<input name="vpn.VSection" type="text" style="width: 100%;"/>
+					<input name="bq.BType" type="text" style="width: 100%;"/>
 				</td>
 			</tr>
 			<tr>
-				<td>注册身份证：</td>
+				<td>巴枪编号：</td>
 				<td>
-					<input name="vpn.VCard" type="text" style="width: 100%;"/>
+					<input name="bq.BNum" type="text" style="width: 100%;"/>
 				</td>
 			</tr>
 			<tr>
-				<td>注册手机号：</td>
+				<td>SN：</td>
 				<td>
-					<input name="vpn.VPhone" type="text" style="width: 100%;"/>
+					<input name="bq.BSn" type="text" style="width: 100%;"/>
 				</td>
 			</tr>
 			<tr>
-				<td>SOA密码：</td>
+				<td>MAC：</td>
 				<td>
-					<input name="vpn.VSoaPass" type="text" style="width: 100%;"/>
+					<input name="bq.BMac" type="text" style="width: 100%;"/>
 				</td>
 			</tr>
 			<tr>
-				<td>VPN密码：</td>
+				<td>分配WIFI：</td>
 				<td>
-					<input name="vpn.VVpnPass" type="text" style="width: 100%;"/>
+					<input name="bq.BWifi" type="text" style="width: 100%;"/>
+				</td>
+			</tr>
+			<tr>
+				<td>WIFI密码：</td>
+				<td>
+					<input name="bq.BWifiPass" type="text" style="width: 100%;"/>
 				</td>
 			</tr>
 			<tr>
 				<td>备注说明：</td>
 				<td>
-					<input name="vpn.VNote" type="text" style="width: 100%;"/>
+					<input name="bq.BNote" type="text" style="width: 100%;"/>
 				</td>
 			</tr>
 			<tr>

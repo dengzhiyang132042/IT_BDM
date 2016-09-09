@@ -81,12 +81,12 @@ public class BqAction extends MyBaseAction implements IMyBaseAction{
 		}
 		if(id!=null){
 			String hql="from ZmBq";
-			hql=hql+" order by VDate desc";
+			hql=hql+" order by BDate desc";
 			bqs=ser.query(hql, null, hql, page, ser);
 		}else {
-			String hql="from ZmVpn order by VDate desc";
+			String hql="from ZmBq order by BDate desc";
 			String ss[]={};
-			String hql2="from ZmVpn order by VDate desc";
+			String hql2="from ZmBq order by BDate desc";
 			bqs=ser.query(hql, ss, hql2, page, ser);
 		}
 		ser.receiveStructure(getRequest());
