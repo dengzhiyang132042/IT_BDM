@@ -256,7 +256,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<tr>
 				<td>部门：</td>
 				<td>
-					<select name="sim.csName" id="cc1" style="width:100%;"></select>
+					<select name="u.UCs" id="cc1" style="width:100%;"></select>
 					<div id="sp1">
 						<div style="color:#99BBE8;background:#fafafa;padding:5px;">选择公司组织架构</div>
 						${html }
