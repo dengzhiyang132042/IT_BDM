@@ -70,6 +70,10 @@
 		<mapping resource="com/zs/entity/ZmByNumber.hbm.xml" />
 		<mapping resource="com/zs/entity/ZmBq.hbm.xml" />
 		<mapping resource="com/zs/entity/ZmWifi.hbm.xml" />
+		<mapping resource="com/zs/entity/ZmOaNumber.hbm.xml" />
+		<mapping resource="com/zs/entity/ZmPrinter.hbm.xml" />
+		<mapping resource="com/zs/entity/ZmComputer.hbm.xml" />
+		<mapping resource="com/zs/entity/ZmPhoneLine.hbm.xml" />
 	</session-factory>
 
 </hibernate-configuration>
