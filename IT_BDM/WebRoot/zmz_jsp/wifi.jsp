@@ -11,7 +11,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <head>
     <base href="<%=basePath%>">
     
-    <title>小仓巴枪电脑登记</title>
+    <title>园区wifi管理</title>
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
 	<meta http-equiv="expires" content="0">    
@@ -44,10 +44,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		$('#u_6').val(u6);
 		$('#u_7').val(u7);
 		$('#u_8').val(u8);
-		$('#u_9').val(u9);
-		$('#u_10').val(u10);
 	}
-	function page(no,cz){
+
+		function page(no,cz){
 		var num1=$('#page').val();
 		if(cz==1){//上下页
 			$('#page').val(num1*1+no*1);
@@ -69,22 +68,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   
   <body>
     
-    <div class="easyui-panel" title="小仓巴枪电脑登记" style="padding: 5px;display: none;" data-options="tools:'#tt'">
+    <div class="easyui-panel" title="园区wifi管理" style="padding: 5px;display: none;" data-options="tools:'#tt'">
     <div style="background-color:white;margin-bottom: 5px;padding: 5px;border: 1px solid #224466; ">
     	快速查询
     	<br/>
-    	<form action="<%=path %>/bq!queryOfFenye" method="post">
+    	<form action="<%=path %>/wifi!queryOfFenye" method="post">
     		编号:<input name="id" type="text" value="${id }"/>
     		&nbsp;&nbsp;&nbsp;&nbsp;
-    		PDA品牌：<input name="BPda" type="text" value="${BPda }"/>
+    		位置：<input name="WAddress" type="text" value="${WAddress }"/>
     		&nbsp;&nbsp;&nbsp;&nbsp;
-    		型号:<input name="BModel" type="text" value="${BModel }"/>
+    		远程设置IP:<input name="WIp" type="text" value="${WIp }"/>
     		&nbsp;&nbsp;&nbsp;&nbsp;
-    		组别:<input name="BType" type="text" value="${BType }"/>
-    		&nbsp;&nbsp;&nbsp;&nbsp;
-    		巴枪编号:<input name="BNum" type="text" value="${BNum }"/>
-    		&nbsp;&nbsp;&nbsp;&nbsp;
-    		SN:<input name="BSn" type="text" value="${BSn }"/>
+    		SSID:<input name="WSsid" type="text" value="${WSsid }"/>
     		<br/>
     		<input type="submit" value="查询" style="margin:5px;"/>
     	</form>	
@@ -94,32 +89,28 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <table border="1" id="eidtASubjectWindow1" style="font-size: 12px;">
     <tr>
     	<th>编号</th>
-    	<th>PDA品牌</th>
-    	<th>型号</th>
-    	<th>组别</th>
-    	<th>巴枪编号</th>
-    	<th>SN</th>
-    	<th>MAC</th>
-    	<th>分配WIFI</th>
-    	<th>WIFI密码</th>
+    	<th>位置</th>
+    	<th>远程设置IP</th>
+    	<th>管理账号</th>
+    	<th>管理密码</th>
+    	<th>SSID</th>
+    	<th>密码</th>
     	<th>备注说明</th>
     	<th>操作</th>
     </tr>
-    <c:forEach items="${bqs}" var="bq">
+    <c:forEach items="${wifis}" var="w">
     <tr>
-		<td width="">${bq.BId }</td>
-		<td width="">${bq.BPda }</td>
-		<td width="">${bq.BModel }</td>
-		<td width="">${bq.BType }</td>
-		<td width="">${bq.BNum }</td>
-		<td width="">${bq.BSn }</td>
-		<td width="">${bq.BMac }</td>
-		<td width="">${bq.BWifi }</td>
-		<td width="">${bq.BWifiPass }</td>
-		<td width="">${bq.BNote }</td>
+		<td width="">${w.WId }</td>
+		<td width="">${w.WAddress }</td>
+		<td width="">${w.WIp }</td>
+		<td width="">${w.WManagerNum }</td>
+		<td width="">${w.WManagerPass }</td>
+		<td width="">${w.WSsid }</td>
+		<td width="">${w.WPass }</td>
+		<td width="">${w.WNote }</td>
 		<td width="5%" align="center">
-			<a onclick="update('${bq.BId }','${bq.BPda }','${bq.BModel }','${bq.BType }','${bq.BNum }','${bq.BSn }','${bq.BMac }','${bq.BWifi }','${bq.BWifiPass }','${bq.BNote }')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-edit'" title="修改"></a>
-			<a href="<%=path %>/bq!delete?id=${bq.BId}" onclick="return confirm('确定删除吗?')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-delete'" title="删除"></a>
+			<a onclick="update('${w.WId }','${w.WAddress }','${w.WIp }','${w.WManagerNum }','${w.WManagerPass }','${w.WSsid }','${w.WPass }','${w.WNote }')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-edit'" title="修改"></a>
+			<a href="<%=path %>/wifi!delete?id=${w.WId }" onclick="return confirm('确定删除吗?')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-delete'" title="删除"></a>
 		</td>
     </tr>
     </c:forEach>
@@ -127,7 +118,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</div>
 	
 	<div class="easyui-panel" style="padding:5px;width: 100%;display: none;background-color: white;">
-		<form id="f1" action="<%=path %>/bq!queryOfFenye?id=${id}&BPda=${BPda }&BModel=${BModel }&BType=${BType }&BNum=${BNum }&BSn=${BSn }" method="post">
+		<form id="f1" action="<%=path %>/wifi!queryOfFenye?id=${id }&WAddress=${WAddress }&WIp=${WIp }&WSsid=${WSsid }" method="post">
 		<select id="sele" style="float: left;margin-top: 3px;margin-left: 5px;" name="page.size" onchange="$('#f1').submit();">
 			<option value="5">5</option>
 			<option value="10">10</option>
@@ -157,66 +148,54 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</div>
 	
 	<div id="u" class="easyui-window" title="修改" data-options="modal:true,closed:true" style="width:400px;height:auto;padding:10px;display: none;">
-		<form action="<%=path %>/bq!update" method="post">
+		<form action="<%=path %>/wifi!update" method="post">
 		<table border="0" class="table1">
 			<tr>
 				<td>编号：</td>
 				<td>
-					<input id="u_1" name="bq.BId" type="text" style="width: 100%;" readonly="readonly"/>
+					<input id="u_1" name="wifi.WId" type="text" style="width: 100%;" readonly="readonly"/>
 				</td>
 			</tr>
 			<tr>
-				<td>PDA品牌：</td>
+				<td>位置：</td>
 				<td>
-					<input id="u_2" name="bq.BPda" type="text" style="width: 100%;"/>
+					<input id="u_2" name="wifi.WAddress" type="text" style="width: 100%;"/>
 				</td>
 			</tr>
 			<tr>
-				<td>型号：</td>
+				<td>远程设置IP：</td>
 				<td>
-					<input id="u_3" name="bq.BModel" type="text" style="width: 100%;"/>
+					<input id="u_3" name="wifi.WIp" type="text" style="width: 100%;"/>
 				</td>
 			</tr>
 			<tr>
-				<td>组别：</td>
+				<td>管理账号：</td>
 				<td>
-					<input id="u_4" name="bq.BType" type="text" style="width: 100%;"/>
+					<input id="u_4" name="wifi.WManagerNum" type="text" style="width: 100%;"/>
 				</td>
 			</tr>
 			<tr>
-				<td>巴枪编号：</td>
+				<td>管理密码：</td>
 				<td>
-					<input id="u_5" name="bq.BNum" type="text" style="width: 100%;"/>
+					<input id="u_5" name="wifi.WManagerPass" type="text" style="width: 100%;"/>
 				</td>
 			</tr>
 			<tr>
-				<td>SN：</td>
+				<td>SSID：</td>
 				<td>
-					<input id="u_6" name="bq.BSn" type="text" style="width: 100%;"/>
+					<input id="u_6" name="wifi.WSsid" type="text" style="width: 100%;"/>
 				</td>
 			</tr>
 			<tr>
-				<td>MAC：</td>
+				<td>密码：</td>
 				<td>
-					<input id="u_7" name="bq.BMac" type="text" style="width: 100%;"/>
-				</td>
-			</tr>
-			<tr>
-				<td>分配WIFI：</td>
-				<td>
-					<input id="u_8" name="bq.BWifi" type="text" style="width: 100%;"/>
-				</td>
-			</tr>
-			<tr>
-				<td>WIFI密码：</td>
-				<td>
-					<input id="u_9" name="bq.BWifiPass" type="text" style="width: 100%;"/>
+					<input id="u_7" name="wifi.WPass" type="text" style="width: 100%;"/>
 				</td>
 			</tr>
 			<tr>
 				<td>备注说明：</td>
 				<td>
-					<input id="u_10" name="bq.BNote" type="text" style="width: 100%;"/>
+					<input id="u_8" name="wifi.WNote" type="text" style="width: 100%;"/>
 				</td>
 			</tr>
 			<tr>
@@ -229,60 +208,48 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</div>
 	
 	<div id="a" class="easyui-window" title="添加" data-options="modal:true,closed:true" style="width:400px;height:auto;padding:10px;display: none;">
-		<form action="<%=path %>/bq!add" method="post">
+		<form action="<%=path %>/wifi!add" method="post">
 		<table border="0" class="table1">
 			<tr>
-				<td>PDA品牌：</td>
+				<td>位置：</td>
 				<td>
-					<input name="bq.BPda" type="text" style="width: 100%;"/>
+					<input name="wifi.WAddress" type="text" style="width: 100%;"/>
 				</td>
 			</tr>
 			<tr>
-				<td>型号：</td>
+				<td>远程设置IP：</td>
 				<td>
-					<input name="bq.BModel" type="text" style="width: 100%;"/>
+					<input name="wifi.WIp" type="text" style="width: 100%;"/>
 				</td>
 			</tr>
 			<tr>
-				<td>组别：</td>
+				<td>管理账号：</td>
 				<td>
-					<input name="bq.BType" type="text" style="width: 100%;"/>
+					<input name="wifi.WManagerNum" type="text" style="width: 100%;"/>
 				</td>
 			</tr>
 			<tr>
-				<td>巴枪编号：</td>
+				<td>管理密码：</td>
 				<td>
-					<input name="bq.BNum" type="text" style="width: 100%;"/>
+					<input name="wifi.WManagerPass" type="text" style="width: 100%;"/>
 				</td>
 			</tr>
 			<tr>
-				<td>SN：</td>
+				<td>SSID：</td>
 				<td>
-					<input name="bq.BSn" type="text" style="width: 100%;"/>
+					<input name="wifi.WSsid" type="text" style="width: 100%;"/>
 				</td>
 			</tr>
 			<tr>
-				<td>MAC：</td>
+				<td>密码：</td>
 				<td>
-					<input name="bq.BMac" type="text" style="width: 100%;"/>
+					<input name="wifi.WPass" type="text" style="width: 100%;"/>
 				</td>
-			</tr>
-			<tr>
-				<td>分配WIFI：</td>
-				<td>
-					<input name="bq.BWifi" type="text" style="width: 100%;"/>
-				</td>
-			</tr>
-			<tr>
-				<td>WIFI密码：</td>
-				<td>
-					<input name="bq.BWifiPass" type="text" style="width: 100%;"/>
-				</td>
-			</tr>
+			</tr>			
 			<tr>
 				<td>备注说明：</td>
 				<td>
-					<input name="bq.BNote" type="text" style="width: 100%;"/>
+					<input name="wifi.WNote" type="text" style="width: 100%;"/>
 				</td>
 			</tr>
 			<tr>
