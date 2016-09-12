@@ -66,6 +66,13 @@
 		<property name="ser" ref="zs_ser"></property>
 	</bean>
 	
+	<bean id="zs_wifi_zmz" class="com.zs.action.zmz.WifiAction">
+		<property name="ser" ref="zs_ser"></property>
+	</bean>
+	<bean id="zs_phone_zmz" class="com.zs.action.zmz.PhoneAction">
+		<property name="ser" ref="zs_ser"></property>
+	</bean>
+	
 	
 	<!-- *****************cs******************* -->
 	<bean id="zs_cs" class="com.zs.action.section.CompanySectionAction">

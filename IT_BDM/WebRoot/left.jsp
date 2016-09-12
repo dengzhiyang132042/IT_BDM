@@ -74,8 +74,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<li><span><a href="<%=path %>/zmd!queryOfFenye?cz=yes" target="right">打印机登记</a></span></li>
 						<li><span><a href="<%=path %>/zmd!queryOfFenye?cz=yes" target="right">管理电脑统计</a></span></li>
 						<li><span><a href="<%=path %>/bq!queryOfFenye?cz=yes" target="right">小仓巴枪电脑登记</a></span></li>
-						<li><span><a href="<%=path %>/zmd!queryOfFenye?cz=yes" target="right">园区wifi管理</a></span></li>
-						<li><span><a href="<%=path %>/zmd!queryOfFenye?cz=yes" target="right">电话线分布</a></span></li>
+						<li><span><a href="<%=path %>/wifi!queryOfFenye?cz=yes" target="right">园区wifi管理</a></span></li>
+						<li><span><a href="<%=path %>/phone!queryOfFenye?cz=yes" target="right">电话线分布</a></span></li>
         			</ul>
         		</li>
         		<li><span>开发组</span></li>

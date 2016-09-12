@@ -149,6 +149,20 @@
      <result name="succ">/success.jsp</result>
      <result name="fail">/fail.jsp</result>
   </action>
+  <action name="wifi" class="zs_wifi_zmz">	
+  	 <interceptor-ref name="mydefault" />
+     <result>/index.jsp</result>
+     <result name="wifi">/zmz_jsp/wifi.jsp</result>
+     <result name="succ">/success.jsp</result>
+     <result name="fail">/fail.jsp</result>
+  </action>
+    <action name="phone" class="zs_phone_zmz">	
+  	 <interceptor-ref name="mydefault" />
+     <result>/index.jsp</result>
+     <result name="phone">/zmz_jsp/phone.jsp</result>
+     <result name="succ">/success.jsp</result>
+     <result name="fail">/fail.jsp</result>
+  </action>
   
   <!-- **********CompanySection************* -->
   <action name="cs" class="zs_cs">	
