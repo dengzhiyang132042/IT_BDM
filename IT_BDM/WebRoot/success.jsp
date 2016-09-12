@@ -23,6 +23,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   </head>
   
   <body>
-    成功. <br>
+   	<div style="width:750px;height:200px;margin:200px auto;background:url(<%=path %>/FRAMEWORK/image/success.png);">
+   		<span style="display:block;font-size:60px;padding:60px 350px;width:400px;height:100px;">操作成功</span>
+   	</div>
   </body>
 </html>
