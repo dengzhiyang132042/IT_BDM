@@ -11,7 +11,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <head>
     <base href="<%=basePath%>">
     
-    <title>oa账号</title>
+    <title>打印机</title>
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
 	<meta http-equiv="expires" content="0">    
@@ -75,7 +75,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   
   <body>
     
-    <div class="easyui-panel" title="oa账号" style="padding: 5px;display: none;" data-options="tools:'#tt'">
+    <div class="easyui-panel" title="打印机登记" style="padding: 5px;display: none;" data-options="tools:'#tt'">
     <div style="background-color:white;margin-bottom: 5px;padding: 5px;border: 1px solid #224466; ">
     	快速查询
     	<br/>
