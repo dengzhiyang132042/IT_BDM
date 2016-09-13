@@ -156,10 +156,24 @@
      <result name="succ">/success.jsp</result>
      <result name="fail">/fail.jsp</result>
   </action>
-    <action name="phone" class="zs_phone_zmz">	
+  <action name="phone" class="zs_phone_zmz">	
   	 <interceptor-ref name="mydefault" />
      <result>/index.jsp</result>
      <result name="phone">/zmz_jsp/phone.jsp</result>
+     <result name="succ">/success.jsp</result>
+     <result name="fail">/fail.jsp</result>
+  </action>
+  <action name="oa" class="zs_oa_zmz">	
+  	 <interceptor-ref name="mydefault" />
+     <result>/index.jsp</result>
+     <result name="oa">/zmz_jsp/oa.jsp</result>
+     <result name="succ">/success.jsp</result>
+     <result name="fail">/fail.jsp</result>
+  </action>
+  <action name="print" class="zs_print_zmz">	
+  	 <interceptor-ref name="mydefault" />
+     <result>/index.jsp</result>
+     <result name="print">/zmz_jsp/print.jsp</result>
      <result name="succ">/success.jsp</result>
      <result name="fail">/fail.jsp</result>
   </action>

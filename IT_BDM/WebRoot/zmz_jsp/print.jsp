@@ -11,7 +11,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <head>
     <base href="<%=basePath%>">
     
-    <title>oa账号</title>
+    <title>打印机</title>
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
 	<meta http-equiv="expires" content="0">    
@@ -34,7 +34,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		$('#tt').show();
 	});
 	
-	function update(u1,u2,u3,u4,u5,u6,u7,u8,u9,u10,u11,u12,u13){
+	function update(u1,u2,u3,u4,u5,u6,u7,u8,u9,u10,u11,u12,u13,u14,u15,u16){
 		$('#u').window('open');
 		$('#u_1').val(u1);
 		$('#u_2').val(u2);
@@ -49,6 +49,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		$('#u_11').val(u11);
 		$('#u_12').val(u12);
 		$('#u_13').val(u13);
+		$('#u_14').val(u14);
+		$('#u_15').val(u15);
+		$('#u_16').val(u16);
 	}
 	function page(no,cz){
 		var num1=$('#page').val();
@@ -72,22 +75,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   
   <body>
     
-    <div class="easyui-panel" title="oa账号" style="padding: 5px;display: none;" data-options="tools:'#tt'">
+    <div class="easyui-panel" title="打印机登记" style="padding: 5px;display: none;" data-options="tools:'#tt'">
     <div style="background-color:white;margin-bottom: 5px;padding: 5px;border: 1px solid #224466; ">
     	快速查询
     	<br/>
-    	<form action="<%=path %>/oa!queryOfFenye" method="post">
+    	<form action="<%=path %>/print!queryOfFenye" method="post">
     		编号:<input name="id" type="text" value="${id }"/>
     		&nbsp;&nbsp;&nbsp;&nbsp;
-    		申请人:<input name="apply" type="text" value="${apply }"/>
+    		品牌:<input name="brand" type="text" value="${brand }"/>
     		&nbsp;&nbsp;&nbsp;&nbsp;
-    		OA账号:<input name="num" type="text" value="${num }"/>
+    		区域:<input name="arae" type="text" value="${arae }"/>
     		&nbsp;&nbsp;&nbsp;&nbsp;
-    		部门:<input name="section" type="text" value="${section }"/>
+    		IP:<input name="ip" type="text" value="${ip }"/>
     		&nbsp;&nbsp;&nbsp;&nbsp;
-    		登记时间:<input name="dates" type="date" value="${dates }"/>
-    		~
-    		<input name="datee" type="date" value="${datee }"/>
     		<br/>
     		<input type="submit" value="查询"/>
     	</form>	
@@ -97,38 +97,44 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <table border="1" id="eidtASubjectWindow1" style="font-size: 12px;">
     <tr>
     	<th>编号</th>
-    	<th>OA登记日期</th>
-    	<th>维护周数</th>
-    	<th>部门</th>
-    	<th>申请人</th>
-    	<th>员工岗位</th>
-    	<th>OA</th>
-    	<th>维护IT</th>
-    	<th>维护日期</th>
-    	<th>维护用时</th>
-    	<th>在职情况</th>
-    	<th>是否及时</th>
-    	<th>备注</th>
+    	<th>品牌</th>
+    	<th>型号</th>
+    	<th>区域</th>
+    	<th>打印机位置</th>
+    	<th>资产类型</th>
+    	<th>端口</th>
+    	<th>IP</th>
+    	<th>备用墨盒</th>
+    	<th>备用墨粉</th>
+    	<th>设备性能</th>
+    	<th>主要功能</th>
+    	<th>纸张支持</th>
+    	<th>加墨维护</th>
+    	<th>上次加墨时间</th>
+    	<th>下次加墨时间</th>
     	<th>操作</th>
     </tr>
-    <c:forEach items="${oas}" var="oa">
+    <c:forEach items="${ps}" var="p">
     <tr>
-		<td width="">${oa.OId }</td>
-		<td width=""><fmt:formatDate value="${oa.ODate }" pattern="yyyy/M/d" /></td>
-		<td width="">${oa.OServiceWeek }</td>
-		<td width="">${oa.OSection }</td>
-		<td width="">${oa.OApply }</td>
-		<td width="">${oa.OPosition }</td>
-		<td width="">${oa.OOa }</td>
-		<td width="">${oa.OService }</td>
-		<td width="">${oa.OServiceDate }</td>
-		<td width="">${oa.OServiceTime }</td>
-		<td width="">${oa.OOnJob }</td>
-		<td width="">${oa.OIsTimely }</td>
-		<td width="">${oa.ONote }</td>
+		<td width="">${p.PId }</td>
+		<td width="">${p.PBrand }</td>
+		<td width="">${p.PNumber }</td>
+		<td width="">${p.PArea }</td>
+		<td width="">${p.PAddress }</td>
+		<td width="">${p.PType }</td>
+		<td width="">${p.PPort }</td>
+		<td width="">${p.PIp }</td>
+		<td width="">${p.PCartridge }</td>
+		<td width="">${p.PToner }</td>
+		<td width="">${p.PTrait }</td>
+		<td width="">${p.PFunction }</td>
+		<td width="">${p.PPage }</td>
+		<td width="">${p.PAdd }</td>
+		<td width="">${p.PLast }</td>
+		<td width="">${p.PNext }</td>
 		<td width="5%" align="center">
-			<a onclick="update('${oa.OId }','${oa.ODate }','${oa.OServiceWeek }','${oa.OSection }','${oa.OApply }','${oa.OPosition }','${oa.OOa }','${oa.OService }','${oa.OServiceDate }','${oa.OServiceTime }','${oa.OOnJob }','${oa.OIsTimely }','${oa.ONote }')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-edit'" title="修改"></a>
-			<a href="<%=path %>/oa!delete?id=${oa.OId}" onclick="return confirm('确定删除吗?')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-delete'" title="删除"></a>
+			<a onclick="update('${p.PId }','${p.PBrand }','${p.PNumber }','${p.PArea }','${p.PAddress }','${p.PType }','${p.PPort }','${p.PIp }','${p.PCartridge }','${p.PToner }','${p.PTrait }','${p.PFunction }','${p.PPage }','${p.PAdd }','${p.PLast }','${p.PNext }')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-edit'" title="修改"></a>
+			<a href="<%=path %>/print!delete?id=${p.PId}" onclick="return confirm('确定删除吗?')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-delete'" title="删除"></a>
 		</td>
     </tr>
     </c:forEach>
@@ -136,7 +142,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</div>
 	
 	<div class="easyui-panel" style="padding:5px;width: 100%;display: none;background-color: white;">
-		<form id="f1" action="<%=path %>/oa!queryOfFenye?id=${id}&num=${num}&apply=${apply }&section=${section }&dates=${dates}&datee=${datee}" method="post">
+		<form id="f1" action="<%=path %>/print!queryOfFenye?id=${id}&num=${num}&apply=${apply }&section=${section }&dates=${dates}&datee=${datee}" method="post">
 		<select id="sele" style="float: left;margin-top: 3px;margin-left: 5px;" name="page.size" onchange="$('#f1').submit();">
 			<option value="5">5</option>
 			<option value="10">10</option>
@@ -166,84 +172,102 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</div>
 	
 	<div id="u" class="easyui-window" title="修改" data-options="modal:true,closed:true" style="width:400px;height:auto;padding:10px;display: none;">
-		<form action="<%=path %>/oa!update" method="post">
+		<form action="<%=path %>/print!update" method="post">
 		<table border="0" class="table1">
 			<tr>
 				<td>编号：</td>
 				<td>
-					<input id="u_1" name="oa.OId" type="text" style="width: 100%;" readonly="readonly"/>
+					<input id="u_1" name="p.PId" type="text" style="width: 100%;" readonly="readonly"/>
 				</td>
 			</tr>
 			<tr>
-				<td>OA登记日期：</td>
+				<td>品牌：</td>
 				<td>
-					<input id="u_2" name="oa.ODate" type="date" style="width: 100%;"/>
+					<input id="u_2" name="p.PBrand" type="text" style="width: 100%;"/>
 				</td>
 			</tr>
 			<tr>
-				<td>维护周数：</td>
+				<td>型号：</td>
 				<td>
-					<input id="u_3" name="oa.OServiceWeek" type="number" style="width: 100%;"/>
+					<input id="u_3" name="p.PNumber" type="text" style="width: 100%;"/>
 				</td>
 			</tr>
 			<tr>
-				<td>部门：</td>
+				<td>区域：</td>
 				<td>
-					<input id="u_4" name="oa.OSection" type="text" style="width: 100%;"/>
+					<input id="u_4" name="p.PArea" type="text" style="width: 100%;"/>
 				</td>
 			</tr>
 			<tr>
-				<td>申请人：</td>
+				<td>打印机位置：</td>
 				<td>
-					<input id="u_5" name="oa.OApply" type="text" style="width: 100%;"/>
+					<input id="u_5" name="p.PAddress" type="text" style="width: 100%;"/>
 				</td>
 			</tr>
 			<tr>
-				<td>员工岗位：</td>
+				<td>资产类型：</td>
 				<td>
-					<input id="u_6" name="oa.OPosition" type="text" style="width: 100%;"/>
+					<input id="u_6" name="p.PType" type="text" style="width: 100%;"/>
 				</td>
 			</tr>
 			<tr>
-				<td>OA：</td>
+				<td>端口：</td>
 				<td>
-					<input id="u_7" name="oa.OOa" type="text" style="width: 100%;"/>
+					<input id="u_7" name="p.PPort" type="text" style="width: 100%;"/>
 				</td>
 			</tr>
 			<tr>
-				<td>维护IT：</td>
+				<td>IP：</td>
 				<td>
-					<input id="u_8" name="oa.OService" type="text" style="width: 100%;"/>
+					<input id="u_8" name="p.PIp" type="text" style="width: 100%;"/>
 				</td>
 			</tr>
 			<tr>
-				<td>维护日期：</td>
+				<td>备用墨盒：</td>
 				<td>
-					<input id="u_9" name="oa.OServiceDate" type="date" style="width: 100%;"/>
+					<input id="u_9" name="p.PCartridge" type="text" style="width: 100%;"/>
 				</td>
 			</tr>
 			<tr>
-				<td>维护用时：</td>
+				<td>备用墨粉：</td>
 				<td>
-					<input id="u_10" name="oa.OServiceTime" type="text" style="width: 100%;"/>
+					<input id="u_10" name="p.PToner" type="text" style="width: 100%;"/>
 				</td>
 			</tr>
 			<tr>
-				<td>在职情况：</td>
+				<td>设备性能：</td>
 				<td>
-					<input id="u_11" name="oa.OOnJob" type="text" style="width: 100%;"/>
+					<input id="u_11" name="p.PTrait" type="text" style="width: 100%;"/>
 				</td>
 			</tr>
 			<tr>
-				<td>是否及时：</td>
+				<td>主要功能：</td>
 				<td>
-					<input id="u_12" name="oa.OIsTimely" type="text" style="width: 100%;"/>
+					<input id="u_12" name="p.PFunction" type="text" style="width: 100%;"/>
 				</td>
 			</tr>
 			<tr>
-				<td>备注：</td>
+				<td>纸张支持：</td>
 				<td>
-					<input id="u_13" name="oa.ONote" type="text" style="width: 100%;"/>
+					<input id="u_13" name="p.PPage" type="text" style="width: 100%;"/>
+				</td>
+			</tr>
+			<tr>
+				<td>加墨维护：</td>
+				<td>
+					<input id="u_14" name="p.PAdd" type="text" style="width: 100%;"/>
+				</td>
+			</tr>
+			<tr>
+				<td>上次加墨时间：</td>
+				<td>
+					<input id="u_15" name="p.PLast" type="date" style="width: 100%;"/>
+				</td>
+			</tr>
+			<tr>
+				<td>下次加墨时间：</td>
+				<td>
+					<input id="u_16" name="p.PNext" type="date" style="width: 100%;"/>
 				</td>
 			</tr>
 			<tr>
@@ -256,78 +280,96 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</div>
 	
 	<div id="a" class="easyui-window" title="添加" data-options="modal:true,closed:true" style="width:400px;height:auto;padding:10px;display: none;">
-		<form action="<%=path %>/oa!add" method="post">
+		<form action="<%=path %>/print!add" method="post">
 		<table border="0" class="table1">
 			<tr>
-				<td>OA登记日期：</td>
+				<td>品牌：</td>
 				<td>
-					<input name="oa.ODate" type="date" style="width: 100%;"/>
+					<input name="p.PBrand" type="text" style="width: 100%;"/>
 				</td>
 			</tr>
 			<tr>
-				<td>维护周数：</td>
+				<td>型号：</td>
 				<td>
-					<input name="oa.OServiceWeek" type="number" style="width: 100%;"/>
+					<input name="p.PNumber" type="text" style="width: 100%;"/>
 				</td>
 			</tr>
 			<tr>
-				<td>部门：</td>
+				<td>区域：</td>
 				<td>
-					<input name="oa.OSection" type="text" style="width: 100%;"/>
+					<input name="p.PArea" type="text" style="width: 100%;"/>
 				</td>
 			</tr>
 			<tr>
-				<td>申请人：</td>
+				<td>打印机位置：</td>
 				<td>
-					<input name="oa.OApply" type="text" style="width: 100%;"/>
+					<input name="p.PAddress" type="text" style="width: 100%;"/>
 				</td>
 			</tr>
 			<tr>
-				<td>员工岗位：</td>
+				<td>资产类型：</td>
 				<td>
-					<input name="oa.OPosition" type="text" style="width: 100%;"/>
+					<input name="p.PType" type="text" style="width: 100%;"/>
 				</td>
 			</tr>
 			<tr>
-				<td>OA：</td>
+				<td>端口：</td>
 				<td>
-					<input name="oa.OOa" type="text" style="width: 100%;"/>
+					<input name="p.PPort" type="text" style="width: 100%;"/>
 				</td>
 			</tr>
 			<tr>
-				<td>维护IT：</td>
+				<td>IP：</td>
 				<td>
-					<input name="oa.OService" type="text" style="width: 100%;"/>
+					<input name="p.PIp" type="text" style="width: 100%;"/>
 				</td>
 			</tr>
 			<tr>
-				<td>维护日期：</td>
+				<td>备用墨盒：</td>
 				<td>
-					<input name="oa.OServiceDate" type="date" style="width: 100%;"/>
+					<input name="p.PCartridge" type="text" style="width: 100%;"/>
 				</td>
 			</tr>
 			<tr>
-				<td>维护用时：</td>
+				<td>备用墨粉：</td>
 				<td>
-					<input name="oa.OServiceTime" type="text" style="width: 100%;"/>
+					<input name="p.PToner" type="text" style="width: 100%;"/>
 				</td>
 			</tr>
 			<tr>
-				<td>在职情况：</td>
+				<td>设备性能：</td>
 				<td>
-					<input name="oa.OOnJob" type="text" style="width: 100%;"/>
+					<input name="p.PTrait" type="text" style="width: 100%;"/>
 				</td>
 			</tr>
 			<tr>
-				<td>是否及时：</td>
+				<td>主要功能：</td>
 				<td>
-					<input name="oa.OIsTimely" type="text" style="width: 100%;"/>
+					<input name="p.PFunction" type="text" style="width: 100%;"/>
 				</td>
 			</tr>
 			<tr>
-				<td>备注：</td>
+				<td>纸张支持：</td>
 				<td>
-					<input name="oa.ONote" type="text" style="width: 100%;"/>
+					<input name="p.PPage" type="text" style="width: 100%;"/>
+				</td>
+			</tr>
+			<tr>
+				<td>加墨维护：</td>
+				<td>
+					<input name="p.PAdd" type="text" style="width: 100%;"/>
+				</td>
+			</tr>
+			<tr>
+				<td>上次加墨时间：</td>
+				<td>
+					<input name="p.PLast" type="date" style="width: 100%;"/>
+				</td>
+			</tr>
+			<tr>
+				<td>下次加墨时间：</td>
+				<td>
+					<input name="p.PNext" type="date" style="width: 100%;"/>
 				</td>
 			</tr>
 			<tr>
