@@ -74,6 +74,8 @@
 		<mapping resource="com/zs/entity/ZmPrinter.hbm.xml" />
 		<mapping resource="com/zs/entity/ZmComputer.hbm.xml" />
 		<mapping resource="com/zs/entity/ZmPhoneLine.hbm.xml" />
+		<mapping resource="com/zs/entity/DaDemand.hbm.xml" />
+		<mapping resource="com/zs/entity/DaPerform.hbm.xml" />
 	</session-factory>
 
 </hibernate-configuration>
