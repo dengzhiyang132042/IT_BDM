@@ -322,6 +322,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</div>
 	
 	
+	
 	<script>
 		function doSearch(value){
 			$('#f2').submit();
