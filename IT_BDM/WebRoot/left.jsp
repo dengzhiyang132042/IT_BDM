@@ -111,7 +111,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<div title="故障处理跟进系统" data-options="iconCls:'icon-large-smartart'" style="padding:10px;">
 		<ul id="tt" class="easyui-tree" data-options="animate:true,lines:true">
        		<li><span><a href="da/manager.jsp" target="right">故障报修管理</a></span></li>
-       		<li><span><a href="<%=path %>/information!query" target="right">故障报修统计</a></span></li>
+       		<li><span><a href="da/count.jsp" target="right">故障报修统计</a></span></li>
        		<li><span><a href="da/handle.jsp" target="right">故障报修处理</a></span></li>
         </ul>
 	</div>
