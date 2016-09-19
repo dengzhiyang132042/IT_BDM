@@ -24,6 +24,7 @@ import com.zs.entity.SectionFenbodian;
 import com.zs.entity.SectionFenbu;
 import com.zs.entity.SectionQubu;
 import com.zs.entity.Timeline;
+import com.zs.entity.Users;
 import com.zs.tools.Page;
 
 public class BaseService implements IService{
@@ -457,6 +458,12 @@ public class BaseService implements IService{
 		str=str
 			+"</ul>";
 		return str;
+	}
+	
+	
+	public void bringUsers(HttpServletRequest req) {
+		List<Users> list=this.find("from Users", null);
+		req.setAttribute("listUsers", list);
 	}	
 	
 }

@@ -94,7 +94,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <div style="background-color:white;margin-bottom: 5px;padding: 5px;border: 1px solid #224466; ">
     	快速查询
     	<br/>
-    	<form action="<%=path %>/print!queryOfFenye" method="post">
+    	<form action="<%=path %>/handle!queryOfFenye" method="post">
     		编号:<input name="id" type="text" value="${id }"/>
     		&nbsp;&nbsp;&nbsp;&nbsp;
     		类型:<input name="brand" type="text" value="${brand }"/>
@@ -120,17 +120,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     	<th>状态</th>
     	<th>操作</th>
     </tr>
-    
+    <c:forEach items="${demper}" var="dp">
     <tr>
-    	<td>1</td>
-    	<td>1</td>
-    	<td>1</td>
-    	<td>1</td>
-    	<td>1</td>
-    	<td>1</td>
-    	<td>1</td>
-    	<td>1</td>
-    	<td>
+		<td width="">${dp.DId}</td>
+		<td width="">${dp.DApplanct }</td>
+		<td width="">${dp.DContent }</td>
+		<td width="">${dp.DType }</td>
+		<td width="">${dp.DTime }</td>
+		<td width="">${dp.UName }</td>
+		<td width="">${dp.PTime }</td>
+		<td>
 			<select onchange="forward()" id="select_id" name="select_id">
 				<option value="notComplete">未完成</option>
 				<option value="complete">完成</option>
@@ -139,28 +138,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<a onclick="queryDetails()" class="easyui-linkbutton" title="查看详情">查看详情</a>
 		</td>
     </tr>
-    
-    <c:forEach items="${ps}" var="p">
-    <tr>
-		<td width="">${p.PId }</td>
-		<td width="">${p.PBrand }</td>
-		<td width="">${p.PNumber }</td>
-		<td width="">${p.PArea }</td>
-		<td width="">${p.PAddress }</td>
-		<td width="">${p.PType }</td>
-		<td width="">${p.PPort }</td>
-		<td width="5%" align="center">
-			<a href="" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-delete'" title="删除">转发</a>
-			<a onclick="update('${p.PId }','${p.PBrand }','${p.PNumber }','${p.PArea }','${p.PAddress }','${p.PType }','${p.PPort }','${p.PIp }','${p.PCartridge }','${p.PToner }','${p.PTrait }','${p.PFunction }','${p.PPage }','${p.PAdd }','${p.PLast }','${p.PNext }')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-edit'" title="修改"></a>
-			<a href="<%=path %>/print!delete?id=${p.PId}" onclick="return confirm('确定删除吗?')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-delete'" title="删除"></a>
-		</td>
-    </tr>
     </c:forEach>
     </table>
 	</div>
 	
 	<div class="easyui-panel" style="padding:5px;width: 100%;display: none;background-color: white;">
-		<form id="f1" action="<%=path %>/print!queryOfFenye?id=${id}&num=${num}&apply=${apply }&section=${section }&dates=${dates}&datee=${datee}" method="post">
+		<form id="f1" action="<%=path %>/handle!queryOfFenye" method="post">
 		<select id="sele" style="float: left;margin-top: 3px;margin-left: 5px;" name="page.size" onchange="$('#f1').submit();">
 			<option value="5">5</option>
 			<option value="10">10</option>
