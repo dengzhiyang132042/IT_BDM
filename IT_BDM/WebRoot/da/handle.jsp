@@ -122,7 +122,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     </tr>
     <c:forEach items="${demper}" var="dp">
     <tr>
-		<td width="">${dp.DId}</td>
+		<td width="">${dp.demand.DId}</td>
 		<td width="">${dp.DApplanct }</td>
 		<td width="">${dp.DContent }</td>
 		<td width="">${dp.DType }</td>

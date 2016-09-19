@@ -70,7 +70,31 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	}
 	</script>
 	<script type="text/javascript">
-	function queryDetails() {
+	
+	function queryDetails(status) {
+		console.log( ${json}[status].demand.DId );
+		/*
+		*/
+		var table1="<table border=\"1\" class=\"table1\">";
+		table1=table1+
+		"<tr><td>编号：</td><td>"+${json}[status].demand.DId+"</td></tr>"+
+		"<tr><td>发起人：</td><td>"+${json}[status].demand.DApplicant+"</td></tr>"+
+		"<tr><td>故障描述：</td><td>"+${json}[status].demand.DContent+"</td></tr>"+
+		"<tr><td>故障类型：</td><td>"+${json}[status].demand.DType+"</td></tr>"+
+		"<tr><td>创建时间：</td><td>"+${json}[status].demand.DTimeString+"</td></tr>";
+		table1=table1+"</table>";
+		table1=table1+"<table border=\"1\" style=\"font-size: 12px;margin-top: 10px;\">";
+		table1=table1+
+		"<tr><th>处理人</th><th>处理状态</th><th>时间</th><th>被转发人</th></tr>";
+		for ( var i = 0; i < ${json}[status].performs.length; i++) {
+			table1=table1+"<tr>"+
+			"<td>"+${json}[status].performs[i].UName+"</td>"+
+			"<td>"+${json}[status].performs[i].PState+"</td>"+
+			"<td>"+${json}[status].performs[i].PTimeString+"</td>"+
+			"<td>"+${json}[status].performs[i].UNameNext+"</td></tr>";
+		}
+		table1=table1+"</table>";
+		$("#q").html(table1);
 		$("#q").window('open');
 	}
 	function forward() {
@@ -88,15 +112,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     	<form action="<%=path %>/print!queryOfFenye" method="post">
     		编号:<input name="id" type="text" value="${id }"/>
     		&nbsp;&nbsp;&nbsp;&nbsp;
-    		类型:<input name="brand" type="text" value="${brand }"/>
-    		&nbsp;&nbsp;&nbsp;&nbsp;
-    		日期:<input name="dates" type="date" value="${arae }"/>
+    		日期:<input name="dates" type="date" value="${dates }"/>
     		~
-    		<input name="datee" type="date" value="${arae }"/>
+    		<input name="datee" type="date" value="${datee }"/>
     		<br/>
     		<input type="submit" value="查询"/>
     	</form>	
     </div>
+    
     <div style="margin-bottom: 5px;">
     
     <table border="1" id="" style="font-size: 12px;">
@@ -111,35 +134,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     	<th>状态</th>
     	<th>操作</th>
     </tr>
-    
+    <c:forEach items="${demPers}" var="dp" varStatus="status">
     <tr>
-    	<td>1</td>
-    	<td>1</td>
-    	<td>1</td>
-    	<td>1</td>
-    	<td>1</td>
-    	<td>1</td>
-    	<td>1</td>
-    	<td>1</td>
+    	<td>${dp.demand.DId }</td>
+    	<td>${dp.demand.DApplicant }</td>
+    	<td>${dp.demand.DContent }</td>
+    	<td>${dp.demand.DType }</td>
+    	<td>${dp.demand.DTime }</td>
+    	<td>${dp.performs[0].UName }</td>
+    	<td>${dp.performs[0].PTime }</td>
+    	<td>${dp.performs[0].PState }</td>
     	<td>
 			<a onclick="forward()" class="easyui-linkbutton" title="转发">转发</a>
-			<a onclick="queryDetails()" class="easyui-linkbutton" title="查看详情">查看详情</a>
-		</td>
-    </tr>
-    
-    <c:forEach items="${ps}" var="p">
-    <tr>
-		<td width="">${p.PId }</td>
-		<td width="">${p.PBrand }</td>
-		<td width="">${p.PNumber }</td>
-		<td width="">${p.PArea }</td>
-		<td width="">${p.PAddress }</td>
-		<td width="">${p.PType }</td>
-		<td width="">${p.PPort }</td>
-		<td width="5%" align="center">
-			<a href="" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-delete'" title="删除">转发</a>
-			<a onclick="update('${p.PId }','${p.PBrand }','${p.PNumber }','${p.PArea }','${p.PAddress }','${p.PType }','${p.PPort }','${p.PIp }','${p.PCartridge }','${p.PToner }','${p.PTrait }','${p.PFunction }','${p.PPage }','${p.PAdd }','${p.PLast }','${p.PNext }')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-edit'" title="修改"></a>
-			<a href="<%=path %>/print!delete?id=${p.PId}" onclick="return confirm('确定删除吗?')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-delete'" title="删除"></a>
+			<a onclick="queryDetails('${status.index}')" class="easyui-linkbutton" title="查看详情">查看详情</a>
 		</td>
     </tr>
     </c:forEach>
@@ -147,7 +154,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</div>
 	
 	<div class="easyui-panel" style="padding:5px;width: 100%;display: none;background-color: white;">
-		<form id="f1" action="<%=path %>/print!queryOfFenye?id=${id}&num=${num}&apply=${apply }&section=${section }&dates=${dates}&datee=${datee}" method="post">
+		<form id="f1" action="<%=path %>/daManager!queryOfFenye" method="post">
 		<select id="sele" style="float: left;margin-top: 3px;margin-left: 5px;" name="page.size" onchange="$('#f1').submit();">
 			<option value="5">5</option>
 			<option value="10">10</option>
@@ -282,30 +289,40 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	
 	
 	<div id="a" class="easyui-window" title="故障录入" data-options="modal:true,closed:true" style="width:400px;height:auto;padding:10px;display: none;">
-		<form action="<%=path %>/print!add" method="post">
+		<form action="<%=path %>/daManager!add" method="post">
 		<table border="0" class="table1">
 			<tr>
 				<td>发起人：</td>
 				<td>
-					<input name="p.PBrand" type="text" style="width: 100%;"/>
+					<input name="d.DApplicant" type="text" style="width: 100%;"/>
 				</td>
 			</tr>
 			<tr>
 				<td>故障描述：</td>
 				<td>
-					<input name="p.PNumber" type="text" style="width: 100%;"/>
+					<input name="d.DContent" type="text" style="width: 100%;"/>
 				</td>
 			</tr>
 			<tr>
 				<td>故障类型：</td>
 				<td>
-					<input name="p.PArea" type="text" style="width: 100%;"/>
+					<select name="d.DType">
+						<option value="电脑">电脑</option>
+						<option value="VPN">VPN</option>
+						<option value="哲盟">哲盟</option>
+						<option value="IMO">IMO</option>				
+						<option value="其他">其他</option>
+					</select>
 				</td>
 			</tr>
 			<tr>
 				<td>处理人：</td>
 				<td>
-					<input name="p.PType" type="text" style="width: 100%;"/>
+					<select name="p.UNum">
+						<c:forEach items="${listUsers}" var="us">
+						<option value="${us.UNum }">${us.UName }</option>
+						</c:forEach>
+					</select>
 				</td>
 			</tr>
 			<tr>

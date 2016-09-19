@@ -79,7 +79,10 @@
 	<bean id="zs_print_zmz" class="com.zs.action.zmz.PrintAction">
 		<property name="ser" ref="zs_ser"></property>
 	</bean>
-	
+	<!-- *****************故障报修处理跟进系统************************ -->
+	<bean id="zs_manager_da" class="com.zs.action.da.DaManagerAction">
+		<property name="ser" ref="zs_ser"></property>
+	</bean>
 	<bean id="zs_handle_da" class="com.zs.action.da.DaHandleAction">
 		<property name="ser" ref="zs_ser"></property>
 	</bean>
