@@ -177,13 +177,7 @@
      <result name="succ">/success.jsp</result>
      <result name="fail">/fail.jsp</result>
   </action>
-    <action name="handle" class="zs_handle_da">	
-  	 <interceptor-ref name="mydefault" />
-     <result>/index.jsp</result>
-     <result name="handle">/da/handle.jsp</result>
-     <result name="succ">/success.jsp</result>
-     <result name="fail">/fail.jsp</result>
-  </action>
+    
   <!-- **********CompanySection************* -->
   <action name="cs" class="zs_cs">	
   	 <interceptor-ref name="mydefault" />
@@ -241,8 +235,21 @@
      <result name="fail">/fail.jsp</result>
   </action>
   
-  
-  
+  <!-- **************故障报修处理跟进系统***************** -->
+  <action name="daManager" class="zs_manager_da">	
+  	 <interceptor-ref name="mydefault" />
+     <result>/index.jsp</result>
+     <result name="manager">/da/manager.jsp</result>
+     <result name="succ">/success.jsp</result>
+     <result name="fail">/fail.jsp</result>
+  </action>
+  <action name="handle" class="zs_handle_da">	
+  	 <interceptor-ref name="mydefault" />
+     <result>/index.jsp</result>
+     <result name="handle">/da/handle.jsp</result>
+     <result name="succ">/success.jsp</result>
+     <result name="fail">/fail.jsp</result>
+  </action>
 </package>
 
 </struts>    

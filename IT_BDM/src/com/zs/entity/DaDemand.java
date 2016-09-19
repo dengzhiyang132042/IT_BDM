@@ -16,7 +16,17 @@ public class DaDemand implements java.io.Serializable {
 	private String DType;
 	private Timestamp DTime;
 
+	private String DTimeString;
+
 	// Constructors
+
+	public String getDTimeString() {
+		return DTimeString;
+	}
+
+	public void setDTimeString(String dTimeString) {
+		DTimeString = dTimeString;
+	}
 
 	/** default constructor */
 	public DaDemand() {

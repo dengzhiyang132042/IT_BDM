@@ -19,8 +19,17 @@ public class DaPerform implements java.io.Serializable {
 	private String UName;
 	private String UNameNext;
 	
+	private String PTimeString;
 	
 	// Constructors
+
+	public String getPTimeString() {
+		return PTimeString;
+	}
+
+	public void setPTimeString(String pTimeString) {
+		PTimeString = pTimeString;
+	}
 
 	/** default constructor */
 	public DaPerform() {
