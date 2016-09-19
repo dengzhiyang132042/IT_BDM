@@ -136,5 +136,13 @@ public interface IService {
 	 */
 	public String fitting2(CompanySection cs);
 
-
+	/**
+	 *张顺
+	 *<br>2016年9月19日10:44:42
+	 *<br>将所有的用户信息带出去
+	 * @param req 需要一个request
+	 * <br>带回去的是Users集合，名字是listUsers
+	 */
+	public void bringUsers(HttpServletRequest req);
+	
 }

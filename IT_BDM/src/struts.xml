@@ -177,7 +177,13 @@
      <result name="succ">/success.jsp</result>
      <result name="fail">/fail.jsp</result>
   </action>
-  
+    <action name="handle" class="zs_handle_da">	
+  	 <interceptor-ref name="mydefault" />
+     <result>/index.jsp</result>
+     <result name="handle">/da/handle.jsp</result>
+     <result name="succ">/success.jsp</result>
+     <result name="fail">/fail.jsp</result>
+  </action>
   <!-- **********CompanySection************* -->
   <action name="cs" class="zs_cs">	
   	 <interceptor-ref name="mydefault" />

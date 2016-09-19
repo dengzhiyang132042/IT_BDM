@@ -16,11 +16,30 @@ public class DaPerform implements java.io.Serializable {
 	private String PState;
 	private String UNumNext;
 	private String DId;
-
+	private String UName;
+	private String UNameNext;
+	
+	
 	// Constructors
 
 	/** default constructor */
 	public DaPerform() {
+	}
+
+	public String getUName() {
+		return UName;
+	}
+
+	public void setUName(String uName) {
+		UName = uName;
+	}
+
+	public String getUNameNext() {
+		return UNameNext;
+	}
+
+	public void setUNameNext(String uNameNext) {
+		UNameNext = uNameNext;
 	}
 
 	/** minimal constructor */
