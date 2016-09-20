@@ -145,4 +145,11 @@ public interface IService {
 	 */
 	public void bringUsers(HttpServletRequest req);
 	
+	
+	/**张顺
+	 * <br>2016年9月19日10:33:26
+	 * <br>完成dempers的组装
+	 * @param dems 查询到的需求表集合
+	 */
+	public List initDemPers(List dems);
 }

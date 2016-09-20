@@ -19,6 +19,9 @@ import com.zs.entity.CompanySection5;
 import com.zs.entity.CompanySection6;
 import com.zs.entity.CompanySection7;
 import com.zs.entity.CompanySection8;
+import com.zs.entity.DaDemPer;
+import com.zs.entity.DaDemand;
+import com.zs.entity.DaPerform;
 import com.zs.entity.FbdComputer;
 import com.zs.entity.SectionFenbodian;
 import com.zs.entity.SectionFenbu;
@@ -466,4 +469,26 @@ public class BaseService implements IService{
 		req.setAttribute("listUsers", list);
 	}	
 	
+	public List initDemPers(List dems) {
+		List demPers=new ArrayList<DaDemPer>();
+		for (int i = 0; i < dems.size(); i++) {
+			DaDemand d=(DaDemand) dems.get(i);
+			d.setDTimeString(d.getDTime().toString());
+			List pers=this.find("from DaPerform where DId = ? order by PTime desc", new Object[]{d.getDId()});
+			for (int j = 0; j < pers.size(); j++) {
+				DaPerform perform=(DaPerform) pers.get(j);
+				perform.setPTimeString(perform.getPTime().toString());
+				if (perform.getUNum()!=null && !"".equals(perform.getUNum())) {
+					Users u1=(Users) this.get(Users.class, perform.getUNum());
+					perform.setUName(u1.getUName());
+				}
+				if (perform.getUNumNext()!=null && !"".equals(perform.getUNumNext())) {
+					Users u2=(Users) this.get(Users.class, perform.getUNumNext());
+					perform.setUNameNext(u2.getUName());
+				}
+			}
+			demPers.add(new DaDemPer(d, pers));
+		}
+		return demPers;
+	}
 }

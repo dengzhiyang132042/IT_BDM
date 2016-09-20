@@ -33,7 +33,7 @@ public class DaManagerAction extends MyBaseAction implements IMyBaseAction{
 
 	DaDemand d;
 	DaPerform p;
-	List<DaDemPer> demPers;
+	List demPers;
 	
 	String id;
 	String dates;
@@ -120,32 +120,6 @@ public class DaManagerAction extends MyBaseAction implements IMyBaseAction{
 	}
 	
 	
-	/**张顺
-	 * <br>2016年9月19日10:33:26
-	 * <br>完成dempers的组装
-	 * @param dems 查询到的需求表集合
-	 */
-	private void initDemPers(List dems) {
-		demPers=new ArrayList<DaDemPer>();
-		for (int i = 0; i < dems.size(); i++) {
-			DaDemand d=(DaDemand) dems.get(i);
-			d.setDTimeString(d.getDTime().toString());
-			List pers=ser.find("from DaPerform where DId = ? order by PTime desc", new Object[]{d.getDId()});
-			for (int j = 0; j < pers.size(); j++) {
-				DaPerform perform=(DaPerform) pers.get(j);
-				perform.setPTimeString(perform.getPTime().toString());
-				if (perform.getUNum()!=null && !"".equals(perform.getUNum())) {
-					Users u1=(Users) ser.get(Users.class, perform.getUNum());
-					perform.setUName(u1.getUName());
-				}
-				if (perform.getUNumNext()!=null && !"".equals(perform.getUNumNext())) {
-					Users u2=(Users) ser.get(Users.class, perform.getUNumNext());
-					perform.setUNameNext(u2.getUName());
-				}
-			}
-			demPers.add(new DaDemPer(d, pers));
-		}
-	}
 	
 	public String queryOfFenye() throws UnsupportedEncodingException {
 		String id=getRequest().getParameter("id");
@@ -179,13 +153,13 @@ public class DaManagerAction extends MyBaseAction implements IMyBaseAction{
 			}
 			hql=hql+" order by DTime desc";
 			List dems=ser.query(hql, null, hql, page, ser);
-			initDemPers(dems);
+			demPers=ser.initDemPers(dems);
 		}else {
 			String hql="from DaDemand order by DTime desc";
 			String ss[]={};
 			String hql2="from DaDemand order by DTime desc";
 			List dems=ser.query(hql, ss, hql2, page, ser);
-			initDemPers(dems);
+			demPers=ser.initDemPers(dems);
 		}
 		ser.bringUsers(getRequest());
 		JSONArray json=JSONArray.fromObject(demPers);
@@ -199,13 +173,13 @@ public class DaManagerAction extends MyBaseAction implements IMyBaseAction{
 		String ss[]={};
 		String hql2="from DaDemand order by DTime desc";
 		List dems=ser.query(hql, ss, hql2, page, ser);
-		initDemPers(dems);
+		demPers=ser.initDemPers(dems);
 		ser.bringUsers(getRequest());
 		JSONArray json=JSONArray.fromObject(demPers);
 		getRequest().setAttribute("json", json);
 		return result;
 	}
-
+    
 	public String add() throws Exception {
 		if (d!=null) {
 			d.setDId("d"+NameOfDate.getNum());

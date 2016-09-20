@@ -88,9 +88,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		    	快速查询
 		    	<br/>
 		    	<form action="<%=path %>/print!queryOfFenye" method="post">
-		    		日期:<input name="dates" type="date" value="${arae }"/>
-		    		~
-		    		<input name="datee" type="date" value="${arae }"/>
+		    		时间:
+		    		<select>
+		    			<option>--请选择一个标准进行查询--</option>
+		    			<option>日</option>
+		    			<option>月</option>
+		    			<option>年</option>
+		    		</select>
 		    		<br/>
 		    		<input type="submit" value="查询"/>
 		    	</form>	
@@ -100,14 +104,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		    
 		    <table border="1" id="" style="font-size: 12px;">
 		    <tr>
-		    	<th>日期</th>
-		    	<th>人员</th>
-		    	<th>故障报修量</th>
-		    	<th>完成率</th>
-		    	<th>操作</th>
+		    	<th colspan="2">时间范围</th>
+		    	<th rowspan="2">故障报修量</th>
+		    	<th rowspan="2">故障完成量</th>
+		    	<th rowspan="2">完成率</th>
+		    	<th rowspan="2">操作</th>
 		    </tr>
-		    
 		    <tr>
+		    	<th>开始时间</th>
+		    	<th>结束时间</th>
+		    </tr>
+		    <tr>
+		    	<td>1</td>
 		    	<td>1</td>
 		    	<td>1</td>
 		    	<td>1</td>

@@ -86,6 +86,9 @@
 	<bean id="zs_handle_da" class="com.zs.action.da.DaHandleAction">
 		<property name="ser" ref="zs_ser"></property>
 	</bean>
+	<bean id="zs_count_da" class="com.zs.action.da.DaCountAction">
+		<property name="ser" ref="zs_ser"></property>
+	</bean>
 	<!-- *****************cs******************* -->
 	<bean id="zs_cs" class="com.zs.action.section.CompanySectionAction">
 		<property name="ser" ref="zs_ser"></property>
