@@ -1,8 +1,12 @@
 package com.zs.action.da;
 
 import java.io.UnsupportedEncodingException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+
+import net.sf.json.JSONArray;
 
 import org.apache.log4j.Logger;
 
@@ -12,8 +16,10 @@ import com.zs.entity.DaDemPer;
 import com.zs.entity.DaDemand;
 import com.zs.entity.DaPerform;
 import com.zs.entity.Users;
+import com.zs.entity.ZmVpn;
 
 import com.zs.service.IService;
+import com.zs.tools.NameOfDate;
 import com.zs.tools.Page;
 
 public class DaHandleAction extends MyBaseAction implements IMyBaseAction{
@@ -72,6 +78,10 @@ public class DaHandleAction extends MyBaseAction implements IMyBaseAction{
 		this.page = page;
 	}
 
+	public void clearOptions() {
+		// TODO Auto-generated method stub
+		
+	}
 	
 	
 	public String queryOfFenye() throws UnsupportedEncodingException {
@@ -101,7 +111,9 @@ public class DaHandleAction extends MyBaseAction implements IMyBaseAction{
 			List dems=ser.query(hql, ss, hql2, page, ser);
 			initDemPers(dems);
 		}
-		ser.receiveStructure(getRequest());
+		ser.bringUsers(getRequest());
+		JSONArray json=JSONArray.fromObject(demper);
+		getRequest().setAttribute("json", json);
 		return result;
 	}
 	
@@ -109,9 +121,11 @@ public class DaHandleAction extends MyBaseAction implements IMyBaseAction{
 		demper=new ArrayList<DaDemPer>();
 		for (int i = 0; i < dems.size(); i++) {
 			DaDemand d=(DaDemand) dems.get(i);
+			d.setDTimeString(d.getDTime().toString());
 			List pers=ser.find("from DaPerform where DId = ? order by PTime desc", new Object[]{d.getDId()});
 			for (int j = 0; j < pers.size(); j++) {
 				DaPerform perform=(DaPerform) pers.get(j);
+				perform.setPTimeString(perform.getPTime().toString());
 				if (perform.getUNum()!=null && !"".equals(perform.getUNum())) {
 					Users u1=(Users) ser.get(Users.class, perform.getUNum());
 					perform.setUName(u1.getUName());
@@ -124,11 +138,6 @@ public class DaHandleAction extends MyBaseAction implements IMyBaseAction{
 			demper.add(new DaDemPer(d, pers));
 		}
 	}
-	public void clearOptions() {
-		// TODO Auto-generated method stub
-		
-	}
-	
 	
 	public String add() throws Exception {
 		// TODO Auto-generated method stub
@@ -148,12 +157,64 @@ public class DaHandleAction extends MyBaseAction implements IMyBaseAction{
 		List dems=ser.query(hql, ss, hql2, page, ser);
 		initDemPers(dems);
 		ser.bringUsers(getRequest());
+		JSONArray json=JSONArray.fromObject(demper);
+		getRequest().setAttribute("json", json);
 		return result;
+	}
+	public String updateState() throws Exception{
+		if (d!=null && !"".equals(d.getDId())) {
+			d=(DaDemand) ser.get(DaDemand.class, d.getDId());
+			logger.debug(d);
+			//找到当前执行表数据
+			List templi=ser.find("from DaPerform where DId=? order by PTime desc", new String[]{d.getDId()});
+			if (templi.size()>0) {
+				DaPerform tmpper=(DaPerform) templi.get(0);
+				tmpper.setPTime(new Timestamp(new Date().getTime()));
+				tmpper.setPState("完成");
+				ser.update(tmpper);
+				
+//				DaPerform daPerform=new DaPerform();
+//				daPerform.setPId("p"+NameOfDate.getNum());
+//				daPerform.setDId(d.getDId());
+//				daPerform.setUNum(p.getUNumNext());
+//				Date date1=new Date();
+//				Date date2=new Date(date1.getYear(), date1.getMonth(), date1.getDate(), date1.getHours(), date1.getMinutes(), date1.getSeconds()+1);
+//				daPerform.setPTime(new Timestamp(date2.getTime()));
+//				daPerform.setPState("完成");
+//				ser.save(daPerform);
+				
+			}
+		}
+		
+		return gotoQuery();
 	}
 
 	public String update() throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		if (d!=null && !"".equals(d.getDId())) {
+			d=(DaDemand) ser.get(DaDemand.class, d.getDId());
+			//找到当前执行表数据
+			List templi=ser.find("from DaPerform where DId=? order by PTime desc", new String[]{d.getDId()});
+			if (templi.size()>0) {
+				DaPerform tmpper=(DaPerform) templi.get(0);
+				tmpper.setPTime(new Timestamp(new Date().getTime()));
+				tmpper.setUNumNext(p.getUNumNext());
+				tmpper.setPState("转发");
+				ser.update(tmpper);
+				
+				DaPerform daPerform=new DaPerform();
+				daPerform.setPId("p"+NameOfDate.getNum());
+				daPerform.setDId(d.getDId());
+				daPerform.setUNum(p.getUNumNext());
+				Date date1=new Date();
+				Date date2=new Date(date1.getYear(), date1.getMonth(), date1.getDate(), date1.getHours(), date1.getMinutes(), date1.getSeconds()+1);
+				daPerform.setPTime(new Timestamp(date2.getTime()));
+				daPerform.setPState("进行中");
+				ser.save(daPerform);
+				
+			}
+		}
+		
+		return gotoQuery();
 	}
 
 }
