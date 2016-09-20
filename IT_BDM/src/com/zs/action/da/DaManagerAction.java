@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.log4j.Logger;
+
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 import net.sf.json.JsonConfig;
@@ -36,8 +38,16 @@ public class DaManagerAction extends MyBaseAction implements IMyBaseAction{
 	String id;
 	String dates;
 	String datee;
+	String type;
 	
+	Logger logger=Logger.getLogger(DaManagerAction.class);
 	
+	public String getType() {
+		return type;
+	}
+	public void setType(String type) {
+		this.type = type;
+	}
 	public IService getSer() {
 		return ser;
 	}
@@ -92,20 +102,22 @@ public class DaManagerAction extends MyBaseAction implements IMyBaseAction{
 		id=null;
 		dates=null;
 		datee=null;
+		type=null;
 	}
-	
 	private void clearSpace() {
 		if (id!=null) {
 			id=id.trim();
 		}
 		if (dates!=null) {
-			dates=id.trim();
+			dates=dates.trim();
 		}
 		if (datee!=null) {
-			datee=id.trim();
+			datee=datee.trim();
+		}
+		if (type!=null) {
+			type=type.trim();
 		}
 	}
-	
 	
 	
 	/**张顺
@@ -146,12 +158,23 @@ public class DaManagerAction extends MyBaseAction implements IMyBaseAction{
 			clearOptions();
 		}
 		clearSpace();
+		
+		
 		if(id!=null){
+			/*
+			logger.debug(id);
+			logger.debug(type);
+			logger.debug(dates);
+			logger.debug(datee);
+			*/
 			String hql="from DaDemand where DId like '%"+id+"%'";
-			if(dates!=null){
+			if (type!=null && !type.equals("")) {
+				hql=hql+" and DType = '"+type+"'";
+			}
+			if(dates!=null && !dates.equals("")){
 				hql=hql+" and DTime >= '"+dates+"'";
 			}
-			if(datee!=null){
+			if(datee!=null && !datee.equals("")){
 				hql=hql+" and DTime <= '"+datee+"'";
 			}
 			hql=hql+" order by DTime desc";
@@ -170,6 +193,19 @@ public class DaManagerAction extends MyBaseAction implements IMyBaseAction{
 		return result;
 	}
 	
+	public String gotoQuery() throws UnsupportedEncodingException {
+		clearOptions();
+		String hql="from DaDemand order by DTime desc";
+		String ss[]={};
+		String hql2="from DaDemand order by DTime desc";
+		List dems=ser.query(hql, ss, hql2, page, ser);
+		initDemPers(dems);
+		ser.bringUsers(getRequest());
+		JSONArray json=JSONArray.fromObject(demPers);
+		getRequest().setAttribute("json", json);
+		return result;
+	}
+
 	public String add() throws Exception {
 		if (d!=null) {
 			d.setDId("d"+NameOfDate.getNum());
@@ -189,22 +225,35 @@ public class DaManagerAction extends MyBaseAction implements IMyBaseAction{
 		return null;
 	}
 
-	public String gotoQuery() throws UnsupportedEncodingException {
-		clearOptions();
-		String hql="from DaDemand order by DTime desc";
-		String ss[]={};
-		String hql2="from DaDemand order by DTime desc";
-		List dems=ser.query(hql, ss, hql2, page, ser);
-		initDemPers(dems);
-		ser.bringUsers(getRequest());
-		return result;
-	}
-
+	
 	
 
 	public String update() throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		if (d!=null && !"".equals(d.getDId())) {
+			d=(DaDemand) ser.get(DaDemand.class, d.getDId());
+			//找到当前执行表数据
+			List templi=ser.find("from DaPerform where DId=? order by PTime desc", new String[]{d.getDId()});
+			if (templi.size()>0) {
+				DaPerform tmpper=(DaPerform) templi.get(0);
+				tmpper.setPTime(new Timestamp(new Date().getTime()));
+				tmpper.setUNumNext(p.getUNumNext());
+				tmpper.setPState("转发");
+				ser.update(tmpper);
+				
+				DaPerform daPerform=new DaPerform();
+				daPerform.setPId("p"+NameOfDate.getNum());
+				daPerform.setDId(d.getDId());
+				daPerform.setUNum(p.getUNumNext());
+				Date date1=new Date();
+				Date date2=new Date(date1.getYear(), date1.getMonth(), date1.getDate(), date1.getHours(), date1.getMinutes(), date1.getSeconds()+1);
+				daPerform.setPTime(new Timestamp(date2.getTime()));
+				daPerform.setPState("进行中");
+				ser.save(daPerform);
+				
+			}
+		}
+		
+		return gotoQuery();
 	}
 
 }

@@ -29,12 +29,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<link rel="stylesheet" type="text/css" href="<%=path %>/FRAMEWORK/css/mycss.css">
 	<script type="text/javascript">
 	$(function(){
+		$("#type_sel option[value='${type}']").attr("selected",true);
 		$("#sele option[value='"+${page.size}+"']").attr("selected",true);
 		$("#eidtASubjectWindow1").show();
 		$('#tt').show();
 	});
 	
-	function update(u1,u2,u3,u4,u5,u6,u7,u8,u9,u10,u11,u12,u13,u14,u15,u16){
+	function update(u1,u2,u3,u4,u5,u6){
 		$('#u').window('open');
 		$('#u_1').val(u1);
 		$('#u_2').val(u2);
@@ -42,16 +43,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		$('#u_4').val(u4);
 		$('#u_5').val(u5);
 		$('#u_6').val(u6);
-		$('#u_7').val(u7);
-		$('#u_8').val(u8);
-		$('#u_9').val(u9);
-		$('#u_10').val(u10);
-		$('#u_11').val(u11);
-		$('#u_12').val(u12);
-		$('#u_13').val(u13);
-		$('#u_14').val(u14);
-		$('#u_15').val(u15);
-		$('#u_16').val(u16);
 	}
 	function page(no,cz){
 		var num1=$('#page').val();
@@ -85,7 +76,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		table1=table1+"</table>";
 		table1=table1+"<table border=\"1\" style=\"font-size: 12px;margin-top: 10px;\">";
 		table1=table1+
-		"<tr><th>处理人</th><th>处理状态</th><th>时间</th><th>被转发人</th></tr>";
+		"<tr><th>处理人</th><th>处理状态</th><th>最后处理时间</th><th>被转发人</th></tr>";
 		for ( var i = 0; i < ${json}[status].performs.length; i++) {
 			table1=table1+"<tr>"+
 			"<td>"+${json}[status].performs[i].UName+"</td>"+
@@ -97,8 +88,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		$("#q").html(table1);
 		$("#q").window('open');
 	}
-	function forward() {
-		$("#u").window('open');
+	function forward(u1,u2,u3,u4,u5,u6) {
+		$('#u').window('open');
+		$('#u_1').val(u1);
+		$('#u_2').val(u2);
+		$('#u_3').val(u3);
+		$('#u_4').val(u4);
+		$('#u_5').val(u5);
+		$('#u_6').val(u6);
 	}
 	</script>
   </head>
@@ -109,10 +106,20 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <div style="background-color:white;margin-bottom: 5px;padding: 5px;border: 1px solid #224466; ">
     	快速查询
     	<br/>
-    	<form action="<%=path %>/print!queryOfFenye" method="post">
+    	<form action="<%=path %>/daManager!queryOfFenye" method="post">
     		编号:<input name="id" type="text" value="${id }"/>
     		&nbsp;&nbsp;&nbsp;&nbsp;
-    		日期:<input name="dates" type="date" value="${dates }"/>
+    		故障类型:
+    		<select id="type_sel" name="type">
+    			<option value="">--请选择类型--</option>
+				<option value="电脑">电脑</option>
+				<option value="VPN">VPN</option>
+				<option value="哲盟">哲盟</option>
+				<option value="IMO">IMO</option>				
+				<option value="其他">其他</option>				
+			</select>
+    		&nbsp;&nbsp;&nbsp;&nbsp;
+    		创建日期:<input name="dates" type="date" value="${dates }"/>
     		~
     		<input name="datee" type="date" value="${datee }"/>
     		<br/>
@@ -130,7 +137,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     	<th>故障类型</th>
     	<th>创建时间</th>
     	<th>当前处理人</th>
-    	<th>处理时间</th>
+    	<th>最后处理时间</th>
     	<th>状态</th>
     	<th>操作</th>
     </tr>
@@ -145,7 +152,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     	<td>${dp.performs[0].PTime }</td>
     	<td>${dp.performs[0].PState }</td>
     	<td>
-			<a onclick="forward()" class="easyui-linkbutton" title="转发">转发</a>
+			<a onclick="forward('${dp.demand.DId }','${dp.demand.DApplicant }','${dp.demand.DContent }','${dp.demand.DType }','${dp.demand.DTime }','${dp.performs[0].UName }')" class="easyui-linkbutton" title="转发">转发</a>
 			<a onclick="queryDetails('${status.index}')" class="easyui-linkbutton" title="查看详情">查看详情</a>
 		</td>
     </tr>
@@ -154,7 +161,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</div>
 	
 	<div class="easyui-panel" style="padding:5px;width: 100%;display: none;background-color: white;">
-		<form id="f1" action="<%=path %>/daManager!queryOfFenye" method="post">
+		<form id="f1" action="<%=path %>/daManager!queryOfFenye?id=${id}&type=${type}&dates=${dates}&datee=${datee}" method="post">
 		<select id="sele" style="float: left;margin-top: 3px;margin-left: 5px;" name="page.size" onchange="$('#f1').submit();">
 			<option value="5">5</option>
 			<option value="10">10</option>
@@ -184,48 +191,52 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</div>
 	
 	<div id="u" class="easyui-window" title="转发" data-options="modal:true,closed:true" style="width:400px;height:auto;padding:10px;display: none;">
-		<form action="<%=path %>/print!update" method="post">
+		<form action="<%=path %>/daManager!update" method="post">
 		<table border="0" class="table1">
 			<tr>
 				<td>编号：</td>
 				<td>
-					<input id="u_1" name="p.PId" type="text" style="width: 100%;" readonly="readonly"/>
+					<input id="u_1" name="d.DId" type="text" style="width: 100%;" readonly="readonly"/>
 				</td>
 			</tr>
 			<tr>
 				<td>发起人：</td>
 				<td>
-					<input id="u_2" name="p.PBrand" type="text" style="width: 100%;"/>
+					<input id="u_2" name="d.DApplicant" type="text" style="width: 100%;" readonly="readonly"/>
 				</td>
 			</tr>
 			<tr>
 				<td>故障描述：</td>
 				<td>
-					<input id="u_3" name="p.PNumber" type="text" style="width: 100%;"/>
+					<input id="u_3" name="d.DContent" type="text" style="width: 100%;" readonly="readonly"/>
 				</td>
 			</tr>
 			<tr>
 				<td>故障类型：</td>
 				<td>
-					<input id="u_4" name="p.PArea" type="text" style="width: 100%;"/>
+					<input id="u_4" name="d.DContent" type="text" style="width: 100%;" readonly="readonly"/>
 				</td>
 			</tr>
 			<tr>
 				<td>创建时间：</td>
 				<td>
-					<input id="u_5" name="p.PAddress" type="text" style="width: 100%;"/>
+					<input id="u_5" name="d.DTime" type="text" style="width: 100%;" readonly="readonly"/>
 				</td>
 			</tr>
 			<tr>
-				<td>处理人：</td>
+				<td>当前处理人：</td>
 				<td>
-					<input id="u_6" name="p.PType" type="text" style="width: 100%;"/>
+					<input id="u_6" type="text" style="width: 100%;" readonly="readonly"/>
 				</td>
 			</tr>
 			<tr>
 				<td>被转发人：</td>
 				<td>
-					<input id="u_7" name="p.PPort" type="text" style="width: 100%;"/>
+					<select name="p.UNumNext">
+						<c:forEach items="${listUsers}" var="us">
+						<option value="${us.UNum }">${us.UName }</option>
+						</c:forEach>
+					</select>
 				</td>
 			</tr>
 			<tr>
@@ -239,52 +250,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	
 	   
 	<div id="q" class="easyui-window" title="查看详情" data-options="modal:true,closed:true" style="width:400px;height:auto;padding:10px;display: none;">
-		<table border="1" class="table1">
-			<tr>
-				<td width="85px;">编号：</td>
-				<td>
-					1
-				</td>
-			</tr>
-			<tr>
-				<td>发起人：</td>
-				<td>
-					1
-				</td>
-			</tr>
-			<tr>
-				<td>故障描述：</td>
-				<td>
-					1
-				</td>
-			</tr>
-			<tr>
-				<td>故障类型：</td>
-				<td>
-					1
-				</td>
-			</tr>
-			<tr>
-				<td>创建时间：</td>
-				<td>
-					1
-				</td>
-			</tr>
-		</table>
-		<table border="1" style="font-size: 12px;margin-top: 10px;">
-			<tr>
-				<th>处理人</th>
-				<th>处理状态</th>
-				<th>时间</th>
-				<th>被转发人</th>
-			</tr>
-			<tr>
-				<td>1</td>
-				<td>1</td>
-				<td>1</td>
-				<td>1</td>
-			</tr>
-		</table>
 	</div>
 	
 	
