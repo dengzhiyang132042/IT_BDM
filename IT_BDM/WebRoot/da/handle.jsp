@@ -29,6 +29,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<link rel="stylesheet" type="text/css" href="<%=path %>/FRAMEWORK/css/mycss.css">
 	<script type="text/javascript">
 	$(function(){
+		$("#type_sel option[value='${type}']").attr("selected",true);
 		$("#sele option[value='"+${page.size}+"']").attr("selected",true);
 		$("#eidtASubjectWindow1").show();
 		$('#tt').show();
@@ -88,8 +89,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		$("#q").window('open');
 	}
 	
-	function forward(u1,u2,u3,u4,u5,u6) {
-		if($("#select_id").val()=="forward"){
+	function forward(u1,u2,u3,u4,u5,u6,u7) {
+		if($("#"+u7).val()=="forward"){
 			$("#u").window('open');
 			$('#u_1').val(u1);
 			$('#u_2').val(u2);
@@ -98,109 +99,123 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			$('#u_5').val(u5);
 			$('#u_6').val(u6);
 		}
-		if($("#select_id").val()=="notComplete"){
-			
-			return confirm('确定未完成吗?');
-		}
-		if($("#select_id").val()=="complete"){
+		if($("#"+u7).val()=="notComplete"){
 			$('#uc_1').val(u1);
-			$('#uc_2').val(u2);
-			$('#c').window('open');
-			$('#c').submit();
-			return confirm('确定已完成吗?');
+			var span="<span>确定未完成？</span>";
+			span=span+"<input id=\"uc_2\" name=\"cState\" type=\"text\" style=\"display:none;\" value=\"未完成\"/>";
+			$("#sTest").html(span);
+			$("#c").window('open');
+		}
+		if($("#"+u7).val()=="complete"){
+			$('#uc_1').val(u1);
+			var span="<span>确定未完成？</span>";
+			span=span+"<input id=\"uc_2\" name=\"cState\" type=\"text\" style=\"display:none;\" value=\"完成\"/>";
+			$("#sTest").html(span);
+			$("#c").window('open');
 		}
 	}
-	
+	function Texit(){
+		window.location.reload();
+	}
 	</script>
   </head>
   
   <body>
     
     <div class="easyui-panel" title="故障处理" style="padding: 5px;display: none;" data-options="tools:'#tt'">
-    <div style="background-color:white;margin-bottom: 5px;padding: 5px;border: 1px solid #224466; ">
+	    <div style="background-color:white;margin-bottom: 5px;padding: 5px;border: 1px solid #224466; ">
     	快速查询
     	<br/>
     	<form action="<%=path %>/handle!queryOfFenye" method="post">
     		编号:<input name="id" type="text" value="${id }"/>
     		&nbsp;&nbsp;&nbsp;&nbsp;
-    		类型:<input name="brand" type="text" value="${brand }"/>
+    		故障类型:
+    		<select id="type_sel" name="type">
+    			<option value="">--请选择类型--</option>
+				<option value="电脑">电脑</option>
+				<option value="VPN">VPN</option>
+				<option value="哲盟">哲盟</option>
+				<option value="IMO">IMO</option>				
+				<option value="其他">其他</option>				
+			</select>
     		&nbsp;&nbsp;&nbsp;&nbsp;
-    		日期:<input name="dates" type="date" value="${arae }"/>
+    		创建日期:<input name="dates" type="date" value="${dates }"/>
     		~
-    		<input name="datee" type="date" value="${arae }"/>
+    		<input name="datee" type="date" value="${datee }"/>
     		<br/>
     		<input type="submit" value="查询"/>
     	</form>	
-    </div>
-    <div style="margin-bottom: 5px;">
-    
-    <table border="1" id="" style="font-size: 12px;">
-    <tr>
-    	<th>编号</th>
-    	<th>发起人</th>
-    	<th>故障描述</th>
-    	<th>故障类型</th>
-    	<th>创建时间</th>
-    	<th>当前处理人</th>
-    	<th>处理时间</th>
-    	<th>状态</th>
-    	<th>操作</th>
-    </tr>
-    <c:forEach items="${demper}" var="dp" varStatus="status">
-    <tr>
-		<td>${dp.demand.DId }</td>
-    	<td>${dp.demand.DApplicant }</td>
-    	<td>${dp.demand.DContent }</td>
-    	<td>${dp.demand.DType }</td>
-    	<td>${dp.demand.DTime }</td>
-    	<td>${dp.performs[0].UName }</td>
-    	<td>${dp.performs[0].PTime }</td>
-    	<td>${dp.performs[0].PState }</td>
-		<td>
-			<select onchange="forward('${dp.demand.DId }','${dp.demand.DApplicant }','${dp.demand.DContent }','${dp.demand.DType }','${dp.demand.DTime }','${dp.performs[0].UName }')" id="select_id" name="select_id">
-				<option value="notComplete">未完成</option>
-				<option value="complete">完成</option>
-				<option value="forward">转发</option>
+   		</div>
+	    <div style="margin-bottom: 5px;">
+	    
+		    <table border="1" id="" style="font-size: 12px;">
+		    <tr>
+		    	<th>编号</th>
+		    	<th>发起人</th>
+		    	<th>故障描述</th>
+		    	<th>故障类型</th>
+		    	<th>创建时间</th>
+		    	<th>当前处理人</th>
+		    	<th>处理时间</th>
+		    	<th>状态</th>
+		    	<th>操作</th>
+		    </tr>
+		    <c:forEach items="${demper}" var="dp" varStatus="status">
+		    <tr>
+				<td>${dp.demand.DId }</td>
+		    	<td>${dp.demand.DApplicant }</td>
+		    	<td>${dp.demand.DContent }</td>
+		    	<td>${dp.demand.DType }</td>
+		    	<td>${dp.demand.DTime }</td>
+		    	<td>${dp.performs[0].UName }</td>
+		    	<td>${dp.performs[0].PTime }</td>
+		    	<td>${dp.performs[0].PState }</td>
+				<td>
+					<select onchange="forward('${dp.demand.DId }','${dp.demand.DApplicant }','${dp.demand.DContent }','${dp.demand.DType }','${dp.demand.DTime }','${dp.performs[0].UName }','select_id${status.index}')" id="select_id${status.index}" name="select_id">
+						<option value="">状态...</option>
+						<option value="notComplete">未完成</option>
+						<option value="complete">完成</option>
+						<option value="forward">转发</option>
+					</select>
+					<a onclick="queryDetails('${status.index}')"  class="easyui-linkbutton"  title="查看详情">查看详情</a>
+				</td>
+		    </tr>
+		    </c:forEach>
+		    </table>
+		</div>
+	
+		<div class="easyui-panel" style="padding:5px;width: 100%;display: none;background-color: white;">
+			<form id="f1" action="<%=path %>/handle!queryOfFenye?id=${id}&type=${type}&dates=${dates}&datee=${datee}" method="post">
+			<select id="sele" style="float: left;margin-top: 3px;margin-left: 5px;" name="page.size" onchange="$('#f1').submit();">
+				<option value="5">5</option>
+				<option value="10">10</option>
+				<option value="15">15</option>
 			</select>
-			<a onclick="queryDetails('${status.index}')"  class="easyui-linkbutton"  title="查看详情">查看详情</a>
-		</td>
-    </tr>
-    </c:forEach>
-    </table>
+			
+			<span style="float: left;margin-left: 5px;">
+			<span style="color: #A5A5A5;">|</span>
+			<a onclick="page(1,2)" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-last'" title="首页"></a>
+			<a onclick="page(-1,1)" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-l'" title="上一页"></a>
+			<span style="color: #A5A5A5;">|</span>
+			</span>
+			
+			<span style="float: left;margin-top: 3px;margin-left: 5px;">
+			<input id="page" name="page.pageOn" type="number" style="width: 50px;height: 20px;" value="${page.pageOn }" min="1" max="${page.pageMax }" onchange="$('#f1').submit();"/>
+			</span>
+			
+			<span style="float: left;margin-top: 5px;margin-left: 5px;">/${page.pageMax }</span>
+			
+			<span style="float: left;margin-left: 5px;">
+			<span style="color: #A5A5A5;">|</span>
+			<a onclick="page(1,1)" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-n'" title="下一页"></a>
+			<a onclick="page('${page.pageMax}',2)" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-next'" title="末页"></a>
+			</span>
+			</form>
+		</div>
 	</div>
 	
-	<div class="easyui-panel" style="padding:5px;width: 100%;display: none;background-color: white;">
-		<form id="f1" action="<%=path %>/handle!queryOfFenye" method="post">
-		<select id="sele" style="float: left;margin-top: 3px;margin-left: 5px;" name="page.size" onchange="$('#f1').submit();">
-			<option value="5">5</option>
-			<option value="10">10</option>
-			<option value="15">15</option>
-		</select>
-		
-		<span style="float: left;margin-left: 5px;">
-		<span style="color: #A5A5A5;">|</span>
-		<a onclick="page(1,2)" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-last'" title="首页"></a>
-		<a onclick="page(-1,1)" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-l'" title="上一页"></a>
-		<span style="color: #A5A5A5;">|</span>
-		</span>
-		
-		<span style="float: left;margin-top: 3px;margin-left: 5px;">
-		<input id="page" name="page.pageOn" type="number" style="width: 50px;height: 20px;" value="${page.pageOn }" min="1" max="${page.pageMax }" onchange="$('#f1').submit();"/>
-		</span>
-		
-		<span style="float: left;margin-top: 5px;margin-left: 5px;">/${page.pageMax }</span>
-		
-		<span style="float: left;margin-left: 5px;">
-		<span style="color: #A5A5A5;">|</span>
-		<a onclick="page(1,1)" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-n'" title="下一页"></a>
-		<a onclick="page('${page.pageMax}',2)" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-next'" title="末页"></a>
-		</span>
-		</form>
-	</div>
-	</div>
-	
-	<div id="u" class="easyui-window" title="转发" data-options="modal:true,closed:true" style="width:400px;height:auto;padding:10px;display: none;">
-		<form action="<%=path %>/daManager!update" method="post">
+	<div id="u" class="easyui-window" title="转发" data-options="modal:true,closed:true" style="width:400px;height:auto;padding:10px;display:none;">
+		<form action="<%=path %>/handle!update" method="post">
 		<table border="0" class="table1">
 			<tr>
 				<td>编号：</td>
@@ -243,7 +258,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<td>
 					<select name="p.UNumNext">
 						<c:forEach items="${listUsers}" var="us">
-						<option value="${us.UNum }">${us.UName }</option>
+							<option value="${us.UNum }">${us.UName }</option>
 						</c:forEach>
 					</select>
 				</td>
@@ -261,13 +276,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<div id="q" class="easyui-window" title="查看详情" data-options="modal:true,closed:true" style="width:400px;height:auto;display: none;">
 		
 	</div>
-	<div id="c" style="display: none;">
-		<form action="<%=path %>/handle!updateState?" method="post">
-			<input id="uc_1" name="d.DId" type="text" style="display: none;" />
-			<input id="uc_2" name="p.PState" type="text" style="display: none;"/>
+	<div id="c" class="easyui-window" data-options="modal:true,closed:true"  style="width:300px;height:200px;display: none;" title="提示窗口">
+		<form action="<%=path %>/handle!updateState" method="post">
+			<input id="uc_1" name="cid" type="text" style="display: none;" />
+			<div id="sTest" style="font-size:20px;font-weight:bold;width:150px;margin:30px 0 30px 90px;">
+			</div>
+			<div style="float:left;margin:20px 25px 0 50px;">
+				<input  type="submit" style="width:80px;height:30px;font-size:15px;" value="确 定"/>
+			</div>
+			<div style="float:left;margin:20px 20px 0 0px;">
+				<input type="button" style="width:80px;height:30px;font-size:15px;" value="取 消" onclick="Texit()"/>
+			</div>
 		</form>
 	</div>
-	
 	
 	<div id="tt" style="display: none;">
 		<a class="icon-add" onclick="$('#a').window('open')" style="margin-left: 10px;" title="添加"></a>
