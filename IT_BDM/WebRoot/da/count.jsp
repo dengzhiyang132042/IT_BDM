@@ -29,6 +29,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<link rel="stylesheet" type="text/css" href="<%=path %>/FRAMEWORK/css/mycss.css">
 	<script type="text/javascript">
 	$(function(){
+		$("#sel_dt option[value='${filtrate}']").attr("selected",true);
 		$("#sele option[value='"+${page.size}+"']").attr("selected",true);
 		$("#eidtASubjectWindow1").show();
 		$('#tt').show();
@@ -70,7 +71,27 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	}
 	</script>
 	<script type="text/javascript">
-	function queryDetails() {
+	function queryDetails(status) {
+		/*
+		console.log(${json}[status].demPer.length);
+		*/
+		var table1="<table border=\"1\" style=\"font-size: 12px;margin-top: 10px;\">";
+		table1=table1+
+		"<tr><th>编号</th><th>发起人</th><th>故障描述</th><th>故障类型</th><th>创建时间</th><th>当前处理人</th><th>最后处理时间</th><th>状态</th></tr>";
+		for ( var i = 0; i < ${json}[status].demPer.length; i++) {
+			table1=table1+"<tr>"+
+			"<td>"+${json}[status].demPer[i].demand.DId+"</td>"+
+			"<td>"+${json}[status].demPer[i].demand.DApplicant+"</td>"+
+			"<td>"+${json}[status].demPer[i].demand.DContent+"</td>"+
+			"<td>"+${json}[status].demPer[i].demand.DType+"</td>"+
+			"<td>"+${json}[status].demPer[i].demand.DTimeString+"</td>"+
+			"<td>"+${json}[status].demPer[i].performs[0].UName+"</td>"+
+			"<td>"+${json}[status].demPer[i].performs[0].PTimeString+"</td>"+
+			"<td>"+${json}[status].demPer[i].performs[0].PState+"</td>"+
+			"</tr>";
+		}
+		table1=table1+"</table>";
+		$("#q").html(table1);
 		$("#q").window('open');
 	}
 	function forward() {
@@ -87,13 +108,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<div style="background-color:white;margin-bottom: 5px;padding: 5px;border: 1px solid #224466; ">
 		    	快速查询
 		    	<br/>
-		    	<form action="<%=path %>/print!queryOfFenye" method="post">
-		    		时间:
-		    		<select>
-		    			<option>--请选择一个标准进行查询--</option>
-		    			<option>日</option>
-		    			<option>月</option>
-		    			<option>年</option>
+		    	<form action="<%=path %>/count!queryOfFenye" method="post">
+		    		当前查询条件:
+		    		<select id="sel_dt" name="filtrate">
+		    			<option value="D">日</option>
+		    			<option value="M">月</option>
+		    			<option value="Y">年</option>
 		    		</select>
 		    		<br/>
 		    		<input type="submit" value="查询"/>
@@ -114,16 +134,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		    	<th>开始时间</th>
 		    	<th>结束时间</th>
 		    </tr>
+		    <c:forEach items="${counts}" var="count" varStatus="status">
 		    <tr>
-		    	<td>1</td>
-		    	<td>1</td>
-		    	<td>1</td>
-		    	<td>1</td>
-		    	<td>1</td>
+		    	<td>${count.sTime }</td>
+		    	<td>${count.eTime }</td>
+		    	<td>${count.daAll }</td>
+		    	<td>${count.daSuc }</td>
+		    	<td>${count.ratioSuc }%</td>
 		    	<td>
-					<a onclick="queryDetails()" class="easyui-linkbutton" title="查看详情">查看详情</a>
+					<a onclick="queryDetails('${status.index}')" class="easyui-linkbutton" title="查看详情">查看详情</a>
 				</td>
 		    </tr>
+		    </c:forEach>
 		    
 		    <c:forEach items="${ps}" var="p">
 		    <tr>
