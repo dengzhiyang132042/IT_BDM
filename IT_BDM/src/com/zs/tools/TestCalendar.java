@@ -12,6 +12,8 @@ public class TestCalendar {
 	 * @throws ParseException 
 	 */
 	public static void main(String[] args) throws ParseException {
+		
+		/*
 		// TODO Auto-generated method stub
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd"); 
         
@@ -46,6 +48,12 @@ public class TestCalendar {
 		ca.set(Calendar.DAY_OF_MONTH,ca.getActualMaximum(Calendar.DAY_OF_MONTH));  
 		String last = format.format(ca.getTime());
 		System.out.println("===============last:"+last);
+		*/
+		
+		//测试时间极限问题
+		Date date=new Date(2016-1900, 9-1, 20,23,59, 60);
+		System.out.println(date.toLocaleString());
+		
 	}
 	
 	

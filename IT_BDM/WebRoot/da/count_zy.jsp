@@ -115,16 +115,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   
   <body>
  	
- 	
-    <div class="tab" style="float: left;background-color: #FF0202;color: white;font-weight: ;">客服统计</div>
- 	
- 	<div class="tab" style="float: left;margin-left: 10px;" onmousemove="this.style.background='#FF0202';" onmouseout="this.style.background='#B00000';" onclick="window.location.href='<%=path %>/countZy!queryOfFenye'">专员统计</div>
+ 	<div class="tab" style="float: left;" onmousemove="this.style.background='#FF0202';" onmouseout="this.style.background='#B00000';" onclick="window.location.href='<%=path %>/count!queryOfFenye'">客服统计</div>
+    <div class="tab" style="float: left;background-color: #FF0202;color: white;font-weight: ;margin-left: 10px;">专员统计</div>
  	
  	
  	<br/>
  	<br/>
  	<br/>
- 	<div style="text-align: center;margin-right: 17px;color: white;background-color:#17B4FF;padding: 5px;font-size: 14px;font-weight:bold;">客服统计</div>
+ 	<div style="text-align: center;margin-right: 17px;color: white;background-color:#17B4FF;padding: 5px;font-size: 14px;font-weight:bold;">专员统计</div>
  	
  	
 	<div style="background-color:white;margin-bottom: 5px;padding: 5px;border: 1px solid #224466;margin-right: 17px;margin-top: 10px;">
@@ -148,6 +146,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <table border="1" id="" style="font-size: 12px;">
 	    <tr>
 	    	<th rowspan="2">序号</th>
+	    	<th rowspan="2">处理人</th>
 	    	<th colspan="2">时间范围</th>
 	    	<th rowspan="2">故障报修量</th>
 	    	<th rowspan="2">故障完成量</th>
@@ -159,6 +158,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    	<th>结束时间</th>
 	    </tr>
 	    <tr style="height: 30px;color: white;border: 0px;">
+	    	<td width="90">1</td>
 	    	<td width="90">1</td>
 	    	<td width="280">1</td>
 	    	<td width="280">1</td>
@@ -174,6 +174,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    <c:forEach items="${counts}" var="count" varStatus="status">
 	    <tr>
 	    	<td width="90">${status.index+1 }</td>
+	    	<td width="90">${count.demPer[0].performs[0].UName }</td>
 	    	<td width="280">${count.sTime }</td>
 	    	<td width="280">${count.eTime }</td>
 	    	<td width="250">${count.daAll }</td>
@@ -197,7 +198,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<td width="5%" align="center">
 				<a href="" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-delete'" title="删除">转发</a>
 				<a onclick="update('${p.PId }','${p.PBrand }','${p.PNumber }','${p.PArea }','${p.PAddress }','${p.PType }','${p.PPort }','${p.PIp }','${p.PCartridge }','${p.PToner }','${p.PTrait }','${p.PFunction }','${p.PPage }','${p.PAdd }','${p.PLast }','${p.PNext }')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-edit'" title="修改"></a>
-				<a href="<%=path%>/print!delete?id=${p.PId}" onclick="return confirm('确定删除吗?')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-delete'" title="删除"></a>
+				<a href="<%=path %>/print!delete?id=${p.PId}" onclick="return confirm('确定删除吗?')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-delete'" title="删除"></a>
 			</td>
 	    </tr>
 	    </c:forEach>
