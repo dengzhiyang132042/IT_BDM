@@ -70,7 +70,7 @@ public class MailTest {
         message.setRecipient(RecipientType.CC, cc);
 
         // 设置密送，其他的收件人不能看到密送的邮件地址
-        InternetAddress bcc = new InternetAddress(props.getProperty("mail.user"));
+        InternetAddress bcc = new InternetAddress(ccAddress);
         message.setRecipient(RecipientType.CC, bcc);
         // 设置邮件标题
         message.setSubject(title);
