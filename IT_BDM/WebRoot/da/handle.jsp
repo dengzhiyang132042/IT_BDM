@@ -99,6 +99,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			$('#u_5').val(u5);
 			$('#u_6').val(u6);
 		}
+	
 		if($("#"+u7).val()=="notComplete"){
 			$('#uc_1').val(u1);
 			var span="<span>确定未完成？</span>";
@@ -106,6 +107,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			$("#sTest").html(span);
 			$("#c").window('open');
 		}
+		
 		if($("#"+u7).val()=="complete"){
 			$('#uc_1').val(u1);
 			var span="<span>确定未完成？</span>";
@@ -250,7 +252,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<tr>
 				<td>当前处理人：</td>
 				<td>
-					<input id="u_6" type="text" style="width: 100%;" readonly="readonly"/>
+					<input id="u_6" name="cName" type="text" style="width: 100%;" readonly="readonly"/>
 				</td>
 			</tr>
 			<tr>
