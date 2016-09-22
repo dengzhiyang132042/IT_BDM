@@ -1,6 +1,7 @@
 package com.zs.entity;
 
 import java.sql.Timestamp;
+import java.util.List;
 
 /**
  * 2016年9月20日16:56:45
@@ -15,13 +16,13 @@ public class DaCount {
 	private int daSuc;
 	private int ratioSuc;
 	
-	private DaDemPer demPer;
+	private List demPer;
 	
 	
-	public DaDemPer getDemPer() {
+	public List getDemPer() {
 		return demPer;
 	}
-	public void setDemPer(DaDemPer demPer) {
+	public void setDemPer(List demPer) {
 		this.demPer = demPer;
 	}
 	public Timestamp getsTime() {

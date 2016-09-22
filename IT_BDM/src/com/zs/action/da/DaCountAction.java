@@ -2,8 +2,14 @@ package com.zs.action.da;
 
 import java.io.UnsupportedEncodingException;
 import java.sql.Timestamp;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+
+import org.apache.log4j.Logger;
 
 import net.sf.json.JSONArray;
 
@@ -27,6 +33,8 @@ public class DaCountAction extends MyBaseAction implements IMyBaseAction{
 	String result="count";
 	String result_succ="succ";
 	String result_fail="fail";
+	
+	Logger logger=Logger.getLogger(DaCountAction.class);
 //----------------------------------------------------	
 	
 	public IService getSer() {
@@ -55,17 +63,111 @@ public class DaCountAction extends MyBaseAction implements IMyBaseAction{
 	}
 //----------------------------------------------------
 	public void clearOptions() {
-		// TODO Auto-generated method stub
-		if (filtrate!=null) {
-			filtrate=filtrate.trim();
-			if (filtrate.equals("")) {
-				filtrate="D";
-			}
-		}
-	}
-	private void clearSpace() {
 		filtrate=null;
 	}
+	private void clearSpace() {
+		if (filtrate!=null && !filtrate.equals("")) {
+			filtrate=filtrate.trim();
+		}else {
+			filtrate="D";
+		}
+	}
+	
+	private void initCounts(List<DaCount> counts,String dt) throws ParseException {
+		//获取两个头尾的时间
+		DaDemand d1 = null,d2=null;
+		String str="from DaDemand order by DTime desc";
+		List list=ser.query(str, null, str, new Page(1, 0, 1), ser);
+		if (list.size()>0) {
+			d1=(DaDemand) list.get(0);//尾巴
+		}
+		str="from DaDemand order by DTime asc";
+		list=ser.query(str, null, str, new Page(1, 0, 1), ser);
+		if (list.size()>0) {
+			d2=(DaDemand) list.get(0);//头
+		}
+		if (dt.equals("D")) {
+			//获取相差天数
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+			Date date1=sdf.parse(d1.getDTime().toLocaleString());
+			Date date2=sdf.parse(d2.getDTime().toLocaleString());
+			long days=(date1.getTime()-date2.getTime())/(1000*3600*24);
+			/*
+			logger.debug(date1.toLocaleString()+" "+date2.toLocaleString());
+			logger.debug(d1.getDTime().toLocaleString()+" "+d2.getDTime().toLocaleString());
+			logger.debug(d1.getDTime().getDate());
+			*/
+			//从第一天开始循环组装数据封装
+			for (int i = 0; i <=days; i++) {
+				Date dateStart=new Date(d2.getDTime().getYear(), d2.getDTime().getMonth(), d2.getDTime().getDate()+i,0,0,0);
+				Date dateEnd=new Date(d2.getDTime().getYear(), d2.getDTime().getMonth(), d2.getDTime().getDate()+i,23, 59, 59);
+				//组装一个DaCount
+				DaCount count=new DaCount();
+				count.setsTime(new Timestamp(dateStart.getTime()));
+				count.seteTime(new Timestamp(dateEnd.getTime()));
+				//获取在该时间范围内故障报修总量
+				List list2=ser.find("from DaDemand where DTime>=? and DTime<=?", new Timestamp[]{count.getsTime(),count.geteTime()});
+				if (list2.size()!=0) {//如果为0就不要了
+					count.setDaAll(list2.size());
+					//获取在该时间范围内故障报修完成的量
+					List list3=ser.find("from DaDemand where DTime>=? and DTime<=? and DId in (select DId from DaPerform where PState='已完成')", new Timestamp[]{count.getsTime(),count.geteTime()});
+					count.setDaSuc(list3.size());
+					//计算完成率
+					if (list2.size()==0) {
+						count.setRatioSuc(0);
+					}else {
+						double ratio=(double)list3.size()/(double)list2.size()*100;
+						count.setRatioSuc((int)ratio);
+					}
+					//设置DemPer
+					List list4=ser.initDemPers(list2);
+					count.setDemPer(list4);
+					counts.add(count);
+				}
+			}
+		}else if (dt.equals("M")) {
+			//获取相差月数
+			long ms=(d1.getDTime().getYear()-d2.getDTime().getYear())*12+(d1.getDTime().getMonth()-d2.getDTime().getMonth());
+			logger.debug(ms);
+			for (int i = 0; i <= ms; i++) {
+				Date dateStart=new Date(d2.getDTime().getYear(), d2.getDTime().getMonth()+i, 1,0,0,0);
+				Calendar ca = Calendar.getInstance();    
+				ca.set(1900+d2.getDTime().getYear(), 1+d2.getDTime().getMonth(), 0);
+				Date dateTmp=ca.getTime();
+				logger.debug(dateTmp.toLocaleString()+"  "+d2.getDTime().getYear()+"  "+d2.getDTime().getMonth());
+				Date dateEnd=new Date(dateTmp.getYear(), dateTmp.getMonth()+i, dateTmp.getDate(),23,59,59);
+				//组装一个DaCount
+				DaCount count=new DaCount();
+				count.setsTime(new Timestamp(dateStart.getTime()));
+				count.seteTime(new Timestamp(dateEnd.getTime()));
+				logger.debug(count.getsTime().toLocaleString()+"  "+count.geteTime().toLocaleString());
+				//获取在该时间范围内故障报修总量
+				List list2=ser.find("from DaDemand where DTime>=? and DTime<=?", new Timestamp[]{count.getsTime(),count.geteTime()});
+				if (list2.size()!=0) {//如果为0就不要了
+					count.setDaAll(list2.size());
+					//获取在该时间范围内故障报修完成的量
+					List list3=ser.find("from DaDemand where DTime>=? and DTime<=? and DId in (select DId from DaPerform where PState='已完成')", new Timestamp[]{count.getsTime(),count.geteTime()});
+					count.setDaSuc(list3.size());
+					//计算完成率
+					if (list2.size()==0) {
+						count.setRatioSuc(0);
+					}else {
+						double ratio=(double)list3.size()/(double)list2.size()*100;
+						count.setRatioSuc((int)ratio);
+					}
+					//设置DemPer
+					List list4=ser.initDemPers(list2);
+					count.setDemPer(list4);
+					counts.add(count);
+				}
+			}
+			
+		}else if (dt.equals("Y")) {
+			
+		}
+		
+	}
+	
 	
 	public String queryOfFenye() throws UnsupportedEncodingException {
 		String id=getRequest().getParameter("id");
@@ -78,71 +180,20 @@ public class DaCountAction extends MyBaseAction implements IMyBaseAction{
 			clearOptions();
 		}
 		clearSpace();
-		
-		
+		counts=new ArrayList<DaCount>();
 		if(id!=null){
-			String hql="from DaDemand where DId like '%"+id+"%'";
-			hql=hql+" order by DTime desc";
-			List dems=ser.query(hql, null, hql, page, ser);
-			initDemPers(dems);
+			/*
+			由于是统计模块所以不需要按编号查询功能，但为了兼容，故保留，只不过其代码为空而已。
+			*/
 		}else {
-			if (filtrate.equals("D")) {//日
-				
-				
-				//获取两个头尾的时间
-				DaDemand d1,d2;
-				String str="from DaDemand order by DTime desc";
-				List list=ser.query(str, null, str, new Page(1, 0, 1), ser);
-				if (list.size()>0) {
-					d1=(DaDemand) list.get(0);//尾巴
-				}
-				str="from DaDemand order by DTime asc";
-				list=ser.query(str, null, str, new Page(1, 0, 1), ser);
-				if (list.size()>0) {
-					d2=(DaDemand) list.get(0);//头
-				}
-				//获取相差天数
-				long days=(d1.getDTime().getTime()-d2.getDTime().getTime())/(1000*3600*24);
-				//从第一天开始循环组装数据封装
-				for (int i = 0; i < days; i++) {
-					Date date=new Date(d2.getDTime().getYear(), d2.getDTime().getMonth(), d2.getDTime().getDay());
-					//组装一个DaCount
-					DaCount count=new DaCount();
-					count.setsTime(new Timestamp(date.getYear(), date.getMonth(), date.getDay(), 0, 0, 0, 0));
-					count.seteTime(new Timestamp(date.getYear(), date.getMonth(), date.getDay(), 23, 59, 59, 999));
-					//获取在该时间范围内故障报修总量
-					List list2=ser.find("from DaDemand where DTime>=? and DTime<=?", new Timestamp[]{count.getsTime(),count.geteTime()});
-					count.setDaAll(list2.size());
-					//获取在该时间范围内故障报修完成的量
-					List list3=ser.find("from DaDemand where DTime>=? and DTime<=? and state", new Timestamp[]{count.getsTime(),count.geteTime()});
-					count.setDaSuc(list3.size());
-					//写一个子查询来得到已完成的需求表集合，。。。
-					//2016年9月20日17:36:32
-					
-					
-					
-				}
-				
-				
-				
-				
-				
-				String hql="from DaDemand order by DTime desc";
-				String ss[]={};
-				String hql2="from DaDemand order by DTime desc";
-				List dems=ser.query(hql, ss, hql2, page, ser);
-				initDemPers(dems);
-				
-			}else if (filtrate.equals("M")) {//月
-				
-			}else if (filtrate.equals("Y")) {//年
-				
+			try {
+				initCounts(counts,filtrate);
+			} catch (ParseException e) {
+				e.printStackTrace();
 			}
-			
 		}
-		ser.bringUsers(getRequest());
-		
-		
+		JSONArray json=JSONArray.fromObject(counts);
+		getRequest().setAttribute("json", json);
 		return result;
 	}
 	
