@@ -17,10 +17,12 @@ import com.zs.action.IMyBaseAction;
 import com.zs.action.MyBaseAction;
 import com.zs.entity.DaCount;
 import com.zs.entity.DaDemand;
+import com.zs.entity.DaPerform;
+import com.zs.entity.Users;
 import com.zs.service.IService;
 import com.zs.tools.Page;
 
-public class DaCountAction extends MyBaseAction implements IMyBaseAction{
+public class DaCountZyAction extends MyBaseAction implements IMyBaseAction{
 
 	IService ser;
 	Page page;
@@ -30,11 +32,11 @@ public class DaCountAction extends MyBaseAction implements IMyBaseAction{
 	
 	String filtrate;
 	
-	String result="count";
+	String result="countZy";
 	String result_succ="succ";
 	String result_fail="fail";
 	
-	Logger logger=Logger.getLogger(DaCountAction.class);
+	Logger logger=Logger.getLogger(DaCountZyAction.class);
 //----------------------------------------------------	
 	
 	public IService getSer() {
@@ -77,17 +79,17 @@ public class DaCountAction extends MyBaseAction implements IMyBaseAction{
 	/**
 	 * 组装count
 	 */
-	private void initCount(Date dateStart,Date dateEnd,List counts) {
+	private void initCount(Date dateStart,Date dateEnd,List counts,Users u) {
 		//组装一个DaCount
 		DaCount count=new DaCount();
 		count.setsTime(new Timestamp(dateStart.getTime()));
 		count.seteTime(new Timestamp(dateEnd.getTime()));
 		//获取在该时间范围内故障报修总量
-		List list2=ser.find("from DaDemand where DTime>=? and DTime<=?", new Timestamp[]{count.getsTime(),count.geteTime()});
+		List list2=ser.find("from DaDemand where DId in (select DId from DaPerform where PState!= '转发' and UNum=?) and DTime>=? and DTime<?", new Object[]{u.getUNum(),count.getsTime(),count.geteTime()});
 		if (list2.size()!=0) {//如果为0就不要了
 			count.setDaAll(list2.size());
 			//获取在该时间范围内故障报修完成的量
-			List list3=ser.find("from DaDemand where DTime>=? and DTime<=? and DId in (select DId from DaPerform where PState='已完成')", new Timestamp[]{count.getsTime(),count.geteTime()});
+			List list3=ser.find("from DaDemand where DId in (select DId from DaPerform where PState = '已完成' and UNum=?) and DTime>=? and DTime<?",new Object[]{u.getUNum(),count.getsTime(),count.geteTime()});
 			count.setDaSuc(list3.size());
 			//计算完成率
 			if (list2.size()==0) {
@@ -122,43 +124,27 @@ public class DaCountAction extends MyBaseAction implements IMyBaseAction{
 		if (list.size()>0) {
 			d2=(DaDemand) list.get(0);//头
 		}
-		if (dt.equals("D")) {
-			//获取相差天数
-			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-			Date date1=sdf.parse(d1.getDTime().toLocaleString());
-			Date date2=sdf.parse(d2.getDTime().toLocaleString());
-			long days=(date1.getTime()-date2.getTime())/(1000*3600*24);
-			/*
-			logger.debug(date1.toLocaleString()+" "+date2.toLocaleString());
-			logger.debug(d1.getDTime().toLocaleString()+" "+d2.getDTime().toLocaleString());
-			logger.debug(d1.getDTime().getDate());
-			*/
-			//从第一天开始循环组装数据封装
-			for (int i = 0; i <=days; i++) {
-				Date dateStart=new Date(d2.getDTime().getYear(), d2.getDTime().getMonth(), d2.getDTime().getDate()+i,0,0,0);
-				Date dateEnd=new Date(d2.getDTime().getYear(), d2.getDTime().getMonth(), d2.getDTime().getDate()+i,23, 59, 59);
-				initCount(dateStart, dateEnd, counts);
-			}
-		}else if (dt.equals("M")) {
-			//获取相差月数
-			long ms=(d1.getDTime().getYear()-d2.getDTime().getYear())*12+(d1.getDTime().getMonth()-d2.getDTime().getMonth());
-			//logger.debug(ms);
-			for (int i = 0; i <= ms; i++) {
-				Date dateStart=new Date(d2.getDTime().getYear(), d2.getDTime().getMonth()+i, 1,0,0,0);
-				Calendar ca = Calendar.getInstance();    
-				ca.set(1900+d2.getDTime().getYear(), 1+d2.getDTime().getMonth(), 0);
-				Date dateTmp=ca.getTime();
-				//logger.debug(dateTmp.toLocaleString()+"  "+d2.getDTime().getYear()+"  "+d2.getDTime().getMonth());
-				Date dateEnd=new Date(dateTmp.getYear(), dateTmp.getMonth()+i, dateTmp.getDate(),23,59,59);
-				initCount(dateStart, dateEnd, counts);
-			}
-		}else if (dt.equals("Y")) {
-			//获得相差年数
-			long ys=d1.getDTime().getYear()-d2.getDTime().getYear();
-			for (int i = 0; i <= ys; i++) {
-				Date dateStart=new Date(d2.getDTime().getYear()+i, 0, 1,0,0,0);
-				Date dateEnd=new Date(d2.getDTime().getYear()+i, 11, 31,23,59,59);
-				initCount(dateStart, dateEnd, counts);
+		//获取用户列表
+		List<Users> users=ser.find("from Users",null);
+		for (int i = 0; i < users.size(); i++) {
+			Users u=users.get(i);
+			//查找需求表，条件是最后执行人是u
+			if (dt.equals("D")) {
+				//获取相差天数
+				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+				Date date1=sdf.parse(d1.getDTime().toLocaleString());
+				Date date2=sdf.parse(d2.getDTime().toLocaleString());
+				long days=(date1.getTime()-date2.getTime())/(1000*3600*24);
+				//从第一天开始循环组装数据封装
+				for (int k = 0; k <=days; k++) {
+					Date dateStart=new Date(d2.getDTime().getYear(), d2.getDTime().getMonth(), d2.getDTime().getDate()+k,0,0,0);
+					Date dateEnd=new Date(d2.getDTime().getYear(), d2.getDTime().getMonth(), d2.getDTime().getDate()+k,23, 59, 59);
+					initCount(dateStart, dateEnd, counts,u);
+				}				
+			}else if (dt.equals("M")) {
+				
+			}else if (dt.equals("Y")) {
+				
 			}
 		}
 	}
@@ -172,7 +158,7 @@ public class DaCountAction extends MyBaseAction implements IMyBaseAction{
 		}
 		if (cz!=null && cz.equals("yes")) {
 			page=new Page(1, 0, 5);
-			clearOptions();
+			clearOptions(); 
 		}
 		clearSpace();
 		counts=new ArrayList<DaCount>();
