@@ -250,6 +250,13 @@
      <result name="succ">/success.jsp</result>
      <result name="fail">/fail.jsp</result>
   </action>
+  <action name="auditing" class="zs_auditing_da">	
+  	 <interceptor-ref name="mydefault" />
+     <result>/index.jsp</result>
+     <result name="auditing">/da/auditing.jsp</result>
+     <result name="succ">/success.jsp</result>
+     <result name="fail">/fail.jsp</result>
+  </action>
   <action name="count" class="zs_count_da">	
   	 <interceptor-ref name="mydefault" />
      <result>/index.jsp</result>
