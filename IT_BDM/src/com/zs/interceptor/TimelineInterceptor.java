@@ -17,6 +17,10 @@ import com.opensymphony.xwork2.interceptor.AbstractInterceptor;
 import com.zs.action.xtz.SiteAction;
 import com.zs.dao.IBaseDaoOfSpring;
 import com.zs.entity.CompanySection;
+import com.zs.entity.DaCount;
+import com.zs.entity.DaDemPer;
+import com.zs.entity.DaDemand;
+import com.zs.entity.DaPerform;
 import com.zs.entity.FbdAsdl;
 import com.zs.entity.FbdComputer;
 import com.zs.entity.FbdListLink;
@@ -36,6 +40,13 @@ import com.zs.entity.XtBranches;
 import com.zs.entity.XtSite;
 import com.zs.entity.XtZmData;
 import com.zs.entity.XtZmNumber;
+import com.zs.entity.ZmBq;
+import com.zs.entity.ZmByNumber;
+import com.zs.entity.ZmOaNumber;
+import com.zs.entity.ZmPhoneLine;
+import com.zs.entity.ZmPrinter;
+import com.zs.entity.ZmVpn;
+import com.zs.entity.ZmWifi;
 import com.zs.service.IService;
 import com.zs.tools.NameOfDate;
 
@@ -319,6 +330,138 @@ public class TimelineInterceptor extends AbstractInterceptor{
 				CompanySection cs=(CompanySection) request.getAttribute("cs");
 				addTimeline(u, "添加", "SectionFenbodian", cs.getCsId());
 			}
+			//-----------------------桌面组------------------------------------------------------------
+			else if ((PRO_NAME+"/vpn!queryOfFenye").equals(path)) {//VPN查看
+				addTimeline(u, "查看", "ZmVpn", request.getParameter("id"));
+			}else if ((PRO_NAME+"/vpn!delete").equals(path)) {//VPN删除
+				addTimeline(u, "删除", "ZmVpn", request.getParameter("id"));
+			}else if ((PRO_NAME+"/vpn!update").equals(path)) {//VPN修改
+				ZmVpn vpn=(ZmVpn) request.getAttribute("vpn");
+				addTimeline(u, "修改", "ZmVpn", vpn.getVId());
+			}else if ((PRO_NAME+"/vpn!add").equals(path)) {//VPN添加
+				ZmVpn vpn=(ZmVpn) request.getAttribute("vpn");
+				addTimeline(u, "添加", "ZmVpn", vpn.getVId());
+			}
+			
+			else if ((PRO_NAME+"/by!queryOfFenye").equals(path)) {//布谷鸟邮箱账号登记查看
+				addTimeline(u, "查看", "ZmByNumber", request.getParameter("id"));
+			}else if ((PRO_NAME+"/by!delete").equals(path)) {//布谷鸟邮箱账号登记删除
+				addTimeline(u, "删除", "ZmByNumber", request.getParameter("id"));
+			}else if ((PRO_NAME+"/by!update").equals(path)) {//布谷鸟邮箱账号登记修改
+				ZmByNumber by=(ZmByNumber) request.getAttribute("by");
+				addTimeline(u, "修改", "ZmByNumber", by.getById());
+			}else if ((PRO_NAME+"/by!add").equals(path)) {//布谷鸟邮箱账号登记添加
+				ZmByNumber by=(ZmByNumber) request.getAttribute("by");
+				addTimeline(u, "添加", "ZmByNumber", by.getById());
+			}
+			
+			else if ((PRO_NAME+"/oa!queryOfFenye").equals(path)) {//OA账号登记查看
+				addTimeline(u, "查看", "ZmOaNumber", request.getParameter("id"));
+			}else if ((PRO_NAME+"/oa!delete").equals(path)) {//OA账号登记删除
+				addTimeline(u, "删除", "ZmOaNumber", request.getParameter("id"));
+			}else if ((PRO_NAME+"/oa!update").equals(path)) {//OA账号登记修改
+				ZmOaNumber oa=(ZmOaNumber) request.getAttribute("oa");
+				addTimeline(u, "修改", "ZmOaNumber", oa.getOId());
+			}else if ((PRO_NAME+"/oa!add").equals(path)) {//OA账号登记添加
+				ZmOaNumber oa=(ZmOaNumber) request.getAttribute("oa");
+				addTimeline(u, "添加", "ZmOaNumber", oa.getOId());
+			}
+			
+			else if ((PRO_NAME+"/print!queryOfFenye").equals(path)) {//打印机登记查看
+				addTimeline(u, "查看", "ZmPrinter", request.getParameter("id"));
+			}else if ((PRO_NAME+"/print!delete").equals(path)) {//打印机登记删除
+				addTimeline(u, "删除", "ZmPrinter", request.getParameter("id"));
+			}else if ((PRO_NAME+"/print!update").equals(path)) {//打印机登记修改
+				ZmPrinter p=(ZmPrinter) request.getAttribute("p");
+				addTimeline(u, "修改", "ZmPrinter", p.getPId());
+			}else if ((PRO_NAME+"/print!add").equals(path)) {//打印机登记添加
+				ZmPrinter p=(ZmPrinter) request.getAttribute("p");
+				addTimeline(u, "添加", "ZmPrinter", p.getPId());
+			}
+			
+			/*电脑还没有完成，故保留相关代码在这里
+			else if ((PRO_NAME+"/computer!queryOfFenye").equals(path)) {//电脑登记查看
+				return roleControl(arg0, r, "87");
+			}else if ((PRO_NAME+"/computer!delete").equals(path)) {//电脑登记删除
+				return roleControl(arg0, r, "88");
+			}else if ((PRO_NAME+"/computer!update").equals(path)) {//电脑登记修改
+				return roleControl(arg0, r, "89");
+			}else if ((PRO_NAME+"/computer!add").equals(path)) {//电脑登记添加
+				return roleControl(arg0, r, "90");
+			}
+			*/
+			else if ((PRO_NAME+"/bq!queryOfFenye").equals(path)) {//小仓巴枪电脑登记查看
+				addTimeline(u, "查看", "ZmBq", request.getParameter("id"));
+			}else if ((PRO_NAME+"/bq!delete").equals(path)) {//小仓巴枪电脑登记删除
+				addTimeline(u, "删除", "ZmBq", request.getParameter("id"));
+			}else if ((PRO_NAME+"/bq!update").equals(path)) {//小仓巴枪电脑登记修改
+				ZmBq bq=(ZmBq) request.getAttribute("bq");
+				addTimeline(u, "修改", "ZmBq", bq.getBId());
+			}else if ((PRO_NAME+"/bq!add").equals(path)) {//小仓巴枪电脑登记添加
+				ZmBq bq=(ZmBq) request.getAttribute("bq");
+				addTimeline(u, "添加", "ZmBq", bq.getBId());
+			}
+			
+			else if ((PRO_NAME+"/wifi!queryOfFenye").equals(path)) {//园区wifi管理查看
+				addTimeline(u, "查看", "ZmWifi", request.getParameter("id"));
+			}else if ((PRO_NAME+"/wifi!delete").equals(path)) {//园区wifi管理删除
+				addTimeline(u, "删除", "ZmWifi", request.getParameter("id"));
+			}else if ((PRO_NAME+"/wifi!update").equals(path)) {//园区wifi管理修改
+				ZmWifi wifi=(ZmWifi) request.getAttribute("wifi");
+				addTimeline(u, "修改", "ZmWifi", wifi.getWId());
+			}else if ((PRO_NAME+"/wifi!add").equals(path)) {//园区wifi管理添加
+				ZmWifi wifi=(ZmWifi) request.getAttribute("wifi");
+				addTimeline(u, "添加", "ZmWifi", wifi.getWId());
+			}
+			
+			else if ((PRO_NAME+"/phone!queryOfFenye").equals(path)) {//电话线分布查看
+				addTimeline(u, "查看", "ZmPhoneLine", request.getParameter("id"));
+			}else if ((PRO_NAME+"/phone!delete").equals(path)) {//电话线分布删除
+				addTimeline(u, "删除", "ZmPhoneLine", request.getParameter("id"));
+			}else if ((PRO_NAME+"/phone!update").equals(path)) {//电话线分布修改
+				ZmPhoneLine phone=(ZmPhoneLine) request.getAttribute("phone");
+				addTimeline(u, "修改", "ZmPhoneLine", phone.getPId());
+			}else if ((PRO_NAME+"/phone!add").equals(path)) {//电话线分布添加
+				ZmPhoneLine phone=(ZmPhoneLine) request.getAttribute("phone");
+				addTimeline(u, "添加", "ZmPhoneLine", phone.getPId());
+			}
+			//------------------------故障报修处理跟进系统----------------------------
+			//-------------------------------故障管理--------------------
+			
+			else if ((PRO_NAME+"/daManager!queryOfFenye").equals(path)) {//故障报修管理查看
+				addTimeline(u, "查看", "DaDemand", request.getParameter("id"));
+			}else if ((PRO_NAME+"/daManager!delete").equals(path)) {//故障报修管理删除
+				addTimeline(u, "删除", "DaDemand", request.getParameter("id"));
+			}else if ((PRO_NAME+"/daManager!update").equals(path)) {//故障报修管理修改
+				DaPerform p=(DaPerform) request.getAttribute("p");
+				addTimeline(u, "修改", "DaPerform", p.getPId());
+			}else if ((PRO_NAME+"/daManager!add").equals(path)) {//故障报修管理添加
+				DaDemand d=(DaDemand) request.getAttribute("d");
+				DaPerform p=(DaPerform) request.getAttribute("p");
+				addTimeline(u, "添加", "DaDemand", d.getDId());
+				addTimeline(u, "添加", "DaPerform", p.getPId());
+			}
+			
+			else if ((PRO_NAME+"/count!queryOfFenye").equals(path)) {//故障报修统计——客服统计查看
+				addTimeline(u, "查看", "DaCount", request.getParameter("id"));
+			}
+			
+			else if ((PRO_NAME+"/countZy!queryOfFenye").equals(path)) {//故障报修统计——专员统计查看
+				addTimeline(u, "查看", "DaCount", request.getParameter("id"));
+			}
+			
+			else if ((PRO_NAME+"/handle!queryOfFenye").equals(path)) {//故障报修处理查看
+				addTimeline(u, "查看", "DaPerform", request.getParameter("id"));
+			}else if ((PRO_NAME+"/handle!delete").equals(path)) {//故障报修处理删除
+				addTimeline(u, "删除", "DaPerform", request.getParameter("id"));
+			}else if ((PRO_NAME+"/handle!update").equals(path)) {//故障报修处理修改
+				DaPerform p=(DaPerform) request.getAttribute("p");
+				addTimeline(u, "修改", "DaPerform", p.getPId());
+			}else if ((PRO_NAME+"/handle!add").equals(path)) {//故障报修处理添加
+				DaPerform p=(DaPerform) request.getAttribute("p");
+				addTimeline(u, "添加", "DaPerform", p.getPId());
+			}
+			
 		}
 		close(); 
 		return result; 

@@ -128,7 +128,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<div style="background-color:white;margin-bottom: 5px;padding: 5px;border: 1px solid #224466;margin-right: 17px;margin-top: 10px;">
     	快速查询
     	<br/>
-    	<form action="<%=path %>/count!queryOfFenye" method="post">
+    	<form action="<%=path %>/countZy!queryOfFenye" method="post">
     		当前查询条件:
     		<select id="sel_dt" name="filtrate">
     			<option value="D">日</option>
