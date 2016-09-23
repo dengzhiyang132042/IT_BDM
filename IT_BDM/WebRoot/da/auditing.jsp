@@ -11,7 +11,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <head>
     <base href="<%=basePath%>">
     
-    <title>故障处理</title>
+    <title>故障处理转发审核</title>
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
 	<meta http-equiv="expires" content="0">    
@@ -35,15 +35,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		$('#tt').show();
 	});
 	
-	function update(u1,u2,u3,u4,u5,u6){
-		$('#u').window('open');
-		$('#u_1').val(u1);
-		$('#u_2').val(u2);
-		$('#u_3').val(u3);
-		$('#u_4').val(u4);
-		$('#u_5').val(u5);
-		$('#u_6').val(u6);
-	}
 	function page(no,cz){
 		var num1=$('#page').val();
 		if(cz==1){//上下页
@@ -89,29 +80,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		$("#q").window('open');
 	}
 	
-	function forward(u1,u2,u3,u4,u5,u6,u7) {
-		if($("#"+u7).val()=="forward"){
-			$("#u").window('open');
-			$('#u_1').val(u1);
-			$('#u_2').val(u2);
-			$('#u_3').val(u3);
-			$('#u_4').val(u4);
-			$('#u_5').val(u5);
-			$('#u_6').val(u6);
-		}
-	
-		if($("#"+u7).val()=="notComplete"){
+	function auditing(u1,u2) {
+		if($("#"+u2).val()=="npass"){
 			$('#uc_1').val(u1);
-			var span="<span>确定未完成？</span>";
-			span=span+"<input id=\"uc_2\" name=\"cState\" type=\"text\" style=\"display:none;\" value=\"未完成\"/>";
+			var span="<span>确定驳回转发操作？</span>";
+			span=span+"<input id=\"uc_2\" name=\"cState\" type=\"text\" style=\"display:none;\" value=\"进行中\"/>";
 			$("#sTest").html(span);
 			$("#c").window('open');
 		}
 		
-		if($("#"+u7).val()=="complete"){
+		if($("#"+u2).val()=="pass"){
 			$('#uc_1').val(u1);
-			var span="<span>确定未完成？</span>";
-			span=span+"<input id=\"uc_2\" name=\"cState\" type=\"text\" style=\"display:none;\" value=\"完成\"/>";
+			var span="<span>确定通过转发操作？</span>";
+			span=span+"<input id=\"uc_2\" name=\"cState\" type=\"text\" style=\"display:none;\" value=\"转发\"/>";
 			$("#sTest").html(span);
 			$("#c").window('open');
 		}
@@ -128,7 +109,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    <div style="background-color:white;margin-bottom: 5px;padding: 5px;border: 1px solid #224466; ">
     	快速查询
     	<br/>
-    	<form action="<%=path %>/handle!queryOfFenye" method="post">
+    	<form action="<%=path %>/auditing!queryOfFenye" method="post">
     		编号:<input name="id" type="text" value="${id }"/>
     		&nbsp;&nbsp;&nbsp;&nbsp;
     		故障类型:
@@ -163,31 +144,30 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		    	<th>操作</th>
 		    </tr>
 		    <c:forEach items="${demper}" var="dp" varStatus="status">
-		    <tr>
-				<td>${dp.demand.DId }</td>
-		    	<td>${dp.demand.DApplicant }</td>
-		    	<td style="width:300px;">${dp.demand.DContent }</td>
-		    	<td>${dp.demand.DType }</td>
-		    	<td>${dp.demand.DTime }</td>
-		    	<td>${dp.performs[0].UName }</td>
-		    	<td>${dp.performs[0].PTime }</td>
-		    	<td>${dp.performs[0].PState }</td>
-				<td>
-					<select onchange="forward('${dp.demand.DId }','${dp.demand.DApplicant }','${dp.demand.DContent }','${dp.demand.DType }','${dp.demand.DTime }','${dp.performs[0].UName }','select_id${status.index}')" id="select_id${status.index}" name="select_id">
-						<option value="">状态...</option>
-						<option value="notComplete">未完成</option>
-						<option value="complete">完成</option>
-						<option value="forward">转发</option>
-					</select>
-					<a onclick="queryDetails('${status.index}')"  class="easyui-linkbutton"  title="查看详情">查看详情</a>
-				</td>
-		    </tr>
+			    <tr>
+					<td>${dp.demand.DId }</td>
+			    	<td>${dp.demand.DApplicant }</td>
+			    	<td style="width:300px;">${dp.demand.DContent }</td>
+			    	<td>${dp.demand.DType }</td>
+			    	<td>${dp.demand.DTime }</td>
+			    	<td>${dp.performs[0].UName }</td>
+			    	<td>${dp.performs[0].PTime }</td>
+			    	<td>${dp.performs[0].PState }</td>
+					<td>
+						<select onchange="auditing('${dp.demand.DId }','select_id${status.index}')" id="select_id${status.index}" name="select_id">
+							<option value="">审核...</option>
+							<option value="pass">通过</option>
+							<option value="npass">驳回</option>
+						</select>
+						<a onclick="queryDetails('${status.index}')"  class="easyui-linkbutton"  title="查看详情">查看详情</a>
+					</td>
+			    </tr>
 		    </c:forEach>
 		    </table>
 		</div>
 	
 		<div class="easyui-panel" style="padding:5px;width: 100%;display: none;background-color: white;">
-			<form id="f1" action="<%=path %>/handle!queryOfFenye?id=${id}&type=${type}&dates=${dates}&datee=${datee}" method="post">
+			<form id="f1" action="<%=path %>/auditing!queryOfFenye?id=${id}&type=${type}&dates=${dates}&datee=${datee}" method="post">
 			<select id="sele" style="float: left;margin-top: 3px;margin-left: 5px;" name="page.size" onchange="$('#f1').submit();">
 				<option value="5">5</option>
 				<option value="10">10</option>
@@ -214,74 +194,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</span>
 			</form>
 		</div>
-	</div>
-	
-	<div id="u" class="easyui-window" title="转发" data-options="modal:true,closed:true" style="width:400px;height:auto;padding:10px;display:none;">
-		<form action="<%=path %>/handle!update" method="post">
-		<table border="0" class="table1">
-			<tr>
-				<td>编号：</td>
-				<td>
-					<input id="u_1" name="d.DId" type="text" style="width: 100%;" readonly="readonly"/>
-				</td>
-			</tr>
-			<tr>
-				<td>发起人：</td>
-				<td>
-					<input id="u_2" name="d.DApplicant" type="text" style="width: 100%;" readonly="readonly"/>
-				</td>
-			</tr>
-			<tr>
-				<td>故障描述：</td>
-				<td>
-					<input id="u_3" name="d.DContent" type="text" style="width: 100%;" readonly="readonly"/>
-				</td>
-			</tr>
-			<tr>
-				<td>故障类型：</td>
-				<td>
-					<input id="u_4" name="d.DContent" type="text" style="width: 100%;" readonly="readonly"/>
-				</td>
-			</tr>
-			<tr>
-				<td>创建时间：</td>
-				<td>
-					<input id="u_5" name="d.DTime" type="text" style="width: 100%;" readonly="readonly"/>
-				</td>
-			</tr>
-			<tr>
-				<td>当前处理人：</td>
-				<td>
-					<input id="u_6" name="cName" type="text" style="width: 100%;" readonly="readonly"/>
-				</td>
-			</tr>
-			<tr>
-				<td>被转发人：</td>
-				<td>
-					<select name="p.UNumNext">
-						<c:forEach items="${listUsers}" var="us">
-							<option value="${us.UNum }">${us.UName }</option>
-						</c:forEach>
-					</select>
-				</td>
-			</tr>
-			<tr>
-				<td colspan="2" align="center">
-					<input class="easyui-linkbutton" type="submit" style="width: 95%;padding: 5px;" value="提交"/>
-				</td>			
-			</tr>
-		</table>
-		</form>
-	</div>
-	
+	</div>	
 	   
 	<div id="q" class="easyui-window" title="查看详情" data-options="modal:true,closed:true" style="width:400px;height:auto;display: none;">
 		
 	</div>
 	<div id="c" class="easyui-window" data-options="modal:true,closed:true"  style="width:300px;height:200px;display: none;" title="提示窗口">
-		<form action="<%=path %>/handle!updateState" method="post">
+		<form action="<%=path %>/auditing!updateState" method="post">
 			<input id="uc_1" name="cid" type="text" style="display: none;" />
-			<div id="sTest" style="font-size:20px;font-weight:bold;width:150px;margin:30px 0 30px 90px;">
+			<div id="sTest" style="font-size:20px;font-weight:bold;width:200px;margin:30px 0 30px 60px;">
 			</div>
 			<div style="float:left;margin:20px 25px 0 50px;">
 				<input  type="submit" style="width:80px;height:30px;font-size:15px;" value="确 定"/>

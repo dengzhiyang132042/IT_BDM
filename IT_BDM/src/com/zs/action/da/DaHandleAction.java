@@ -240,13 +240,6 @@ public class DaHandleAction extends MyBaseAction implements IMyBaseAction{
 	}
 
 	public String update() throws Exception {
-		String sj=null;
-		String cs="453668907@qq.com";
-		String ujob=null;
-		String uname=null;
-		DaDemand dd=null;
-		
-		
 		if (d!=null && !"".equals(d.getDId())) {
 			d=(DaDemand) ser.get(DaDemand.class, d.getDId());
 			//找到当前执行表数据
@@ -255,50 +248,11 @@ public class DaHandleAction extends MyBaseAction implements IMyBaseAction{
 				DaPerform tmpper=(DaPerform) templi.get(0);
 				tmpper.setPTime(new Timestamp(new Date().getTime()));
 				tmpper.setUNumNext(p.getUNumNext());
-				tmpper.setPState("转发");
+				tmpper.setPState("审核中");
 				ser.update(tmpper);
-				
-				//故障处理模块需带信息
-				Users um =(Users) ser.get(Users.class, tmpper.getUNumNext());
-				sj = um.getUMail();
-				ujob=um.getUJob();
-				uname=um.getUName();
-				dd=(DaDemand) ser.get(DaDemand.class,d.getDId());
-				
-				DaPerform daPerform=new DaPerform();
-				daPerform.setPId("p"+NameOfDate.getNum());
-				daPerform.setDId(d.getDId());
-				daPerform.setUNum(p.getUNumNext());
-				Date date1=new Date();
-				Date date2=new Date(date1.getYear(), date1.getMonth(), date1.getDate(), date1.getHours(), date1.getMinutes(), date1.getSeconds()+1);
-				daPerform.setPTime(new Timestamp(date2.getTime()));
-				daPerform.setPState("进行中");
-				ser.save(daPerform);
 			}
 		
 		}
-		System.out.println(sj);
-		System.out.println(cs);
-		String content="<div style=\"font-family:宋体;\">"+
-		"<div style=\"height:400px;border:1px solid red;\">"+
-		"<span>&nbsp;编&nbsp;号: "+dd.getDId()+"</span>"+
-		"<span>&nbsp;时&nbsp;间: "+new SimpleDate(dd.getDTime())+"</span>"+
-		"<span>发 起 人: "+dd.getDApplicant()+"</span>"+
-		"<span>故障类型: "+dd.getDType()+"</span>"+
-		"<span>故障描述:</span>"+dd.getDContent()+"<br/>"+
-		
-		"</div>"+
-		"<br/>Best Wishes<br/>"+
-		"以流程为导向，以服务为宗旨。<br/>"+
-		"*****************************************************"+
-		"<br/>信息与流程管理部-"+ujob+"  "+uname+""+
-		"<br/>深圳市韵达速递有限公司<br/>邮箱："+sj+"<br/>"+
-		"<br/>地址：广东省深圳市龙华新区观澜大道114号（交警中队正对面）<br/>"+
-		"***************************************************<br/></div>";
-		String title="故障处理提醒";
-		System.out.println(content);
-		System.out.println(title);
-		MailTest.outputMail(sj, cs, content, title);
 		return gotoQuery();
 	}
 
