@@ -185,11 +185,13 @@ public class DaManagerAction extends MyBaseAction implements IMyBaseAction{
 			d.setDId("d"+NameOfDate.getNum());
 			d.setDTime(new Timestamp(new Date().getTime()));
 			ser.save(d);
+			getRequest().setAttribute("d", d);
 			p.setPId("p"+NameOfDate.getNum());
 			p.setDId(d.getDId());
 			p.setPTime(new Timestamp(new Date().getTime()));
 			p.setPState("进行中");
 			ser.save(p);
+			getRequest().setAttribute("p",p);
 		}
 		return gotoQuery();
 	}
@@ -213,6 +215,7 @@ public class DaManagerAction extends MyBaseAction implements IMyBaseAction{
 				tmpper.setUNumNext(p.getUNumNext());
 				tmpper.setPState("转发");
 				ser.update(tmpper);
+				getRequest().setAttribute("p",tmpper);
 				
 				DaPerform daPerform=new DaPerform();
 				daPerform.setPId("p"+NameOfDate.getNum());

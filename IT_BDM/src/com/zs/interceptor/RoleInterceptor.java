@@ -291,10 +291,129 @@ public class RoleInterceptor extends AbstractInterceptor{
 			}else if ((PRO_NAME+"/cs!add").equals(path)) {//公司组织架构添加
 				return roleControl(arg0, r, "70");
 			}
+			//------------------桌面组---------------------
+			else if ((PRO_NAME+"/vpn!queryOfFenye").equals(path)) {//VPN查看
+				return roleControl(arg0, r, "71");
+			}else if ((PRO_NAME+"/vpn!delete").equals(path)) {//VPN删除
+				return roleControl(arg0, r, "72");
+			}else if ((PRO_NAME+"/vpn!update").equals(path)) {//VPN修改
+				return roleControl(arg0, r, "73");
+			}else if ((PRO_NAME+"/vpn!add").equals(path)) {//VPN添加
+				return roleControl(arg0, r, "74");
+			}
 			
+			else if ((PRO_NAME+"/by!queryOfFenye").equals(path)) {//布谷鸟邮箱账号登记查看
+				return roleControl(arg0, r, "75");
+			}else if ((PRO_NAME+"/by!delete").equals(path)) {//布谷鸟邮箱账号登记删除
+				return roleControl(arg0, r, "76");
+			}else if ((PRO_NAME+"/by!update").equals(path)) {//布谷鸟邮箱账号登记修改
+				return roleControl(arg0, r, "77");
+			}else if ((PRO_NAME+"/by!add").equals(path)) {//布谷鸟邮箱账号登记添加
+				return roleControl(arg0, r, "78");
+			}
 			
+			else if ((PRO_NAME+"/oa!queryOfFenye").equals(path)) {//OA账号登记查看
+				return roleControl(arg0, r, "79");
+			}else if ((PRO_NAME+"/oa!delete").equals(path)) {//OA账号登记删除
+				return roleControl(arg0, r, "80");
+			}else if ((PRO_NAME+"/oa!update").equals(path)) {//OA账号登记修改
+				return roleControl(arg0, r, "81");
+			}else if ((PRO_NAME+"/oa!add").equals(path)) {//OA账号登记添加
+				return roleControl(arg0, r, "82");
+			}
 			
+			else if ((PRO_NAME+"/print!queryOfFenye").equals(path)) {//打印机登记查看
+				return roleControl(arg0, r, "83");
+			}else if ((PRO_NAME+"/print!delete").equals(path)) {//打印机登记删除
+				return roleControl(arg0, r, "84");
+			}else if ((PRO_NAME+"/print!update").equals(path)) {//打印机登记修改
+				return roleControl(arg0, r, "85");
+			}else if ((PRO_NAME+"/print!add").equals(path)) {//打印机登记添加
+				return roleControl(arg0, r, "86");
+			}
 			
+			/*电脑还没有完成，故保留相关代码在这里
+			else if ((PRO_NAME+"/computer!queryOfFenye").equals(path)) {//电脑登记查看
+				return roleControl(arg0, r, "87");
+			}else if ((PRO_NAME+"/computer!delete").equals(path)) {//电脑登记删除
+				return roleControl(arg0, r, "88");
+			}else if ((PRO_NAME+"/computer!update").equals(path)) {//电脑登记修改
+				return roleControl(arg0, r, "89");
+			}else if ((PRO_NAME+"/computer!add").equals(path)) {//电脑登记添加
+				return roleControl(arg0, r, "90");
+			}
+			*/
+			
+			else if ((PRO_NAME+"/bq!queryOfFenye").equals(path)) {//小仓巴枪电脑登记查看
+				return roleControl(arg0, r, "91");
+			}else if ((PRO_NAME+"/bq!delete").equals(path)) {//小仓巴枪电脑登记删除
+				return roleControl(arg0, r, "92");
+			}else if ((PRO_NAME+"/bq!update").equals(path)) {//小仓巴枪电脑登记修改
+				return roleControl(arg0, r, "93");
+			}else if ((PRO_NAME+"/bq!add").equals(path)) {//小仓巴枪电脑登记添加
+				return roleControl(arg0, r, "94");
+			}
+			
+			else if ((PRO_NAME+"/wifi!queryOfFenye").equals(path)) {//园区wifi管理查看
+				return roleControl(arg0, r, "95");
+			}else if ((PRO_NAME+"/wifi!delete").equals(path)) {//园区wifi管理删除
+				return roleControl(arg0, r, "96");
+			}else if ((PRO_NAME+"/wifi!update").equals(path)) {//园区wifi管理修改
+				return roleControl(arg0, r, "97");
+			}else if ((PRO_NAME+"/wifi!add").equals(path)) {//园区wifi管理添加
+				return roleControl(arg0, r, "98");
+			}
+			
+			else if ((PRO_NAME+"/phone!queryOfFenye").equals(path)) {//电话线分布查看
+				return roleControl(arg0, r, "99");
+			}else if ((PRO_NAME+"/phone!delete").equals(path)) {//电话线分布删除
+				return roleControl(arg0, r, "100");
+			}else if ((PRO_NAME+"/phone!update").equals(path)) {//电话线分布修改
+				return roleControl(arg0, r, "101");
+			}else if ((PRO_NAME+"/phone!add").equals(path)) {//电话线分布添加
+				return roleControl(arg0, r, "102");
+			}
+			//------------------------故障报修处理跟进系统----------------------------
+			//-------------------------------故障管理--------------------
+			else if ((PRO_NAME+"/daManager!queryOfFenye").equals(path)) {//故障报修管理查看
+				return roleControl(arg0, r, "103");
+			}else if ((PRO_NAME+"/daManager!delete").equals(path)) {//故障报修管理删除
+				return roleControl(arg0, r, "104");
+			}else if ((PRO_NAME+"/daManager!update").equals(path)) {//故障报修管理修改
+				return roleControl(arg0, r, "105");
+			}else if ((PRO_NAME+"/daManager!add").equals(path)) {//故障报修管理添加
+				return roleControl(arg0, r, "106");
+			}
+			
+			else if ((PRO_NAME+"/count!queryOfFenye").equals(path)) {//故障报修统计——客服统计查看
+				return roleControl(arg0, r, "107");
+			}else if ((PRO_NAME+"/count!delete").equals(path)) {//故障报修统计——客服统计删除
+				return roleControl(arg0, r, "108");
+			}else if ((PRO_NAME+"/count!update").equals(path)) {//故障报修统计——客服统计修改
+				return roleControl(arg0, r, "109");
+			}else if ((PRO_NAME+"/count!add").equals(path)) {//故障报修统计——客服统计添加
+				return roleControl(arg0, r, "110");
+			}
+			
+			else if ((PRO_NAME+"/countZy!queryOfFenye").equals(path)) {//故障报修统计——专员统计查看
+				return roleControl(arg0, r, "111");
+			}else if ((PRO_NAME+"/countZy!delete").equals(path)) {//故障报修统计——专员统计删除
+				return roleControl(arg0, r, "112");
+			}else if ((PRO_NAME+"/countZy!update").equals(path)) {//故障报修统计——专员统计修改
+				return roleControl(arg0, r, "113");
+			}else if ((PRO_NAME+"/countZy!add").equals(path)) {//故障报修统计——专员统计添加
+				return roleControl(arg0, r, "114");
+			}
+			
+			else if ((PRO_NAME+"/handle!queryOfFenye").equals(path)) {//故障报修处理查看
+				return roleControl(arg0, r, "115");
+			}else if ((PRO_NAME+"/handle!delete").equals(path)) {//故障报修处理删除
+				return roleControl(arg0, r, "116");
+			}else if ((PRO_NAME+"/handle!update").equals(path)) {//故障报修处理修改
+				return roleControl(arg0, r, "117");
+			}else if ((PRO_NAME+"/handle!add").equals(path)) {//故障报修处理添加
+				return roleControl(arg0, r, "118");
+			}
 			
 		}
 		close(); 
