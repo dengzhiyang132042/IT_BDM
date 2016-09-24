@@ -229,12 +229,12 @@ public class DaAuditingAction extends MyBaseAction implements IMyBaseAction{
 		String State=getRequest().getParameter("cState");
 		//邮件发送所需数据
 		String cs="453668907@qq.com";
-		String content="<style type=\"text/css\">span{display:block;margin:5px 0;} .table1{width: 100%;} .table1 tr td{text-align:left;padding-top: 5px;padding-bottom: 5px;}</style>";
+		String content="<style type=\"text/css\">span{display:block;margin:5px 0;font-size:18px;} .table1{width:800px;font-size；18px;} .tleft{text-align:left;} .tright{text-align:right;}}</style>";
 		String title=null;
+		String sj=null;
 		Users um = null;
+		Users umnext=null;
 		DaDemand dd =null;
-		DaPerform dp=null;
-		Users umnext = null;
 		DaPerform tmpper=null;
 		
 		
@@ -244,6 +244,7 @@ public class DaAuditingAction extends MyBaseAction implements IMyBaseAction{
 				tmpper=(DaPerform) templi.get(0);
 				tmpper.setPTime(new Timestamp(new Date().getTime()));
 				tmpper.setPState(State);
+				
 				ser.update(tmpper);
 				//添加表信息
 				DaPerform daPerform=new DaPerform();
@@ -256,18 +257,22 @@ public class DaAuditingAction extends MyBaseAction implements IMyBaseAction{
 				daPerform.setPState("进行中");
 				ser.save(daPerform);
 				//邮件模块需要带的数据
-				um = (Users) ser.get(Users.class, tmpper.getUNumNext());
+				um = (Users) ser.get(Users.class, tmpper.getUNum());
+				umnext = (Users) ser.get(Users.class, tmpper.getUNumNext());
 				dd = (DaDemand) ser.get(DaDemand.class,id);
 			}
 			//编写邮件内容
 			content=content+"<div style=\"font-family:微软雅黑;font-size；18px;\">"+
 			"<div style=\"height:400px;\">"+
-			"<span>&nbsp;编&nbsp;号: "+dd.getDId()+"</span>"+
-			"<span>&nbsp;时&nbsp;间: "+new SimpleDate(dd.getDTime())+"</span>"+
-			"<span>发 起 人: "+dd.getDApplicant()+"</span>"+
-			"<span>故障类型: "+dd.getDType()+"</span>"+
+			"<span>Dear "+umnext.getUName()+"</span>"+
+			"<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;您收到有"+um.getUName()+"转发给您的故障处理，请尽快解决！ 详情如下</span>"+
+			"<table class=\"table1\">" +
+			"<tr>" +
+			"<td class=\"tleft\">编&nbsp;&nbsp; 号:</td><td class:\"tright\">"+dd.getDId()+"</td><td class=\"tleft\">发起人:</td><td class:\"tright\">"+dd.getDApplicant()+"</td></tr>" +
+			"<tr><td class=\"tleft\">故障类型:</td><td class:\"tright\">"+dd.getDType()+"</td><td class=\"tleft\">创建时间:</td><td class:\"tright\">"+new SimpleDate(dd.getDTime())+"</td></tr>" +
+			"<table/>"+
 			"<span>故障描述:</span>"+
-			"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+dd.getDContent()+"<br/>"+
+			"<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+dd.getDContent()+"</span>"+
 			"</div>"+
 			"<br/>Best Wishes<br/>"+
 			"以流程为导向，以服务为宗旨。<br/>"+
@@ -278,18 +283,19 @@ public class DaAuditingAction extends MyBaseAction implements IMyBaseAction{
 			"***************************************************<br/></div>";
 			//邮件标题
 			title="故障处理提醒";
+			sj=umnext.getUMail();
 			
 		}else if(id!=null&&State.equals("进行中")){
 			List templi=ser.find("from DaPerform where DId=? order by PTime desc", new String[]{id});
 			if(templi.size()>0){
 				tmpper=(DaPerform) templi.get(0);
 				tmpper.setPTime(new Timestamp(new Date().getTime()));
+				umnext = (Users) ser.get(Users.class, tmpper.getUNumNext());
 				tmpper.setUNumNext("");
 				tmpper.setPState(State);
 				ser.update(tmpper);
 				um=(Users) ser.get(Users.class, tmpper.getUNum());
 				dd = (DaDemand) ser.get(DaDemand.class,id);
-				System.out.println(um.getUName());
 			}
 			//编写邮件内容
 			content=content+"<div style=\"font-family:微软雅黑;font-size；18px;\">"+
@@ -304,7 +310,7 @@ public class DaAuditingAction extends MyBaseAction implements IMyBaseAction{
 			"<td>编号</td><td>发起人</td><td>创建时间</td><td>故障类型</td><td>故障描述</td><td>转发者</td><td>状态</td><td>被转发者</td><td>备注</td><td>时间</td></tr>" +
 			"<tr><td>"+id+"</td><td>"+dd.getDApplicant()+"</td><td>"+new SimpleDate(dd.getDTime())+"</td>" +
 			"<td>"+dd.getDType()+"</td><td>"+dd.getDContent()+"</td><td>"+um.getUName()+"</td>" +
-			"<td>"+tmpper.getPState()+"</td><td>"+um.getUName()+"</td><td>转发驳回</td><td>"+new SimpleDate(tmpper.getPTime())+"</td>" +
+			"<td>"+tmpper.getPState()+"</td><td>"+umnext.getUName()+"</td><td>转发驳回</td><td>"+new SimpleDate(tmpper.getPTime())+"</td>" +
 			"</tr>" +
 			"<table/>"+
 			"</div>"+
@@ -317,12 +323,9 @@ public class DaAuditingAction extends MyBaseAction implements IMyBaseAction{
 			"***************************************************<br/></div>";
 			//邮件标题
 			title="故障处理转发驳回提醒";
+			sj=um.getUMail();
 		}
-		System.out.println(um.getUMail());
-		System.out.println(cs);
-		System.out.println(content);
-		System.out.println(title);
-		MailTest.outputMail(um.getUMail(), cs, content, title);
+		MailTest.outputMail(sj, cs, content, title);
 		return gotoQuery();
 	}
 

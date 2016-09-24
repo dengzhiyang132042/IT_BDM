@@ -154,7 +154,7 @@ public class DaHandleAction extends MyBaseAction implements IMyBaseAction{
 		}
 		clearSpace();
 		if(id!=null){
-			String hql="from DaDemand where DId like '%"+id+"%'";
+			String hql="from DaDemand where DId like '%"+id+"%' and DId in (select DId from DaPerform where	UNum ='yd-7264')";
 			if (type!=null && !type.equals("")) {
 				hql=hql+" and DType = '"+type+"'";
 			}
@@ -168,9 +168,9 @@ public class DaHandleAction extends MyBaseAction implements IMyBaseAction{
 			List dems=ser.query(hql, null, hql, page, ser);
 			demper=ser.initDemPers(dems);
 		}else {
-			String hql="from DaDemand order by DTime desc";
+			String hql="from DaDemand where DId in (select DId from DaPerform where	UNum ='yd-7264') order by DTime desc";
 			String ss[]={};
-			String hql2="from DaDemand order by DTime desc";
+			String hql2="from DaDemand where DId in (select DId from DaPerform where UNum ='yd-7264') order by DTime desc";
 			List dems=ser.query(hql, ss, hql2, page, ser);
 			initDemPers(dems);
 		}
@@ -214,9 +214,9 @@ public class DaHandleAction extends MyBaseAction implements IMyBaseAction{
 
 	public String gotoQuery() throws UnsupportedEncodingException {
 		clearOptions();
-		String hql="from DaDemand order by DTime desc";
+		String hql="from DaDemand where DId in (select DId from DaPerform where	UNum ='yd-7264') order by DTime desc";
 		String ss[]={};
-		String hql2="from DaDemand order by DTime desc";
+		String hql2="from DaDemand where DId in (select DId from DaPerform where UNum ='yd-7264') order by DTime desc";
 		List dems=ser.query(hql, ss, hql2, page, ser);
 		initDemPers(dems);
 		ser.bringUsers(getRequest());

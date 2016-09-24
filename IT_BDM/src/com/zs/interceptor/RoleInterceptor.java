@@ -291,6 +291,9 @@ public class RoleInterceptor extends AbstractInterceptor{
 			}else if ((PRO_NAME+"/cs!add").equals(path)) {//公司组织架构添加
 				return roleControl(arg0, r, "70");
 			}
+			/*
+			 * 为方便后面的测试，和编写
+			 
 			//------------------桌面组---------------------
 			else if ((PRO_NAME+"/vpn!queryOfFenye").equals(path)) {//VPN查看
 				return roleControl(arg0, r, "71");
@@ -332,6 +335,8 @@ public class RoleInterceptor extends AbstractInterceptor{
 				return roleControl(arg0, r, "86");
 			}
 			
+			*/
+			
 			/*电脑还没有完成，故保留相关代码在这里
 			else if ((PRO_NAME+"/computer!queryOfFenye").equals(path)) {//电脑登记查看
 				return roleControl(arg0, r, "87");
@@ -344,6 +349,9 @@ public class RoleInterceptor extends AbstractInterceptor{
 			}
 			*/
 			
+			/*
+			 * 为方便后面的代码测试和编写先注释
+			 
 			else if ((PRO_NAME+"/bq!queryOfFenye").equals(path)) {//小仓巴枪电脑登记查看
 				return roleControl(arg0, r, "91");
 			}else if ((PRO_NAME+"/bq!delete").equals(path)) {//小仓巴枪电脑登记删除
@@ -413,8 +421,8 @@ public class RoleInterceptor extends AbstractInterceptor{
 				return roleControl(arg0, r, "117");
 			}else if ((PRO_NAME+"/handle!add").equals(path)) {//故障报修处理添加
 				return roleControl(arg0, r, "118");
-			}
-			
+			} 
+			*/ 
 		}
 		close(); 
 		return arg0.invoke(); 
