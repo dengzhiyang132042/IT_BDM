@@ -45,6 +45,9 @@ public class DaManagerAction extends MyBaseAction implements IMyBaseAction{
 	String datee;
 	String type;
 	
+	String content="<style type=\"text/css\">span{display:block;margin:5px 0;font-size:12px;} .table1{	border: #224466;	border-collapse:collapse;	width: 100%;} .tleft{text-align:left;}</style>";
+	
+	
 	Logger logger=Logger.getLogger(DaManagerAction.class);
 	
 	public String getType() {
@@ -186,7 +189,6 @@ public class DaManagerAction extends MyBaseAction implements IMyBaseAction{
 	}
     
 	public String add() throws Exception {
-		String content="<style type=\"text/css\">span{display:block;margin:5px 0;font-size:18px;} .table1{width:800px;font-size；18px;} .tleft{text-align:left;} .tright{text-align:right;}</style>";
 		String title=null;
 		String cs="453668907@qq.com";
 		String sj=null;
@@ -209,15 +211,15 @@ public class DaManagerAction extends MyBaseAction implements IMyBaseAction{
 			//邮件
 			title="故障处理提醒";
 			sj=um.getUMail();
-			content=content+"<div style=\"font-family:微软雅黑;font-size；18px;\">"+
+			content=content+"<div style=\"font-family:微软雅黑;font-size:12px;\">"+
 			"<div style=\"height:400px;\">"+
 			"<span>Dear "+um.getUName()+"</span>"+
 			"<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;您收到有新的故障处理，请尽快解决！ 详情如下</span>"+
 			"<table class=\"table1\">" +
 			"<tr>" +
-			"<td class=\"tleft\">编&nbsp;&nbsp; 号:</td><td class:\"tright\">"+d.getDId()+"</td><td class=\"tleft\">发起人:</td><td class:\"tright\">"+d.getDApplicant()+"</td></tr>" +
-			"<tr><td class=\"tleft\">故障类型:</td><td class:\"tright\">"+d.getDType()+"</td><td class=\"tleft\">时&nbsp; 间:</td><td class:\"tright\">"+new SimpleDate(d.getDTime())+"</td></tr>" +
-			"<table/>"+
+			"<td class=\"tleft\">编&nbsp;&nbsp; 号:</td><td>"+d.getDId()+"</td><td class=\"tleft\">发起人:</td><td>"+d.getDApplicant()+"</td></tr>" +
+			"<tr><td class=\"tleft\">故障类型:</td><td>"+d.getDType()+"</td><td class=\"tleft\">时&nbsp; 间:</td><td>"+new SimpleDate(d.getDTime())+"</td></tr>" +
+			"</table>"+
 			"<span>故障描述:</span>"+
 			"<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+d.getDContent()+"</span>"+
 			"</div>"+
@@ -228,7 +230,7 @@ public class DaManagerAction extends MyBaseAction implements IMyBaseAction{
 			"<br/>深圳市韵达速递有限公司<br/>邮箱：某某某@szexpress.com.cn"+
 			"<br/>地址：广东省深圳市龙华新区观澜大道114号（交警中队正对面）<br/>"+
 			"***************************************************<br/></div>";
-			MailTest.outputMail(sj, cs, content, title);
+			MailTest.outputMail(sj, content, title);
 		}
 		return gotoQuery();
 	}
@@ -244,7 +246,6 @@ public class DaManagerAction extends MyBaseAction implements IMyBaseAction{
 	public String update() throws Exception {
 		//邮件发送所需数据
 		String cs="453668907@qq.com";
-		String content="<style type=\"text/css\">span{display:block;margin:5px 0;font-size:18px;} .table1{width:800px;font-size；18px;} .tleft{text-align:left;} .tright{text-align:right;}}</style>";
 		String title=null;
 		String sj=null;
 		Users um = null;
@@ -276,15 +277,15 @@ public class DaManagerAction extends MyBaseAction implements IMyBaseAction{
 				umnext = (Users) ser.get(Users.class, tmpper.getUNumNext());
 				
 				//编写邮件内容
-				content=content+"<div style=\"font-family:微软雅黑;font-size；18px;\">"+
+				content=content+"<div style=\"font-family:微软雅黑;font-size:18px;\">"+
 				"<div style=\"height:400px;\">"+
 				"<span>Dear "+umnext.getUName()+"</span>"+
 				"<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;您收到有"+um.getUName()+"转发给您的故障处理，请尽快解决！ 详情如下</span>"+
 				"<table class=\"table1\">" +
 				"<tr>" +
-				"<td class=\"tleft\">编&nbsp;&nbsp; 号:</td><td class:\"tright\">"+d.getDId()+"</td><td class=\"tleft\">发起人:</td><td class:\"tright\">"+d.getDApplicant()+"</td></tr>" +
-				"<tr><td class=\"tleft\">故障类型:</td><td class:\"tright\">"+d.getDType()+"</td><td class=\"tleft\">创建时间:</td><td class:\"tright\">"+new SimpleDate(d.getDTime())+"</td></tr>" +
-				"<table/>"+
+				"<td class=\"tleft\">编&nbsp;&nbsp; 号:</td><td>"+d.getDId()+"</td><td class=\"tleft\">发起人:</td><td>"+d.getDApplicant()+"</td></tr>" +
+				"<tr><td class=\"tleft\">故障类型:</td><td>"+d.getDType()+"</td><td class=\"tleft\">创建时间:</td><td>"+new SimpleDate(d.getDTime())+"</td></tr>" +
+				"</table>"+
 				"<span>故障描述:</span>"+
 				"<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+d.getDContent()+"</span>"+
 				"</div>"+
@@ -301,7 +302,7 @@ public class DaManagerAction extends MyBaseAction implements IMyBaseAction{
 				
 			}
 		}
-		MailTest.outputMail(sj, cs, content, title);
+		MailTest.outputMail(sj, content, title);
 		return gotoQuery();
 	}
 

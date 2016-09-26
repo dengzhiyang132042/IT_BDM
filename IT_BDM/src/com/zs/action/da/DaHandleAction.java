@@ -42,6 +42,7 @@ public class DaHandleAction extends MyBaseAction implements IMyBaseAction{
 	String dates;
 	String datee;
 	String type;
+
 	
 	private Logger logger=Logger.getLogger(DaHandleAction.class);
 
@@ -152,9 +153,11 @@ public class DaHandleAction extends MyBaseAction implements IMyBaseAction{
 			page=new Page(1, 0, 5);
 			clearOptions();
 		}
-		clearSpace();
+		clearSpace();	
+		//获取当前登陆者的信息
+		Users uu=(Users) getSession().getAttribute("user");
 		if(id!=null){
-			String hql="from DaDemand where DId like '%"+id+"%' and DId in (select DId from DaPerform where	UNum ='yd-7264')";
+			String hql="from DaDemand where DId like '%"+id+"%' and DId in (select DId from DaPerform where	UNum ='"+uu.getUNum()+"' and PState = '进行中')";
 			if (type!=null && !type.equals("")) {
 				hql=hql+" and DType = '"+type+"'";
 			}
@@ -168,9 +171,9 @@ public class DaHandleAction extends MyBaseAction implements IMyBaseAction{
 			List dems=ser.query(hql, null, hql, page, ser);
 			demper=ser.initDemPers(dems);
 		}else {
-			String hql="from DaDemand where DId in (select DId from DaPerform where	UNum ='yd-7264') order by DTime desc";
+			String hql="from DaDemand where DId in (select DId from DaPerform where	UNum ='"+uu.getUNum()+"'  and PState = '进行中') order by DTime desc";
 			String ss[]={};
-			String hql2="from DaDemand where DId in (select DId from DaPerform where UNum ='yd-7264') order by DTime desc";
+			String hql2="from DaDemand where DId in (select DId from DaPerform where UNum ='"+uu.getUNum()+"'  and PState = '进行中') order by DTime desc";
 			List dems=ser.query(hql, ss, hql2, page, ser);
 			initDemPers(dems);
 		}
@@ -214,9 +217,12 @@ public class DaHandleAction extends MyBaseAction implements IMyBaseAction{
 
 	public String gotoQuery() throws UnsupportedEncodingException {
 		clearOptions();
-		String hql="from DaDemand where DId in (select DId from DaPerform where	UNum ='yd-7264') order by DTime desc";
+		//获取当前登陆者的信息
+		Users uu=(Users) getSession().getAttribute("user");
+		
+		String hql="from DaDemand where DId in (select DId from DaPerform where	UNum ='"+uu.getUNum()+"'  and PState = '进行中') order by DTime desc";
 		String ss[]={};
-		String hql2="from DaDemand where DId in (select DId from DaPerform where UNum ='yd-7264') order by DTime desc";
+		String hql2="from DaDemand where DId in (select DId from DaPerform where UNum ='"+uu.getUNum()+"'  and PState = '进行中') order by DTime desc";
 		List dems=ser.query(hql, ss, hql2, page, ser);
 		initDemPers(dems);
 		ser.bringUsers(getRequest());
