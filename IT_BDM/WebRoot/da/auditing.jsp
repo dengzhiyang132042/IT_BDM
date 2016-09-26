@@ -159,7 +159,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							<option value="pass">通过</option>
 							<option value="npass">驳回</option>
 						</select>
-						<a onclick="queryDetails('${status.index}')"  class="easyui-linkbutton"  title="查看详情">查看详情</a>
+						<a onclick="queryDetails('${status.index}')"  class="easyui-linkbutton"  title="查看详情" >查看详情</a>
 					</td>
 			    </tr>
 		    </c:forEach>
@@ -196,10 +196,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</div>
 	</div>	
 	   
-	<div id="q" class="easyui-window" title="查看详情" data-options="modal:true,closed:true" style="width:400px;height:auto;display: none;">
+	<div id="q" class="easyui-window" title="查看详情" data-options="modal:true,closed:true" style="width:400px;height:auto;display: none;padding:10px;">
 		
 	</div>
-	<div id="c" class="easyui-window" data-options="modal:true,closed:true"  style="width:300px;height:200px;display: none;" title="提示窗口">
+	<div id="c" class="easyui-window" title="提示窗口" data-options="modal:true,closed:true"  style="width:300px;height:200px;display: none;">
 		<form action="<%=path %>/auditing!updateState" method="post">
 			<input id="uc_1" name="cid" type="text" style="display: none;" />
 			<div id="sTest" style="font-size:20px;font-weight:bold;width:200px;margin:30px 0 30px 60px;">

@@ -110,8 +110,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		
 		if($("#"+u7).val()=="complete"){
 			$('#uc_1').val(u1);
-			var span="<span>确定未完成？</span>";
-			span=span+"<input id=\"uc_2\" name=\"cState\" type=\"text\" style=\"display:none;\" value=\"完成\"/>";
+			var span="<span>确定已完成？</span>";
+			span=span+"<input id=\"uc_2\" name=\"cState\" type=\"text\" style=\"display:none;\" value=\"已完成\"/>";
 			$("#sTest").html(span);
 			$("#c").window('open');
 		}
@@ -275,10 +275,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</div>
 	
 	   
-	<div id="q" class="easyui-window" title="查看详情" data-options="modal:true,closed:true" style="width:400px;height:auto;display: none;">
+	<div id="q" class="easyui-window" title="查看详情" data-options="modal:true,closed:true" style="width:400px;height:auto;display: none;padding:10px;">
 		
 	</div>
-	<div id="c" class="easyui-window" data-options="modal:true,closed:true"  style="width:300px;height:200px;display: none;" title="提示窗口">
+	<div id="c" class="easyui-window" title="提示窗口" data-options="modal:true,closed:true"  style="width:300px;height:200px;display: none;">
 		<form action="<%=path %>/handle!updateState" method="post">
 			<input id="uc_1" name="cid" type="text" style="display: none;" />
 			<div id="sTest" style="font-size:20px;font-weight:bold;width:150px;margin:30px 0 30px 90px;">

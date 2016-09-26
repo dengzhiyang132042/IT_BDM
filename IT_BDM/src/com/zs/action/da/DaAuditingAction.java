@@ -43,6 +43,9 @@ public class DaAuditingAction extends MyBaseAction implements IMyBaseAction{
 	String datee;
 	String type;
 	
+	String content="<style type=\"text/css\">span{display:block;margin:5px 0;font-size:18px;} .table1{	border: #224466;	border-collapse:collapse;	width: 100%;} .tleft{text-align:left;}</style>";
+	
+	
 	private Logger logger=Logger.getLogger(DaAuditingAction.class);
 
 
@@ -229,7 +232,6 @@ public class DaAuditingAction extends MyBaseAction implements IMyBaseAction{
 		String State=getRequest().getParameter("cState");
 		//邮件发送所需数据
 		String cs="453668907@qq.com";
-		String content="<style type=\"text/css\">span{display:block;margin:5px 0;font-size:18px;} .table1{width:800px;font-size；18px;} .tleft{text-align:left;} .tright{text-align:right;}}</style>";
 		String title=null;
 		String sj=null;
 		Users um = null;
@@ -262,15 +264,15 @@ public class DaAuditingAction extends MyBaseAction implements IMyBaseAction{
 				dd = (DaDemand) ser.get(DaDemand.class,id);
 			}
 			//编写邮件内容
-			content=content+"<div style=\"font-family:微软雅黑;font-size；18px;\">"+
+			content=content+"<div style=\"font-family:微软雅黑;font-size:18px;\">"+
 			"<div style=\"height:400px;\">"+
 			"<span>Dear "+umnext.getUName()+"</span>"+
 			"<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;您收到有"+um.getUName()+"转发给您的故障处理，请尽快解决！ 详情如下</span>"+
 			"<table class=\"table1\">" +
 			"<tr>" +
-			"<td class=\"tleft\">编&nbsp;&nbsp; 号:</td><td class:\"tright\">"+dd.getDId()+"</td><td class=\"tleft\">发起人:</td><td class:\"tright\">"+dd.getDApplicant()+"</td></tr>" +
-			"<tr><td class=\"tleft\">故障类型:</td><td class:\"tright\">"+dd.getDType()+"</td><td class=\"tleft\">创建时间:</td><td class:\"tright\">"+new SimpleDate(dd.getDTime())+"</td></tr>" +
-			"<table/>"+
+			"<td class=\"tleft\">编&nbsp;&nbsp; 号:</td><td>"+dd.getDId()+"</td><td class=\"tleft\">发起人:</td><td>"+dd.getDApplicant()+"</td></tr>" +
+			"<tr><td class=\"tleft\">故障类型:</td><td>"+dd.getDType()+"</td><td class=\"tleft\">创建时间:</td><td>"+new SimpleDate(dd.getDTime())+"</td></tr>" +
+			"</table>"+
 			"<span>故障描述:</span>"+
 			"<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+dd.getDContent()+"</span>"+
 			"</div>"+
@@ -298,7 +300,7 @@ public class DaAuditingAction extends MyBaseAction implements IMyBaseAction{
 				dd = (DaDemand) ser.get(DaDemand.class,id);
 			}
 			//编写邮件内容
-			content=content+"<div style=\"font-family:微软雅黑;font-size；18px;\">"+
+			content=content+"<div style=\"font-family:微软雅黑;font-size:18px;\">"+
 			"<div style=\"height:400px;\">"+
 			"<span>编&nbsp;号: "+dd.getDId()+"</span>"+
 			"<span>时&nbsp;间: "+new SimpleDate(dd.getDTime())+"</span>"+
@@ -306,18 +308,20 @@ public class DaAuditingAction extends MyBaseAction implements IMyBaseAction{
 			"<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+
 			"由于您的转发未达到要求，现在将您的转发请求驳回！请继续处理当前故障</span>"+
 			"<table border=\"1\" class=\"table1\">" +
-			"<tr>" +
-			"<td>编号</td><td>发起人</td><td>创建时间</td><td>故障类型</td><td>故障描述</td><td>转发者</td><td>状态</td><td>被转发者</td><td>备注</td><td>时间</td></tr>" +
-			"<tr><td>"+id+"</td><td>"+dd.getDApplicant()+"</td><td>"+new SimpleDate(dd.getDTime())+"</td>" +
-			"<td>"+dd.getDType()+"</td><td>"+dd.getDContent()+"</td><td>"+um.getUName()+"</td>" +
-			"<td>"+tmpper.getPState()+"</td><td>"+umnext.getUName()+"</td><td>转发驳回</td><td>"+new SimpleDate(tmpper.getPTime())+"</td>" +
-			"</tr>" +
-			"<table/>"+
+			"<tr><td>编&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;号：</td><td>"+id+"</td>" +
+			"<td>发起人：</td><td>"+dd.getDApplicant()+"</td><td>创建时间：</td><td>"+new SimpleDate(dd.getDTime())+"</td></tr>" +
+			"<tr><td>故障类型：</td><td>"+dd.getDType()+"</td><td>转发者：</td><td>"+um.getUName()+"</td>" +
+			"<td>被转发者：</td><td>"+umnext.getUName()+"</td></tr>" +
+			"<tr><td>状&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;态：</td><td>"+tmpper.getPState()+"</td>" +
+			"<td>时&nbsp;&nbsp;&nbsp;&nbsp;间：</td><td>"+new SimpleDate(tmpper.getPTime())+"</td>" +
+			"<td>备&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;注：</td><td>转发驳回</td></tr>" +
+			"<tr><table/>" +
+			" <span>故障描述：</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;电脑黑屏，出现大问题"+
 			"</div>"+
 			"<br/>Best Wishes<br/>"+
 			"以流程为导向，以服务为宗旨。<br/>"+
 			"*****************************************************"+
-			"<br/>信息与流程管理部-客服专员nbsp;某某某"+
+			"<br/>信息与流程管理部-客服专员&nbsp;某某某"+
 			"<br/>深圳市韵达速递有限公司<br/>邮箱：某某某@szexpress.com.cn<br/>"+
 			"<br/>地址：广东省深圳市龙华新区观澜大道114号（交警中队正对面）<br/>"+
 			"***************************************************<br/></div>";
@@ -325,7 +329,7 @@ public class DaAuditingAction extends MyBaseAction implements IMyBaseAction{
 			title="故障处理转发驳回提醒";
 			sj=um.getUMail();
 		}
-		MailTest.outputMail(sj, cs, content, title);
+		MailTest.outputMail(sj, content, title);
 		return gotoQuery();
 	}
 

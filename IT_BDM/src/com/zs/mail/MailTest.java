@@ -43,7 +43,7 @@ public class MailTest {
 	 * @return
 	 * @throws MessagingException
 	 */
-	public static String outputMail(String toAddress,String ccAddress,String mailContent,String title) throws MessagingException {
+	public static String outputMail(String toAddress,String mailContent,String title) throws MessagingException {
         // 构建授权信息，用于进行SMTP进行身份验证
         Authenticator authenticator = new Authenticator() {
             @Override
@@ -66,11 +66,11 @@ public class MailTest {
         message.setRecipient(RecipientType.TO, to);
 
         // 设置抄送
-        InternetAddress cc = new InternetAddress(ccAddress);
+        InternetAddress cc = new InternetAddress("itrobot@szexpress.com.cn");
         message.setRecipient(RecipientType.CC, cc);
 
         // 设置密送，其他的收件人不能看到密送的邮件地址
-        InternetAddress bcc = new InternetAddress(ccAddress);
+        InternetAddress bcc = new InternetAddress("itrobot@szexpress.com.cn");
         message.setRecipient(RecipientType.CC, bcc);
         // 设置邮件标题
         message.setSubject(title);
