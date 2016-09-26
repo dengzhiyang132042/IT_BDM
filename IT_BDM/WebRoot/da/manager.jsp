@@ -88,14 +88,20 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		$("#q").html(table1);
 		$("#q").window('open');
 	}
-	function forward(u1,u2,u3,u4,u5,u6) {
-		$('#u').window('open');
-		$('#u_1').val(u1);
-		$('#u_2').val(u2);
-		$('#u_3').val(u3);
-		$('#u_4').val(u4);
-		$('#u_5').val(u5);
-		$('#u_6').val(u6);
+	function forward(u1,u2,u3,u4,u5,u6,u7) {
+		if(u7=="进行中"){
+			$('#u').window('open');
+			$('#u_1').val(u1);
+			$('#u_2').val(u2);
+			$('#u_3').val(u3);
+			$('#u_4').val(u4);
+			$('#u_5').val(u5);
+			$('#u_6').val(u6);
+		}else{
+			var errcon="<div style="+"text-align:center;font-size:18px;padding-top:55px;font-family:微软雅黑"+">当前状态下不能执行此操作</div>";
+			$("#err").html(errcon);
+			$("#err").window('open');	
+		}
 	}
 	</script>
   </head>
@@ -152,7 +158,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     	<td>${dp.performs[0].PTime }</td>
     	<td>${dp.performs[0].PState }</td>
     	<td>
-			<a onclick="forward('${dp.demand.DId }','${dp.demand.DApplicant }','${dp.demand.DContent }','${dp.demand.DType }','${dp.demand.DTime }','${dp.performs[0].UName }')" class="easyui-linkbutton" title="转发">转发</a>
+			<a onclick="forward('${dp.demand.DId }','${dp.demand.DApplicant }','${dp.demand.DContent }','${dp.demand.DType }','${dp.demand.DTime }','${dp.performs[0].UName }','${dp.performs[0].PState }')" class="easyui-linkbutton" title="转发">转发</a>
 			<a onclick="queryDetails('${status.index}')" class="easyui-linkbutton" title="查看详情">查看详情</a>
 		</td>
     </tr>
@@ -252,6 +258,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<div id="q" class="easyui-window" title="查看详情" data-options="modal:true,closed:true" style="width:400px;height:auto;padding:10px;display: none;">
 	</div>
 	
+	<div id="err" class="easyui-window" title="错误提示" data-options="modal:true,closed:true" style="width:300px;height:200px;padding:10px;display: none;">
+	</div>
 	
 	<div id="a" class="easyui-window" title="故障录入" data-options="modal:true,closed:true" style="width:400px;height:auto;padding:10px;display: none;">
 		<form action="<%=path %>/daManager!add" method="post">
