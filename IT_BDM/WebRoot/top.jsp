@@ -49,10 +49,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</c:otherwise>
 	</c:choose>
 	
-	<a href="<%=path %>/information!query" target="right">
-		<span style="position: absolute;right: 30px;top: 10px;font-weight: lighter;color:#282828;">提醒：
-			今天您还有<span style="color: red;">${suminfo }</span>张表没有操作.
-		</span>
-	</a>
+	<span style="position: absolute;right: 30px;top: 10px;font-weight: lighter;color:#282828;">提醒：
+		<br/>
+		<a href="<%=path %>/information!query" target="right" style="text-decoration: none;">
+			1、今天您还有<span style="color: red;">${suminfo }</span>张表没有操作.
+		</a>
+		<br/>
+		<a href="<%=path %>/handle!queryOfFenye?cz=yes" target="right" style="text-decoration: none;">
+			2、您有<span style="color: red;">${dainfo }</span>个新的故障报修单，请尽快处理！
+		</a>
+	</span>
 </body>
 </html>

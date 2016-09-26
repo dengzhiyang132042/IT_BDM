@@ -248,6 +248,8 @@ public class DaAuditingAction extends MyBaseAction implements IMyBaseAction{
 				tmpper.setPState(State);
 				
 				ser.update(tmpper);
+				getRequest().setAttribute("p1", tmpper);
+				
 				//添加表信息
 				DaPerform daPerform=new DaPerform();
 				daPerform.setPId("p"+NameOfDate.getNum());
@@ -258,6 +260,8 @@ public class DaAuditingAction extends MyBaseAction implements IMyBaseAction{
 				daPerform.setPTime(new Timestamp(date2.getTime()));
 				daPerform.setPState("进行中");
 				ser.save(daPerform);
+				getRequest().setAttribute("p2", daPerform);
+				
 				//邮件模块需要带的数据
 				um = (Users) ser.get(Users.class, tmpper.getUNum());
 				umnext = (Users) ser.get(Users.class, tmpper.getUNumNext());
@@ -329,13 +333,12 @@ public class DaAuditingAction extends MyBaseAction implements IMyBaseAction{
 			title="故障处理转发驳回提醒";
 			sj=um.getUMail();
 		}
-		MailTest.outputMail(sj, content, title);
+		MailTest.outputMail(sj,MailTest.IT_ROBOT, content, title);
 		return gotoQuery();
 	}
 
 	public String update() throws Exception {
-		
-		return null;
+		return updateState();
 	}
 
 }

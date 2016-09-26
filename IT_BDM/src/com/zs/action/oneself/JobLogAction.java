@@ -55,7 +55,7 @@ public class JobLogAction extends MyBaseAction{
 		String date=new SimpleDateFormat("yyyy年M月d日工作日志").format(new Date());
 		
 		
-		MailTest.outputMail(sj, str, date);
+		MailTest.outputMail(sj, cs, str, date);
 		
 		return result;
 	}

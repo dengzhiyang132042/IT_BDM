@@ -291,8 +291,6 @@ public class RoleInterceptor extends AbstractInterceptor{
 			}else if ((PRO_NAME+"/cs!add").equals(path)) {//公司组织架构添加
 				return roleControl(arg0, r, "70");
 			}
-			/*
-			 * 为方便后面的测试，和编写
 			 
 			//------------------桌面组---------------------
 			else if ((PRO_NAME+"/vpn!queryOfFenye").equals(path)) {//VPN查看
@@ -335,7 +333,6 @@ public class RoleInterceptor extends AbstractInterceptor{
 				return roleControl(arg0, r, "86");
 			}
 			
-			*/
 			
 			/*电脑还没有完成，故保留相关代码在这里
 			else if ((PRO_NAME+"/computer!queryOfFenye").equals(path)) {//电脑登记查看
@@ -349,8 +346,6 @@ public class RoleInterceptor extends AbstractInterceptor{
 			}
 			*/
 			
-			/*
-			 * 为方便后面的代码测试和编写先注释
 			 
 			else if ((PRO_NAME+"/bq!queryOfFenye").equals(path)) {//小仓巴枪电脑登记查看
 				return roleControl(arg0, r, "91");
@@ -422,7 +417,17 @@ public class RoleInterceptor extends AbstractInterceptor{
 			}else if ((PRO_NAME+"/handle!add").equals(path)) {//故障报修处理添加
 				return roleControl(arg0, r, "118");
 			} 
-			*/ 
+			
+			else if ((PRO_NAME+"/auditing!queryOfFenye").equals(path)) {//故障报修转发审核查看
+				return roleControl(arg0, r, "119");
+			}else if ((PRO_NAME+"/auditing!delete").equals(path)) {//故障报修转发审核删除
+				return roleControl(arg0, r, "120");
+			}else if ((PRO_NAME+"/auditing!update").equals(path)) {//故障报修转发审核修改
+				return roleControl(arg0, r, "121");
+			}else if ((PRO_NAME+"/auditing!add").equals(path)) {//故障报修转发审核添加
+				return roleControl(arg0, r, "122");
+			}
+			
 		}
 		close(); 
 		return arg0.invoke(); 

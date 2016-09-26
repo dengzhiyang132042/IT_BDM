@@ -433,8 +433,10 @@ public class TimelineInterceptor extends AbstractInterceptor{
 			}else if ((PRO_NAME+"/daManager!delete").equals(path)) {//故障报修管理删除
 				addTimeline(u, "删除", "DaDemand", request.getParameter("id"));
 			}else if ((PRO_NAME+"/daManager!update").equals(path)) {//故障报修管理修改
-				DaPerform p=(DaPerform) request.getAttribute("p");
-				addTimeline(u, "修改", "DaPerform", p.getPId());
+				DaPerform p1=(DaPerform) request.getAttribute("p1");
+				DaPerform p2=(DaPerform) request.getAttribute("p2");
+				addTimeline(u, "修改", "DaPerform", p1.getPId());
+				addTimeline(u, "修改", "DaPerform", p2.getPId());
 			}else if ((PRO_NAME+"/daManager!add").equals(path)) {//故障报修管理添加
 				DaDemand d=(DaDemand) request.getAttribute("d");
 				DaPerform p=(DaPerform) request.getAttribute("p");
@@ -462,6 +464,18 @@ public class TimelineInterceptor extends AbstractInterceptor{
 				addTimeline(u, "添加", "DaPerform", p.getPId());
 			}
 			
+			else if ((PRO_NAME+"/auditing!queryOfFenye").equals(path)) {//故障报修转发审核查看
+				addTimeline(u, "查看", "DaPerform", request.getParameter("id"));
+			}else if ((PRO_NAME+"/auditing!delete").equals(path)) {//故障报修转发审核删除
+				addTimeline(u, "删除", "DaPerform", request.getParameter("id"));
+			}else if ((PRO_NAME+"/auditing!update").equals(path)) {//故障报修转发审核修改
+				DaPerform p1=(DaPerform) request.getAttribute("p1");
+				DaPerform p2=(DaPerform) request.getAttribute("p2");
+				addTimeline(u, "修改", "DaPerform", p1.getPId());
+				addTimeline(u, "修改", "DaPerform", p2.getPId());
+			}else if ((PRO_NAME+"/auditing!add").equals(path)) {//故障报修转发审核添加
+				addTimeline(u, "添加", "DaPerform","");
+			}
 		}
 		close(); 
 		return result; 

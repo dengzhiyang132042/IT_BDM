@@ -98,12 +98,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			$('#u_4').val(u4);
 			$('#u_5').val(u5);
 			$('#u_6').val(u6);
+			var state="转发";
+			$('#u_7').val(state);
 		}
 	
 		if($("#"+u7).val()=="notComplete"){
 			$('#uc_1').val(u1);
 			var span="<span>确定未完成？</span>";
-			span=span+"<input id=\"uc_2\" name=\"cState\" type=\"text\" style=\"display:none;\" value=\"未完成\"/>";
+			span=span+"<input id=\"uc_2\" name=\"p.PState\" type=\"text\" style=\"display:none;\" value=\"未完成\"/>";
 			$("#sTest").html(span);
 			$("#c").window('open');
 		}
@@ -111,7 +113,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		if($("#"+u7).val()=="complete"){
 			$('#uc_1').val(u1);
 			var span="<span>确定已完成？</span>";
-			span=span+"<input id=\"uc_2\" name=\"cState\" type=\"text\" style=\"display:none;\" value=\"已完成\"/>";
+			span=span+"<input id=\"uc_2\" name=\"p.PState\" type=\"text\" style=\"display:none;\" value=\"已完成\"/>";
 			$("#sTest").html(span);
 			$("#c").window('open');
 		}
@@ -176,7 +178,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<select onchange="forward('${dp.demand.DId }','${dp.demand.DApplicant }','${dp.demand.DContent }','${dp.demand.DType }','${dp.demand.DTime }','${dp.performs[0].UName }','select_id${status.index}')" id="select_id${status.index}" name="select_id">
 						<option value="">状态...</option>
 						<option value="notComplete">未完成</option>
-						<option value="complete">完成</option>
+						<option value="complete">已完成</option>
 						<option value="forward">转发</option>
 					</select>
 					<a onclick="queryDetails('${status.index}')"  class="easyui-linkbutton"  title="查看详情">查看详情</a>
@@ -271,6 +273,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				</td>			
 			</tr>
 		</table>
+		<input id="u_7" name="p.PState" type="text" style="display:none;"/>
 		</form>
 	</div>
 	
@@ -279,8 +282,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		
 	</div>
 	<div id="c" class="easyui-window" title="提示窗口" data-options="modal:true,closed:true"  style="width:300px;height:200px;display: none;">
-		<form action="<%=path %>/handle!updateState" method="post">
-			<input id="uc_1" name="cid" type="text" style="display: none;" />
+		<form action="<%=path %>/handle!update" method="post">
+			<input id="uc_1" name="d.DId" type="text" style="display: none;" />
 			<div id="sTest" style="font-size:20px;font-weight:bold;width:150px;margin:30px 0 30px 90px;">
 			</div>
 			<div style="float:left;margin:20px 25px 0 50px;">

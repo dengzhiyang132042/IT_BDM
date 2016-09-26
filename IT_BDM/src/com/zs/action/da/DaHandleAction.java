@@ -230,23 +230,11 @@ public class DaHandleAction extends MyBaseAction implements IMyBaseAction{
 		getRequest().setAttribute("json", json);
 		return result;
 	}
-	public String updateState() throws Exception{
-		String id=getRequest().getParameter("cid");
-		String State=getRequest().getParameter("cState");
-		if(id!=null){
-			List templi=ser.find("from DaPerform where DId=? order by PTime desc", new String[]{id});
-			if(templi.size()>0){
-				DaPerform tmpper=(DaPerform) templi.get(0);
-				tmpper.setPTime(new Timestamp(new Date().getTime()));
-				tmpper.setPState(State);
-				ser.update(tmpper);
-			}
-		}
-		return gotoQuery();
-	}
-
+	
+	
 	public String update() throws Exception {
-		if (d!=null && !"".equals(d.getDId())) {
+		System.out.println(p.getPState());
+		if (d!=null && !"".equals(d.getDId())&& p.getPState().equals("转发")) {
 			d=(DaDemand) ser.get(DaDemand.class, d.getDId());
 			//找到当前执行表数据
 			List templi=ser.find("from DaPerform where DId=? order by PTime desc", new String[]{d.getDId()});
@@ -256,8 +244,17 @@ public class DaHandleAction extends MyBaseAction implements IMyBaseAction{
 				tmpper.setUNumNext(p.getUNumNext());
 				tmpper.setPState("审核中");
 				ser.update(tmpper);
+				getRequest().setAttribute("p", tmpper);
 			}
-		
+		}else{
+			List templi=ser.find("from DaPerform where DId=? order by PTime desc", new String[]{d.getDId()});
+			if(templi.size()>0){
+				DaPerform tmpper=(DaPerform) templi.get(0);
+				tmpper.setPTime(new Timestamp(new Date().getTime()));
+				tmpper.setPState(p.getPState());
+				ser.update(tmpper);
+				getRequest().setAttribute("p", tmpper);
+			}
 		}
 		return gotoQuery();
 	}
