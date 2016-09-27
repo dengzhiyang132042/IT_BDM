@@ -470,9 +470,7 @@ public class TimelineInterceptor extends AbstractInterceptor{
 				addTimeline(u, "删除", "DaPerform", request.getParameter("id"));
 			}else if ((PRO_NAME+"/auditing!update").equals(path)) {//故障报修转发审核修改
 				DaPerform p1=(DaPerform) request.getAttribute("p1");
-				DaPerform p2=(DaPerform) request.getAttribute("p2");
 				addTimeline(u, "修改", "DaPerform", p1.getPId());
-				addTimeline(u, "修改", "DaPerform", p2.getPId());
 			}else if ((PRO_NAME+"/auditing!add").equals(path)) {//故障报修转发审核添加
 				addTimeline(u, "添加", "DaPerform","");
 			}

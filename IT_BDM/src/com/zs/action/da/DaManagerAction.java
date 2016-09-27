@@ -45,7 +45,7 @@ public class DaManagerAction extends MyBaseAction implements IMyBaseAction{
 	String datee;
 	String type;
 	
-	String content="<style type=\"text/css\">span{display:block;margin:5px 0;font-size:12px;} .table1{	border: #224466;	border-collapse:collapse;	width: 100%;} .tleft{text-align:left;}</style>";
+	String content=null;
 	
 	
 	Logger logger=Logger.getLogger(DaManagerAction.class);
@@ -188,34 +188,27 @@ public class DaManagerAction extends MyBaseAction implements IMyBaseAction{
 		return result;
 	}
     
+	private void initContent() {
+		content="<style type=\"text/css\">span{display:block;margin:5px 0;font-size:15px;} .table1{	border: #224466;	border-collapse:collapse;	width: 600px;} .tleft{text-align:left;}</style>";
+	}
+	
+	
+	
 	public String add() throws Exception {
-		String title=null;
+		initContent();
+		String title="";
 		String cs="453668907@qq.com";
-		String sj=null;
-		Users um = null;
+		String sj="";
+		Users um = (Users) ser.get(Users.class, p.getUNum());
 		if (d!=null) {
-			d.setDId("d"+NameOfDate.getNum());
-			d.setDTime(new Timestamp(new Date().getTime()));
-			ser.save(d);
-			getRequest().setAttribute("d", d);
-			p.setPId("p"+NameOfDate.getNum());
-			p.setDId(d.getDId());
-			p.setPTime(new Timestamp(new Date().getTime()));
-			p.setPState("进行中");
-			ser.save(p);
-			getRequest().setAttribute("p",p);
-			
-			um = (Users) ser.get(Users.class, p.getUNum());
-			
-			
 			//邮件
 			title="故障处理提醒";
 			sj=um.getUMail();
-			content=content+"<div style=\"font-family:微软雅黑;font-size:12px;\">"+
+			content=content+"<div style=\"font-family:微软雅黑;font-size:15px;\">"+
 			"<div style=\"height:400px;\">"+
 			"<span>Dear "+um.getUName()+"</span>"+
 			"<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;您收到有新的故障处理，请尽快解决！ 详情如下</span>"+
-			"<table class=\"table1\">" +
+			"<table class=\"table1\" border=\"1\">" +
 			"<tr>" +
 			"<td class=\"tleft\">编&nbsp;&nbsp; 号:</td><td>"+d.getDId()+"</td><td class=\"tleft\">发起人:</td><td>"+d.getDApplicant()+"</td></tr>" +
 			"<tr><td class=\"tleft\">故障类型:</td><td>"+d.getDType()+"</td><td class=\"tleft\">时&nbsp; 间:</td><td>"+new SimpleDate(d.getDTime())+"</td></tr>" +
@@ -230,7 +223,26 @@ public class DaManagerAction extends MyBaseAction implements IMyBaseAction{
 			"<br/>深圳市韵达速递有限公司<br/>邮箱：某某某@szexpress.com.cn"+
 			"<br/>地址：广东省深圳市龙华新区观澜大道114号（交警中队正对面）<br/>"+
 			"***************************************************<br/></div>";
-			MailTest.outputMail(sj,MailTest.IT_ROBOT, content, title);
+			try {
+				MailTest.outputMail(sj,MailTest.IT_ROBOT, content, title);
+			} catch (Exception e) {
+//				return result_fail;
+				//日后换成邮件错误界面
+				getResponse().getWriter().write("邮件发送错误!请手动发送邮件");
+				return null;
+			}finally{
+				d.setDId("d"+NameOfDate.getNum());
+				d.setDTime(new Timestamp(new Date().getTime()));
+				ser.save(d);
+				p.setPId("p"+NameOfDate.getNum());
+				p.setDId(d.getDId());
+				p.setPTime(new Timestamp(new Date().getTime()));
+				p.setPState("进行中");
+				ser.save(p);
+			}
+			getRequest().setAttribute("d", d);
+			getRequest().setAttribute("p",p);
+			initContent();
 		}
 		return gotoQuery();
 	}
@@ -245,9 +257,9 @@ public class DaManagerAction extends MyBaseAction implements IMyBaseAction{
 
 	public String update() throws Exception {
 		//邮件发送所需数据
-		String cs="453668907@qq.com";
-		String title=null;
-		String sj=null;
+		initContent();
+		String title="";
+		String sj="";
 		Users um = null;
 		Users umnext=null;
 		if (d!=null && !"".equals(d.getDId())) {
@@ -278,11 +290,11 @@ public class DaManagerAction extends MyBaseAction implements IMyBaseAction{
 				umnext = (Users) ser.get(Users.class, tmpper.getUNumNext());
 				
 				//编写邮件内容
-				content=content+"<div style=\"font-family:微软雅黑;font-size:18px;\">"+
-				"<div style=\"height:400px;\">"+
+				content=content+"<div style=\"font-family:微软雅黑;font-size:15px;\">"+
+				"<div style=\"height:400px;\" >"+
 				"<span>Dear "+umnext.getUName()+"</span>"+
 				"<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;您收到有"+um.getUName()+"转发给您的故障处理，请尽快解决！ 详情如下</span>"+
-				"<table class=\"table1\">" +
+				"<table class=\"table1\" border=\"1\">" +
 				"<tr>" +
 				"<td class=\"tleft\">编&nbsp;&nbsp; 号:</td><td>"+d.getDId()+"</td><td class=\"tleft\">发起人:</td><td>"+d.getDApplicant()+"</td></tr>" +
 				"<tr><td class=\"tleft\">故障类型:</td><td>"+d.getDType()+"</td><td class=\"tleft\">创建时间:</td><td>"+new SimpleDate(d.getDTime())+"</td></tr>" +
@@ -303,7 +315,14 @@ public class DaManagerAction extends MyBaseAction implements IMyBaseAction{
 				
 			}
 		}
-		MailTest.outputMail(sj,MailTest.IT_ROBOT, content, title);
+		try {
+			MailTest.outputMail(sj,MailTest.IT_ROBOT, content, title);
+		} catch (Exception e) {
+			//日后换成邮件错误界面
+			getResponse().getWriter().write("邮件发送错误!请手动发送邮件");
+			return null;
+		}
+		initContent();
 		return gotoQuery();
 	}
 

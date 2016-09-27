@@ -233,7 +233,6 @@ public class DaHandleAction extends MyBaseAction implements IMyBaseAction{
 	
 	
 	public String update() throws Exception {
-		System.out.println(p.getPState());
 		if (d!=null && !"".equals(d.getDId())&& p.getPState().equals("转发")) {
 			d=(DaDemand) ser.get(DaDemand.class, d.getDId());
 			//找到当前执行表数据
