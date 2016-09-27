@@ -230,7 +230,7 @@ public class DaManagerAction extends MyBaseAction implements IMyBaseAction{
 			"<br/>深圳市韵达速递有限公司<br/>邮箱：某某某@szexpress.com.cn"+
 			"<br/>地址：广东省深圳市龙华新区观澜大道114号（交警中队正对面）<br/>"+
 			"***************************************************<br/></div>";
-			MailTest.outputMail(sj, content, title);
+			MailTest.outputMail(sj,MailTest.IT_ROBOT, content, title);
 		}
 		return gotoQuery();
 	}
@@ -260,7 +260,7 @@ public class DaManagerAction extends MyBaseAction implements IMyBaseAction{
 				tmpper.setUNumNext(p.getUNumNext());
 				tmpper.setPState("转发");
 				ser.update(tmpper);
-				getRequest().setAttribute("p",tmpper);
+				getRequest().setAttribute("p1",tmpper);
 				
 				DaPerform daPerform=new DaPerform();
 				daPerform.setPId("p"+NameOfDate.getNum());
@@ -271,6 +271,7 @@ public class DaManagerAction extends MyBaseAction implements IMyBaseAction{
 				daPerform.setPTime(new Timestamp(date2.getTime()));
 				daPerform.setPState("进行中");
 				ser.save(daPerform);
+				getRequest().setAttribute("p2",tmpper);
 				
 				//邮件模块需要带的数据
 				um = (Users) ser.get(Users.class, tmpper.getUNum());
@@ -302,7 +303,7 @@ public class DaManagerAction extends MyBaseAction implements IMyBaseAction{
 				
 			}
 		}
-		MailTest.outputMail(sj, content, title);
+		MailTest.outputMail(sj,MailTest.IT_ROBOT, content, title);
 		return gotoQuery();
 	}
 

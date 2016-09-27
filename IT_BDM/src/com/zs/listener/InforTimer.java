@@ -131,7 +131,7 @@ public class InforTimer extends TimerTask{
 				String content=css+str+"</table>";
 				logger.debug(content);
 				try {
-					MailTest.outputMail(u.getUMail(), content,title);
+					MailTest.outputMail(u.getUMail(), MailTest.IT_ROBOT, content,title);
 				} catch (MessagingException e) {
 					e.printStackTrace();
 					logger.error("监听器--定时器--发送邮件出问题了,出异常账号:"+u.getUName()+"   "+u.getUNum());
@@ -208,7 +208,7 @@ public class InforTimer extends TimerTask{
 				String content=css+str+"</table>";
 				logger.debug(content);
 				try {
-					MailTest.outputMail(u.getUMail(),  content,title);
+					MailTest.outputMail(u.getUMail(), MailTest.IT_ROBOT, content,title);
 				} catch (MessagingException e) {
 					e.printStackTrace();
 					logger.error("监听器--定时器--发送邮件出问题了,出异常账号:"+u.getUName()+"   "+u.getUNum());

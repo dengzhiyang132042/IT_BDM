@@ -122,6 +122,23 @@ public class InformationAction extends MyBaseAction{
 			}
 		}
 		getSession().setAttribute("suminfo", suminfo);// 提醒数
+		
+		//第二个提醒
+		goToIndexDa(user);
 		return SUCCESS;
 	}
+	
+	
+	
+	/**
+	 * 第二个提醒，故障报修系统得到提醒，当有分配给本人的报修时就提醒
+	 */
+	private void goToIndexDa(Users user) {
+		String hql="from DaDemand where DId in (select DId from DaPerform where UNum=? and PState='进行中')";
+		List list=ser.find(hql, new String[]{user.getUNum()});
+		getSession().setAttribute("dainfo", list.size());// 提醒数
+	}
+	
+	
+	
 }
