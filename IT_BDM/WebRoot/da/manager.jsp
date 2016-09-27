@@ -27,6 +27,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script type="text/javascript" src="<%=path %>/FRAMEWORK/jquery-easyui/jquery.easyui.min.js"></script>
 	
 	<link rel="stylesheet" type="text/css" href="<%=path %>/FRAMEWORK/css/mycss.css">
+	
 	<script type="text/javascript">
 	$(function(){
 		$("#type_sel option[value='${type}']").attr("selected",true);
@@ -68,7 +69,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		*/
 		var table1="<table border=\"1\" class=\"table1\">";
 		table1=table1+
-		"<tr><td>编号：</td><td>"+${json}[status].demand.DId+"</td></tr>"+
+		"<tr><td width='70'>编号：</td><td>"+${json}[status].demand.DId+"</td></tr>"+
 		"<tr><td>发起人：</td><td>"+${json}[status].demand.DApplicant+"</td></tr>"+
 		"<tr><td>故障描述：</td><td>"+${json}[status].demand.DContent+"</td></tr>"+
 		"<tr><td>故障类型：</td><td>"+${json}[status].demand.DType+"</td></tr>"+
@@ -76,7 +77,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		table1=table1+"</table>";
 		table1=table1+"<table border=\"1\" style=\"font-size: 12px;margin-top: 10px;\">";
 		table1=table1+
-		"<tr><th>处理人</th><th>处理状态</th><th>最后处理时间</th><th>被转发人</th></tr>";
+		"<tr><th width='50'>处理人</th><th>处理状态</th><th width='150'>最后处理时间</th><th width='50'>被转发人</th></tr>";
 		for ( var i = 0; i < ${json}[status].performs.length; i++) {
 			table1=table1+"<tr>"+
 			"<td>"+${json}[status].performs[i].UName+"</td>"+
@@ -135,12 +136,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     
     <div style="margin-bottom: 5px;">
     
-    <table border="1" id="" style="font-size: 12px;">
+    <table border="1">
     <tr>
-    	<th>编号</th>
-    	<th>发起人</th>
-    	<th>故障描述</th>
-    	<th>故障类型</th>
+    	<th width="150">编号</th>
+    	<th width="150">发起人</th>
+    	<th width="300">故障描述</th>
+    	<th width="90">故障类型</th>
     	<th>创建时间</th>
     	<th>当前处理人</th>
     	<th>最后处理时间</th>
@@ -200,7 +201,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<form action="<%=path %>/daManager!update" method="post">
 		<table border="0" class="table1">
 			<tr>
-				<td>编号：</td>
+				<td width="70">编号：</td>
 				<td>
 					<input id="u_1" name="d.DId" type="text" style="width: 100%;" readonly="readonly"/>
 				</td>
@@ -247,7 +248,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</tr>
 			<tr>
 				<td colspan="2" align="center">
-					<input class="easyui-linkbutton" type="submit" style="width: 95%;padding: 5px;" value="提交"/>
+					<input class="easyui-linkbutton" type="submit" style="width: 95%;padding: 5px;" value="提交" onclick="return show_hint(['u'])"/>
 				</td>			
 			</tr>
 		</table>
@@ -265,7 +266,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<form action="<%=path %>/daManager!add" method="post">
 		<table border="0" class="table1">
 			<tr>
-				<td>发起人：</td>
+				<td width="70">发起人：</td>
 				<td>
 					<input name="d.DApplicant" type="text" style="width: 100%;"/>
 				</td>
@@ -300,7 +301,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</tr>
 			<tr>
 				<td colspan="2" align="center">
-					<input class="easyui-linkbutton" type="submit" style="width: 95%;padding: 5px;" value="提交"/>
+					<input class="easyui-linkbutton" type="submit" style="width: 95%;padding: 5px;" value="提交" onclick="return show_hint(['a'])"/>
 				</td>			
 			</tr>
 		</table>
@@ -313,10 +314,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	
 	
 	
-	<script>
-		function doSearch(value){
-			$('#f2').submit();
-		}
-	</script>
+
+	<jsp:include page="../hintModal.jsp"/>
+	
   </body>
 </html>
