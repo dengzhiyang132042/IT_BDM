@@ -166,7 +166,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    </tr>
     </table>
   	</div>
-    <div style="height:500px;overflow: scroll;margin-top: -61px;">
+    <div style="height:500px;overflow: scroll;margin-top: -61px;overflow-x:hidden;">
     <table border="1" id="" style="font-size: 12px;">
     	<tr style="height: 30px;visibility: hidden;">
     		<th width="90">1</th>

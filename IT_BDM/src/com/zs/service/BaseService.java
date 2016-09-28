@@ -469,6 +469,12 @@ public class BaseService implements IService{
 		req.setAttribute("listUsers", list);
 	}	
 	
+	public void bringUsers(HttpServletRequest req, Users user) {
+		List<Users> list=this.find("from Users where UName !='"+user.getUName()+"'", null);
+		req.setAttribute("listUsers", list);
+		
+	}
+	
 	public List initDemPers(List dems) {
 		List demPers=new ArrayList<DaDemPer>();
 		for (int i = 0; i < dems.size(); i++) {
@@ -491,4 +497,5 @@ public class BaseService implements IService{
 		}
 		return demPers;
 	}
+	
 }

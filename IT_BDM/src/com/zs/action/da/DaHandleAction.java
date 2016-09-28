@@ -42,6 +42,9 @@ public class DaHandleAction extends MyBaseAction implements IMyBaseAction{
 	String dates;
 	String datee;
 	String type;
+	
+	//定义一个变量用来存储点击转发按钮时当前处理人的信息
+	String num_now="";
 
 	
 	private Logger logger=Logger.getLogger(DaHandleAction.class);
@@ -177,7 +180,7 @@ public class DaHandleAction extends MyBaseAction implements IMyBaseAction{
 			List dems=ser.query(hql, ss, hql2, page, ser);
 			initDemPers(dems);
 		}
-		ser.bringUsers(getRequest());
+		ser.bringUsers(getRequest(),uu);
 		JSONArray json=JSONArray.fromObject(demper);
 		getRequest().setAttribute("json", json);
 		return result;
@@ -225,14 +228,14 @@ public class DaHandleAction extends MyBaseAction implements IMyBaseAction{
 		String hql2="from DaDemand where DId in (select DId from DaPerform where UNum ='"+uu.getUNum()+"'  and PState = '进行中') order by DTime desc";
 		List dems=ser.query(hql, ss, hql2, page, ser);
 		initDemPers(dems);
-		ser.bringUsers(getRequest());
+		ser.bringUsers(getRequest(),uu);
 		JSONArray json=JSONArray.fromObject(demper);
 		getRequest().setAttribute("json", json);
 		return result;
 	}
 	
 	
-	public String update() throws Exception {
+	public String update() throws Exception {	
 		if (d!=null && !"".equals(d.getDId())&& p.getPState().equals("转发")) {
 			d=(DaDemand) ser.get(DaDemand.class, d.getDId());
 			//找到当前执行表数据

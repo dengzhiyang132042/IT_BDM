@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import com.zs.entity.CompanySection;
 import com.zs.entity.Timeline;
+import com.zs.entity.Users;
 import com.zs.tools.Page;
 
 
@@ -144,6 +145,16 @@ public interface IService {
 	 * <br>带回去的是Users集合，名字是listUsers
 	 */
 	public void bringUsers(HttpServletRequest req);
+	
+	/**
+	 * 黄光辉
+	 *<br>2016年9月27日16:27:50
+	 *<br>除当前传过去的人外的其余信息带过去
+	 *@param req 需要一个request
+	 *@Users user 需要一个当前处理人
+	 *<br>带回去的是Users集合，名字是listUsers
+	 */
+	public void bringUsers(HttpServletRequest req,Users user);
 	
 	
 	/**张顺
