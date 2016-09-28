@@ -15,7 +15,7 @@ function check(){
 	}else {
 		return true;
 	}
-};
+}
 
 //记住用户名密码
 function save() {
@@ -43,4 +43,5 @@ function save() {
   }else {
   	return true;
 	}
-};	
+}
+

@@ -201,6 +201,15 @@ public class DaManagerAction extends MyBaseAction implements IMyBaseAction{
 		String sj="";
 		Users um = (Users) ser.get(Users.class, p.getUNum());
 		if (d!=null) {
+			d.setDId("d"+NameOfDate.getNum());
+			d.setDTime(new Timestamp(new Date().getTime()));
+			ser.save(d);getRequest().setAttribute("d", d);
+			p.setPId("p"+NameOfDate.getNum());
+			p.setDId(d.getDId());
+			p.setPTime(new Timestamp(new Date().getTime()));
+			p.setPState("进行中");
+			ser.save(p);
+			getRequest().setAttribute("p",p);
 			//邮件
 			title="故障处理提醒";
 			sj=um.getUMail();
@@ -230,18 +239,7 @@ public class DaManagerAction extends MyBaseAction implements IMyBaseAction{
 				//日后换成邮件错误界面
 				getResponse().getWriter().write("邮件发送错误!请手动发送邮件");
 				return null;
-			}finally{
-				d.setDId("d"+NameOfDate.getNum());
-				d.setDTime(new Timestamp(new Date().getTime()));
-				ser.save(d);
-				p.setPId("p"+NameOfDate.getNum());
-				p.setDId(d.getDId());
-				p.setPTime(new Timestamp(new Date().getTime()));
-				p.setPState("进行中");
-				ser.save(p);
 			}
-			getRequest().setAttribute("d", d);
-			getRequest().setAttribute("p",p);
 			initContent();
 		}
 		return gotoQuery();

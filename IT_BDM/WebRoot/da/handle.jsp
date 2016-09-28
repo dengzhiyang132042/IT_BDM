@@ -68,7 +68,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		*/
 		var table1="<table border=\"1\" class=\"table1\">";
 		table1=table1+
-		"<tr><td style=\"width:60px;\">编号：</td><td>"+${json}[status].demand.DId+"</td></tr>"+
+		"<tr><td style=\"width:70px;\">编号：</td><td>"+${json}[status].demand.DId+"</td></tr>"+
 		"<tr><td>发起人：</td><td>"+${json}[status].demand.DApplicant+"</td></tr>"+
 		"<tr><td>故障描述：</td><td>"+${json}[status].demand.DContent+"</td></tr>"+
 		"<tr><td>故障类型：</td><td>"+${json}[status].demand.DType+"</td></tr>"+
@@ -76,7 +76,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		table1=table1+"</table>";
 		table1=table1+"<table border=\"1\" style=\"font-size: 12px;margin-top: 10px;\">";
 		table1=table1+
-		"<tr><th>处理人</th><th>处理状态</th><th>时间</th><th>被转发人</th></tr>";
+		"<tr><th width='50'>处理人</th><th>处理状态</th><th width='150'>时间</th><th width='50'>被转发人</th></tr>";
 		for ( var i = 0; i < ${json}[status].performs.length; i++) {
 			table1=table1+"<tr>"+
 			"<td>"+${json}[status].performs[i].UName+"</td>"+
@@ -119,14 +119,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		}
 	}
 	function Texit(){
-		window.location.reload();
+		$("#c").window('close');
 	}
 	</script>
   </head>
   
   <body>
     
-    <div class="easyui-panel" title="故障处理" style="padding: 5px;display: none;" data-options="tools:'#tt'">
+    <div class="easyui-panel" title="故障处理" style="padding: 5px;display: none;">
 	    <div style="background-color:white;margin-bottom: 5px;padding: 5px;border: 1px solid #224466; ">
     	快速查询
     	<br/>
@@ -154,10 +154,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    
 		    <table border="1" id="" style="font-size: 12px;">
 		    <tr>
-		    	<th>编号</th>
-		    	<th>发起人</th>
-		    	<th>故障描述</th>
-		    	<th>故障类型</th>
+		    	<th width="150">编号</th>
+		    	<th width="150">发起人</th>
+		    	<th width="300">故障描述</th>
+		    	<th width="90">故障类型</th>
 		    	<th>创建时间</th>
 		    	<th>当前处理人</th>
 		    	<th>处理时间</th>
@@ -168,7 +168,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		    <tr>
 				<td>${dp.demand.DId }</td>
 		    	<td>${dp.demand.DApplicant }</td>
-		    	<td style="width:300px;">${dp.demand.DContent }</td>
+		    	<td>${dp.demand.DContent }</td>
 		    	<td>${dp.demand.DType }</td>
 		    	<td>${dp.demand.DTime }</td>
 		    	<td>${dp.performs[0].UName }</td>
@@ -222,7 +222,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<form action="<%=path %>/handle!update" method="post">
 		<table border="0" class="table1">
 			<tr>
-				<td>编号：</td>
+				<td width="70">编号：</td>
 				<td>
 					<input id="u_1" name="d.DId" type="text" style="width: 100%;" readonly="readonly"/>
 				</td>
@@ -269,7 +269,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</tr>
 			<tr>
 				<td colspan="2" align="center">
-					<input class="easyui-linkbutton" type="submit" style="width: 95%;padding: 5px;" value="提交"/>
+					<input class="easyui-linkbutton" type="submit" style="width: 95%;padding: 5px;" value="提交" onclick="return show_hint(['u'])"/>
 				</td>			
 			</tr>
 		</table>
@@ -287,7 +287,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<div id="sTest" style="font-size:20px;font-weight:bold;width:150px;margin:30px 0 30px 90px;">
 			</div>
 			<div style="float:left;margin:20px 25px 0 50px;">
-				<input  type="submit" style="width:80px;height:30px;font-size:15px;" value="确 定"/>
+				<input  type="submit" style="width:80px;height:30px;font-size:15px;" value="确 定" onclick="return show_hint(['c'])"/>
 			</div>
 			<div style="float:left;margin:20px 20px 0 0px;">
 				<input type="button" style="width:80px;height:30px;font-size:15px;" value="取 消" onclick="Texit()"/>
@@ -295,15 +295,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</form>
 	</div>
 	
-	<div id="tt" style="display: none;">
-		<a class="icon-add" onclick="$('#a').window('open')" style="margin-left: 10px;" title="添加"></a>
-	</div>
+	<jsp:include page="../hintModal.jsp"/>
 	
-	
-	<script>
-		function doSearch(value){
-			$('#f2').submit();
-		}
-	</script>
   </body>
 </html>

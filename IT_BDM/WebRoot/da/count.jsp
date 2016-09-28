@@ -147,38 +147,44 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   	<div style="margin-right: 17px;">
     <table border="1" id="" style="font-size: 12px;">
 	    <tr>
-	    	<th rowspan="2">序号</th>
-	    	<th colspan="2">时间范围</th>
-	    	<th rowspan="2">故障报修量</th>
-	    	<th rowspan="2">故障完成量</th>
-	    	<th rowspan="2">完成率</th>
-	    	<th rowspan="2">操作</th>
+	    	<th width="90">序号</th>
+	    	<th width="280">开始时间</th>
+	    	<th width="280">结束时间</th>
+	    	<th width="250">故障报修量</th>
+	    	<th width="250">故障完成量</th>
+	    	<th width="250">完成率</th>
+	    	<th>操作</th>
 	    </tr>
-	    <tr>
-	    	<th>开始时间</th>
-	    	<th>结束时间</th>
-	    </tr>
-	    <tr style="height: 30px;color: white;border: 0px;">
-	    	<td width="90">1</td>
-	    	<td width="280">1</td>
-	    	<td width="280">1</td>
-	    	<td width="250">1</td>
-	    	<td width="250">1</td>
-	    	<td width="250">1</td>
+	    <tr style="height: 30px;visibility: hidden;">
+	    	<td>1</td>
+	    	<td>1</td>
+	    	<td>1</td>
+	    	<td>1</td>
+	    	<td>1</td>
+	    	<td>1</td>
 	    	<td>1</td>
 	    </tr>
     </table>
   	</div>
-    <div style="height:500px;overflow: scroll;margin-top: -31px;">
+    <div style="height:500px;overflow: scroll;margin-top: -61px;">
     <table border="1" id="" style="font-size: 12px;">
+    	<tr style="height: 30px;visibility: hidden;">
+    		<th width="90">1</th>
+    		<th width="280">1</th>
+    		<th width="280">1</th>
+    		<th width="250">1</th>
+    		<th width="250">1</th>
+    		<th width="250">1</th>
+    		<th>1</th>
+    	</tr>
 	    <c:forEach items="${counts}" var="count" varStatus="status">
 	    <tr>
-	    	<td width="90">${status.index+1 }</td>
-	    	<td width="280">${count.sTime }</td>
-	    	<td width="280">${count.eTime }</td>
-	    	<td width="250">${count.daAll }</td>
-	    	<td width="250">${count.daSuc }</td>
-	    	<td width="250">${count.ratioSuc }%</td>
+	    	<td>${status.index+1 }</td>
+	    	<td>${count.sTime }</td>
+	    	<td>${count.eTime }</td>
+	    	<td>${count.daAll }</td>
+	    	<td>${count.daSuc }</td>
+	    	<td>${count.ratioSuc }%</td>
 	    	<td>
 				<a onclick="queryDetails('${status.index}')" class="easyui-linkbutton" title="查看详情">查看详情</a>
 			</td>
