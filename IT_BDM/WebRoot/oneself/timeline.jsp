@@ -34,16 +34,37 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</style>
   </head>
   
-  <body style="padding-right: 40px;">
+  <body>
   	<div style="color: blue;font-weight: bold;">今天的时间轴:</div>
   	<br/>
+  	
+  	<div style="padding-right: 17px;">
 	<table border="1">
 	<tr>
-		<th>序号</th>
-		<th>时间</th>
-		<th>操作</th>
-		<th>操作的表</th>
+		<th width="200">序号</th>
+		<th width="400">时间</th>
+		<th width="300">操作</th>
+		<th width="350">操作的表</th>
 		<th>表的编号</th>
+	</tr>
+	<tr height="30" style="visibility: hidden;">
+		<td>1</td>
+		<td>1</td>
+		<td>1</td>
+		<td>1</td>
+		<td>1</td>
+	</tr>
+	</table>
+  	</div>
+	
+	<div style="margin-top: -31px;height: 80%;overflow: scroll;">
+	<table border="1" style="margin-top: -30px;">
+	<tr height="30" style="visibility: hidden;">
+		<th width="200">1</th>
+		<th width="400">1</th>
+		<th width="300">1</th>
+		<th width="350">1</th>
+		<th>1</th>
 	</tr>
 	<c:forEach items="${tls}" var="tl" varStatus="sta">
 	<tr>
@@ -70,8 +91,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</tr>	
 	</c:forEach>
 	</table>
+	</div>
 	
-	
-	    
   </body>
 </html>
