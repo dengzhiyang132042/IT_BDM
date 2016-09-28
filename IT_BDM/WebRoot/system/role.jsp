@@ -34,11 +34,37 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		$('#tt').show();
 	});
 	
-	function update(u1,u2,u3){
+	function update(u1,u2,u3,u4){
 		$('#u').window('open');
 		$('#u_1').val(u1);
 		$('#u_2').val(u2);
 		$('#u_3').val(u3);
+		var td=$("#"+u4).html();
+		
+		/*
+		console.log(td.html());
+		var str="1,2,3";
+		var ss=str.split(",");
+		console.log(ss.length);
+		*/
+		var ss1=td.split(";");
+		for ( var i = 0; i < ss1.length; i++) {
+			var ss2=ss1[i].split(",");
+			ss1[i]=ss2[0].trim();
+		}
+		
+		for ( var j = 0; j < ss1.length; j++) {
+		//	console.log(ss1[j].trim());
+			$("#cscheck :checkbox").each(function () {
+				if($(this).val()==ss1[j]){
+					$(this).attr("checked", "checked");
+				}
+            });
+		}
+		
+		//console.log(ss1);
+		
+		
 	}
 	function page(no,cz){
 		var num1=$('#page').val();
@@ -59,16 +85,34 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		var all=$("#all");
 		var un=$("#uncheck");
 		var other=$("#othercheck");
-		var allcheck=$("input:checkbox");
+		var allcheck=$("#cscheck :checkbox");
 		all.click(function(){
-			$("input:checkbox").attr("checked", true);
+			$("#cscheck :checkbox,#all").prop("checked", true);
 		});
 		un.click(function(){
-			$("input:checkbox").attr("checked", false);
+			$("#cscheck :checkbox,#all").prop('checked',false);
 		});
 		other.click(function(){
 			allcheck.each(function () {
-                   $(this).attr("checked", !$(this).attr("checked"));
+                   $(this).prop("checked", !$(this).prop("checked"));
+               });
+		});
+	});
+	
+	$(function(){
+		var all=$("#all1");
+		var un=$("#uncheck1");
+		var other=$("#othercheck1");
+		var allcheck=$("#cscheck1 :checkbox");
+		all.click(function(){
+			$("#cscheck1 :checkbox,#all1").prop("checked", true);
+		});
+		un.click(function(){
+			$("#cscheck1 :checkbox,#all1").prop('checked',false);
+		});
+		other.click(function(){
+			allcheck.each(function () {
+                   $(this).prop("checked", !$(this).prop("checked"));
                });
 		});
 	});
@@ -93,20 +137,20 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<td width="10%">${r.RId }</td>
 			<td width="10%">${r.RName }</td>
 			<td width="20%">${r.RDescription }</td>
-			<td width="55%">
+			<td id="td_${r.RId }" width="55%">
 				<c:forEach items="${r.ps}" var="p" varStatus="sta">
-				${sta.index+1 },${p.PName }
+				${p.PId },${p.PName };
 				</c:forEach>
 			</td>
 			<td width="5%" align="center">
-				<a onclick="update('${r.RId }','${r.RName }','${r.RDescription }')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-edit'" title="修改"></a>
+				<a onclick="update('${r.RId }','${r.RName }','${r.RDescription }','td_${r.RId }')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-edit'" title="修改"></a>
 				<a href="<%=path %>/role!delete?id=${r.RId}" onclick="return confirm('确定删除吗?')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-delete'" title="删除"></a>
 			</td>
 	    </tr>
 	    </c:forEach>
 	    </table>
 		<br/>
-	
+			
 	<div class="easyui-panel" style="padding:5px;width: 100%;display: none;">
 		<form id="f1" action="<%=path %>/role!queryOfFenye" method="post">
 		<select id="sele" style="float: left;margin-top: 3px;margin-left: 5px;" name="page.size" onchange="$('#f1').submit();">
@@ -163,11 +207,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<div style="height: 300px;overflow: scroll;">
 					权限明细：
 					<br/>
+					<div id ="cscheck">
 					<c:forEach items="${ps}" var="per" varStatus="sta">
 					<input name="per${per.PId }" type="checkbox" value="${per.PId }"/>
-					<span>${sta.index+1 }.${per.PName }</span>
+					<span>${per.PId }.${per.PName }</span>
 					<br/>
 					</c:forEach>
+					</div>
 					<input id="all" type="button" value="全选"/>
 					<input id="uncheck" type="button" value="全不选"/>
 					<input id="othercheck" type="button" value="反选"/>
@@ -203,14 +249,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<div style="height: 300px;overflow: scroll;">
 					权限明细：
 					<br/>
+					<div id="cscheck1">
 					<c:forEach items="${ps}" var="per" varStatus="sta">
 					<input name="per${per.PId }" type="checkbox" value="${per.PId }"/>
-					<span>${sta.index+1 }.${per.PName }</span>
+					<span>${per.PId }.${per.PName }</span>
 					<br/>
 					</c:forEach>
-					<input id="all" type="button" value="全选"/>
-					<input id="uncheck" type="button" value="全不选"/>
-					<input id="othercheck" type="button" value="反选"/>
+					</div>
+					<input id="all1" type="button" value="全选"/>
+					<input id="uncheck1" type="button" value="全不选"/>
+					<input id="othercheck1" type="button" value="反选"/>
 					</div>
 				</td>
 			</tr>
