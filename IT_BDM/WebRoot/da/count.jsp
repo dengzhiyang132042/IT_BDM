@@ -217,12 +217,5 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	
 	
 	
-	
-	
-	<script>
-		function doSearch(value){
-			$('#f2').submit();
-		}
-	</script>
   </body>
 </html>

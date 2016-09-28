@@ -79,35 +79,33 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <body>
     
     <div class="easyui-panel" title="角色管理" style="padding: 5px;display: none;" data-options="tools:'#tt'">
-    <div style="height: 455px;">
     
-    <table border="1" id="eidtASubjectWindow1" style="font-size: 12px;">
-    <tr align="center" style="height: 28px;background-color: #E6E6E6;">
-    	<th>编号</td>
-    	<th>名称</td>
-    	<th>描述</td>
-    	<th>权限明细</td>
-    	<th>操作</td>
-    </tr>
-    <c:forEach items="${rs}" var="r">
-    <tr>
-		<td width="10%">${r.RId }</td>
-		<td width="10%">${r.RName }</td>
-		<td width="20%">${r.RDescription }</td>
-		<td width="55%">
-			<c:forEach items="${r.ps}" var="p" varStatus="sta">
-			${sta.index+1 },${p.PName }
-			</c:forEach>
-		</td>
-		<td width="5%" align="center">
-			<a onclick="update('${r.RId }','${r.RName }','${r.RDescription }')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-edit'" title="修改"></a>
-			<a href="<%=path %>/role!delete?id=${r.RId}" onclick="return confirm('确定删除吗?')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-delete'" title="删除"></a>
-		</td>
-    </tr>
-    </c:forEach>
-    </table>
-	</div>
-	<br/>
+	    <table border="1" id="eidtASubjectWindow1" style="font-size: 12px;">
+	    <tr align="center" style="height: 28px;background-color: #E6E6E6;">
+	    	<th width="150">编号</td>
+	    	<th width="90">名称</td>
+	    	<th width="150">描述</td>
+	    	<th>权限明细</td>
+	    	<th width="70">操作</td>
+	    </tr>
+	    <c:forEach items="${rs}" var="r">
+	    <tr>
+			<td width="10%">${r.RId }</td>
+			<td width="10%">${r.RName }</td>
+			<td width="20%">${r.RDescription }</td>
+			<td width="55%">
+				<c:forEach items="${r.ps}" var="p" varStatus="sta">
+				${sta.index+1 },${p.PName }
+				</c:forEach>
+			</td>
+			<td width="5%" align="center">
+				<a onclick="update('${r.RId }','${r.RName }','${r.RDescription }')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-edit'" title="修改"></a>
+				<a href="<%=path %>/role!delete?id=${r.RId}" onclick="return confirm('确定删除吗?')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-delete'" title="删除"></a>
+			</td>
+	    </tr>
+	    </c:forEach>
+	    </table>
+		<br/>
 	
 	<div class="easyui-panel" style="padding:5px;width: 100%;display: none;">
 		<form id="f1" action="<%=path %>/role!queryOfFenye" method="post">
@@ -143,7 +141,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<form action="<%=path %>/role!update" method="post">
 		<table border="0" class="table1">
 			<tr>
-				<td>编号：</td>
+				<td width="70">编号：</td>
 				<td>
 					<input id="u_1" name="r.RId" type="text" style="width: 100%;" readonly="readonly"/>
 				</td>
@@ -178,7 +176,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</tr>
 			<tr>
 				<td colspan="2" align="center">
-					<input class="easyui-linkbutton" type="submit" style="width: 95%;padding: 5px;" value="提交"/>
+					<input class="easyui-linkbutton" type="submit" style="width: 95%;padding: 5px;" value="提交" onclick="return show_hint(['u'])"/>
 				</td>			
 			</tr>
 		</table>
@@ -189,7 +187,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<form action="<%=path %>/role!add" method="post">
 		<table border="0" class="table1">
 			<tr>
-				<td>名称：</td>
+				<td width="70">名称：</td>
 				<td>
 					<input name="r.RName" type="text" style="width: 100%;"/>
 				</td>
@@ -218,7 +216,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</tr>
 			<tr>
 				<td colspan="2" align="center">
-					<input class="easyui-linkbutton" type="submit" style="width: 95%;padding: 5px;" value="提交"/>
+					<input class="easyui-linkbutton" type="submit" style="width: 95%;padding: 5px;" value="提交" onclick="return show_hint(['a'])"/>
 				</td>			
 			</tr>
 		</table>
@@ -230,10 +228,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</div>
 	
 	
-	<script>
-		function doSearch(value){
-			$('#f2').submit();
-		}
-	</script>
+	<jsp:include page="../hintModal.jsp"/>
+	
   </body>
 </html>

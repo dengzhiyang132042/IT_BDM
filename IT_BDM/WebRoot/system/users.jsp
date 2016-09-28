@@ -71,8 +71,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		$('#u_1').val(u1);
 		$('#u_2').val(u2);
 		$('#u_3').val(u3);
-		$("#u_4 option[value='"+u4+"']").attr("selected",true);
-		$("#u_5 option[value='"+u5+"']").attr("selected",true);
+		
+		$('#cc2').combo('setText',u4);
+		$('#cc2').combo('setValue',u4);
+		
+		$('#u_5').val(u5);
 		$("#u_6 option[value='"+u6+"']").attr("selected",true);
 		$('#u_7').val(u7);
 	}
@@ -106,7 +109,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <body>
     
     <div class="easyui-panel" title="用户管理" style="padding: 5px;display: none;" data-options="tools:'#tt'">
-    <div style="height: 455px;">
     
     <table border="1" id="eidtASubjectWindow1" style="font-size: 12px;">
     <tr align="center" style="height: 28px;background-color: #E6E6E6;">
@@ -137,7 +139,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     </tr>
     </c:forEach>
     </table>
-	</div>
 	<br/>
 	
 	<div class="easyui-panel" style="padding:5px;width: 100%;display: none;">
@@ -174,7 +175,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<form action="<%=path %>/users!update" method="post">
 		<table border="0" class="table1">
 			<tr>
-				<td>账号：</td>
+				<td width="70">账号：</td>
 				<td>
 					<input id="u_1" name="u.UNum" type="text" style="width: 100%;" readonly="readonly"/>
 				</td>
@@ -298,11 +299,5 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<a class="icon-add" onclick="$('#a').window('open')" style="margin-left: 10px;" title="添加"></a>
 	</div>
 	
-	
-	<script>
-		function doSearch(value){
-			$('#f2').submit();
-		}
-	</script>
   </body>
 </html>
