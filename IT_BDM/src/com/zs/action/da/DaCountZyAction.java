@@ -129,37 +129,39 @@ public class DaCountZyAction extends MyBaseAction implements IMyBaseAction{
 		for (int i = 0; i < users.size(); i++) {
 			Users u=users.get(i);
 			//查找需求表，条件是最后执行人是u
-			if (dt.equals("D")) {
-				//获取相差天数
-				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-				Date date1=sdf.parse(d1.getDTime().toLocaleString());
-				Date date2=sdf.parse(d2.getDTime().toLocaleString());
-				long days=(date1.getTime()-date2.getTime())/(1000*3600*24);
-				//从第一天开始循环组装数据封装
-				for (int k = 0; k <=days; k++) {
-					Date dateStart=new Date(d2.getDTime().getYear(), d2.getDTime().getMonth(), d2.getDTime().getDate()+k,0,0,0);
-					Date dateEnd=new Date(d2.getDTime().getYear(), d2.getDTime().getMonth(), d2.getDTime().getDate()+k,23, 59, 59);
-					initCount(dateStart, dateEnd, counts,u);
-				}				
-			}else if (dt.equals("M")) {
-				//获取相差月数
-				long ms=(d1.getDTime().getYear()-d2.getDTime().getYear())*12+(d1.getDTime().getMonth()-d2.getDTime().getMonth());
-				for (int k = 0; k <= ms; k++) {
-					Date dateStart=new Date(d2.getDTime().getYear(), d2.getDTime().getMonth()+k, 1,0,0,0);
-					Calendar ca = Calendar.getInstance();    
-					ca.set(1900+d2.getDTime().getYear(), 1+d2.getDTime().getMonth(), 0);
-					Date dateTmp=ca.getTime();
-					Date dateEnd=new Date(dateTmp.getYear(), dateTmp.getMonth()+k, dateTmp.getDate(),23,59,59);
-					initCount(dateStart, dateEnd, counts,u);
-				}			
-			}else if (dt.equals("Y")) {
-				//获得相差年数
-				long ys=d1.getDTime().getYear()-d2.getDTime().getYear();
-				for (int k = 0; k <= ys; k++) {
-					Date dateStart=new Date(d2.getDTime().getYear()+k, 0, 1,0,0,0);
-					Date dateEnd=new Date(d2.getDTime().getYear()+k, 11, 31,23,59,59);
-					initCount(dateStart, dateEnd, counts,u);
-				}			
+			if (d1!=null && d2!=null) {
+				if (dt.equals("D")) {
+					//获取相差天数
+					SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+					Date date1=sdf.parse(d1.getDTime().toLocaleString());
+					Date date2=sdf.parse(d2.getDTime().toLocaleString());
+					long days=(date1.getTime()-date2.getTime())/(1000*3600*24);
+					//从第一天开始循环组装数据封装
+					for (int k = 0; k <=days; k++) {
+						Date dateStart=new Date(d2.getDTime().getYear(), d2.getDTime().getMonth(), d2.getDTime().getDate()+k,0,0,0);
+						Date dateEnd=new Date(d2.getDTime().getYear(), d2.getDTime().getMonth(), d2.getDTime().getDate()+k,23, 59, 59);
+						initCount(dateStart, dateEnd, counts,u);
+					}				
+				}else if (dt.equals("M")) {
+					//获取相差月数
+					long ms=(d1.getDTime().getYear()-d2.getDTime().getYear())*12+(d1.getDTime().getMonth()-d2.getDTime().getMonth());
+					for (int k = 0; k <= ms; k++) {
+						Date dateStart=new Date(d2.getDTime().getYear(), d2.getDTime().getMonth()+k, 1,0,0,0);
+						Calendar ca = Calendar.getInstance();    
+						ca.set(1900+d2.getDTime().getYear(), 1+d2.getDTime().getMonth(), 0);
+						Date dateTmp=ca.getTime();
+						Date dateEnd=new Date(dateTmp.getYear(), dateTmp.getMonth()+k, dateTmp.getDate(),23,59,59);
+						initCount(dateStart, dateEnd, counts,u);
+					}			
+				}else if (dt.equals("Y")) {
+					//获得相差年数
+					long ys=d1.getDTime().getYear()-d2.getDTime().getYear();
+					for (int k = 0; k <= ys; k++) {
+						Date dateStart=new Date(d2.getDTime().getYear()+k, 0, 1,0,0,0);
+						Date dateEnd=new Date(d2.getDTime().getYear()+k, 11, 31,23,59,59);
+						initCount(dateStart, dateEnd, counts,u);
+					}			
+				}
 			}
 		}
 	}
