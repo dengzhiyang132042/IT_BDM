@@ -122,43 +122,45 @@ public class DaCountAction extends MyBaseAction implements IMyBaseAction{
 		if (list.size()>0) {
 			d2=(DaDemand) list.get(0);//头
 		}
-		if (dt.equals("D")) {
-			//获取相差天数
-			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-			Date date1=sdf.parse(d1.getDTime().toLocaleString());
-			Date date2=sdf.parse(d2.getDTime().toLocaleString());
-			long days=(date1.getTime()-date2.getTime())/(1000*3600*24);
-			/*
-			logger.debug(date1.toLocaleString()+" "+date2.toLocaleString());
-			logger.debug(d1.getDTime().toLocaleString()+" "+d2.getDTime().toLocaleString());
-			logger.debug(d1.getDTime().getDate());
-			*/
-			//从第一天开始循环组装数据封装
-			for (int i = 0; i <=days; i++) {
-				Date dateStart=new Date(d2.getDTime().getYear(), d2.getDTime().getMonth(), d2.getDTime().getDate()+i,0,0,0);
-				Date dateEnd=new Date(d2.getDTime().getYear(), d2.getDTime().getMonth(), d2.getDTime().getDate()+i,23, 59, 59);
-				initCount(dateStart, dateEnd, counts);
-			}
-		}else if (dt.equals("M")) {
-			//获取相差月数
-			long ms=(d1.getDTime().getYear()-d2.getDTime().getYear())*12+(d1.getDTime().getMonth()-d2.getDTime().getMonth());
-			//logger.debug(ms);
-			for (int i = 0; i <= ms; i++) {
-				Date dateStart=new Date(d2.getDTime().getYear(), d2.getDTime().getMonth()+i, 1,0,0,0);
-				Calendar ca = Calendar.getInstance();    
-				ca.set(1900+d2.getDTime().getYear(), 1+d2.getDTime().getMonth(), 0);
-				Date dateTmp=ca.getTime();
-				//logger.debug(dateTmp.toLocaleString()+"  "+d2.getDTime().getYear()+"  "+d2.getDTime().getMonth());
-				Date dateEnd=new Date(dateTmp.getYear(), dateTmp.getMonth()+i, dateTmp.getDate(),23,59,59);
-				initCount(dateStart, dateEnd, counts);
-			}
-		}else if (dt.equals("Y")) {
-			//获得相差年数
-			long ys=d1.getDTime().getYear()-d2.getDTime().getYear();
-			for (int i = 0; i <= ys; i++) {
-				Date dateStart=new Date(d2.getDTime().getYear()+i, 0, 1,0,0,0);
-				Date dateEnd=new Date(d2.getDTime().getYear()+i, 11, 31,23,59,59);
-				initCount(dateStart, dateEnd, counts);
+		if (d1!=null && d2!=null) {
+			if (dt.equals("D")) {
+				//获取相差天数
+				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+				Date date1=sdf.parse(d1.getDTime().toLocaleString());
+				Date date2=sdf.parse(d2.getDTime().toLocaleString());
+				long days=(date1.getTime()-date2.getTime())/(1000*3600*24);
+				/*
+				logger.debug(date1.toLocaleString()+" "+date2.toLocaleString());
+				logger.debug(d1.getDTime().toLocaleString()+" "+d2.getDTime().toLocaleString());
+				logger.debug(d1.getDTime().getDate());
+				*/
+				//从第一天开始循环组装数据封装
+				for (int i = 0; i <=days; i++) {
+					Date dateStart=new Date(d2.getDTime().getYear(), d2.getDTime().getMonth(), d2.getDTime().getDate()+i,0,0,0);
+					Date dateEnd=new Date(d2.getDTime().getYear(), d2.getDTime().getMonth(), d2.getDTime().getDate()+i,23, 59, 59);
+					initCount(dateStart, dateEnd, counts);
+				}
+			}else if (dt.equals("M")) {
+				//获取相差月数
+				long ms=(d1.getDTime().getYear()-d2.getDTime().getYear())*12+(d1.getDTime().getMonth()-d2.getDTime().getMonth());
+				//logger.debug(ms);
+				for (int i = 0; i <= ms; i++) {
+					Date dateStart=new Date(d2.getDTime().getYear(), d2.getDTime().getMonth()+i, 1,0,0,0);
+					Calendar ca = Calendar.getInstance();    
+					ca.set(1900+d2.getDTime().getYear(), 1+d2.getDTime().getMonth(), 0);
+					Date dateTmp=ca.getTime();
+					//logger.debug(dateTmp.toLocaleString()+"  "+d2.getDTime().getYear()+"  "+d2.getDTime().getMonth());
+					Date dateEnd=new Date(dateTmp.getYear(), dateTmp.getMonth()+i, dateTmp.getDate(),23,59,59);
+					initCount(dateStart, dateEnd, counts);
+				}
+			}else if (dt.equals("Y")) {
+				//获得相差年数
+				long ys=d1.getDTime().getYear()-d2.getDTime().getYear();
+				for (int i = 0; i <= ys; i++) {
+					Date dateStart=new Date(d2.getDTime().getYear()+i, 0, 1,0,0,0);
+					Date dateEnd=new Date(d2.getDTime().getYear()+i, 11, 31,23,59,59);
+					initCount(dateStart, dateEnd, counts);
+				}
 			}
 		}
 	}
