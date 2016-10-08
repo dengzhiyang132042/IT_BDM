@@ -25,5 +25,8 @@
         <property name="DId" type="java.lang.String">
             <column name="d_id" />
         </property>
+        <property name="PNote" type="java.lang.String">
+            <column name="p_note" />
+        </property>
     </class>
 </hibernate-mapping>

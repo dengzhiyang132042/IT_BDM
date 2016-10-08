@@ -15,7 +15,7 @@ public class DaDemand implements java.io.Serializable {
 	private String DContent;
 	private String DType;
 	private Timestamp DTime;
-
+	private Timestamp DTimeExpect;
 	private String DTimeString;
 
 	// Constructors
@@ -51,6 +51,14 @@ public class DaDemand implements java.io.Serializable {
 
 	public String getDId() {
 		return this.DId;
+	}
+
+	public Timestamp getDTimeExpect() {
+		return DTimeExpect;
+	}
+
+	public void setDTimeExpect(Timestamp dTimeExpect) {
+		DTimeExpect = dTimeExpect;
 	}
 
 	public void setDId(String DId) {
