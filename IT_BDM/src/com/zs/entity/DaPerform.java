@@ -18,6 +18,7 @@ public class DaPerform implements java.io.Serializable {
 	private String DId;
 	private String UName;
 	private String UNameNext;
+	private String PNote;
 	
 	private String PTimeString;
 	
@@ -71,6 +72,14 @@ public class DaPerform implements java.io.Serializable {
 
 	public String getPId() {
 		return this.PId;
+	}
+
+	public String getPNote() {
+		return PNote;
+	}
+
+	public void setPNote(String pNote) {
+		PNote = pNote;
 	}
 
 	public void setPId(String PId) {
