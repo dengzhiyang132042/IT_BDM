@@ -42,6 +42,7 @@ public class DaHandleAction extends MyBaseAction implements IMyBaseAction{
 	String dates;
 	String datee;
 	String type;
+	String content=null;
 	
 	//定义一个变量用来存储点击转发按钮时当前处理人的信息
 	String num_now="";
@@ -145,6 +146,10 @@ public class DaHandleAction extends MyBaseAction implements IMyBaseAction{
 		}
 	}
 	
+	private void initContent() {
+		content="<style type=\"text/css\">span{display:block;margin:5px 0;font-size:15px;} .table1{	border: #224466;	border-collapse:collapse;	width: 800px;} .tleft{text-align:left;}</style>";
+	}
+	
 	public String queryOfFenye() throws UnsupportedEncodingException {
 		String id = getRequest().getParameter("id");
 		String cz = getRequest().getParameter("cz");
@@ -236,28 +241,83 @@ public class DaHandleAction extends MyBaseAction implements IMyBaseAction{
 	
 	
 	public String update() throws Exception {	
+		//邮件发送所需数据
+		initContent();
+		String title="";
+		String sj="";
+		Users um = null;
+		DaDemand dd =null;
+		DaPerform tmpper=null;
 		if (d!=null && !"".equals(d.getDId())&& p.getPState().equals("转发")) {
 			d=(DaDemand) ser.get(DaDemand.class, d.getDId());
 			//找到当前执行表数据
 			List templi=ser.find("from DaPerform where DId=? order by PTime desc", new String[]{d.getDId()});
 			if (templi.size()>0) {
-				DaPerform tmpper=(DaPerform) templi.get(0);
+				tmpper=(DaPerform) templi.get(0);
 				tmpper.setPTime(new Timestamp(new Date().getTime()));
 				tmpper.setUNumNext(p.getUNumNext());
 				tmpper.setPState("审核中");
 				ser.update(tmpper);
 				getRequest().setAttribute("p", tmpper);
 			}
-		}else{
+		}else if(d!=null && !"".equals(d.getDId())&& p.getPState().equals("已完成")){
 			List templi=ser.find("from DaPerform where DId=? order by PTime desc", new String[]{d.getDId()});
 			if(templi.size()>0){
-				DaPerform tmpper=(DaPerform) templi.get(0);
+				tmpper=(DaPerform) templi.get(0);
 				tmpper.setPTime(new Timestamp(new Date().getTime()));
 				tmpper.setPState(p.getPState());
 				ser.update(tmpper);
 				getRequest().setAttribute("p", tmpper);
 			}
+		}else if(d!=null && !"".equals(d.getDId())&& p.getPState().equals("未完成")){
+			List templi=ser.find("from DaPerform where DId=? order by PTime desc", new String[]{d.getDId()});
+			if(templi.size()>0){
+				tmpper=(DaPerform) templi.get(0);
+				tmpper.setPTime(new Timestamp(new Date().getTime()));
+				tmpper.setPState(p.getPState());
+				tmpper.setPNote(p.getPNote());
+				ser.update(tmpper);
+				getRequest().setAttribute("p", tmpper);
+				
+				//添加一个给主管发送邮件，并标明为什么未完成
+				//邮件模块需要带的数据
+				um = (Users) ser.get(Users.class, tmpper.getUNum());
+				dd = (DaDemand) ser.get(DaDemand.class,d.getDId());
+				//编写邮件内容
+				content=content+"<div style=\"font-family:微软雅黑;font-size:15px;\">"+
+				"<div style=\"height:400px;\">"+
+				"<span>Dear 徐主管</span>"+
+				"<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;您收到有"+um.getUName()+"发送给您的未完成故障详情！</span>"+
+				"<span>未完成原因:"+p.getPNote()+"</span>"+
+				"<table class=\"table1\" border=\"1\">" +
+				"<tr>" +
+				"<td class=\"tleft\">编&nbsp;&nbsp; 号:</td><td>"+d.getDId()+"</td><td class=\"tleft\">发 起 人:</td><td>"+dd.getDApplicant()+"</td></tr>" +
+				"<tr><td class=\"tleft\">故障类型:</td><td>"+dd.getDType()+"</td><td class=\"tleft\">创建时间:</td><td>"+new SimpleDate(dd.getDTime())+"</td></tr>" +
+				"<tr><td>超时时间:</td><td>"+dd.getDTimeExpect()+"</td></tr>" +
+				"</table>"+
+				"<span>故障描述:</span>"+
+				"<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+dd.getDContent()+"</span>"+
+				"</div>"+
+				"<br/>Best Wishes<br/>"+
+				"以流程为导向，以服务为宗旨。<br/>"+
+				"*****************************************************"+
+				"<br/>信息与流程管理部-客服专员 &nbsp;"+um.getUName()+""+
+				"<br/>深圳市韵达速递有限公司<br/>邮箱："+um.getUMail()+""+
+				"<br/>地址：广东省深圳市龙华新区观澜大道114号（交警中队正对面）<br/>"+
+				"***************************************************<br/></div>";
+				//邮件标题
+				title="故障处理未完成";
+				sj="guanghui_huang@szexpress.com.cn";
+			}
 		}
+		try {
+			MailTest.outputMail(sj,MailTest.IT_ROBOT, content, title);
+		} catch (Exception e) {
+			//日后换成邮件错误界面
+			getResponse().getWriter().write("邮件发送错误!请手动发送邮件");
+			return null;
+		}
+		initContent();
 		return gotoQuery();
 	}
 

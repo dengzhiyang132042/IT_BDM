@@ -2,9 +2,12 @@ package com.zs.action.da;
 
 import java.io.UnsupportedEncodingException;
 import java.sql.Timestamp;
+import java.text.Format;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import javax.xml.registry.infomodel.User;
 
@@ -199,10 +202,15 @@ public class DaManagerAction extends MyBaseAction implements IMyBaseAction{
 		String title="";
 		String cs="453668907@qq.com";
 		String sj="";
+		String dTimeExpect = getRequest().getParameter("DTimeExpect");
 		Users um = (Users) ser.get(Users.class, p.getUNum());
 		if (d!=null) {
 			d.setDId("d"+NameOfDate.getNum());
 			d.setDTime(new Timestamp(new Date().getTime()));
+		    SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yy HH:mm:ss");
+		    Date date = sdf.parse(dTimeExpect);
+		    Timestamp  ts= Timestamp.valueOf(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(date));
+		    d.setDTimeExpect(ts);
 			ser.save(d);getRequest().setAttribute("d", d);
 			p.setPId("p"+NameOfDate.getNum());
 			p.setDId(d.getDId());
@@ -219,8 +227,9 @@ public class DaManagerAction extends MyBaseAction implements IMyBaseAction{
 			"<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;您收到有新的故障处理，请尽快解决！ 详情如下</span>"+
 			"<table class=\"table1\" border=\"1\">" +
 			"<tr>" +
-			"<td class=\"tleft\">编&nbsp;&nbsp; 号:</td><td>"+d.getDId()+"</td><td class=\"tleft\">发起人:</td><td>"+d.getDApplicant()+"</td></tr>" +
-			"<tr><td class=\"tleft\">故障类型:</td><td>"+d.getDType()+"</td><td class=\"tleft\">时&nbsp; 间:</td><td>"+new SimpleDate(d.getDTime())+"</td></tr>" +
+			"<td class=\"tleft\">编&nbsp;&nbsp; 号:</td><td>"+d.getDId()+"</td><td class=\"tleft\">发 起 人:</td><td>"+d.getDApplicant()+"</td></tr>" +
+			"<tr><td class=\"tleft\">故障类型:</td><td>"+d.getDType()+"</td><td class=\"tleft\">创建时间:</td><td>"+new SimpleDate(d.getDTime())+"</td></tr>" +
+			"<tr><td>超时时间:</td><td>"+d.getDTimeExpect()+"</td></tr>" +
 			"</table>"+
 			"<span>故障描述:</span>"+
 			"<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+d.getDContent()+"</span>"+

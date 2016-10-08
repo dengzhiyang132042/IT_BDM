@@ -480,6 +480,7 @@ public class BaseService implements IService{
 		for (int i = 0; i < dems.size(); i++) {
 			DaDemand d=(DaDemand) dems.get(i);
 			d.setDTimeString(d.getDTime().toString());
+			d.setDTimeExpectString(d.getDTimeExpect().toString());
 			List pers=this.find("from DaPerform where DId = ? order by PTime desc", new Object[]{d.getDId()});
 			for (int j = 0; j < pers.size(); j++) {
 				DaPerform perform=(DaPerform) pers.get(j);
