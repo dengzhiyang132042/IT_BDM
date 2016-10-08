@@ -104,9 +104,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	
 		if($("#"+u7).val()=="notComplete"){
 			$('#uc_1').val(u1);
-			var span="<span>确定未完成？</span>";
+			var span="<span style=\"font-size:15px;font-weight:bold;\">请写明未完成的原因？</span>";
+			span=span +"<textarea name=\"p.PNote\" type=\"textarea\" style=\"width:200px;height:60px;margin:5px 0 0 5px;\" />"
 			span=span+"<input id=\"uc_2\" name=\"p.PState\" type=\"text\" style=\"display:none;\" value=\"未完成\"/>";
-			$("#sTest").html(span);
+			$("#not_success").html(span);
 			$("#c").window('open');
 		}
 		
@@ -284,6 +285,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<div id="c" class="easyui-window" title="提示窗口" data-options="modal:true,closed:true"  style="width:300px;height:200px;display: none;">
 		<form action="<%=path %>/handle!update" method="post">
 			<input id="uc_1" name="d.DId" type="text" style="display: none;" />
+			<div id="not_success">
+			</div>
 			<div id="sTest" style="font-size:20px;font-weight:bold;width:150px;margin:30px 0 30px 90px;">
 			</div>
 			<div style="float:left;margin:20px 25px 0 50px;">

@@ -43,8 +43,7 @@ public class DaAuditingAction extends MyBaseAction implements IMyBaseAction{
 	String datee;
 	String type;
 	
-	String content="<style type=\"text/css\">span{display:block;margin:5px 0;font-size:18px;} .table1{	border: #224466;	border-collapse:collapse;	width: 100%;} .tleft{text-align:left;}</style>";
-	
+	String content=null;
 	
 	private Logger logger=Logger.getLogger(DaAuditingAction.class);
 
@@ -230,7 +229,7 @@ public class DaAuditingAction extends MyBaseAction implements IMyBaseAction{
 	
 	
 	private void initContent() {
-		content="<style type=\"text/css\">span{display:block;margin:5px 0;font-size:15px;} .table1{	border: #224466;	border-collapse:collapse;	width: 800px;} .tleft{text-align:left;}</style>";
+		content="<style type=\"text/css\">span{display:block;margin:5px 0;font-size:15px;} .table1{	border: #224466;	border-collapse:collapse;	width: 600px;} .tleft{text-align:left;}</style>";
 	}
 	
 	

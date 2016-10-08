@@ -59,13 +59,14 @@ public class DaPerform implements java.io.Serializable {
 
 	/** full constructor */
 	public DaPerform(String PId, String UNum, Timestamp PTime, String PState,
-			String UNumNext, String DId) {
+			String UNumNext, String DId ,String PNote) {
 		this.PId = PId;
 		this.UNum = UNum;
 		this.PTime = PTime;
 		this.PState = PState;
 		this.UNumNext = UNumNext;
 		this.DId = DId;
+		this.PNote = PNote;
 	}
 
 	// Property accessors

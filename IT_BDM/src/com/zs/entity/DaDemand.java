@@ -17,9 +17,17 @@ public class DaDemand implements java.io.Serializable {
 	private Timestamp DTime;
 	private Timestamp DTimeExpect;
 	private String DTimeString;
+	private String DTimeExpectString;
 
 	// Constructors
+	public String getDTimeExpectString() {
+		return DTimeExpectString;
+	}
 
+	public void setDTimeExpectString(String dTimeExpectString) {
+		DTimeExpectString = dTimeExpectString;
+	}
+	
 	public String getDTimeString() {
 		return DTimeString;
 	}
@@ -39,12 +47,13 @@ public class DaDemand implements java.io.Serializable {
 
 	/** full constructor */
 	public DaDemand(String DId, String DApplicant, String DContent,
-			String DType, Timestamp DTime) {
+			String DType, Timestamp DTime ,Timestamp DTimeExpect) {
 		this.DId = DId;
 		this.DApplicant = DApplicant;
 		this.DContent = DContent;
 		this.DType = DType;
 		this.DTime = DTime;
+		this.DTimeExpect = DTimeExpect;
 	}
 
 	// Property accessors

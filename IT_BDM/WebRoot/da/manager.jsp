@@ -1,9 +1,11 @@
 <%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
+<%@ page import="java.text.*"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+String beforeTime= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Calendar.getInstance().getTime());
 %>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
@@ -25,6 +27,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<link rel="stylesheet" type="text/css" href="<%=path %>/FRAMEWORK/jquery-easyui/demo/demo.css">
 	<script type="text/javascript" src="<%=path %>/FRAMEWORK/jquery-easyui/jquery.min.js"></script>
 	<script type="text/javascript" src="<%=path %>/FRAMEWORK/jquery-easyui/jquery.easyui.min.js"></script>
+	<script type="text/javascript" src="<%=path %>/FRAMEWORK/My97DatePicker/calendar.js"></script>
+	<script type="text/javascript" src="<%=path %>/FRAMEWORK/My97DatePicker/WdatePicker.js"></script>
 	
 	<link rel="stylesheet" type="text/css" href="<%=path %>/FRAMEWORK/css/mycss.css">
 	
@@ -73,7 +77,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		"<tr><td>发起人：</td><td>"+${json}[status].demand.DApplicant+"</td></tr>"+
 		"<tr><td>故障描述：</td><td>"+${json}[status].demand.DContent+"</td></tr>"+
 		"<tr><td>故障类型：</td><td>"+${json}[status].demand.DType+"</td></tr>"+
-		"<tr><td>创建时间：</td><td>"+${json}[status].demand.DTimeString+"</td></tr>";
+		"<tr><td>创建时间：</td><td>"+${json}[status].demand.DTimeString+"</td></tr>"+
+		"<tr><td>超时时间：</td><td>"+${json}[status].demand.DTimeExpectString+"</td></tr>";
 		table1=table1+"</table>";
 		table1=table1+"<table border=\"1\" style=\"font-size: 12px;margin-top: 10px;\">";
 		table1=table1+
@@ -104,6 +109,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			$("#err").window('open');	
 		}
 	}
+	
+ 
 	</script>
   </head>
   
@@ -144,7 +151,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     	<th width="90">故障类型</th>
     	<th>创建时间</th>
     	<th>当前处理人</th>
-    	<th>最后处理时间</th>
+    	<th>最后完成时间</th>
     	<th>状态</th>
     	<th>操作</th>
     </tr>
@@ -156,7 +163,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     	<td>${dp.demand.DType }</td>
     	<td>${dp.demand.DTime }</td>
     	<td>${dp.performs[0].UName }</td>
-    	<td>${dp.performs[0].PTime }</td>
+    	<td>${dp.demand.DTimeExpect }</td>
     	<td>${dp.performs[0].PState }</td>
     	<td>
 			<a onclick="forward('${dp.demand.DId }','${dp.demand.DApplicant }','${dp.demand.DContent }','${dp.demand.DType }','${dp.demand.DTime }','${dp.performs[0].UName }','${dp.performs[0].PState }')" class="easyui-linkbutton" title="转发">转发</a>
@@ -298,6 +305,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						</c:forEach>
 					</select>
 				</td>
+			</tr>
+			<tr>
+				<td>超时时间:</td>
+				<td><input class="easyui-datetimebox" value="<%=beforeTime %>" style="width:160px" name="DTimeExpect"></td>
 			</tr>
 			<tr>
 				<td colspan="2" align="center">
