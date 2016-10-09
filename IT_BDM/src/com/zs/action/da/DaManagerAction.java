@@ -1,5 +1,6 @@
 package com.zs.action.da;
 
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.sql.Timestamp;
 import java.text.Format;
@@ -9,6 +10,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.xml.registry.infomodel.User;
 
 import org.apache.log4j.Logger;
@@ -25,6 +27,7 @@ import com.zs.entity.DaPerform;
 import com.zs.entity.Users;
 import com.zs.mail.MailTest;
 import com.zs.service.IService;
+import com.zs.tools.AutoTransState;
 import com.zs.tools.NameOfDate;
 import com.zs.tools.Page;
 
@@ -47,9 +50,6 @@ public class DaManagerAction extends MyBaseAction implements IMyBaseAction{
 	String dates;
 	String datee;
 	String type;
-	
-	String content=null;
-	
 	
 	Logger logger=Logger.getLogger(DaManagerAction.class);
 	
@@ -191,17 +191,77 @@ public class DaManagerAction extends MyBaseAction implements IMyBaseAction{
 		return result;
 	}
     
-	private void initContent() {
-		content="<style type=\"text/css\">span{display:block;margin:5px 0;font-size:15px;} .table1{	border: #224466;	border-collapse:collapse;	width: 600px;} .tleft{text-align:left;}</style>";
+	
+	
+	
+	public static boolean outMailFromAdd(Users um,DaDemand d){
+		//邮件
+		String title="故障处理提醒";
+		String sj=um.getUMail();
+		String content="<style type=\"text/css\">span{display:block;margin:5px 0;font-size:15px;} .table1{	border: #224466;	border-collapse:collapse;	width: 600px;} .tleft{text-align:left;}</style>";
+		content=content+"<div style=\"font-family:微软雅黑;font-size:15px;\">"+
+		"<div style=\"height:400px;\">"+
+		"<span>Dear "+um.getUName()+"</span>"+
+		"<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;您收到有新的故障处理，请尽快解决！ 详情如下</span>"+
+		"<table class=\"table1\" border=\"1\">" +
+		"<tr>" +
+		"<td class=\"tleft\">编&nbsp;&nbsp; 号:</td><td>"+d.getDId()+"</td><td class=\"tleft\">发 起 人:</td><td>"+d.getDApplicant()+"</td></tr>" +
+		"<tr><td class=\"tleft\">故障类型:</td><td>"+d.getDType()+"</td><td class=\"tleft\">创建时间:</td><td>"+new SimpleDate(d.getDTime())+"</td></tr>" +
+		"<tr><td>超时时间:</td><td>"+d.getDTimeExpect()+"</td></tr>" +
+		"</table>"+
+		"<span>故障描述:</span>"+
+		"<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+d.getDContent()+"</span>"+
+		"</div>"+
+		"<br/>Best Wishes<br/>"+
+		"以流程为导向，以服务为宗旨。<br/>"+
+		"*****************************************************"+
+		"<br/>信息与流程管理部-客服专员 &nbsp;某某某"+
+		"<br/>深圳市韵达速递有限公司<br/>邮箱：某某某@szexpress.com.cn"+
+		"<br/>地址：广东省深圳市龙华新区观澜大道114号（交警中队正对面）<br/>"+
+		"***************************************************<br/></div>";
+		try {
+			MailTest.outputMail(sj,MailTest.IT_ROBOT, content, title);
+		} catch (Exception e) {
+//			return result_fail;
+			return false;
+		}
+		return true;
 	}
 	
-	
+	public static boolean outMailFromUpdate(Users um,Users umnext,DaDemand d){
+		//邮件标题
+		String title="故障处理提醒";
+		String sj=umnext.getUMail();
+		//编写邮件内容
+		String content="<style type=\"text/css\">span{display:block;margin:5px 0;font-size:15px;} .table1{	border: #224466;	border-collapse:collapse;	width: 600px;} .tleft{text-align:left;}</style>";
+		content=content+"<div style=\"font-family:微软雅黑;font-size:15px;\">"+
+		"<div style=\"height:400px;\" >"+
+		"<span>Dear "+umnext.getUName()+"</span>"+
+		"<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;您收到有"+um.getUName()+"转发给您的故障处理，请尽快解决！ 详情如下</span>"+
+		"<table class=\"table1\" border=\"1\">" +
+		"<tr>" +
+		"<td class=\"tleft\">编&nbsp;&nbsp; 号:</td><td>"+d.getDId()+"</td><td class=\"tleft\">发起人:</td><td>"+d.getDApplicant()+"</td></tr>" +
+		"<tr><td class=\"tleft\">故障类型:</td><td>"+d.getDType()+"</td><td class=\"tleft\">创建时间:</td><td>"+new SimpleDate(d.getDTime())+"</td></tr>" +
+		"</table>"+
+		"<span>故障描述:</span>"+
+		"<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+d.getDContent()+"</span>"+
+		"</div>"+
+		"<br/>Best Wishes<br/>"+
+		"以流程为导向，以服务为宗旨。<br/>"+
+		"*****************************************************"+
+		"<br/>信息与流程管理部-"+um.getUJob()+"  "+um.getUName()+""+
+		"<br/>深圳市韵达速递有限公司<br/>邮箱："+um.getUMail()+
+		"<br/>地址：广东省深圳市龙华新区观澜大道114号（交警中队正对面）<br/>"+
+		"***************************************************<br/></div>";
+		try {
+			MailTest.outputMail(sj,MailTest.IT_ROBOT, content, title);
+		} catch (Exception e) {
+			return false;
+		}
+		return true;
+	}
 	
 	public String add() throws Exception {
-		initContent();
-		String title="";
-		String cs="453668907@qq.com";
-		String sj="";
 		String dTimeExpect = getRequest().getParameter("DTimeExpect");
 		Users um = (Users) ser.get(Users.class, p.getUNum());
 		if (d!=null) {
@@ -211,45 +271,23 @@ public class DaManagerAction extends MyBaseAction implements IMyBaseAction{
 		    Date date = sdf.parse(dTimeExpect);
 		    Timestamp  ts= Timestamp.valueOf(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(date));
 		    d.setDTimeExpect(ts);
-			ser.save(d);getRequest().setAttribute("d", d);
+			ser.save(d);
+			getRequest().setAttribute("d", d);
+			new Thread(new AutoTransState(d, getSer())).start();  
+			
 			p.setPId("p"+NameOfDate.getNum());
 			p.setDId(d.getDId());
 			p.setPTime(new Timestamp(new Date().getTime()));
 			p.setPState("进行中");
 			ser.save(p);
 			getRequest().setAttribute("p",p);
-			//邮件
-			title="故障处理提醒";
-			sj=um.getUMail();
-			content=content+"<div style=\"font-family:微软雅黑;font-size:15px;\">"+
-			"<div style=\"height:400px;\">"+
-			"<span>Dear "+um.getUName()+"</span>"+
-			"<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;您收到有新的故障处理，请尽快解决！ 详情如下</span>"+
-			"<table class=\"table1\" border=\"1\">" +
-			"<tr>" +
-			"<td class=\"tleft\">编&nbsp;&nbsp; 号:</td><td>"+d.getDId()+"</td><td class=\"tleft\">发 起 人:</td><td>"+d.getDApplicant()+"</td></tr>" +
-			"<tr><td class=\"tleft\">故障类型:</td><td>"+d.getDType()+"</td><td class=\"tleft\">创建时间:</td><td>"+new SimpleDate(d.getDTime())+"</td></tr>" +
-			"<tr><td>超时时间:</td><td>"+d.getDTimeExpect()+"</td></tr>" +
-			"</table>"+
-			"<span>故障描述:</span>"+
-			"<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+d.getDContent()+"</span>"+
-			"</div>"+
-			"<br/>Best Wishes<br/>"+
-			"以流程为导向，以服务为宗旨。<br/>"+
-			"*****************************************************"+
-			"<br/>信息与流程管理部-客服专员 &nbsp;某某某"+
-			"<br/>深圳市韵达速递有限公司<br/>邮箱：某某某@szexpress.com.cn"+
-			"<br/>地址：广东省深圳市龙华新区观澜大道114号（交警中队正对面）<br/>"+
-			"***************************************************<br/></div>";
-			try {
-				MailTest.outputMail(sj,MailTest.IT_ROBOT, content, title);
-			} catch (Exception e) {
-//				return result_fail;
+			
+			String sj=um.getUMail();
+			if(DaManagerAction.outMailFromAdd(um,d)==false){
 				//日后换成邮件错误界面
 				getResponse().getWriter().write("邮件发送错误!请手动发送邮件");
 				return null;
 			}
-			initContent();
 		}
 		return gotoQuery();
 	}
@@ -261,12 +299,8 @@ public class DaManagerAction extends MyBaseAction implements IMyBaseAction{
 
 	
 	
-
 	public String update() throws Exception {
 		//邮件发送所需数据
-		initContent();
-		String title="";
-		String sj="";
 		Users um = null;
 		Users umnext=null;
 		if (d!=null && !"".equals(d.getDId())) {
@@ -296,40 +330,13 @@ public class DaManagerAction extends MyBaseAction implements IMyBaseAction{
 				um = (Users) ser.get(Users.class, tmpper.getUNum());
 				umnext = (Users) ser.get(Users.class, tmpper.getUNumNext());
 				
-				//编写邮件内容
-				content=content+"<div style=\"font-family:微软雅黑;font-size:15px;\">"+
-				"<div style=\"height:400px;\" >"+
-				"<span>Dear "+umnext.getUName()+"</span>"+
-				"<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;您收到有"+um.getUName()+"转发给您的故障处理，请尽快解决！ 详情如下</span>"+
-				"<table class=\"table1\" border=\"1\">" +
-				"<tr>" +
-				"<td class=\"tleft\">编&nbsp;&nbsp; 号:</td><td>"+d.getDId()+"</td><td class=\"tleft\">发起人:</td><td>"+d.getDApplicant()+"</td></tr>" +
-				"<tr><td class=\"tleft\">故障类型:</td><td>"+d.getDType()+"</td><td class=\"tleft\">创建时间:</td><td>"+new SimpleDate(d.getDTime())+"</td></tr>" +
-				"</table>"+
-				"<span>故障描述:</span>"+
-				"<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+d.getDContent()+"</span>"+
-				"</div>"+
-				"<br/>Best Wishes<br/>"+
-				"以流程为导向，以服务为宗旨。<br/>"+
-				"*****************************************************"+
-				"<br/>信息与流程管理部-"+um.getUJob()+"  "+um.getUName()+""+
-				"<br/>深圳市韵达速递有限公司<br/>邮箱："+um.getUMail()+
-				"<br/>地址：广东省深圳市龙华新区观澜大道114号（交警中队正对面）<br/>"+
-				"***************************************************<br/></div>";
-				//邮件标题
-				title="故障处理提醒";
-				sj=umnext.getUMail();
-				
+				if(DaManagerAction.outMailFromUpdate(um, umnext, d)==false){
+					//日后换成邮件错误界面
+					getResponse().getWriter().write("邮件发送错误!请手动发送邮件");
+					return null;
+				}
 			}
 		}
-		try {
-			MailTest.outputMail(sj,MailTest.IT_ROBOT, content, title);
-		} catch (Exception e) {
-			//日后换成邮件错误界面
-			getResponse().getWriter().write("邮件发送错误!请手动发送邮件");
-			return null;
-		}
-		initContent();
 		return gotoQuery();
 	}
 
