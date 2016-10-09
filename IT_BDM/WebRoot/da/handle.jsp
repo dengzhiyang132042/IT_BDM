@@ -72,17 +72,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		"<tr><td>发起人：</td><td>"+${json}[status].demand.DApplicant+"</td></tr>"+
 		"<tr><td>故障描述：</td><td>"+${json}[status].demand.DContent+"</td></tr>"+
 		"<tr><td>故障类型：</td><td>"+${json}[status].demand.DType+"</td></tr>"+
-		"<tr><td>创建时间：</td><td>"+${json}[status].demand.DTimeString+"</td></tr>";
+		"<tr><td>创建时间：</td><td>"+${json}[status].demand.DTimeString+"</td></tr>"+
+		"<tr><td>超时时间：</td><td>"+${json}[status].demand.DTimeExpectString+"</td></tr>";
 		table1=table1+"</table>";
 		table1=table1+"<table border=\"1\" style=\"font-size: 12px;margin-top: 10px;\">";
 		table1=table1+
-		"<tr><th width='50'>处理人</th><th>处理状态</th><th width='150'>时间</th><th width='50'>被转发人</th></tr>";
+		"<tr><th width='50'>处理人</th><th width='52'>处理状态</th><th width='150'>最后处理时间</th><th width='52'>被转发人</th><th width='80'>转发备注</th></tr>";
 		for ( var i = 0; i < ${json}[status].performs.length; i++) {
 			table1=table1+"<tr>"+
 			"<td>"+${json}[status].performs[i].UName+"</td>"+
 			"<td>"+${json}[status].performs[i].PState+"</td>"+
 			"<td>"+${json}[status].performs[i].PTimeString+"</td>"+
-			"<td>"+${json}[status].performs[i].UNameNext+"</td></tr>";
+			"<td>"+${json}[status].performs[i].UNameNext+"</td>"+
+			"<td>"+${json}[status].performs[i].PNote+"</td></tr>";
 		}
 		table1=table1+"</table>";
 		$("#q").html(table1);
@@ -103,19 +105,20 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		}
 	
 		if($("#"+u7).val()=="notComplete"){
-			$('#uc_1').val(u1);
+			$('#uc_11').val(u1);
 			var span="<span style=\"font-size:15px;font-weight:bold;\">请写明未完成的原因？</span>";
-			span=span +"<textarea name=\"p.PNote\" type=\"textarea\" style=\"width:200px;height:60px;margin:5px 0 0 5px;\" />"
+			span=span +"<textarea name=\"p.PNote\" type=\"textarea\" style=\"width:200px;height:60px;margin:5px 0 0 5px;\" />";
 			span=span+"<input id=\"uc_2\" name=\"p.PState\" type=\"text\" style=\"display:none;\" value=\"未完成\"/>";
 			$("#not_success").html(span);
-			$("#c").window('open');
+			$("#c1").window('open');
 		}
 		
 		if($("#"+u7).val()=="complete"){
 			$('#uc_1').val(u1);
-			var span="<span>确定已完成？</span>";
-			span=span+"<input id=\"uc_2\" name=\"p.PState\" type=\"text\" style=\"display:none;\" value=\"已完成\"/>";
-			$("#sTest").html(span);
+			var span1="<span style=\"font-size:15px;font-weight:bold;\">完成备注</span><br/>";
+			span1=span1+"<textarea name=\"p.PNote\" type=\"textarea\" style=\"width:200px;height:60px;margin:5px 0 0 5px;\" />";
+			span1=span1+"<input id=\"uc_2\" name=\"p.PState\" type=\"text\" style=\"display:none;\" value=\"已完成\"/>";
+			$("#success").html(span1);
 			$("#c").window('open');
 		}
 	}
@@ -161,7 +164,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		    	<th width="90">故障类型</th>
 		    	<th>创建时间</th>
 		    	<th>当前处理人</th>
-		    	<th>处理时间</th>
+		    	<th>超时时间</th>
 		    	<th>状态</th>
 		    	<th>操作</th>
 		    </tr>
@@ -173,7 +176,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		    	<td>${dp.demand.DType }</td>
 		    	<td>${dp.demand.DTime }</td>
 		    	<td>${dp.performs[0].UName }</td>
-		    	<td>${dp.performs[0].PTime }</td>
+		    	<td>${dp.demand.DTimeExpect }</td>
 		    	<td>${dp.performs[0].PState }</td>
 				<td>
 					<select onchange="forward('${dp.demand.DId }','${dp.demand.DApplicant }','${dp.demand.DContent }','${dp.demand.DType }','${dp.demand.DTime }','${dp.performs[0].UName }','select_id${status.index}')" id="select_id${status.index}" name="select_id">
@@ -223,7 +226,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<form action="<%=path %>/handle!update" method="post">
 		<table border="0" class="table1">
 			<tr>
-				<td width="70">编号：</td>
+				<td width="75px">编号：</td>
 				<td>
 					<input id="u_1" name="d.DId" type="text" style="width: 100%;" readonly="readonly"/>
 				</td>
@@ -269,6 +272,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				</td>
 			</tr>
 			<tr>
+				<td>转发备注：</td>
+				<td>
+					<input name="p.PNote" type="text" style="width: 100%;" />
+				</td>
+			</tr>
+			<tr>
 				<td colspan="2" align="center">
 					<input class="easyui-linkbutton" type="submit" style="width: 95%;padding: 5px;" value="提交" onclick="return show_hint(['u'])"/>
 				</td>			
@@ -279,20 +288,31 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</div>
 	
 	   
-	<div id="q" class="easyui-window" title="查看详情" data-options="modal:true,closed:true" style="width:400px;height:auto;display: none;padding:10px;">
+	<div id="q" class="easyui-window" title="查看详情" data-options="modal:true,closed:true" style="width:500px;height:auto;display: none;padding:10px;top:210px;">
 		
 	</div>
 	<div id="c" class="easyui-window" title="提示窗口" data-options="modal:true,closed:true"  style="width:300px;height:200px;display: none;">
 		<form action="<%=path %>/handle!update" method="post">
 			<input id="uc_1" name="d.DId" type="text" style="display: none;" />
-			<div id="not_success">
+			<div id="success">
 			</div>
-			<div id="sTest" style="font-size:20px;font-weight:bold;width:150px;margin:30px 0 30px 90px;">
-			</div>
-			<div style="float:left;margin:20px 25px 0 50px;">
+			<div style="float:left;margin:30px 25px 0 50px;">
 				<input  type="submit" style="width:80px;height:30px;font-size:15px;" value="确 定" onclick="return show_hint(['c'])"/>
 			</div>
-			<div style="float:left;margin:20px 20px 0 0px;">
+			<div style="float:left;margin:30px 20px 0 0px;">
+				<input type="button" style="width:80px;height:30px;font-size:15px;" value="取 消" onclick="Texit()"/>
+			</div>
+		</form>
+	</div>
+	<div id="c1" class="easyui-window" title="提示窗口" data-options="modal:true,closed:true"  style="width:300px;height:200px;display: none;">
+		<form action="<%=path %>/handle!update" method="post">
+			<input id="uc_11" name="d.DId" type="text" style="display: none;" />
+			<div id="not_success">
+			</div>
+			<div style="float:left;margin:30px 25px 0 50px;">
+				<input  type="submit" style="width:80px;height:30px;font-size:15px;" value="确 定" onclick="return show_hint(['c'])"/>
+			</div>
+			<div style="float:left;margin:30px 20px 0 0px;">
 				<input type="button" style="width:80px;height:30px;font-size:15px;" value="取 消" onclick="Texit()"/>
 			</div>
 		</form>

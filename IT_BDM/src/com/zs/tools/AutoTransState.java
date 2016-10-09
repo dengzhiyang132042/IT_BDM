@@ -7,7 +7,6 @@ import java.util.List;
 import org.apache.log4j.Logger;
 
 import com.zs.action.da.DaHandleAction;
-import com.zs.action.da.DaManagerAction;
 import com.zs.entity.DaDemand;
 import com.zs.entity.DaPerform;
 import com.zs.service.IService;
@@ -53,7 +52,7 @@ public class AutoTransState implements Runnable{
 	
 	
 	public void run() {
-		logger.debug("线程开始...");
+		logger.debug("线程开始... DId:"+demand.getDId());
 		try {
 			if (demand!=null && ser!=null) {
 				date1=demand.getDTimeExpect();
@@ -73,10 +72,11 @@ public class AutoTransState implements Runnable{
 						logger.debug("已更改        DId:"+demand.getDId()+"   PId:"+perform.getPId());
 					}
 				}
+				logger.debug("看看size:"+performs.size());
 			}
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
-		logger.debug("线程结束...");
+		logger.debug("线程结束...DId:"+demand.getDId()+"  date1:"+date1.toLocaleString()+"  date2:"+date2.toLocaleString());
 	}
 }

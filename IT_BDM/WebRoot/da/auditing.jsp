@@ -63,17 +63,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		"<tr><td>发起人：</td><td>"+${json}[status].demand.DApplicant+"</td></tr>"+
 		"<tr><td>故障描述：</td><td>"+${json}[status].demand.DContent+"</td></tr>"+
 		"<tr><td>故障类型：</td><td>"+${json}[status].demand.DType+"</td></tr>"+
-		"<tr><td>创建时间：</td><td>"+${json}[status].demand.DTimeString+"</td></tr>";
+		"<tr><td>创建时间：</td><td>"+${json}[status].demand.DTimeString+"</td></tr>"+
+		"<tr><td>超时时间：</td><td>"+${json}[status].demand.DTimeExpectString+"</td></tr>";
 		table1=table1+"</table>";
 		table1=table1+"<table border=\"1\" style=\"font-size: 12px;margin-top: 10px;\">";
 		table1=table1+
-		"<tr><th width='50'>处理人</th><th>处理状态</th><th width='150'>时间</th><th width='50'>被转发人</th></tr>";
+		"<tr><th width='50'>处理人</th><th width='52'>处理状态</th><th width='150'>最后处理时间</th><th width='52'>被转发人</th><th width='80'>备注</th></tr>";
 		for ( var i = 0; i < ${json}[status].performs.length; i++) {
 			table1=table1+"<tr>"+
 			"<td>"+${json}[status].performs[i].UName+"</td>"+
 			"<td>"+${json}[status].performs[i].PState+"</td>"+
 			"<td>"+${json}[status].performs[i].PTimeString+"</td>"+
-			"<td>"+${json}[status].performs[i].UNameNext+"</td></tr>";
+			"<td>"+${json}[status].performs[i].UNameNext+"</td>"+
+			"<td>"+${json}[status].performs[i].PNote+"</td></tr>";
 		}
 		table1=table1+"</table>";
 		$("#q").html(table1);
@@ -139,7 +141,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		    	<th width='90'>故障类型</th>
 		    	<th>创建时间</th>
 		    	<th>当前处理人</th>
-		    	<th>处理时间</th>
+		    	<th>超时时间</th>
 		    	<th>状态</th>
 		    	<th>操作</th>
 		    </tr>
@@ -151,7 +153,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			    	<td>${dp.demand.DType }</td>
 			    	<td>${dp.demand.DTime }</td>
 			    	<td>${dp.performs[0].UName }</td>
-			    	<td>${dp.performs[0].PTime }</td>
+			    	<td>${dp.demand.DTimeExpect }</td>
 			    	<td>${dp.performs[0].PState }</td>
 					<td>
 						<select onchange="auditing('${dp.demand.DId }','select_id${status.index}')" id="select_id${status.index}" name="select_id">
@@ -196,7 +198,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</div>
 	</div>	
 	   
-	<div id="q" class="easyui-window" title="查看详情" data-options="modal:true,closed:true" style="width:400px;height:auto;display: none;padding: 10px;">
+	<div id="q" class="easyui-window" title="查看详情" data-options="modal:true,closed:true" style="width:500px;height:auto;display: none;padding: 10px;top:210px;">
 		
 	</div>
 	

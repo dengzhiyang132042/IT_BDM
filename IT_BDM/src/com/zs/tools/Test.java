@@ -1,5 +1,7 @@
 package com.zs.tools;
 
+import java.util.Date;
+
 import javax.mail.MessagingException;
 
 import com.zs.dao.BaseDaoOfSpring;
@@ -44,10 +46,14 @@ public class Test {
 		*/
 		//System.out.println(new NameOfDate().getNum());
 //		new BaseDaoOfSpring().find("from SectionQubu where quId = ?", new String[]{"qb281342355373349"});\
+		/*
 	 	try {
 			MailTest.outputMail("1217360619@qq.com", "1217360619@qq.com", "11", "111");
 		} catch (MessagingException e) {
 			e.printStackTrace();
 		}
+		*/
+		
+		System.out.println(new Date().toLocaleString());
 	}
 }
