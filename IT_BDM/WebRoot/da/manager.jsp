@@ -152,7 +152,7 @@ String beforeTime= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Calendar.g
     	<th width="90">故障类型</th>
     	<th>创建时间</th>
     	<th>当前处理人</th>
-    	<th>最后完成时间</th>
+    	<th>超时时间</th>
     	<th>状态</th>
     	<th>操作</th>
     </tr>
@@ -257,7 +257,7 @@ String beforeTime= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Calendar.g
 			<tr>
 				<td>转发备注：</td>
 				<td>
-					<input name="p.PNote" type="text" style="width: 100%;"/>
+					<input name="p.PNote" type="text" style="width: 100%;" value="客服直接转发"/>
 				</td>
 			</tr>
 			<tr>
