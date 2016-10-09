@@ -77,7 +77,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		*/
 		var table1="<table border=\"1\" style=\"font-size: 12px;margin-top: 10px;\">";
 		table1=table1+
-		"<tr><th>编号</th><th>发起人</th><th>故障描述</th><th>故障类型</th><th>创建时间</th><th>当前处理人</th><th>最后处理时间</th><th>状态</th></tr>";
+		"<tr><th>编号</th><th>发起人</th><th>故障描述</th><th>故障类型</th><th>创建时间</th><th>当前处理人</th><th>超时时间</th><th>状态</th></tr>";
 		for ( var i = 0; i < ${json}[status].demPer.length; i++) {
 			table1=table1+"<tr>"+
 			"<td>"+${json}[status].demPer[i].demand.DId+"</td>"+
@@ -86,7 +86,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			"<td>"+${json}[status].demPer[i].demand.DType+"</td>"+
 			"<td>"+${json}[status].demPer[i].demand.DTimeString+"</td>"+
 			"<td>"+${json}[status].demPer[i].performs[0].UName+"</td>"+
-			"<td>"+${json}[status].demPer[i].performs[0].PTimeString+"</td>"+
+			"<td>"+${json}[status].demPer[i].demand.DTimeExpectString+"</td>"+
 			"<td>"+${json}[status].demPer[i].performs[0].PState+"</td>"+
 			"</tr>";
 		}

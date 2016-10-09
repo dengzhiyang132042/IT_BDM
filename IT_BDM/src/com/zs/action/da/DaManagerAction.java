@@ -312,6 +312,7 @@ public class DaManagerAction extends MyBaseAction implements IMyBaseAction{
 				tmpper.setPTime(new Timestamp(new Date().getTime()));
 				tmpper.setUNumNext(p.getUNumNext());
 				tmpper.setPState("转发");
+				tmpper.setPNote(p.getPNote());
 				ser.update(tmpper);
 				getRequest().setAttribute("p1",tmpper);
 				

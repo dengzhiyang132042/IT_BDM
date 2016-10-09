@@ -106,8 +106,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	
 		if($("#"+u7).val()=="notComplete"){
 			$('#uc_11').val(u1);
-			var span="<span style=\"font-size:15px;font-weight:bold;\">请写明未完成的原因？</span>";
-			span=span +"<textarea name=\"p.PNote\" type=\"textarea\" style=\"width:200px;height:60px;margin:5px 0 0 5px;\" />";
+			var span="<span style=\"font-size:15px;font-weight:bold;\">备注:</span>";
+			span=span +"<textarea name=\"p.PNote\" type=\"textarea\" style=\"width:100%;height:100px;\" />";
 			span=span+"<input id=\"uc_2\" name=\"p.PState\" type=\"text\" style=\"display:none;\" value=\"未完成\"/>";
 			$("#not_success").html(span);
 			$("#c1").window('open');
@@ -115,8 +115,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		
 		if($("#"+u7).val()=="complete"){
 			$('#uc_1').val(u1);
-			var span1="<span style=\"font-size:15px;font-weight:bold;\">完成备注</span><br/>";
-			span1=span1+"<textarea name=\"p.PNote\" type=\"textarea\" style=\"width:200px;height:60px;margin:5px 0 0 5px;\" />";
+			var span1="<span style=\"font-size:15px;font-weight:bold;\">备注:</span>";
+			span1=span1+"<textarea name=\"p.PNote\" type=\"textarea\" style=\"width:100%;height:100px;\" />";
 			span1=span1+"<input id=\"uc_2\" name=\"p.PState\" type=\"text\" style=\"display:none;\" value=\"已完成\"/>";
 			$("#success").html(span1);
 			$("#c").window('open');
@@ -291,30 +291,28 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<div id="q" class="easyui-window" title="查看详情" data-options="modal:true,closed:true" style="width:500px;height:auto;display: none;padding:10px;top:210px;">
 		
 	</div>
-	<div id="c" class="easyui-window" title="提示窗口" data-options="modal:true,closed:true"  style="width:300px;height:200px;display: none;">
+	<div id="c" class="easyui-window" title="提示窗口" data-options="modal:true,closed:true"  style="width:300px;height:auto;display: none;padding: 10px;">
 		<form action="<%=path %>/handle!update" method="post">
 			<input id="uc_1" name="d.DId" type="text" style="display: none;" />
 			<div id="success">
 			</div>
-			<div style="float:left;margin:30px 25px 0 50px;">
+			<br/>
+			<center>
 				<input  type="submit" style="width:80px;height:30px;font-size:15px;" value="确 定" onclick="return show_hint(['c'])"/>
-			</div>
-			<div style="float:left;margin:30px 20px 0 0px;">
-				<input type="button" style="width:80px;height:30px;font-size:15px;" value="取 消" onclick="Texit()"/>
-			</div>
+				<input type="button" style="width:80px;height:30px;font-size:15px;margin-left: 30px;" value="取 消" onclick="Texit()"/>
+			</center>
 		</form>
 	</div>
-	<div id="c1" class="easyui-window" title="提示窗口" data-options="modal:true,closed:true"  style="width:300px;height:200px;display: none;">
+	<div id="c1" class="easyui-window" title="提示窗口" data-options="modal:true,closed:true"  style="width:300px;height:auto;display: none;padding: 10px;">
 		<form action="<%=path %>/handle!update" method="post">
 			<input id="uc_11" name="d.DId" type="text" style="display: none;" />
 			<div id="not_success">
 			</div>
-			<div style="float:left;margin:30px 25px 0 50px;">
+			<br/>
+			<center>
 				<input  type="submit" style="width:80px;height:30px;font-size:15px;" value="确 定" onclick="return show_hint(['c'])"/>
-			</div>
-			<div style="float:left;margin:30px 20px 0 0px;">
-				<input type="button" style="width:80px;height:30px;font-size:15px;" value="取 消" onclick="Texit()"/>
-			</div>
+				<input type="button" style="width:80px;height:30px;font-size:15px;margin-left: 30px;" value="取 消" onclick="Texit()"/>
+			</center>
 		</form>
 	</div>
 	
