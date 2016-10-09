@@ -187,6 +187,7 @@ public class DaAuditingAction extends MyBaseAction implements IMyBaseAction{
 		for (int i = 0; i < dems.size(); i++) {
 			DaDemand d=(DaDemand) dems.get(i);
 			d.setDTimeString(d.getDTime().toString());
+			d.setDTimeExpectString(d.getDTimeExpect().toString());
 			List pers=ser.find("from DaPerform where DId = ? order by PTime desc", new Object[]{d.getDId()});
 			for (int j = 0; j < pers.size(); j++) {
 				DaPerform perform=(DaPerform) pers.get(j);
@@ -274,6 +275,8 @@ public class DaAuditingAction extends MyBaseAction implements IMyBaseAction{
 				"<div style=\"height:400px;\">"+
 				"<span>Dear "+umnext.getUName()+"</span>"+
 				"<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;您收到有"+um.getUName()+"转发给您的故障处理，请尽快解决！ 详情如下</span>"+
+				"<span>转发备注:</span>"+
+				"<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+tmpper.getPNote()+"</span>"+
 				"<table class=\"table1\" border=\"1\">" +
 				"<tr>" +
 				"<td class=\"tleft\">编&nbsp;&nbsp; 号:</td><td>"+dd.getDId()+"</td><td class=\"tleft\">发起人:</td><td>"+dd.getDApplicant()+"</td></tr>" +
@@ -313,14 +316,14 @@ public class DaAuditingAction extends MyBaseAction implements IMyBaseAction{
 				"<span>Dear&nbsp;"+um.getUName()+"</span>"+
 				"<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+
 				"由于您的转发未达到要求，现在将您的转发请求驳回！请继续处理当前故障</span>"+
-				"<table border=\"1\" class=\"table1\">" +
+				"<table border=\"1\" class=\"table1\" style=\"width:800px;\">" +
 				"<tr><td>编&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;号：</td><td>"+id+"</td>" +
 				"<td>发起人：</td><td>"+dd.getDApplicant()+"</td><td>创建时间：</td><td>"+new SimpleDate(dd.getDTime())+"</td></tr>" +
 				"<tr><td>故障类型：</td><td>"+dd.getDType()+"</td><td>转发者：</td><td>"+um.getUName()+"</td>" +
 				"<td>被转发者：</td><td>"+umnext.getUName()+"</td></tr>" +
 				"<tr><td>状&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;态：</td><td>"+tmpper.getPState()+"</td>" +
 				"<td>时&nbsp;&nbsp;&nbsp;间：</td><td>"+new SimpleDate(tmpper.getPTime())+"</td>" +
-				"<td>备&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;注：</td><td>转发驳回</td></tr>" +
+				"<td>备&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;注：</td><td>"+tmpper.getPNote()+"</td></tr>" +
 				"<tr><table/>" +
 				" <span>故障描述：</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;电脑黑屏，出现大问题"+
 				"</div>"+

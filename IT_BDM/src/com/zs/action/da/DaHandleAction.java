@@ -200,6 +200,7 @@ public class DaHandleAction extends MyBaseAction implements IMyBaseAction{
 		for (int i = 0; i < dems.size(); i++) {
 			DaDemand d=(DaDemand) dems.get(i);
 			d.setDTimeString(d.getDTime().toString());
+			d.setDTimeExpectString(d.getDTimeExpect().toString());
 			List pers=ser.find("from DaPerform where DId = ? order by PTime desc", new Object[]{d.getDId()});
 			for (int j = 0; j < pers.size(); j++) {
 				DaPerform perform=(DaPerform) pers.get(j);
@@ -260,6 +261,7 @@ public class DaHandleAction extends MyBaseAction implements IMyBaseAction{
 				tmpper.setPTime(new Timestamp(new Date().getTime()));
 				tmpper.setUNumNext(p.getUNumNext());
 				tmpper.setPState("审核中");
+				tmpper.setPNote(p.getPNote());
 				ser.update(tmpper);
 				getRequest().setAttribute("p", tmpper);
 			}
@@ -269,6 +271,7 @@ public class DaHandleAction extends MyBaseAction implements IMyBaseAction{
 				tmpper=(DaPerform) templi.get(0);
 				tmpper.setPTime(new Timestamp(new Date().getTime()));
 				tmpper.setPState(p.getPState());
+				tmpper.setPNote(p.getPNote());
 				ser.update(tmpper);
 				getRequest().setAttribute("p", tmpper);
 			}
@@ -302,7 +305,7 @@ public class DaHandleAction extends MyBaseAction implements IMyBaseAction{
 		//编写邮件内容
 		String content="<style type=\"text/css\">span{display:block;margin:5px 0;font-size:15px;} .table1{	border: #224466;	border-collapse:collapse;	width: 800px;} .tleft{text-align:left;}</style>";
 		content=content+"<div style=\"font-family:微软雅黑;font-size:15px;\">"+
-		"<div style=\"height:400px;\">"+
+		"<div style=\"height:400px;width:800px;\">"+
 		"<span>Dear 徐主管</span>"+
 		"<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;您收到有"+um.getUName()+"发送给您的未完成故障详情！</span>"+
 		"<span>未完成原因:"+tmpper.getPNote()+"</span>"+

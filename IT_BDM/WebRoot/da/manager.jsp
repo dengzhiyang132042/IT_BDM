@@ -82,13 +82,14 @@ String beforeTime= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Calendar.g
 		table1=table1+"</table>";
 		table1=table1+"<table border=\"1\" style=\"font-size: 12px;margin-top: 10px;\">";
 		table1=table1+
-		"<tr><th width='50'>处理人</th><th>处理状态</th><th width='150'>最后处理时间</th><th width='50'>被转发人</th></tr>";
+		"<tr><th width='50'>处理人</th><th width='52'>处理状态</th><th width='150'>最后处理时间</th><th width='52'>被转发人</th><th width='80'>备注</th></tr>";
 		for ( var i = 0; i < ${json}[status].performs.length; i++) {
 			table1=table1+"<tr>"+
 			"<td>"+${json}[status].performs[i].UName+"</td>"+
 			"<td>"+${json}[status].performs[i].PState+"</td>"+
 			"<td>"+${json}[status].performs[i].PTimeString+"</td>"+
-			"<td>"+${json}[status].performs[i].UNameNext+"</td></tr>";
+			"<td>"+${json}[status].performs[i].UNameNext+"</td>"+
+			"<td>"+${json}[status].performs[i].PNote+"</td></tr>";
 		}
 		table1=table1+"</table>";
 		$("#q").html(table1);
@@ -208,7 +209,7 @@ String beforeTime= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Calendar.g
 		<form action="<%=path %>/daManager!update" method="post">
 		<table border="0" class="table1">
 			<tr>
-				<td width="70">编号：</td>
+				<td width="75px">编号：</td>
 				<td>
 					<input id="u_1" name="d.DId" type="text" style="width: 100%;" readonly="readonly"/>
 				</td>
@@ -254,6 +255,12 @@ String beforeTime= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Calendar.g
 				</td>
 			</tr>
 			<tr>
+				<td>转发备注：</td>
+				<td>
+					<input name="p.PNote" type="text" style="width: 100%;"/>
+				</td>
+			</tr>
+			<tr>
 				<td colspan="2" align="center">
 					<input class="easyui-linkbutton" type="submit" style="width: 95%;padding: 5px;" value="提交" onclick="return show_hint(['u'])"/>
 				</td>			
@@ -263,7 +270,7 @@ String beforeTime= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Calendar.g
 	</div>
 	
 	   
-	<div id="q" class="easyui-window" title="查看详情" data-options="modal:true,closed:true" style="width:400px;height:auto;padding:10px;display: none;">
+	<div id="q" class="easyui-window" title="查看详情" data-options="modal:true,closed:true" style="width:500px;height:auto;padding:10px;display: none;top:210px;">
 	</div>
 	
 	<div id="err" class="easyui-window" title="错误提示" data-options="modal:true,closed:true" style="width:300px;height:200px;padding:10px;display: none;">
