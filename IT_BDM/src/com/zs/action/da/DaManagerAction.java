@@ -273,7 +273,7 @@ public class DaManagerAction extends MyBaseAction implements IMyBaseAction{
 		    d.setDTimeExpect(ts);
 			ser.save(d);
 			getRequest().setAttribute("d", d);
-			new Thread(new AutoTransState(d, getSer())).start();  
+//			new Thread(new AutoTransState(d, getSer())).start();  
 			
 			p.setPId("p"+NameOfDate.getNum());
 			p.setDId(d.getDId());
