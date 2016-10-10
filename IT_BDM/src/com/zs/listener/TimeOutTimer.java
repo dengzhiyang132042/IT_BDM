@@ -54,6 +54,9 @@ public class TimeOutTimer extends TimerTask{
 			//获取当前时间
 			Timestamp datenow = new Timestamp(new Date().getTime());
 			//判断当前时间是不是大于超时时间
+			
+			System.out.println("------------------>>"+(d==null)+ perform.getDId()+"   "+ perform.getPId());
+			
 			if(datenow.getTime()>d.getDTimeExpect().getTime()){
 				perform.setPState("未完成");
 				perform.setPNote("超时，系统自动设定未完成");

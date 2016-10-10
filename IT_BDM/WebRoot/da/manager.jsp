@@ -27,7 +27,6 @@ String beforeTime= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Calendar.g
 	<link rel="stylesheet" type="text/css" href="<%=path %>/FRAMEWORK/jquery-easyui/demo/demo.css">
 	<script type="text/javascript" src="<%=path %>/FRAMEWORK/jquery-easyui/jquery.min.js"></script>
 	<script type="text/javascript" src="<%=path %>/FRAMEWORK/jquery-easyui/jquery.easyui.min.js"></script>
-	<script type="text/javascript" src="<%=path %>/FRAMEWORK/My97DatePicker/calendar.js"></script>
 	<script type="text/javascript" src="<%=path %>/FRAMEWORK/My97DatePicker/WdatePicker.js"></script>
 	
 	<link rel="stylesheet" type="text/css" href="<%=path %>/FRAMEWORK/css/mycss.css">
@@ -315,7 +314,7 @@ String beforeTime= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Calendar.g
 			</tr>
 			<tr>
 				<td>超时时间:</td>
-				<td><input class="easyui-datetimebox" value="<%=beforeTime %>" style="width:160px" name="DTimeExpect"></td>
+				<td><input class="Wdate" name="DTimeExpect" type="text" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',minDate:'%y-%M-%d %H:%m:%s'})"/></td>
 			</tr>
 			<tr>
 				<td colspan="2" align="center">

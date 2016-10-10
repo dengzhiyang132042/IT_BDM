@@ -26,9 +26,9 @@ public class MailTest {
         props.put("mail.smtp.host", "smtp.qq.com");
         props.put("mail.smtp.port", "587");
         // 发件人的账号
-        props.put("mail.user", "1217360619@qq.com");
+        props.put("mail.user", "3554832577@qq.com");
         // 访问SMTP服务时需要提供的密码
-        props.put("mail.password", "ilutyakvrbligadh");
+        props.put("mail.password", "ixqgsyoncdyyched");
 	}
 	
 	
