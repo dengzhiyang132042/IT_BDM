@@ -267,9 +267,7 @@ public class DaManagerAction extends MyBaseAction implements IMyBaseAction{
 		if (d!=null) {
 			d.setDId("d"+NameOfDate.getNum());
 			d.setDTime(new Timestamp(new Date().getTime()));
-		    SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yy HH:mm:ss");
-		    Date date = sdf.parse(dTimeExpect);
-		    Timestamp  ts= Timestamp.valueOf(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(date));
+		    Timestamp  ts= Timestamp.valueOf(dTimeExpect);
 		    d.setDTimeExpect(ts);
 			ser.save(d);
 			getRequest().setAttribute("d", d);
