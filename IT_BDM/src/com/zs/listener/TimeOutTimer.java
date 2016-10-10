@@ -54,20 +54,54 @@ public class TimeOutTimer extends TimerTask{
 			//获取当前时间
 			Timestamp datenow = new Timestamp(new Date().getTime());
 			//判断当前时间是不是大于超时时间
-			
-			System.out.println("------------------>>"+(d==null)+ perform.getDId()+"   "+ perform.getPId());
-			
 			if(datenow.getTime()>d.getDTimeExpect().getTime()){
 				perform.setPState("未完成");
 				perform.setPNote("超时，系统自动设定未完成");
 				ser.update(perform);
-				if(DaHandleAction.outMailFromUpdate(perform, d, ser)==false){
+				if(timeOutMailFromUpdate(perform, d, ser)==false){
 					//日后换成邮件错误界面
 					System.out.println("邮件发送错误");
 				}
 			}
 		}
 	}
-    	
+    public static boolean timeOutMailFromUpdate(DaPerform tmpper,DaDemand d,IService ser){
+		//添加一个给主管发送邮件，并标明为什么未完成
+		//邮件模块需要带的数据
+		Users um = (Users) ser.get(Users.class, tmpper.getUNum());
+		DaDemand dd=(DaDemand) ser.get(DaDemand.class, d.getDId());
+		//编写邮件内容
+		String content="<style type=\"text/css\">span{display:block;margin:5px 0;font-size:15px;} .table1{	border: #224466;	border-collapse:collapse;	width: 800px;} .tleft{text-align:left;}</style>";
+		content=content+"<div style=\"font-family:微软雅黑;font-size:15px;\">"+
+		"<div style=\"height:400px;width:800px;\">"+
+		"<span>Dear "+um.getUName()+"</span>"+
+		"<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;您收到有系统发送给您的超时故障处理！</span>"+
+		"<span>未完成原因:"+tmpper.getPNote()+"</span>"+
+		"<table class=\"table1\" border=\"1\">" +
+		"<tr>" +
+		"<td class=\"tleft\">编&nbsp;&nbsp; 号:</td><td>"+dd.getDId()+"</td><td class=\"tleft\">发 起 人:</td><td>"+dd.getDApplicant()+"</td></tr>" +
+		"<tr><td class=\"tleft\">故障类型:</td><td>"+dd.getDType()+"</td><td class=\"tleft\">创建时间:</td><td>"+new SimpleDate(dd.getDTime())+"</td></tr>" +
+		"<tr><td>超时时间:</td><td>"+dd.getDTimeExpect()+"</td></tr>" +
+		"</table>"+
+		"<span>故障描述:</span>"+
+		"<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+dd.getDContent()+"</span>"+
+		"</div>"+
+		"<br/>Best Wishes<br/>"+
+		"以流程为导向，以服务为宗旨。<br/>"+
+		"*****************************************************"+
+		"<br/>信息与流程管理部-故障处理系统"+
+		"<br/>深圳市韵达速递有限公司"+
+		"<br/>地址：广东省深圳市龙华新区观澜大道114号（交警中队正对面）<br/>"+
+		"***************************************************<br/></div>";
+		//邮件标题
+		String title="故障超时处理";
+		String sj=um.getUMail();
+		try {
+			MailTest.outputMail(sj,MailTest.IT_ROBOT, content, title);
+		} catch (Exception e) {
+			return false;
+		}
+		return true;
+	}	
     	
 }
