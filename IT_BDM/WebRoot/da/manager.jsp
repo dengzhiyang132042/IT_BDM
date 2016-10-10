@@ -49,6 +49,7 @@ String beforeTime= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Calendar.g
 		$('#u_5').val(u5);
 		$('#u_6').val(u6);
 	}
+	
 	function page(no,cz){
 		var num1=$('#page').val();
 		if(cz==1){//上下页
@@ -111,7 +112,6 @@ String beforeTime= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Calendar.g
 		}
 	}
 	
- 
 	</script>
   </head>
   

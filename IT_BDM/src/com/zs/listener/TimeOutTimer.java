@@ -34,21 +34,8 @@ public class TimeOutTimer extends TimerTask{
         this.context = context;  
         this.ser=ser;
     }
-	private String title="故障处理为完成";
-	
-	
-	/**
-	 * 2016年8月12日16:16:31
-	 * <br>张顺
-	 * <br>1，得到用户表信息
-	 * <br>2，根据角色进行判断发送邮件，抄送人为另一角色。比如角色：硬件组、经理
-	 * <br>3，得到并整理要发送的信息
-	 * */
+
     public void run(){  
-    	
-    	logger.debug("-------测试监听器---------");
-    	
-    	
     	/*2016年10月9日14:49:39
     	 * 黄光辉
     	 * 1，得到当前正在进行的故障处理单（包括进行中，和审核中的）
@@ -58,14 +45,15 @@ public class TimeOutTimer extends TimerTask{
     	//邮件发送所需数据
 		Users um = null;
 		DaPerform perform=null;
-    	
-    	//先得到当天开始的时间
+    	//筛选数据
 		List<DaPerform> pe = ser.find("from DaPerform where PState in ('进行中','审核中')", new String[]{});
 		for(int i=0;i<pe.size();i++){
 			DaPerform p =pe.get(i);
 			perform = (DaPerform) ser.get(DaPerform.class, p.getPId());
 			DaDemand d=(DaDemand) ser.get(DaDemand.class, perform.getDId());
+			//获取当前时间
 			Timestamp datenow = new Timestamp(new Date().getTime());
+			//判断当前时间是不是大于超时时间
 			if(datenow.getTime()>d.getDTimeExpect().getTime()){
 				perform.setPState("未完成");
 				perform.setPNote("超时，系统自动设定未完成");
@@ -76,9 +64,6 @@ public class TimeOutTimer extends TimerTask{
 				}
 			}
 		}
-		//List<DaDemand> d = ser.find("from DaDemand where ", new String[]{});
-		
-			
 	}
     	
     	

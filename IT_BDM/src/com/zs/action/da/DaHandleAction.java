@@ -6,26 +6,17 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import javax.servlet.http.HttpServletResponse;
-import javax.xml.registry.infomodel.User;
-
 import net.sf.json.JSONArray;
-
 import org.apache.log4j.Logger;
-
 import com.zs.action.IMyBaseAction;
 import com.zs.action.MyBaseAction;
 import com.zs.entity.DaDemPer;
 import com.zs.entity.DaDemand;
 import com.zs.entity.DaPerform;
 import com.zs.entity.Users;
-import com.zs.entity.ZmVpn;
-
 import com.zs.mail.MailTest;
 import com.zs.service.IService;
-import com.zs.tools.NameOfDate;
 import com.zs.tools.Page;
-
 import freemarker.template.SimpleDate;
 
 public class DaHandleAction extends MyBaseAction implements IMyBaseAction{
@@ -247,10 +238,6 @@ public class DaHandleAction extends MyBaseAction implements IMyBaseAction{
 	
 	public String update() throws Exception {	
 		//邮件发送所需数据
-		String title="";
-		String sj="";
-		Users um = null;
-		DaDemand dd =null;
 		DaPerform tmpper=null;
 		if (d!=null && !"".equals(d.getDId())&& p.getPState().equals("转发")) {
 			d=(DaDemand) ser.get(DaDemand.class, d.getDId());
@@ -327,7 +314,7 @@ public class DaHandleAction extends MyBaseAction implements IMyBaseAction{
 		"***************************************************<br/></div>";
 		//邮件标题
 		String title="故障处理未完成";
-		String sj="guanghui_huang@szexpress.com.cn";
+		String sj="dijun_xu@szexpress.com.cn";
 		try {
 			MailTest.outputMail(sj,MailTest.IT_ROBOT, content, title);
 		} catch (Exception e) {
