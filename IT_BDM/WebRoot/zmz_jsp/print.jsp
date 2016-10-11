@@ -142,7 +142,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</div>
 	
 	<div class="easyui-panel" style="padding:5px;width: 100%;display: none;background-color: white;">
-		<form id="f1" action="<%=path %>/print!queryOfFenye?id=${id}&num=${num}&apply=${apply }&section=${section }&dates=${dates}&datee=${datee}" method="post">
+		<form id="f1" action="<%=path %>/print!queryOfFenye?id=${id}&brand=${brand}&area=${area}&ip${ip}" method="post">
 		<select id="sele" style="float: left;margin-top: 3px;margin-left: 5px;" name="page.size" onchange="$('#f1').submit();">
 			<option value="5">5</option>
 			<option value="10">10</option>
