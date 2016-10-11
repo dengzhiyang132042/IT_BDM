@@ -177,6 +177,14 @@
      <result name="succ">/success.jsp</result>
      <result name="fail">/fail.jsp</result>
   </action>
+  <action name="computer" class="zs_computer_zmz">	
+  	 <interceptor-ref name="mydefault" />
+     <result>/index.jsp</result>
+     <result name="computer">/zmz_jsp/computer.jsp</result>
+     <result name="succ">/success.jsp</result>
+     <result name="fail">/fail.jsp</result>
+  </action>  
+    
     
   <!-- **********CompanySection************* -->
   <action name="cs" class="zs_cs">	

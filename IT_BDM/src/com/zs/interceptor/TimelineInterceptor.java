@@ -42,6 +42,7 @@ import com.zs.entity.XtZmData;
 import com.zs.entity.XtZmNumber;
 import com.zs.entity.ZmBq;
 import com.zs.entity.ZmByNumber;
+import com.zs.entity.ZmComputer;
 import com.zs.entity.ZmOaNumber;
 import com.zs.entity.ZmPhoneLine;
 import com.zs.entity.ZmPrinter;
@@ -379,17 +380,18 @@ public class TimelineInterceptor extends AbstractInterceptor{
 				addTimeline(u, "添加", "桌面组-打印机登记", p.getPId());
 			}
 			
-			/*电脑还没有完成，故保留相关代码在这里
 			else if ((PRO_NAME+"/computer!queryOfFenye").equals(path)) {//电脑登记查看
-				return roleControl(arg0, r, "87");
+				addTimeline(u, "查看", "桌面组-管理电脑统计", request.getParameter("id"));
 			}else if ((PRO_NAME+"/computer!delete").equals(path)) {//电脑登记删除
-				return roleControl(arg0, r, "88");
+				addTimeline(u, "删除", "桌面组-管理电脑统计", request.getParameter("id"));
 			}else if ((PRO_NAME+"/computer!update").equals(path)) {//电脑登记修改
-				return roleControl(arg0, r, "89");
+				ZmComputer c=(ZmComputer) request.getAttribute("c");
+				addTimeline(u, "修改", "桌面组-管理电脑统计", c.getCId());
 			}else if ((PRO_NAME+"/computer!add").equals(path)) {//电脑登记添加
-				return roleControl(arg0, r, "90");
+				ZmComputer c=(ZmComputer) request.getAttribute("c");
+				addTimeline(u, "添加", "桌面组-管理电脑统计", c.getCId());
 			}
-			*/
+			
 			else if ((PRO_NAME+"/bq!queryOfFenye").equals(path)) {//小仓巴枪电脑登记查看
 				addTimeline(u, "查看", "桌面组-小仓巴枪电脑登记", request.getParameter("id"));
 			}else if ((PRO_NAME+"/bq!delete").equals(path)) {//小仓巴枪电脑登记删除
