@@ -333,19 +333,15 @@ public class RoleInterceptor extends AbstractInterceptor{
 				return roleControl(arg0, r, "86");
 			}
 			
-			
-			/*电脑还没有完成，故保留相关代码在这里
-			else if ((PRO_NAME+"/computer!queryOfFenye").equals(path)) {//电脑登记查看
+			else if ((PRO_NAME+"/computer!queryOfFenye").equals(path)) {//管理电脑统计查看
 				return roleControl(arg0, r, "87");
-			}else if ((PRO_NAME+"/computer!delete").equals(path)) {//电脑登记删除
+			}else if ((PRO_NAME+"/computer!delete").equals(path)) {//管理电脑统计删除
 				return roleControl(arg0, r, "88");
-			}else if ((PRO_NAME+"/computer!update").equals(path)) {//电脑登记修改
+			}else if ((PRO_NAME+"/computer!update").equals(path)) {//管理电脑统计修改
 				return roleControl(arg0, r, "89");
-			}else if ((PRO_NAME+"/computer!add").equals(path)) {//电脑登记添加
+			}else if ((PRO_NAME+"/computer!add").equals(path)) {//管理电脑统计添加
 				return roleControl(arg0, r, "90");
 			}
-			*/
-			
 			 
 			else if ((PRO_NAME+"/bq!queryOfFenye").equals(path)) {//小仓巴枪电脑登记查看
 				return roleControl(arg0, r, "91");

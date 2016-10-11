@@ -176,7 +176,7 @@ public class OaAction extends MyBaseAction implements IMyBaseAction{
 			clearOptions();
 		}
 		clearSpace();
-		if(id!=null && !"".equals(id)){
+		if(id!=null){
 			String hql="from ZmOaNumber where OId like '%"+id+"%'";
 			if(section!=null && !"".equals(section)){
 				hql=hql+" and OSection like '%"+section+"%'";

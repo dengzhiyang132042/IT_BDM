@@ -84,7 +84,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     		&nbsp;&nbsp;&nbsp;&nbsp;
     		品牌:<input name="brand" type="text" value="${brand }"/>
     		&nbsp;&nbsp;&nbsp;&nbsp;
-    		区域:<input name="arae" type="text" value="${arae }"/>
+    		区域:<input name="area" type="text" value="${area }"/>
     		&nbsp;&nbsp;&nbsp;&nbsp;
     		IP:<input name="ip" type="text" value="${ip }"/>
     		&nbsp;&nbsp;&nbsp;&nbsp;
