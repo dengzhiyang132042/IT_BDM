@@ -126,11 +126,12 @@ String beforeTime= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Calendar.g
     		故障类型:
     		<select id="type_sel" name="type">
     			<option value="">--请选择类型--</option>
-				<option value="电脑">电脑</option>
-				<option value="VPN">VPN</option>
-				<option value="哲盟">哲盟</option>
-				<option value="IMO">IMO</option>				
-				<option value="其他">其他</option>				
+				<option value="桌面组">桌面组</option>
+				<option value="开发组">开发组</option>
+				<option value="维护组">维护组</option>
+				<option value="系统组">系统组</option>
+				<option value="硬件组">硬件组</option>
+				<option value="其他">其他</option>		
 			</select>
     		&nbsp;&nbsp;&nbsp;&nbsp;
     		创建日期:<input name="dates" type="date" value="${dates }"/>
@@ -294,10 +295,11 @@ String beforeTime= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Calendar.g
 				<td>故障类型：</td>
 				<td>
 					<select name="d.DType">
-						<option value="电脑">电脑</option>
-						<option value="VPN">VPN</option>
-						<option value="哲盟">哲盟</option>
-						<option value="IMO">IMO</option>				
+						<option value="桌面组">桌面组</option>
+						<option value="开发组">开发组</option>
+						<option value="维护组">维护组</option>
+						<option value="系统组">系统组</option>
+						<option value="硬件组">硬件组</option>
 						<option value="其他">其他</option>
 					</select>
 				</td>
