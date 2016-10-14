@@ -120,7 +120,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	
   </head>
   
-  <body>
+  <body style="padding-right: 40px;">
     
     <div class="easyui-panel" title="角色管理" style="padding: 5px;display: none;" data-options="tools:'#tt'">
     

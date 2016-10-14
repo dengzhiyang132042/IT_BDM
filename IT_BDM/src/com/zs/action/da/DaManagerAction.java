@@ -267,24 +267,28 @@ public class DaManagerAction extends MyBaseAction implements IMyBaseAction{
 		if (d!=null) {
 			d.setDId("d"+NameOfDate.getNum());
 			d.setDTime(new Timestamp(new Date().getTime()));
-		    Timestamp  ts= Timestamp.valueOf(dTimeExpect);
-		    d.setDTimeExpect(ts);
-			ser.save(d);
-			getRequest().setAttribute("d", d);
+			if (dTimeExpect!=null && !dTimeExpect.trim().equals("")) {
+				Timestamp  ts= Timestamp.valueOf(dTimeExpect);
+				d.setDTimeExpect(ts);
+				ser.save(d);
+				getRequest().setAttribute("d", d);
 //			new Thread(new AutoTransState(d, getSer())).start();  
-			
-			p.setPId("p"+NameOfDate.getNum());
-			p.setDId(d.getDId());
-			p.setPTime(new Timestamp(new Date().getTime()));
-			p.setPState("进行中");
-			ser.save(p);
-			getRequest().setAttribute("p",p);
-			
-			String sj=um.getUMail();
-			if(DaManagerAction.outMailFromAdd(um,d)==false){
-				//日后换成邮件错误界面
-				getResponse().getWriter().write("邮件发送错误!请手动发送邮件");
-				return null;
+				
+				p.setPId("p"+NameOfDate.getNum());
+				p.setDId(d.getDId());
+				p.setPTime(new Timestamp(new Date().getTime()));
+				p.setPState("进行中");
+				ser.save(p);
+				getRequest().setAttribute("p",p);
+				
+				String sj=um.getUMail();
+				if(DaManagerAction.outMailFromAdd(um,d)==false){
+					//日后换成邮件错误界面
+					getResponse().getWriter().write("邮件发送错误!请手动发送邮件");
+					return null;
+				}
+			}else {
+				return result_fail;
 			}
 		}
 		return gotoQuery();
