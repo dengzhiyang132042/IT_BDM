@@ -11,7 +11,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <head>
     <base href="<%=basePath%>">
     
-    <title>区部信息</title>
+    <title>内件收发登记</title>
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
 	<meta http-equiv="expires" content="0">    
@@ -92,7 +92,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     	<th>数量 </th>
     	<th>单位</th>
     	<th>接受日期</th>
-    	<th>接受人员</th>
+    	<th>接收人员</th>
     	<th>发送日期</th>
     	<th>发送人员</th>
     	<th>备注</th>
