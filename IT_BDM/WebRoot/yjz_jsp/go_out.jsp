@@ -245,13 +245,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<tr>
 				<td>完成周数：</td>
 				<td>
-					<input id="u_11" name="go.goNumberComplete" type="number" step="0.01" style="width: 100%;"/>
+					<input id="u_11" name="go.goNumberComplete" type="number"  style="width: 100%;"/>
 				</td>
 			</tr>
 			<tr>
 				<td>超时数（天）：</td>
 				<td>
-					<input id="u_12" name="go.goTimeout" type="number" step="0.01" style="width: 100%;"/>
+					<input id="u_12" name="go.goTimeout" type="number"  style="width: 100%;"/>
 				</td>
 			</tr>
 			<tr>
@@ -263,7 +263,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<tr>
 				<td>工作量（天）：</td>
 				<td>
-					<input id="u_14" name="go.goWork" type="number" step="0.01" style="width: 100%;"/>
+					<input id="u_14" name="go.goWork" type="number"  style="width: 100%;"/>
 				</td>
 			</tr>
 			<tr>
@@ -353,13 +353,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<tr>
 				<td>完成周数：</td>
 				<td>
-					<input name="go.goNumberComplete" type="number" step="0.01" style="width: 100%;"/>
+					<input name="go.goNumberComplete" type="number" style="width: 100%;"/>
 				</td>
 			</tr>
 			<tr>
 				<td>超时数（天）：</td>
 				<td>
-					<input name="go.goTimeout" type="number" step="0.01" style="width: 100%;"/>
+					<input name="go.goTimeout" type="number" style="width: 100%;"/>
 				</td>
 			</tr>
 			<tr>
@@ -371,7 +371,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<tr>
 				<td>工作量（天）：</td>
 				<td>
-					<input name="go.goWork" type="number" step="0.01"  style="width: 100%;"/>
+					<input name="go.goWork" type="number" style="width: 100%;"/>
 				</td>
 			</tr>
 			<tr>

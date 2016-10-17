@@ -201,7 +201,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<tr>
 				<td>月数：</td>
 				<td>
-					<input id="u_4" name="sim.SMonth" type="number" step="0.01" style="width: 100%;"/>
+					<input id="u_4" name="sim.SMonth" type="number" style="width: 100%;"/>
 				</td>
 			</tr>
 			<tr>
@@ -253,7 +253,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<tr>
 				<td>月数：</td>
 				<td>
-					<input name="sim.SMonth" type="number" step="0.01" style="width: 100%;"/>
+					<input name="sim.SMonth" type="number" style="width: 100%;"/>
 				</td>
 			</tr>
 			<tr>
