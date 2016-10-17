@@ -11,7 +11,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <head>
     <base href="<%=basePath%>">
     
-    <title>区部信息</title>
+    <title>分拨点电脑登记</title>
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
 	<meta http-equiv="expires" content="0">    
@@ -168,7 +168,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</span>
 		</form>
 	</div>
-	</div>
 	
 	<div id="u" class="easyui-window" title="修改" data-options="modal:true,closed:true" style="width:400px;height:auto;padding:10px;display: none;">
 		<form action="<%=path %>/fbd_c!updateC" method="post">
@@ -238,7 +237,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<tr>
 				<td>主板使用年限：</td>
 				<td>
-					<input id="u_10" name="c.CUsedYear" type="text" style="width: 100%;"/>
+					<input id="u_10" name="c.CUsedYear" type="number" style="width: 100%;"/>
 				</td>
 			</tr>
 			<tr>
@@ -331,7 +330,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<tr>
 				<td>主板使用年限：</td>
 				<td>
-					<input name="c.CUsedYear" type="text" style="width: 100%;"/>
+					<input name="c.CUsedYear" type="number" style="width: 100%;"/>
 				</td>
 			</tr>
 			<tr>

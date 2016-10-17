@@ -11,7 +11,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <head>
     <base href="<%=basePath%>">
     
-    <title>区部信息</title>
+    <title>硬件组外出登记</title>
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
 	<meta http-equiv="expires" content="0">    
@@ -108,9 +108,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     	<th>完成日期</th>
     	<th>完成周数</th>
     	<th>超时数(天)</th>
-    	<th>餐费</th>
+    	<th>餐费(元)</th>
     	<th>工作量(天)</th>
-    	<th>交通费</th>
+    	<th>交通费(元)</th>
     	<th>备注</th>
     	<th>操作</th>
     </tr>
@@ -245,31 +245,31 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<tr>
 				<td>完成周数：</td>
 				<td>
-					<input id="u_11" name="go.goNumberComplete" type="number" style="width: 100%;"/>
+					<input id="u_11" name="go.goNumberComplete" type="number" step="0.01" style="width: 100%;"/>
 				</td>
 			</tr>
 			<tr>
 				<td>超时数（天）：</td>
 				<td>
-					<input id="u_12" name="go.goTimeout" type="number" style="width: 100%;"/>
+					<input id="u_12" name="go.goTimeout" type="number" step="0.01" style="width: 100%;"/>
 				</td>
 			</tr>
 			<tr>
-				<td>餐费：</td>
+				<td>餐费（元）：</td>
 				<td>
-					<input id="u_13" name="go.goFeeMeal" type="text" style="width: 100%;"/>
+					<input id="u_13" name="go.goFeeMeal" type="number" step="0.01" style="width: 100%;"/>
 				</td>
 			</tr>
 			<tr>
-				<td>工作量：</td>
+				<td>工作量（天）：</td>
 				<td>
-					<input id="u_14" name="go.goWork" type="number" style="width: 100%;"/>
+					<input id="u_14" name="go.goWork" type="number" step="0.01" style="width: 100%;"/>
 				</td>
 			</tr>
 			<tr>
-				<td>交通费：</td>
+				<td>交通费（元）：</td>
 				<td>
-					<input id="u_15" name="go.goFeeTraffic" type="text" style="width: 100%;"/>
+					<input id="u_15" name="go.goFeeTraffic" type="number" step="0.01" style="width: 100%;"/>
 				</td>
 			</tr>
 			<tr>
@@ -353,31 +353,31 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<tr>
 				<td>完成周数：</td>
 				<td>
-					<input name="go.goNumberComplete" type="number" style="width: 100%;"/>
+					<input name="go.goNumberComplete" type="number" step="0.01" style="width: 100%;"/>
 				</td>
 			</tr>
 			<tr>
 				<td>超时数（天）：</td>
 				<td>
-					<input name="go.goTimeout" type="number" style="width: 100%;"/>
+					<input name="go.goTimeout" type="number" step="0.01" style="width: 100%;"/>
 				</td>
 			</tr>
 			<tr>
-				<td>餐费：</td>
+				<td>餐费（元）：</td>
 				<td>
-					<input name="go.goFeeMeal" type="text" style="width: 100%;"/>
+					<input name="go.goFeeMeal" type="number" step="0.01" style="width: 100%;"/>
 				</td>
 			</tr>
 			<tr>
-				<td>工作量：</td>
+				<td>工作量（天）：</td>
 				<td>
-					<input name="go.goWork" type="number" style="width: 100%;"/>
+					<input name="go.goWork" type="number" step="0.01"  style="width: 100%;"/>
 				</td>
 			</tr>
 			<tr>
-				<td>交通费：</td>
+				<td>交通费（元）：</td>
 				<td>
-					<input name="go.goFeeTraffic" type="text" style="width: 100%;"/>
+					<input name="go.goFeeTraffic" type="number" step="0.01" style="width: 100%;"/>
 				</td>
 			</tr>
 			<tr>

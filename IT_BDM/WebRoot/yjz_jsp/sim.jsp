@@ -11,7 +11,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <head>
     <base href="<%=basePath%>">
     
-    <title>区部信息</title>
+    <title>SIM费用报销</title>
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
 	<meta http-equiv="expires" content="0">    
@@ -92,6 +92,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		}else if($('#page').val()*1>${page.pageMax}*1){
 			$('#page').val(${page.pageMax});
 		}
+		$('#f1').submit();
 	}
 	
 	</script>
@@ -143,7 +144,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<br/>
 	
 	<div class="easyui-panel" style="padding:5px;width: 100%;display: none;">
-		<form id="f1" action="<%=path %>/sim!queryOfFenyeSIM?id=${id}&csName={csName}" method="post">
+		<form id="f1" action="<%=path %>/sim!queryOfFenyeSIM?id=${id}&csName=${csName}" method="post">
 		<select id="sele" style="float: left;margin-top: 3px;margin-left: 5px;" name="page.size" onchange="$('#f1').submit();">
 			<option value="5">5</option>
 			<option value="10">10</option>
@@ -170,7 +171,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</span>
 		</form>
 	</div>
-	</div>
+
 	
 	<div id="u" class="easyui-window" title="修改" data-options="modal:true,closed:true" style="width:400px;height:auto;padding:10px;display: none;top: 200px;">
 		<form action="<%=path %>/sim!updateSIM" method="post">
@@ -200,13 +201,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<tr>
 				<td>月数：</td>
 				<td>
-					<input id="u_4" name="sim.SMonth" type="number" style="width: 100%;"/>
+					<input id="u_4" name="sim.SMonth" type="number" step="0.01" style="width: 100%;"/>
 				</td>
 			</tr>
 			<tr>
-				<td>公司总费用：</td>
+				<td>公司总费用(元)：</td>
 				<td>
-					<input id="u_5" name="sim.SFeeSum" type="text" style="width: 100%;"/>
+					<input id="u_5" name="sim.SFeeSum" type="number" step="0.01" style="width: 100%;"/>
 				</td>
 			</tr>
 			<tr>
@@ -252,13 +253,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<tr>
 				<td>月数：</td>
 				<td>
-					<input name="sim.SMonth" type="number" style="width: 100%;"/>
+					<input name="sim.SMonth" type="number" step="0.01" style="width: 100%;"/>
 				</td>
 			</tr>
 			<tr>
-				<td>公司总费用：</td>
+				<td>公司总费用(元)：</td>
 				<td>
-					<input name="sim.SFeeSum" type="text" style="width: 100%;"/>
+					<input name="sim.SFeeSum" type="number" step="0.01" style="width: 100%;"/>
 				</td>
 			</tr>
 			<tr>
