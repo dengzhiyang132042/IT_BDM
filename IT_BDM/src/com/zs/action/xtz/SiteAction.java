@@ -118,19 +118,21 @@ public class SiteAction extends MyBaseAction{
 	private void clearSpace(){
 		if(id!=null){
 			id=id.trim();
-			num=num.trim();
-			it=it.trim();
+		}
+		if (type!=null) {
 			type=type.trim();
+		}
+		if (it!=null) {
+			it=it.trim();
+		}
+		if (num!=null) {
+			num=num.trim();
 		}
 	}
 	
 	public String queryOfFenye() throws UnsupportedEncodingException, ParseException {
-		String id=getRequest().getParameter("id");
+		id=getRequest().getParameter("id");
 		String cz=getRequest().getParameter("cz");//用于判断是否清理page，yes清理，no不清理
-		
-		
-		SimpleDateFormat formatter = new SimpleDateFormat( "yyyy-MM-dd");
-		
 		if (page==null) {
 			page=new Page(1, 0, 5);
 		}

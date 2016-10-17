@@ -156,7 +156,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<form action="<%=path %>/site!update" method="post">
 		<table border="0" class="table1">
 			<tr>
-				<td>编号：</td>
+				<td width="75">编号：</td>
 				<td>
 					<input id="u_1" name="site.SId" type="text" style="width: 100%;" readonly="readonly"/>
 				</td>
@@ -214,7 +214,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<form action="<%=path %>/site!add" method="post">
 		<table border="0" class="table1">
 			<tr>
-				<td>网点条码：</td>
+				<td width="75">网点条码：</td>
 				<td>
 					<input name="site.SNum" type="text" style="width: 100%;"/>
 				</td>
