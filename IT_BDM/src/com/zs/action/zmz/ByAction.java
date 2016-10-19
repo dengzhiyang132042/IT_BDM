@@ -109,8 +109,17 @@ public class ByAction extends MyBaseAction implements IMyBaseAction{
 		datee=null;  
 	}
 	
+	private void clearSpace(){
+		if(id!=null){
+			id=id.trim();
+			name=name.trim();
+			section=section.trim();
+			
+		}
+	}
+	
 	public String queryOfFenye() throws UnsupportedEncodingException {
-		String id=getRequest().getParameter("id");
+		id=getRequest().getParameter("id");
 		String cz=getRequest().getParameter("cz");//用于判断是否清理page，yes清理，no不清理
 		if (page==null) {
 			page=new Page(1, 0, 5);
@@ -119,6 +128,7 @@ public class ByAction extends MyBaseAction implements IMyBaseAction{
 			page=new Page(1, 0, 5);
 			clearOptions();
 		}
+		clearSpace();
 		if (id!=null) {
 			String hql="from ZmByNumber where byId like '%"+id+"%'";
 			if (name!=null && !name.trim().equals("")) {

@@ -144,7 +144,7 @@ public class DaAuditingAction extends MyBaseAction implements IMyBaseAction{
 	}
 	
 	public String queryOfFenye() throws UnsupportedEncodingException {
-		String id = getRequest().getParameter("id");
+		id = getRequest().getParameter("id");
 		String cz = getRequest().getParameter("cz");
 		
 		if (page==null) {

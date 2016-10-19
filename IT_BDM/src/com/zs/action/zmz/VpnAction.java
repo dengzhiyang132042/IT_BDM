@@ -40,7 +40,7 @@ public class VpnAction extends MyBaseAction{
 	String datee;
 	
 	
-	private Logger logger=Logger.getLogger(VpnAction.class);
+	private Logger logger= Logger.getLogger(VpnAction.class);
 	
 	
 	public String getId() {
@@ -114,8 +114,18 @@ public class VpnAction extends MyBaseAction{
 		datee=null;  
 	}
 	
+	private void clearSpace(){
+		if(id!=null){
+			id=id.trim();
+			num=num.trim();
+			name=name.trim();
+			section=section.trim();
+		}
+		
+	}
+	
 	public String queryOfFenye() throws UnsupportedEncodingException, ParseException {
-		String id=getRequest().getParameter("id");
+		id=getRequest().getParameter("id");
 		String cz=getRequest().getParameter("cz");//用于判断是否清理page，yes清理，no不清理
 		
 		if (page==null) {
@@ -125,6 +135,7 @@ public class VpnAction extends MyBaseAction{
 			page=new Page(1, 0, 5);
 			clearOptions();
 		}
+		clearSpace();
 		if (id!=null) {
 			String hql="from ZmVpn where VId like '%"+id+"%'";
 			if (num!=null && !num.trim().equals("")) {

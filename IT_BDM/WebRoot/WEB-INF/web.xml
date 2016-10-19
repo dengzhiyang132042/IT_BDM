@@ -33,4 +33,9 @@
     <listener-class>com.zs.listener.InforListener</listener-class>  
   </listener>
   
+  <!-- ******设置session失效时间为8小时****** -->
+  <session-config>
+  	<session-timeout>480</session-timeout>
+  </session-config>
+  
   </web-app>

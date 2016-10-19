@@ -101,7 +101,7 @@ public class GoodsAction extends MyBaseAction{
 	}
 	
 	public String queryOfFenyeGoods() throws UnsupportedEncodingException {
-		String id=getRequest().getParameter("id");
+		id=getRequest().getParameter("id");
 		String cz=getRequest().getParameter("cz");//用于判断是否清理page，yes清理，no不清理
 		if (page==null) {
 			page=new Page(1, 0, 5);
