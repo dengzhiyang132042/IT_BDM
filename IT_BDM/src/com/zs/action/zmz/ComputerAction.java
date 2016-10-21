@@ -38,6 +38,9 @@ public class ComputerAction extends MyBaseAction implements IMyBaseAction{
 	String result_fail="fail";
 	
 	String id;
+	String section;
+	String name;
+	String num;
 	
 	private Logger logger=Logger.getLogger(ComputerAction.class);
 
@@ -72,15 +75,40 @@ public class ComputerAction extends MyBaseAction implements IMyBaseAction{
 	public void setId(String id) {
 		this.id = id;
 	}
+
+	public String getSection() {
+		return section;
+	}
+	public void setSection(String section) {
+		this.section = section;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public String getNum() {
+		return num;
+	}
+	public void setNum(String num) {
+		this.num = num;
+	}
 	//----------------------------------------------------------------------------------
 
 	public void clearOptions() {
 		id=null;
+		section=null;
+		name=null;
+		num=null;
 	}
 
 	private void clearSpace() {
 		if (id!=null) {
 			id=id.trim();
+			section=section.trim();
+			name=name.trim();
+			num=num.trim();
 		}
 	}
 	
@@ -128,6 +156,15 @@ public class ComputerAction extends MyBaseAction implements IMyBaseAction{
 		clearSpace();
 		if(id!=null){
 			String hql="from ZmComputer where CId like '%"+id+"%'";
+			if(section!=null){
+				hql=hql+"and CSection like '%"+section+"%'";
+			}
+			if(name!=null){
+				hql=hql+"and CMaster like '%"+name+"%'";
+			}
+			if(num!=null){
+				hql=hql+"and CNum like '%"+num+"%'";
+			}
 			hql=hql+" order by CDate desc";
 			cs=ser.query(hql, null, hql, page, ser);
 		}else {

@@ -86,6 +86,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     	<br/>
     	<form action="<%=path %>/computer!queryOfFenye" method="post">
     		编号:<input name="id" type="text" value="${id }"/>
+    		&nbsp;&nbsp;&nbsp;&nbsp;
+    		部门：<input name="section" type="text" value="${section }"/>
+    		&nbsp;&nbsp;&nbsp;&nbsp;
+    		姓名:<input name="name" type="text" value="${name }"/>
+    		&nbsp;&nbsp;&nbsp;&nbsp;
+    		工号:<input name="num" type="text" value="${num }"/>
     		<br/>
     		<input type="submit" value="查询"/>
     	</form>	
@@ -154,7 +160,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</div>
 	
 	<div class="easyui-panel" style="padding:5px;width: 100%;display: none;background-color: white;">
-		<form id="f1" action="<%=path %>/computer!queryOfFenye?id=${id}" method="post">
+		<form id="f1" action="<%=path %>/computer!queryOfFenye?id=${id}&section=${section}&name=${name}&num=${num}" method="post">
 		<select id="sele" style="float: left;margin-top: 3px;margin-left: 5px;" name="page.size" onchange="$('#f1').submit();">
 			<option value="5">5</option>
 			<option value="10">10</option>
