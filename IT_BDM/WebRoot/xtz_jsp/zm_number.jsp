@@ -25,9 +25,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<link rel="stylesheet" type="text/css" href="<%=path %>/FRAMEWORK/jquery-easyui/demo/demo.css">
 	<script type="text/javascript" src="<%=path %>/FRAMEWORK/jquery-easyui/jquery.min.js"></script>
 	<script type="text/javascript" src="<%=path %>/FRAMEWORK/jquery-easyui/jquery.easyui.min.js"></script>
-	
+	<!-- 自动补全插件 -->
+    <link rel="stylesheet" type="text/css" href="<%=path %>/FRAMEWORK/autocomplete/src/jquery.autocomplete.css"></link>
+    <script type="text/javascript" src="<%=path %>/FRAMEWORK/autocomplete/src/jquery.autocomplete.js"></script>
+	<!-- 自动补全插件 -->
 	<link rel="stylesheet" type="text/css" href="<%=path %>/FRAMEWORK/css/mycss.css">
 	<script type="text/javascript">
+   	var isSelect=false;
 	$(function(){
 		$("#sele option[value='"+${page.size}+"']").attr("selected",true);
 		$("#eidtASubjectWindow1").show();
@@ -35,39 +39,59 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		
 		$('.easyui-tree').tree('collapseAll');
 		
-		$('#cc1').combo({
-			required:true,
-			editable:false
+		$('#sample').AutoComplete({
+		    'data': ${query_section},
+		    'beforeLoadDataHandler' : function(keyword){
+		    	isSelect=false;
+	            return true;
+	        },
+		    'afterSelectedHandler': function(data){
+		    	isSelect=true;
+	            //alert(data.value+"  "+isSelect);
+	            //$('#sample').val("111");测试自定义输出内容:成功
+	            var str=data.value;
+	            var strs= new Array(); //定义一数组 
+				strs=str.split("("); //字符分割 
+	            //alert(strs[0]);
+	            $('#sample').val(strs[0]);
+	        },
+	        'onerror': function(msg){alert(msg);},
+	        'width':'auto'
 		});
-		$('#sp1').appendTo($('#cc1').combo('panel'));
-		$('#sp1 li div').click(function(){
-			var f = $(this).find('font').text();
-			var t = $(this).find('.tree-title');
-			var str=$("<span>"+t.html()+"</span>");
-			str.find('font').remove();
-			$('#cc1').combo('setValue', f).combo('setText', str.text());
-		});
-		
-		$('#cc2').combo({
-			required:true,
-			editable:false
-		});
-		$('#sp2').appendTo($('#cc2').combo('panel'));
-		$('#sp2 li div').click(function(){
-			var f = $(this).find('font').text();
-			var t = $(this).find('.tree-title');
-			var str=$("<span>"+t.html()+"</span>");
-			str.find('font').remove();
-			$('#cc2').combo('setValue', f).combo('setText', str.text());
+		$('#sample2').AutoComplete({
+		    'data': ${query_section},
+		    'beforeLoadDataHandler' : function(keyword){
+		    	isSelect=false;
+	            return true;
+	        },
+		    'afterSelectedHandler': function(data){
+		    	isSelect=true;
+	            //alert(data.value+"  "+isSelect);
+	            //$('#sample').val("111");测试自定义输出内容:成功
+	            var str=data.value;
+	            var strs= new Array(); //定义一数组 
+				strs=str.split("("); //字符分割 
+	            //alert(strs[0]);
+	            $('#sample2').val(strs[0]);
+	        },
+	        'onerror': function(msg){alert(msg);},
+	        'width':'auto'
 		});
 	});
+	
+	function isSubmit(){
+		if(isSelect){
+			return true;
+		}else{
+			alert("部门字段不能手动输入，必须从智能提示的列表中选择。");
+			return false;
+		}
+	}
 	
 	function update(u1,u2,u3,u4,u5,u6,u7,u8,u9,u10){
 		$('#u').window('open');
 		$('#u_1').val(u1);
-		$('#u_2').val(u2);
-		$('#cc1').combo('setText',u3);
-		$('#cc1').combo('setValue',u3);
+		$('#sample').val(u3);
 		$('#u_4').val(u4);
 		$('#u_5').val(u5);
 		$("#u_6 option[value='"+u6+"']").attr("selected",true);
@@ -97,6 +121,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   </head>
   
   <body>
+    
+	
     
     <div class="easyui-panel" title="哲盟账号申请记录登记" style="padding: 5px;display: none;" data-options="tools:'#tt'">
     
@@ -189,7 +215,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<form action="<%=path %>/zmn!update" method="post">
 		<table border="0" class="table1">
 			<tr>
-				<td>编号：</td>
+				<td width="70">编号：</td>
 				<td>
 					<input id="u_1" name="zmn.zmId" type="text" style="width: 100%;" readonly="readonly"/>
 				</td>
@@ -197,11 +223,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<tr>
 				<td>申请部门：</td>
 				<td>
-					<select name="zmn.zmApplyCs" id="cc1" style="width:100%;"></select>
-					<div id="sp1">
-						<div style="color:#99BBE8;background:#fafafa;padding:5px;">选择公司组织架构</div>
-						${html }
-					</div>
+					<input id="sample" type="text" name="zmn.zmApplyCs" style="width: 100%;"/>
 				</td>
 			</tr>
 			<tr>
@@ -239,7 +261,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</tr>
 			<tr>
 				<td colspan="2" align="center">
-					<input class="easyui-linkbutton" type="submit" style="width: 95%;padding: 5px;" value="提交"/>
+					<input class="easyui-linkbutton" type="submit" style="width: 95%;padding: 5px;" value="提交" onclick="return isSubmit()"/>
 				</td>			
 			</tr>
 		</table>
@@ -250,13 +272,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<form action="<%=path %>/zmn!add" method="post">
 		<table border="0" class="table1">
 			<tr>
-				<td>申请部门：</td>
+				<td width="70">申请部门：</td>
 				<td>
-					<select name="zmn.zmApplyCs" id="cc2" style="width:100%;"></select>
-					<div id="sp2">
-						<div style="color:#99BBE8;background:#fafafa;padding:5px;">选择公司组织架构</div>
-						${html }
-					</div>
+					<input id="sample2" type="text" name="zmn.zmApplyCs" style="width: 100%;"/>
 				</td>
 			</tr>
 			<tr>
@@ -294,7 +312,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</tr>
 			<tr>
 				<td colspan="2" align="center">
-					<input class="easyui-linkbutton" type="submit" style="width: 95%;padding: 5px;" value="提交"/>
+					<input class="easyui-linkbutton" type="submit" style="width: 95%;padding: 5px;" value="提交" onclick="return isSubmit()"/>
 				</td>			
 			</tr>
 		</table>

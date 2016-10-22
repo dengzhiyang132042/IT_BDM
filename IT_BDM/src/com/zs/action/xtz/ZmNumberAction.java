@@ -1,5 +1,6 @@
 package com.zs.action.xtz;
 
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.sql.Timestamp;
 import java.util.Calendar;
@@ -141,8 +142,12 @@ public class ZmNumberAction extends MyBaseAction{
 			String hql2="from XtZmNumber order by zmServiceDate desc";
 			zmns=ser.query(hql, ss, hql2, page, ser);
 		}
+		/*老版tree方法——已不用
 		//带上通讯录信息
 		getRequest().setAttribute("html", ser.fitting1(ser.queryFirst()));
+		*/
+		//新版——自动补全
+		ser.querySection(getRequest());
 		return result;
 	}
 	
@@ -152,8 +157,12 @@ public class ZmNumberAction extends MyBaseAction{
 		String ss[]={};
 		String hql2="from XtZmNumber order by zmServiceDate desc";
 		zmns=ser.query(hql, ss, hql2, page, ser);
+		/*老版tree方法——已不用
 		//带上通讯录信息
 		getRequest().setAttribute("html", ser.fitting1(ser.queryFirst()));
+		*/
+		//新版——自动补全
+		ser.querySection(getRequest());
 		return result;
 	}
 	
@@ -197,6 +206,15 @@ public class ZmNumberAction extends MyBaseAction{
 		zmn=null;
 		return gotoQuery();
 	}	
+	
+	public String test() throws IOException {
+		
+//		String str=ser.querySection();
+//		System.out.println("【str】"+str);
+//		getResponse().getWriter().println(str);
+		
+		return null;
+	}
 	
 }
  

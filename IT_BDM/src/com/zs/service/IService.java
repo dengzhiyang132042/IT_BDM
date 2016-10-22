@@ -163,4 +163,10 @@ public interface IService {
 	 * @param dems 查询到的需求表集合
 	 */
 	public List initDemPers(List dems);
+	
+	/**
+	 * 张顺 2016-10-22 10:29:05
+	 * <br>带部门信息过去，
+	 */
+	public void querySection(HttpServletRequest req) ;
 }

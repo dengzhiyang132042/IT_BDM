@@ -498,5 +498,15 @@ public class BaseService implements IService{
 		}
 		return demPers;
 	}
+	public void querySection(HttpServletRequest req) {
+		List<CompanySection> css=find("from CompanySection", null);
+		List<String> str=new ArrayList<String>();
+		for (int i = 0; i < css.size(); i++) {
+			str.add("'"+css.get(i).getCsName()+"("+css.get(i).getCsMaster()+")'");
+		}
+		String ss=str.toString();
+		System.out.println(ss);
+		req.setAttribute("query_section", ss);
+	}
 	
 }
