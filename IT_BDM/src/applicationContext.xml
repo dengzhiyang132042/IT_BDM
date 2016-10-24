@@ -83,6 +83,11 @@
 		<property name="ser" ref="zs_ser"></property>
 	</bean>
 	
+	<!-- *****************数据分析************************  -->
+	<bean id="hgh_count_site" class="com.zs.action.xtz.count.XiteCountAction">
+		<property name="ser" ref="zs_ser"></property>
+	</bean>
+	
 	<!-- *****************故障报修处理跟进系统************************ -->
 	<bean id="zs_manager_da" class="com.zs.action.da.DaManagerAction">
 		<property name="ser" ref="zs_ser"></property>
