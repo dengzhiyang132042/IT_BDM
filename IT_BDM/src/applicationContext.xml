@@ -84,7 +84,7 @@
 	</bean>
 	
 	<!-- *****************数据分析************************  -->
-	<bean id="hgh_count_site" class="com.zs.action.xtz.count.XiteCountAction">
+	<bean id="hgh_ser_xtz_count_site" class="com.zs.action.xtz.count.SiteCountAction">
 		<property name="ser" ref="zs_ser"></property>
 	</bean>
 	
