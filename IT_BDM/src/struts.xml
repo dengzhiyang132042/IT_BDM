@@ -280,13 +280,21 @@
      <result name="fail">/fail.jsp</result>
   </action>
   <!-- **************数据分析***************** -->
-  <action name="siteCount" class="hgh_ser_xtz_count_site">	
+  <action name="siteCount" class="hgh_count_site">	
   	 <interceptor-ref name="mydefault" />
      <result>/index.jsp</result>
      <result name="siteCount">/xtz_count/site_count.jsp</result>
      <result name="succ">/success.jsp</result>
      <result name="fail">/fail.jsp</result>
   </action>
+  <action name="zmNumberCount" class="zs_count_zmnumber">	
+  	 <interceptor-ref name="mydefault" />
+     <result>/index.jsp</result>
+     <result name="zmNumberCount">/xtz_count/zm_number_count.jsp</result>
+     <result name="succ">/success.jsp</result>
+     <result name="fail">/fail.jsp</result>
+  </action>
+  
   
 </package>
 </struts>    
