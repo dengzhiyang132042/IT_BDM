@@ -101,6 +101,44 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    </ul>
 	</div>
 	<div title="数据分析" data-options="iconCls:'icon-large-shapes'" style="padding:10px;">
+		<ul id="tt" class="easyui-tree" data-options="animate:true,lines:true">
+        <li><span>数据与流程管理部</span>
+        	<ul>
+        		<li><span>硬件组</span>
+        			<ul>
+						<li><span><a href="<%=path %>/fbd_asdl!queryOfFenyeAsdl?cz=yes" target="right">分拨点宽带登记ASDL</a></span></li>
+						<li><span><a href="<%=path %>/fbd_m!queryOfFenyeM?cz=yes" target="right">分拨点监控登记</a></span></li>
+						<li><span><a href="<%=path %>/fbd_c!queryOfFenyeC?cz=yes" target="right">分拨点电脑登记</a></span></li>
+						<li><span><a href="<%=path %>/fbd_ll!queryOfFenyeLL?cz=yes" target="right">分拨点监控材料申请清单</a></span></li>
+						<li><span><a href="<%=path %>/sim!queryOfFenyeSIM?cz=yes" target="right">SIM费用报销</a></span></li>
+						<li><span><a href="<%=path %>/goods!queryOfFenyeGoods?cz=yes" target="right">内件收发登记</a></span></li>
+						<li><span><a href="<%=path %>/go!queryOfFenyeGo?cz=yes" target="right">外出登记</a></span></li>        			
+        			</ul>
+        		</li>
+        		<li><span>系统组</span>
+        			<ul>
+						<li><span><a href="<%=path %>/site!queryOfFenye?cz=yes" target="right">站点资料统计</a></span></li>
+						<li><span><a href="<%=path %>/branches!queryOfFenye?cz=yes" target="right">二级站点资料统计</a></span></li>
+						<li><span><a href="<%=path %>/zmn!queryOfFenye?cz=yes" target="right">哲盟账号申请登记统计</a></span></li>
+						<li><span><a href="<%=path %>/zmd!queryOfFenye?cz=yes" target="right">哲盟数据检查登记统计</a></span></li>
+        			</ul>
+        		</li>
+        		<li><span>桌面组</span>
+        			<ul>
+						<li><span><a href="<%=path %>/vpn!queryOfFenye?cz=yes" target="right">VPN账号登记</a></span></li>
+						<li><span><a href="<%=path %>/by!queryOfFenye?cz=yes" target="right">布谷鸟、邮箱账号</a></span></li>
+						<li><span><a href="<%=path %>/oa!queryOfFenye?cz=yes" target="right">oa账号</a></span></li>
+						<li><span><a href="<%=path %>/print!queryOfFenye?cz=yes" target="right">打印机登记</a></span></li>
+						<li><span><a href="<%=path %>/computer!queryOfFenye?cz=yes" target="right">管理电脑统计</a></span></li>
+						<li><span><a href="<%=path %>/bq!queryOfFenye?cz=yes" target="right">小仓巴枪电脑登记</a></span></li>
+						<li><span><a href="<%=path %>/wifi!queryOfFenye?cz=yes" target="right">园区wifi管理</a></span></li>
+						<li><span><a href="<%=path %>/phone!queryOfFenye?cz=yes" target="right">电话线分布</a></span></li>
+        			</ul>
+        		</li>
+        		<li><span>开发组</span></li>
+        	</ul>
+        </li>
+        </ul>
 	</div>
 	<div title="系统管理" data-options="iconCls:'icon-large-smartart'" style="padding:10px;">
 		<ul id="tt" class="easyui-tree" data-options="animate:true,lines:true">
