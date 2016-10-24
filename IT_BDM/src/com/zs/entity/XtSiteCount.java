@@ -1,21 +1,30 @@
 package com.zs.entity;
 
 import java.sql.Timestamp;
+import java.util.List;
 
-
-
-public class XtzSiteCount {
 
 /**
  * 2016年10月24日11:19:56
  * <br/>该类用户系统组站点资料统计模块使用
  * @author 黄光辉
  */
+public class XtSiteCount {
+
 	private Timestamp sTime;
 	private Timestamp eTime;
-	private int weeknum;
+	private int num;
 	private String Type;
 	private int count;
+	private List siteDetail;
+	
+	
+	public List getSiteDetail() {
+		return siteDetail;
+	}
+	public void setSiteDetail(List siteDetail) {
+		this.siteDetail = siteDetail;
+	}
 	public Timestamp getsTime() {
 		return sTime;
 	}
@@ -28,11 +37,11 @@ public class XtzSiteCount {
 	public void seteTime(Timestamp eTime) {
 		this.eTime = eTime;
 	}
-	public int getWeeknum() {
-		return weeknum;
+	public int getNum() {
+		return num;
 	}
-	public void setWeeknum(int weeknum) {
-		this.weeknum = weeknum;
+	public void setNum(int num) {
+		this.num = num;
 	}
 	public String getType() {
 		return Type;

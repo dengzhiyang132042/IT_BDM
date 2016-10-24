@@ -17,16 +17,19 @@ import com.zs.action.IMyBaseAction;
 import com.zs.action.MyBaseAction;
 import com.zs.entity.DaCount;
 import com.zs.entity.DaDemand;
+import com.zs.entity.XtSite;
+import com.zs.entity.XtSiteCount;
+
 import com.zs.service.IService;
 import com.zs.tools.Page;
 
-public class XiteCountAction extends MyBaseAction implements IMyBaseAction{
+public class SiteCountAction extends MyBaseAction implements IMyBaseAction{
 
 	IService ser;
 	Page page;
 	
 	
-	List<DaCount> counts;
+	List<XtSiteCount> counts;
 	
 	String filtrate;
 	
@@ -34,7 +37,7 @@ public class XiteCountAction extends MyBaseAction implements IMyBaseAction{
 	String result_succ="succ";
 	String result_fail="fail";
 	
-	Logger logger=Logger.getLogger(XiteCountAction.class);
+	Logger logger=Logger.getLogger(SiteCountAction.class);
 //----------------------------------------------------	
 	
 	public IService getSer() {
@@ -46,10 +49,10 @@ public class XiteCountAction extends MyBaseAction implements IMyBaseAction{
 	public void setFiltrate(String filtrate) {
 		this.filtrate = filtrate;
 	}
-	public List<DaCount> getCounts() {
+	public List<XtSiteCount> getCounts() {
 		return counts;
 	}
-	public void setCounts(List<DaCount> counts) {
+	public void setCounts(List<XtSiteCount> counts) {
 		this.counts = counts;
 	}
 	public void setSer(IService ser) {
@@ -109,45 +112,44 @@ public class XiteCountAction extends MyBaseAction implements IMyBaseAction{
 	 * @param dt
 	 * @throws ParseException
 	 */
-	private void initCounts(List<DaCount> counts,String dt) throws ParseException {
+	private void initCounts(List<XtSiteCount> counts,String dt) throws ParseException {
 		//获取两个头尾的时间
-		DaDemand d1 = null,d2=null;
-		String str="from DaDemand order by DTime desc";
-		List list=ser.query(str, null, str, new Page(1, 0, 1), ser);
+		XtSite d1 = null,d2=null;
+		String str="from XtSite order by SStartDate desc";
+		List list=ser.query(str, null, str, page, ser);
 		if (list.size()>0) {
-			d1=(DaDemand) list.get(0);//尾巴
+			d1=(XtSite) list.get(0);//尾巴
 		}
-		str="from DaDemand order by DTime asc";
-		list=ser.query(str, null, str, new Page(1, 0, 1), ser);
+		str="from XtSite order by SStartDate asc";
+		list=ser.query(str, null, str, page, ser);
 		if (list.size()>0) {
-			d2=(DaDemand) list.get(0);//头
+			d2=(XtSite) list.get(0);//头
 		}
 		if (d1!=null && d2!=null) {
-			if (dt.equals("D")) {
-				//获取相差天数
-				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-				Date date1=sdf.parse(d1.getDTime().toLocaleString());
-				Date date2=sdf.parse(d2.getDTime().toLocaleString());
-				long days=(date1.getTime()-date2.getTime())/(1000*3600*24);
-				/*
-				logger.debug(date1.toLocaleString()+" "+date2.toLocaleString());
-				logger.debug(d1.getDTime().toLocaleString()+" "+d2.getDTime().toLocaleString());
-				logger.debug(d1.getDTime().getDate());
-				*/
-				//从第一天开始循环组装数据封装
-				for (int i = 0; i <=days; i++) {
-					Date dateStart=new Date(d2.getDTime().getYear(), d2.getDTime().getMonth(), d2.getDTime().getDate()+i,0,0,0);
-					Date dateEnd=new Date(d2.getDTime().getYear(), d2.getDTime().getMonth(), d2.getDTime().getDate()+i,23, 59, 59);
+			if (dt.equals("W")) {
+				//对维护周数字段进行统计
+				String all="from XtSite";
+				List listall = ser.query(all, null, all, page, ser);
+				ArrayList<XtSite> site = new ArrayList<XtSite>();
+				for(int i = 0 ; i<listall.size();i++){
+					XtSite xtSite= (XtSite) listall.get(i);
+					site.add(xtSite);
+				}
+				
+				
+				for (int i = 0; i <=5; i++) {
+					Date dateStart=new Date(d2.getSStartDate().getYear(), d2.getSStartDate().getMonth(), d2.getSStartDate().getDate()+i,0,0,0);
+					Date dateEnd=new Date(d2.getSStartDate().getYear(), d2.getSStartDate().getMonth(), d2.getSStartDate().getDate()+i,23, 59, 59);
 					initCount(dateStart, dateEnd, counts);
 				}
 			}else if (dt.equals("M")) {
 				//获取相差月数
-				long ms=(d1.getDTime().getYear()-d2.getDTime().getYear())*12+(d1.getDTime().getMonth()-d2.getDTime().getMonth());
+				long ms=(d1.getSStartDate().getYear()-d2.getSStartDate().getYear())*12+(d1.getSStartDate().getMonth()-d2.getSStartDate().getMonth());
 				//logger.debug(ms);
 				for (int i = 0; i <= ms; i++) {
-					Date dateStart=new Date(d2.getDTime().getYear(), d2.getDTime().getMonth()+i, 1,0,0,0);
+					Date dateStart=new Date(d2.getSStartDate().getYear(), d2.getSStartDate().getMonth()+i, 1,0,0,0);
 					Calendar ca = Calendar.getInstance();    
-					ca.set(1900+d2.getDTime().getYear(), 1+d2.getDTime().getMonth(), 0);
+					ca.set(1900+d2.getSStartDate().getYear(), 1+d2.getSStartDate().getMonth(), 0);
 					Date dateTmp=ca.getTime();
 					//logger.debug(dateTmp.toLocaleString()+"  "+d2.getDTime().getYear()+"  "+d2.getDTime().getMonth());
 					Date dateEnd=new Date(dateTmp.getYear(), dateTmp.getMonth()+i, dateTmp.getDate(),23,59,59);
@@ -155,10 +157,10 @@ public class XiteCountAction extends MyBaseAction implements IMyBaseAction{
 				}
 			}else if (dt.equals("Y")) {
 				//获得相差年数
-				long ys=d1.getDTime().getYear()-d2.getDTime().getYear();
+				long ys=d1.getSStartDate().getYear()-d2.getSStartDate().getYear();
 				for (int i = 0; i <= ys; i++) {
-					Date dateStart=new Date(d2.getDTime().getYear()+i, 0, 1,0,0,0);
-					Date dateEnd=new Date(d2.getDTime().getYear()+i, 11, 31,23,59,59);
+					Date dateStart=new Date(d2.getSStartDate().getYear()+i, 0, 1,0,0,0);
+					Date dateEnd=new Date(d2.getSStartDate().getYear()+i, 11, 31,23,59,59);
 					initCount(dateStart, dateEnd, counts);
 				}
 			}
@@ -177,7 +179,7 @@ public class XiteCountAction extends MyBaseAction implements IMyBaseAction{
 			clearOptions();
 		}
 		clearSpace();
-		counts=new ArrayList<DaCount>();
+		counts=new ArrayList<XtSiteCount>();
 		if(id!=null){
 			/*
 			由于是统计模块所以不需要按编号查询功能，但为了兼容，故保留，只不过其代码为空而已。
