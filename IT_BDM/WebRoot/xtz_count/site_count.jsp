@@ -11,7 +11,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <head>
     <base href="<%=basePath%>">
     
-    <title>故障统计</title>
+    <title>站点资料统计</title>
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
 	<meta http-equiv="expires" content="0">    
@@ -91,26 +91,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   </head>
   
   <body>
- 	
- 	
-    <div class="tab" style="float: left;background-color: #FF0202;color: white;font-weight: ;">客服统计</div>
- 	
- 	<div class="tab" style="float: left;margin-left: 10px;" onmousemove="this.style.background='#FF0202';" onmouseout="this.style.background='#B00000';" onclick="window.location.href='<%=path %>/countZy!queryOfFenye'">专员统计</div>
- 	
- 	
- 	<br/>
- 	<br/>
- 	<br/>
- 	<div style="text-align: center;margin-right: 17px;color: white;background-color:#17B4FF;padding: 5px;font-size: 14px;font-weight:bold;">客服统计</div>
+ 	<div style="text-align: center;margin-right: 17px;color: white;background-color:#17B4FF;padding: 5px;font-size: 14px;font-weight:bold;">站点资料统计</div>
  	
  	
 	<div style="background-color:white;margin-bottom: 5px;padding: 5px;border: 1px solid #224466;margin-right: 17px;margin-top: 10px;">
     	快速查询
     	<br/>
-    	<form action="<%=path %>/count!queryOfFenye" method="post">
+    	<form action="<%=path %>/siteCount!queryOfFenye" method="post">
     		当前查询条件:
     		<select id="sel_dt" name="filtrate">
-    			<option value="D">日</option>
+    			<option value="D">周</option>
     			<option value="M">月</option>
     			<option value="Y">年</option>
     		</select>
@@ -124,36 +114,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   	<div style="margin-right: 17px;">
     <table border="1" id="" style="font-size: 12px;">
 	    <tr>
-	    	<th width="90">序号</th>
-	    	<th width="280">开始时间</th>
-	    	<th width="280">结束时间</th>
-	    	<th width="250">故障报修量</th>
-	    	<th width="250">故障完成量</th>
-	    	<th width="250">完成率</th>
+	    	<th>序号</th>
+	    	<th>开始时间</th>
+	    	<th>结束时间</th>
+	    	<th>周数</th>
+	    	<th>维护类型</th>
+	    	<th>维护数量</th>
 	    	<th>操作</th>
 	    </tr>
-	    <tr style="height: 30px;visibility: hidden;">
-	    	<td>1</td>
-	    	<td>1</td>
-	    	<td>1</td>
-	    	<td>1</td>
-	    	<td>1</td>
-	    	<td>1</td>
-	    	<td>1</td>
-	    </tr>
-    </table>
-  	</div>
-    <div style="height:500px;overflow: scroll;margin-top: -61px;overflow-x:hidden;">
-    <table border="1" id="" style="font-size: 12px;">
-    	<tr style="height: 30px;visibility: hidden;">
-    		<th width="90">1</th>
-    		<th width="280">1</th>
-    		<th width="280">1</th>
-    		<th width="250">1</th>
-    		<th width="250">1</th>
-    		<th width="250">1</th>
-    		<th>1</th>
-    	</tr>
 	    <c:forEach items="${counts}" var="count" varStatus="status">
 	    <tr>
 	    	<td>${status.index+1 }</td>
