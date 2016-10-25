@@ -130,20 +130,36 @@ public class ZmNumberCountAction extends MyBaseAction implements IMyBaseAction{
 		if (d1!=null && d2!=null) {
 			if (dt.equals("W")) {
 				//获取相差天数
-				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-				Date date1=sdf.parse(d1.getZmServiceDate().toLocaleString());
-				Date date2=sdf.parse(d2.getZmServiceDate().toLocaleString());
-				long days=(date1.getTime()-date2.getTime())/(1000*3600*24);
+				Calendar ca1 = Calendar.getInstance();
+				Calendar ca2 = Calendar.getInstance();
+				ca1.set(d1.getZmApplyDate().getYear(), d1.getZmApplyDate().getMonth(), d1.getZmApplyDate().getDate());
+				ca2.set(d2.getZmApplyDate().getYear(), d2.getZmApplyDate().getMonth(), d2.getZmApplyDate().getDate());
+//				logger.debug(ca1.get(Calendar.WEEK_OF_YEAR));
+//				logger.debug(ca2.get(Calendar.WEEK_OF_YEAR));
+				
+				int weeknum = (ca1.get(Calendar.YEAR)-ca2.get(Calendar.YEAR))*52+(ca1.get(Calendar.WEEK_OF_YEAR)-ca2.get(Calendar.WEEK_OF_YEAR));
 				/*
 				logger.debug(date1.toLocaleString()+" "+date2.toLocaleString());
 				logger.debug(d1.getDTime().toLocaleString()+" "+d2.getDTime().toLocaleString());
 				logger.debug(d1.getDTime().getDate());
 				*/
 				//从第一天开始循环组装数据封装
-				for (int i = 0; i <=days; i++) {
-					Date dateStart=new Date(d2.getZmServiceDate().getYear(), d2.getZmServiceDate().getMonth(), d2.getZmServiceDate().getDate()+i,0,0,0);
-					Date dateEnd=new Date(d2.getZmServiceDate().getYear(), d2.getZmServiceDate().getMonth(), d2.getZmServiceDate().getDate()+i,23, 59, 59);
-					initCount(dateStart, dateEnd, counts,(int)days+1);
+				for (int i = 0; i <=weeknum; i++) {
+					Date tmp=new Date(d2.getZmServiceDate().getYear(), d2.getZmServiceDate().getMonth(), d2.getZmServiceDate().getDate()+7*i,0,0,0);
+					Date dateStart=ser.weekDate(tmp).get(ser.KEY_DATE_START);
+					Date dateEnd=ser.weekDate(tmp).get(ser.KEY_DATE_END);
+					
+//					logger.debug(dateStart.toLocaleString());
+//					logger.debug(dateEnd.toLocaleString());
+					
+					Calendar cas = Calendar.getInstance();
+					Calendar cae = Calendar.getInstance();
+					
+					cas.setTime(dateStart);
+					
+					int week=cas.get(cas.WEEK_OF_YEAR);
+					
+					initCount(dateStart, dateEnd, counts,week);
 				}
 			}else if (dt.equals("M")) {
 				//获取相差月数
@@ -156,7 +172,10 @@ public class ZmNumberCountAction extends MyBaseAction implements IMyBaseAction{
 					Date dateTmp=ca.getTime();
 					Date dateEnd=new Date(dateTmp.getYear(), dateTmp.getMonth(), dateTmp.getDate(),23,59,59);
 //					logger.debug(dateEnd.toLocaleString()+"  "+dateStart.getYear()+"  "+dateStart.getMonth()+"  "+i);
-					initCount(dateStart, dateEnd, counts,(int)ms+1);
+					
+					int m=dateStart.getMonth();
+					
+					initCount(dateStart, dateEnd, counts,m+1);
 				}
 			}else if (dt.equals("Y")) {
 				//获得相差年数
@@ -164,7 +183,10 @@ public class ZmNumberCountAction extends MyBaseAction implements IMyBaseAction{
 				for (int i = 0; i <= ys; i++) {
 					Date dateStart=new Date(d2.getZmServiceDate().getYear()+i, 0, 1,0,0,0);
 					Date dateEnd=new Date(d2.getZmServiceDate().getYear()+i, 11, 31,23,59,59);
-					initCount(dateStart, dateEnd, counts,(int)ys+1);
+					
+					int y=dateStart.getYear();
+					
+					initCount(dateStart, dateEnd, counts,y+1900);
 				}
 			}
 		}

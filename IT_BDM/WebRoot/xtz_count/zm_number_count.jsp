@@ -105,15 +105,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    	<th>序号</th>
 	    	<th>开始时间</th>
 	    	<th>结束时间</th>
-	    	<th>?数</th>
+	    	<th>
+	    		<c:if test="${filtrate=='W'}">周</c:if>
+	    		<c:if test="${filtrate=='M'}">月</c:if>
+	    		<c:if test="${filtrate=='Y'}">年</c:if>
+	    		数</th>
 	    	<th>数量</th>
 	    	<th>操作</th>
 	    </tr>
 	    <c:forEach items="${counts}" var="count" varStatus="status">
 	    <tr>
 	    	<td>${status.index+1 }</td>
-	    	<td>${count.sTime }</td>
-	    	<td>${count.eTime }</td>
+	    	<td><fmt:formatDate value="${count.sTime }" pattern="yyyy-M-d HH:mm:ss" /></td>
+	    	<td><fmt:formatDate value="${count.eTime }" pattern="yyyy-M-d HH:mm:ss" /></td>
 	    	<td>${count.number }</td>
 	    	<td>${count.count }</td>
 	    	<td>

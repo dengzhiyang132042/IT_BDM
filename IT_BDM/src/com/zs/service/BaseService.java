@@ -519,18 +519,13 @@ public class BaseService implements IService{
 		Calendar ca1 = Calendar.getInstance();
 		Calendar ca2 = Calendar.getInstance();
 		
-		System.out.println(date.toLocaleString());
 		ca.setTime(date);//实例化一个日期
-		System.out.println(ca.getTime().toLocaleString());
 		int a = ca.get(ca.DAY_OF_WEEK);
-		System.out.println("当前周的第"+a+"天      day-->"+ca.getTime().getDate());
 		//当前时间的周一
-		System.out.println(ca.getTime().getYear()+1900);
-		System.out.println(ca.getTime().getMonth()+1);
 		ca1.set(ca.getTime().getYear()+1900, ca.getTime().getMonth(), ca.getTime().getDate()-a,23,59,60);
 		ca2.set(ca.getTime().getYear()+1900, ca.getTime().getMonth(), ca.getTime().getDate()+(7-a),23,59,59);
-		System.out.println("当前周的周一   "+ca1.getTime().toLocaleString());
-		System.out.println("当前周的周日   "+ca2.getTime().toLocaleString());
+//		System.out.println("当前周的周一   "+ca1.getTime());
+//		System.out.println("当前周的周日   "+ca2.getTime());
 		
 		Map<String, Date> map=new HashMap<String, Date>();
 		
