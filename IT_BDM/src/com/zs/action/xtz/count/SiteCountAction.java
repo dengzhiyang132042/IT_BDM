@@ -3,12 +3,10 @@ package com.zs.action.xtz.count;
 import java.io.UnsupportedEncodingException;
 import java.sql.Timestamp;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 import org.apache.log4j.Logger;
 
@@ -16,20 +14,16 @@ import net.sf.json.JSONArray;
 
 import com.zs.action.IMyBaseAction;
 import com.zs.action.MyBaseAction;
-import com.zs.entity.DaCount;
-import com.zs.entity.DaDemand;
 import com.zs.entity.XtSite;
 import com.zs.entity.XtSiteCount;
 
 import com.zs.service.IService;
-import com.zs.service.iXtZmNumberService;
 import com.zs.tools.Page;
 
 public class SiteCountAction extends MyBaseAction implements IMyBaseAction{
 
 	IService ser;
 	Page page;
-	iXtZmNumberService iSer;
 	
 	List<XtSiteCount> counts;
 	
@@ -83,27 +77,22 @@ public class SiteCountAction extends MyBaseAction implements IMyBaseAction{
 	 * 组装count
 	 */
 	private void initCount(Date dateStart,Date dateEnd,List counts) {
-		//组装一个DaCount
-		DaCount count=new DaCount();
+		//组装一个XtSiteCount
+		XtSiteCount count = new XtSiteCount();
+		//这个组装数据有问题类型问题没有解决
 		count.setsTime(new Timestamp(dateStart.getTime()));
 		count.seteTime(new Timestamp(dateEnd.getTime()));
-		//获取在该时间范围内故障报修总量
-		List list2=ser.find("from DaDemand where DTime>=? and DTime<=?", new Timestamp[]{count.getsTime(),count.geteTime()});
+		//获取在该时间范围内站点资料的所有数据
+		List list2=ser.find("from XtSite where SStartDate>=? and SStartDate<=?", new Timestamp[]{count.getsTime(),count.geteTime()});
 		if (list2.size()!=0) {//如果为0就不要了
-			count.setDaAll(list2.size());
-			//获取在该时间范围内故障报修完成的量
-			List list3=ser.find("from DaDemand where DTime>=? and DTime<=? and DId in (select DId from DaPerform where PState='已完成')", new Timestamp[]{count.getsTime(),count.geteTime()});
-			count.setDaSuc(list3.size());
-			//计算完成率
-			if (list2.size()==0) {
-				count.setRatioSuc(0);
-			}else {
-				double ratio=(double)list3.size()/(double)list2.size()*100;
-				count.setRatioSuc((int)ratio);
-			}
+			//取周数
+			Calendar ca = Calendar.getInstance();
+			ca.setTime(dateStart);
+			count.setNum(ca.get(ca.WEEK_OF_YEAR));
+			//
 			//设置DemPer
 			List list4=ser.initDemPers(list2);
-			count.setDemPer(list4);
+			count.setSiteDetail(list4);
 			counts.add(count);
 		}
 	}
@@ -129,23 +118,20 @@ public class SiteCountAction extends MyBaseAction implements IMyBaseAction{
 		}
 		if (d1!=null && d2!=null) {
 			if (dt.equals("W")) {
-				/*
-				logger.debug(date1.toLocaleString()+" "+date2.toLocaleString());
-				logger.debug(d1.getDTime().toLocaleString()+" "+d2.getDTime().toLocaleString());
-				logger.debug(d1.getDTime().getDate());
-				*/
+				
 				Calendar ca1 = Calendar.getInstance();
 				Calendar ca2 = Calendar.getInstance();
 				ca1.set(d1.getSStartDate().getYear(), d1.getSStartDate().getMonth(), d1.getSStartDate().getDate());
 				ca2.set(d2.getSStartDate().getYear(), d2.getSStartDate().getMonth(), d2.getSStartDate().getDate());
 				logger.debug(ca1.get(Calendar.WEEK_OF_YEAR));
 				logger.debug(ca2.get(Calendar.WEEK_OF_YEAR));
-				
-				int weeknum = ca1.get(Calendar.WEEK_OF_YEAR)-ca1.get(Calendar.WEEK_OF_YEAR);
+				int weekyear = d2.getSStartDate().getYear()-d1.getSStartDate().getYear();
+				int weeknum =weekyear*52 + ca1.get(Calendar.WEEK_OF_YEAR)-ca1.get(Calendar.WEEK_OF_YEAR);
 				for (int i = 0; i <=weeknum; i++) {
 					Date date = new Date(d2.getSStartDate().getYear(),d2.getSStartDate().getMonth(),d2.getSStartDate().getDate()+(7*i));
-					Map<String, Date> map = ser.weekDate(date);
-					
+					Date dateStart= ser.weekDate(date).get(ser.KEY_DATE_START);
+					Date dateEnd=ser.weekDate(date).get(ser.KEY_DATE_END);
+					initCount(dateStart, dateEnd, counts);
 				}
 			}else if (dt.equals("M")) {
 				//获取相差月数
