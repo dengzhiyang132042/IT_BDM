@@ -86,18 +86,20 @@ public class ZmNumberCountAction extends MyBaseAction implements IMyBaseAction{
 	/**
 	 * 组装count
 	 */
-	private void initCount(Date dateStart,Date dateEnd,List counts) {
+	private void initCount(Date dateStart,Date dateEnd,List counts,int number) {
 		//组装一个XtZmNumberCount
 		XtZmNumberCount count=new XtZmNumberCount();
 		count.setsTime(new Timestamp(dateStart.getTime()));
 		count.seteTime(new Timestamp(dateEnd.getTime()));
 		//获取在该时间范围内故障报修总量
-		List<XtZmNumber> list2=ser.find("from XtZmNumber where zmServiceDate>=? and zmServiceDate<=?", new Timestamp[]{count.getsTime(),count.geteTime()});
+		String hql="from XtZmNumber where zmServiceDate>='"+count.getsTime()+"' and zmServiceDate<='"+count.geteTime()+"' and zmServiceDate!=null";
+//		List<XtZmNumber> list2=ser.query(hql, null, hql, page, ser);
+		List<XtZmNumber> list2=ser.find(hql, null);
 		if (list2.size()!=0) {//如果为0就不要了
 			count.setCount(list2.size());
 			
 			//这里填装周数、月数、年数这种信息
-//			count.setNumber(list2.get(0).getZmServiceWeek());
+			count.setNumber(number);
 			
 			//设置ZmNumbers
 			List list4=xtZmNumberSer.initXtZmBumberService(list2);
@@ -115,18 +117,18 @@ public class ZmNumberCountAction extends MyBaseAction implements IMyBaseAction{
 	private void initCounts(List<XtZmNumberCount> counts,String dt) throws ParseException {
 		//获取两个头尾的时间
 		XtZmNumber d1 = null,d2=null;
-		String str="from XtZmNumber order by zmServiceDate desc";
+		String str="from XtZmNumber where zmServiceDate!=null order by zmServiceDate desc";
 		List list=ser.query(str, null, str, new Page(1, 0, 1), ser);
 		if (list.size()>0) {
 			d1=(XtZmNumber) list.get(0);//尾巴
 		}
-		str="from XtZmNumber order by zmServiceDate asc";
+		str="from XtZmNumber where zmServiceDate!=null order by zmServiceDate asc";
 		list=ser.query(str, null, str, new Page(1, 0, 1), ser);
 		if (list.size()>0) {
 			d2=(XtZmNumber) list.get(0);//头
 		}
 		if (d1!=null && d2!=null) {
-			if (dt.equals("D")) {
+			if (dt.equals("W")) {
 				//获取相差天数
 				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 				Date date1=sdf.parse(d1.getZmServiceDate().toLocaleString());
@@ -141,7 +143,7 @@ public class ZmNumberCountAction extends MyBaseAction implements IMyBaseAction{
 				for (int i = 0; i <=days; i++) {
 					Date dateStart=new Date(d2.getZmServiceDate().getYear(), d2.getZmServiceDate().getMonth(), d2.getZmServiceDate().getDate()+i,0,0,0);
 					Date dateEnd=new Date(d2.getZmServiceDate().getYear(), d2.getZmServiceDate().getMonth(), d2.getZmServiceDate().getDate()+i,23, 59, 59);
-					initCount(dateStart, dateEnd, counts);
+					initCount(dateStart, dateEnd, counts,(int)days+1);
 				}
 			}else if (dt.equals("M")) {
 				//获取相差月数
@@ -150,11 +152,11 @@ public class ZmNumberCountAction extends MyBaseAction implements IMyBaseAction{
 				for (int i = 0; i <= ms; i++) {
 					Date dateStart=new Date(d2.getZmServiceDate().getYear(), d2.getZmServiceDate().getMonth()+i, 1,0,0,0);
 					Calendar ca = Calendar.getInstance();    
-					ca.set(1900+d2.getZmServiceDate().getYear(), 1+d2.getZmServiceDate().getMonth(), 0);
+					ca.set(1900+d2.getZmServiceDate().getYear(), 1+d2.getZmServiceDate().getMonth()+i, 0);
 					Date dateTmp=ca.getTime();
-					//logger.debug(dateTmp.toLocaleString()+"  "+d2.getDTime().getYear()+"  "+d2.getDTime().getMonth());
-					Date dateEnd=new Date(dateTmp.getYear(), dateTmp.getMonth()+i, dateTmp.getDate(),23,59,59);
-					initCount(dateStart, dateEnd, counts);
+					Date dateEnd=new Date(dateTmp.getYear(), dateTmp.getMonth(), dateTmp.getDate(),23,59,59);
+//					logger.debug(dateEnd.toLocaleString()+"  "+dateStart.getYear()+"  "+dateStart.getMonth()+"  "+i);
+					initCount(dateStart, dateEnd, counts,(int)ms+1);
 				}
 			}else if (dt.equals("Y")) {
 				//获得相差年数
@@ -162,7 +164,7 @@ public class ZmNumberCountAction extends MyBaseAction implements IMyBaseAction{
 				for (int i = 0; i <= ys; i++) {
 					Date dateStart=new Date(d2.getZmServiceDate().getYear()+i, 0, 1,0,0,0);
 					Date dateEnd=new Date(d2.getZmServiceDate().getYear()+i, 11, 31,23,59,59);
-					initCount(dateStart, dateEnd, counts);
+					initCount(dateStart, dateEnd, counts,(int)ys+1);
 				}
 			}
 		}
@@ -172,7 +174,6 @@ public class ZmNumberCountAction extends MyBaseAction implements IMyBaseAction{
 	
 	
 	public String queryOfFenye() throws UnsupportedEncodingException {
-		filtrate="D";
 		String id=getRequest().getParameter("id");
 		String cz=getRequest().getParameter("cz");//用于判断是否清理page，yes清理，no不清理
 		if (page==null) {
@@ -197,8 +198,7 @@ public class ZmNumberCountAction extends MyBaseAction implements IMyBaseAction{
 		}
 		JSONArray json=JSONArray.fromObject(counts);
 		getRequest().setAttribute("json", json);
-		System.out.println(json);
-		return null;
+		return result;
 	}
 	
 	public String gotoQuery() throws UnsupportedEncodingException {

@@ -147,10 +147,10 @@ public class DaCountAction extends MyBaseAction implements IMyBaseAction{
 				for (int i = 0; i <= ms; i++) {
 					Date dateStart=new Date(d2.getDTime().getYear(), d2.getDTime().getMonth()+i, 1,0,0,0);
 					Calendar ca = Calendar.getInstance();    
-					ca.set(1900+d2.getDTime().getYear(), 1+d2.getDTime().getMonth(), 0);
+					ca.set(1900+d2.getDTime().getYear(), 1+d2.getDTime().getMonth()+i, 0);
 					Date dateTmp=ca.getTime();
 					//logger.debug(dateTmp.toLocaleString()+"  "+d2.getDTime().getYear()+"  "+d2.getDTime().getMonth());
-					Date dateEnd=new Date(dateTmp.getYear(), dateTmp.getMonth()+i, dateTmp.getDate(),23,59,59);
+					Date dateEnd=new Date(dateTmp.getYear(), dateTmp.getMonth(), dateTmp.getDate(),23,59,59);
 					initCount(dateStart, dateEnd, counts);
 				}
 			}else if (dt.equals("Y")) {
