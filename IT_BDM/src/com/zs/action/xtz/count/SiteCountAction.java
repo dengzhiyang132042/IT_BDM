@@ -144,7 +144,7 @@ public class SiteCountAction extends MyBaseAction implements IMyBaseAction{
 				int weeknum = ca1.get(Calendar.WEEK_OF_YEAR)-ca1.get(Calendar.WEEK_OF_YEAR);
 				for (int i = 0; i <=weeknum; i++) {
 					Date date = new Date(d2.getSStartDate().getYear(),d2.getSStartDate().getMonth(),d2.getSStartDate().getDate()+(7*i));
-					Map<String, Date> map = iSer.weekDate(date);
+					Map<String, Date> map = ser.weekDate(date);
 					
 				}
 			}else if (dt.equals("M")) {
