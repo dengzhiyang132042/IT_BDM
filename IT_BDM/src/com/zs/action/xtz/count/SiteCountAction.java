@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.log4j.Logger;
 
@@ -21,13 +22,14 @@ import com.zs.entity.XtSite;
 import com.zs.entity.XtSiteCount;
 
 import com.zs.service.IService;
+import com.zs.service.iXtZmNumberService;
 import com.zs.tools.Page;
 
 public class SiteCountAction extends MyBaseAction implements IMyBaseAction{
 
 	IService ser;
 	Page page;
-	
+	iXtZmNumberService iSer;
 	
 	List<XtSiteCount> counts;
 	
@@ -127,20 +129,23 @@ public class SiteCountAction extends MyBaseAction implements IMyBaseAction{
 		}
 		if (d1!=null && d2!=null) {
 			if (dt.equals("W")) {
-				//对维护周数字段进行统计
-				String all="from XtSite";
-				List listall = ser.query(all, null, all, page, ser);
-				ArrayList<XtSite> site = new ArrayList<XtSite>();
-				for(int i = 0 ; i<listall.size();i++){
-					XtSite xtSite= (XtSite) listall.get(i);
-					site.add(xtSite);
-				}
+				/*
+				logger.debug(date1.toLocaleString()+" "+date2.toLocaleString());
+				logger.debug(d1.getDTime().toLocaleString()+" "+d2.getDTime().toLocaleString());
+				logger.debug(d1.getDTime().getDate());
+				*/
+				Calendar ca1 = Calendar.getInstance();
+				Calendar ca2 = Calendar.getInstance();
+				ca1.set(d1.getSStartDate().getYear(), d1.getSStartDate().getMonth(), d1.getSStartDate().getDate());
+				ca2.set(d2.getSStartDate().getYear(), d2.getSStartDate().getMonth(), d2.getSStartDate().getDate());
+				logger.debug(ca1.get(Calendar.WEEK_OF_YEAR));
+				logger.debug(ca2.get(Calendar.WEEK_OF_YEAR));
 				
-				
-				for (int i = 0; i <=5; i++) {
-					Date dateStart=new Date(d2.getSStartDate().getYear(), d2.getSStartDate().getMonth(), d2.getSStartDate().getDate()+i,0,0,0);
-					Date dateEnd=new Date(d2.getSStartDate().getYear(), d2.getSStartDate().getMonth(), d2.getSStartDate().getDate()+i,23, 59, 59);
-					initCount(dateStart, dateEnd, counts);
+				int weeknum = ca1.get(Calendar.WEEK_OF_YEAR)-ca1.get(Calendar.WEEK_OF_YEAR);
+				for (int i = 0; i <=weeknum; i++) {
+					Date date = new Date(d2.getSStartDate().getYear(),d2.getSStartDate().getMonth(),d2.getSStartDate().getDate()+(7*i));
+					Map<String, Date> map = iSer.weekDate(date);
+					
 				}
 			}else if (dt.equals("M")) {
 				//获取相差月数
