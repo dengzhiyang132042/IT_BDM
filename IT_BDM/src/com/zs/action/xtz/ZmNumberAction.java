@@ -104,8 +104,18 @@ public class ZmNumberAction extends MyBaseAction{
 	private void clearSpace(){
 		if(id!=null){
 			id=id.trim();
+		}
+		if (section!=null) {
 			section=section.trim();
+		}
+		if (men!=null) {
 			men=men.trim();
+		}
+		if (dates!=null) {
+			dates=dates.trim();
+		}
+		if (datee!=null) {
+			datee=datee.trim();
 		}
 	}
 	
@@ -134,7 +144,7 @@ public class ZmNumberAction extends MyBaseAction{
 			if (datee!=null && !datee.trim().equals("")) {
 				hql=hql+" and zmApplyDate <= '"+datee+"'";
 			}
-			hql=hql+" order by zmServiceDate desc";
+			hql=hql+" order by zmServiceDate desc"; 
 			zmns=ser.query(hql, null, hql, page, ser);
 		}else {
 			String hql="from XtZmNumber order by zmServiceDate desc";
