@@ -120,7 +120,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<li><span><a href="<%=path %>/siteCount!queryOfFenye?cz=yes" target="right">站点资料统计</a></span></li>
 						<li><span><a href="<%=path %>/branches!queryOfFenye?cz=yes" target="right">二级站点资料统计</a></span></li>
 						<li><span><a href="<%=path %>/zmNumberCount!queryOfFenye?cz=yes" target="right">哲盟账号申请登记统计</a></span></li>
-						<li><span><a href="<%=path %>/zmNumberCount!queryOfFenye?cz=yes" target="right">哲盟数据检查登记统计</a></span></li>
+						<li><span><a href="<%=path %>/zmDataCount!queryOfFenye?cz=yes" target="right">哲盟数据检查登记统计</a></span></li>
         			</ul>
         		</li>
         		<li><span>桌面组</span>

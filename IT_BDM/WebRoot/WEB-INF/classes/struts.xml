@@ -294,7 +294,13 @@
      <result name="succ">/success.jsp</result>
      <result name="fail">/fail.jsp</result>
   </action>
-  
+  <action name="zmDataCount" class="zs_count_zmdata">	
+  	 <interceptor-ref name="mydefault" />
+     <result>/index.jsp</result>
+     <result name="zmDataCount">/xtz_count/zm_data_count.jsp</result>
+     <result name="succ">/success.jsp</result>
+     <result name="fail">/fail.jsp</result>
+  </action>
   
 </package>
 </struts>    
