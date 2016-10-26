@@ -14,11 +14,17 @@ public class XtSiteCount {
 	private Timestamp sTime;
 	private Timestamp eTime;
 	private int num;
-	private String Type;
+	private String type;
 	private int count;
 	private List siteDetail;
 	
 	
+	public String getType() {
+		return type;
+	}
+	public void setType(String type) {
+		this.type = type;
+	}
 	public List getSiteDetail() {
 		return siteDetail;
 	}
@@ -43,17 +49,18 @@ public class XtSiteCount {
 	public void setNum(int num) {
 		this.num = num;
 	}
-	public String getType() {
-		return Type;
-	}
-	public void setType(String type) {
-		Type = type;
-	}
+
 	public int getCount() {
 		return count;
 	}
 	public void setCount(int count) {
 		this.count = count;
+	}
+	@Override
+	public String toString() {
+		return "XtSiteCount [Type=" + type + ", count=" + count + ", eTime="
+				+ eTime + ", num=" + num + ", sTime=" + sTime + ", siteDetail="
+				+ siteDetail + "]";
 	}
 	
 	

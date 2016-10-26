@@ -51,28 +51,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	}
 	</script>
 	<script type="text/javascript">
-	function queryDetails(status) {
-		/*
-		console.log(${json}[status].demPer.length);
-		*/
-		var table1="<table border=\"1\" style=\"font-size: 12px;margin-top: 10px;\">";
-		table1=table1+
-		"<tr><th>编号</th><th>发起人</th><th>故障描述</th><th>故障类型</th><th>创建时间</th><th>当前处理人</th><th>超时时间</th><th>状态</th></tr>";
-		for ( var i = 0; i < ${json}[status].demPer.length; i++) {
-			table1=table1+"<tr>"+
-			"<td>"+${json}[status].demPer[i].demand.DId+"</td>"+
-			"<td>"+${json}[status].demPer[i].demand.DApplicant+"</td>"+
-			"<td>"+${json}[status].demPer[i].demand.DContent+"</td>"+
-			"<td>"+${json}[status].demPer[i].demand.DType+"</td>"+
-			"<td>"+${json}[status].demPer[i].demand.DTimeString+"</td>"+
-			"<td>"+${json}[status].demPer[i].performs[0].UName+"</td>"+
-			"<td>"+${json}[status].demPer[i].demand.DTimeExpectString+"</td>"+
-			"<td>"+${json}[status].demPer[i].performs[0].PState+"</td>"+
-			"</tr>";
-		}
-		table1=table1+"</table>";
-		$("#q").html(table1);
-		$("#q").window('open');
+	function queryDetails(dates,datee) {
+		var a1=new Array()
+		a1=dates.split(" ");
+		//console.log(a1[0]);
+		var a2=new Array()
+		a2=datee.split(" ");
+		//console.log(a2[0]);
+		var path="<%=path%>/site!queryOfFenye?cz=no&id=&dates="+a1[0]+"&datee="+a2[0];
+		//console.log(path);
+		window.location.href=path;
 	}
 	</script>
 	
@@ -117,7 +105,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    	<th>序号</th>
 	    	<th>开始时间</th>
 	    	<th>结束时间</th>
-	    	<th>周数</th>
+	    	<th>
+	    		<c:if test="${filtrate=='W'}">周</c:if>
+	    		<c:if test="${filtrate=='M'}">月</c:if>
+	    		<c:if test="${filtrate=='Y'}">年</c:if>
+	    		数</th>
 	    	<th>维护类型</th>
 	    	<th>维护数量</th>
 	    	<th>操作</th>
@@ -125,13 +117,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    <c:forEach items="${counts}" var="count" varStatus="status">
 	    <tr>
 	    	<td>${status.index+1 }</td>
-	    	<td>${count.sTime }</td>
-	    	<td>${count.eTime }</td>
-	    	<td>${count.daAll }</td>
-	    	<td>${count.daSuc }</td>
-	    	<td>${count.ratioSuc }%</td>
+	    	<td><fmt:formatDate value="${count.sTime }" pattern="yyyy-M-d HH:mm:ss" /></td>
+	    	<td><fmt:formatDate value="${count.eTime }" pattern="yyyy-M-d HH:mm:ss" /></td>
+	    	<td>${count.num }</td>
+	    	<td>${count.type }</td>
+	    	<td>${count.count }</td>
 	    	<td>
-				<a onclick="queryDetails('${status.index}')" class="easyui-linkbutton" title="查看详情">查看详情</a>
+				<a onclick="queryDetails('${count.sTime}','${count.eTime }')" class="easyui-linkbutton" title="查看详情">查看详情</a>
 			</td>
 	    </tr>
 	    </c:forEach>
