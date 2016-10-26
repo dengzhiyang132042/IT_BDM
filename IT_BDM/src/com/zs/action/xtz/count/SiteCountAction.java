@@ -68,7 +68,7 @@ public class SiteCountAction extends MyBaseAction implements IMyBaseAction{
 		if (filtrate!=null && !filtrate.equals("")) {
 			filtrate=filtrate.trim();
 		}else {
-			filtrate="D";
+			filtrate="W";
 		}
 	}
 	
@@ -76,25 +76,30 @@ public class SiteCountAction extends MyBaseAction implements IMyBaseAction{
 	/**
 	 * 组装count
 	 */
-	private void initCount(Date dateStart,Date dateEnd,List counts) {
+	private void initCount(Date dateStart,Date dateEnd,List counts,int num) {
 		//组装一个XtSiteCount
-		XtSiteCount count = new XtSiteCount();
-		//这个组装数据有问题类型问题没有解决
-		count.setsTime(new Timestamp(dateStart.getTime()));
-		count.seteTime(new Timestamp(dateEnd.getTime()));
-		//获取在该时间范围内站点资料的所有数据
-		List list2=ser.find("from XtSite where SStartDate>=? and SStartDate<=?", new Timestamp[]{count.getsTime(),count.geteTime()});
-		if (list2.size()!=0) {//如果为0就不要了
-			//取周数
-			Calendar ca = Calendar.getInstance();
-			ca.setTime(dateStart);
-			count.setNum(ca.get(ca.WEEK_OF_YEAR));
-			//
-			//设置DemPer
-			List list4=ser.initDemPers(list2);
-			count.setSiteDetail(list4);
-			counts.add(count);
+		List list5 = ser.find("select SMaintainType from XtSite where SStartDate>=? and SStartDate<=? group by SMaintainType", new Object[]{new Timestamp(dateStart.getTime()),new Timestamp(dateEnd.getTime())});
+		if(list5!=null&&list5.size()>0){
+//			System.out.println("----list5.size---->>"+list5.size());
+			for(int i = 0 ;i < list5.size(); i++){
+//				System.out.println("----list5---->>"+list5.get(i));
+				//获取在该时间范围内站点资料的所有数据
+				List list2=ser.find("from XtSite where SStartDate>=? and SStartDate<=? and SMaintainType =?", new Object[]{new Timestamp(dateStart.getTime()),new Timestamp(dateEnd.getTime()),list5.get(i).toString()});
+				if (list2.size()!=0) {//如果为0就不要了
+					XtSiteCount count = new XtSiteCount();
+					//这个组装数据有问题类型问题没有解决
+					count.setsTime(new Timestamp(dateStart.getTime()));
+					count.seteTime(new Timestamp(dateEnd.getTime()));
+					count.setType(list5.get(i).toString());
+					count.setNum(num);
+					//
+					count.setCount(list2.size());
+					counts.add(count);
+				}
+			}
+//			System.out.println("---------------------------");
 		}
+		
 	}
 	
 	/**
@@ -121,17 +126,27 @@ public class SiteCountAction extends MyBaseAction implements IMyBaseAction{
 				
 				Calendar ca1 = Calendar.getInstance();
 				Calendar ca2 = Calendar.getInstance();
-				ca1.set(d1.getSStartDate().getYear(), d1.getSStartDate().getMonth(), d1.getSStartDate().getDate());
-				ca2.set(d2.getSStartDate().getYear(), d2.getSStartDate().getMonth(), d2.getSStartDate().getDate());
-				logger.debug(ca1.get(Calendar.WEEK_OF_YEAR));
-				logger.debug(ca2.get(Calendar.WEEK_OF_YEAR));
-				int weekyear = d2.getSStartDate().getYear()-d1.getSStartDate().getYear();
-				int weeknum =weekyear*52 + ca1.get(Calendar.WEEK_OF_YEAR)-ca1.get(Calendar.WEEK_OF_YEAR);
-				for (int i = 0; i <=weeknum; i++) {
+				ca1.set(d1.getSStartDate().getYear()+1900, d1.getSStartDate().getMonth()+1, d1.getSStartDate().getDate());
+				ca2.set(d2.getSStartDate().getYear()+1900, d2.getSStartDate().getMonth()+1, d2.getSStartDate().getDate());
+//				logger.debug(ca1.get(Calendar.WEEK_OF_YEAR));
+//				logger.debug(ca2.get(Calendar.WEEK_OF_YEAR));
+				int weekyear = d1.getSStartDate().getYear()-d2.getSStartDate().getYear();
+//				System.out.println(d1.getSStartDate().getYear()+1900+"-"+d1.getSStartDate().getMonth()+1+"-"+d1.getSStartDate().getDate());
+//				System.out.println(d2.getSStartDate().getYear()+1900+"-"+d2.getSStartDate().getMonth()+1+"-"+d2.getSStartDate().getDate());
+//				System.out.println(d1.getSStartDate().getMonth()+1);
+//				System.out.println(weekyear);
+				int weeknum =weekyear*52 + ca1.get(Calendar.WEEK_OF_YEAR)-ca2.get(Calendar.WEEK_OF_YEAR);
+//				System.out.println(weeknum);
+				for (int i = 0; i <weeknum; i++) {
 					Date date = new Date(d2.getSStartDate().getYear(),d2.getSStartDate().getMonth(),d2.getSStartDate().getDate()+(7*i));
 					Date dateStart= ser.weekDate(date).get(ser.KEY_DATE_START);
 					Date dateEnd=ser.weekDate(date).get(ser.KEY_DATE_END);
-					initCount(dateStart, dateEnd, counts);
+					Calendar ca3 = Calendar.getInstance();
+					ca3.setTime(dateStart);
+					int week = ca3.get(ca3.WEEK_OF_YEAR);
+					initCount(dateStart, dateEnd, counts,week);
+//					System.out.println(dateStart);
+//					System.out.println(dateEnd);
 				}
 			}else if (dt.equals("M")) {
 				//获取相差月数
@@ -140,11 +155,12 @@ public class SiteCountAction extends MyBaseAction implements IMyBaseAction{
 				for (int i = 0; i <= ms; i++) {
 					Date dateStart=new Date(d2.getSStartDate().getYear(), d2.getSStartDate().getMonth()+i, 1,0,0,0);
 					Calendar ca = Calendar.getInstance();    
-					ca.set(1900+d2.getSStartDate().getYear(), 1+d2.getSStartDate().getMonth(), 0);
+					ca.set(1900+d2.getSStartDate().getYear(), 1+d2.getSStartDate().getMonth()+i, 0);
 					Date dateTmp=ca.getTime();
-					//logger.debug(dateTmp.toLocaleString()+"  "+d2.getDTime().getYear()+"  "+d2.getDTime().getMonth());
-					Date dateEnd=new Date(dateTmp.getYear(), dateTmp.getMonth()+i, dateTmp.getDate(),23,59,59);
-					initCount(dateStart, dateEnd, counts);
+					Date dateEnd=new Date(dateTmp.getYear(), dateTmp.getMonth(), dateTmp.getDate(),23,59,59);
+//					logger.debug(dateEnd.toLocaleString()+"  "+dateStart.getYear()+"  "+dateStart.getMonth()+"  "+i);
+					int m=dateStart.getMonth();
+					initCount(dateStart, dateEnd, counts,m+1);
 				}
 			}else if (dt.equals("Y")) {
 				//获得相差年数
@@ -152,7 +168,8 @@ public class SiteCountAction extends MyBaseAction implements IMyBaseAction{
 				for (int i = 0; i <= ys; i++) {
 					Date dateStart=new Date(d2.getSStartDate().getYear()+i, 0, 1,0,0,0);
 					Date dateEnd=new Date(d2.getSStartDate().getYear()+i, 11, 31,23,59,59);
-					initCount(dateStart, dateEnd, counts);
+					int y=dateStart.getYear();
+					initCount(dateStart, dateEnd, counts,y+1900);
 				}
 			}
 		}
@@ -184,6 +201,12 @@ public class SiteCountAction extends MyBaseAction implements IMyBaseAction{
 		}
 		JSONArray json=JSONArray.fromObject(counts);
 		getRequest().setAttribute("json", json);
+		
+//		logger.debug(counts.size());
+//		for (int i = 0; i < counts.size(); i++) {
+//			System.out.println(counts.get(i).toString());
+//		}
+//		
 		return result;
 	}
 	
