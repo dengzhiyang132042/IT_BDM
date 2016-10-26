@@ -87,6 +87,9 @@
 	<bean id="hgh_count_site" class="com.zs.action.xtz.count.SiteCountAction">
 		<property name="ser" ref="zs_ser"></property>
 	</bean>
+	<bean id="hgh_count_branches" class="com.zs.action.xtz.count.BranchesAction">
+		<property name="ser" ref="zs_ser"></property>
+	</bean>
 	<bean id="zs_count_zmnumber" class="com.zs.action.xtz.count.ZmNumberCountAction">
 		<property name="ser" ref="zs_ser"></property>
 		<property name="xtZmNumberSer" ref="zs_ser_xtz_zm_number"></property>
