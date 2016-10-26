@@ -10,8 +10,6 @@ public class XtZmNumberServiceImpl extends BaseService implements iXtZmNumberSer
 	
 	
 	public List initXtZmBumberService(List<XtZmNumber> list) {
-		// TODO Auto-generated method stub
-//		System.out.println(getDao().find("from XtZmNumber", null).toString());
 		return null;
 	}
 

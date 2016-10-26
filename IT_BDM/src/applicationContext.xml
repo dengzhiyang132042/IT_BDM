@@ -91,7 +91,9 @@
 		<property name="ser" ref="zs_ser"></property>
 		<property name="xtZmNumberSer" ref="zs_ser_xtz_zm_number"></property>
 	</bean>
-	
+	<bean id="zs_count_zmdata" class="com.zs.action.xtz.count.ZmDataCountAction">
+		<property name="ser" ref="zs_ser"></property>
+	</bean>
 	<!-- *****************故障报修处理跟进系统************************ -->
 	<bean id="zs_manager_da" class="com.zs.action.da.DaManagerAction">
 		<property name="ser" ref="zs_ser"></property>

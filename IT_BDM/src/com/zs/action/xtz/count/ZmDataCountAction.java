@@ -17,26 +17,31 @@ import com.zs.action.IMyBaseAction;
 import com.zs.action.MyBaseAction;
 import com.zs.entity.DaCount;
 import com.zs.entity.DaDemand;
+import com.zs.entity.XtZmData;
 import com.zs.entity.XtZmNumber;
 import com.zs.entity.XtZmNumberCount;
+import com.zs.entity.custom.XtZmDataCount;
 import com.zs.service.IService;
 import com.zs.service.iXtZmNumberService;
 import com.zs.tools.Page;
 
-public class ZmNumberCountAction extends MyBaseAction implements IMyBaseAction{
+public class ZmDataCountAction extends MyBaseAction implements IMyBaseAction{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private IService ser;
-	private iXtZmNumberService xtZmNumberSer;
 	private Page page;
-	private List<XtZmNumberCount> counts;
+	private List<XtZmDataCount> counts;
 	private String filtrate;
 	
-	String result="zmNumberCount";
+	String result="zmDataCount";
 	String result_succ="succ";
 	String result_fail="fail";
 	
 
-	Logger logger=Logger.getLogger(ZmNumberCountAction.class);
+	Logger logger=Logger.getLogger(ZmDataCountAction.class);
 	
 	//--------------------------------------------------------
 	public String getFiltrate() {
@@ -48,12 +53,6 @@ public class ZmNumberCountAction extends MyBaseAction implements IMyBaseAction{
 	public void setSer(IService ser) {
 		this.ser = ser;
 	}
-	public iXtZmNumberService getXtZmNumberSer() {
-		return xtZmNumberSer;
-	}
-	public void setXtZmNumberSer(iXtZmNumberService xtZmNumberSer) {
-		this.xtZmNumberSer = xtZmNumberSer;
-	}
 	public void setFiltrate(String filtrate) {
 		this.filtrate = filtrate;
 	}
@@ -63,14 +62,15 @@ public class ZmNumberCountAction extends MyBaseAction implements IMyBaseAction{
 	public void setPage(Page page) {
 		this.page = page;
 	}
-	public List<XtZmNumberCount> getCounts() {
-		return counts;
-	}
-	public void setCounts(List<XtZmNumberCount> counts) {
-		this.counts = counts;
-	}
+	
 	//----------------------------------------------------
 	
+	public List<XtZmDataCount> getCounts() {
+		return counts;
+	}
+	public void setCounts(List<XtZmDataCount> counts) {
+		this.counts = counts;
+	}
 	public void clearOptions() {
 		filtrate=null;
 	}
@@ -87,13 +87,13 @@ public class ZmNumberCountAction extends MyBaseAction implements IMyBaseAction{
 	 * 组装count
 	 */
 	private void initCount(Date dateStart,Date dateEnd,List counts,int number) {
-		//组装一个XtZmNumberCount
-		XtZmNumberCount count=new XtZmNumberCount();
+		//组装一个XtZmDataCount
+		XtZmDataCount count=new XtZmDataCount();
 		count.setsTime(new Timestamp(dateStart.getTime()));
 		count.seteTime(new Timestamp(dateEnd.getTime()));
 		//获取在该时间范围内故障报修总量
-		String hql="from XtZmNumber where zmServiceDate>='"+count.getsTime()+"' and zmServiceDate<='"+count.geteTime()+"' and zmServiceDate!=null";
-		List<XtZmNumber> list2=ser.find(hql, null);
+		String hql="from XtZmData where DDate>='"+count.getsTime()+"' and DDate<='"+count.geteTime()+"' and DDate!=null";
+		List<XtZmDataCount> list2=ser.find(hql, null);
 		if (list2.size()!=0) {//如果为0就不要了
 			count.setCount(list2.size());
 			//这里填装周数、月数、年数这种信息
@@ -108,30 +108,30 @@ public class ZmNumberCountAction extends MyBaseAction implements IMyBaseAction{
 	 * @param dt
 	 * @throws ParseException
 	 */
-	private void initCounts(List<XtZmNumberCount> counts,String dt) throws ParseException {
+	private void initCounts(List<XtZmDataCount> counts,String dt) throws ParseException {
 		//获取两个头尾的时间
-		XtZmNumber d1 = null,d2=null;
-		String str="from XtZmNumber where zmServiceDate!=null order by zmServiceDate desc";
+		XtZmData d1 = null,d2=null;
+		String str="from XtZmData where DDate!=null order by DDate desc";
 		List list=ser.query(str, null, str, new Page(1, 0, 1), ser);
 		if (list.size()>0) {
-			d1=(XtZmNumber) list.get(0);//尾巴
+			d1=(XtZmData) list.get(0);//尾巴
 		}
-		str="from XtZmNumber where zmServiceDate!=null order by zmServiceDate asc";
+		str="from XtZmData where DDate!=null order by DDate asc";
 		list=ser.query(str, null, str, new Page(1, 0, 1), ser);
 		if (list.size()>0) {
-			d2=(XtZmNumber) list.get(0);//头
+			d2=(XtZmData) list.get(0);//头
 		}
 		if (d1!=null && d2!=null) {
 			if (dt.equals("W")) {
 				//获取相差天数
 				Calendar ca1 = Calendar.getInstance();
 				Calendar ca2 = Calendar.getInstance();
-				ca1.set(d1.getZmApplyDate().getYear(), d1.getZmApplyDate().getMonth(), d1.getZmApplyDate().getDate());
-				ca2.set(d2.getZmApplyDate().getYear(), d2.getZmApplyDate().getMonth(), d2.getZmApplyDate().getDate());
+				ca1.set(d1.getDDate().getYear(), d1.getDDate().getMonth(), d1.getDDate().getDate());
+				ca2.set(d2.getDDate().getYear(), d2.getDDate().getMonth(), d2.getDDate().getDate());
 				int weeknum = (ca1.get(Calendar.YEAR)-ca2.get(Calendar.YEAR))*52+(ca1.get(Calendar.WEEK_OF_YEAR)-ca2.get(Calendar.WEEK_OF_YEAR));
 				//从第一天开始循环组装数据封装
 				for (int i = 0; i <=weeknum; i++) {
-					Date tmp=new Date(d2.getZmServiceDate().getYear(), d2.getZmServiceDate().getMonth(), d2.getZmServiceDate().getDate()+7*i,0,0,0);
+					Date tmp=new Date(d2.getDDate().getYear(), d2.getDDate().getMonth(), d2.getDDate().getDate()+7*i,0,0,0);
 					Date dateStart=ser.weekDate(tmp).get(ser.KEY_DATE_START);
 					Date dateEnd=ser.weekDate(tmp).get(ser.KEY_DATE_END);
 					Calendar cas = Calendar.getInstance();
@@ -142,12 +142,12 @@ public class ZmNumberCountAction extends MyBaseAction implements IMyBaseAction{
 				}
 			}else if (dt.equals("M")) {
 				//获取相差月数
-				long ms=(d1.getZmServiceDate().getYear()-d2.getZmServiceDate().getYear())*12+(d1.getZmServiceDate().getMonth()-d2.getZmServiceDate().getMonth());
+				long ms=(d1.getDDate().getYear()-d2.getDDate().getYear())*12+(d1.getDDate().getMonth()-d2.getDDate().getMonth());
 				//logger.debug(ms);
 				for (int i = 0; i <= ms; i++) {
-					Date dateStart=new Date(d2.getZmServiceDate().getYear(), d2.getZmServiceDate().getMonth()+i, 1,0,0,0);
+					Date dateStart=new Date(d2.getDDate().getYear(), d2.getDDate().getMonth()+i, 1,0,0,0);
 					Calendar ca = Calendar.getInstance();    
-					ca.set(1900+d2.getZmServiceDate().getYear(), 1+d2.getZmServiceDate().getMonth()+i, 0);
+					ca.set(1900+d2.getDDate().getYear(), 1+d2.getDDate().getMonth()+i, 0);
 					Date dateTmp=ca.getTime();
 					Date dateEnd=new Date(dateTmp.getYear(), dateTmp.getMonth(), dateTmp.getDate(),23,59,59);
 					int m=dateStart.getMonth();
@@ -155,10 +155,10 @@ public class ZmNumberCountAction extends MyBaseAction implements IMyBaseAction{
 				}
 			}else if (dt.equals("Y")) {
 				//获得相差年数
-				long ys=d1.getZmServiceDate().getYear()-d2.getZmServiceDate().getYear();
+				long ys=d1.getDDate().getYear()-d2.getDDate().getYear();
 				for (int i = 0; i <= ys; i++) {
-					Date dateStart=new Date(d2.getZmServiceDate().getYear()+i, 0, 1,0,0,0);
-					Date dateEnd=new Date(d2.getZmServiceDate().getYear()+i, 11, 31,23,59,59);
+					Date dateStart=new Date(d2.getDDate().getYear()+i, 0, 1,0,0,0);
+					Date dateEnd=new Date(d2.getDDate().getYear()+i, 11, 31,23,59,59);
 					int y=dateStart.getYear();
 					initCount(dateStart, dateEnd, counts,y+1900);
 				}
@@ -180,7 +180,7 @@ public class ZmNumberCountAction extends MyBaseAction implements IMyBaseAction{
 			clearOptions();
 		}
 		clearSpace();
-		counts=new ArrayList<XtZmNumberCount>();
+		counts=new ArrayList<XtZmDataCount>();
 		if(id!=null){
 			/*
 			由于是统计模块所以不需要按编号查询功能，但为了兼容，故保留，只不过其代码为空而已。
