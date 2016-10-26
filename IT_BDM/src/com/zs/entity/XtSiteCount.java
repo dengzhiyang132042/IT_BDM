@@ -17,8 +17,22 @@ public class XtSiteCount {
 	private String type;
 	private int count;
 	private List siteDetail;
+	private int orderNum;
+	private int rows;
 	
 	
+	public int getRows() {
+		return rows;
+	}
+	public void setRows(int rows) {
+		this.rows = rows;
+	}
+	public int getOrderNum() {
+		return orderNum;
+	}
+	public void setOrderNum(int orderNum) {
+		this.orderNum = orderNum;
+	}
 	public String getType() {
 		return type;
 	}

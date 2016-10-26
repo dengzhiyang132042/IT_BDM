@@ -77,7 +77,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	  }
 	</style>
   </head>
-  
+  <%boolean isAddColor=false; %>
   <body>
  	<div style="text-align: center;margin-right: 17px;color: white;background-color:#17B4FF;padding: 5px;font-size: 14px;font-weight:bold;">站点资料统计</div>
  	
@@ -115,11 +115,21 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    	<th>操作</th>
 	    </tr>
 	    <c:forEach items="${counts}" var="count" varStatus="status">
+	    <c:if test="${count.rows!=0}">
+    		<%isAddColor=!isAddColor; %>
+   		</c:if>
+	   	<%if(isAddColor){ %>
+	    <tr style="background-color: rgb(201, 250, 248);">
+	    <%}else{ %>
 	    <tr>
-	    	<td>${status.index+1 }</td>
-	    	<td><fmt:formatDate value="${count.sTime }" pattern="yyyy-M-d HH:mm:ss" /></td>
-	    	<td><fmt:formatDate value="${count.eTime }" pattern="yyyy-M-d HH:mm:ss" /></td>
-	    	<td>${count.num }</td>
+	    <%} %>
+	    	<c:if test="${count.rows!=0}">
+	    		
+		    	<td rowspan="${count.rows} }">${count.orderNum }</td>
+		    	<td rowspan="${count.rows} }"><fmt:formatDate value="${count.sTime }" pattern="yyyy-M-d HH:mm:ss" /></td>
+		    	<td rowspan="${count.rows} }"><fmt:formatDate value="${count.eTime }" pattern="yyyy-M-d HH:mm:ss" /></td>
+	    		<td rowspan="${count.rows} }">${count.num }</td>
+	    	</c:if>
 	    	<td>${count.type }</td>
 	    	<td>${count.count }</td>
 	    	<td>

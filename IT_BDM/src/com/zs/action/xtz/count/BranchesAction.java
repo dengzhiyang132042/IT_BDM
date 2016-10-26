@@ -20,12 +20,8 @@ import com.zs.entity.XtSiteCount;
 import com.zs.service.IService;
 import com.zs.tools.Page;
 
-public class SiteCountAction extends MyBaseAction implements IMyBaseAction{
+public class BranchesAction extends MyBaseAction implements IMyBaseAction{
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
 	IService ser;
 	Page page;
 	
@@ -33,11 +29,11 @@ public class SiteCountAction extends MyBaseAction implements IMyBaseAction{
 	
 	String filtrate;
 	
-	String result="siteCount";
+	String result="branchesCount";
 	String result_succ="succ";
 	String result_fail="fail";
 	
-	Logger logger=Logger.getLogger(SiteCountAction.class);
+	Logger logger=Logger.getLogger(BranchesAction.class);
 //----------------------------------------------------	
 	
 	public IService getSer() {
@@ -80,7 +76,7 @@ public class SiteCountAction extends MyBaseAction implements IMyBaseAction{
 	/**
 	 * 组装count
 	 */
-	private void initCount(Date dateStart,Date dateEnd,List counts,int num,int orderNumber) {
+	private void initCount(Date dateStart,Date dateEnd,List counts,int num) {
 		//组装一个XtSiteCount
 		List list5 = ser.find("select SMaintainType from XtSite where SStartDate>=? and SStartDate<=? group by SMaintainType", new Object[]{new Timestamp(dateStart.getTime()),new Timestamp(dateEnd.getTime())});
 		if(list5!=null&&list5.size()>0){
@@ -92,16 +88,11 @@ public class SiteCountAction extends MyBaseAction implements IMyBaseAction{
 				if (list2.size()!=0) {//如果为0就不要了
 					XtSiteCount count = new XtSiteCount();
 					//这个组装数据有问题类型问题没有解决
-					if(i<1){
-						count.setsTime(new Timestamp(dateStart.getTime()));
-						count.seteTime(new Timestamp(dateEnd.getTime()));
-						count.setOrderNum(orderNumber);
-						count.setNum(num);
-						count.setRows(list5.size());
-					}else{
-						count.setRows(0);
-					}
+					count.setsTime(new Timestamp(dateStart.getTime()));
+					count.seteTime(new Timestamp(dateEnd.getTime()));
 					count.setType(list5.get(i).toString());
+					count.setNum(num);
+					//
 					count.setCount(list2.size());
 					counts.add(count);
 				}
@@ -132,8 +123,7 @@ public class SiteCountAction extends MyBaseAction implements IMyBaseAction{
 		}
 		if (d1!=null && d2!=null) {
 			if (dt.equals("W")) {
-				//设置序号初始值
-				int orderNumber=0;
+				
 				Calendar ca1 = Calendar.getInstance();
 				Calendar ca2 = Calendar.getInstance();
 				ca1.set(d1.getSStartDate().getYear()+1900, d1.getSStartDate().getMonth()+1, d1.getSStartDate().getDate());
@@ -154,14 +144,11 @@ public class SiteCountAction extends MyBaseAction implements IMyBaseAction{
 					Calendar ca3 = Calendar.getInstance();
 					ca3.setTime(dateStart);
 					int week = ca3.get(ca3.WEEK_OF_YEAR);
-					orderNumber++;
-					initCount(dateStart, dateEnd, counts,week,orderNumber);
+					initCount(dateStart, dateEnd, counts,week);
 //					System.out.println(dateStart);
 //					System.out.println(dateEnd);
 				}
 			}else if (dt.equals("M")) {
-				//设置序号初始值
-				int orderNumber = 0;
 				//获取相差月数
 				long ms=(d1.getSStartDate().getYear()-d2.getSStartDate().getYear())*12+(d1.getSStartDate().getMonth()-d2.getSStartDate().getMonth());
 				//logger.debug(ms);
@@ -173,20 +160,16 @@ public class SiteCountAction extends MyBaseAction implements IMyBaseAction{
 					Date dateEnd=new Date(dateTmp.getYear(), dateTmp.getMonth(), dateTmp.getDate(),23,59,59);
 //					logger.debug(dateEnd.toLocaleString()+"  "+dateStart.getYear()+"  "+dateStart.getMonth()+"  "+i);
 					int m=dateStart.getMonth();
-					orderNumber++;
-					initCount(dateStart, dateEnd, counts,m+1,orderNumber);
+					initCount(dateStart, dateEnd, counts,m+1);
 				}
 			}else if (dt.equals("Y")) {
-				//设置序号初始值
-				int orderNumber = 0;
 				//获得相差年数
 				long ys=d1.getSStartDate().getYear()-d2.getSStartDate().getYear();
 				for (int i = 0; i <= ys; i++) {
 					Date dateStart=new Date(d2.getSStartDate().getYear()+i, 0, 1,0,0,0);
 					Date dateEnd=new Date(d2.getSStartDate().getYear()+i, 11, 31,23,59,59);
 					int y=dateStart.getYear();
-					orderNumber++;
-					initCount(dateStart, dateEnd, counts,y+1900,orderNumber);
+					initCount(dateStart, dateEnd, counts,y+1900);
 				}
 			}
 		}

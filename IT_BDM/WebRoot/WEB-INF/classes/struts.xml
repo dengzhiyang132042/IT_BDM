@@ -287,6 +287,13 @@
      <result name="succ">/success.jsp</result>
      <result name="fail">/fail.jsp</result>
   </action>
+  <action name="branchesCount" class="hgh_count_branches">	
+  	 <interceptor-ref name="mydefault" />
+     <result>/index.jsp</result>
+     <result name="branchesCount">/xtz_count/branches.jsp</result>
+     <result name="succ">/success.jsp</result>
+     <result name="fail">/fail.jsp</result>
+  </action>
   <action name="zmNumberCount" class="zs_count_zmnumber">	
   	 <interceptor-ref name="mydefault" />
      <result>/index.jsp</result>
