@@ -106,8 +106,14 @@ public class ComputerAction extends MyBaseAction implements IMyBaseAction{
 	private void clearSpace() {
 		if (id!=null) {
 			id=id.trim();
+		}
+		if(section!=null){
 			section=section.trim();
+		}
+		if(name!=null){
 			name=name.trim();
+		}
+		if(num!=null){
 			num=num.trim();
 		}
 	}

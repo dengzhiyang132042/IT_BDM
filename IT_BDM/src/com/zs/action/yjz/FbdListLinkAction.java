@@ -102,10 +102,15 @@ public class FbdListLinkAction extends MyBaseAction{
 	private void clearSpace(){
 		if(id!=null){
 			id=id.trim();
+		}
+		if(fbdName!=null){
 			fbdName=fbdName.trim();
+		}
+		if(llName!=null){
 			llName=llName.trim();
+		}
+		if(llState!=null){
 			llState=llState.trim();
-			
 		}
 	}
 	

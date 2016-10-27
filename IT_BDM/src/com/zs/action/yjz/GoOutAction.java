@@ -88,8 +88,14 @@ public class GoOutAction extends MyBaseAction{
 	private void clearSpace(){
 		if(id!=null){
 			id=id.trim();
+		}
+		if(csMasterApplicant!=null){
 			csMasterApplicant=csMasterApplicant.trim();
+		}
+		if(Dates!=null){
 			Dates=Dates.trim();
+		}
+		if(Datee!=null){
 			Datee=Datee.trim();
 		}
 	}

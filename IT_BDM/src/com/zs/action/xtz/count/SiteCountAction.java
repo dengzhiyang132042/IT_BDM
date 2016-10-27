@@ -138,16 +138,9 @@ public class SiteCountAction extends MyBaseAction implements IMyBaseAction{
 				Calendar ca2 = Calendar.getInstance();
 				ca1.set(d1.getSStartDate().getYear()+1900, d1.getSStartDate().getMonth()+1, d1.getSStartDate().getDate());
 				ca2.set(d2.getSStartDate().getYear()+1900, d2.getSStartDate().getMonth()+1, d2.getSStartDate().getDate());
-//				logger.debug(ca1.get(Calendar.WEEK_OF_YEAR));
-//				logger.debug(ca2.get(Calendar.WEEK_OF_YEAR));
 				int weekyear = d1.getSStartDate().getYear()-d2.getSStartDate().getYear();
-//				System.out.println(d1.getSStartDate().getYear()+1900+"-"+d1.getSStartDate().getMonth()+1+"-"+d1.getSStartDate().getDate());
-//				System.out.println(d2.getSStartDate().getYear()+1900+"-"+d2.getSStartDate().getMonth()+1+"-"+d2.getSStartDate().getDate());
-//				System.out.println(d1.getSStartDate().getMonth()+1);
-//				System.out.println(weekyear);
 				int weeknum =weekyear*52 + ca1.get(Calendar.WEEK_OF_YEAR)-ca2.get(Calendar.WEEK_OF_YEAR);
-//				System.out.println(weeknum);
-				for (int i = 0; i <weeknum; i++) {
+				for (int i = 0; i <= weeknum; i++) {
 					Date date = new Date(d2.getSStartDate().getYear(),d2.getSStartDate().getMonth(),d2.getSStartDate().getDate()+(7*i));
 					Date dateStart= ser.weekDate(date).get(ser.KEY_DATE_START);
 					Date dateEnd=ser.weekDate(date).get(ser.KEY_DATE_END);
@@ -156,22 +149,18 @@ public class SiteCountAction extends MyBaseAction implements IMyBaseAction{
 					int week = ca3.get(ca3.WEEK_OF_YEAR);
 					orderNumber++;
 					initCount(dateStart, dateEnd, counts,week,orderNumber);
-//					System.out.println(dateStart);
-//					System.out.println(dateEnd);
 				}
 			}else if (dt.equals("M")) {
 				//设置序号初始值
 				int orderNumber = 0;
 				//获取相差月数
 				long ms=(d1.getSStartDate().getYear()-d2.getSStartDate().getYear())*12+(d1.getSStartDate().getMonth()-d2.getSStartDate().getMonth());
-				//logger.debug(ms);
 				for (int i = 0; i <= ms; i++) {
 					Date dateStart=new Date(d2.getSStartDate().getYear(), d2.getSStartDate().getMonth()+i, 1,0,0,0);
 					Calendar ca = Calendar.getInstance();    
 					ca.set(1900+d2.getSStartDate().getYear(), 1+d2.getSStartDate().getMonth()+i, 0);
 					Date dateTmp=ca.getTime();
 					Date dateEnd=new Date(dateTmp.getYear(), dateTmp.getMonth(), dateTmp.getDate(),23,59,59);
-//					logger.debug(dateEnd.toLocaleString()+"  "+dateStart.getYear()+"  "+dateStart.getMonth()+"  "+i);
 					int m=dateStart.getMonth();
 					orderNumber++;
 					initCount(dateStart, dateEnd, counts,m+1,orderNumber);
@@ -219,11 +208,6 @@ public class SiteCountAction extends MyBaseAction implements IMyBaseAction{
 		JSONArray json=JSONArray.fromObject(counts);
 		getRequest().setAttribute("json", json);
 		
-//		logger.debug(counts.size());
-//		for (int i = 0; i < counts.size(); i++) {
-//			System.out.println(counts.get(i).toString());
-//		}
-//		
 		return result;
 	}
 	

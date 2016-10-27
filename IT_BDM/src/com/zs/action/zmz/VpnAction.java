@@ -117,8 +117,14 @@ public class VpnAction extends MyBaseAction{
 	private void clearSpace(){
 		if(id!=null){
 			id=id.trim();
+		}
+		if(num!=null){
 			num=num.trim();
+		}
+		if(name!=null){
 			name=name.trim();
+		}
+		if(section!=null){
 			section=section.trim();
 		}
 		

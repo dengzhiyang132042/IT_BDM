@@ -112,9 +112,12 @@ public class ByAction extends MyBaseAction implements IMyBaseAction{
 	private void clearSpace(){
 		if(id!=null){
 			id=id.trim();
+		}
+		if(name!=null){
 			name=name.trim();
+		}
+		if(section!=null){
 			section=section.trim();
-			
 		}
 	}
 	
