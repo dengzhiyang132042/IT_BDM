@@ -14,8 +14,8 @@ import net.sf.json.JSONArray;
 
 import com.zs.action.IMyBaseAction;
 import com.zs.action.MyBaseAction;
-import com.zs.entity.XtSite;
-import com.zs.entity.XtSiteCount;
+import com.zs.entity.XtBranches;
+import com.zs.entity.custom.XtBranchesCount;
 
 import com.zs.service.IService;
 import com.zs.tools.Page;
@@ -25,7 +25,7 @@ public class BranchesAction extends MyBaseAction implements IMyBaseAction{
 	IService ser;
 	Page page;
 	
-	List<XtSiteCount> counts;
+	List<XtBranchesCount> counts;
 	
 	String filtrate;
 	
@@ -45,10 +45,10 @@ public class BranchesAction extends MyBaseAction implements IMyBaseAction{
 	public void setFiltrate(String filtrate) {
 		this.filtrate = filtrate;
 	}
-	public List<XtSiteCount> getCounts() {
+	public List<XtBranchesCount> getCounts() {
 		return counts;
 	}
-	public void setCounts(List<XtSiteCount> counts) {
+	public void setCounts(List<XtBranchesCount> counts) {
 		this.counts = counts;
 	}
 	public void setSer(IService ser) {
@@ -77,29 +77,17 @@ public class BranchesAction extends MyBaseAction implements IMyBaseAction{
 	 * 组装count
 	 */
 	private void initCount(Date dateStart,Date dateEnd,List counts,int num) {
-		//组装一个XtSiteCount
-		List list5 = ser.find("select SMaintainType from XtSite where SStartDate>=? and SStartDate<=? group by SMaintainType", new Object[]{new Timestamp(dateStart.getTime()),new Timestamp(dateEnd.getTime())});
-		if(list5!=null&&list5.size()>0){
-//			System.out.println("----list5.size---->>"+list5.size());
-			for(int i = 0 ;i < list5.size(); i++){
-//				System.out.println("----list5---->>"+list5.get(i));
-				//获取在该时间范围内站点资料的所有数据
-				List list2=ser.find("from XtSite where SStartDate>=? and SStartDate<=? and SMaintainType =?", new Object[]{new Timestamp(dateStart.getTime()),new Timestamp(dateEnd.getTime()),list5.get(i).toString()});
-				if (list2.size()!=0) {//如果为0就不要了
-					XtSiteCount count = new XtSiteCount();
-					//这个组装数据有问题类型问题没有解决
-					count.setsTime(new Timestamp(dateStart.getTime()));
-					count.seteTime(new Timestamp(dateEnd.getTime()));
-					count.setType(list5.get(i).toString());
-					count.setNum(num);
-					//
-					count.setCount(list2.size());
-					counts.add(count);
-				}
-			}
-//			System.out.println("---------------------------");
+		//获取在该时间范围内二级站点资料的所有数据
+		List list2=ser.find("from XtBranches where BDate>=? and BDate<=? ", new Object[]{new Timestamp(dateStart.getTime()),new Timestamp(dateEnd.getTime())});
+		if (list2.size()!=0) {//如果为0就不要了
+			XtBranchesCount count = new XtBranchesCount();
+			//这个组装数据有问题类型问题没有解决
+			count.setsTime(new Timestamp(dateStart.getTime()));
+			count.seteTime(new Timestamp(dateEnd.getTime()));
+			count.setNumber(num);
+			count.setCount(list2.size());
+			counts.add(count);
 		}
-		
 	}
 	
 	/**
@@ -108,54 +96,44 @@ public class BranchesAction extends MyBaseAction implements IMyBaseAction{
 	 * @param dt
 	 * @throws ParseException
 	 */
-	private void initCounts(List<XtSiteCount> counts,String dt) throws ParseException {
+	private void initCounts(List<XtBranchesCount> counts,String dt) throws ParseException {
 		//获取两个头尾的时间
-		XtSite d1 = null,d2=null;
-		String str="from XtSite order by SStartDate desc";
+		XtBranches d1 = null,d2=null;
+		String str="from XtBranches order by BDate desc";
 		List list=ser.query(str, null, str, page, ser);
 		if (list.size()>0) {
-			d1=(XtSite) list.get(0);//尾巴
+			d1=(XtBranches) list.get(0);//尾巴
 		}
-		str="from XtSite order by SStartDate asc";
+		str="from XtBranches order by BDate asc";
 		list=ser.query(str, null, str, page, ser);
 		if (list.size()>0) {
-			d2=(XtSite) list.get(0);//头
+			d2=(XtBranches) list.get(0);//头
 		}
 		if (d1!=null && d2!=null) {
 			if (dt.equals("W")) {
-				
 				Calendar ca1 = Calendar.getInstance();
 				Calendar ca2 = Calendar.getInstance();
-				ca1.set(d1.getSStartDate().getYear()+1900, d1.getSStartDate().getMonth()+1, d1.getSStartDate().getDate());
-				ca2.set(d2.getSStartDate().getYear()+1900, d2.getSStartDate().getMonth()+1, d2.getSStartDate().getDate());
-//				logger.debug(ca1.get(Calendar.WEEK_OF_YEAR));
-//				logger.debug(ca2.get(Calendar.WEEK_OF_YEAR));
-				int weekyear = d1.getSStartDate().getYear()-d2.getSStartDate().getYear();
-//				System.out.println(d1.getSStartDate().getYear()+1900+"-"+d1.getSStartDate().getMonth()+1+"-"+d1.getSStartDate().getDate());
-//				System.out.println(d2.getSStartDate().getYear()+1900+"-"+d2.getSStartDate().getMonth()+1+"-"+d2.getSStartDate().getDate());
-//				System.out.println(d1.getSStartDate().getMonth()+1);
-//				System.out.println(weekyear);
+				ca1.set(d1.getBDate().getYear()+1900, d1.getBDate().getMonth()+1, d1.getBDate().getDate());
+				ca2.set(d2.getBDate().getYear()+1900, d2.getBDate().getMonth()+1, d2.getBDate().getDate());
+				int weekyear = d1.getBDate().getYear()-d2.getBDate().getYear();
 				int weeknum =weekyear*52 + ca1.get(Calendar.WEEK_OF_YEAR)-ca2.get(Calendar.WEEK_OF_YEAR);
-//				System.out.println(weeknum);
-				for (int i = 0; i <weeknum; i++) {
-					Date date = new Date(d2.getSStartDate().getYear(),d2.getSStartDate().getMonth(),d2.getSStartDate().getDate()+(7*i));
+				for (int i = 0; i <=weeknum; i++) {
+					Date date = new Date(d2.getBDate().getYear(),d2.getBDate().getMonth(),d2.getBDate().getDate()+(7*i));
 					Date dateStart= ser.weekDate(date).get(ser.KEY_DATE_START);
 					Date dateEnd=ser.weekDate(date).get(ser.KEY_DATE_END);
 					Calendar ca3 = Calendar.getInstance();
 					ca3.setTime(dateStart);
 					int week = ca3.get(ca3.WEEK_OF_YEAR);
 					initCount(dateStart, dateEnd, counts,week);
-//					System.out.println(dateStart);
-//					System.out.println(dateEnd);
 				}
 			}else if (dt.equals("M")) {
 				//获取相差月数
-				long ms=(d1.getSStartDate().getYear()-d2.getSStartDate().getYear())*12+(d1.getSStartDate().getMonth()-d2.getSStartDate().getMonth());
+				long ms=(d1.getBDate().getYear()-d2.getBDate().getYear())*12+(d1.getBDate().getMonth()-d2.getBDate().getMonth());
 				//logger.debug(ms);
 				for (int i = 0; i <= ms; i++) {
-					Date dateStart=new Date(d2.getSStartDate().getYear(), d2.getSStartDate().getMonth()+i, 1,0,0,0);
+					Date dateStart=new Date(d2.getBDate().getYear(), d2.getBDate().getMonth()+i, 1,0,0,0);
 					Calendar ca = Calendar.getInstance();    
-					ca.set(1900+d2.getSStartDate().getYear(), 1+d2.getSStartDate().getMonth()+i, 0);
+					ca.set(1900+d2.getBDate().getYear(), 1+d2.getBDate().getMonth()+i, 0);
 					Date dateTmp=ca.getTime();
 					Date dateEnd=new Date(dateTmp.getYear(), dateTmp.getMonth(), dateTmp.getDate(),23,59,59);
 //					logger.debug(dateEnd.toLocaleString()+"  "+dateStart.getYear()+"  "+dateStart.getMonth()+"  "+i);
@@ -164,10 +142,10 @@ public class BranchesAction extends MyBaseAction implements IMyBaseAction{
 				}
 			}else if (dt.equals("Y")) {
 				//获得相差年数
-				long ys=d1.getSStartDate().getYear()-d2.getSStartDate().getYear();
+				long ys=d1.getBDate().getYear()-d2.getBDate().getYear();
 				for (int i = 0; i <= ys; i++) {
-					Date dateStart=new Date(d2.getSStartDate().getYear()+i, 0, 1,0,0,0);
-					Date dateEnd=new Date(d2.getSStartDate().getYear()+i, 11, 31,23,59,59);
+					Date dateStart=new Date(d2.getBDate().getYear()+i, 0, 1,0,0,0);
+					Date dateEnd=new Date(d2.getBDate().getYear()+i, 11, 31,23,59,59);
 					int y=dateStart.getYear();
 					initCount(dateStart, dateEnd, counts,y+1900);
 				}
@@ -187,7 +165,7 @@ public class BranchesAction extends MyBaseAction implements IMyBaseAction{
 			clearOptions();
 		}
 		clearSpace();
-		counts=new ArrayList<XtSiteCount>();
+		counts=new ArrayList<XtBranchesCount>();
 		if(id!=null){
 			/*
 			由于是统计模块所以不需要按编号查询功能，但为了兼容，故保留，只不过其代码为空而已。

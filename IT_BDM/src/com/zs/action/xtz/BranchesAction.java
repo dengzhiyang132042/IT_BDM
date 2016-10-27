@@ -113,9 +113,17 @@ public class BranchesAction extends MyBaseAction{
 	private void clearSpace(){
 		if(id!=null){
 			id=id.trim();
+		}
+		if(num1!=null){
 			num1=num1.trim();
+		}
+		if(name1!=null){
 			name1=name1.trim();
+		}
+		if(num2!=null){
 			num2=num2.trim();
+		}
+		if(name2!=null){
 			name2=name2.trim();
 		}
 		

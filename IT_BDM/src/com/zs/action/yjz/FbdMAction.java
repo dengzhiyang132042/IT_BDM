@@ -104,9 +104,17 @@ public class FbdMAction extends MyBaseAction{
 	private void clearSpace(){
 		if(id!=null){
 			id=id.trim();
+		}
+		if(fbdName!=null){
 			fbdName=fbdName.trim();
+		}
+		if(MNum!=null){
 			MNum=MNum.trim();
+		}
+		if(MScrap!=null){
 			MScrap=MScrap.trim();
+		}
+		if(MState!=null){
 			MState=MState.trim();
 		}
 	}

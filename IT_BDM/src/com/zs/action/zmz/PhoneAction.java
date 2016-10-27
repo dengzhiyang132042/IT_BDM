@@ -100,10 +100,13 @@ public class PhoneAction extends MyBaseAction implements IMyBaseAction{
 	private void clearSpace(){
 		if(id!=null){
 			id=id.trim();
+		}
+		if(PNumber!=null){
 			PNumber=PNumber.trim();
+		}
+		if(PSection!=null){
 			PSection=PSection.trim();
 		}
-		
 	}
 	
 	public String queryOfFenye() throws UnsupportedEncodingException {

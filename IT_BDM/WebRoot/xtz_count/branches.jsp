@@ -58,7 +58,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		var a2=new Array()
 		a2=datee.split(" ");
 		//console.log(a2[0]);
-		var path="<%=path%>/site!queryOfFenye?cz=no&id=&dates="+a1[0]+"&datee="+a2[0];
+		var path="<%=path%>/branches!queryOfFenye?cz=no&id=&dates="+a1[0]+"&datee="+a2[0];
 		//console.log(path);
 		window.location.href=path;
 	}
@@ -110,7 +110,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    		<c:if test="${filtrate=='M'}">月</c:if>
 	    		<c:if test="${filtrate=='Y'}">年</c:if>
 	    		数</th>
-	    	<th>维护类型</th>
 	    	<th>维护数量</th>
 	    	<th>操作</th>
 	    </tr>
@@ -119,8 +118,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    	<td>${status.index+1 }</td>
 	    	<td><fmt:formatDate value="${count.sTime }" pattern="yyyy-M-d HH:mm:ss" /></td>
 	    	<td><fmt:formatDate value="${count.eTime }" pattern="yyyy-M-d HH:mm:ss" /></td>
-	    	<td>${count.num }</td>
-	    	<td>${count.type }</td>
+	    	<td>${count.number }</td>
 	    	<td>${count.count }</td>
 	    	<td>
 				<a onclick="queryDetails('${count.sTime}','${count.eTime }')" class="easyui-linkbutton" title="查看详情">查看详情</a>

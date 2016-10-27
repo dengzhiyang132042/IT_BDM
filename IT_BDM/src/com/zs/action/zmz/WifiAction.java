@@ -111,8 +111,14 @@ public class WifiAction extends MyBaseAction implements IMyBaseAction{
 	private void clearSpace(){
 		if(id!=null){
 			id=id.trim();
+		}
+		if(WAddress!=null){
 			WAddress=WAddress.trim();
+		}
+		if(WIp!=null){
 			WIp=WIp.trim();
+		}	
+		if(WSsid!=null){
 			WSsid=WSsid.trim();
 		}
 	}

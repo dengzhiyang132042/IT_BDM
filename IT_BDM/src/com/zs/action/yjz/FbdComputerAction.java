@@ -122,9 +122,17 @@ public class FbdComputerAction extends MyBaseAction{
 	private void clearSpace(){
 		if(id!=null){
 			id=id.trim();
+		}
+		if(fbdName!=null){
 			fbdName=fbdName.trim();
+		}
+		if(CMac!=null){
 			CMac=CMac.trim();
+		}
+		if(CScrap!=null){
 			CScrap=CScrap.trim();
+		}
+		if(CState!=null){
 			CState=CState.trim();
 		}
 	}

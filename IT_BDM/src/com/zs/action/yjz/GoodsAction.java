@@ -94,8 +94,14 @@ public class GoodsAction extends MyBaseAction{
 	private void clearSpace(){
 		if(id!=null){
 			id=id.trim();
+		}
+		if(GName!=null){
 			GName=GName.trim();
+		}
+		if(GUnit!=null){
 			GUnit=GUnit.trim();
+		}
+		if(csMasterIn!=null){
 			csMasterIn=csMasterIn.trim();
 		}
 	}

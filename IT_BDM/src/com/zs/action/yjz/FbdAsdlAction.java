@@ -110,10 +110,20 @@ public class FbdAsdlAction extends MyBaseAction{
 	private void clearSpace() {
 		if (id!=null) {
 			id=id.trim();
+		}
+		if(fbdName!=null){
 			fbdName=fbdName.trim();
+		}
+		if(fbdMaster!=null){
 			fbdMaster=fbdMaster.trim();
+		}
+		if(asdlInput!=null){
 			asdlInput=asdlInput.trim();
+		}
+		if(asdlNum!=null){
 			asdlNum=asdlNum.trim();
+		}
+		if(asdlState!=null){
 			asdlState=asdlState.trim();
 		}
 	}

@@ -84,7 +84,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     		二级网点条码：<input name="num2" type="text" value="${num2 }"/>
     		&nbsp;&nbsp;&nbsp;&nbsp;
     		二级网点名称：<input name="name2" type="text" value="${name2 }"/>
-    		<br/>
+    		<br/><br/>
     		维护日期:<input name="dates" type="date" value="${dates }"/>
     		~
     		<input name="datee" type="date" value="${datee }"/>

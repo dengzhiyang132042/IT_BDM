@@ -132,10 +132,20 @@ public class BqAction extends MyBaseAction implements IMyBaseAction{
 	private void clearSpace(){
 		if(id!=null){
 			id=id.trim();
+		}
+		if(BPda!=null){
 			BPda=BPda.trim();
+		}
+		if(BModel!=null){
 			BModel=BModel.trim();
+		}
+		if(BType!=null){
 			BType=BType.trim();
+		}
+		if(BNum!=null){
 			BNum=BNum.trim();
+		}
+		if(BSn!=null){
 			BSn=BSn.trim();
 		}
 	}
