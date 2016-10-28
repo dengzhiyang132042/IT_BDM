@@ -114,7 +114,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    	<th>操作</th>
 	    </tr>
 	    <c:forEach items="${counts}" var="count" varStatus="status">
-	    <tr>
+	    <c:choose>
+	    	<c:when test="${status.index %2 !=0}">
+	    		<tr style="background-color: rgb(201, 250, 248);">
+	    	</c:when>
+	    	<c:otherwise>
+	    		<tr>
+	    	</c:otherwise>
+	    </c:choose>
 	    	<td>${status.index+1 }</td>
 	    	<td><fmt:formatDate value="${count.sTime }" pattern="yyyy-M-d HH:mm:ss" /></td>
 	    	<td><fmt:formatDate value="${count.eTime }" pattern="yyyy-M-d HH:mm:ss" /></td>
