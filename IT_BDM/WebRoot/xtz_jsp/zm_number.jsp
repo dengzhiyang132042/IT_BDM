@@ -247,12 +247,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					</select>
 				</td>
 			</tr>
+			<!-- 
 			<tr>
 				<td>维护IT：</td>
 				<td>
 					<input id="u_7" name="zmn.zmServiceMaster" type="text" style="width: 100%;"/>
 				</td>
 			</tr>
+			 -->
 			<tr>
 				<td>备注：</td>
 				<td>
@@ -298,12 +300,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					</select>
 				</td>
 			</tr>
+			<!-- 
 			<tr>
 				<td>维护IT：</td>
 				<td>
 					<input name="zmn.zmServiceMaster" type="text" style="width: 100%;"/>
 				</td>
 			</tr>
+			 -->
 			<tr>
 				<td>备注：</td>
 				<td>
