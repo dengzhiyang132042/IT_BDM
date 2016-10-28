@@ -1,12 +1,10 @@
 package com.zs.tools;
 
+import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Date;
-
-import javax.mail.MessagingException;
-
-import com.zs.dao.BaseDaoOfSpring;
-import com.zs.entity.FbdComputer;
-import com.zs.mail.MailTest;
+import java.util.List;
+import com.zs.entity.XtSiteCount;
 
 public class Test {
 
@@ -54,6 +52,22 @@ public class Test {
 		}
 		*/
 		
-		System.out.println(new Date().toLocaleString());
+//		System.out.println(new Date().toLocaleString());
+		TestExcel t = new TestExcel();
+		Object[] obj ={"姓名","年龄","序号"};
+		Object[][] test = new Object[5][3];
+		for(int z= 0 ;z<5;z++){
+			for(int k = 0 ; k < 3 ; k++){
+				test[z][k] = "测试"+z+""+k;
+			}
+		}
+		try {
+			t.PoiExcel(obj,test);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
 	}
 }
