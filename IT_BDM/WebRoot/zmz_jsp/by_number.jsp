@@ -11,7 +11,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <head>
     <base href="<%=basePath%>">
     
-    <title>布谷鸟、邮箱账号</title>
+    <title>IMO、邮箱账号</title>
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
 	<meta http-equiv="expires" content="0">    
@@ -71,7 +71,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   </head>
   
   <body>
-    <div class="easyui-panel" title="布谷鸟、邮箱账号" style="padding: 5px;display: none;" data-options="tools:'#tt'">
+    <div class="easyui-panel" title="IMO、邮箱账号" style="padding: 5px;display: none;" data-options="tools:'#tt'">
     <div style="background-color:white;margin-bottom: 5px;padding: 5px;border: 1px solid #224466; ">
     	快速查询
     	<br/>

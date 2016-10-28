@@ -209,7 +209,10 @@ public class ZmNumberAction extends MyBaseAction{
 			zmn.setZmApplyDate(new Timestamp(date.getTime()));
 			zmn.setZmServiceDate(new Timestamp(date.getTime()));
 			zmn.setZmServiceWeek(ca.get(Calendar.WEEK_OF_YEAR));
-			
+			Users user=(Users) getSession().getAttribute("user");
+			if (user!=null) {
+				zmn.setZmServiceMaster(user.getUName());
+			}
 			ser.save(zmn);
 			getRequest().setAttribute("zmn", zmn);
 		}

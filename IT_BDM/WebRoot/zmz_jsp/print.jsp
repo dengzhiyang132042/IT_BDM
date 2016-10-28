@@ -84,7 +84,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     		&nbsp;&nbsp;&nbsp;&nbsp;
     		品牌:<input name="brand" type="text" value="${brand }"/>
     		&nbsp;&nbsp;&nbsp;&nbsp;
+    		<!-- 
     		区域:<input name="area" type="text" value="${area }"/>
+    		 -->
     		&nbsp;&nbsp;&nbsp;&nbsp;
     		IP:<input name="ip" type="text" value="${ip }"/>
     		&nbsp;&nbsp;&nbsp;&nbsp;
@@ -99,7 +101,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     	<th>编号</th>
     	<th>品牌</th>
     	<th>型号</th>
+    	<!-- 
     	<th>区域</th>
+    	 -->
     	<th>打印机位置</th>
     	<th>资产类型</th>
     	<th>端口</th>
@@ -119,7 +123,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<td width="">${p.PId }</td>
 		<td width="">${p.PBrand }</td>
 		<td width="">${p.PNumber }</td>
+		<!-- 
 		<td width="">${p.PArea }</td>
+		 -->
 		<td width="">${p.PAddress }</td>
 		<td width="">${p.PType }</td>
 		<td width="">${p.PPort }</td>
@@ -192,12 +198,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<input id="u_3" name="p.PNumber" type="text" style="width: 100%;"/>
 				</td>
 			</tr>
+			<!-- 
 			<tr>
 				<td>区域：</td>
 				<td>
 					<input id="u_4" name="p.PArea" type="text" style="width: 100%;"/>
 				</td>
 			</tr>
+			 -->
 			<tr>
 				<td>打印机位置：</td>
 				<td>
@@ -294,12 +302,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<input name="p.PNumber" type="text" style="width: 100%;"/>
 				</td>
 			</tr>
+			<!-- 
 			<tr>
 				<td>区域：</td>
 				<td>
 					<input name="p.PArea" type="text" style="width: 100%;"/>
 				</td>
 			</tr>
+			 -->
 			<tr>
 				<td>打印机位置：</td>
 				<td>

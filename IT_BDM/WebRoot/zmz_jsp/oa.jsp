@@ -104,10 +104,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     	<th>员工岗位</th>
     	<th>OA</th>
     	<th>维护IT</th>
+    	<!-- 
     	<th>维护日期</th>
     	<th>维护用时</th>
+    	 -->
+    	
     	<th>在职情况</th>
+    	<!-- 
     	<th>是否及时</th>
+    	 -->
     	<th>备注</th>
     	<th>操作</th>
     </tr>
@@ -121,10 +126,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<td width="">${oa.OPosition }</td>
 		<td width="">${oa.OOa }</td>
 		<td width="">${oa.OService }</td>
+		<!-- 
 		<td width="">${oa.OServiceDate }</td>
 		<td width="">${oa.OServiceTime }</td>
+		 -->
 		<td width="">${oa.OOnJob }</td>
+		<!-- 
 		<td width="">${oa.OIsTimely }</td>
+		 -->
 		<td width="">${oa.ONote }</td>
 		<td width="5%" align="center">
 			<a onclick="update('${oa.OId }','${oa.ODate }','${oa.OServiceWeek }','${oa.OSection }','${oa.OApply }','${oa.OPosition }','${oa.OOa }','${oa.OService }','${oa.OServiceDate }','${oa.OServiceTime }','${oa.OOnJob }','${oa.OIsTimely }','${oa.ONote }')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-edit'" title="修改"></a>
@@ -216,6 +225,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<input id="u_8" name="oa.OService" type="text" style="width: 100%;"/>
 				</td>
 			</tr>
+			<!-- 
 			<tr>
 				<td>维护日期：</td>
 				<td>
@@ -228,18 +238,21 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<input id="u_10" name="oa.OServiceTime" type="text" style="width: 100%;"/>
 				</td>
 			</tr>
+			 -->
 			<tr>
 				<td>在职情况：</td>
 				<td>
 					<input id="u_11" name="oa.OOnJob" type="text" style="width: 100%;"/>
 				</td>
 			</tr>
+			<!-- 
 			<tr>
 				<td>是否及时：</td>
 				<td>
 					<input id="u_12" name="oa.OIsTimely" type="text" style="width: 100%;"/>
 				</td>
 			</tr>
+			 -->
 			<tr>
 				<td>备注：</td>
 				<td>
@@ -300,6 +313,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<input name="oa.OService" type="text" style="width: 100%;"/>
 				</td>
 			</tr>
+			<!-- 
 			<tr>
 				<td>维护日期：</td>
 				<td>
@@ -312,18 +326,21 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<input name="oa.OServiceTime" type="text" style="width: 100%;"/>
 				</td>
 			</tr>
+			 -->
 			<tr>
 				<td>在职情况：</td>
 				<td>
 					<input name="oa.OOnJob" type="text" style="width: 100%;"/>
 				</td>
 			</tr>
+			<!-- 
 			<tr>
 				<td>是否及时：</td>
 				<td>
 					<input name="oa.OIsTimely" type="text" style="width: 100%;"/>
 				</td>
 			</tr>
+			 -->
 			<tr>
 				<td>备注：</td>
 				<td>

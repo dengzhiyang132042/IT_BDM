@@ -92,8 +92,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     	<th>节点A</th>
     	<th>节点B</th>
     	<th>节点C</th>
+    	<!-- 
     	<th>节点D</th>
     	<th>节点E</th>
+    	 -->
     	<th>电话号码</th>
     	<th>使用部门</th>
     	<th>功能</th>
@@ -107,8 +109,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<td width="">${p.PA }</td>
 		<td width="">${p.PB }</td>
 		<td width="">${p.PC }</td>
+		<!-- 
 		<td width="">${p.PD }</td>
 		<td width="">${p.PE }</td>
+		-->
 		<td width="">${p.PNumber }</td>
 		<td width="">${p.PSection }</td>
 		<td width="">${p.PFunction }</td>
@@ -180,6 +184,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<input id="u_4" name="phone.PC" type="text" style="width: 100%;"/>
 				</td>
 			</tr>
+			<!-- 
 			<tr>
 				<td>节点D：</td>
 				<td>
@@ -192,6 +197,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<input id="u_6" name="phone.PE" type="text" style="width: 100%;"/>
 				</td>
 			</tr>
+			 -->
 			<tr>
 				<td>电话号码：</td>
 				<td>
@@ -252,6 +258,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<input name="phone.PC" type="text" style="width: 100%;"/>
 				</td>
 			</tr>
+			<!-- 
 			<tr>
 				<td>节点D：</td>
 				<td>
@@ -264,6 +271,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<input name="phone.PE" type="text" style="width: 100%;"/>
 				</td>
 			</tr>
+			 -->
 			<tr>
 				<td>电话号码：</td>
 				<td>
