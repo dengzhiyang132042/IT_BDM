@@ -181,4 +181,10 @@ public interface IService {
 	 * <br/>传入一个时间返回该时间对应的周一到周日时间段
 	 */
 	public Map<String, Date> weekDate(Date date);
+	
+	/**
+	 * @author 黄光辉
+	 * <br/>传入一个首行数组，和一个Object数组将已Excel文档进行导出
+	 */
+	public void outExcel(Object[] obj,Object[][] obj2,String path);
 }

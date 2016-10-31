@@ -11,7 +11,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <head>
     <base href="<%=basePath%>">
     
-    <title>站点资料统计</title>
+    <title>二级站点资料统计</title>
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
 	<meta http-equiv="expires" content="0">    
@@ -82,19 +82,31 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
  	<div style="text-align: center;margin-right: 17px;color: white;background-color:#17B4FF;padding: 5px;font-size: 14px;font-weight:bold;">站点资料统计</div>
  	
  	
-	<div style="background-color:white;margin-bottom: 5px;padding: 5px;border: 1px solid #224466;margin-right: 17px;margin-top: 10px;">
-    	快速查询
-    	<br/>
-    	<form action="<%=path %>/branchesCount!queryOfFenye" method="post">
-    		当前查询条件:
-    		<select id="sel_dt" name="filtrate">
-    			<option value="W">周</option>
-    			<option value="M">月</option>
-    			<option value="Y">年</option>
-    		</select>
-    		<br/>
-    		<input type="submit" value="查询"/>
-    	</form>	
+	<div style="background-color:white;margin-bottom: 5px;padding: 5px;border: 1px solid #224466;margin-right: 17px;margin-top: 10px; height:60px;">
+    	<div style="width:250px;float:left;height:60px;">
+	    	快速查询
+	    	<br/>
+	    	<form action="<%=path %>/branchesCount!queryOfFenye" method="post">
+	    		当前查询条件:
+	    		<select id="sel_dt" name="filtrate">
+	    			<option value="D">日</option>
+	    			<option value="W">周</option>
+	    			<option value="M">月</option>
+	    			<option value="Y">年</option>
+	    		</select>
+	    		<br/>
+	    		<input type="submit" value="查询"/>
+	    	</form>	
+    	</div>
+    	<div style="height:60px;">
+	    	<form action="<%=path %>/branchesCount!exportExc" method="post">
+	    		选择日期:<input name="dates" type="date" value="${dates }"/>
+	    		~
+	    		<input name="datee" type="date" value="${datee }"/>
+	    		<br/><br/>
+	    		<input type="submit" value="数据导出"/>
+	    	</form>
+    	</div>
     </div>
     <div style="margin-bottom: 5px;">
 	    
@@ -106,6 +118,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    	<th>开始时间</th>
 	    	<th>结束时间</th>
 	    	<th>
+	    		<c:if test="${filtrate=='D'}">日</c:if>
 	    		<c:if test="${filtrate=='W'}">周</c:if>
 	    		<c:if test="${filtrate=='M'}">月</c:if>
 	    		<c:if test="${filtrate=='Y'}">年</c:if>
