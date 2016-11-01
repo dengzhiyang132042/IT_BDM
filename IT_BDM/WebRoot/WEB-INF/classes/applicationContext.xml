@@ -101,6 +101,9 @@
 		<property name="ser" ref="zs_ser"></property>
 		<property name="vpnSer" ref="zs_ser_zmz_vpn"></property>
 	</bean>
+	<bean id="hgh_count_oa" class="com.zs.action.zmz.count.OaCountAction">
+		<property name="ser" ref="zs_ser"></property>
+	</bean>
 	<!-- *****************故障报修处理跟进系统************************ -->
 	<bean id="zs_manager_da" class="com.zs.action.da.DaManagerAction">
 		<property name="ser" ref="zs_ser"></property>
