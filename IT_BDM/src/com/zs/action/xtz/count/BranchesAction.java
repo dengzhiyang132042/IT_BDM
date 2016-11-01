@@ -248,7 +248,8 @@ public class BranchesAction extends MyBaseAction implements IMyBaseAction{
 		DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 		Date dateStart = format.parse(dates);
 		Date dateEnd = format.parse(datee);
-		String path="C:/Users/it025/Desktop/cssss.xls";
+		String filePath=getRequest().getRealPath("/")+"\\files\\branches.xls";
+//		String path="C:/Users/it025/Desktop/cssss.xls";
 		//获取相差天数
 		List list=ser.find("from XtBranches where BMaintainDate>='"+dates+"' and BMaintainDate<='"+datee+"'" ,null);
 //		System.out.println(list.size());
@@ -280,7 +281,7 @@ public class BranchesAction extends MyBaseAction implements IMyBaseAction{
 				obj2[i][j]=list3.get(i)[j];
 			}
 		}
-		ser.outExcel(obj, obj2, path);
+		ser.outExcel(obj, obj2, filePath);
 		return result;
 	}
 }

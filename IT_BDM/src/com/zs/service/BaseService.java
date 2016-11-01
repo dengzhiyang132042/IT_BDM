@@ -563,7 +563,7 @@ public class BaseService implements IService{
 			// 生成一个字体   
 	        HSSFFont font = workbook.createFont();
 	        font.setFontName("宋体");
-	        font.setFontHeightInPoints((short) 20); //设置字号
+	        font.setFontHeightInPoints((short) 10); //设置字号
 	        font.setBoldweight(HSSFFont.BOLDWEIGHT_NORMAL); //设置字体样式 正常显示
 			cellStyle.setFont(font);
 			cellStyle.setDataFormat(HSSFDataFormat.getBuiltinFormat("@"));         
