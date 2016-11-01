@@ -11,7 +11,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <head>
     <base href="<%=basePath%>">
     
-    <title>二级站点资料统计</title>
+    <title>oa账号统计</title>
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
 	<meta http-equiv="expires" content="0">    
@@ -58,69 +58,31 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		var a2=new Array()
 		a2=datee.split(" ");
 		//console.log(a2[0]);
-		var path="<%=path%>/branches!queryOfFenye?cz=no&id=&dates="+a1[0]+"&datee="+a2[0];
+		var path="<%=path%>/oa!queryOfFenye?cz=no&id=&dates="+a1[0]+"&datee="+a2[0];
 		//console.log(path);
 		window.location.href=path;
 	}
-	function changeDate(){
-		if($('#sel_dt').val()=='D'){
-			$('#dates').attr('type','date');
-			$('#datee').attr('type','date');
-		}
-		if($('#sel_dt').val()=='W'){
-			$('#dates').attr('type','week');
-			$('#datee').attr('type','week');
-		}
-		if($('#sel_dt').val()=='M'){
-			$('#dates').attr('type','month');
-			$('#datee').attr('type','month');
-		}
-		if($('#sel_dt').val()=='Y'){
-			$('#dates').attr({type:"number" ,min:"1900" ,max:"2199"});
-			$('#datee').attr({type:"number" ,min:"1900" ,max:"2199"});
-		}
-	}
 	</script>
 	
-	<style>
-	  .tab {
-	    background-color: #B00000;
-	    color: white;
-	    padding: 10px;
-	    width: 100px;
-	    text-align: center;
-	    -moz-border-radius:20px;  
-        -webkit-border-radius:20px;  
-        cursor: pointer;
-	  }
-	</style>
   </head>
   
   <body>
- 	<div style="text-align: center;margin-right: 17px;color: white;background-color:#17B4FF;padding: 5px;font-size: 14px;font-weight:bold;">站点资料统计</div>
+ 	<div style="text-align: center;margin-right: 17px;color: white;background-color:#17B4FF;padding: 5px;font-size: 14px;font-weight:bold;">VPN账号登记统计</div>
  	
  	
 	<div style="background-color:white;margin-bottom: 5px;padding: 5px;border: 1px solid #224466;margin-right: 17px;margin-top: 10px;">
-    	<div>
-	    	快速查询
-	    	<br/>
-	    	<form action="<%=path %>/branchesCount!queryOfFenye" method="post">
-	    		当前查询条件:
-	    		<select id="sel_dt" name="filtrate" onchange="changeDate()">
-	    			<option value="D">日</option>
-	    			<option value="W">周</option>
-	    			<option value="M">月</option>
-	    			<option value="Y">年</option>
-	    		</select>
-	    		&nbsp;&nbsp;&nbsp;&nbsp;
-	    		选择日期:<input id="dates" name="dates" type="date" value="${dates }"/>
-	    		~
-	    		<input id="datee" name="datee" type="date" value="${datee }"/>
-	    		<br/>
-	    		<input type="submit" value="查询"/>
-	    	</form>	
-	    	<a href="<%=path %>/files/branches.xls" style="display:block;width:40px;height:20px;background:#E8E8E8;text-align:center;border:1px solid #505050;">导出</a>
-    	</div>
+    	快速查询
+    	<br/>
+    	<form action="<%=path %>/oaCount!queryOfFenye" method="post">
+    		当前查询条件:
+    		<select id="sel_dt" name="filtrate">
+    			<option value="W">周</option>
+    			<option value="M">月</option>
+    			<option value="Y">年</option>  
+    		</select>
+    		<br/>
+    		<input type="submit" value="查询"/>
+    	</form>	
     </div>
     <div style="margin-bottom: 5px;">
 	    
@@ -132,40 +94,42 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    	<th>开始时间</th>
 	    	<th>结束时间</th>
 	    	<th>
-	    		<c:if test="${filtrate=='D'}">日</c:if>
 	    		<c:if test="${filtrate=='W'}">周</c:if>
 	    		<c:if test="${filtrate=='M'}">月</c:if>
 	    		<c:if test="${filtrate=='Y'}">年</c:if>
 	    		数</th>
-	    	<th>维护数量</th>
+	    	<th>在职情况</th>
+	    	<th>数量</th>
 	    	<th>操作</th>
 	    </tr>
+	    <%boolean isAddColor=false; %>
 	    <c:forEach items="${counts}" var="count" varStatus="status">
-	    <c:choose>
-	    	<c:when test="${status.index %2 !=0}">
-	    		<tr style="background-color: rgb(201, 250, 248);">
-	    	</c:when>
-	    	<c:otherwise>
-	    		<tr>
-	    	</c:otherwise>
-	    </c:choose>
-	    	<td>${status.index+1 }</td>
-	    	<td><fmt:formatDate value="${count.sTime }" pattern="yyyy-M-d HH:mm:ss" /></td>
-	    	<td><fmt:formatDate value="${count.eTime }" pattern="yyyy-M-d HH:mm:ss" /></td>
-	    	<td>${count.number }</td>
+	    <c:if test="${count.rows!=0}">
+    		<%isAddColor=!isAddColor; %>
+   		</c:if>
+	   	<%if(isAddColor){ %>
+	    <tr style="background-color: rgb(201, 250, 248);">
+	    <%}else{ %>
+	    <tr>
+	    <%} %>
+	    	<c:if test="${count.rows!=0}">
+	    		
+		    	<td rowspan="${count.rows} }">${count.orderNum }</td>
+		    	<td rowspan="${count.rows} }"><fmt:formatDate value="${count.sTime }" pattern="yyyy-M-d HH:mm:ss" /></td>
+		    	<td rowspan="${count.rows} }"><fmt:formatDate value="${count.eTime }" pattern="yyyy-M-d HH:mm:ss" /></td>
+	    		<td rowspan="${count.rows} }">${count.number }</td>
+	    	</c:if>
+	    	<td>${count.job }</td>
 	    	<td>${count.count }</td>
 	    	<td>
 				<a onclick="queryDetails('${count.sTime}','${count.eTime }')" class="easyui-linkbutton" title="查看详情">查看详情</a>
 			</td>
+			
 	    </tr>
 	    </c:forEach>
-	    </table>
-		</div>
-  	</div>
-  	
-	   
-	<div id="q" class="easyui-window" title="查看详情" data-options="modal:true,closed:true" style="width:1400px;height:600px;padding:10px;display: none;">
+    </table>
 	</div>
+  	</div>
 	
 	
 	
