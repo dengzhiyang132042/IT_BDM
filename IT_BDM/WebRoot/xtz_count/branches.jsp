@@ -107,6 +107,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    		<input type="submit" value="数据导出"/>
 	    	</form>
     	</div>
+    	<a href="<%=path %>/files/branches.xls">下载</a>
     </div>
     <div style="margin-bottom: 5px;">
 	    
