@@ -5,6 +5,7 @@ package com.zs.tools;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.util.Calendar;
 import java.util.List;
 
 import org.apache.poi.hssf.usermodel.HSSFCell;
@@ -83,5 +84,20 @@ public class TestExcel {
 		}
 		
 	}
+	public Calendar getWeekFirst(int year, int week){
+		  Calendar calendar = Calendar.getInstance();
+		  calendar.set(year, 0, 1);
+		  int weeks = 0;
+		  while((weeks = calendar.get(Calendar.WEEK_OF_YEAR))<= week){
+		   calendar.add(Calendar.MONTH, 1);
+		   //System.out.println(calendar.get(Calendar.WEEK_OF_YEAR));
+		  }
+		  calendar.add(Calendar.MONTH, -1);
+		  //System.out.println(calendar.get(Calendar.WEEK_OF_YEAR));
+		  while((weeks = calendar.get(Calendar.WEEK_OF_YEAR))< week){
+		   calendar.add(Calendar.DATE, 1);
+		  }
+		  return calendar;
+		 }
 }
 	

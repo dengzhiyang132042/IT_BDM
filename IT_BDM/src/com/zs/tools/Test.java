@@ -2,6 +2,7 @@ package com.zs.tools;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import com.zs.entity.XtSiteCount;
@@ -54,20 +55,22 @@ public class Test {
 		
 //		System.out.println(new Date().toLocaleString());
 		TestExcel t = new TestExcel();
-		Object[] obj ={"姓名","年龄","序号"};
-		Object[][] test = new Object[5][3];
-		for(int z= 0 ;z<5;z++){
-			for(int k = 0 ; k < 3 ; k++){
-				test[z][k] = "测试"+z+""+k;
-			}
-		}
-		try {
-			t.PoiExcel(obj,test);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+//		Object[] obj ={"姓名","年龄","序号"};
+//		Object[][] test = new Object[5][3];
+//		for(int z= 0 ;z<5;z++){
+//			for(int k = 0 ; k < 3 ; k++){
+//				test[z][k] = "测试"+z+""+k;
+//			}
+//		}
+//		try {
+//			t.PoiExcel(obj,test);
+//		} catch (Exception e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
 		
+		Calendar ca = t.getWeekFirst(2016, 45);
+		System.out.println(ca.getTime());
 		
 	}
 }

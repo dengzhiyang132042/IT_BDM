@@ -62,6 +62,24 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		//console.log(path);
 		window.location.href=path;
 	}
+	function changeDate(){
+		if($('#sel_dt').val()=='D'){
+			$('#dates').attr('type','date');
+			$('#datee').attr('type','date');
+		}
+		if($('#sel_dt').val()=='W'){
+			$('#dates').attr('type','week');
+			$('#datee').attr('type','week');
+		}
+		if($('#sel_dt').val()=='M'){
+			$('#dates').attr('type','month');
+			$('#datee').attr('type','month');
+		}
+		if($('#sel_dt').val()=='Y'){
+			$('#dates').attr({type:"number" ,min:"1900" ,max:"2199"});
+			$('#datee').attr({type:"number" ,min:"1900" ,max:"2199"});
+		}
+	}
 	</script>
 	
 	<style>
@@ -82,32 +100,27 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
  	<div style="text-align: center;margin-right: 17px;color: white;background-color:#17B4FF;padding: 5px;font-size: 14px;font-weight:bold;">站点资料统计</div>
  	
  	
-	<div style="background-color:white;margin-bottom: 5px;padding: 5px;border: 1px solid #224466;margin-right: 17px;margin-top: 10px; height:60px;">
-    	<div style="width:250px;float:left;height:60px;">
+	<div style="background-color:white;margin-bottom: 5px;padding: 5px;border: 1px solid #224466;margin-right: 17px;margin-top: 10px;">
+    	<div>
 	    	快速查询
 	    	<br/>
 	    	<form action="<%=path %>/branchesCount!queryOfFenye" method="post">
 	    		当前查询条件:
-	    		<select id="sel_dt" name="filtrate">
+	    		<select id="sel_dt" name="filtrate" onchange="changeDate()">
 	    			<option value="D">日</option>
 	    			<option value="W">周</option>
 	    			<option value="M">月</option>
 	    			<option value="Y">年</option>
 	    		</select>
+	    		&nbsp;&nbsp;&nbsp;&nbsp;
+	    		选择日期:<input id="dates" name="dates" type="date" value="${dates }"/>
+	    		~
+	    		<input id="datee" name="datee" type="date" value="${datee }"/>
 	    		<br/>
 	    		<input type="submit" value="查询"/>
 	    	</form>	
+	    	<a href="<%=path %>/files/branches.xls" style="display:block;width:40px;height:20px;background:#E8E8E8;text-align:center;border:1px solid #505050;">导出</a>
     	</div>
-    	<div style="height:60px;">
-	    	<form action="<%=path %>/branchesCount!exportExc" method="post">
-	    		选择日期:<input name="dates" type="date" value="${dates }"/>
-	    		~
-	    		<input name="datee" type="date" value="${datee }"/>
-	    		<br/><br/>
-	    		<input type="submit" value="数据导出"/>
-	    	</form>
-    	</div>
-    	<a href="<%=path %>/files/branches.xls">下载</a>
     </div>
     <div style="margin-bottom: 5px;">
 	    

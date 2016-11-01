@@ -85,7 +85,7 @@ public class BranchesAction extends MyBaseAction implements IMyBaseAction{
 		if (filtrate!=null && !filtrate.equals("")) {
 			filtrate=filtrate.trim();
 		}else {
-			filtrate="W";
+			filtrate="D";
 		}
 	}
 	
@@ -116,15 +116,31 @@ public class BranchesAction extends MyBaseAction implements IMyBaseAction{
 	private void initCounts(List<XtBranchesCount> counts,String dt) throws ParseException {
 		//获取两个头尾的时间
 		XtBranches d1 = null,d2=null;
-		String str="from XtBranches order by BMaintainDate desc";
-		List list=ser.query(str, null, str, page, ser);
-		if (list.size()>0) {
-			d1=(XtBranches) list.get(0);//尾巴
-		}
-		str="from XtBranches order by BMaintainDate asc";
-		list=ser.query(str, null, str, page, ser);
-		if (list.size()>0) {
-			d2=(XtBranches) list.get(0);//头
+		if(dates!=null&&datee!=null){
+			if(dt.equals("D")){
+				SimpleDateFormat dFormart = new SimpleDateFormat("yyyy-MM-dd");
+				
+			}
+			if(dt.equals("W")){
+				
+			}
+			if(dt.equals("M")){
+								
+			}
+			if(dt.equals("Y")){
+				
+			}
+		}else{
+			String str="from XtBranches order by BMaintainDate desc";
+			List list=ser.query(str, null, str, page, ser);
+			if (list.size()>0) {
+				d1=(XtBranches) list.get(0);//尾巴
+			}
+			str="from XtBranches order by BMaintainDate asc";
+			list=ser.query(str, null, str, page, ser);
+			if (list.size()>0) {
+				d2=(XtBranches) list.get(0);//头
+			}
 		}
 		if (d1!=null && d2!=null) {
 			if(dt.equals("D")){
@@ -189,6 +205,9 @@ public class BranchesAction extends MyBaseAction implements IMyBaseAction{
 	public String queryOfFenye() throws UnsupportedEncodingException {
 		String id=getRequest().getParameter("id");
 		String cz=getRequest().getParameter("cz");//用于判断是否清理page，yes清理，no不清理
+		System.out.println(dates);
+		System.out.println(datee);
+		System.out.println(filtrate);
 		if (page==null) {
 			page=new Page(1, 0, 5);
 		}
