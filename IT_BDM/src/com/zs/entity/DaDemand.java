@@ -18,6 +18,16 @@ public class DaDemand implements java.io.Serializable {
 	private Timestamp DTimeExpect;
 	private String DTimeString;
 	private String DTimeExpectString;
+	private int outTime;//0表示还未到达超时时间   ，1表示到达超时时间前3小时
+	
+	
+	public int getOutTime() {
+		return outTime;
+	}
+
+	public void setOutTime(int outTime) {
+		this.outTime = outTime;
+	}
 
 	// Constructors
 	public String getDTimeExpectString() {

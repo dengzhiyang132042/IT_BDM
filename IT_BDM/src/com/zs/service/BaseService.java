@@ -496,6 +496,7 @@ public class BaseService implements IService{
 			DaDemand d=(DaDemand) dems.get(i);
 			d.setDTimeString(d.getDTime().toString());
 			d.setDTimeExpectString(d.getDTimeExpect().toString());
+			Date nDate = new Date();
 			List pers=this.find("from DaPerform where DId = ? order by PTime desc", new Object[]{d.getDId()});
 			for (int j = 0; j < pers.size(); j++) {
 				DaPerform perform=(DaPerform) pers.get(j);
@@ -507,6 +508,11 @@ public class BaseService implements IService{
 				if (perform.getUNumNext()!=null && !"".equals(perform.getUNumNext())) {
 					Users u2=(Users) this.get(Users.class, perform.getUNumNext());
 					perform.setUNameNext(u2.getUName());
+				}
+				if(d.getDTimeExpect().getTime()-nDate.getTime()<=3*1000*60*60&&perform.getPState().equals("进行中")){
+					d.setOutTime(1);
+				}else{
+					d.setOutTime(0);
 				}
 			}
 			demPers.add(new DaDemPer(d, pers));

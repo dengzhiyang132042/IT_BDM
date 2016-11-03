@@ -63,6 +63,14 @@ public class TimeOutTimer extends TimerTask{
 					System.out.println("邮件发送错误");
 				}
 			}
+			//超时预提醒功能
+			if(d.getDTimeExpect().getTime()- new Date().getTime() <=2*1000*60*60){
+				//暂时有点点问题稍后处理
+//				if(pretimeOutMail(perform, d, ser)==false){
+//					//日后换成邮件错误界面
+//					System.out.println("邮件发送错误");
+//				}
+			}
 		}
 	}
     public static boolean timeOutMailFromUpdate(DaPerform tmpper,DaDemand d,IService ser){
@@ -95,6 +103,42 @@ public class TimeOutTimer extends TimerTask{
 		"***************************************************<br/></div>";
 		//邮件标题
 		String title="故障超时处理";
+		String sj=um.getUMail();
+		try {
+			MailTest.outputMail(sj,MailTest.IT_ROBOT, content, title);
+		} catch (Exception e) {
+			return false;
+		}
+		return true;
+	}	
+    public static boolean pretimeOutMail(DaPerform tmpper,DaDemand d,IService ser){
+		//邮件模块需要带的数据
+		Users um = (Users) ser.get(Users.class, tmpper.getUNum());
+		DaDemand dd=(DaDemand) ser.get(DaDemand.class, d.getDId());
+		//编写邮件内容
+		String content="<style type=\"text/css\">span{display:block;margin:5px 0;font-size:15px;} .table1{	border: #224466;	border-collapse:collapse;	width: 800px;} .tleft{text-align:left;}</style>";
+		content=content+"<div style=\"font-family:微软雅黑;font-size:15px;\">"+
+		"<div style=\"height:400px;width:800px;\">"+
+		"<span>Dear "+um.getUName()+"</span>"+
+		"<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;您的故障单将在2小时后变成超时未处理！</span>"+
+		"<table class=\"table1\" border=\"1\">" +
+		"<tr>" +
+		"<td class=\"tleft\">编&nbsp;&nbsp; 号:</td><td>"+dd.getDId()+"</td><td class=\"tleft\">发 起 人:</td><td>"+dd.getDApplicant()+"</td></tr>" +
+		"<tr><td class=\"tleft\">故障类型:</td><td>"+dd.getDType()+"</td><td class=\"tleft\">创建时间:</td><td>"+new SimpleDate(dd.getDTime())+"</td></tr>" +
+		"<tr><td>超时时间:</td><td>"+dd.getDTimeExpect()+"</td></tr>" +
+		"</table>"+
+		"<span>故障描述:</span>"+
+		"<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+dd.getDContent()+"</span>"+
+		"</div>"+
+		"<br/>Best Wishes<br/>"+
+		"以流程为导向，以服务为宗旨。<br/>"+
+		"*****************************************************"+
+		"<br/>信息与流程管理部-故障处理系统"+
+		"<br/>深圳市韵达速递有限公司"+
+		"<br/>地址：广东省深圳市龙华新区观澜大道114号（交警中队正对面）<br/>"+
+		"***************************************************<br/></div>";
+		//邮件标题
+		String title="故障预超时提醒";
 		String sj=um.getUMail();
 		try {
 			MailTest.outputMail(sj,MailTest.IT_ROBOT, content, title);
