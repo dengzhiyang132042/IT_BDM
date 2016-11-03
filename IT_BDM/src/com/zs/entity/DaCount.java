@@ -18,7 +18,22 @@ public class DaCount {
 	
 	private List demPer;
 	
+	private int rows;
+	private int orderNum;
 	
+	
+	public int getOrderNum() {
+		return orderNum;
+	}
+	public void setOrderNum(int orderNum) {
+		this.orderNum = orderNum;
+	}
+	public int getRows() {
+		return rows;
+	}
+	public void setRows(int rows) {
+		this.rows = rows;
+	}
 	public List getDemPer() {
 		return demPer;
 	}

@@ -104,7 +104,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    <c:forEach items="${counts}" var="count" varStatus="status">
 	    <c:choose>
 	    	<c:when test="${status.index %2 !=0}">
-	    		<tr style="background-color: rgb(201, 250, 248);">
+	    		<tr class="odd_even_tr">
 	    	</c:when>
 	    	<c:otherwise>
 	    		<tr>

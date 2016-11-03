@@ -121,7 +121,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <div style="margin-bottom: 5px;">
 	    
 	    
-  	<div style="margin-right: 17px;">
+  	<div style="margin-right: 27px;">
     <table border="1" id="" style="font-size: 12px;">
 	    <tr>
 	    	<th width="90">序号</th>
@@ -143,8 +143,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    </tr>
     </table>
   	</div>
-    <div style="height:500px;overflow: scroll;margin-top: -61px;overflow-x:hidden;">
-    <table border="1" id="" style="font-size: 12px;">
+    <div style="height:500px;overflow: scroll;margin-top: -30px;overflow-x:hidden;">
+    <table border="1" id="" style="font-size: 12px;margin-top: -31px;">
     	<tr style="height: 30px;visibility: hidden;">
     		<th width="90">1</th>
     		<th width="280">1</th>

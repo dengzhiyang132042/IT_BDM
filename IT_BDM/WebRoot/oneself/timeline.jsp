@@ -38,7 +38,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   	<div style="color: blue;font-weight: bold;">今天的时间轴:</div>
   	<br/>
   	
-  	<div style="padding-right: 17px;">
+  	<div style="padding-right: 27px;">
 	<table border="1">
 	<tr>
 		<th width="200">序号</th>
@@ -57,8 +57,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</table>
   	</div>
 	
-	<div style="margin-top: -31px;height: 80%;overflow: scroll;">
-	<table border="1" style="margin-top: -30px;">
+	<div style="margin-top: -30px;height: 80%;overflow: scroll;overflow-x:hidden;">
+	<table border="1" style="margin-top: -31px;">
 	<tr height="30" style="visibility: hidden;">
 		<th width="200">1</th>
 		<th width="400">1</th>
