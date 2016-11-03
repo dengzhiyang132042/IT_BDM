@@ -47,7 +47,7 @@ form{
 	padding-top: 5px;
 	padding-bottom: 5px;
 }
-<!--������ʽ--> 
+/*定义样式*/ 
 .my_table{
 	border:1px;
 	border-color:red;
@@ -156,4 +156,10 @@ form{
 	margin-top: 122px;
 	color:red;
 	text-align: center;
+}
+/*单双色表格样式
+2016-11-2
+*/
+.odd_even_tr{
+	background-color: rgb(201, 250, 248);
 }

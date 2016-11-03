@@ -11,7 +11,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <head>
     <base href="<%=basePath%>">
     
-    <title>站点资料统计</title>
+    <title>IMO、邮箱账号统计</title>
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
 	<meta http-equiv="expires" content="0">    
@@ -58,39 +58,27 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		var a2=new Array()
 		a2=datee.split(" ");
 		//console.log(a2[0]);
-		var path="<%=path%>/site!queryOfFenye?cz=no&id=&dates="+a1[0]+"&datee="+a2[0];
+		var path="<%=path%>/by!queryOfFenye?cz=no&id=&dates="+a1[0]+"&datee="+a2[0];
 		//console.log(path);
 		window.location.href=path;
 	}
 	</script>
 	
-	<style>
-	  .tab {
-	    background-color: #B00000;
-	    color: white;
-	    padding: 10px;
-	    width: 100px;
-	    text-align: center;
-	    -moz-border-radius:20px;  
-        -webkit-border-radius:20px;  
-        cursor: pointer;
-	  }
-	</style>
   </head>
   <%boolean isAddColor=false; %>
   <body>
- 	<div style="text-align: center;margin-right: 17px;color: white;background-color:#17B4FF;padding: 5px;font-size: 14px;font-weight:bold;">站点资料统计</div>
+ 	<div style="text-align: center;margin-right: 17px;color: white;background-color:#17B4FF;padding: 5px;font-size: 14px;font-weight:bold;">IMO、邮箱账号统计</div>
  	
  	
 	<div style="background-color:white;margin-bottom: 5px;padding: 5px;border: 1px solid #224466;margin-right: 17px;margin-top: 10px;">
     	快速查询
     	<br/>
-    	<form action="<%=path %>/siteCount!queryOfFenye" method="post">
+    	<form action="<%=path %>/byNumberCount!queryOfFenye" method="post">
     		当前查询条件:
     		<select id="sel_dt" name="filtrate">
     			<option value="W">周</option>
     			<option value="M">月</option>
-    			<option value="Y">年</option>
+    			<option value="Y">年</option>  
     		</select>
     		<br/>
     		<input type="submit" value="查询"/>
@@ -110,8 +98,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    		<c:if test="${filtrate=='M'}">月</c:if>
 	    		<c:if test="${filtrate=='Y'}">年</c:if>
 	    		数</th>
-	    	<th>维护类型</th>
-	    	<th>维护数量</th>
+    		<th>在职情况</th>
+	    	<th>数量</th>
 	    	<th>操作</th>
 	    </tr>
 	    <c:forEach items="${counts}" var="count" varStatus="status">
@@ -128,22 +116,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		    	<td rowspan="${count.rows} }">${count.orderNum }</td>
 		    	<td rowspan="${count.rows} }"><fmt:formatDate value="${count.sTime }" pattern="yyyy-M-d HH:mm:ss" /></td>
 		    	<td rowspan="${count.rows} }"><fmt:formatDate value="${count.eTime }" pattern="yyyy-M-d HH:mm:ss" /></td>
-	    		<td rowspan="${count.rows} }">${count.num }</td>
+	    		<td rowspan="${count.rows} }">${count.number }</td>
 	    	</c:if>
-	    	<td>${count.type }</td>
+	    	<td>${count.state }</td>
 	    	<td>${count.count }</td>
 	    	<td>
 				<a onclick="queryDetails('${count.sTime}','${count.eTime }')" class="easyui-linkbutton" title="查看详情">查看详情</a>
 			</td>
 	    </tr>
 	    </c:forEach>
-	    </table>
-		</div>
-  	</div>
-  	
-	   
-	<div id="q" class="easyui-window" title="查看详情" data-options="modal:true,closed:true" style="width:1400px;height:600px;padding:10px;display: none;">
+    </table>
 	</div>
+  	</div>
 	
 	
 	
