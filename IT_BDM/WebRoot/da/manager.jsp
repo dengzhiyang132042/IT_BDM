@@ -144,7 +144,7 @@ String beforeTime= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Calendar.g
     
     <div style="margin-bottom: 5px;">
     
-    <table border="1">
+    <table id="tab1" border="1">
     <tr>
     	<th width="150">编号</th>
     	<th width="150">发起人</th>
@@ -166,15 +166,17 @@ String beforeTime= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Calendar.g
     	<td>${dp.performs[0].UName }</td>
     	<td>${dp.demand.DTimeExpect }</td>
     	<td>${dp.performs[0].PState }</td>
-    	<td>
+    	<td style="text-align: left;padding-left: 15px;">
 			<a onclick="forward('${dp.demand.DId }','${dp.demand.DApplicant }','${dp.demand.DContent }','${dp.demand.DType }','${dp.demand.DTime }','${dp.performs[0].UName }','${dp.performs[0].PState }')" class="easyui-linkbutton" title="转发">转发</a>
 			<a onclick="queryDetails('${status.index}')" class="easyui-linkbutton" title="查看详情">查看详情</a>
+			<c:if test="${dp.demand.outTime==1}">
+				<a class="easyui-linkbutton" href="<%=path %>/daManager!addTimeOut?timeId=${dp.demand.DId }" title="增加超时加一天">加一天</a>
+			</c:if>
 		</td>
     </tr>
     </c:forEach>
     </table>
 	</div>
-	
 	<div class="easyui-panel" style="padding:5px;width: 100%;display: none;background-color: white;">
 		<form id="f1" action="<%=path %>/daManager!queryOfFenye?id=${id}&type=${type}&dates=${dates}&datee=${datee}" method="post">
 		<select id="sele" style="float: left;margin-top: 3px;margin-left: 5px;" name="page.size" onchange="$('#f1').submit();">
@@ -316,7 +318,7 @@ String beforeTime= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Calendar.g
 			</tr>
 			<tr>
 				<td>超时时间:</td>
-				<td><input class="Wdate" name="DTimeExpect" type="text" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',minDate:'%y-%M-%d %H:%m:%s'})"/></td>
+				<td><input id="outDate" class="Wdate" name="DTimeExpect" type="text" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',minDate:'%y-%M-%d %H:%m:%s'})"/></td>
 			</tr>
 			<tr>
 				<td colspan="2" align="center">

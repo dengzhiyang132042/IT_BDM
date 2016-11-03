@@ -342,5 +342,14 @@ public class DaManagerAction extends MyBaseAction implements IMyBaseAction{
 		}
 		return gotoQuery();
 	}
-
+	public String addTimeOut() throws Exception{
+		String timeId= getRequest().getParameter("timeId");
+		List templi=ser.find("from DaDemand where DId=? ", new String[]{timeId});
+		if(templi.size()!=0){
+			DaDemand dad = (DaDemand) templi.get(0);
+			dad.setDTimeExpect(new Timestamp(dad.getDTimeExpect().getTime()+1000*60*60*24));
+			ser.update(dad);
+		}
+		return gotoQuery();
+	}
 }
