@@ -14,11 +14,11 @@ public class XtSiteCount {
 	private Timestamp sTime;
 	private Timestamp eTime;
 	private int num;
-	private String type;
 	private int count;
 	private List siteDetail;
 	private int orderNum;
 	private int rows;
+	private String type;
 	
 	
 	public int getRows() {

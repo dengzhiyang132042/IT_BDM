@@ -119,7 +119,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     		<%isAddColor=!isAddColor; %>
    		</c:if>
 	   	<%if(isAddColor){ %>
-	    <tr style="background-color: rgb(201, 250, 248);">
+	    <tr class="odd_even_tr">
 	    <%}else{ %>
 	    <tr>
 	    <%} %>

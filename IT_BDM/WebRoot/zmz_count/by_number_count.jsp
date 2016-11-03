@@ -65,7 +65,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</script>
 	
   </head>
-  
+  <%boolean isAddColor=false; %>
   <body>
  	<div style="text-align: center;margin-right: 17px;color: white;background-color:#17B4FF;padding: 5px;font-size: 14px;font-weight:bold;">IMO、邮箱账号统计</div>
  	
@@ -98,27 +98,31 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    		<c:if test="${filtrate=='M'}">月</c:if>
 	    		<c:if test="${filtrate=='Y'}">年</c:if>
 	    		数</th>
+    		<th>在职情况</th>
 	    	<th>数量</th>
 	    	<th>操作</th>
 	    </tr>
 	    <c:forEach items="${counts}" var="count" varStatus="status">
-	    <c:choose>
-	    	<c:when test="${status.index %2 !=0}">
-	    		<tr style="background-color: rgb(201, 250, 248);">
-	    	</c:when>
-	    	<c:otherwise>
-	    		<tr>
-	    	</c:otherwise>
-	    </c:choose>
-	    	<td>${status.index+1 }</td>
-	    	<td><fmt:formatDate value="${count.sTime }" pattern="yyyy-M-d HH:mm:ss" /></td>
-	    	<td><fmt:formatDate value="${count.eTime }" pattern="yyyy-M-d HH:mm:ss" /></td>
-	    	<td>${count.number }</td>
+	    <c:if test="${count.rows!=0}">
+    		<%isAddColor=!isAddColor; %>
+   		</c:if>
+	   	<%if(isAddColor){ %>
+	    <tr class="odd_even_tr">
+	    <%}else{ %>
+	    <tr>
+	    <%} %>
+	    	<c:if test="${count.rows!=0}">
+	    		
+		    	<td rowspan="${count.rows} }">${count.orderNum }</td>
+		    	<td rowspan="${count.rows} }"><fmt:formatDate value="${count.sTime }" pattern="yyyy-M-d HH:mm:ss" /></td>
+		    	<td rowspan="${count.rows} }"><fmt:formatDate value="${count.eTime }" pattern="yyyy-M-d HH:mm:ss" /></td>
+	    		<td rowspan="${count.rows} }">${count.number }</td>
+	    	</c:if>
+	    	<td>${count.state }</td>
 	    	<td>${count.count }</td>
 	    	<td>
 				<a onclick="queryDetails('${count.sTime}','${count.eTime }')" class="easyui-linkbutton" title="查看详情">查看详情</a>
 			</td>
-			
 	    </tr>
 	    </c:forEach>
     </table>

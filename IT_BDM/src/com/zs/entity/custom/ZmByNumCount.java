@@ -8,6 +8,23 @@ public class ZmByNumCount {
 	private String state;//在职情况
 	private int number;
 	private int count;
+	private int orderNum;//序号
+	private int rows;//合并的行数
+	
+	
+	
+	public int getOrderNum() {
+		return orderNum;
+	}
+	public void setOrderNum(int orderNum) {
+		this.orderNum = orderNum;
+	}
+	public int getRows() {
+		return rows;
+	}
+	public void setRows(int rows) {
+		this.rows = rows;
+	}
 	public Timestamp getsTime() {
 		return sTime;
 	}
