@@ -116,21 +116,21 @@ public class BranchesAction extends MyBaseAction implements IMyBaseAction{
 	private void initCounts(List<XtBranchesCount> counts,String dt) throws ParseException {
 		//获取两个头尾的时间
 		XtBranches d1 = null,d2=null;
-		if(dates!=null&&datee!=null){
-			if(dt.equals("D")){
-				SimpleDateFormat dFormart = new SimpleDateFormat("yyyy-MM-dd");
-				
-			}
-			if(dt.equals("W")){
-				
-			}
-			if(dt.equals("M")){
-								
-			}
-			if(dt.equals("Y")){
-				
-			}
-		}else{
+//		if(dates!=null&&datee!=null){
+//			if(dt.equals("D")){
+//				SimpleDateFormat dFormart = new SimpleDateFormat("yyyy-MM-dd");
+//				
+//			}
+//			if(dt.equals("W")){
+//				
+//			}
+//			if(dt.equals("M")){
+//								
+//			}
+//			if(dt.equals("Y")){
+//				
+//			}
+//		}else{
 			String str="from XtBranches order by BMaintainDate desc";
 			List list=ser.query(str, null, str, page, ser);
 			if (list.size()>0) {
@@ -141,7 +141,7 @@ public class BranchesAction extends MyBaseAction implements IMyBaseAction{
 			if (list.size()>0) {
 				d2=(XtBranches) list.get(0);//头
 			}
-		}
+//		}
 		if (d1!=null && d2!=null) {
 			if(dt.equals("D")){
 				//获取相差天数
@@ -150,8 +150,8 @@ public class BranchesAction extends MyBaseAction implements IMyBaseAction{
 				Date date2=sdf.parse(d2.getBMaintainDate().toLocaleString());
 				long days=(date1.getTime()-date2.getTime())/(1000*3600*24);
 				for (int i = 0; i <=days; i++) {
-					Date dateStart=new Date(d2.getBMaintainDate().getYear(), d2.getBMaintainDate().getMonth(), d2.getBMaintainDate().getDate()+i,0,0,0);
-					Date dateEnd=new Date(d2.getBMaintainDate().getYear(), d2.getBMaintainDate().getMonth(), d2.getBMaintainDate().getDate()+i,23, 59, 59);
+					Date dateStart=new Date(d1.getBMaintainDate().getYear(), d1.getBMaintainDate().getMonth(), d1.getBMaintainDate().getDate()-i,0,0,0);
+					Date dateEnd=new Date(d1.getBMaintainDate().getYear(), d1.getBMaintainDate().getMonth(), d1.getBMaintainDate().getDate()-i,23, 59, 59);
 					Calendar caDay = Calendar.getInstance();
 					caDay.setTime(dateStart);
 					int day = caDay.get(caDay.DAY_OF_MONTH);
@@ -165,8 +165,8 @@ public class BranchesAction extends MyBaseAction implements IMyBaseAction{
 				ca2.set(d2.getBMaintainDate().getYear()+1900, d2.getBMaintainDate().getMonth()+1, d2.getBMaintainDate().getDate());
 				int weekyear = d1.getBMaintainDate().getYear()-d2.getBMaintainDate().getYear();
 				int weeknum =weekyear*52 + ca1.get(Calendar.WEEK_OF_YEAR)-ca2.get(Calendar.WEEK_OF_YEAR);
-				for (int i = 0; i <=weeknum; i++) {
-					Date date = new Date(d2.getBMaintainDate().getYear(),d2.getBMaintainDate().getMonth(),d2.getBMaintainDate().getDate()+(7*i));
+				for (int i = 0; i <=weeknum+1; i++) {
+					Date date = new Date(d1.getBMaintainDate().getYear(),d1.getBMaintainDate().getMonth(),d1.getBMaintainDate().getDate()-(7*i));
 					Date dateStart= ser.weekDate(date).get(ser.KEY_DATE_START);
 					Date dateEnd=ser.weekDate(date).get(ser.KEY_DATE_END);
 					Calendar ca3 = Calendar.getInstance();
@@ -179,9 +179,9 @@ public class BranchesAction extends MyBaseAction implements IMyBaseAction{
 				long ms=(d1.getBMaintainDate().getYear()-d2.getBMaintainDate().getYear())*12+(d1.getBMaintainDate().getMonth()-d2.getBMaintainDate().getMonth());
 				//logger.debug(ms);
 				for (int i = 0; i <= ms; i++) {
-					Date dateStart=new Date(d2.getBMaintainDate().getYear(), d2.getBMaintainDate().getMonth()+i, 1,0,0,0);
+					Date dateStart=new Date(d1.getBMaintainDate().getYear(), d1.getBMaintainDate().getMonth()-i, 1,0,0,0);
 					Calendar ca = Calendar.getInstance();    
-					ca.set(1900+d2.getBMaintainDate().getYear(), 1+d2.getBMaintainDate().getMonth()+i, 0);
+					ca.set(1900+d1.getBMaintainDate().getYear(), 1+d1.getBMaintainDate().getMonth()-i, 0);
 					Date dateTmp=ca.getTime();
 					Date dateEnd=new Date(dateTmp.getYear(), dateTmp.getMonth(), dateTmp.getDate(),23,59,59);
 //					logger.debug(dateEnd.toLocaleString()+"  "+dateStart.getYear()+"  "+dateStart.getMonth()+"  "+i);
@@ -192,8 +192,8 @@ public class BranchesAction extends MyBaseAction implements IMyBaseAction{
 				//获得相差年数
 				long ys=d1.getBMaintainDate().getYear()-d2.getBMaintainDate().getYear();
 				for (int i = 0; i <= ys; i++) {
-					Date dateStart=new Date(d2.getBMaintainDate().getYear()+i, 0, 1,0,0,0);
-					Date dateEnd=new Date(d2.getBMaintainDate().getYear()+i, 11, 31,23,59,59);
+					Date dateStart=new Date(d1.getBMaintainDate().getYear()-i, 0, 1,0,0,0);
+					Date dateEnd=new Date(d1.getBMaintainDate().getYear()-i, 11, 31,23,59,59);
 					int y=dateStart.getYear();
 					initCount(dateStart, dateEnd, counts,y+1900);
 				}
@@ -205,9 +205,9 @@ public class BranchesAction extends MyBaseAction implements IMyBaseAction{
 	public String queryOfFenye() throws UnsupportedEncodingException {
 		String id=getRequest().getParameter("id");
 		String cz=getRequest().getParameter("cz");//用于判断是否清理page，yes清理，no不清理
-		System.out.println(dates);
-		System.out.println(datee);
-		System.out.println(filtrate);
+//		System.out.println(dates);
+//		System.out.println(datee);
+//		System.out.println(filtrate);
 		if (page==null) {
 			page=new Page(1, 0, 5);
 		}
@@ -264,43 +264,43 @@ public class BranchesAction extends MyBaseAction implements IMyBaseAction{
 	}
 	
 	public String exportExc() throws Exception{
-		DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-		Date dateStart = format.parse(dates);
-		Date dateEnd = format.parse(datee);
-		String filePath=getRequest().getRealPath("/")+"\\files\\branches.xls";
-//		String path="C:/Users/it025/Desktop/cssss.xls";
-		//获取相差天数
-		List list=ser.find("from XtBranches where BMaintainDate>='"+dates+"' and BMaintainDate<='"+datee+"'" ,null);
-//		System.out.println(list.size());
-		//首行
-		List<Object[]> list3 = new ArrayList<Object[]>();
-		Object[] obj ={"序号","时间","维护数量"};
-		for (int i = 0,j=1; i <list.size(); i++) {
-			Object tmpobj[] = new Object[3]; 
-			Date dStart=new Date(dateStart.getYear(), dateStart.getMonth(), dateStart.getDate()+i,0,0,0);
-			Date eStart=new Date(dateStart.getYear(), dateStart.getMonth(), dateStart.getDate()+i,23, 59, 59);
-//			System.out.println(dStart.toString());
-//			System.out.println(eStart.toString());
-			List list1 = ser.find("from XtBranches where BMaintainDate>=? and BMaintainDate<=? ", new Object[]{new Timestamp(dStart.getTime()),new Timestamp(dStart.getTime())});
-//			System.out.println(list1.size());
-			
-			if(list1.size()!=0){
-				tmpobj[0]=j;
-				tmpobj[1]=format.format(dStart);
-				tmpobj[2]=list1.size();
-				list3.add(tmpobj);
-				j++;
-			}	
-		}
-		//定义数组装数据
-		Object[][] obj2 =new Object[list3.size()][3];
-		for (int i = 0; i < obj2.length; i++) {
-			
-			for (int j = 0; j < obj2[i].length; j++) {
-				obj2[i][j]=list3.get(i)[j];
-			}
-		}
-		ser.outExcel(obj, obj2, filePath);
+//		DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+//		Date dateStart = format.parse(dates);
+//		Date dateEnd = format.parse(datee);
+//		String filePath=getRequest().getRealPath("/")+"\\files\\branches.xls";
+////		String path="C:/Users/it025/Desktop/cssss.xls";
+//		//获取相差天数
+//		List list=ser.find("from XtBranches where BMaintainDate>='"+dates+"' and BMaintainDate<='"+datee+"'" ,null);
+////		System.out.println(list.size());
+//		//首行
+//		List<Object[]> list3 = new ArrayList<Object[]>();
+//		Object[] obj ={"序号","时间","维护数量"};
+//		for (int i = 0,j=1; i <list.size(); i++) {
+//			Object tmpobj[] = new Object[3]; 
+//			Date dStart=new Date(dateStart.getYear(), dateStart.getMonth(), dateStart.getDate()+i,0,0,0);
+//			Date eStart=new Date(dateStart.getYear(), dateStart.getMonth(), dateStart.getDate()+i,23, 59, 59);
+////			System.out.println(dStart.toString());
+////			System.out.println(eStart.toString());
+//			List list1 = ser.find("from XtBranches where BMaintainDate>=? and BMaintainDate<=? ", new Object[]{new Timestamp(dStart.getTime()),new Timestamp(dStart.getTime())});
+////			System.out.println(list1.size());
+//			
+//			if(list1.size()!=0){
+//				tmpobj[0]=j;
+//				tmpobj[1]=format.format(dStart);
+//				tmpobj[2]=list1.size();
+//				list3.add(tmpobj);
+//				j++;
+//			}	
+//		}
+//		//定义数组装数据
+//		Object[][] obj2 =new Object[list3.size()][3];
+//		for (int i = 0; i < obj2.length; i++) {
+//			
+//			for (int j = 0; j < obj2[i].length; j++) {
+//				obj2[i][j]=list3.get(i)[j];
+//			}
+//		}
+//		ser.outExcel(obj, obj2, filePath);
 		return result;
 	}
 }
