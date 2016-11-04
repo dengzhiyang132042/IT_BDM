@@ -291,9 +291,16 @@ public class DaManagerAction extends MyBaseAction implements IMyBaseAction{
 				return result_fail;
 			}
 		}
+		cleardap();
 		return gotoQuery();
 	}
 
+	
+	private void cleardap() {
+		d=null;
+		p=null;
+	}
+	
 	public String delete() throws Exception {
 		// TODO Auto-generated method stub
 		return null;
@@ -340,6 +347,7 @@ public class DaManagerAction extends MyBaseAction implements IMyBaseAction{
 				}
 			}
 		}
+		cleardap();
 		return gotoQuery();
 	}
 	public String addTimeOut() throws Exception{
