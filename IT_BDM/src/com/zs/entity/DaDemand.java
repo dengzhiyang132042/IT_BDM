@@ -28,7 +28,6 @@ public class DaDemand implements java.io.Serializable {
 	public void setOutTime(int outTime) {
 		this.outTime = outTime;
 	}
-
 	// Constructors
 	public String getDTimeExpectString() {
 		return DTimeExpectString;

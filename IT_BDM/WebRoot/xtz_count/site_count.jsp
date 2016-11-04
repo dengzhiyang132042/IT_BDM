@@ -125,10 +125,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    <%} %>
 	    	<c:if test="${count.rows!=0}">
 	    		
-		    	<td rowspan="${count.rows} }">${count.orderNum }</td>
-		    	<td rowspan="${count.rows} }"><fmt:formatDate value="${count.sTime }" pattern="yyyy-M-d HH:mm:ss" /></td>
-		    	<td rowspan="${count.rows} }"><fmt:formatDate value="${count.eTime }" pattern="yyyy-M-d HH:mm:ss" /></td>
-	    		<td rowspan="${count.rows} }">${count.num }</td>
+		    	<td rowspan="${count.rows}">${count.orderNum }</td>
+		    	<td rowspan="${count.rows}"><fmt:formatDate value="${count.sTime }" pattern="yyyy-M-d HH:mm:ss" /></td>
+		    	<td rowspan="${count.rows}"><fmt:formatDate value="${count.eTime }" pattern="yyyy-M-d HH:mm:ss" /></td>
+	    		<td rowspan="${count.rows}">${count.num }</td>
 	    	</c:if>
 	    	<td>${count.type }</td>
 	    	<td>${count.count }</td>

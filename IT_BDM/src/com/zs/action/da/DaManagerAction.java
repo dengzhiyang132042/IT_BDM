@@ -352,4 +352,5 @@ public class DaManagerAction extends MyBaseAction implements IMyBaseAction{
 		}
 		return gotoQuery();
 	}
+
 }

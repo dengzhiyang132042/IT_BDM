@@ -110,7 +110,35 @@ String beforeTime= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Calendar.g
 			$("#err").window('open');	
 		}
 	}
-	
+	/*以下是自动设置超时时间为今天的18点，张顺，2016-11-3
+	*/
+	// 对Date的扩展，将 Date 转化为指定格式的String
+	// 月(M)、日(d)、小时(h)、分(m)、秒(s)、季度(q) 可以用 1-2 个占位符， 
+	// 年(y)可以用 1-4 个占位符，毫秒(S)只能用 1 个占位符(是 1-3 位的数字) 
+	// 例子： 
+	// (new Date()).Format("yyyy-MM-dd hh:mm:ss.S") ==> 2006-07-02 08:09:04.423 
+	// (new Date()).Format("yyyy-M-d h:m:s.S")      ==> 2006-7-2 8:9:4.18 
+	Date.prototype.Format = function (fmt) { //author: meizz 
+	    var o = {
+	        "M+": this.getMonth() + 1, //月份 
+	        "d+": this.getDate(), //日 
+	        "H+": this.getHours(), //小时 
+	        "m+": this.getMinutes(), //分 
+	        "s+": this.getSeconds(), //秒 
+	        "q+": Math.floor((this.getMonth() + 3) / 3), //季度 
+	        "S": this.getMilliseconds() //毫秒 
+	    };
+	    if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
+	    for (var k in o)
+	    if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+	    return fmt;
+	}
+	function defualtOutTime(){
+		var time = new Date().Format("yyyy-MM-dd");
+		time=time+" 18:00:00";
+		//console.log(time);
+		$('#out_time').val(time);
+	}
 	</script>
   </head>
   
@@ -177,6 +205,7 @@ String beforeTime= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Calendar.g
     </c:forEach>
     </table>
 	</div>
+	
 	<div class="easyui-panel" style="padding:5px;width: 100%;display: none;background-color: white;">
 		<form id="f1" action="<%=path %>/daManager!queryOfFenye?id=${id}&type=${type}&dates=${dates}&datee=${datee}" method="post">
 		<select id="sele" style="float: left;margin-top: 3px;margin-left: 5px;" name="page.size" onchange="$('#f1').submit();">
@@ -318,7 +347,7 @@ String beforeTime= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Calendar.g
 			</tr>
 			<tr>
 				<td>超时时间:</td>
-				<td><input id="outDate" class="Wdate" name="DTimeExpect" type="text" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',minDate:'%y-%M-%d %H:%m:%s'})"/></td>
+				<td><input id="out_time" class="Wdate" name="DTimeExpect" type="text" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',minDate:'%y-%M-%d %H:%m:%s'})"/></td>
 			</tr>
 			<tr>
 				<td colspan="2" align="center">
@@ -330,11 +359,9 @@ String beforeTime= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Calendar.g
 	</div>
 	
 	<div id="tt" style="display: none;">
-		<a class="icon-add" onclick="$('#a').window('open')" style="margin-left: 10px;" title="添加"></a>
+		<a class="icon-add" onclick="$('#a').window('open');defualtOutTime()" style="margin-left: 10px;" title="添加"></a>
 	</div>
-	
-	
-	
+		
 
 	<jsp:include page="../hintModal.jsp"/>
 	

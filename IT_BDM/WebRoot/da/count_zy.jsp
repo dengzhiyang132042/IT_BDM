@@ -112,7 +112,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	  }
 	</style>
   </head>
-  
+  <%boolean isAddColor=false; %>
   <body>
  	
  	<div class="tab" style="float: left;" onmousemove="this.style.background='#FF0202';" onmouseout="this.style.background='#B00000';" onclick="window.location.href='<%=path %>/count!queryOfFenye'">客服统计</div>
@@ -142,13 +142,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <div style="margin-bottom: 5px;">
 	    
 	    
-  	<div style="margin-right: 17px;">
+  	<div style="margin-right: 27px;">
     <table border="1" id="" style="font-size: 12px;">
 	    <tr>
 	    	<th width="90">序号</th>
-	    	<th width="90">处理人</th>
 	    	<th width="230">开始时间</th>
 	    	<th width="230">结束时间</th>
+	    	<th width="90">处理人</th>
 	    	<th width="250">故障报修量</th>
 	    	<th width="250">故障完成量</th>
 	    	<th width="250">完成率</th>
@@ -166,24 +166,33 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    </tr>
     </table>
   	</div>
-    <div style="height:500px;overflow: scroll;margin-top: -61px;">
-    <table border="1" id="" style="font-size: 12px;">
+    <div style="height:500px;overflow: scroll;margin-top: -30px;overflow-x:hidden;">
+    <table border="1" id="" style="font-size: 12px;margin-top: -31px;">
     	<tr style="height: 30px;visibility: hidden;">
     		<th width="90">1</th>
+    		<th width="230">1</th>
+    		<th width="230">1</th>
     		<th width="90">1</th>
-    		<th width="230">1</th>
-    		<th width="230">1</th>
     		<th width="250">1</th>
     		<th width="250">1</th>
     		<th width="250">1</th>
     		<th>1</th>
     	</tr>
 	    <c:forEach items="${counts}" var="count" varStatus="status">
+	    <c:if test="${count.rows!=0}">
+    		<%isAddColor=!isAddColor; %>
+   		</c:if>
+	   	<%if(isAddColor){ %>
+	    <tr class="odd_even_tr">
+	    <%}else{ %>
 	    <tr>
-	    	<td>${status.index+1 }</td>
+	    <%} %>
+	    	<c:if test="${count.rows!=0}">
+		    	<td rowspan="${count.rows}">${count.orderNum }</td>
+		    	<td rowspan="${count.rows}">${count.sTime }</td>
+		    	<td rowspan="${count.rows}">${count.eTime }</td>
+	    	</c:if>
 	    	<td>${count.demPer[0].performs[0].UName }</td>
-	    	<td>${count.sTime }</td>
-	    	<td>${count.eTime }</td>
 	    	<td>${count.daAll }</td>
 	    	<td>${count.daSuc }</td>
 	    	<td>${count.ratioSuc }%</td>
@@ -193,24 +202,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    </tr>
 	    </c:forEach>
 	    
-	    <c:forEach items="${ps}" var="p">
-	    <tr>
-			<td width="">${p.PId }</td>
-			<td width="">${p.PBrand }</td>
-			<td width="">${p.PNumber }</td>
-			<td width="">${p.PArea }</td>
-			<td width="">${p.PAddress }</td>
-			<td width="">${p.PType }</td>
-			<td width="">${p.PPort }</td>
-			<td width="5%" align="center">
-				<a href="" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-delete'" title="删除">转发</a>
-				<a onclick="update('${p.PId }','${p.PBrand }','${p.PNumber }','${p.PArea }','${p.PAddress }','${p.PType }','${p.PPort }','${p.PIp }','${p.PCartridge }','${p.PToner }','${p.PTrait }','${p.PFunction }','${p.PPage }','${p.PAdd }','${p.PLast }','${p.PNext }')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-edit'" title="修改"></a>
-				<a href="<%=path %>/print!delete?id=${p.PId}" onclick="return confirm('确定删除吗?')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-delete'" title="删除"></a>
-			</td>
-	    </tr>
-	    </c:forEach>
-	    </table>
-		</div>
+    </table>
+	</div>
   	</div>
   	
 	   
