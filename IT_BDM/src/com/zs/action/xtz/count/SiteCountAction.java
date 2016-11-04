@@ -140,8 +140,8 @@ public class SiteCountAction extends MyBaseAction implements IMyBaseAction{
 				ca2.set(d2.getSStartDate().getYear()+1900, d2.getSStartDate().getMonth()+1, d2.getSStartDate().getDate());
 				int weekyear = d1.getSStartDate().getYear()-d2.getSStartDate().getYear();
 				int weeknum =weekyear*52 + ca1.get(Calendar.WEEK_OF_YEAR)-ca2.get(Calendar.WEEK_OF_YEAR);
-				for (int i = 0; i <= weeknum; i++) {
-					Date date = new Date(d2.getSStartDate().getYear(),d2.getSStartDate().getMonth(),d2.getSStartDate().getDate()+(7*i));
+				for (int i = 0; i <= weeknum+1; i++) {
+					Date date = new Date(d1.getSStartDate().getYear(),d1.getSStartDate().getMonth(),d1.getSStartDate().getDate()-(7*i));
 					Date dateStart= ser.weekDate(date).get(ser.KEY_DATE_START);
 					Date dateEnd=ser.weekDate(date).get(ser.KEY_DATE_END);
 					Calendar ca3 = Calendar.getInstance();
@@ -156,9 +156,9 @@ public class SiteCountAction extends MyBaseAction implements IMyBaseAction{
 				//获取相差月数
 				long ms=(d1.getSStartDate().getYear()-d2.getSStartDate().getYear())*12+(d1.getSStartDate().getMonth()-d2.getSStartDate().getMonth());
 				for (int i = 0; i <= ms; i++) {
-					Date dateStart=new Date(d2.getSStartDate().getYear(), d2.getSStartDate().getMonth()+i, 1,0,0,0);
+					Date dateStart=new Date(d1.getSStartDate().getYear(), d1.getSStartDate().getMonth()-i, 1,0,0,0);
 					Calendar ca = Calendar.getInstance();    
-					ca.set(1900+d2.getSStartDate().getYear(), 1+d2.getSStartDate().getMonth()+i, 0);
+					ca.set(1900+d1.getSStartDate().getYear(), 1+d1.getSStartDate().getMonth()-i, 0);
 					Date dateTmp=ca.getTime();
 					Date dateEnd=new Date(dateTmp.getYear(), dateTmp.getMonth(), dateTmp.getDate(),23,59,59);
 					int m=dateStart.getMonth();
@@ -171,8 +171,8 @@ public class SiteCountAction extends MyBaseAction implements IMyBaseAction{
 				//获得相差年数
 				long ys=d1.getSStartDate().getYear()-d2.getSStartDate().getYear();
 				for (int i = 0; i <= ys; i++) {
-					Date dateStart=new Date(d2.getSStartDate().getYear()+i, 0, 1,0,0,0);
-					Date dateEnd=new Date(d2.getSStartDate().getYear()+i, 11, 31,23,59,59);
+					Date dateStart=new Date(d1.getSStartDate().getYear()-i, 0, 1,0,0,0);
+					Date dateEnd=new Date(d1.getSStartDate().getYear()-i, 11, 31,23,59,59);
 					int y=dateStart.getYear();
 					orderNumber++;
 					initCount(dateStart, dateEnd, counts,y+1900,orderNumber);
