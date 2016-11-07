@@ -14,6 +14,8 @@
 	
 	
 	<!-- **************************ACTION******************************************** -->
+	
+	<!-- **************************硬件组******************************************** -->
 	<bean id="zs_section_yjz" class="com.zs.action.yjz.SectionAction">
 		<property name="ser" ref="zs_ser"></property>
 	</bean>	
@@ -44,6 +46,7 @@
 	<bean id="zs_fbd_go_yjz" class="com.zs.action.yjz.GoOutAction">
 		<property name="ser" ref="zs_ser"></property>
 	</bean>
+	<!-- **************************系统组******************************************** -->
 	<bean id="zs_site_xtz" class="com.zs.action.xtz.SiteAction">
 		<property name="ser" ref="zs_ser"></property>
 	</bean>
@@ -56,6 +59,10 @@
 	<bean id="zs_zmd_xtz" class="com.zs.action.xtz.ZmDataAction">
 		<property name="ser" ref="zs_ser"></property>
 	</bean>
+	<bean id="hgh_pda_change_xtz" class="com.zs.action.xtz.PdaChangeAction">
+		<property name="ser" ref="zs_ser"></property>
+	</bean>
+	<!-- **************************桌面组******************************************** -->
 	<bean id="zs_vpn_zmz" class="com.zs.action.zmz.VpnAction">
 		<property name="ser" ref="zs_ser"></property>
 	</bean>
