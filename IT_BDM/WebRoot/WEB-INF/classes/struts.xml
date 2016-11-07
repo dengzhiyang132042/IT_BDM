@@ -127,6 +127,13 @@
      <result name="succ">/success.jsp</result>
      <result name="fail">/fail.jsp</result>
   </action>
+  <action name="pdachange" class="hgh_pda_change_xtz">	
+  	 <interceptor-ref name="mydefault" />
+     <result>/index.jsp</result>
+     <result name="pdachange">/xtz_jsp/pda_change.jsp</result>
+     <result name="succ">/success.jsp</result>
+     <result name="fail">/fail.jsp</result>
+  </action>
   <!-- **************桌面组**************** -->
   <action name="vpn" class="zs_vpn_zmz">	
   	 <interceptor-ref name="mydefault" />
