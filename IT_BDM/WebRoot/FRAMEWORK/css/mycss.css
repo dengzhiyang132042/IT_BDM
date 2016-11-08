@@ -10,7 +10,7 @@ table{
 	table-layout:fixed;
 }
 table tr th{
-	background-color: rgb(176, 0, 0);
+	background-color: #607D8B;
 	color: white;
 	font-weight: bold;
 	padding: 7px;
@@ -162,5 +162,5 @@ form{
 2016-11-2
 */
 .odd_even_tr{
-	background-color: rgba(251, 237, 85, 0.29);
+	background-color: rgba(23, 180, 255, 0.12);
 }
