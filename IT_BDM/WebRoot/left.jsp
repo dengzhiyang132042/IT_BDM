@@ -65,8 +65,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<li><span><a href="<%=path %>/zmn!queryOfFenye?cz=yes" target="right">哲盟账号申请登记</a></span></li>
 						<li><span><a href="<%=path %>/zmd!queryOfFenye?cz=yes" target="right">哲盟数据检查登记</a></span></li>
 						<li><span><a href="<%=path %>/pdachange!queryOfFenye?cz=yes" target="right">条码变更明细</a></span></li>
-						<li><span><a href="<%=path %>/zmd!queryOfFenye?cz=yes" target="right">送修坂田巴枪</a></span></li>
-						<li><span><a href="<%=path %>/zmd!queryOfFenye?cz=yes" target="right">PDA挂失</a></span></li>
+						<li><span><a href="<%=path %>/bqrepair!queryOfFenye?cz=yes" target="right">送修坂田巴枪</a></span></li>
+						<li><span><a href="<%=path %>/pdaloss!queryOfFenye?cz=yes" target="right">PDA挂失</a></span></li>
         			</ul>
         		</li>
         		<li><span>桌面组</span>
