@@ -97,7 +97,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     	<th>oa登记日期</th>
     	<th>部门</th>
     	<th>姓名</th>
-    	<th>布谷鸟</th>
+    	<th>IMO</th>
     	<th>邮箱</th>
     	<th>邮箱默认密码</th>
     	<th>维护IT</th>
@@ -192,7 +192,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				</td>
 			</tr>
 			<tr>
-				<td>布谷鸟：</td>
+				<td>IMO：</td>
 				<td>
 					<input id="u_5" name="by.byBgn" type="text" style="width: 100%;"/>
 				</td>
@@ -282,7 +282,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				</td>
 			</tr>
 			<tr>
-				<td>布谷鸟：</td>
+				<td>IMO：</td>
 				<td>
 					<input name="by.byBgn" type="text" style="width: 100%;"/>
 				</td>
