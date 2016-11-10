@@ -157,10 +157,10 @@ public class DaManagerAction extends MyBaseAction implements IMyBaseAction{
 				hql=hql+" and DType = '"+type+"'";
 			}
 			if(dates!=null && !dates.equals("")){
-				hql=hql+" and DTime >= '"+dates+"'";
+				hql=hql+" and DTime >= '"+dates+" 0:0:0'";
 			}
 			if(datee!=null && !datee.equals("")){
-				hql=hql+" and DTime <= '"+datee+"'";
+				hql=hql+" and DTime <= '"+datee+" 23:59:59'";
 			}
 			hql=hql+" order by DTime desc";
 			List dems=ser.query(hql, null, hql, page, ser);

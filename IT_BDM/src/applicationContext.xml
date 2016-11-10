@@ -78,6 +78,7 @@
 	<bean id="zs_bq_zmz" class="com.zs.action.zmz.BqAction">
 		<property name="ser" ref="zs_ser"></property>
 	</bean>
+	
 	<bean id="zs_wifi_zmz" class="com.zs.action.zmz.WifiAction">
 		<property name="ser" ref="zs_ser"></property>
 	</bean>
