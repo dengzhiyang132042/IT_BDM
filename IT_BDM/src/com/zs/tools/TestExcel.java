@@ -36,7 +36,7 @@ public class TestExcel {
 			for(int i = 0 ; i < obj.length ; i++){
 				HSSFCell cell1 = row.createCell((short) i);
 				cell1.setCellType(HSSFCell.CELL_TYPE_STRING); 
-				cell1.setEncoding(HSSFCell.ENCODING_UTF_16);
+//				cell1.setEncoding(HSSFCell.ENCODING_UTF_16);
 				cell1.setCellValue(obj[i].toString());
 			}
 //			HSSFCell cell1 = row.createCell((short) 0);
@@ -64,7 +64,7 @@ public class TestExcel {
 						// 设置单元格格式        
 						cell.setCellStyle(cellStyle);  
 						cell.setCellType(HSSFCell.CELL_TYPE_STRING); 
-						cell.setEncoding(HSSFCell.ENCODING_UTF_16);   
+//						cell.setEncoding(HSSFCell.ENCODING_UTF_16);   
 						cell.setCellValue(test[j][i].toString());  
 					}            
 			}        

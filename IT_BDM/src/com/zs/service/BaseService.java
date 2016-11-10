@@ -13,9 +13,6 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
-import jxl.write.WritableCellFormat;
-import jxl.write.WritableFont;
-
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFCellStyle;
 import org.apache.poi.hssf.usermodel.HSSFDataFormat;
@@ -23,6 +20,8 @@ import org.apache.poi.hssf.usermodel.HSSFFont;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+
+
 
 import com.zs.dao.IBaseDaoOfSpring;
 import com.zs.entity.CompanySection;
@@ -578,7 +577,7 @@ public class BaseService implements IService{
 			for(int i = 0 ; i < obj.length ; i++){
 				HSSFCell cell1 = row.createCell((short) i);
 				cell1.setCellType(HSSFCell.CELL_TYPE_STRING); 
-				cell1.setEncoding(HSSFCell.ENCODING_UTF_16);
+//				cell1.setEncoding(HSSFCell.ENCODING_UTF_16);
 				cell1.setCellValue(obj[i].toString());
 			}
 			for(int j = 0 ; j < obj2.length ; j++){    
@@ -589,7 +588,7 @@ public class BaseService implements IService{
 					// 设置单元格格式        
 					cell.setCellStyle(cellStyle);  
 					cell.setCellType(HSSFCell.CELL_TYPE_STRING); 
-					cell.setEncoding(HSSFCell.ENCODING_UTF_16);   
+//					cell.setEncoding(HSSFCell.ENCODING_UTF_16);
 					cell.setCellValue(obj2[j][i].toString());  
 				}            
 			}        
