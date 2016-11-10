@@ -1,23 +1,14 @@
 package com.zs.action.da;
 
-import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.sql.Timestamp;
-import java.text.Format;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
-import javax.servlet.http.HttpServletResponse;
-import javax.xml.registry.infomodel.User;
 
 import org.apache.log4j.Logger;
 
 import net.sf.json.JSONArray;
-import net.sf.json.JSONObject;
-import net.sf.json.JsonConfig;
 
 import com.zs.action.IMyBaseAction;
 import com.zs.action.MyBaseAction;
@@ -27,7 +18,6 @@ import com.zs.entity.DaPerform;
 import com.zs.entity.Users;
 import com.zs.mail.MailTest;
 import com.zs.service.IService;
-import com.zs.tools.AutoTransState;
 import com.zs.tools.NameOfDate;
 import com.zs.tools.Page;
 
@@ -215,8 +205,7 @@ public class DaManagerAction extends MyBaseAction implements IMyBaseAction{
 		"<br/>Best Wishes<br/>"+
 		"以流程为导向，以服务为宗旨。<br/>"+
 		"*****************************************************"+
-		"<br/>信息与流程管理部-客服专员 &nbsp;某某某"+
-		"<br/>深圳市韵达速递有限公司<br/>邮箱：某某某@szexpress.com.cn"+
+		"<br/>信息与流程管理部-客服专员 "+
 		"<br/>地址：广东省深圳市龙华新区观澜大道114号（交警中队正对面）<br/>"+
 		"***************************************************<br/></div>";
 		try {
@@ -285,6 +274,7 @@ public class DaManagerAction extends MyBaseAction implements IMyBaseAction{
 				if(DaManagerAction.outMailFromAdd(um,d)==false){
 					//日后换成邮件错误界面
 					getResponse().getWriter().write("邮件发送错误!请手动发送邮件");
+					logger.error("邮件发送错误!请手动发送邮件,错误单号"+d.getDId());
 					return null;
 				}
 			}else {
@@ -343,6 +333,7 @@ public class DaManagerAction extends MyBaseAction implements IMyBaseAction{
 				if(DaManagerAction.outMailFromUpdate(um, umnext, d)==false){
 					//日后换成邮件错误界面
 					getResponse().getWriter().write("邮件发送错误!请手动发送邮件");
+					logger.error("邮件发送错误!请手动发送邮件,错误单号"+d.getDId());
 					return null;
 				}
 			}

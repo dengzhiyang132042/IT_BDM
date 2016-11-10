@@ -21,6 +21,10 @@ import freemarker.template.SimpleDate;
 
 public class DaHandleAction extends MyBaseAction implements IMyBaseAction{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	IService ser;
 	List<DaDemPer> demper;
 	DaPerform p;
@@ -277,6 +281,7 @@ public class DaHandleAction extends MyBaseAction implements IMyBaseAction{
 				if(DaHandleAction.outMailFromUpdate(tmpper, d, getSer())==false){
 					//日后换成邮件错误界面
 					getResponse().getWriter().write("邮件发送错误!请手动发送邮件");
+					logger.error("邮件发送错误!请手动发送邮件,错误单号"+d.getDId());
 					return null;
 				}
 			}
@@ -318,6 +323,7 @@ public class DaHandleAction extends MyBaseAction implements IMyBaseAction{
 		try {
 			MailTest.outputMail(sj,MailTest.IT_ROBOT, content, title);
 		} catch (Exception e) {
+			
 			return false;
 		}
 		return true;
