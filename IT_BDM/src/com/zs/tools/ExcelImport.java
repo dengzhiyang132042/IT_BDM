@@ -18,9 +18,9 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
-public class ExcleImport {
+public class ExcelImport {
 	
-	static Logger log=Logger.getLogger(ExcleImport.class);
+	static Logger log=Logger.getLogger(ExcelImport.class);
 	
 	/**
 	 * 张顺 2016-11-10 数据导入攻击
@@ -128,7 +128,7 @@ public class ExcleImport {
 	/*
 	 */
 	public static void main(String[] args) throws IOException {
-		Object obj[][]=ExcleImport.getDataFromExcel("E:\\abc.xlsx");
+		Object obj[][]=ExcelImport.getDataFromExcel("E:\\abc.xlsx");
 		for (int i = 0; i < obj.length; i++) {
 			for (int j = 0; j < obj[i].length; j++) {
 				System.out.print(obj[i][j]+"   ");
