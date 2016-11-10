@@ -60,7 +60,7 @@ public class TimeOutTimer extends TimerTask{
 				ser.update(perform);
 				if(timeOutMailFromUpdate(perform, d, ser)==false){
 					//日后换成邮件错误界面
-					System.out.println("邮件发送错误");
+					logger.error("邮件发送错误!请手动发送邮件,错误单号"+d.getDId());
 				}
 			}
 			//超时预提醒功能

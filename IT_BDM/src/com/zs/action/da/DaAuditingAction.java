@@ -330,8 +330,7 @@ public class DaAuditingAction extends MyBaseAction implements IMyBaseAction{
 				"<br/>Best Wishes<br/>"+
 				"以流程为导向，以服务为宗旨。<br/>"+
 				"*****************************************************"+
-				"<br/>信息与流程管理部-客服专员&nbsp;某某某"+
-				"<br/>深圳市韵达速递有限公司<br/>邮箱：某某某@szexpress.com.cn<br/>"+
+				"<br/>信息与流程管理部-客服专员"+
 				"<br/>地址：广东省深圳市龙华新区观澜大道114号（交警中队正对面）<br/>"+
 				"***************************************************<br/></div>";
 				//邮件标题
@@ -344,6 +343,7 @@ public class DaAuditingAction extends MyBaseAction implements IMyBaseAction{
 		} catch (Exception e) {
 			//日后换成邮件错误界面
 			getResponse().getWriter().write("邮件发送错误!请手动发送邮件");
+			logger.error("邮件发送错误!请手动发送邮件,错误单号"+dd.getDId());
 			return null;
 		}
 		initContent();
