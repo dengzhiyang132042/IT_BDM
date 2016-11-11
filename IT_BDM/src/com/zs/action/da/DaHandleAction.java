@@ -298,7 +298,7 @@ public class DaHandleAction extends MyBaseAction implements IMyBaseAction{
 		String content="<style type=\"text/css\">span{display:block;margin:5px 0;font-size:15px;} .table1{	border: #224466;	border-collapse:collapse;	width: 800px;} .tleft{text-align:left;}</style>";
 		content=content+"<div style=\"font-family:微软雅黑;font-size:15px;\">"+
 		"<div style=\"height:400px;width:800px;\">"+
-		"<span>Dear 徐主管</span>"+
+		"<span>Dear 客服</span>"+
 		"<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;您收到有"+um.getUName()+"发送给您的未完成故障详情！</span>"+
 		"<span>未完成原因:"+tmpper.getPNote()+"</span>"+
 		"<table class=\"table1\" border=\"1\">" +
@@ -319,15 +319,14 @@ public class DaHandleAction extends MyBaseAction implements IMyBaseAction{
 		"***************************************************<br/></div>";
 		//邮件标题
 		String title="故障处理未完成";
-		String sj="dijun_xu@szexpress.com.cn";
+		String sj="lidan_zhang@szexpress.com.cn";
 		try {
 			MailTest.outputMail(sj,MailTest.IT_ROBOT, content, title);
 		} catch (Exception e) {
-			
 			return false;
 		}
 		return true;
 	}
-	
+	     
 	
 }

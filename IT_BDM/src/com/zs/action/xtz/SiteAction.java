@@ -1,5 +1,6 @@
 package com.zs.action.xtz;
 
+import java.io.File;
 import java.io.UnsupportedEncodingException;
 import java.sql.Timestamp;
 import java.text.ParseException;
@@ -21,30 +22,45 @@ import com.zs.tools.NameOfDate;
 import com.zs.tools.Page;
 
 public class SiteAction extends MyBaseAction{
-	IService ser;
-	Page page;
-	
-	XtSite site;
-	List<XtSite> sites;
-	
-	String result_site="site";
-	String result_succ="succ";
-	String result_fail="fail";
-	
-	String id;
-	String num;
-	String dates;
-	String datee;
-	String it;
-	String type;
-	
-	
+	private IService ser;
+	private Page page;
+	private XtSite site;
+	private List<XtSite> sites;
+	private String result_site="site";
+	private String result_succ="succ";
+	private String result_fail="fail";
+	private String id;
+	private String num;
+	private String dates;
+	private String datee;
+	private String it;
+	private String type;
+	private File fileExcel;
+	private String fileExcelContentType;
+	private String fileExcelFileName; 
 	
 	private Logger logger=Logger.getLogger(SiteAction.class);
 	
 	
 	
-	
+	public File getFileExcel() {
+		return fileExcel;
+	}
+	public void setFileExcel(File fileExcel) {
+		this.fileExcel = fileExcel;
+	}
+	public String getFileExcelContentType() {
+		return fileExcelContentType;
+	}
+	public void setFileExcelContentType(String fileExcelContentType) {
+		this.fileExcelContentType = fileExcelContentType;
+	}
+	public String getFileExcelFileName() {
+		return fileExcelFileName;
+	}
+	public void setFileExcelFileName(String fileExcelFileName) {
+		this.fileExcelFileName = fileExcelFileName;
+	}
 	public String getId() {
 		return id;
 	}
@@ -228,4 +244,13 @@ public class SiteAction extends MyBaseAction{
 		return gotoQuery();
 	}	
 	
+	public String importExcel() throws UnsupportedEncodingException {
+		Object object=getRequest().getParameter("fileExcel");
+		logger.debug(object);
+		logger.debug(fileExcel);
+		logger.debug(fileExcelContentType);
+		logger.debug(fileExcelFileName);
+		
+		return null;
+	}
 }
