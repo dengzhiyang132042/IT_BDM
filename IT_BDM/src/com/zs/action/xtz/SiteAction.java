@@ -1,6 +1,7 @@
 package com.zs.action.xtz;
 
 import java.io.File;
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.sql.Timestamp;
 import java.text.ParseException;
@@ -18,11 +19,17 @@ import com.zs.entity.GoOut;
 import com.zs.entity.Users;
 import com.zs.entity.XtSite;
 import com.zs.service.IService;
+import com.zs.service.iSiteService;
+import com.zs.tools.Constant;
+import com.zs.tools.Copy;
+import com.zs.tools.ExcelExport;
+import com.zs.tools.ExcelImport;
 import com.zs.tools.NameOfDate;
 import com.zs.tools.Page;
 
 public class SiteAction extends MyBaseAction{
 	private IService ser;
+	private iSiteService siteSer;
 	private Page page;
 	private XtSite site;
 	private List<XtSite> sites;
@@ -42,7 +49,13 @@ public class SiteAction extends MyBaseAction{
 	private Logger logger=Logger.getLogger(SiteAction.class);
 	
 	
-	
+	 
+	public iSiteService getSiteSer() {
+		return siteSer;
+	}
+	public void setSiteSer(iSiteService siteSer) {
+		this.siteSer = siteSer;
+	}
 	public File getFileExcel() {
 		return fileExcel;
 	}
@@ -244,13 +257,19 @@ public class SiteAction extends MyBaseAction{
 		return gotoQuery();
 	}	
 	
-	public String importExcel() throws UnsupportedEncodingException {
-		Object object=getRequest().getParameter("fileExcel");
-		logger.debug(object);
+	/**
+	 * 张顺 2016-11-11
+	 * <br>导入数据
+	 * @return
+	 * @throws InterruptedException
+	 * @throws IOException
+	 * @throws ParseException
+	 */
+	public String importExcel() throws InterruptedException, IOException, ParseException {
 		logger.debug(fileExcel);
 		logger.debug(fileExcelContentType);
 		logger.debug(fileExcelFileName);
-		
-		return null;
+		siteSer.importExcelData(fileExcelFileName, fileExcel);
+		return gotoQuery();
 	}
 }

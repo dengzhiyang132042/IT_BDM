@@ -54,7 +54,7 @@ public class Test {
 		*/
 		
 //		System.out.println(new Date().toLocaleString());
-		TestExcel t = new TestExcel();
+//		TestExcel t = new TestExcel();
 //		Object[] obj ={"姓名","年龄","序号"};
 //		Object[][] test = new Object[5][3];
 //		for(int z= 0 ;z<5;z++){
@@ -68,16 +68,13 @@ public class Test {
 //			// TODO Auto-generated catch block
 //			e.printStackTrace();
 //		}
-//		
-//		Calendar ca = t.getWeekFirst(2016, 45);
-//		System.out.println(ca.getTime());
-		Calendar cal2 = Calendar.getInstance();
-        cal2.clear();
-        cal2.set(Calendar.YEAR, 2021);
-        cal2.set(Calendar.WEEK_OF_YEAR,53);
-        cal2.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY);
-        System.out.println(cal2.getTime());
-        cal2.set(Calendar.DAY_OF_WEEK, Calendar.SATURDAY);
-        System.out.println(cal2.getTime());
+		/*
+		Calendar ca = t.getWeekFirst(2016, 45);
+		System.out.println(ca.getTime());
+		*/
+		
+		
+		
+		
 	}
 }

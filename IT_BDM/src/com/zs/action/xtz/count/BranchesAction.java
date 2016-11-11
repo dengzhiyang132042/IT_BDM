@@ -21,6 +21,7 @@ import com.zs.entity.XtBranches;
 import com.zs.entity.custom.XtBranchesCount;
 
 import com.zs.service.IService;
+import com.zs.tools.Constant;
 import com.zs.tools.ExcelExport;
 import com.zs.tools.Page;
 
@@ -308,7 +309,7 @@ public class BranchesAction extends MyBaseAction implements IMyBaseAction{
 		}
 		
 		ExcelExport.OutExcel(obj, objtmp, filePath);
-		getResponse().sendRedirect("http://127.0.0.1:8080/IT_BDM/files/export/branches.xls");
+		getResponse().sendRedirect(Constant.WEB_URL+"files/export/branches.xls");
 		return result;
 	}
 }

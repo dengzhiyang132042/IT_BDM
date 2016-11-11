@@ -54,14 +54,6 @@ public class TestCalendar {
 		Date date=new Date(2016-1900, 9-1, 20,23,59, 60);
 		System.out.println(date.toLocaleString());
 		
-		Calendar cal2 = Calendar.getInstance();
-        cal2.clear();
-        cal2.set(Calendar.YEAR, 2016);
-        cal2.set(Calendar.WEEK_OF_YEAR,52);
-        cal2.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY);
-        System.out.println(cal2.getTime());
-        cal2.set(Calendar.DAY_OF_WEEK, Calendar.SATURDAY);
-        System.out.println(cal2.getTime());
 	}
 	
 	
