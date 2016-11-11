@@ -3,6 +3,7 @@ package com.zs.action.xtz.count;
 import java.io.UnsupportedEncodingException;
 import java.sql.Timestamp;
 import java.text.DateFormat;
+import java.text.Format;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -20,13 +21,13 @@ import com.zs.entity.XtBranches;
 import com.zs.entity.custom.XtBranchesCount;
 
 import com.zs.service.IService;
+import com.zs.tools.ExcelExport;
 import com.zs.tools.Page;
 
 public class BranchesAction extends MyBaseAction implements IMyBaseAction{
 
 	IService ser;
 	Page page;
-	
 	List<XtBranchesCount> counts;
 	
 	String filtrate;
@@ -116,32 +117,65 @@ public class BranchesAction extends MyBaseAction implements IMyBaseAction{
 	private void initCounts(List<XtBranchesCount> counts,String dt) throws ParseException {
 		//获取两个头尾的时间
 		XtBranches d1 = null,d2=null;
-//		if(dates!=null&&datee!=null){
-//			if(dt.equals("D")){
-//				SimpleDateFormat dFormart = new SimpleDateFormat("yyyy-MM-dd");
-//				
-//			}
-//			if(dt.equals("W")){
-//				
-//			}
-//			if(dt.equals("M")){
-//								
-//			}
-//			if(dt.equals("Y")){
-//				
-//			}
-//		}else{
-			String str="from XtBranches order by BMaintainDate desc";
-			List list=ser.query(str, null, str, page, ser);
-			if (list.size()>0) {
-				d1=(XtBranches) list.get(0);//尾巴
+		String str="from XtBranches";
+		String str1="from XtBranches";
+		if(dates!=null&&datee!=null&&!dates.equals("")&&!datee.equals("")){
+			if(dt.equals("D")){
+//				System.out.println(dates);
+//				System.out.println(datee);
+				str=str+" where BMaintainDate <='"+datee+"'";
+				str1=str1+" where BMaintainDate >='"+dates+"'";
 			}
-			str="from XtBranches order by BMaintainDate asc";
-			list=ser.query(str, null, str, page, ser);
-			if (list.size()>0) {
-				d2=(XtBranches) list.get(0);//头
+			if(dt.equals("W")){
+				System.out.println(dates);
+				System.out.println(datee);
+				
+				
+				Calendar cal1 = Calendar.getInstance();
+		        cal1.clear();
+		        cal1.set(Calendar.YEAR, Integer.parseInt(dates.substring(0,4)));
+		        cal1.set(Calendar.WEEK_OF_YEAR,Integer.parseInt(dates.substring(6)));
+		        cal1.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY);
+		        System.out.println(cal1.getTime());
+		        
+		        Calendar cal2 = Calendar.getInstance();
+		        cal2.clear();
+		        cal2.set(Calendar.YEAR, Integer.parseInt(datee.substring(0,4)));
+		        cal2.set(Calendar.WEEK_OF_YEAR,Integer.parseInt(datee.substring(6)));
+		        cal2.set(Calendar.DAY_OF_WEEK, Calendar.SATURDAY);
+		        System.out.println(cal2.getTime());
+		        
+				str=str+" where BMaintainDate <='"+datee+"'";
+				str1=str1+" where BMaintainDate >='"+dates+"'";
 			}
-//		}
+			if(dt.equals("M")){
+				System.out.println(dates);
+				System.out.println(datee);	
+				str=str+" where BMaintainDate <='"+datee+"'";
+				str1=str1+" where BMaintainDate >='"+dates+"'";
+			}
+			if(dt.equals("Y")){
+				System.out.println(dates);
+				System.out.println(datee);
+				str=str+" where BMaintainDate <='"+datee+"'";
+				str1=str1+" where BMaintainDate >='"+dates+"'";
+			}
+		}else{
+		
+			
+		}
+		str=str+" order by BMaintainDate desc";
+		List list=ser.query(str, null, str, page, ser);
+		if (list.size()>0) {
+			d1=(XtBranches) list.get(0);//尾巴
+		}
+		str1=str1+" order by BMaintainDate asc";
+		list=ser.query(str1, null, str1, page, ser);
+		if (list.size()>0) {
+			d2=(XtBranches) list.get(0);//头
+		}
+		//用完清空
+		str=null;
 		if (d1!=null && d2!=null) {
 			if(dt.equals("D")){
 				//获取相差天数
@@ -205,9 +239,6 @@ public class BranchesAction extends MyBaseAction implements IMyBaseAction{
 	public String queryOfFenye() throws UnsupportedEncodingException {
 		String id=getRequest().getParameter("id");
 		String cz=getRequest().getParameter("cz");//用于判断是否清理page，yes清理，no不清理
-//		System.out.println(dates);
-//		System.out.println(datee);
-//		System.out.println(filtrate);
 		if (page==null) {
 			page=new Page(1, 0, 5);
 		}
@@ -264,43 +295,20 @@ public class BranchesAction extends MyBaseAction implements IMyBaseAction{
 	}
 	
 	public String exportExc() throws Exception{
-//		DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-//		Date dateStart = format.parse(dates);
-//		Date dateEnd = format.parse(datee);
-//		String filePath=getRequest().getRealPath("/")+"\\files\\branches.xls";
-////		String path="C:/Users/it025/Desktop/cssss.xls";
-//		//获取相差天数
-//		List list=ser.find("from XtBranches where BMaintainDate>='"+dates+"' and BMaintainDate<='"+datee+"'" ,null);
-////		System.out.println(list.size());
-//		//首行
-//		List<Object[]> list3 = new ArrayList<Object[]>();
-//		Object[] obj ={"序号","时间","维护数量"};
-//		for (int i = 0,j=1; i <list.size(); i++) {
-//			Object tmpobj[] = new Object[3]; 
-//			Date dStart=new Date(dateStart.getYear(), dateStart.getMonth(), dateStart.getDate()+i,0,0,0);
-//			Date eStart=new Date(dateStart.getYear(), dateStart.getMonth(), dateStart.getDate()+i,23, 59, 59);
-////			System.out.println(dStart.toString());
-////			System.out.println(eStart.toString());
-//			List list1 = ser.find("from XtBranches where BMaintainDate>=? and BMaintainDate<=? ", new Object[]{new Timestamp(dStart.getTime()),new Timestamp(dStart.getTime())});
-////			System.out.println(list1.size());
-//			
-//			if(list1.size()!=0){
-//				tmpobj[0]=j;
-//				tmpobj[1]=format.format(dStart);
-//				tmpobj[2]=list1.size();
-//				list3.add(tmpobj);
-//				j++;
-//			}	
-//		}
-//		//定义数组装数据
-//		Object[][] obj2 =new Object[list3.size()][3];
-//		for (int i = 0; i < obj2.length; i++) {
-//			
-//			for (int j = 0; j < obj2[i].length; j++) {
-//				obj2[i][j]=list3.get(i)[j];
-//			}
-//		}
-//		ser.outExcel(obj, obj2, filePath);
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		String filePath=getRequest().getRealPath("/")+"/files/export/branches.xls";
+		Object[] obj ={"序号","开始时间","结束时间","日数","维护数量"};
+		Object objtmp[][]=new Object[counts.size()][5];
+		for (int i = 0; i < objtmp.length; i++) {
+			objtmp[i][0]=i+1;
+			objtmp[i][1]=sdf.format(counts.get(i).getsTime());
+			objtmp[i][2]=sdf.format(counts.get(i).geteTime());
+			objtmp[i][3]=counts.get(i).getNumber();
+			objtmp[i][4]=counts.get(i).getCount();
+		}
+		
+		ExcelExport.OutExcel(obj, objtmp, filePath);
+		getResponse().sendRedirect("http://127.0.0.1:8080/IT_BDM/files/export/branches.xls");
 		return result;
 	}
 }

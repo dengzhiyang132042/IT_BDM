@@ -25,6 +25,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<link rel="stylesheet" type="text/css" href="<%=path %>/FRAMEWORK/jquery-easyui/demo/demo.css">
 	<script type="text/javascript" src="<%=path %>/FRAMEWORK/jquery-easyui/jquery.min.js"></script>
 	<script type="text/javascript" src="<%=path %>/FRAMEWORK/jquery-easyui/jquery.easyui.min.js"></script>
+	<script type="text/javascript" src="<%=path %>/FRAMEWORK/My97DatePicker/WdatePicker.js"></script> 
 	
 	<link rel="stylesheet" type="text/css" href="<%=path %>/FRAMEWORK/css/mycss.css">
 	<script type="text/javascript">
@@ -80,6 +81,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			$('#datee').attr({type:"number" ,min:"1900" ,max:"2199"});
 		}
 	}
+	function xiazai(){
+		alert(1);
+		var path ="<%=path %>/branchesCount!exportExc";
+		window.location.href=path;
+	}
 	</script>
 	
 	<style>
@@ -116,12 +122,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    		选择日期:<input id="dates" name="dates" type="date" value="${dates }"/>
 	    		~
 	    		<input id="datee" name="datee" type="date" value="${datee }"/>
+	    		<input type="text" class="Wdate" id="byWeek" onFocus="WdatePicker({isShowWeek:true,onpicked:function() {$dp.$('d122_1').value=$dp.cal.getP('W','W');$dp.$('d122_2').value=$dp.cal.getP('W','WW');}})"/>
 	    		<br/>
 	    		<input type="submit" value="查询"/>
 	    	</form>	
-	    	<!-- 
-	    	<a href="<%=path %>/files/branches.xls" style="display:block;width:40px;height:20px;background:#E8E8E8;text-align:center;border:1px solid #505050;">导出</a>
-    	 -->
+	    	<input type= "button" onclick="xiazai()" value="导出" />
     	</div>
     </div>
     <div style="margin-bottom: 5px;">
@@ -170,6 +175,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</div>
 	
 	
-	
+	<jsp:include page="../hintModal.jsp"/>
   </body>
 </html>
