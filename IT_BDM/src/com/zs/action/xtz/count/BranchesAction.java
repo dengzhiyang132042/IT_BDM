@@ -120,6 +120,7 @@ public class BranchesAction extends MyBaseAction implements IMyBaseAction{
 		XtBranches d1 = null,d2=null;
 		String str="from XtBranches";
 		String str1="from XtBranches";
+        SimpleDateFormat sdf= new SimpleDateFormat("yyyy-MM-dd");
 		if(dates!=null&&datee!=null&&!dates.equals("")&&!datee.equals("")){
 			if(dt.equals("D")){
 //				System.out.println(dates);
@@ -128,42 +129,50 @@ public class BranchesAction extends MyBaseAction implements IMyBaseAction{
 				str1=str1+" where BMaintainDate >='"+dates+"'";
 			}
 			if(dt.equals("W")){
-				System.out.println(dates);
-				System.out.println(datee);
-				
-				
+//				System.out.println(dates);
+//				System.out.println(datee);
+				//头时间
 				Calendar cal1 = Calendar.getInstance();
 		        cal1.clear();
 		        cal1.set(Calendar.YEAR, Integer.parseInt(dates.substring(0,4)));
-		        cal1.set(Calendar.WEEK_OF_YEAR,Integer.parseInt(dates.substring(6)));
+		        //此处为了解决html5中使用日期插件和Calendar的不同
+		        if(Integer.parseInt(dates.substring(0,4))%5==1){
+		        	cal1.set(Calendar.WEEK_OF_YEAR,Integer.parseInt(dates.substring(6))+1);
+		        }else{
+		        	cal1.set(Calendar.WEEK_OF_YEAR,Integer.parseInt(dates.substring(6)));
+		        }
 		        cal1.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY);
-		        System.out.println(cal1.getTime());
-		        
+		        //获取尾时间
 		        Calendar cal2 = Calendar.getInstance();
 		        cal2.clear();
 		        cal2.set(Calendar.YEAR, Integer.parseInt(datee.substring(0,4)));
-		        cal2.set(Calendar.WEEK_OF_YEAR,Integer.parseInt(datee.substring(6)));
+		        if(Integer.parseInt(dates.substring(0,4))%5==1){
+		        	cal2.set(Calendar.WEEK_OF_YEAR,Integer.parseInt(datee.substring(6))+1);
+		        }else{
+		        	cal2.set(Calendar.WEEK_OF_YEAR,Integer.parseInt(datee.substring(6)));
+		        }
 		        cal2.set(Calendar.DAY_OF_WEEK, Calendar.SATURDAY);
-		        System.out.println(cal2.getTime());
+//		        System.out.println(cal2.getTime());
 		        
-				str=str+" where BMaintainDate <='"+datee+"'";
-				str1=str1+" where BMaintainDate >='"+dates+"'";
+				str=str+" where BMaintainDate <='"+sdf.format(cal2.getTime())+"'";
+				str1=str1+" where BMaintainDate >='"+sdf.format(cal1.getTime())+"'";
 			}
 			if(dt.equals("M")){
-				System.out.println(dates);
-				System.out.println(datee);	
-				str=str+" where BMaintainDate <='"+datee+"'";
+//				System.out.println(dates);
+//				System.out.println(datee);	
+				//获取月的最后一天
+				Date edate = new Date(Integer.parseInt(datee.substring(0,4))-1900, Integer.parseInt(datee.substring(5)),0);
+				str=str+" where BMaintainDate <='"+sdf.format(edate)+"'";
 				str1=str1+" where BMaintainDate >='"+dates+"'";
 			}
 			if(dt.equals("Y")){
 				System.out.println(dates);
 				System.out.println(datee);
-				str=str+" where BMaintainDate <='"+datee+"'";
+				//获取月的最后一天
+				Date edate = new Date(Integer.parseInt(datee)-1900, 12,0);
+				str=str+" where BMaintainDate <='"+sdf.format(edate)+"'";
 				str1=str1+" where BMaintainDate >='"+dates+"'";
 			}
-		}else{
-		
-			
 		}
 		str=str+" order by BMaintainDate desc";
 		List list=ser.query(str, null, str, page, ser);
@@ -180,7 +189,6 @@ public class BranchesAction extends MyBaseAction implements IMyBaseAction{
 		if (d1!=null && d2!=null) {
 			if(dt.equals("D")){
 				//获取相差天数
-				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 				Date date1=sdf.parse(d1.getBMaintainDate().toLocaleString());
 				Date date2=sdf.parse(d2.getBMaintainDate().toLocaleString());
 				long days=(date1.getTime()-date2.getTime())/(1000*3600*24);
@@ -302,8 +310,13 @@ public class BranchesAction extends MyBaseAction implements IMyBaseAction{
 		Object objtmp[][]=new Object[counts.size()][5];
 		for (int i = 0; i < objtmp.length; i++) {
 			objtmp[i][0]=i+1;
-			objtmp[i][1]=sdf.format(counts.get(i).getsTime());
-			objtmp[i][2]=sdf.format(counts.get(i).geteTime());
+			if(filtrate.equals("D")){
+				objtmp[i][1]=counts.get(i).getsTime();
+				objtmp[i][2]=counts.get(i).geteTime();
+			}else{
+				objtmp[i][1]=sdf.format(counts.get(i).getsTime());
+				objtmp[i][2]=sdf.format(counts.get(i).geteTime());
+			}
 			objtmp[i][3]=counts.get(i).getNumber();
 			objtmp[i][4]=counts.get(i).getCount();
 		}

@@ -51,8 +51,22 @@ public class TestCalendar {
 		*/
 		
 		//测试时间极限问题
-		Date date=new Date(2016-1900, 9-1, 20,23,59, 60);
-		System.out.println(date.toLocaleString());
+//		Date date=new Date(2016-1900, 9-1, 20,23,59, 60);
+//		System.out.println(date.toLocaleString());
+//	//		System.out.println(ca.getTime());
+//		Calendar cal2 = Calendar.getInstance();
+//        cal2.clear();
+//        cal2.set(Calendar.YEAR, 2021);
+//        cal2.set(Calendar.WEEK_OF_YEAR,1);
+//        cal2.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY);
+//        System.out.println(cal2.getTime());
+//        cal2.set(Calendar.DAY_OF_WEEK, Calendar.SATURDAY);
+//        System.out.println(cal2.getTime());
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd"); 
+		Calendar ca = Calendar.getInstance();    
+        ca.set(Calendar.DAY_OF_MONTH, ca.getActualMaximum(Calendar.DAY_OF_MONTH));  
+        String last = format.format(ca.getTime());
+        System.out.println("===============last:"+last);
 		
 	}
 	

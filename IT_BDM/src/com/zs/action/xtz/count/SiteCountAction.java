@@ -3,6 +3,7 @@ package com.zs.action.xtz.count;
 import java.io.UnsupportedEncodingException;
 import java.sql.Timestamp;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -14,10 +15,13 @@ import net.sf.json.JSONArray;
 
 import com.zs.action.IMyBaseAction;
 import com.zs.action.MyBaseAction;
+import com.zs.entity.XtBranches;
 import com.zs.entity.XtSite;
 import com.zs.entity.XtSiteCount;
 
 import com.zs.service.IService;
+import com.zs.tools.Constant;
+import com.zs.tools.ExcelExport;
 import com.zs.tools.Page;
 
 public class SiteCountAction extends MyBaseAction implements IMyBaseAction{
@@ -37,11 +41,26 @@ public class SiteCountAction extends MyBaseAction implements IMyBaseAction{
 	String result_succ="succ";
 	String result_fail="fail";
 	
+	String dates;
+	String datee;
+	
 	Logger logger=Logger.getLogger(SiteCountAction.class);
 //----------------------------------------------------	
 	
 	public IService getSer() {
 		return ser;
+	}
+	public String getDates() {
+		return dates;
+	}
+	public void setDates(String dates) {
+		this.dates = dates;
+	}
+	public String getDatee() {
+		return datee;
+	}
+	public void setDatee(String datee) {
+		this.datee = datee;
 	}
 	public String getFiltrate() {
 		return filtrate;
@@ -91,7 +110,7 @@ public class SiteCountAction extends MyBaseAction implements IMyBaseAction{
 				List list2=ser.find("from XtSite where SStartDate>=? and SStartDate<=? and SMaintainType =?", new Object[]{new Timestamp(dateStart.getTime()),new Timestamp(dateEnd.getTime()),list5.get(i).toString()});
 				if (list2.size()!=0) {//如果为0就不要了
 					XtSiteCount count = new XtSiteCount();
-					//这个组装数据有问题类型问题没有解决
+					//i代表多少种类型
 					if(i<1){
 						count.setsTime(new Timestamp(dateStart.getTime()));
 						count.seteTime(new Timestamp(dateEnd.getTime()));
@@ -120,13 +139,63 @@ public class SiteCountAction extends MyBaseAction implements IMyBaseAction{
 	private void initCounts(List<XtSiteCount> counts,String dt) throws ParseException {
 		//获取两个头尾的时间
 		XtSite d1 = null,d2=null;
-		String str="from XtSite order by SStartDate desc";
+		String str="from XtSite";
+		String str1="from XtSite";
+		SimpleDateFormat sdf= new SimpleDateFormat("yyyy-MM-dd");
+		if(dates!=null&&datee!=null&&!dates.equals("")&&!datee.equals("")){
+			if(dt.equals("W")){
+//				System.out.println(dates);
+//				System.out.println(datee);
+				//头时间
+				Calendar cal1 = Calendar.getInstance();
+		        cal1.clear();
+		        cal1.set(Calendar.YEAR, Integer.parseInt(dates.substring(0,4)));
+		        //此处为了解决html5中使用日期插件和Calendar的不同
+		        if(Integer.parseInt(dates.substring(0,4))%5==1){
+		        	cal1.set(Calendar.WEEK_OF_YEAR,Integer.parseInt(dates.substring(6))+1);
+		        }else{
+		        	cal1.set(Calendar.WEEK_OF_YEAR,Integer.parseInt(dates.substring(6)));
+		        }
+		        cal1.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY);
+		        //获取尾时间
+		        Calendar cal2 = Calendar.getInstance();
+		        cal2.clear();
+		        cal2.set(Calendar.YEAR, Integer.parseInt(datee.substring(0,4)));
+		        if(Integer.parseInt(dates.substring(0,4))%5==1){
+		        	cal2.set(Calendar.WEEK_OF_YEAR,Integer.parseInt(datee.substring(6))+1);
+		        }else{
+		        	cal2.set(Calendar.WEEK_OF_YEAR,Integer.parseInt(datee.substring(6)));
+		        }
+		        cal2.set(Calendar.DAY_OF_WEEK, Calendar.SATURDAY);
+//		        System.out.println(cal2.getTime());
+		        
+				str=str+" where SStartDate <='"+sdf.format(cal2.getTime())+"'";
+				str1=str1+" where SStartDate >='"+sdf.format(cal1.getTime())+"'";
+			}
+			if(dt.equals("M")){
+//				System.out.println(dates);
+//				System.out.println(datee);	
+				//获取月的最后一天
+				Date edate = new Date(Integer.parseInt(datee.substring(0,4))-1900, Integer.parseInt(datee.substring(5)),0);
+				str=str+" where SStartDate <='"+sdf.format(edate)+"'";
+				str1=str1+" where SStartDate >='"+dates+"'";
+			}
+			if(dt.equals("Y")){
+				System.out.println(dates);
+				System.out.println(datee);
+				//获取月的最后一天
+				Date edate = new Date(Integer.parseInt(datee)-1900, 12,0);
+				str=str+" where SStartDate <='"+sdf.format(edate)+"'";
+				str1=str1+" where SStartDate >='"+dates+"'";
+			}
+		}
+		str=str+" order by SStartDate desc";
 		List list=ser.query(str, null, str, page, ser);
 		if (list.size()>0) {
 			d1=(XtSite) list.get(0);//尾巴
 		}
-		str="from XtSite order by SStartDate asc";
-		list=ser.query(str, null, str, page, ser);
+		str1=str1+" order by SStartDate asc";
+		list=ser.query(str1, null, str1, page, ser);
 		if (list.size()>0) {
 			d2=(XtSite) list.get(0);//头
 		}
@@ -234,6 +303,29 @@ public class SiteCountAction extends MyBaseAction implements IMyBaseAction{
 		// TODO Auto-generated method stub
 		return null;
 	}
-	
-
+	public String exportExc() throws Exception{
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		String filePath=getRequest().getRealPath("/")+"/files/export/site.xls";
+		Object[] obj ={"序号","开始时间","结束时间","周数","维护类型","维护数量"};
+		Object objtmp[][]=new Object[counts.size()][6];
+		for (int i = 0; i < objtmp.length; i++) {
+			if(counts.get(i).getRows()!=0){
+				objtmp[i][0]=counts.get(i).getOrderNum();
+				objtmp[i][1]=sdf.format(new Date(counts.get(i).getsTime().getTime()));
+				objtmp[i][2]=sdf.format(new Date(counts.get(i).geteTime().getTime()));
+				objtmp[i][3]=counts.get(i).getNum();
+			}else{
+				objtmp[i][0]="";
+				objtmp[i][1]="";
+				objtmp[i][2]="";
+				objtmp[i][3]="";
+			}
+			objtmp[i][4]=counts.get(i).getType();
+			objtmp[i][5]=counts.get(i).getCount();
+		}
+		
+		ExcelExport.OutExcel(obj, objtmp, filePath);
+		getResponse().sendRedirect(Constant.WEB_URL+"files/export/site.xls");
+		return result;
+	}
 }
