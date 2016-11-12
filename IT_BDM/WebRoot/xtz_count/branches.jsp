@@ -29,6 +29,22 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<link rel="stylesheet" type="text/css" href="<%=path %>/FRAMEWORK/css/mycss.css">
 	<script type="text/javascript">
 	$(function(){
+		if('${filtrate}'=='D'){
+			$('#dates').attr('type','date');
+			$('#datee').attr('type','date');
+		}
+		if('${filtrate}'=='W'){
+			$('#dates').attr('type','week');
+			$('#datee').attr('type','week');
+		}
+		if('${filtrate}'=='M'){
+			$('#dates').attr('type','month');
+			$('#datee').attr('type','month');
+		}
+		if('${filtrate}'=='Y'){
+			$('#dates').attr({type:"number" ,min:"1900" ,max:"2199"});
+			$('#datee').attr({type:"number" ,min:"1900" ,max:"2199"});
+		}
 		$("#sel_dt option[value='${filtrate}']").attr("selected",true);
 		$("#sele option[value='"+${page.size}+"']").attr("selected",true);
 		$("#eidtASubjectWindow1").show();
@@ -80,6 +96,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			$('#datee').attr({type:"number" ,min:"1900" ,max:"2199"});
 		}
 	}
+	function xiazai(){
+		var path ="<%=path %>/branchesCount!exportExc";
+		window.location.href=path;
+	}
 	</script>
 	
 	<style>
@@ -97,7 +117,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   </head>
   
   <body>
- 	<div style="text-align: center;margin-right: 17px;color: white;background-color:#17B4FF;padding: 5px;font-size: 14px;font-weight:bold;">站点资料统计</div>
+ 	<div style="text-align: center;margin-right: 17px;color: white;background-color:#17B4FF;padding: 5px;font-size: 14px;font-weight:bold;">二级站点资料统计</div>
  	
  	
 	<div style="background-color:white;margin-bottom: 5px;padding: 5px;border: 1px solid #224466;margin-right: 17px;margin-top: 10px;">
@@ -113,15 +133,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    			<option value="Y">年</option>
 	    		</select>
 	    		&nbsp;&nbsp;&nbsp;&nbsp;
-	    		选择日期:<input id="dates" name="dates" type="date" value="${dates }"/>
+	    		选择日期:<input id="dates" name="dates"  value="${dates }"/>
 	    		~
-	    		<input id="datee" name="datee" type="date" value="${datee }"/>
+	    		<input id="datee" name="datee"  value="${datee }"/>
 	    		<br/>
 	    		<input type="submit" value="查询"/>
 	    	</form>	
-	    	<!-- 
-	    	<a href="<%=path %>/files/branches.xls" style="display:block;width:40px;height:20px;background:#E8E8E8;text-align:center;border:1px solid #505050;">导出</a>
-    	 -->
+	    	<input type= "button" onclick="xiazai()" value="导出" />
     	</div>
     </div>
     <div style="margin-bottom: 5px;">
