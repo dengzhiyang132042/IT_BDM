@@ -1,7 +1,10 @@
 package com.zs.action.xtz;
 
+import java.io.File;
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.sql.Timestamp;
+import java.text.ParseException;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -10,29 +13,55 @@ import com.zs.action.MyBaseAction;
 import com.zs.entity.XtBranches;
 import com.zs.entity.XtSite;
 import com.zs.service.IService;
+import com.zs.service.iBranchesService;
 import com.zs.tools.NameOfDate;
 import com.zs.tools.Page;
 
 public class BranchesAction extends MyBaseAction{
-	IService ser;
-	Page page;
 	
-	XtBranches b;
-	List<XtBranches> bs;
+	private IService ser;
+	private iBranchesService branchesSer;
+	private Page page;
+	private XtBranches b;
+	private List<XtBranches> bs;
+	private String result_b="branches";
+	private String result_succ="succ";
+	private String result_fail="fail";
+	private String id;
+	private String num1;
+	private String num2;
+	private String name1;
+	private String name2;
+	private String dates;
+	private String datee;
+	private File fileExcel;
+	private String fileExcelContentType;
+	private String fileExcelFileName; 
 	
-	String result_b="branches";
-	String result_succ="succ";
-	String result_fail="fail";
-	
-	String id;
-	String num1;
-	String num2;
-	String name1;
-	String name2;
-	String dates;
-	String datee;
-	
-	
+	public File getFileExcel() {
+		return fileExcel;
+	}
+	public void setFileExcel(File fileExcel) {
+		this.fileExcel = fileExcel;
+	}
+	public String getFileExcelContentType() {
+		return fileExcelContentType;
+	}
+	public void setFileExcelContentType(String fileExcelContentType) {
+		this.fileExcelContentType = fileExcelContentType;
+	}
+	public String getFileExcelFileName() {
+		return fileExcelFileName;
+	}
+	public void setFileExcelFileName(String fileExcelFileName) {
+		this.fileExcelFileName = fileExcelFileName;
+	}
+	public iBranchesService getBranchesSer() {
+		return branchesSer;
+	}
+	public void setBranchesSer(iBranchesService branchesSer) {
+		this.branchesSer = branchesSer;
+	}
 	public String getId() {
 		return id;
 	}
@@ -221,5 +250,11 @@ public class BranchesAction extends MyBaseAction{
 		b=null;
 		return gotoQuery();
 	}	
+	
+	
+	public String importExcel() throws InterruptedException, IOException, ParseException {
+		branchesSer.importExcelData(fileExcelFileName, fileExcel);
+		return gotoQuery();
+	}
 	
 }
