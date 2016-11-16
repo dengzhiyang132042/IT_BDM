@@ -117,7 +117,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<td width="">${pl.LNote }</td>
 		<td width="5%" align="center">
 			<a onclick="update('${pl.LId }','${pl.LDate }','${pl.LNum }','${pl.LSn }','${pl.LTel }','${pl.LSeriesNumber}','${pl.LPhone }','${pl.LNote }' )" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-edit'" title="修改"></a>
-			<a href="<%=path %>/pdaloss!delete?id=${bq.RId}" onclick="return confirm('确定删除吗?')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-delete'" title="删除"></a>
+			<a href="<%=path %>/pdaloss!delete?id=${pl.LId}" onclick="return confirm('确定删除吗?')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-delete'" title="删除"></a>
 		</td>
     </tr>
     </c:forEach>

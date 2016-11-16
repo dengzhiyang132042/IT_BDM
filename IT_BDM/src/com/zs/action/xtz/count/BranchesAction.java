@@ -15,6 +15,7 @@ import org.apache.log4j.Logger;
 
 import net.sf.json.JSONArray;
 
+import com.sun.java.swing.plaf.windows.resources.windows;
 import com.zs.action.IMyBaseAction;
 import com.zs.action.MyBaseAction;
 import com.zs.entity.XtBranches;
@@ -123,8 +124,8 @@ public class BranchesAction extends MyBaseAction implements IMyBaseAction{
         SimpleDateFormat sdf= new SimpleDateFormat("yyyy-MM-dd");
 		if(dates!=null&&datee!=null&&!dates.equals("")&&!datee.equals("")){
 			if(dt.equals("D")){
-//				System.out.println(dates);
-//				System.out.println(datee);
+				System.out.println(dates);
+				System.out.println(datee);
 				str=str+" where BMaintainDate <='"+datee+"'";
 				str1=str1+" where BMaintainDate >='"+dates+"'";
 			}
@@ -305,8 +306,16 @@ public class BranchesAction extends MyBaseAction implements IMyBaseAction{
 	
 	public String exportExc() throws Exception{
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-		String filePath=getRequest().getRealPath("/")+"/files/export/branches.xls";
-		Object[] obj ={"序号","开始时间","结束时间","日数","维护数量"};
+		String filePath=getRequest().getRealPath("/")+"/files/export/xtz/二级站点资料统计.xls";
+		String dayType = "日数";
+		if(filtrate.equals("W")){
+			dayType = "周数";
+		}else if(filtrate.equals("M")){
+			dayType = "月数";
+		}else if(filtrate.equals("Y")){
+			dayType = "年数";
+		}
+		Object[] obj ={"序号","开始时间","结束时间",dayType,"维护数量"};
 		Object objtmp[][]=new Object[counts.size()][5];
 		for (int i = 0; i < objtmp.length; i++) {
 			objtmp[i][0]=i+1;
@@ -322,7 +331,8 @@ public class BranchesAction extends MyBaseAction implements IMyBaseAction{
 		}
 		
 		ExcelExport.OutExcel(obj, objtmp, filePath);
-		getResponse().sendRedirect(Constant.WEB_URL+"files/export/branches.xls");
+		getRequest().setCharacterEncoding("utf-8");
+		getResponse().sendRedirect(Constant.WEB_URL+"files/export/xtz/二级站点资料统计.xls");
 		return result;
 	}
 }

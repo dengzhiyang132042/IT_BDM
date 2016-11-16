@@ -29,6 +29,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<link rel="stylesheet" type="text/css" href="<%=path %>/FRAMEWORK/css/mycss.css">
 	<script type="text/javascript">
 	$(function(){
+		if('${filtrate}'=='W'){
+			$('#dates').attr('type','week');
+			$('#datee').attr('type','week');
+		}
+		if('${filtrate}'=='M'){
+			$('#dates').attr('type','month');
+			$('#datee').attr('type','month');
+		}
+		if('${filtrate}'=='Y'){
+			$('#dates').attr({type:"number" ,min:"1900" ,max:"2199"});
+			$('#datee').attr({type:"number" ,min:"1900" ,max:"2199"});
+		}
 		$("#sel_dt option[value='${filtrate}']").attr("selected",true);
 		$("#sele option[value='"+${page.size}+"']").attr("selected",true);
 		$("#eidtASubjectWindow1").show();
@@ -62,6 +74,24 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		//console.log(path);
 		window.location.href=path;
 	}
+	function changeDate(){
+		if($('#sel_dt').val()=='W'){
+			$('#dates').attr('type','week');
+			$('#datee').attr('type','week');
+		}
+		if($('#sel_dt').val()=='M'){
+			$('#dates').attr('type','month');
+			$('#datee').attr('type','month');
+		}
+		if($('#sel_dt').val()=='Y'){
+			$('#dates').attr({type:"number" ,min:"1900" ,max:"2199"});
+			$('#datee').attr({type:"number" ,min:"1900" ,max:"2199"});
+		}
+	}
+	function xiazai(){
+		var path ="<%=path %>/zmNumberCount!exportExc";
+		window.location.href=path;
+	}
 	</script>
 	
 	<style>
@@ -87,14 +117,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     	<br/>
     	<form action="<%=path %>/zmNumberCount!queryOfFenye" method="post">
     		当前查询条件:
-    		<select id="sel_dt" name="filtrate">
+    		<select id="sel_dt" name="filtrate" onchange="changeDate()">
     			<option value="W">周</option>
     			<option value="M">月</option>
     			<option value="Y">年</option>
     		</select>
+    		&nbsp;&nbsp;&nbsp;&nbsp;
+    		选择日期:<input id="dates" name="dates"  value="${dates }"/>
+    		~
+    		<input id="datee" name="datee"  value="${datee }"/>
     		<br/>
     		<input type="submit" value="查询"/>
     	</form>	
+    		<input type= "button" onclick="xiazai()" value="导出" />
     </div>
     <div style="margin-bottom: 5px;">
 	    
