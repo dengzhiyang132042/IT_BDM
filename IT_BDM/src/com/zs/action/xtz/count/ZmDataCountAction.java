@@ -15,14 +15,12 @@ import org.apache.log4j.Logger;
 
 import com.zs.action.IMyBaseAction;
 import com.zs.action.MyBaseAction;
-import com.zs.entity.DaCount;
-import com.zs.entity.DaDemand;
 import com.zs.entity.XtZmData;
-import com.zs.entity.XtZmNumber;
-import com.zs.entity.XtZmNumberCount;
+import com.zs.entity.custom.XtBranchesCount;
 import com.zs.entity.custom.XtZmDataCount;
 import com.zs.service.IService;
-import com.zs.service.iXtZmNumberService;
+import com.zs.tools.Constant;
+import com.zs.tools.ExcelExport;
 import com.zs.tools.Page;
 
 public class ZmDataCountAction extends MyBaseAction implements IMyBaseAction{
@@ -40,12 +38,27 @@ public class ZmDataCountAction extends MyBaseAction implements IMyBaseAction{
 	String result_succ="succ";
 	String result_fail="fail";
 	
+	String dates;
+	String datee;
 
 	Logger logger=Logger.getLogger(ZmDataCountAction.class);
 	
 	//--------------------------------------------------------
+	
 	public String getFiltrate() {
 		return filtrate;
+	}
+	public String getDates() {
+		return dates;
+	}
+	public void setDates(String dates) {
+		this.dates = dates;
+	}
+	public String getDatee() {
+		return datee;
+	}
+	public void setDatee(String datee) {
+		this.datee = datee;
 	}
 	public IService getSer() {
 		return ser;
@@ -87,17 +100,15 @@ public class ZmDataCountAction extends MyBaseAction implements IMyBaseAction{
 	 * 组装count
 	 */
 	private void initCount(Date dateStart,Date dateEnd,List counts,int number) {
-		//组装一个XtZmDataCount
-		XtZmDataCount count=new XtZmDataCount();
-		count.setsTime(new Timestamp(dateStart.getTime()));
-		count.seteTime(new Timestamp(dateEnd.getTime()));
-		//获取在该时间范围内故障报修总量
-		String hql="from XtZmData where DDate>='"+count.getsTime()+"' and DDate<='"+count.geteTime()+"' and DDate!=null";
-		List<XtZmDataCount> list2=ser.find(hql, null);
+		//获取在该时间范围内二级站点资料的所有数据
+		List list2=ser.find("from XtZmData where DDate>=? and DDate<=? ", new Object[]{new Timestamp(dateStart.getTime()),new Timestamp(dateEnd.getTime())});
 		if (list2.size()!=0) {//如果为0就不要了
-			count.setCount(list2.size());
-			//这里填装周数、月数、年数这种信息
+			XtZmDataCount count = new XtZmDataCount();
+			//这个组装数据有问题类型问题没有解决
+			count.setsTime(new Timestamp(dateStart.getTime()));
+			count.seteTime(new Timestamp(dateEnd.getTime()));
 			count.setNumber(number);
+			count.setCount(list2.size());
 			counts.add(count);
 		}
 	}
@@ -111,16 +122,75 @@ public class ZmDataCountAction extends MyBaseAction implements IMyBaseAction{
 	private void initCounts(List<XtZmDataCount> counts,String dt) throws ParseException {
 		//获取两个头尾的时间
 		XtZmData d1 = null,d2=null;
-		String str="from XtZmData where DDate!=null order by DDate desc";
-		List list=ser.query(str, null, str, new Page(1, 0, 1), ser);
+		String str="from XtZmData";
+		String str1="from XtZmData";
+        SimpleDateFormat sdf= new SimpleDateFormat("yyyy-MM-dd");
+		if(dates!=null&&datee!=null&&!dates.equals("")&&!datee.equals("")){
+			//备用
+//			if(dt.equals("D")){
+//				System.out.println(dates);
+//				System.out.println(datee);
+//				str=str+" where zmApplyDate <='"+datee+"'";
+//				str1=str1+" where zmApplyDate >='"+dates+"'";
+//			}
+			if(dt.equals("W")){
+//				System.out.println(dates);
+//				System.out.println(datee);
+				//头时间
+				Calendar cal1 = Calendar.getInstance();
+		        cal1.clear();
+		        cal1.set(Calendar.YEAR, Integer.parseInt(dates.substring(0,4)));
+		        //此处为了解决html5中使用日期插件和Calendar的不同
+		        if(Integer.parseInt(dates.substring(0,4))%5==1){
+		        	cal1.set(Calendar.WEEK_OF_YEAR,Integer.parseInt(dates.substring(6))+1);
+		        }else{
+		        	cal1.set(Calendar.WEEK_OF_YEAR,Integer.parseInt(dates.substring(6)));
+		        }
+		        cal1.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY);
+		        //获取尾时间
+		        Calendar cal2 = Calendar.getInstance();
+		        cal2.clear();
+		        cal2.set(Calendar.YEAR, Integer.parseInt(datee.substring(0,4)));
+		        if(Integer.parseInt(dates.substring(0,4))%5==1){
+		        	cal2.set(Calendar.WEEK_OF_YEAR,Integer.parseInt(datee.substring(6))+1);
+		        }else{
+		        	cal2.set(Calendar.WEEK_OF_YEAR,Integer.parseInt(datee.substring(6)));
+		        }
+		        cal2.set(Calendar.DAY_OF_WEEK, Calendar.SATURDAY);
+//		        System.out.println(cal2.getTime());
+		        
+				str=str+" where DDate <='"+sdf.format(cal2.getTime())+"'";
+				str1=str1+" where DDate >='"+sdf.format(cal1.getTime())+"'";
+			}
+			if(dt.equals("M")){
+//				System.out.println(dates);
+//				System.out.println(datee);	
+				//获取月的最后一天
+				Date edate = new Date(Integer.parseInt(datee.substring(0,4))-1900, Integer.parseInt(datee.substring(5)),0);
+				str=str+" where DDate <='"+sdf.format(edate)+"'";
+				str1=str1+" where DDate >='"+dates+"'";
+			}
+			if(dt.equals("Y")){
+				System.out.println(dates);
+				System.out.println(datee);
+				//获取月的最后一天
+				Date edate = new Date(Integer.parseInt(datee)-1900, 12,0);
+				str=str+" where DDate <='"+sdf.format(edate)+"'";
+				str1=str1+" where DDate >='"+dates+"'";
+			}
+		}
+		str=str+" order by DDate desc";
+		List list=ser.query(str, null, str, page, ser);
 		if (list.size()>0) {
 			d1=(XtZmData) list.get(0);//尾巴
 		}
-		str="from XtZmData where DDate!=null order by DDate asc";
-		list=ser.query(str, null, str, new Page(1, 0, 1), ser);
+		str1=str1+" order by DDate asc";
+		list=ser.query(str1, null, str1, page, ser);
 		if (list.size()>0) {
 			d2=(XtZmData) list.get(0);//头
 		}
+		//用完清空
+		str=null;
 		if (d1!=null && d2!=null) {
 			if (dt.equals("W")) {
 				//获取相差天数
@@ -217,7 +287,29 @@ public class ZmDataCountAction extends MyBaseAction implements IMyBaseAction{
 		// TODO Auto-generated method stub
 		return null;
 	}
-
+	public String exportExc() throws Exception{
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		String filePath=getRequest().getRealPath("/")+"/files/export/xtz/zmDate.xls";
+		String dayType = "周数";
+		if(filtrate.equals("M")){
+			dayType = "月数";
+		}else if(filtrate.equals("Y")){
+			dayType = "年数";
+		}
+		Object[] obj ={"序号","开始时间","结束时间",dayType,"维护数量"};
+		Object objtmp[][]=new Object[counts.size()][5];
+		for (int i = 0; i < objtmp.length; i++) {
+			objtmp[i][0]=i+1;
+			objtmp[i][1]=sdf.format(counts.get(i).getsTime());
+			objtmp[i][2]=sdf.format(counts.get(i).geteTime());
+			objtmp[i][3]=counts.get(i).getNumber();
+			objtmp[i][4]=counts.get(i).getCount();
+		}
+		
+		ExcelExport.OutExcel(obj, objtmp, filePath);
+		getResponse().sendRedirect(Constant.WEB_URL+"files/export/xtz/zmDate.xls");
+		return result;
+	}
 	
 	
 }
