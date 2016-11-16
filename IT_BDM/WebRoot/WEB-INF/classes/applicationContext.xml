@@ -53,6 +53,7 @@
 	</bean>
 	<bean id="zs_b_xtz" class="com.zs.action.xtz.BranchesAction">
 		<property name="ser" ref="zs_ser"></property>
+		<property name="branchesSer" ref="zs_ser_xtz_branches"></property>
 	</bean>
 	<bean id="zs_zmn_xtz" class="com.zs.action.xtz.ZmNumberAction">
 		<property name="ser" ref="zs_ser"></property>
@@ -185,6 +186,9 @@
 		<property name="dao" ref="zs_dao"></property>
 	</bean>	
 	<bean id="zs_ser_xtz_site" class="com.zs.service.impl.SiteServiceImpl">
+		<property name="dao" ref="zs_dao"></property>
+	</bean>	
+	<bean id="zs_ser_xtz_branches" class="com.zs.service.impl.BranchesServcieImpl">
 		<property name="dao" ref="zs_dao"></property>
 	</bean>	
 	
