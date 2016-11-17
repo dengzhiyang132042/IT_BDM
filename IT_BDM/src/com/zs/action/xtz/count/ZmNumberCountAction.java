@@ -129,8 +129,8 @@ public class ZmNumberCountAction extends MyBaseAction implements IMyBaseAction{
 	private void initCounts(List<XtZmNumberCount> counts,String dt) throws ParseException {
 		//获取两个头尾的时间
 		XtZmNumber d1 = null,d2=null;
-		String str="from XtZmNumber";
-		String str1="from XtZmNumber";
+		String str="from XtZmNumber where zmServiceDate!=null";
+		String str1="from XtZmNumber where zmServiceDate!=null";
         SimpleDateFormat sdf= new SimpleDateFormat("yyyy-MM-dd");
 		if(dates!=null&&datee!=null&&!dates.equals("")&&!datee.equals("")){
 			//备用
@@ -166,24 +166,24 @@ public class ZmNumberCountAction extends MyBaseAction implements IMyBaseAction{
 		        cal2.set(Calendar.DAY_OF_WEEK, Calendar.SATURDAY);
 //		        System.out.println(cal2.getTime());
 		        
-				str=str+" where zmApplyDate <='"+sdf.format(cal2.getTime())+"'";
-				str1=str1+" where zmApplyDate >='"+sdf.format(cal1.getTime())+"'";
+				str=str+" and zmApplyDate <='"+sdf.format(cal2.getTime())+"'";
+				str1=str1+" and zmApplyDate >='"+sdf.format(cal1.getTime())+"'";
 			}
 			if(dt.equals("M")){
 //				System.out.println(dates);
 //				System.out.println(datee);	
 				//获取月的最后一天
 				Date edate = new Date(Integer.parseInt(datee.substring(0,4))-1900, Integer.parseInt(datee.substring(5)),0);
-				str=str+" where zmApplyDate <='"+sdf.format(edate)+"'";
-				str1=str1+" where zmApplyDate >='"+dates+"'";
+				str=str+" and zmApplyDate <='"+sdf.format(edate)+"'";
+				str1=str1+" and zmApplyDate >='"+dates+"'";
 			}
 			if(dt.equals("Y")){
 				System.out.println(dates);
 				System.out.println(datee);
 				//获取月的最后一天
 				Date edate = new Date(Integer.parseInt(datee)-1900, 12,0);
-				str=str+" where zmApplyDate <='"+sdf.format(edate)+"'";
-				str1=str1+" where zmApplyDate >='"+dates+"'";
+				str=str+" and zmApplyDate <='"+sdf.format(edate)+"'";
+				str1=str1+" and zmApplyDate >='"+dates+"'";
 			}
 		}
 		str=str+" order by zmApplyDate desc";

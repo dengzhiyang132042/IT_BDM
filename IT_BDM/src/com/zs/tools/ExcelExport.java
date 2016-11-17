@@ -5,6 +5,7 @@ package com.zs.tools;
 
 import java.io.FileOutputStream;
 
+import org.apache.log4j.Logger;
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFCellStyle;
 import org.apache.poi.hssf.usermodel.HSSFDataFormat;
@@ -19,6 +20,9 @@ import org.apache.poi.hssf.usermodel.HSSFWorkbook;
  *
  */
 public class ExcelExport {
+	
+	static Logger log=Logger.getLogger(ExcelExport.class);
+	
 	public static void OutExcel(Object[] obj, Object[][] obj2 , String path){
 		try {     
 			// 创建新的Excel 工作簿     
@@ -62,7 +66,8 @@ public class ExcelExport {
 			fOut.flush();   
 			fOut.close();    
 		}catch (Exception ioexception) { 
-			System.out.println("文件导出失败");
+			ioexception.printStackTrace();
+			log.error("文件导出失败");
 		}  
 	}
 }

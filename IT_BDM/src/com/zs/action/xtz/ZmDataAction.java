@@ -1,7 +1,10 @@
 package com.zs.action.xtz;
 
+import java.io.File;
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.sql.Timestamp;
+import java.text.ParseException;
 import java.util.Date;
 import java.util.List;
 
@@ -12,11 +15,13 @@ import com.zs.entity.XtSite;
 import com.zs.entity.XtZmData;
 import com.zs.entity.XtZmNumber;
 import com.zs.service.IService;
+import com.zs.service.iXtZmDataService;
 import com.zs.tools.NameOfDate;
 import com.zs.tools.Page;
 
 public class ZmDataAction extends MyBaseAction{
 	IService ser;
+	iXtZmDataService xtZmDataSer;
 	Page page;
 	
 	Logger logger=Logger.getLogger(ZmDataAction.class);
@@ -31,8 +36,36 @@ public class ZmDataAction extends MyBaseAction{
 	String id;
 	String dates;
 	String datee;
+	private File fileExcel;
+	private String fileExcelContentType;
+	private String fileExcelFileName; 
 	
 	
+	
+	public iXtZmDataService getXtZmDataSer() {
+		return xtZmDataSer;
+	}
+	public void setXtZmDataSer(iXtZmDataService xtZmDataSer) {
+		this.xtZmDataSer = xtZmDataSer;
+	}
+	public File getFileExcel() {
+		return fileExcel;
+	}
+	public void setFileExcel(File fileExcel) {
+		this.fileExcel = fileExcel;
+	}
+	public String getFileExcelContentType() {
+		return fileExcelContentType;
+	}
+	public void setFileExcelContentType(String fileExcelContentType) {
+		this.fileExcelContentType = fileExcelContentType;
+	}
+	public String getFileExcelFileName() {
+		return fileExcelFileName;
+	}
+	public void setFileExcelFileName(String fileExcelFileName) {
+		this.fileExcelFileName = fileExcelFileName;
+	}
 	public String getId() {
 		return id;
 	}
@@ -159,5 +192,9 @@ public class ZmDataAction extends MyBaseAction{
 		return gotoQuery();
 	}	
 	
+	public String importExcel() throws InterruptedException, IOException, ParseException {
+		xtZmDataSer.importExcelData(fileExcelFileName, fileExcel);
+		return gotoQuery();
+	}
 }
  

@@ -1,4 +1,5 @@
 <%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
+<%@page import="com.zs.tools.Constant"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%
@@ -280,14 +281,33 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</div>
 	
 	<div id="tt" style="display: none;">
+		<a class="icon-zs-import" onclick="$('#in').window('open')" style="margin-left: 10px;" title="excel导入"></a>
 		<a class="icon-add" onclick="$('#a').window('open')" style="margin-left: 10px;" title="添加"></a>
 	</div>
 	
 	
-	<script>
-		function doSearch(value){
-			$('#f2').submit();
-		}
-	</script>
+	<div id="in" class="easyui-window" title="数据导入" data-options="modal:true,closed:true" style="width:400px;height:auto;padding:10px;display: none;overflow-x:hidden;">
+		<form action="<%=path %>/zmd!importExcel" method="post" enctype="multipart/form-data">
+		<table border="1">
+			<tr>
+				<td>Excel模板</td>
+				<td onmousemove="$(this).css('background-color','red');" onmouseout="$(this).css('background-color','white');" style="cursor: pointer;" onclick="window.location.href='<%=Constant.WEB_URL %>/files/import/xtz/哲盟异常数据.xlsx';">
+					下载模板
+				</td>
+			</tr>
+			<tr>
+				<td>导入Excel数据</td>
+				<td>
+					<input type="file" name="fileExcel"/>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2">
+					<input type="submit" value="导入"/>	
+				</td>
+			</tr>
+		</table>
+		</form>
+	</div>
   </body>
 </html>

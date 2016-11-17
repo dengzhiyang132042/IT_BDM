@@ -9,11 +9,8 @@ import com.zs.dao.IBaseDaoOfSpring;
 import com.zs.entity.XtZmNumber;
 
 
-public interface iXtZmNumberService{
+public interface iXtZmDataService{
 	
-	
-	public List initXtZmBumberService(List<XtZmNumber> list);
-
 	
 	/**
 	 * 张顺 2016-11-17

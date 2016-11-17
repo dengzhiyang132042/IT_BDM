@@ -1,8 +1,10 @@
 package com.zs.action.xtz;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.sql.Timestamp;
+import java.text.ParseException;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -14,11 +16,13 @@ import com.zs.entity.Users;
 import com.zs.entity.XtSite;
 import com.zs.entity.XtZmNumber;
 import com.zs.service.IService;
+import com.zs.service.iXtZmNumberService;
 import com.zs.tools.NameOfDate;
 import com.zs.tools.Page;
 
 public class ZmNumberAction extends MyBaseAction{
 	IService ser;
+	iXtZmNumberService xtZmNumberSer;
 	Page page;
 	
 	Logger logger=Logger.getLogger(ZmNumberAction.class);
@@ -35,9 +39,35 @@ public class ZmNumberAction extends MyBaseAction{
 	String men;
 	String dates;
 	String datee;
+	private File fileExcel;
+	private String fileExcelContentType;
+	private String fileExcelFileName; 
 	
 	
-	
+	public iXtZmNumberService getXtZmNumberSer() {
+		return xtZmNumberSer;
+	}
+	public void setXtZmNumberSer(iXtZmNumberService xtZmNumberSer) {
+		this.xtZmNumberSer = xtZmNumberSer;
+	}
+	public File getFileExcel() {
+		return fileExcel;
+	}
+	public void setFileExcel(File fileExcel) {
+		this.fileExcel = fileExcel;
+	}
+	public String getFileExcelContentType() {
+		return fileExcelContentType;
+	}
+	public void setFileExcelContentType(String fileExcelContentType) {
+		this.fileExcelContentType = fileExcelContentType;
+	}
+	public String getFileExcelFileName() {
+		return fileExcelFileName;
+	}
+	public void setFileExcelFileName(String fileExcelFileName) {
+		this.fileExcelFileName = fileExcelFileName;
+	}
 	public String getId() {
 		return id;
 	}
@@ -201,7 +231,7 @@ public class ZmNumberAction extends MyBaseAction{
 	
 	public String add() throws Exception {
 		if(zmn!=null){
-			zmn.setZmId("zm"+NameOfDate.getNum());
+			zmn.setZmId("n"+NameOfDate.getNum());
 
 			Date date=new Date();
 			Calendar ca = Calendar.getInstance();//创建一个日期实例
@@ -220,13 +250,10 @@ public class ZmNumberAction extends MyBaseAction{
 		return gotoQuery();
 	}	
 	
-	public String test() throws IOException {
-		
-//		String str=ser.querySection();
-//		System.out.println("【str】"+str);
-//		getResponse().getWriter().println(str);
-		
-		return null;
+	
+	public String importExcel() throws InterruptedException, IOException, ParseException {
+		xtZmNumberSer.importExcelData(fileExcelFileName, fileExcel);
+		return gotoQuery();
 	}
 	
 }
