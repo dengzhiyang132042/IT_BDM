@@ -72,11 +72,12 @@
 	<bean id="hgh_pda_loss_xtz" class="com.zs.action.xtz.PdaLossAction">
 		<property name="ser" ref="zs_ser"></property>
 	</bean>
-	
-	
 	<!-- **************************桌面组******************************************** -->
 	<bean id="zs_vpn_zmz" class="com.zs.action.zmz.VpnAction">
 		<property name="ser" ref="zs_ser"></property>
+	</bean>
+	<bean id="zs_ser_xtz_zm_data" class="com.zs.service.impl.XtZmDataServiceImpl">
+		<property name="dao" ref="zs_dao"></property>
 	</bean>
 	<bean id="zs_by_zmz" class="com.zs.action.zmz.ByAction">
 		<property name="ser" ref="zs_ser"></property>
@@ -103,6 +104,7 @@
 	</bean>
 	
 	<!-- *****************数据分析************************  -->
+	<!--系统组	-->
 	<bean id="hgh_count_site" class="com.zs.action.xtz.count.SiteCountAction">
 		<property name="ser" ref="zs_ser"></property>
 	</bean>
@@ -116,6 +118,15 @@
 	<bean id="zs_count_zmdata" class="com.zs.action.xtz.count.ZmDataCountAction">
 		<property name="ser" ref="zs_ser"></property>
 	</bean>
+	<bean id="hgh_count_pda_change" class="com.zs.action.xtz.count.PdaChangeCountAction">
+		<property name="ser" ref="zs_ser"></property>
+		<property name="iser" ref="hgh_ser_xtz_pda_change"></property>
+	</bean>
+	<bean id="hgh_count_bq_repair" class="com.zs.action.xtz.count.BqRepairCountAction">
+		<property name="ser" ref="zs_ser"></property>
+		<property name="iser" ref="hgh_ser_xtz_bq_repair"></property>
+	</bean>
+	<!--桌面组	-->
 	<bean id="zs_count_vpn" class="com.zs.action.zmz.count.VpnCountAction">
 		<property name="ser" ref="zs_ser"></property>
 		<property name="vpnSer" ref="zs_ser_zmz_vpn"></property>
@@ -126,6 +137,7 @@
 	<bean id="zs_count_bynum" class="com.zs.action.zmz.count.ByNumCountAction">
 		<property name="ser" ref="zs_ser"></property>
 	</bean>
+	
 	
 	
 	<!-- *****************故障报修处理跟进系统************************ -->
@@ -195,9 +207,13 @@
 	<bean id="zs_ser_xtz_branches" class="com.zs.service.impl.BranchesServcieImpl">
 		<property name="dao" ref="zs_dao"></property>
 	</bean>	
-	<bean id="zs_ser_xtz_zm_data" class="com.zs.service.impl.XtZmDataServiceImpl">
+	<bean id="hgh_ser_xtz_bq_repair" class="com.zs.service.impl.XtBqRepairCountServiceImpl">
 		<property name="dao" ref="zs_dao"></property>
-	</bean>
+	</bean>	
+	<bean id="hgh_ser_xtz_pda_change" class="com.zs.service.impl.XtPdaChangeCountServiceImpl">
+		<property name="dao" ref="zs_dao"></property>
+	</bean>	
+	
 	
 	
 	<!-- ************************************* -->
