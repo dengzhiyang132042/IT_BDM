@@ -1,7 +1,10 @@
 package com.zs.action.xtz;
 
+import java.io.File;
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.sql.Timestamp;
+import java.text.ParseException;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -9,6 +12,7 @@ import java.util.List;
 import com.zs.action.MyBaseAction;
 import com.zs.entity.XtPdaLoss;
 import com.zs.service.IService;
+import com.zs.service.iXtPdaLossService;
 import com.zs.tools.NameOfDate;
 import com.zs.tools.Page;
 
@@ -19,6 +23,7 @@ public class PdaLossAction extends MyBaseAction{
 	private static final long serialVersionUID = 1L;
 	
 	IService ser;
+	iXtPdaLossService pdaLossSer;
 	Page page;
 	
 	XtPdaLoss pl;
@@ -34,77 +39,86 @@ public class PdaLossAction extends MyBaseAction{
 	String datee;
 	String sn;
 	String num;
+	private File fileExcel;
+	private String fileExcelContentType;
+	private String fileExcelFileName; 
 	
 	
-	
+	public File getFileExcel() {
+		return fileExcel;
+	}
+	public void setFileExcel(File fileExcel) {
+		this.fileExcel = fileExcel;
+	}
+	public String getFileExcelContentType() {
+		return fileExcelContentType;
+	}
+	public void setFileExcelContentType(String fileExcelContentType) {
+		this.fileExcelContentType = fileExcelContentType;
+	}
+	public String getFileExcelFileName() {
+		return fileExcelFileName;
+	}
+	public void setFileExcelFileName(String fileExcelFileName) {
+		this.fileExcelFileName = fileExcelFileName;
+	}
+	public iXtPdaLossService getPdaLossSer() {
+		return pdaLossSer;
+	}
+	public void setPdaLossSer(iXtPdaLossService pdaLossSer) {
+		this.pdaLossSer = pdaLossSer;
+	}
 	public String getSn() {
 		return sn;
 	}
-
 	public void setSn(String sn) {
 		this.sn = sn;
 	}
-
 	public String getNum() {
 		return num;
 	}
-
 	public void setNum(String num) {
 		this.num = num;
 	}
-
 	public IService getSer() {
 		return ser;
 	}
-
 	public void setSer(IService ser) {
 		this.ser = ser;
 	}
-
 	public Page getPage() {
 		return page;
 	}
-
 	public void setPage(Page page) {
 		this.page = page;
 	}
-
 	public XtPdaLoss getPl() {
 		return pl;
 	}
-
 	public void setPl(XtPdaLoss pl) {
 		this.pl = pl;
 	}
-
 	public List<XtPdaLoss> getPls() {
 		return pls;
 	}
-
 	public void setPls(List<XtPdaLoss> pls) {
 		this.pls = pls;
 	}
-
 	public String getId() {
 		return id;
 	}
-
 	public void setId(String id) {
 		this.id = id;
 	}
-
 	public String getDates() {
 		return dates;
 	}
-
-	public void setDates(String dates) {
+  	public void setDates(String dates) {
 		this.dates = dates;
 	}
-
 	public String getDatee() {
 		return datee;
 	}
-
 	public void setDatee(String datee) {
 		this.datee = datee;
 	}
@@ -223,5 +237,10 @@ public class PdaLossAction extends MyBaseAction{
 		pl=null;
 		return gotoQuery();
 	}	
+	
+	public String importExcel() throws InterruptedException, IOException, ParseException {
+		pdaLossSer.importExcelData(fileExcelFileName, fileExcel);
+		return gotoQuery();
+	}
 	
 }

@@ -1,7 +1,10 @@
 package com.zs.action.xtz;
 
+import java.io.File;
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.sql.Timestamp;
+import java.text.ParseException;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -9,6 +12,7 @@ import java.util.List;
 import com.zs.action.MyBaseAction;
 import com.zs.entity.XtBqRepair;
 import com.zs.service.IService;
+import com.zs.service.iXtBqRepairService;
 import com.zs.tools.NameOfDate;
 import com.zs.tools.Page;
 
@@ -19,6 +23,7 @@ public class BqRepairAction extends MyBaseAction{
 	private static final long serialVersionUID = 1L;
 	
 	IService ser;
+	iXtBqRepairService bqRepairSer;
 	Page page;
 	
 	XtBqRepair bq;
@@ -34,41 +39,59 @@ public class BqRepairAction extends MyBaseAction{
 	String datee;
 	String sn;
 	String num;
+	private File fileExcel;
+	private String fileExcelContentType;
+	private String fileExcelFileName; 
 	
 	
-	
+	public File getFileExcel() {
+		return fileExcel;
+	}
+	public void setFileExcel(File fileExcel) {
+		this.fileExcel = fileExcel;
+	}
+	public String getFileExcelContentType() {
+		return fileExcelContentType;
+	}
+	public void setFileExcelContentType(String fileExcelContentType) {
+		this.fileExcelContentType = fileExcelContentType;
+	}
+	public String getFileExcelFileName() {
+		return fileExcelFileName;
+	}
+	public void setFileExcelFileName(String fileExcelFileName) {
+		this.fileExcelFileName = fileExcelFileName;
+	}
+	public iXtBqRepairService getBqRepairSer() {
+		return bqRepairSer;
+	}
+	public void setBqRepairSer(iXtBqRepairService bqRepairSer) {
+		this.bqRepairSer = bqRepairSer;
+	}
 	public String getSn() {
 		return sn;
 	}
-
 	public void setSn(String sn) {
 		this.sn = sn;
 	}
-
 	public String getNum() {
 		return num;
 	}
-
 	public void setNum(String num) {
 		this.num = num;
 	}
-
 	public IService getSer() {
 		return ser;
 	}
-
 	public void setSer(IService ser) {
 		this.ser = ser;
 	}
-
 	public Page getPage() {
 		return page;
 	}
-
 	public void setPage(Page page) {
 		this.page = page;
 	}
-
 	public XtBqRepair getBq() {
 		return bq;
 	}
@@ -219,5 +242,10 @@ public class BqRepairAction extends MyBaseAction{
 		bq=null;
 		return gotoQuery();
 	}	
+	
+	public String importExcel() throws InterruptedException, IOException, ParseException {
+		bqRepairSer.importExcelData(fileExcelFileName, fileExcel);
+		return gotoQuery();
+	}
 	
 }
