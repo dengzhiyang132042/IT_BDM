@@ -90,7 +90,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	}
 	function xiazai(){
 		var path ="<%=path %>/bqRepairCount!exportExc";
-		window.location.href=path;
+		$.post(
+			path,
+			function(){
+				//console.log(result);
+				window.location.href="<%=path%>/files/export/xtz/巴枪送修坂田统计.xls";
+			}
+		);
 	}
 	</script>
 	

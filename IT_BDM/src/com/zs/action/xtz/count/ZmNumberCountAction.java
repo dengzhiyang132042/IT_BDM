@@ -296,7 +296,7 @@ public class ZmNumberCountAction extends MyBaseAction implements IMyBaseAction{
 	}
 	public String exportExc() throws Exception{
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-		String filePath=getRequest().getRealPath("/")+"/files/export/xtz/zmNumber.xls";
+		String filePath=getRequest().getRealPath("/")+"/files/export/xtz/哲盟账号登记统计.xls";
 		String dayType = "周数";
 		if(filtrate.equals("M")){
 			dayType = "月数";
@@ -314,8 +314,9 @@ public class ZmNumberCountAction extends MyBaseAction implements IMyBaseAction{
 		}
 		
 		ExcelExport.OutExcel(obj, objtmp, filePath);
-		getResponse().sendRedirect(Constant.WEB_URL+"files/export/xtz/zmNumber.xls");
-		return result;
+//		getResponse().sendRedirect(Constant.WEB_URL+"files/export/xtz/哲盟账号登记统计.xls");
+//		return result;
+		return null;
 	}
 	
 	

@@ -90,7 +90,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	}
 	function xiazai(){
 		var path ="<%=path %>/zmNumberCount!exportExc";
-		window.location.href=path;
+		$.post(
+			path,
+			function(){
+				//console.log(result);
+				window.location.href="<%=path%>/files/export/xtz/哲盟账号登记统计.xls";
+			}
+		);
 	}
 	</script>
 	

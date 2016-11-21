@@ -305,7 +305,7 @@ public class SiteCountAction extends MyBaseAction implements IMyBaseAction{
 	}
 	public String exportExc() throws Exception{
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-		String filePath=getRequest().getRealPath("/")+"/files/export/xtz/site.xls";
+		String filePath=getRequest().getRealPath("/")+"/files/export/xtz/站点资料统计.xls";
 		String dayType = "周数";
 		if(filtrate.equals("M")){
 			dayType = "月数";
@@ -331,7 +331,8 @@ public class SiteCountAction extends MyBaseAction implements IMyBaseAction{
 		}
 		
 		ExcelExport.OutExcel(obj, objtmp, filePath);
-		getResponse().sendRedirect(Constant.WEB_URL+"files/export/xtz/site.xls");
-		return result;
+//		getResponse().sendRedirect(Constant.WEB_URL+"files/export/xtz/site.xls");
+//		return result;
+		return null;
 	}
 }

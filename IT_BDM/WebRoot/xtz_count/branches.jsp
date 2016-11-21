@@ -98,7 +98,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	}
 	function xiazai(){
 		var path ="<%=path %>/branchesCount!exportExc";
-		window.location.href=path;
+		//console.log("----------------------");
+		$.post(
+			path,
+			function(){
+				//console.log(result);
+				window.location.href="<%=path%>/files/export/xtz/二级站点资料统计.xls";
+			}
+		);
 	}
 	</script>
 	

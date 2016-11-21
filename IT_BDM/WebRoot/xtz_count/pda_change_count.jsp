@@ -90,7 +90,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	}
 	function xiazai(){
 		var path ="<%=path %>/pdaChangeCount!exportExc";
-		window.location.href=path;
+		//window.location.href=path;
+		$.post(
+			path,
+			function(){
+				//console.log(result);
+				window.location.href="<%=path%>/files/export/xtz/pda条码变更明细统计.xls";
+			}
+		);
 	}
 	</script>
 	
