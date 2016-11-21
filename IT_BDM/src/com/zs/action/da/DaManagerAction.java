@@ -255,7 +255,7 @@ public class DaManagerAction extends MyBaseAction implements IMyBaseAction{
 		Users um = (Users) ser.get(Users.class, p.getUNum());
 		if (d!=null) {
 			d.setDId("d"+NameOfDate.getNum());
-			d.setDTime(new Timestamp(new Date().getTime()));
+//			d.setDTime(new Timestamp(new Date().getTime()));
 			if (dTimeExpect!=null && !dTimeExpect.trim().equals("")) {
 				Timestamp  ts= Timestamp.valueOf(dTimeExpect);
 				d.setDTimeExpect(ts);
