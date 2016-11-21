@@ -238,7 +238,7 @@ public class PdaChangeCountAction extends MyBaseAction implements IMyBaseAction{
 	
 	public String exportExc() throws Exception{
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-		String filePath=getRequest().getRealPath("/")+"/files/export/xtz/pdaChange.xls";
+		String filePath=getRequest().getRealPath("/")+"/files/export/xtz/pda条码变更明细统计.xls";
 		String dayType = "周数";
 		if(filtrate.equals("M")){
 			dayType = "月数";
@@ -262,7 +262,6 @@ public class PdaChangeCountAction extends MyBaseAction implements IMyBaseAction{
 		
 		ExcelExport.OutExcel(obj, objtmp, filePath);
 		getRequest().setCharacterEncoding("utf-8");
-		getResponse().sendRedirect(Constant.WEB_URL+"files/export/xtz/pdaChange.xls");
-		return result;
+		return null;
 	}
 }

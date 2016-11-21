@@ -1,5 +1,7 @@
 package com.zs.action;
 
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 
 import javax.servlet.http.HttpServletRequest;
@@ -15,6 +17,7 @@ public class MyBaseAction extends ActionSupport{
 	HttpServletRequest request;
 	HttpServletResponse response;
 	HttpSession session;
+	PrintWriter out;
 	
 	/**
 	 * 张顺
@@ -55,6 +58,13 @@ public class MyBaseAction extends ActionSupport{
 	public void setResponse(HttpServletResponse response) {
 		this.response = response;
 	}
+	public PrintWriter getOut() throws IOException {
+		return getResponse().getWriter();
+	}
+	public void setOut(PrintWriter out) {
+		this.out = out;
+	}
+	
 	
 	
 }

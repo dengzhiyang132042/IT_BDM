@@ -332,7 +332,10 @@ public class BranchesAction extends MyBaseAction implements IMyBaseAction{
 		
 		ExcelExport.OutExcel(obj, objtmp, filePath);
 		getRequest().setCharacterEncoding("utf-8");
-		getResponse().sendRedirect(Constant.WEB_URL+"files/export/xtz/二级站点资料统计.xls");
-		return result;
+//		getResponse().sendRedirect(Constant.WEB_URL+"files/export/xtz/二级站点资料统计.xls");
+//		getRequest().getRequestDispatcher("files/export/xtz/二级站点资料统计.xls").forward(getRequest(), getResponse());
+//		return result;
+//		getOut().print(Constant.WEB_URL+"files/export/xtz/二级站点资料统计.xls");
+		return null;
 	}
 }

@@ -90,7 +90,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	}
 	function xiazai(){
 		var path ="<%=path %>/siteCount!exportExc";
-		window.location.href=path;
+		$.post(
+			path,
+			function(){
+				//console.log(result);
+				window.location.href="<%=path%>/files/export/xtz/站点资料统计.xls";
+			}
+		);
 	}
 	</script>
 	
