@@ -134,6 +134,9 @@ String beforeTime= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Calendar.g
 	    return fmt;
 	}
 	function defualtOutTime(){
+		var foundTime = new Date().Format("yyyy-MM-dd HH:mm:ss");
+		$('#found_time').val(foundTime);
+		
 		var time = new Date().Format("yyyy-MM-dd");
 		time=time+" 18:00:00";
 		//console.log(time);
@@ -334,6 +337,10 @@ String beforeTime= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Calendar.g
 						<option value="其他">其他</option>
 					</select>
 				</td>
+			</tr>
+			<tr>
+				<td>创建时间:</td>
+				<td><input id="found_time" class="Wdate" name="d.DTime" type="text" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})"/></td>
 			</tr>
 			<tr>
 				<td>处理人：</td>
