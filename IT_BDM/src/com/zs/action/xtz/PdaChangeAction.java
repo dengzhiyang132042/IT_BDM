@@ -1,15 +1,21 @@
 package com.zs.action.xtz;
 
+import java.io.File;
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.sql.Timestamp;
+import java.text.ParseException;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+
+import sun.security.krb5.internal.PAData;
 
 import com.zs.action.MyBaseAction;
 import com.zs.entity.Users;
 import com.zs.entity.XtPdaChange;
 import com.zs.service.IService;
+import com.zs.service.iXtPdaChangeService;
 import com.zs.tools.NameOfDate;
 import com.zs.tools.Page;
 
@@ -20,6 +26,7 @@ public class PdaChangeAction extends MyBaseAction{
 	private static final long serialVersionUID = 1L;
 	
 	IService ser;
+	iXtPdaChangeService pdaChangeSer;
 	Page page;
 	
 	XtPdaChange pda;
@@ -35,8 +42,36 @@ public class PdaChangeAction extends MyBaseAction{
 	String sn;
 	String dates;
 	String datee;
-
+	private File fileExcel;
+	private String fileExcelContentType;
+	private String fileExcelFileName; 
 	
+	
+	
+	public File getFileExcel() {
+		return fileExcel;
+	}
+	public void setFileExcel(File fileExcel) {
+		this.fileExcel = fileExcel;
+	}
+	public String getFileExcelContentType() {
+		return fileExcelContentType;
+	}
+	public void setFileExcelContentType(String fileExcelContentType) {
+		this.fileExcelContentType = fileExcelContentType;
+	}
+	public String getFileExcelFileName() {
+		return fileExcelFileName;
+	}
+	public void setFileExcelFileName(String fileExcelFileName) {
+		this.fileExcelFileName = fileExcelFileName;
+	}
+	public iXtPdaChangeService getPdaChangeSer() {
+		return pdaChangeSer;
+	}
+	public void setPdaChangeSer(iXtPdaChangeService pdaChangeSer) {
+		this.pdaChangeSer = pdaChangeSer;
+	}
 	public String getWeekNum() {
 		return weekNum;
 	}
@@ -206,5 +241,10 @@ public class PdaChangeAction extends MyBaseAction{
 		pda=null;
 		return gotoQuery();
 	}	
+
 	
+	public String importExcel() throws InterruptedException, IOException, ParseException {
+		pdaChangeSer.importExcelData(fileExcelFileName, fileExcel);
+		return gotoQuery();
+	}
 }
