@@ -19,6 +19,9 @@
         <property name="byName" type="java.lang.String">
             <column name="by_name" />
         </property>
+        <property name="byImoPass" type="java.lang.String">
+            <column name="by_imo_pass" />
+        </property>
         <property name="byBgn" type="java.lang.String">
             <column name="by_bgn" />
         </property>
