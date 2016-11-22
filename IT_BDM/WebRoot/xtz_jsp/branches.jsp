@@ -275,7 +275,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<table border="1">
 			<tr>
 				<td>Excel模板</td>
-				<td onmousemove="$(this).css('background-color','red');" onmouseout="$(this).css('background-color','white');" style="cursor: pointer;" onclick="window.location.href='<%=Constant.WEB_URL %>/files/import/xtz/二级站点资料.xlsx';">
+				<td onmousemove="$(this).css('background-color','red');" onmouseout="$(this).css('background-color','white');" style="cursor: pointer;" onclick="window.location.href='<%=path%>/files/import/xtz/二级站点资料.xlsx';">
 					下载模板
 				</td>
 			</tr>

@@ -34,7 +34,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		$('#tt').show();
 	});
 	
-	function update(u1,u2,u3,u4,u5,u6,u7,u8,u9,u10,u11,u12,u13,u14){
+	function update(u1,u2,u3,u4,u5,u6,u7,u8,u9,u10,u11,u12,u13,u14,u15){
 		$('#u').window('open');
 		$('#u_1').val(u1);
 		$('#u_2').val(u2);
@@ -50,6 +50,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		$('#u_12').val(u12);
 		$('#u_13').val(u13);
 		$('#u_14').val(u14);
+		$('#u_15').val(u15);
 	}
 	function page(no,cz){
 		var num1=$('#page').val();
@@ -98,6 +99,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     	<th>部门</th>
     	<th>姓名</th>
     	<th>IMO</th>
+    	<th>IMO默认密码</th>
     	<th>邮箱</th>
     	<th>邮箱默认密码</th>
     	<th>维护IT</th>
@@ -116,6 +118,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<td width="">${by.bySection}</td>
 		<td width="">${by.byName }</td>
 		<td width="">${by.byBgn }</td>
+		<td width="">${by.byImoPass }</td>
 		<td width="">${by.byMail }</td>
 		<td width="">${by.byMailPass }</td>
 		<td width="">${by.byService }</td>
@@ -126,7 +129,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<td width="">${by.byIsTimely }</td>
 		<td width="">${by.byNote }</td>
 		<td width="5%" align="center">
-			<a onclick="update('${by.byId }','${by.byOaDate }','${by.bySection }','${by.byName }','${by.byBgn }','${by.byMail }','${by.byMailPass }','${by.byService }','${by.byOnJob }','${by.byServiceDate }','${by.byServiceWeek }','${by.byServiceTime }','${by.byIsTimely }','${by.byNote }')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-edit'" title="修改"></a>
+			<a onclick="update('${by.byId }','${by.byOaDate }','${by.bySection }','${by.byName }','${by.byBgn }','${by.byMail }','${by.byMailPass }','${by.byService }','${by.byOnJob }','${by.byServiceDate }','${by.byServiceWeek }','${by.byServiceTime }','${by.byIsTimely }','${by.byNote }','${by.byImoPass }')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-edit'" title="修改"></a>
 			<a href="<%=path %>/by!delete?id=${by.byId}" onclick="return confirm('确定删除吗?')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-delete'" title="删除"></a>
 		</td>
     </tr>
@@ -195,6 +198,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<td>IMO：</td>
 				<td>
 					<input id="u_5" name="by.byBgn" type="text" style="width: 100%;"/>
+				</td>
+			</tr>
+			<tr>
+				<td>IMO默认密码：</td>
+				<td>
+					<input id="u_15" name="by.byImoPass" type="text" style="width: 100%;"/>
 				</td>
 			</tr>
 			<tr>
@@ -285,6 +294,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<td>IMO：</td>
 				<td>
 					<input name="by.byBgn" type="text" style="width: 100%;"/>
+				</td>
+			</tr>
+			<tr>
+				<td>IMO默认密码：</td>
+				<td>
+					<input name="by.byImoPass" type="text" style="width: 100%;"/>
 				</td>
 			</tr>
 			<tr>

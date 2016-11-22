@@ -14,6 +14,7 @@ public class ZmByNumber implements java.io.Serializable {
 	private Date byOaDate;
 	private String bySection;
 	private String byName;
+	private String byImoPass;
 	private String byBgn;
 	private String byMail;
 	private String byMailPass;
@@ -38,14 +39,15 @@ public class ZmByNumber implements java.io.Serializable {
 
 	/** full constructor */
 	public ZmByNumber(String byId, Date byOaDate, String bySection,
-			String byName, String byBgn, String byMail, String byMailPass,
-			String byService, String byOnJob, Date byServiceDate,
-			Integer byServiceWeek, Integer byServiceTime, String byIsTimely,
-			String byNote) {
+			String byName, String byImoPass, String byBgn, String byMail,
+			String byMailPass, String byService, String byOnJob,
+			Date byServiceDate, Integer byServiceWeek, Integer byServiceTime,
+			String byIsTimely, String byNote) {
 		this.byId = byId;
 		this.byOaDate = byOaDate;
 		this.bySection = bySection;
 		this.byName = byName;
+		this.byImoPass = byImoPass;
 		this.byBgn = byBgn;
 		this.byMail = byMail;
 		this.byMailPass = byMailPass;
@@ -90,6 +92,14 @@ public class ZmByNumber implements java.io.Serializable {
 
 	public void setByName(String byName) {
 		this.byName = byName;
+	}
+
+	public String getByImoPass() {
+		return this.byImoPass;
+	}
+
+	public void setByImoPass(String byImoPass) {
+		this.byImoPass = byImoPass;
 	}
 
 	public String getByBgn() {
