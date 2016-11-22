@@ -9,7 +9,7 @@
 	<session-factory>
 
 		<!-- 
-		-->
+		-->	
 			<property name="proxool.pool_alias">DBPool</property>
 			<property name="proxool.xml">proxool.xml</property>
 			<property name="connection.provider_class">
@@ -18,7 +18,7 @@
 			<property name="dialect">
 			org.hibernate.dialect.MySQLDialect
 			</property>
-
+		
 
 		<!-- 
 		<property name="myeclipse.connection.profile">
@@ -35,6 +35,7 @@
 		<property name="dialect">
 			org.hibernate.dialect.MySQLDialect
 		</property>
+		
 		-->
 
 
@@ -79,6 +80,7 @@
 		<mapping resource="com/zs/entity/XtPdaLoss.hbm.xml" />
 		<mapping resource="com/zs/entity/XtBqRepair.hbm.xml" />
 		<mapping resource="com/zs/entity/XtPdaChange.hbm.xml" />
+		<mapping resource="com/zs/entity/ZmCall.hbm.xml" />
 	</session-factory>
 
 </hibernate-configuration>

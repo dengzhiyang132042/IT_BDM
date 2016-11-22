@@ -11,7 +11,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <head>
     <base href="<%=basePath%>">
     
-    <title>IMO、邮箱账号</title>
+    <title>呼叫系统账号维护</title>
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
 	<meta http-equiv="expires" content="0">    
@@ -34,7 +34,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		$('#tt').show();
 	});
 	
-	function update(u1,u2,u3,u4,u5,u6,u7,u8,u9,u10,u11,u12,u13,u14,u15){
+	function update(u1,u2,u3,u4,u5,u6,u7,u8,u9,u10,u11){
 		$('#u').window('open');
 		$('#u_1').val(u1);
 		$('#u_2').val(u2);
@@ -47,10 +47,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		$('#u_9').val(u9);
 		$('#u_10').val(u10);
 		$('#u_11').val(u11);
-		$('#u_12').val(u12);
-		$('#u_13').val(u13);
-		$('#u_14').val(u14);
-		$('#u_15').val(u15);
 	}
 	function page(no,cz){
 		var num1=$('#page').val();
@@ -67,21 +63,34 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		}
 		$('#f1').submit();
 	}
+	function defualtTime(){
+		//初始化时间控件
+	    var now = new Date() ;
+	    var nowYear = now.getFullYear() ; //年
+	    var nowMonth = now.getMonth()+1<10?"0"+(now.getMonth()+1):now.getMonth() ; //月
+	    var nowDay = now.getDate()<10?"0"+now.getDate():now.getDate() ; //日期
+	    var nowDate = nowYear+"-"+nowMonth+"-"+nowDay ;
+	    $("#ctime").val(nowDate) ;
+	}
 	</script>
 	
   </head>
   
   <body>
-    <div class="easyui-panel" title="IMO、邮箱账号" style="padding: 5px;display: none;" data-options="tools:'#tt'">
+    <div class="easyui-panel" title="呼叫系统账号维护" style="padding: 5px;display: none;" data-options="tools:'#tt'">
     <div style="background-color:white;margin-bottom: 5px;padding: 5px;border: 1px solid #224466; ">
     	快速查询
     	<br/>
-    	<form action="<%=path %>/by!queryOfFenye" method="post">
+    	<form action="<%=path %>/call!queryOfFenye" method="post">
     		编号:<input name="id" type="text" value="${id }"/>
     		&nbsp;&nbsp;&nbsp;&nbsp;
     		姓名  :<input name="name" type="text" value="${name }"/>
     		&nbsp;&nbsp;&nbsp;&nbsp;
     		部门:<input name="section" type="text" value="${section }"/>
+    		&nbsp;&nbsp;&nbsp;&nbsp;
+    		站点条码:<input name="cnum" type="text" value="${cnum }"/>
+    		&nbsp;&nbsp;&nbsp;&nbsp;
+    		分机号码:<input name="phone" type="text" value="${phone }"/>
     		&nbsp;&nbsp;&nbsp;&nbsp;
     		维护时间:<input name="dates" type="date" value="${dates }"/>
     		~
@@ -94,37 +103,35 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     
     <table border="1" id="eidtASubjectWindow1" style="font-size: 12px;">
     <tr>
-    	<th>编号</th>
+    	<th width="130px">编号</th>
     	<th>维护日期</th>
     	<th>部门</th>
+    	<th>站点条码</th>
     	<th>姓名</th>
-    	<th>IMO</th>
-    	<th>IMO默认密码</th>
-    	<th>邮箱</th>
-    	<th>邮箱默认密码</th>
+    	<th>分机号码</th>
+    	<th>默认密码</th>
     	<th>维护IT</th>
     	<th>入职情况</th>
     	<th>维护周数</th>
     	<th>备注说明</th>
     	<th>操作</th>
     </tr>
-    <c:forEach items="${bys}" var="by">
+    <c:forEach items="${calls}" var="call">
     <tr>
-		<td width="">${by.byId }</td>
-		<td width=""><fmt:formatDate value="${by.byServiceDate }" pattern="yyyy/M/d" /></td>
-		<td width="">${by.bySection}</td>
-		<td width="">${by.byName }</td>
-		<td width="">${by.byBgn }</td>
-		<td width="">${by.byImoPass }</td>
-		<td width="">${by.byMail }</td>
-		<td width="">${by.byMailPass }</td>
-		<td width="">${by.byService }</td>
-		<td width="">${by.byOnJob }</td>
-		<td width="">${by.byServiceWeek }</td>
-		<td width="">${by.byNote }</td>
+		<td width="">${call.CId }</td>
+		<td width=""><fmt:formatDate value="${call.CDate }" pattern="yyyy/M/d" /></td>
+		<td width="">${call.CSection}</td>
+		<td width="">${call.CNum }</td>
+		<td width="">${call.CName }</td>
+		<td width="">${call.CPhone }</td>
+		<td width="">${call.CPass }</td>
+		<td width="">${call.CIt }</td>
+		<td width="">${call.CJob }</td>
+		<td width="">${call.CWeek }</td>
+		<td width="">${call.CNote }</td>
 		<td width="5%" align="center">
-			<a onclick="update('${by.byId }','${by.byOaDate }','${by.bySection }','${by.byName }','${by.byBgn }','${by.byMail }','${by.byMailPass }','${by.byService }','${by.byOnJob }','${by.byServiceDate }','${by.byServiceWeek }','${by.byServiceTime }','${by.byIsTimely }','${by.byNote }','${by.byImoPass }')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-edit'" title="修改"></a>
-			<a href="<%=path %>/by!delete?id=${by.byId}" onclick="return confirm('确定删除吗?')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-delete'" title="删除"></a>
+			<a onclick="update('${call.CId }','${call.CDate }','${call.CSection }','${call.CNum }','${call.CName }','${call.CPhone }','${call.CPass }','${call.CIt }','${call.CJob }','${call.CWeek }','${call.CNote }')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-edit'" title="修改"></a>
+			<a href="<%=path %>/call!delete?id=${call.CId}" onclick="return confirm('确定删除吗?')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-delete'" title="删除"></a>
 		</td>
     </tr>
     </c:forEach>
@@ -132,7 +139,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</div>
 	
 	<div class="easyui-panel" style="padding:5px;width: 100%;display: none;background-color: white;">
-		<form id="f1" action="<%=path %>/by!queryOfFenye?id=${id}&name=${name }&section=${section }&dates=${dates}&datee=${datee}" method="post">
+		<form id="f1" action="<%=path %>/call!queryOfFenye?id=${id}&name=${name }&section=${section }&cnum=${cnum}&phone=${phone }&dates=${dates}&datee=${datee}" method="post">
 		<select id="sele" style="float: left;margin-top: 3px;margin-left: 5px;" name="page.size" onchange="$('#f1').submit();">
 			<option value="5">5</option>
 			<option value="10">10</option>
@@ -162,78 +169,72 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</div>
 	
 	<div id="u" class="easyui-window" title="修改" data-options="modal:true,closed:true" style="width:400px;height:auto;padding:10px;display: none;">
-		<form action="<%=path %>/by!update" method="post">
+		<form action="<%=path %>/call!update" method="post">
 		<table border="0" class="table1">
 			<tr>
 				<td>编号：</td>
 				<td>
-					<input id="u_1" name="by.byId" type="text" style="width: 100%;" readonly="readonly"/>
+					<input id="u_1" name="call.CId" type="text" style="width: 100%;" readonly="readonly"/>
 				</td>
 			</tr>
 			<tr>
 				<td>维护日期：</td>
 				<td>
-					<input id="u_2" name="by.byServiceDate" type="date" style="width: 100%;"/>
+					<input id="u_2" name="call.CDate" type="date" style="width: 100%;"/>
 				</td>
 			</tr>
 			<tr>
 				<td>部门：</td>
 				<td>
-					<input id="u_3" name="by.bySection" type="text" style="width: 100%;"/>
+					<input id="u_3" name="call.CSection" type="text" style="width: 100%;"/>
+				</td>
+			</tr>
+			<tr>
+				<td>站点条码：</td>
+				<td>
+					<input id="u_4" name="call.CNum" type="text" style="width: 100%;"/>
 				</td>
 			</tr>
 			<tr>
 				<td>姓名：</td>
 				<td>
-					<input id="u_4" name="by.byName" type="text" style="width: 100%;"/>
+					<input id="u_5" name="call.CName" type="text" style="width: 100%;"/>
 				</td>
 			</tr>
 			<tr>
-				<td>IMO：</td>
+				<td>分机号码：</td>
 				<td>
-					<input id="u_5" name="by.byBgn" type="text" style="width: 100%;"/>
+					<input id="u_6" name="call.CPhone" type="text" style="width: 100%;"/>
 				</td>
 			</tr>
 			<tr>
-				<td>IMO默认密码：</td>
+				<td>默认密码：</td>
 				<td>
-					<input id="u_15" name="by.byImoPass" type="text" style="width: 100%;"/>
-				</td>
-			</tr>
-			<tr>
-				<td>邮箱：</td>
-				<td>
-					<input id="u_6" name="by.byMail" type="text" style="width: 100%;"/>
-				</td>
-			</tr>
-			<tr>
-				<td>邮箱默认密码：</td>
-				<td>
-					<input id="u_7" name="by.byMailPass" type="text" style="width: 100%;"/>
+					<input id="u_7" name="call.CPass" type="text" style="width: 100%;"/>
 				</td>
 			</tr>
 			<tr>
 				<td>维护IT：</td>
 				<td>
-					<input id="u_8" name="by.byService" type="text" style="width: 100%;"/>
+					<input id="u_8" name="call.CIt" type="text" style="width: 100%;"/>
 				</td>
 			</tr>
 			<tr>
 				<td>入职情况：</td>
 				<td>
-					<input id="u_9" name="by.byOnJob" type="text" style="width: 100%;"/>
+					<input id="u_9" name="call.CJob" type="text" style="width: 100%;"/>
 				</td>
 			</tr>
 			<tr>
 				<td>维护周数：</td>
 				<td>
-					<input id="u_11" name="by.byServiceWeek" type="number" style="width: 100%;"/>
+					<input id="u_10" name="call.CWeek" type="number" style="width: 100%;"/>
 				</td>
 			</tr>
 			<tr>
 				<td>备注说明：</td>
 				<td>
-					<input id="u_14" name="by.byNote" type="text" style="width: 100%;"/>
+					<input id="u_11" name="call.CNote" type="text" style="width: 100%;"/>
 				</td>
 			</tr>
 			<tr>
@@ -246,60 +247,54 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</div>
 	
 	<div id="a" class="easyui-window" title="添加" data-options="modal:true,closed:true" style="width:400px;height:auto;padding:10px;display: none;">
-		<form action="<%=path %>/by!add" method="post">
+		<form action="<%=path %>/call!add" method="post">
 		<table border="0" class="table1">
 			<tr>
 				<td>维护日期：</td>
 				<td>
-					<input name="by.byServiceDate" type="date" style="width: 100%;"/>
+					<input id="ctime" name="call.CDate" type="date" style="width: 100%;"/>
 				</td>
 			</tr>
 			<tr>
 				<td>部门：</td>
 				<td>
-					<input name="by.bySection" type="text" style="width: 100%;"/>
+					<input name="call.CSection" type="text" style="width: 100%;"/>
+				</td>
+			</tr>
+			<tr>
+				<td>站点条码：</td>
+				<td>
+					<input name="call.CNum" type="text" style="width: 100%;"/>
 				</td>
 			</tr>
 			<tr>
 				<td>姓名：</td>
 				<td>
-					<input name="by.byName" type="text" style="width: 100%;"/>
+					<input name="call.CName" type="text" style="width: 100%;"/>
 				</td>
 			</tr>
 			<tr>
-				<td>IMO：</td>
+				<td>分机号码：</td>
 				<td>
-					<input name="by.byBgn" type="text" style="width: 100%;"/>
+					<input name="call.CPhone" type="text" style="width: 100%;"/>
 				</td>
 			</tr>
 			<tr>
-				<td>IMO默认密码：</td>
+				<td>默认密码：</td>
 				<td>
-					<input name="by.byImoPass" type="text" style="width: 100%;"/>
-				</td>
-			</tr>
-			<tr>
-				<td>邮箱：</td>
-				<td>
-					<input name="by.byMail" type="text" style="width: 100%;"/>
-				</td>
-			</tr>
-			<tr>
-				<td>邮箱默认密码：</td>
-				<td>
-					<input name="by.byMailPass" type="text" style="width: 100%;"/>
+					<input name="call.CPass" type="text" style="width: 100%;"/>
 				</td>
 			</tr>
 			<tr>
 				<td>入职情况：</td>
 				<td>
-					<input name="by.byOnJob" type="text" style="width: 100%;"/>
+					<input name="call.CJob" type="text" style="width: 100%;"/>
 				</td>
 			</tr>
 			<tr>
 				<td>备注说明：</td>
 				<td>
-					<input name="by.byNote" type="text" style="width: 100%;"/>
+					<input name="call.CNote" type="text" style="width: 100%;"/>
 				</td>
 			</tr>
 			<tr>
@@ -312,7 +307,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</div>
 	
 	<div id="tt" style="display: none;">
-		<a class="icon-add" onclick="$('#a').window('open')" style="margin-left: 10px;" title="添加"></a>
+		<a class="icon-add" onclick="$('#a').window('open');defualtTime()" style="margin-left: 10px;" title="添加"></a>
 	</div>
 	
 	

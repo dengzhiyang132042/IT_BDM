@@ -95,7 +95,6 @@
 	<bean id="zs_phone_zmz" class="com.zs.action.zmz.PhoneAction">
 		<property name="ser" ref="zs_ser"></property>
 	</bean>
-	
 	<bean id="zs_oa_zmz" class="com.zs.action.zmz.OaAction">
 		<property name="ser" ref="zs_ser"></property>
 	</bean>
@@ -103,6 +102,9 @@
 		<property name="ser" ref="zs_ser"></property>
 	</bean>
 	<bean id="zs_computer_zmz" class="com.zs.action.zmz.ComputerAction">
+		<property name="ser" ref="zs_ser"></property>
+	</bean>
+	<bean id="hgh_call_zmz" class="com.zs.action.zmz.CallAction">
 		<property name="ser" ref="zs_ser"></property>
 	</bean>
 	
