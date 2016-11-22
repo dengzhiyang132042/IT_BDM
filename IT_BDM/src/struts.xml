@@ -205,6 +205,13 @@
      <result name="succ">/success.jsp</result>
      <result name="fail">/fail.jsp</result>
   </action>  
+  <action name="call" class="hgh_call_zmz">	
+  	 <interceptor-ref name="mydefault" />
+     <result>/index.jsp</result>
+     <result name="call">/zmz_jsp/call.jsp</result>
+     <result name="succ">/success.jsp</result>
+     <result name="fail">/fail.jsp</result>
+  </action> 
     
     
   <!-- **********CompanySection************* -->

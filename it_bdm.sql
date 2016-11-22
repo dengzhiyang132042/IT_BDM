@@ -1,7 +1,7 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : zhangshun
+Source Server         : b
 Source Server Version : 50617
 Source Host           : localhost:3306
 Source Database       : it_bdm
@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50617
 File Encoding         : 65001
 
-Date: 2016-11-22 14:18:08
+Date: 2016-11-22 17:41:09
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -10108,14 +10108,25 @@ INSERT INTO `timeline` VALUES ('tl221542580025578', 'yd-7264', '2016-10-22 15:42
 INSERT INTO `timeline` VALUES ('tl221542595313757', 'yd-7264', '2016-10-22 15:42:59', '查看', '故障报修统计——客服', null);
 INSERT INTO `timeline` VALUES ('tl221543000937430', 'yd-7264', '2016-10-22 15:43:00', '查看', '故障报修转发审核', null);
 INSERT INTO `timeline` VALUES ('tl221543029012179', 'yd-7264', '2016-10-22 15:43:02', '查看', '故障报修管理', null);
+INSERT INTO `timeline` VALUES ('tl221547268718826', 'yd-7264', '2016-11-22 15:47:26', '查看', '桌面组-布谷鸟邮箱账号登记', null);
 INSERT INTO `timeline` VALUES ('tl221548157599955', 'yd-7264', '2016-10-22 15:48:15', '查看', '故障报修管理', null);
 INSERT INTO `timeline` VALUES ('tl221548168208765', 'yd-7264', '2016-10-22 15:48:16', '查看', '故障报修转发审核', null);
 INSERT INTO `timeline` VALUES ('tl221548176003267', 'yd-7264', '2016-10-22 15:48:17', '查看', '故障报修统计——客服', null);
 INSERT INTO `timeline` VALUES ('tl221548181931700', 'yd-7264', '2016-10-22 15:48:18', '查看', '故障报修处理', null);
+INSERT INTO `timeline` VALUES ('tl221550097789271', 'yd-7264', '2016-11-22 15:50:09', '查看', '桌面组-布谷鸟邮箱账号登记', null);
 INSERT INTO `timeline` VALUES ('tl221550165197091', 'yd-7264', '2016-10-22 15:50:16', '查看', '故障报修统计——客服', null);
 INSERT INTO `timeline` VALUES ('tl221555079159935', 'yd-7111', '2016-08-22 15:55:07', '查看', 'Users', null);
 INSERT INTO `timeline` VALUES ('tl221559558477110', 'yd-7111', '2016-08-22 15:59:55', '查看', 'Users', null);
+INSERT INTO `timeline` VALUES ('tl221600114092398', 'yd-7264', '2016-11-22 16:00:11', '查看', '桌面组-布谷鸟邮箱账号登记', null);
+INSERT INTO `timeline` VALUES ('tl221600375108084', 'yd-7264', '2016-11-22 16:00:37', '添加', '桌面组-布谷鸟邮箱账号登记', 'by221600372682956');
+INSERT INTO `timeline` VALUES ('tl221605019853532', 'yd-7264', '2016-11-22 16:05:01', '查看', '桌面组-布谷鸟邮箱账号登记', null);
+INSERT INTO `timeline` VALUES ('tl221605151823158', 'yd-7264', '2016-11-22 16:05:15', '删除', '桌面组-布谷鸟邮箱账号登记', 'by221600372682956');
+INSERT INTO `timeline` VALUES ('tl221605300707447', 'yd-7264', '2016-11-22 16:05:30', '添加', '桌面组-布谷鸟邮箱账号登记', 'by221605299329156');
 INSERT INTO `timeline` VALUES ('tl221609118464953', 'yd-7111', '2016-08-22 16:09:11', '查看', 'Role', null);
+INSERT INTO `timeline` VALUES ('tl221609385269927', 'yd-7264', '2016-11-22 16:09:38', '查看', '桌面组-布谷鸟邮箱账号登记', null);
+INSERT INTO `timeline` VALUES ('tl221609429471715', 'yd-7264', '2016-11-22 16:09:42', '删除', '桌面组-布谷鸟邮箱账号登记', 'by221605299329156');
+INSERT INTO `timeline` VALUES ('tl221609536442019', 'yd-7264', '2016-11-22 16:09:53', '添加', '桌面组-布谷鸟邮箱账号登记', 'by221609534608374');
+INSERT INTO `timeline` VALUES ('tl221610166953972', 'yd-7264', '2016-11-22 16:10:16', '删除', '桌面组-布谷鸟邮箱账号登记', 'by221609534608374');
 INSERT INTO `timeline` VALUES ('tl221610187791070', 'yd-7111', '2016-08-22 16:10:18', '查看', 'Role', null);
 INSERT INTO `timeline` VALUES ('tl221610367063484', 'yd-7111', '2016-08-22 16:10:36', '查看', 'Users', null);
 INSERT INTO `timeline` VALUES ('tl221611108536254', 'yd-7111', '2016-08-22 16:11:10', '查看', 'Users', null);
@@ -19283,6 +19294,34 @@ INSERT INTO `zm_by_number` VALUES ('by151358408836200', '2016-11-15', '网运中
 INSERT INTO `zm_by_number` VALUES ('by151730159518024', '2016-11-15', '大客户客服部', '文琪', 'yd7538@84135896', null, 'qi_wen@szexpress.com.cn', '', '钟家瑜', '离职', '2016-11-15', '46', null, '', '');
 INSERT INTO `zm_by_number` VALUES ('by211811540356927', '2016-11-21', '骏达操作部', '陈巧慧   ', '', null, 'qiaohui_chen@szexpress.com.cn ', 'Yd112233', '徐路', '入职', '2016-11-21', '48', null, '', '集包副班长');
 INSERT INTO `zm_by_number` VALUES ('by211812041908789', '2016-11-21', '骏达操作部', '黄湘玉    ', '', null, 'xiangyu_huang@szexpress.com.cn', 'Yd112233', '徐路', '入职', '2016-11-21', '48', null, '', '集包副班长');
+
+-- ----------------------------
+-- Table structure for `zm_call`
+-- ----------------------------
+DROP TABLE IF EXISTS `zm_call`;
+CREATE TABLE `zm_call` (
+  `c_id` varchar(255) CHARACTER SET utf8 NOT NULL DEFAULT '',
+  `c_date` date DEFAULT NULL,
+  `c_section` varchar(255) CHARACTER SET utf8 DEFAULT NULL,
+  `c_num` varchar(255) CHARACTER SET utf8 DEFAULT NULL,
+  `c_name` varchar(255) CHARACTER SET utf8 DEFAULT NULL,
+  `c_phone` varchar(255) CHARACTER SET utf8 DEFAULT NULL,
+  `c_pass` varchar(255) CHARACTER SET utf8 DEFAULT NULL,
+  `c_it` varchar(255) CHARACTER SET utf8 DEFAULT NULL,
+  `c_job` varchar(255) CHARACTER SET utf8 DEFAULT NULL,
+  `c_week` int(11) DEFAULT NULL,
+  `c_note` varchar(255) CHARACTER SET utf8 DEFAULT NULL,
+  PRIMARY KEY (`c_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- ----------------------------
+-- Records of zm_call
+-- ----------------------------
+INSERT INTO `zm_call` VALUES ('by221652489831996', '2016-11-15', '放大师傅', '范德萨', '地方萨芬', '地方萨芬', '放大师傅', '黄光辉', '的发生', '47', '发大水');
+INSERT INTO `zm_call` VALUES ('by221710023444868', '2016-11-22', '1', '1', '1', '1', '1', '黄光辉', '1', '48', '1');
+INSERT INTO `zm_call` VALUES ('by221710178139665', '2016-11-15', '12', '12', '12', '12', '12', '黄光辉', '12', '47', '12');
+INSERT INTO `zm_call` VALUES ('by221710312522560', '2016-11-21', '123', '123', '123', '123', '123', '黄光辉', '123', '48', '123');
+INSERT INTO `zm_call` VALUES ('by221710474013854', '2016-11-16', '1234', '1234', '1234', '1234', '1234', '黄光辉', '1234', '47', '1234');
 
 -- ----------------------------
 -- Table structure for `zm_computer`
