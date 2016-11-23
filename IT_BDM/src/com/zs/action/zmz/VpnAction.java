@@ -1,5 +1,7 @@
 package com.zs.action.zmz;
 
+import java.io.File;
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.sql.Timestamp;
 import java.text.ParseException;
@@ -18,11 +20,13 @@ import com.zs.entity.Users;
 import com.zs.entity.XtSite;
 import com.zs.entity.ZmVpn;
 import com.zs.service.IService;
+import com.zs.service.iVpnService;
 import com.zs.tools.NameOfDate;
 import com.zs.tools.Page;
 
 public class VpnAction extends MyBaseAction{
 	IService ser;
+	iVpnService vpnSer;
 	Page page;
 	
 	ZmVpn vpn;
@@ -31,18 +35,42 @@ public class VpnAction extends MyBaseAction{
 	String result="vpn";
 	String result_succ="succ";
 	String result_fail="fail";
-	
 	String id;
 	String num;
 	String name;
 	String section;
 	String dates;
 	String datee;
-	
-	
+	private File fileExcel;
+	private String fileExcelContentType;
+	private String fileExcelFileName; 
 	private Logger logger= Logger.getLogger(VpnAction.class);
 	
 	
+	public iVpnService getVpnSer() {
+		return vpnSer;
+	}
+	public void setVpnSer(iVpnService vpnSer) {
+		this.vpnSer = vpnSer;
+	}
+	public File getFileExcel() {
+		return fileExcel;
+	}
+	public void setFileExcel(File fileExcel) {
+		this.fileExcel = fileExcel;
+	}
+	public String getFileExcelContentType() {
+		return fileExcelContentType;
+	}
+	public void setFileExcelContentType(String fileExcelContentType) {
+		this.fileExcelContentType = fileExcelContentType;
+	}
+	public String getFileExcelFileName() {
+		return fileExcelFileName;
+	}
+	public void setFileExcelFileName(String fileExcelFileName) {
+		this.fileExcelFileName = fileExcelFileName;
+	}
 	public String getId() {
 		return id;
 	}
@@ -214,4 +242,8 @@ public class VpnAction extends MyBaseAction{
 		return gotoQuery();
 	}	
 	
+	public String importExcel() throws InterruptedException, IOException, ParseException {
+		vpnSer.importExcelData(fileExcelFileName, fileExcel);
+		return gotoQuery();
+	}
 }

@@ -133,8 +133,6 @@ public class DaManagerAction extends MyBaseAction implements IMyBaseAction{
 			clearOptions();
 		}
 		clearSpace();
-		
-		
 		if(id!=null){
 			/*
 			logger.debug(id);

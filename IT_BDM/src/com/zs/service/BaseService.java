@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -603,6 +605,21 @@ public class BaseService implements IService{
 			System.out.println("文件导出失败");
 		}  
 		
+	}
+	public Date transToDate(String str) {
+		try {
+			return str==null||str.trim().equals("")?new Date():new SimpleDateFormat("yyyy-MM-dd").parse(str);
+		} catch (ParseException e) {
+			e.printStackTrace();
+			return new Date();
+		}
+	}
+	public Integer transToInt(String str) {
+		try {
+			return str==null||str.trim().equals("")?null:Integer.valueOf(str);
+		} catch (Exception e) {
+			return null;
+		}
 	}
 
 }

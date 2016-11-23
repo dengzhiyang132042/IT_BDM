@@ -35,7 +35,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   </head>
   
   <body>
-  	<div style="color: blue;font-weight: bold;">今天的时间轴:</div>
+  	<div style="color: blue;font-weight: bold;">今天的时间轴:${username }</div>
+  	<form action="<%=path %>/timeline!query" method="post">
+  	<select name="userid">
+  		<c:forEach items="${listUsers}" var="u">
+  		<option value="${u.UNum }">${u.UName }</option>
+  		</c:forEach>
+  	</select>
+  	<input type="submit" value="查看"/>
+  	</form>
+  	
   	<br/>
   	
   	<div style="padding-right: 27px;">
