@@ -187,4 +187,24 @@ public interface IService {
 	 * <br/>传入一个首行数组，和一个Object数组将已Excel文档进行导出
 	 */
 	public void outExcel(Object[] obj,Object[][] obj2,String path);
+	
+	
+	
+	/**字符串转换日期，并避免空指针异常
+	 * @author 张顺
+	 * @param str
+	 * @return
+	 */
+	public Date transToDate(String str);
+	
+	
+	/**字符串转换整形，并避免空指针异常
+	 * @author 张顺
+	 * @param str
+	 * @return
+	 */
+	public Integer transToInt(String str);
+	
+	
+	
 }

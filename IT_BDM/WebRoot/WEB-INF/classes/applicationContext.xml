@@ -78,6 +78,7 @@
 	<!-- **************************桌面组******************************************** -->
 	<bean id="zs_vpn_zmz" class="com.zs.action.zmz.VpnAction">
 		<property name="ser" ref="zs_ser"></property>
+		<property name="vpnSer" ref="zs_ser_zmz_vpn"></property>
 	</bean>
 	<bean id="zs_ser_xtz_zm_data" class="com.zs.service.impl.XtZmDataServiceImpl">
 		<property name="dao" ref="zs_dao"></property>

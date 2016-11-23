@@ -1,5 +1,6 @@
 package com.zs.action.oneself;
 
+import java.io.UnsupportedEncodingException;
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
@@ -49,15 +50,24 @@ public class TimelineAction extends MyBaseAction{
 	/*2016年8月11日16:30:27
 	 * 张顺
 	 * */
-	public String query() {
+	public String query() throws UnsupportedEncodingException {
+		String userid=getRequest().getParameter("userid");
 		//先得到当天开始的时间
 		Date date=new Date();
 		Timestamp timestamp1=new Timestamp(date.getYear(), date.getMonth(), date.getDate(), 0, 0, 0, 0);
 		Timestamp timestamp2=new Timestamp(date.getYear(), date.getMonth(), date.getDate(), 23, 59, 59, 999);
-		//得到登陆者
-		Users user=(Users) getSession().getAttribute("user");
-		//查找登陆者今天的时间轴
-		tls=ser.find("from Timeline where userNum=? and tlTime>? and tlTime<? order by tlTime desc", new Object[]{user.getUNum(),timestamp1,timestamp2});
+		if (userid==null) {
+			//得到登陆者
+			Users user=(Users) getSession().getAttribute("user");
+			//查找登陆者今天的时间轴
+			tls=ser.find("from Timeline where userNum=? and tlTime>? and tlTime<? order by tlTime desc", new Object[]{user.getUNum(),timestamp1,timestamp2});
+			getRequest().setAttribute("username", user.getUName());
+		}else {
+			tls=ser.find("from Timeline where userNum=? and tlTime>? and tlTime<? order by tlTime desc", new Object[]{userid,timestamp1,timestamp2});
+			Users u2=(Users) ser.get(Users.class, userid);
+			getRequest().setAttribute("username", u2.getUName());
+		}
+		ser.bringUsers(getRequest());
 		return result;
 	}
 	
