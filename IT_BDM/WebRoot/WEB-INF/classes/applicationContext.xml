@@ -85,6 +85,7 @@
 	</bean>
 	<bean id="zs_by_zmz" class="com.zs.action.zmz.ByAction">
 		<property name="ser" ref="zs_ser"></property>
+		<property name="bySer" ref="zs_ser_zmz_by"></property>
 	</bean>
 	<bean id="zs_bq_zmz" class="com.zs.action.zmz.BqAction">
 		<property name="ser" ref="zs_ser"></property>
@@ -98,6 +99,7 @@
 	</bean>
 	<bean id="zs_oa_zmz" class="com.zs.action.zmz.OaAction">
 		<property name="ser" ref="zs_ser"></property>
+		<property name="importSer" ref="zs_ser_zmz_oa"></property>
 	</bean>
 	<bean id="zs_print_zmz" class="com.zs.action.zmz.PrintAction">
 		<property name="ser" ref="zs_ser"></property>
@@ -108,6 +110,7 @@
 	<bean id="hgh_call_zmz" class="com.zs.action.zmz.CallAction">
 		<property name="ser" ref="zs_ser"></property>
 	</bean>
+	
 	
 	<!-- *****************数据分析************************  -->
 	<!--系统组	-->
@@ -228,8 +231,12 @@
 	<bean id="zs_ser_xtz_pda_loss" class="com.zs.service.impl.XtPdaLossServiceImpl">
 		<property name="dao" ref="zs_dao"></property>
 	</bean>	
-	
-	
+	<bean id="zs_ser_zmz_by" class="com.zs.service.impl.ZmByServiceImpl">
+		<property name="dao" ref="zs_dao"></property>
+	</bean>	
+	<bean id="zs_ser_zmz_oa" class="com.zs.service.impl.ZmOaServiceImpl">
+		<property name="dao" ref="zs_dao"></property>
+	</bean>
 	
 	<!-- ************************************* -->
 	

@@ -12,9 +12,9 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.log4j.Logger;
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFCellStyle;
 import org.apache.poi.hssf.usermodel.HSSFDataFormat;
@@ -22,9 +22,6 @@ import org.apache.poi.hssf.usermodel.HSSFFont;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-
-
-
 import com.zs.dao.IBaseDaoOfSpring;
 import com.zs.entity.CompanySection;
 import com.zs.entity.CompanySection1;
@@ -49,6 +46,7 @@ import com.zs.tools.Page;
 public class BaseService implements IService{
 
 	IBaseDaoOfSpring dao;
+	private Logger log=Logger.getLogger(BaseService.class);
 	
 	public IBaseDaoOfSpring getDao() {
 		return dao;
@@ -610,7 +608,7 @@ public class BaseService implements IService{
 		try {
 			return str==null||str.trim().equals("")?new Date():new SimpleDateFormat("yyyy-MM-dd").parse(str);
 		} catch (ParseException e) {
-			e.printStackTrace();
+			log.error("String转换Date错误，错误的字符串是："+str);
 			return new Date();
 		}
 	}
@@ -618,6 +616,7 @@ public class BaseService implements IService{
 		try {
 			return str==null||str.trim().equals("")?null:Integer.valueOf(str);
 		} catch (Exception e) {
+			log.error("String转换Integer错误，错误的字符串是："+str);
 			return null;
 		}
 	}
