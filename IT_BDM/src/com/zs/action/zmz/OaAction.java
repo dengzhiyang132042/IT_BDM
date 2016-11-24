@@ -158,9 +158,9 @@ public class OaAction extends MyBaseAction implements IMyBaseAction{
 	}
 
 	public String gotoQuery() throws UnsupportedEncodingException {
-		String hql="from ZmOaNumber order by OServiceDate desc";
+		String hql="from ZmOaNumber order by ODate desc";
 		String ss[]={};
-		String hql2="from ZmOaNumber order by OServiceDate desc";
+		String hql2="from ZmOaNumber order by ODate desc";
 		oas=ser.query(hql, ss, hql2, page, ser);
 		return result;
 	}
@@ -169,10 +169,10 @@ public class OaAction extends MyBaseAction implements IMyBaseAction{
 		id=getRequest().getParameter("id");
 		String cz=getRequest().getParameter("cz");//用于判断是否清理page，yes清理，no不清理
 		if (page==null) {
-			page=new Page(1, 0, 5);
+			page=new Page(1, 0, 15);
 		}
 		if (cz!=null && cz.equals("yes")) {
-			page=new Page(1, 0, 5);
+			page=new Page(1, 0, 15);
 			clearOptions();
 		}
 		clearSpace();
@@ -188,17 +188,17 @@ public class OaAction extends MyBaseAction implements IMyBaseAction{
 				hql=hql+" and OApply like '%"+apply+"%'";
 			}
 			if(dates!=null && !"".equals(dates)){
-				hql=hql+" and OServiceDate >= '"+dates+"'";
+				hql=hql+" and ODate >= '"+dates+"'";
 			}
 			if(datee!=null && !"".equals(datee)){
-				hql=hql+" and OServiceDate <= '"+datee+"'";
+				hql=hql+" and ODate <= '"+datee+"'";
 			}
-			hql=hql+" order by OServiceDate desc";
+			hql=hql+" order by ODate desc";
 			oas=ser.query(hql, null, hql, page, ser);
 		}else {
-			String hql="from ZmOaNumber order by OServiceDate desc";
+			String hql="from ZmOaNumber order by ODate desc";
 			String ss[]={};
-			String hql2="from ZmOaNumber order by OServiceDate desc";
+			String hql2="from ZmOaNumber order by ODate desc";
 			oas=ser.query(hql, ss, hql2, page, ser);
 		}
 		return result;
