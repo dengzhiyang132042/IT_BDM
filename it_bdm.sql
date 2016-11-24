@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50617
 File Encoding         : 65001
 
-Date: 2016-11-22 17:41:09
+Date: 2016-11-24 17:54:10
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -1046,7 +1046,7 @@ INSERT INTO `da_perform` VALUES ('p211728134339100', 'yd-7067', '2016-11-21 17:3
 INSERT INTO `da_perform` VALUES ('p211728371294955', 'yd-7067', '2016-11-21 17:38:58', '已完成', null, 'd211728370983295', '网络原因，重启。建议更换路由器。');
 INSERT INTO `da_perform` VALUES ('p211729349908748', 'yd-7067', '2016-11-21 17:37:17', '已完成', null, 'd211729349594049', '卸载杀毒软件后安装，已完成！');
 INSERT INTO `da_perform` VALUES ('p211740244038105', 'yd-6970', '2016-11-21 17:44:42', '已完成', null, 'd211740243883894', '');
-INSERT INTO `da_perform` VALUES ('p220930386977139', 'yd-6970', '2016-11-22 09:30:38', '进行中', null, 'd220930386503481', null);
+INSERT INTO `da_perform` VALUES ('p220930386977139', 'yd-6970', '2016-11-22 09:30:38', '未完成', null, 'd220930386503481', '超时，系统自动设定未完成');
 INSERT INTO `da_perform` VALUES ('p220939395978633', 'yd-6312', '2016-11-22 10:42:27', '已完成', null, 'd220939395669082', '');
 INSERT INTO `da_perform` VALUES ('p220941189696809', 'yd-4988', '2016-11-22 12:58:11', '已完成', null, 'd220941189388364', '远程处理');
 INSERT INTO `da_perform` VALUES ('p221025062941368', 'yd-6312', '2016-11-22 10:42:16', '已完成', null, 'd221025062793814', '软件安装已完成');
@@ -1524,55 +1524,6 @@ INSERT INTO `role_permission` VALUES ('rp100858302962376', 'r190954449306917', '
 INSERT INTO `role_permission` VALUES ('rp100858303277192', 'r190954449306917', '111');
 INSERT INTO `role_permission` VALUES ('rp100858303436116', 'r190954449306917', '115');
 INSERT INTO `role_permission` VALUES ('rp100858303741646', 'r190954449306917', '117');
-INSERT INTO `role_permission` VALUES ('rp100858462086179', 'r291001481383931', '1');
-INSERT INTO `role_permission` VALUES ('rp100858462246857', 'r291001481383931', '5');
-INSERT INTO `role_permission` VALUES ('rp100858462397622', 'r291001481383931', '9');
-INSERT INTO `role_permission` VALUES ('rp100858462707602', 'r291001481383931', '13');
-INSERT INTO `role_permission` VALUES ('rp100858462866929', 'r291001481383931', '17');
-INSERT INTO `role_permission` VALUES ('rp100858463023713', 'r291001481383931', '21');
-INSERT INTO `role_permission` VALUES ('rp100858463336796', 'r291001481383931', '25');
-INSERT INTO `role_permission` VALUES ('rp100858463482656', 'r291001481383931', '29');
-INSERT INTO `role_permission` VALUES ('rp100858463647603', 'r291001481383931', '33');
-INSERT INTO `role_permission` VALUES ('rp100858463957919', 'r291001481383931', '37');
-INSERT INTO `role_permission` VALUES ('rp100858464118333', 'r291001481383931', '41');
-INSERT INTO `role_permission` VALUES ('rp100858464262320', 'r291001481383931', '53');
-INSERT INTO `role_permission` VALUES ('rp100858464587509', 'r291001481383931', '54');
-INSERT INTO `role_permission` VALUES ('rp100858464736029', 'r291001481383931', '55');
-INSERT INTO `role_permission` VALUES ('rp100858465049484', 'r291001481383931', '59');
-INSERT INTO `role_permission` VALUES ('rp100858465208071', 'r291001481383931', '63');
-INSERT INTO `role_permission` VALUES ('rp100858465367318', 'r291001481383931', '67');
-INSERT INTO `role_permission` VALUES ('rp100858465514327', 'r291001481383931', '71');
-INSERT INTO `role_permission` VALUES ('rp100858465826610', 'r291001481383931', '72');
-INSERT INTO `role_permission` VALUES ('rp100858465988274', 'r291001481383931', '73');
-INSERT INTO `role_permission` VALUES ('rp100858466293807', 'r291001481383931', '74');
-INSERT INTO `role_permission` VALUES ('rp100858466452835', 'r291001481383931', '75');
-INSERT INTO `role_permission` VALUES ('rp100858466607456', 'r291001481383931', '76');
-INSERT INTO `role_permission` VALUES ('rp100858466762356', 'r291001481383931', '77');
-INSERT INTO `role_permission` VALUES ('rp100858467078908', 'r291001481383931', '78');
-INSERT INTO `role_permission` VALUES ('rp100858467236742', 'r291001481383931', '79');
-INSERT INTO `role_permission` VALUES ('rp100858467541207', 'r291001481383931', '80');
-INSERT INTO `role_permission` VALUES ('rp100858467705095', 'r291001481383931', '81');
-INSERT INTO `role_permission` VALUES ('rp100858467855182', 'r291001481383931', '82');
-INSERT INTO `role_permission` VALUES ('rp100858468014682', 'r291001481383931', '83');
-INSERT INTO `role_permission` VALUES ('rp100858468325345', 'r291001481383931', '84');
-INSERT INTO `role_permission` VALUES ('rp100858468487939', 'r291001481383931', '85');
-INSERT INTO `role_permission` VALUES ('rp100858468793653', 'r291001481383931', '86');
-INSERT INTO `role_permission` VALUES ('rp100858468948373', 'r291001481383931', '91');
-INSERT INTO `role_permission` VALUES ('rp100858469104878', 'r291001481383931', '92');
-INSERT INTO `role_permission` VALUES ('rp100858469265190', 'r291001481383931', '93');
-INSERT INTO `role_permission` VALUES ('rp100858469576513', 'r291001481383931', '94');
-INSERT INTO `role_permission` VALUES ('rp100858469725122', 'r291001481383931', '95');
-INSERT INTO `role_permission` VALUES ('rp100858470046275', 'r291001481383931', '96');
-INSERT INTO `role_permission` VALUES ('rp100858470191170', 'r291001481383931', '97');
-INSERT INTO `role_permission` VALUES ('rp100858470351371', 'r291001481383931', '98');
-INSERT INTO `role_permission` VALUES ('rp100858470664521', 'r291001481383931', '99');
-INSERT INTO `role_permission` VALUES ('rp100858470826278', 'r291001481383931', '100');
-INSERT INTO `role_permission` VALUES ('rp100858470973196', 'r291001481383931', '101');
-INSERT INTO `role_permission` VALUES ('rp100858471289549', 'r291001481383931', '102');
-INSERT INTO `role_permission` VALUES ('rp100858471443529', 'r291001481383931', '107');
-INSERT INTO `role_permission` VALUES ('rp100858471608873', 'r291001481383931', '111');
-INSERT INTO `role_permission` VALUES ('rp100858471915317', 'r291001481383931', '115');
-INSERT INTO `role_permission` VALUES ('rp100858472062459', 'r291001481383931', '117');
 INSERT INTO `role_permission` VALUES ('rp161747269916298', 'r291006061579535', '1');
 INSERT INTO `role_permission` VALUES ('rp161747270074559', 'r291006061579535', '5');
 INSERT INTO `role_permission` VALUES ('rp161747270385618', 'r291006061579535', '9');
@@ -1634,6 +1585,59 @@ INSERT INTO `role_permission` VALUES ('rp191357506048525', 'r291018145843610', '
 INSERT INTO `role_permission` VALUES ('rp191357506357151', 'r291018145843610', '111');
 INSERT INTO `role_permission` VALUES ('rp191357506669101', 'r291018145843610', '119');
 INSERT INTO `role_permission` VALUES ('rp191357506826729', 'r291018145843610', '121');
+INSERT INTO `role_permission` VALUES ('rp231034028924164', 'r291001481383931', '1');
+INSERT INTO `role_permission` VALUES ('rp231034029211674', 'r291001481383931', '5');
+INSERT INTO `role_permission` VALUES ('rp231034029489112', 'r291001481383931', '9');
+INSERT INTO `role_permission` VALUES ('rp231034029829838', 'r291001481383931', '13');
+INSERT INTO `role_permission` VALUES ('rp231034030157121', 'r291001481383931', '17');
+INSERT INTO `role_permission` VALUES ('rp231034030445395', 'r291001481383931', '21');
+INSERT INTO `role_permission` VALUES ('rp231034030736881', 'r291001481383931', '25');
+INSERT INTO `role_permission` VALUES ('rp231034031036347', 'r291001481383931', '29');
+INSERT INTO `role_permission` VALUES ('rp231034031734217', 'r291001481383931', '33');
+INSERT INTO `role_permission` VALUES ('rp231034032112794', 'r291001481383931', '37');
+INSERT INTO `role_permission` VALUES ('rp231034032478510', 'r291001481383931', '41');
+INSERT INTO `role_permission` VALUES ('rp231034032775079', 'r291001481383931', '53');
+INSERT INTO `role_permission` VALUES ('rp231034033066333', 'r291001481383931', '54');
+INSERT INTO `role_permission` VALUES ('rp231034033359734', 'r291001481383931', '55');
+INSERT INTO `role_permission` VALUES ('rp231034033648570', 'r291001481383931', '59');
+INSERT INTO `role_permission` VALUES ('rp231034033945545', 'r291001481383931', '63');
+INSERT INTO `role_permission` VALUES ('rp231034034487163', 'r291001481383931', '67');
+INSERT INTO `role_permission` VALUES ('rp231034034775037', 'r291001481383931', '71');
+INSERT INTO `role_permission` VALUES ('rp231034035056592', 'r291001481383931', '72');
+INSERT INTO `role_permission` VALUES ('rp231034035357463', 'r291001481383931', '73');
+INSERT INTO `role_permission` VALUES ('rp231034035647858', 'r291001481383931', '74');
+INSERT INTO `role_permission` VALUES ('rp231034035953528', 'r291001481383931', '75');
+INSERT INTO `role_permission` VALUES ('rp231034036314908', 'r291001481383931', '76');
+INSERT INTO `role_permission` VALUES ('rp231034036605378', 'r291001481383931', '77');
+INSERT INTO `role_permission` VALUES ('rp231034036898337', 'r291001481383931', '78');
+INSERT INTO `role_permission` VALUES ('rp231034037153423', 'r291001481383931', '79');
+INSERT INTO `role_permission` VALUES ('rp231034037646824', 'r291001481383931', '80');
+INSERT INTO `role_permission` VALUES ('rp231034037941397', 'r291001481383931', '81');
+INSERT INTO `role_permission` VALUES ('rp231034038228947', 'r291001481383931', '82');
+INSERT INTO `role_permission` VALUES ('rp231034038522269', 'r291001481383931', '83');
+INSERT INTO `role_permission` VALUES ('rp231034038818922', 'r291001481383931', '84');
+INSERT INTO `role_permission` VALUES ('rp231034039159717', 'r291001481383931', '85');
+INSERT INTO `role_permission` VALUES ('rp231034039478991', 'r291001481383931', '86');
+INSERT INTO `role_permission` VALUES ('rp231034039778155', 'r291001481383931', '87');
+INSERT INTO `role_permission` VALUES ('rp231034040065869', 'r291001481383931', '88');
+INSERT INTO `role_permission` VALUES ('rp231034040373941', 'r291001481383931', '89');
+INSERT INTO `role_permission` VALUES ('rp231034040657094', 'r291001481383931', '90');
+INSERT INTO `role_permission` VALUES ('rp231034040988353', 'r291001481383931', '91');
+INSERT INTO `role_permission` VALUES ('rp231034041394731', 'r291001481383931', '92');
+INSERT INTO `role_permission` VALUES ('rp231034041716949', 'r291001481383931', '93');
+INSERT INTO `role_permission` VALUES ('rp231034042063499', 'r291001481383931', '94');
+INSERT INTO `role_permission` VALUES ('rp231034042356825', 'r291001481383931', '95');
+INSERT INTO `role_permission` VALUES ('rp231034042645634', 'r291001481383931', '96');
+INSERT INTO `role_permission` VALUES ('rp231034042948182', 'r291001481383931', '97');
+INSERT INTO `role_permission` VALUES ('rp231034043223176', 'r291001481383931', '98');
+INSERT INTO `role_permission` VALUES ('rp231034043531284', 'r291001481383931', '99');
+INSERT INTO `role_permission` VALUES ('rp231034043818603', 'r291001481383931', '100');
+INSERT INTO `role_permission` VALUES ('rp231034044114825', 'r291001481383931', '101');
+INSERT INTO `role_permission` VALUES ('rp231034044393046', 'r291001481383931', '102');
+INSERT INTO `role_permission` VALUES ('rp231034044713620', 'r291001481383931', '107');
+INSERT INTO `role_permission` VALUES ('rp231034044981528', 'r291001481383931', '111');
+INSERT INTO `role_permission` VALUES ('rp231034045275253', 'r291001481383931', '115');
+INSERT INTO `role_permission` VALUES ('rp231034045776720', 'r291001481383931', '117');
 INSERT INTO `role_permission` VALUES ('rp281014273664794', 'r111613371752208', '1');
 INSERT INTO `role_permission` VALUES ('rp281014273822756', 'r111613371752208', '2');
 INSERT INTO `role_permission` VALUES ('rp281014274031291', 'r111613371752208', '3');
@@ -10138,11 +10142,119 @@ INSERT INTO `timeline` VALUES ('tl221630264893277', 'yd-7264', '2016-10-22 16:30
 INSERT INTO `timeline` VALUES ('tl221630270825992', 'yd-7264', '2016-10-22 16:30:27', '查看', '故障报修统计——客服', null);
 INSERT INTO `timeline` VALUES ('tl221630281276050', 'yd-7264', '2016-10-22 16:30:28', '查看', '故障报修处理', null);
 INSERT INTO `timeline` VALUES ('tl221630315139186', 'yd-7264', '2016-10-22 16:30:31', '查看', '个人中心-时间轴', null);
+INSERT INTO `timeline` VALUES ('tl230955450223278', 'yd-6970', '2016-11-23 09:55:45', '查看', '故障报修处理', null);
+INSERT INTO `timeline` VALUES ('tl231004209014790', 'yd-6970', '2016-11-23 10:04:20', '查看', '桌面组-OA账号登记', null);
+INSERT INTO `timeline` VALUES ('tl231004218152059', 'yd-6970', '2016-11-23 10:04:21', '查看', '桌面组-布谷鸟邮箱账号登记', null);
+INSERT INTO `timeline` VALUES ('tl231004228554198', 'yd-6970', '2016-11-23 10:04:22', '查看', '桌面组-VPN管理', null);
+INSERT INTO `timeline` VALUES ('tl231004261787901', 'yd-6970', '2016-11-23 10:04:26', '查看', '桌面组-布谷鸟邮箱账号登记', null);
+INSERT INTO `timeline` VALUES ('tl231004312924066', 'yd-6970', '2016-11-23 10:04:31', '查看', '桌面组-VPN管理', null);
+INSERT INTO `timeline` VALUES ('tl231004500244991', 'yd-6970', '2016-11-23 10:04:50', '查看', '桌面组-布谷鸟邮箱账号登记', null);
+INSERT INTO `timeline` VALUES ('tl231004543513703', 'yd-6970', '2016-11-23 10:04:54', '查看', '桌面组-VPN管理', null);
+INSERT INTO `timeline` VALUES ('tl231004587266266', 'yd-6970', '2016-11-23 10:04:58', '查看', '桌面组-布谷鸟邮箱账号登记', null);
+INSERT INTO `timeline` VALUES ('tl231005260799532', 'yd-6970', '2016-11-23 10:05:26', '查看', '桌面组-VPN管理', null);
+INSERT INTO `timeline` VALUES ('tl231005482307320', 'yd-6970', '2016-11-23 10:05:48', '查看', '系统组-哲盟账号申请登记', '');
+INSERT INTO `timeline` VALUES ('tl231008105689636', 'yd-6970', '2016-11-23 10:08:10', '查看', '桌面组-电话线分布', null);
+INSERT INTO `timeline` VALUES ('tl231008131392467', 'yd-6970', '2016-11-23 10:08:13', '查看', '桌面组-园区wifi管理', null);
+INSERT INTO `timeline` VALUES ('tl231009111182425', 'yd-6970', '2016-11-23 10:09:11', '查看', '桌面组-小仓巴枪电脑登记', null);
+INSERT INTO `timeline` VALUES ('tl231009208736648', 'yd-6970', '2016-11-23 10:09:20', '查看', '桌面组-小仓巴枪电脑登记', null);
+INSERT INTO `timeline` VALUES ('tl231009250528380', 'yd-6970', '2016-11-23 10:09:25', '查看', '桌面组-打印机登记', null);
+INSERT INTO `timeline` VALUES ('tl231009310166987', 'yd-6970', '2016-11-23 10:09:31', '查看', '桌面组-打印机登记', null);
+INSERT INTO `timeline` VALUES ('tl231009370435244', 'yd-6970', '2016-11-23 10:09:37', '查看', '系统组-二级站点资料', null);
+INSERT INTO `timeline` VALUES ('tl231009374476668', 'yd-6970', '2016-11-23 10:09:37', '查看', '系统组-哲盟账号申请登记', null);
+INSERT INTO `timeline` VALUES ('tl231009391793735', 'yd-6970', '2016-11-23 10:09:39', '查看', '系统组-二级站点资料', null);
+INSERT INTO `timeline` VALUES ('tl231009401731654', 'yd-6970', '2016-11-23 10:09:40', '查看', '系统组-站点资料', null);
+INSERT INTO `timeline` VALUES ('tl231010161229035', 'yd-6970', '2016-11-23 10:10:16', '查看', '系统组-哲盟数据检查登记', null);
+INSERT INTO `timeline` VALUES ('tl231010182439508', 'yd-6970', '2016-11-23 10:10:18', '查看', '桌面组-VPN管理', null);
+INSERT INTO `timeline` VALUES ('tl231010204551035', 'yd-6970', '2016-11-23 10:10:20', '查看', '桌面组-布谷鸟邮箱账号登记', null);
+INSERT INTO `timeline` VALUES ('tl231010231202233', 'yd-6970', '2016-11-23 10:10:23', '查看', '桌面组-VPN管理', null);
+INSERT INTO `timeline` VALUES ('tl231010342221857', 'yd-6970', '2016-11-23 10:10:34', '查看', '桌面组-VPN管理', null);
+INSERT INTO `timeline` VALUES ('tl231010345468018', 'yd-6970', '2016-11-23 10:10:34', '查看', '桌面组-布谷鸟邮箱账号登记', null);
+INSERT INTO `timeline` VALUES ('tl231010471348355', 'yd-6970', '2016-11-23 10:10:47', '查看', '桌面组-VPN管理', null);
+INSERT INTO `timeline` VALUES ('tl231010548544975', 'yd-6970', '2016-11-23 10:10:54', '查看', '桌面组-布谷鸟邮箱账号登记', null);
+INSERT INTO `timeline` VALUES ('tl231010579045449', 'yd-6970', '2016-11-23 10:10:57', '查看', '桌面组-VPN管理', null);
+INSERT INTO `timeline` VALUES ('tl231011415393194', 'yd-6970', '2016-11-23 10:11:41', '查看', '系统组-哲盟账号申请登记', null);
+INSERT INTO `timeline` VALUES ('tl231011559657796', 'yd-6970', '2016-11-23 10:11:55', '查看', '桌面组-打印机登记', null);
+INSERT INTO `timeline` VALUES ('tl231012055069486', 'yd-6970', '2016-11-23 10:12:05', '查看', '桌面组-打印机登记', '');
+INSERT INTO `timeline` VALUES ('tl231012220472979', 'yd-6970', '2016-11-23 10:12:22', '查看', '桌面组-打印机登记', null);
+INSERT INTO `timeline` VALUES ('tl231012536297316', 'yd-6970', '2016-11-23 10:12:53', '查看', '桌面组-打印机登记', null);
+INSERT INTO `timeline` VALUES ('tl231013237334152', 'yd-6970', '2016-11-23 10:13:23', '查看', '桌面组-打印机登记', '');
+INSERT INTO `timeline` VALUES ('tl231015072522343', 'yd-6970', '2016-11-23 10:15:07', '查看', '桌面组-小仓巴枪电脑登记', null);
+INSERT INTO `timeline` VALUES ('tl231015235492771', 'yd-6970', '2016-11-23 10:15:23', '查看', '桌面组-小仓巴枪电脑登记', '');
+INSERT INTO `timeline` VALUES ('tl231015283412233', 'yd-6970', '2016-11-23 10:15:28', '查看', '桌面组-小仓巴枪电脑登记', '');
+INSERT INTO `timeline` VALUES ('tl231015294072238', 'yd-6970', '2016-11-23 10:15:29', '查看', '桌面组-小仓巴枪电脑登记', '');
+INSERT INTO `timeline` VALUES ('tl231015320995751', 'yd-6970', '2016-11-23 10:15:32', '查看', '桌面组-小仓巴枪电脑登记', '');
+INSERT INTO `timeline` VALUES ('tl231015443737068', 'yd-6970', '2016-11-23 10:15:44', '查看', '桌面组-小仓巴枪电脑登记', '');
+INSERT INTO `timeline` VALUES ('tl231015508383470', 'yd-6970', '2016-11-23 10:15:50', '查看', '桌面组-小仓巴枪电脑登记', '');
+INSERT INTO `timeline` VALUES ('tl231015526726766', 'yd-6970', '2016-11-23 10:15:52', '查看', '桌面组-小仓巴枪电脑登记', '');
+INSERT INTO `timeline` VALUES ('tl231021032498365', 'yd-6970', '2016-11-23 10:21:03', '查看', '桌面组-园区wifi管理', null);
+INSERT INTO `timeline` VALUES ('tl231021112436222', 'yd-6970', '2016-11-23 10:21:11', '查看', '桌面组-打印机登记', null);
+INSERT INTO `timeline` VALUES ('tl231021147275464', 'yd-6970', '2016-11-23 10:21:14', '查看', '桌面组-园区wifi管理', null);
+INSERT INTO `timeline` VALUES ('tl231021164416935', 'yd-6970', '2016-11-23 10:21:16', '查看', '桌面组-电话线分布', null);
+INSERT INTO `timeline` VALUES ('tl231029218487148', 'yd-7264', '2016-11-23 10:29:21', '查看', '桌面组-OA账号登记', null);
+INSERT INTO `timeline` VALUES ('tl231029474631178', 'yd-7264', '2016-11-23 10:29:47', '查看', '桌面组-布谷鸟邮箱账号登记', null);
+INSERT INTO `timeline` VALUES ('tl231029494951289', 'yd-7264', '2016-11-23 10:29:49', '查看', '桌面组-VPN管理', null);
+INSERT INTO `timeline` VALUES ('tl231029514024856', 'yd-7264', '2016-11-23 10:29:51', '查看', '桌面组-OA账号登记', null);
+INSERT INTO `timeline` VALUES ('tl231031308935723', 'yd-6970', '2016-11-23 10:31:30', '查看', '硬件组-分拨点电脑', null);
+INSERT INTO `timeline` VALUES ('tl231031343281759', 'yd-6970', '2016-11-23 10:31:34', '查看', '系统组-站点资料', null);
+INSERT INTO `timeline` VALUES ('tl231031353805707', 'yd-6970', '2016-11-23 10:31:35', '查看', '系统组-哲盟数据检查登记', null);
+INSERT INTO `timeline` VALUES ('tl231031490954489', 'yd-6970', '2016-11-23 10:31:49', '查看', '系统组-二级站点资料', null);
+INSERT INTO `timeline` VALUES ('tl231032204154246', 'yd-6970', '2016-11-23 10:32:20', '查看', '硬件组-内件收发', null);
+INSERT INTO `timeline` VALUES ('tl231032499639052', 'yd-6970', '2016-11-23 10:32:49', '查看', '硬件组-内件收发', null);
+INSERT INTO `timeline` VALUES ('tl231032554428225', 'yd-6970', '2016-11-23 10:32:55', '查看', '系统组-哲盟账号申请登记', null);
+INSERT INTO `timeline` VALUES ('tl231032599349052', 'yd-6970', '2016-11-23 10:32:59', '查看', '桌面组-园区wifi管理', null);
+INSERT INTO `timeline` VALUES ('tl231033063084266', 'yd-6970', '2016-11-23 10:33:06', '查看', '硬件组-ASDL', null);
+INSERT INTO `timeline` VALUES ('tl231033066305146', 'yd-6970', '2016-11-23 10:33:06', '查看', '系统组-站点资料', null);
+INSERT INTO `timeline` VALUES ('tl231033083487108', 'yd-6970', '2016-11-23 10:33:08', '查看', '桌面组-园区wifi管理', null);
+INSERT INTO `timeline` VALUES ('tl231033185492741', 'yd-6970', '2016-11-23 10:33:18', '查看', '桌面组-小仓巴枪电脑登记', null);
+INSERT INTO `timeline` VALUES ('tl231033219631370', 'yd-6970', '2016-11-23 10:33:21', '查看', '桌面组-打印机登记', null);
+INSERT INTO `timeline` VALUES ('tl231033454545578', 'yd-7111', '2016-11-23 10:33:45', '查看', '系统管理-用户管理', null);
+INSERT INTO `timeline` VALUES ('tl231033468295996', 'yd-7111', '2016-11-23 10:33:46', '查看', '系统管理-角色管理', null);
+INSERT INTO `timeline` VALUES ('tl231034047455532', 'yd-7111', '2016-11-23 10:34:04', '修改', '系统管理-角色管理', 'r291001481383931');
+INSERT INTO `timeline` VALUES ('tl231034198063515', 'yd-7111', '2016-11-23 10:34:19', '查看', '桌面组-VPN管理', null);
+INSERT INTO `timeline` VALUES ('tl231034210736524', 'yd-7111', '2016-11-23 10:34:21', '查看', '桌面组-布谷鸟邮箱账号登记', null);
+INSERT INTO `timeline` VALUES ('tl231034226142905', 'yd-7111', '2016-11-23 10:34:22', '查看', '桌面组-VPN管理', null);
+INSERT INTO `timeline` VALUES ('tl231034353419148', 'yd-7111', '2016-11-23 10:34:35', '查看', '桌面组-布谷鸟邮箱账号登记', null);
+INSERT INTO `timeline` VALUES ('tl231034378275329', 'yd-7111', '2016-11-23 10:34:37', '查看', '桌面组-OA账号登记', null);
+INSERT INTO `timeline` VALUES ('tl231034385616455', 'yd-7111', '2016-11-23 10:34:38', '查看', '桌面组-打印机登记', null);
+INSERT INTO `timeline` VALUES ('tl231034421791015', 'yd-7111', '2016-11-23 10:34:42', '查看', '桌面组-OA账号登记', null);
+INSERT INTO `timeline` VALUES ('tl231034428037285', 'yd-7111', '2016-11-23 10:34:42', '查看', '桌面组-布谷鸟邮箱账号登记', null);
+INSERT INTO `timeline` VALUES ('tl231036302399233', 'yd-7111', '2016-11-23 10:36:30', '查看', '桌面组-VPN管理', null);
+INSERT INTO `timeline` VALUES ('tl231036396687984', 'yd-7111', '2016-11-23 10:36:39', '查看', '桌面组-VPN管理', '');
+INSERT INTO `timeline` VALUES ('tl231036439899616', 'yd-7111', '2016-11-23 10:36:43', '查看', '桌面组-VPN管理', '');
+INSERT INTO `timeline` VALUES ('tl231036468899726', 'yd-7111', '2016-11-23 10:36:46', '查看', '桌面组-VPN管理', '');
+INSERT INTO `timeline` VALUES ('tl231036480571298', 'yd-7111', '2016-11-23 10:36:48', '查看', '桌面组-VPN管理', '');
+INSERT INTO `timeline` VALUES ('tl231036491077127', 'yd-7111', '2016-11-23 10:36:49', '查看', '桌面组-VPN管理', '');
+INSERT INTO `timeline` VALUES ('tl231036497788008', 'yd-7111', '2016-11-23 10:36:49', '查看', '桌面组-VPN管理', '');
+INSERT INTO `timeline` VALUES ('tl231036505036568', 'yd-7111', '2016-11-23 10:36:50', '查看', '桌面组-VPN管理', '');
+INSERT INTO `timeline` VALUES ('tl231036511293183', 'yd-7111', '2016-11-23 10:36:51', '查看', '桌面组-VPN管理', '');
+INSERT INTO `timeline` VALUES ('tl231036517648803', 'yd-7111', '2016-11-23 10:36:51', '查看', '桌面组-VPN管理', '');
+INSERT INTO `timeline` VALUES ('tl231036523623659', 'yd-7111', '2016-11-23 10:36:52', '查看', '桌面组-VPN管理', '');
+INSERT INTO `timeline` VALUES ('tl231036529471270', 'yd-7111', '2016-11-23 10:36:52', '查看', '桌面组-VPN管理', '');
+INSERT INTO `timeline` VALUES ('tl231036538626437', 'yd-7111', '2016-11-23 10:36:53', '查看', '桌面组-VPN管理', '');
+INSERT INTO `timeline` VALUES ('tl231036544887213', 'yd-7111', '2016-11-23 10:36:54', '查看', '桌面组-VPN管理', '');
+INSERT INTO `timeline` VALUES ('tl231036552198207', 'yd-7111', '2016-11-23 10:36:55', '查看', '桌面组-VPN管理', '');
+INSERT INTO `timeline` VALUES ('tl231037040587481', 'yd-7111', '2016-11-23 10:37:04', '查看', '桌面组-VPN管理', '');
+INSERT INTO `timeline` VALUES ('tl231037052593636', 'yd-7111', '2016-11-23 10:37:05', '查看', '桌面组-布谷鸟邮箱账号登记', null);
+INSERT INTO `timeline` VALUES ('tl231039283134260', 'yd-7111', '2016-11-23 10:39:28', '查看', '桌面组-VPN管理', null);
+INSERT INTO `timeline` VALUES ('tl231041102753446', 'yd-7111', '2016-11-23 10:41:10', '查看', '桌面组-布谷鸟邮箱账号登记', null);
+INSERT INTO `timeline` VALUES ('tl231042229054131', 'yd-7111', '2016-11-23 10:42:22', '查看', '桌面组-OA账号登记', '');
+INSERT INTO `timeline` VALUES ('tl231042301503036', 'yd-7111', '2016-11-23 10:42:30', '查看', '桌面组-OA账号登记', '');
+INSERT INTO `timeline` VALUES ('tl231043351507687', 'yd-7111', '2016-11-23 10:43:35', '查看', '桌面组-打印机登记', null);
+INSERT INTO `timeline` VALUES ('tl231045435564040', 'yd-7111', '2016-11-23 10:45:43', '查看', '桌面组-管理电脑统计', null);
+INSERT INTO `timeline` VALUES ('tl231045592403540', 'yd-7111', '2016-11-23 10:45:59', '查看', '桌面组-小仓巴枪电脑登记', null);
 INSERT INTO `timeline` VALUES ('tl231048158204503', 'yd-6897', '2016-09-23 10:48:15', '查看', 'FbdListLink', null);
 INSERT INTO `timeline` VALUES ('tl231048169573425', 'yd-6897', '2016-09-23 10:48:16', '查看', 'Goods', null);
 INSERT INTO `timeline` VALUES ('tl231049345688829', 'yd-7111', '2016-09-23 10:49:34', '查看', 'Role', null);
 INSERT INTO `timeline` VALUES ('tl231049432696841', 'yd-7111', '2016-09-23 10:49:43', '查看', 'Role', null);
+INSERT INTO `timeline` VALUES ('tl231049507737966', 'yd-7111', '2016-11-23 10:49:50', '查看', '桌面组-电话线分布', null);
+INSERT INTO `timeline` VALUES ('tl231049530169254', 'yd-7111', '2016-11-23 10:49:53', '查看', '桌面组-园区wifi管理', null);
 INSERT INTO `timeline` VALUES ('tl231049536086167', 'yd-7111', '2016-09-23 10:49:53', '修改', 'Role', 'r111613371752208');
+INSERT INTO `timeline` VALUES ('tl231109397642725', 'yd-7111', '2016-11-23 11:09:39', '查看', '桌面组-VPN管理', null);
+INSERT INTO `timeline` VALUES ('tl231109401104497', 'yd-7111', '2016-11-23 11:09:40', '查看', '桌面组-布谷鸟邮箱账号登记', null);
+INSERT INTO `timeline` VALUES ('tl231109405978905', 'yd-7111', '2016-11-23 11:09:40', '查看', '桌面组-OA账号登记', null);
+INSERT INTO `timeline` VALUES ('tl231109411273269', 'yd-7111', '2016-11-23 11:09:41', '查看', '桌面组-打印机登记', null);
+INSERT INTO `timeline` VALUES ('tl231113057884382', 'yd-7111', '2016-11-23 11:13:05', '查看', '桌面组-打印机登记', null);
+INSERT INTO `timeline` VALUES ('tl231114028358359', 'yd-7111', '2016-11-23 11:14:02', '查看', '桌面组-OA账号登记', null);
 INSERT INTO `timeline` VALUES ('tl231115173178321', 'yd-6897', '2016-08-23 11:15:17', '查看', 'FbdListLink', null);
 INSERT INTO `timeline` VALUES ('tl231120274015167', 'yd-7111', '2016-08-23 11:20:27', '查看', 'CompanySection', null);
 INSERT INTO `timeline` VALUES ('tl231120287239691', 'yd-7111', '2016-08-23 11:20:28', '查看', 'CompanySection', 'cs161152254709824');
@@ -10295,6 +10407,31 @@ INSERT INTO `timeline` VALUES ('tl231451508919533', 'yd-7164', '2016-09-23 14:51
 INSERT INTO `timeline` VALUES ('tl231452307859729', 'yd-7164', '2016-09-23 14:52:30', '查看', '消息提醒', null);
 INSERT INTO `timeline` VALUES ('tl231452318006753', 'yd-7164', '2016-09-23 14:52:31', '查看', '时间轴', null);
 INSERT INTO `timeline` VALUES ('tl231454336496575', 'yd-7164', '2016-09-23 14:54:33', '查看', '消息提醒', null);
+INSERT INTO `timeline` VALUES ('tl231527528073014', 'yd-7111', '2016-11-23 15:27:52', '查看', '桌面组-VPN管理', null);
+INSERT INTO `timeline` VALUES ('tl231738589335220', 'yd-7111', '2016-11-23 17:38:58', '查看', '桌面组-OA账号登记', null);
+INSERT INTO `timeline` VALUES ('tl231739184505716', 'yd-7111', '2016-11-23 17:39:18', '查看', '桌面组-OA账号登记', '');
+INSERT INTO `timeline` VALUES ('tl231739287914227', 'yd-7111', '2016-11-23 17:39:28', '查看', '桌面组-OA账号登记', '');
+INSERT INTO `timeline` VALUES ('tl231742003883934', 'yd-7111', '2016-11-23 17:42:00', '查看', '桌面组-OA账号登记', null);
+INSERT INTO `timeline` VALUES ('tl231742058743111', 'yd-7111', '2016-11-23 17:42:05', '查看', '桌面组-OA账号登记', '');
+INSERT INTO `timeline` VALUES ('tl231742066607195', 'yd-7111', '2016-11-23 17:42:06', '查看', '桌面组-OA账号登记', '');
+INSERT INTO `timeline` VALUES ('tl231742072304161', 'yd-7111', '2016-11-23 17:42:07', '查看', '桌面组-OA账号登记', '');
+INSERT INTO `timeline` VALUES ('tl231742078245817', 'yd-7111', '2016-11-23 17:42:07', '查看', '桌面组-OA账号登记', '');
+INSERT INTO `timeline` VALUES ('tl231742086259306', 'yd-7111', '2016-11-23 17:42:08', '查看', '桌面组-OA账号登记', '');
+INSERT INTO `timeline` VALUES ('tl231742174788565', 'yd-7111', '2016-11-23 17:42:17', '查看', '桌面组-OA账号登记', '');
+INSERT INTO `timeline` VALUES ('tl231743071816457', 'yd-7264', '2016-11-23 17:43:07', '查看', '桌面组-OA账号登记', null);
+INSERT INTO `timeline` VALUES ('tl231743153253445', 'yd-7264', '2016-11-23 17:43:15', '查看', '桌面组-OA账号登记', '');
+INSERT INTO `timeline` VALUES ('tl231743170411007', 'yd-7264', '2016-11-23 17:43:17', '查看', '桌面组-OA账号登记', '');
+INSERT INTO `timeline` VALUES ('tl231743176273904', 'yd-7264', '2016-11-23 17:43:17', '查看', '桌面组-OA账号登记', '');
+INSERT INTO `timeline` VALUES ('tl231743186952240', 'yd-7264', '2016-11-23 17:43:18', '查看', '桌面组-OA账号登记', '');
+INSERT INTO `timeline` VALUES ('tl231743193137915', 'yd-7264', '2016-11-23 17:43:19', '查看', '桌面组-OA账号登记', '');
+INSERT INTO `timeline` VALUES ('tl231743206069843', 'yd-7264', '2016-11-23 17:43:20', '查看', '桌面组-OA账号登记', '');
+INSERT INTO `timeline` VALUES ('tl231743308281711', 'yd-7264', '2016-11-23 17:43:30', '查看', '桌面组-OA账号登记', '');
+INSERT INTO `timeline` VALUES ('tl231743360681180', 'yd-7264', '2016-11-23 17:43:36', '查看', '桌面组-OA账号登记', '');
+INSERT INTO `timeline` VALUES ('tl231744512666774', 'yd-7264', '2016-11-23 17:44:51', '查看', '桌面组-OA账号登记', null);
+INSERT INTO `timeline` VALUES ('tl231746358559381', 'yd-7264', '2016-11-23 17:46:35', '查看', '桌面组-打印机登记', null);
+INSERT INTO `timeline` VALUES ('tl231746380017219', 'yd-7264', '2016-11-23 17:46:38', '查看', '桌面组-OA账号登记', null);
+INSERT INTO `timeline` VALUES ('tl231746413874658', 'yd-7264', '2016-11-23 17:46:41', '查看', '桌面组-布谷鸟邮箱账号登记', null);
+INSERT INTO `timeline` VALUES ('tl231746500436813', 'yd-7264', '2016-11-23 17:46:50', '查看', '桌面组-布谷鸟邮箱账号登记', null);
 INSERT INTO `timeline` VALUES ('tl231820540819032', 'yd-7111', '2016-09-23 18:20:54', '查看', 'DaCount', null);
 INSERT INTO `timeline` VALUES ('tl240921200221210', 'yd-7264', '2016-10-24 09:21:20', '查看', '系统组-站点资料', null);
 INSERT INTO `timeline` VALUES ('tl240921431103911', 'yd-7264', '2016-10-24 09:21:43', '查看', '故障报修统计——客服', null);
@@ -12027,6 +12164,217 @@ INSERT INTO `users` VALUES ('yd-7264', '123456', '黄光辉', '信息与流程�
 INSERT INTO `users` VALUES ('yd-7361', '123456', '王长健', '信息与流程管理部', '运维主管', '2016-10-14 16:24:56', 'r291006061579535', 'changjian_wang@szexpress.com.cn');
 INSERT INTO `users` VALUES ('yd-7448', '123456', '张沥丹', '信息与流程管理部', '客服专员', '2016-10-25 09:41:28', 'r291018145843610', 'lidan_zhang@szexpress.com.cn');
 INSERT INTO `users` VALUES ('yd-7496', '123456', '许晓天', '信息与流程管理部', '硬件专员', '2016-10-27 18:01:13', 'r131526334505203', 'xiaotian_xu@szexpress.com.cn');
+
+-- ----------------------------
+-- Table structure for `wh_all_date`
+-- ----------------------------
+DROP TABLE IF EXISTS `wh_all_date`;
+CREATE TABLE `wh_all_date` (
+  `o_id` varchar(255) CHARACTER SET utf8 NOT NULL DEFAULT '',
+  `d_facilitator_prix` date DEFAULT NULL,
+  `d_site_prix` date DEFAULT NULL,
+  `d_reply_facilitator` date DEFAULT NULL,
+  `d_finance_auditing` date DEFAULT NULL,
+  `d_finance_pay` date DEFAULT NULL,
+  `d_it_facilitator` date DEFAULT NULL,
+  `d_back_date` date DEFAULT NULL,
+  PRIMARY KEY (`o_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- ----------------------------
+-- Records of wh_all_date
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for `wh_bq_draw`
+-- ----------------------------
+DROP TABLE IF EXISTS `wh_bq_draw`;
+CREATE TABLE `wh_bq_draw` (
+  `d_id` varchar(255) CHARACTER SET utf8 NOT NULL DEFAULT '',
+  `e_id` varchar(255) CHARACTER SET utf8 DEFAULT NULL,
+  `d_sn` varchar(255) CHARACTER SET utf8 DEFAULT NULL,
+  `d_draw` varchar(255) CHARACTER SET utf8 DEFAULT NULL,
+  `d_man` varchar(255) CHARACTER SET utf8 DEFAULT NULL,
+  `d_phone` varchar(255) CHARACTER SET utf8 DEFAULT NULL,
+  `d_date` date DEFAULT NULL,
+  `d_appendix` varchar(255) CHARACTER SET utf8 DEFAULT NULL,
+  `d_it` varchar(255) CHARACTER SET utf8 DEFAULT NULL,
+  PRIMARY KEY (`d_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- ----------------------------
+-- Records of wh_bq_draw
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for `wh_device_scout`
+-- ----------------------------
+DROP TABLE IF EXISTS `wh_device_scout`;
+CREATE TABLE `wh_device_scout` (
+  `d_id` varchar(255) CHARACTER SET utf8 NOT NULL DEFAULT '',
+  `d_date` date DEFAULT NULL,
+  `d_time` datetime DEFAULT NULL,
+  `d_fit` varchar(255) CHARACTER SET utf8 DEFAULT NULL,
+  `d_fit_firm` varchar(255) CHARACTER SET utf8 DEFAULT NULL,
+  `d_abnormal_note` varchar(255) CHARACTER SET utf8 DEFAULT NULL,
+  `d_result` varchar(255) CHARACTER SET utf8 DEFAULT NULL,
+  `d_it` varchar(255) CHARACTER SET utf8 DEFAULT NULL,
+  `d_week_maintain` varchar(255) CHARACTER SET utf8 DEFAULT NULL,
+  `d_month_maintain` varchar(255) CHARACTER SET utf8 DEFAULT NULL,
+  `d_note` varchar(255) CHARACTER SET utf8 DEFAULT NULL,
+  PRIMARY KEY (`d_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- ----------------------------
+-- Records of wh_device_scout
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for `wh_express_list`
+-- ----------------------------
+DROP TABLE IF EXISTS `wh_express_list`;
+CREATE TABLE `wh_express_list` (
+  `e_id` varchar(255) CHARACTER SET utf8 NOT NULL DEFAULT '',
+  `e_start_date` date DEFAULT NULL,
+  `e_end_date` date DEFAULT NULL,
+  PRIMARY KEY (`e_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- ----------------------------
+-- Records of wh_express_list
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for `wh_massage_receive`
+-- ----------------------------
+DROP TABLE IF EXISTS `wh_massage_receive`;
+CREATE TABLE `wh_massage_receive` (
+  `m_id` varchar(255) CHARACTER SET utf8 NOT NULL DEFAULT '',
+  `m_it` varchar(255) CHARACTER SET utf8 DEFAULT NULL,
+  `m_date` date DEFAULT NULL,
+  `m_type` varchar(255) CHARACTER SET utf8 DEFAULT NULL,
+  `m_name` varchar(255) CHARACTER SET utf8 DEFAULT NULL,
+  `m_num` varchar(255) CHARACTER SET utf8 DEFAULT NULL,
+  `m_sn` varchar(255) CHARACTER SET utf8 DEFAULT NULL,
+  `m_sim` varchar(255) CHARACTER SET utf8 DEFAULT NULL,
+  `m_hitch_type` varchar(255) CHARACTER SET utf8 DEFAULT NULL,
+  `m_hitch_note` varchar(255) CHARACTER SET utf8 DEFAULT NULL,
+  `e_id` varchar(255) CHARACTER SET utf8 DEFAULT NULL,
+  `m_note` varchar(255) CHARACTER SET utf8 DEFAULT NULL,
+  `m_create_datetime` datetime DEFAULT NULL,
+  PRIMARY KEY (`m_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- ----------------------------
+-- Records of wh_massage_receive
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for `wh_meeting_scout`
+-- ----------------------------
+DROP TABLE IF EXISTS `wh_meeting_scout`;
+CREATE TABLE `wh_meeting_scout` (
+  `m_id` varchar(255) CHARACTER SET utf8 NOT NULL DEFAULT '',
+  `m_date` datetime DEFAULT NULL,
+  `m_it` varchar(255) CHARACTER SET utf8 DEFAULT NULL,
+  `m_computer` varchar(255) CHARACTER SET utf8 DEFAULT NULL,
+  `m_mouse_keyboard` varchar(255) CHARACTER SET utf8 DEFAULT NULL,
+  `m_projector` varchar(255) CHARACTER SET utf8 DEFAULT NULL,
+  `m_yd_software` varchar(255) CHARACTER SET utf8 DEFAULT NULL,
+  `m_note` varchar(255) CHARACTER SET utf8 DEFAULT NULL,
+  PRIMARY KEY (`m_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- ----------------------------
+-- Records of wh_meeting_scout
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for `wh_monitor_scout`
+-- ----------------------------
+DROP TABLE IF EXISTS `wh_monitor_scout`;
+CREATE TABLE `wh_monitor_scout` (
+  `m_id` varchar(255) CHARACTER SET utf8 NOT NULL DEFAULT '',
+  `m_date` date DEFAULT NULL,
+  `m_it` varchar(255) CHARACTER SET utf8 DEFAULT NULL,
+  `m_monitor_master` varchar(255) CHARACTER SET utf8 DEFAULT NULL,
+  `m_time` datetime DEFAULT NULL,
+  `m_video` varchar(255) CHARACTER SET utf8 DEFAULT NULL,
+  `m_room` varchar(255) CHARACTER SET utf8 DEFAULT NULL,
+  `m_service` varchar(255) CHARACTER SET utf8 DEFAULT NULL,
+  `m_generator_device` varchar(255) CHARACTER SET utf8 DEFAULT NULL,
+  `m_depot_camera` varchar(255) CHARACTER SET utf8 DEFAULT NULL,
+  `m_depot_device` varchar(255) CHARACTER SET utf8 DEFAULT NULL,
+  `m_note` varchar(255) CHARACTER SET utf8 DEFAULT NULL,
+  PRIMARY KEY (`m_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- ----------------------------
+-- Records of wh_monitor_scout
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for `wh_out_repair`
+-- ----------------------------
+DROP TABLE IF EXISTS `wh_out_repair`;
+CREATE TABLE `wh_out_repair` (
+  `o_id` varchar(255) CHARACTER SET utf8 NOT NULL DEFAULT '',
+  `o_date` date DEFAULT NULL,
+  `o_page` varchar(255) CHARACTER SET utf8 DEFAULT NULL,
+  `o_type` varchar(255) CHARACTER SET utf8 DEFAULT NULL,
+  `o_num` varchar(255) CHARACTER SET utf8 DEFAULT NULL,
+  `o_sn` varchar(255) CHARACTER SET utf8 DEFAULT NULL,
+  `o_note` varchar(255) CHARACTER SET utf8 DEFAULT NULL,
+  `o_period` int(255) DEFAULT NULL,
+  `o_create_datetime` datetime DEFAULT NULL,
+  PRIMARY KEY (`o_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- ----------------------------
+-- Records of wh_out_repair
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for `wh_three_meeting_scout`
+-- ----------------------------
+DROP TABLE IF EXISTS `wh_three_meeting_scout`;
+CREATE TABLE `wh_three_meeting_scout` (
+  `t_id` varchar(255) CHARACTER SET utf8 NOT NULL DEFAULT '',
+  `t_date` datetime DEFAULT NULL,
+  `t_it` varchar(255) CHARACTER SET utf8 DEFAULT NULL,
+  `t_computer` varchar(255) CHARACTER SET utf8 DEFAULT NULL,
+  `t_monitor` varchar(255) CHARACTER SET utf8 DEFAULT NULL,
+  `t_video` varchar(255) CHARACTER SET utf8 DEFAULT NULL,
+  `t_monitor_screen` varchar(255) CHARACTER SET utf8 DEFAULT NULL,
+  `t_mouse_keyboard` varchar(255) CHARACTER SET utf8 DEFAULT NULL,
+  `t_projector` varchar(255) CHARACTER SET utf8 DEFAULT NULL,
+  `t_yd_software` varchar(255) CHARACTER SET utf8 DEFAULT NULL,
+  `t_note` varchar(255) CHARACTER SET utf8 DEFAULT NULL,
+  PRIMARY KEY (`t_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- ----------------------------
+-- Records of wh_three_meeting_scout
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for `wh_timeliness`
+-- ----------------------------
+DROP TABLE IF EXISTS `wh_timeliness`;
+CREATE TABLE `wh_timeliness` (
+  `t_id` varchar(255) CHARACTER SET utf8 NOT NULL DEFAULT '',
+  `t_net_point` int(255) DEFAULT NULL,
+  `t_it` int(255) DEFAULT NULL,
+  `t_finance` int(255) DEFAULT NULL,
+  `t_facilitator` int(255) DEFAULT NULL,
+  `t_amount` int(255) DEFAULT NULL,
+  `t_resort_date` int(255) DEFAULT NULL,
+  PRIMARY KEY (`t_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- ----------------------------
+-- Records of wh_timeliness
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for `xt_bq_repair`
