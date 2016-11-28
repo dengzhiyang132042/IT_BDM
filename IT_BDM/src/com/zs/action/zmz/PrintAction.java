@@ -38,7 +38,7 @@ public class PrintAction extends MyBaseAction implements IMyBaseAction{
 	
 	String id;
 	String brand;
-	String area;
+	String address;
 	String ip;
 	
 	private Logger logger=Logger.getLogger(PrintAction.class);
@@ -80,11 +80,11 @@ public class PrintAction extends MyBaseAction implements IMyBaseAction{
 	public void setBrand(String brand) {
 		this.brand = brand;
 	}
-	public String getArea() {
-		return area;
+	public String getAddress() {
+		return address;
 	}
-	public void setArea(String area) {
-		this.area = area;
+	public void setAddress(String address) {
+		this.address = address;
 	}
 	public String getIp() {
 		return ip;
@@ -107,7 +107,7 @@ public class PrintAction extends MyBaseAction implements IMyBaseAction{
 	public void clearOptions() {
 		id=null;
 		brand=null;
-		area=null;
+		address=null;
 		ip=null;
 	}
 
@@ -146,8 +146,8 @@ public class PrintAction extends MyBaseAction implements IMyBaseAction{
 			if(brand!=null){
 				hql=hql+" and PBrand like '%"+brand+"%'";
 			}
-			if(area!=null){
-				hql=hql+" and PArea like '%"+area+"%'";
+			if(address!=null){
+				hql=hql+" and PAddress like '%"+address+"%'";
 			}
 			if(ip!=null){
 				hql=hql+" and PIp like '%"+ip+"%'";
@@ -170,8 +170,8 @@ public class PrintAction extends MyBaseAction implements IMyBaseAction{
 		if (brand!=null) {
 			brand=brand.trim();
 		}
-		if (area!=null) {
-			area=area.trim();
+		if (address!=null) {
+			address=address.trim();
 		}
 		if (ip!=null) {
 			ip=ip.trim();

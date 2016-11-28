@@ -357,6 +357,27 @@
      <result name="succ">/success.jsp</result>
      <result name="fail">/fail.jsp</result>
   </action>
+  <action name="printCount" class="hgh_count_print">	
+  	 <interceptor-ref name="mydefault" />
+     <result>/index.jsp</result>
+     <result name="printCount">/zmz_count/print_count.jsp</result>
+     <result name="succ">/success.jsp</result>
+     <result name="fail">/fail.jsp</result>
+  </action>
+  <action name="computerCount" class="hgh_count_computer">	
+  	 <interceptor-ref name="mydefault" />
+     <result>/index.jsp</result>
+     <result name="computerCount">/zmz_count/computer_count.jsp</result>
+     <result name="succ">/success.jsp</result>
+     <result name="fail">/fail.jsp</result>
+  </action>
+  <action name="callCount" class="hgh_count_call">	
+  	 <interceptor-ref name="mydefault" />
+     <result>/index.jsp</result>
+     <result name="callCount">/zmz_count/call_count.jsp</result>
+     <result name="succ">/success.jsp</result>
+     <result name="fail">/fail.jsp</result>
+  </action>
   <action name="pdaChangeCount" class="hgh_count_pda_change">	
   	 <interceptor-ref name="mydefault" />
      <result>/index.jsp</result>
@@ -371,7 +392,7 @@
      <result name="succ">/success.jsp</result>
      <result name="fail">/fail.jsp</result>
   </action>
-  
+
   
 </package>
 </struts>    

@@ -3,6 +3,7 @@ package com.zs.action.zmz.count;
 import java.io.UnsupportedEncodingException;
 import java.sql.Timestamp;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -20,6 +21,7 @@ import com.zs.entity.ZmOaNumber;
 import com.zs.entity.custom.ZmOaCount;
 
 import com.zs.service.IService;
+import com.zs.tools.ExcelExport;
 import com.zs.tools.Page;
 
 public class OaCountAction extends MyBaseAction implements IMyBaseAction{
@@ -238,5 +240,37 @@ public class OaCountAction extends MyBaseAction implements IMyBaseAction{
 		return null;
 	}
 	
+	public String exportExc() throws Exception{
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		String filePath=getRequest().getRealPath("/")+"/files/export/zmz/oa账号统计.xls";
+		String dayType = "周数";
+		if(filtrate.equals("M")){
+			dayType = "月数";
+		}else if(filtrate.equals("Y")){
+			dayType = "年数";
+		}
+		Object[] obj ={"序号","开始时间","结束时间",dayType,"维护类型","维护数量"};
+		Object objtmp[][]=new Object[counts.size()][6];
+		for (int i = 0; i < objtmp.length; i++) {
+			if(counts.get(i).getRows()!=0){
+				objtmp[i][0]=counts.get(i).getOrderNum();
+				objtmp[i][1]=sdf.format(new Date(counts.get(i).getsTime().getTime()));
+				objtmp[i][2]=sdf.format(new Date(counts.get(i).geteTime().getTime()));
+				objtmp[i][3]=counts.get(i).getNumber();
+			}else{
+				objtmp[i][0]="";
+				objtmp[i][1]="";
+				objtmp[i][2]="";
+				objtmp[i][3]="";
+			}
+			objtmp[i][4]=counts.get(i).getJob();
+			objtmp[i][5]=counts.get(i).getCount();
+		}
+		
+		ExcelExport.OutExcel(obj, objtmp, filePath);
+//		getResponse().sendRedirect(Constant.WEB_URL+"files/export/xtz/site.xls");
+//		return result;
+		return null;
+	}
 
 }

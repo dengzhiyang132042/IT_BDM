@@ -22,18 +22,20 @@ import com.zs.entity.XtZmNumber;
 import com.zs.entity.XtZmNumberCount;
 import com.zs.entity.ZmByNumber;
 import com.zs.entity.ZmVpn;
+import com.zs.entity.custom.XtZmDataCount;
 import com.zs.entity.custom.ZmByNumCount;
 import com.zs.entity.custom.ZmVpnCount;
 import com.zs.service.IService;
 import com.zs.service.iVpnService;
 import com.zs.service.iXtZmNumberService;
+import com.zs.tools.ExcelExport;
 import com.zs.tools.Page;
 
 public class ByNumCountAction extends MyBaseAction implements IMyBaseAction{
 
 	private IService ser;
 	private Page page;
-	private List<ZmVpnCount> counts;
+	private List<ZmByNumCount> counts;
 	private String filtrate;
 	
 	String result="byNumber";
@@ -62,10 +64,10 @@ public class ByNumCountAction extends MyBaseAction implements IMyBaseAction{
 	public void setPage(Page page) {
 		this.page = page;
 	}
-	public List<ZmVpnCount> getCounts() {
+	public List<ZmByNumCount> getCounts() {
 		return counts;
 	}
-	public void setCounts(List<ZmVpnCount> counts) {
+	public void setCounts(List<ZmByNumCount> counts) {
 		this.counts = counts;
 	}
 	//----------------------------------------------------
@@ -94,7 +96,6 @@ public class ByNumCountAction extends MyBaseAction implements IMyBaseAction{
 				List list2=ser.find("from ZmByNumber where byServiceDate>=? and byServiceDate<=? and byServiceDate!=null and byOnJob =?", new Object[]{new Timestamp(dateStart.getTime()),new Timestamp(dateEnd.getTime()),list5.get(i).toString()});
 				if (list2.size()!=0) {//如果为0就不要了
 					ZmByNumCount count = new ZmByNumCount();
-					//这个组装数据有问题类型问题没有解决
 					if(i<1){
 						count.setsTime(new Timestamp(dateStart.getTime()));
 						count.seteTime(new Timestamp(dateEnd.getTime()));
@@ -119,7 +120,7 @@ public class ByNumCountAction extends MyBaseAction implements IMyBaseAction{
 	 * @param dt
 	 * @throws ParseException
 	 */
-	private void initCounts(List<ZmVpnCount> counts,String dt) throws ParseException {
+	private void initCounts(List<ZmByNumCount> counts,String dt) throws ParseException {
 		//获取两个头尾的时间
 		ZmByNumber d1 = null,d2=null;
 		String str="from ZmByNumber where byServiceDate!=null order by byServiceDate desc";
@@ -200,7 +201,7 @@ public class ByNumCountAction extends MyBaseAction implements IMyBaseAction{
 			clearOptions();
 		}
 		clearSpace();
-		counts=new ArrayList<ZmVpnCount>();
+		counts=new ArrayList<ZmByNumCount>();
 		if(id!=null){
 			/*
 			由于是统计模块所以不需要按编号查询功能，但为了兼容，故保留，只不过其代码为空而已。
@@ -237,7 +238,38 @@ public class ByNumCountAction extends MyBaseAction implements IMyBaseAction{
 		// TODO Auto-generated method stub
 		return null;
 	}
-
 	
+	public String exportExc() throws Exception{
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		String filePath=getRequest().getRealPath("/")+"/files/export/zmz/IMO、邮箱账号统计.xls";
+		String dayType = "周数";
+		if(filtrate.equals("M")){
+			dayType = "月数";
+		}else if(filtrate.equals("Y")){
+			dayType = "年数";
+		}
+		Object[] obj ={"序号","开始时间","结束时间",dayType,"在职情况","维护数量"};
+		Object objtmp[][]=new Object[counts.size()][6];
+		for (int i = 0; i < objtmp.length; i++) {
+			if(counts.get(i).getRows()!=0){
+				objtmp[i][0]=counts.get(i).getOrderNum();
+				objtmp[i][1]=sdf.format(new Date(counts.get(i).getsTime().getTime()));
+				objtmp[i][2]=sdf.format(new Date(counts.get(i).geteTime().getTime()));
+				objtmp[i][3]=counts.get(i).getNumber();
+			}else{
+				objtmp[i][0]="";
+				objtmp[i][1]="";
+				objtmp[i][2]="";
+				objtmp[i][3]="";
+			}
+			objtmp[i][4]=counts.get(i).getState();
+			objtmp[i][5]=counts.get(i).getCount();
+		}
+		
+		ExcelExport.OutExcel(obj, objtmp, filePath);
+//		getResponse().sendRedirect(Constant.WEB_URL+"files/export/xtz/site.xls");
+//		return result;
+		return null;
+	}
 	
 }

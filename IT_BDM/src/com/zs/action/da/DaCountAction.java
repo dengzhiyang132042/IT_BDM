@@ -136,8 +136,8 @@ public class DaCountAction extends MyBaseAction implements IMyBaseAction{
 				*/
 				//从第一天开始循环组装数据封装
 				for (int i = 0; i <=days; i++) {
-					Date dateStart=new Date(d2.getDTime().getYear(), d2.getDTime().getMonth(), d2.getDTime().getDate()+i,0,0,0);
-					Date dateEnd=new Date(d2.getDTime().getYear(), d2.getDTime().getMonth(), d2.getDTime().getDate()+i,23, 59, 59);
+					Date dateStart=new Date(d1.getDTime().getYear(), d1.getDTime().getMonth(), d1.getDTime().getDate()-i,0,0,0);
+					Date dateEnd=new Date(d1.getDTime().getYear(), d1.getDTime().getMonth(), d1.getDTime().getDate()-i,23, 59, 59);
 					initCount(dateStart, dateEnd, counts);
 				}
 			}else if (dt.equals("M")) {
@@ -145,20 +145,21 @@ public class DaCountAction extends MyBaseAction implements IMyBaseAction{
 				long ms=(d1.getDTime().getYear()-d2.getDTime().getYear())*12+(d1.getDTime().getMonth()-d2.getDTime().getMonth());
 				//logger.debug(ms);
 				for (int i = 0; i <= ms; i++) {
-					Date dateStart=new Date(d2.getDTime().getYear(), d2.getDTime().getMonth()+i, 1,0,0,0);
+					Date dateStart=new Date(d1.getDTime().getYear(), d1.getDTime().getMonth()-i, 1,0,0,0);
 					Calendar ca = Calendar.getInstance();    
-					ca.set(1900+d2.getDTime().getYear(), 1+d2.getDTime().getMonth()+i, 0);
+					ca.set(1900+d1.getDTime().getYear(), 1+d1.getDTime().getMonth()-i, 0);
 					Date dateTmp=ca.getTime();
-					//logger.debug(dateTmp.toLocaleString()+"  "+d2.getDTime().getYear()+"  "+d2.getDTime().getMonth());
 					Date dateEnd=new Date(dateTmp.getYear(), dateTmp.getMonth(), dateTmp.getDate(),23,59,59);
+					int m=dateStart.getMonth();
 					initCount(dateStart, dateEnd, counts);
 				}
 			}else if (dt.equals("Y")) {
 				//获得相差年数
 				long ys=d1.getDTime().getYear()-d2.getDTime().getYear();
 				for (int i = 0; i <= ys; i++) {
-					Date dateStart=new Date(d2.getDTime().getYear()+i, 0, 1,0,0,0);
-					Date dateEnd=new Date(d2.getDTime().getYear()+i, 11, 31,23,59,59);
+					Date dateStart=new Date(d1.getDTime().getYear()-i, 0, 1,0,0,0);
+					Date dateEnd=new Date(d1.getDTime().getYear()-i, 11, 31,23,59,59);
+					int y=dateStart.getYear();
 					initCount(dateStart, dateEnd, counts);
 				}
 			}

@@ -84,9 +84,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     		&nbsp;&nbsp;&nbsp;&nbsp;
     		品牌:<input name="brand" type="text" value="${brand }"/>
     		&nbsp;&nbsp;&nbsp;&nbsp;
-    		<!-- 
-    		区域:<input name="area" type="text" value="${area }"/>
-    		 -->
+    		打印机位置:<input name="address" type="text" value="${address }"/>
     		&nbsp;&nbsp;&nbsp;&nbsp;
     		IP:<input name="ip" type="text" value="${ip }"/>
     		&nbsp;&nbsp;&nbsp;&nbsp;
@@ -148,7 +146,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</div>
 	
 	<div class="easyui-panel" style="padding:5px;width: 100%;display: none;background-color: white;">
-		<form id="f1" action="<%=path %>/print!queryOfFenye?id=${id}&brand=${brand}&area=${area}&ip${ip}" method="post">
+		<form id="f1" action="<%=path %>/print!queryOfFenye?id=${id}&brand=${brand}&area=${address}&ip${ip}" method="post">
 		<select id="sele" style="float: left;margin-top: 3px;margin-left: 5px;" name="page.size" onchange="$('#f1').submit();">
 			<option value="5">5</option>
 			<option value="10">10</option>
