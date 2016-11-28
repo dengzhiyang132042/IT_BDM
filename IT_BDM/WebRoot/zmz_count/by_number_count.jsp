@@ -62,6 +62,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		//console.log(path);
 		window.location.href=path;
 	}
+	function xiazai(){
+		var path ="<%=path %>/byNumberCount!exportExc";
+		$.post(
+			path,
+			function(){
+				//console.log(result);
+				window.location.href="<%=path%>/files/export/zmz/IMO、邮箱账号统计.xls";
+			}
+		);
+	}
 	</script>
 	
   </head>
@@ -83,6 +93,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     		<br/>
     		<input type="submit" value="查询"/>
     	</form>	
+    		<input type= "button" onclick="xiazai()" value="导出" />
     </div>
     <div style="margin-bottom: 5px;">
 	    

@@ -15,27 +15,25 @@ import org.apache.log4j.Logger;
 
 import com.zs.action.IMyBaseAction;
 import com.zs.action.MyBaseAction;
-import com.zs.entity.ZmVpn;
-import com.zs.entity.custom.ZmVpnCount;
+import com.zs.entity.ZmCall;
+import com.zs.entity.custom.ZmCallCount;
 import com.zs.service.IService;
-import com.zs.service.iVpnService;
 import com.zs.tools.ExcelExport;
 import com.zs.tools.Page;
 
-public class VpnCountAction extends MyBaseAction implements IMyBaseAction{
+public class CallCountAction extends MyBaseAction implements IMyBaseAction{
 
 	private IService ser;
-	private iVpnService vpnSer;
 	private Page page;
-	private List<ZmVpnCount> counts;
+	private List<ZmCallCount> counts;
 	private String filtrate;
 	
-	String result="vpnCount";
+	String result="callCount";
 	String result_succ="succ";
 	String result_fail="fail";
 	
 
-	Logger logger=Logger.getLogger(VpnCountAction.class);
+	Logger logger=Logger.getLogger(CallCountAction.class);
 	
 	//--------------------------------------------------------
 	public String getFiltrate() {
@@ -47,12 +45,6 @@ public class VpnCountAction extends MyBaseAction implements IMyBaseAction{
 	public void setSer(IService ser) {
 		this.ser = ser;
 	}
-	public iVpnService getVpnSer() {
-		return vpnSer;
-	}
-	public void setVpnSer(iVpnService vpnSer) {
-		this.vpnSer = vpnSer;
-	}
 	public void setFiltrate(String filtrate) {
 		this.filtrate = filtrate;
 	}
@@ -62,18 +54,16 @@ public class VpnCountAction extends MyBaseAction implements IMyBaseAction{
 	public void setPage(Page page) {
 		this.page = page;
 	}
-	public List<ZmVpnCount> getCounts() {
+	public List<ZmCallCount> getCounts() {
 		return counts;
 	}
-	public void setCounts(List<ZmVpnCount> counts) {
+	public void setCounts(List<ZmCallCount> counts) {
 		this.counts = counts;
 	}
-	//----------------------------------------------------
-	
-	
 	public void clearOptions() {
 		filtrate=null;
 	}
+	//----------------------------------------------------
 	
 	private void clearSpace() {
 		if (filtrate!=null && !filtrate.equals("")) {
@@ -88,12 +78,11 @@ public class VpnCountAction extends MyBaseAction implements IMyBaseAction{
 	 */
 	private void initCount(Date dateStart,Date dateEnd,List counts,int number) {
 		//组装一个XtZmNumberCount
-		ZmVpnCount count=new ZmVpnCount();
+		ZmCallCount count=new ZmCallCount();
 		count.setsTime(new Timestamp(dateStart.getTime()));
 		count.seteTime(new Timestamp(dateEnd.getTime()));
-		//获取在该时间范围内故障报修总量
-		String hql="from ZmVpn where VDate>='"+count.getsTime()+"' and VDate<='"+count.geteTime()+"' and VDate!=null";
-		List<ZmVpn> list2=ser.find(hql, null);
+		String hql="from ZmCall where CDate>='"+count.getsTime()+"' and CDate<='"+count.geteTime()+"' and CDate!=null";
+		List list2=ser.find(hql, null);
 		if (list2.size()!=0) {//如果为0就不要了
 			count.setCount(list2.size());
 			//这里填装周数、月数、年数这种信息
@@ -108,30 +97,30 @@ public class VpnCountAction extends MyBaseAction implements IMyBaseAction{
 	 * @param dt
 	 * @throws ParseException
 	 */
-	private void initCounts(List<ZmVpnCount> counts,String dt) throws ParseException {
+	private void initCounts(List<ZmCallCount> counts,String dt) throws ParseException {
 		//获取两个头尾的时间
-		ZmVpn d1 = null,d2=null;
-		String str="from ZmVpn where VDate!=null order by VDate desc";
+		ZmCall d1 = null,d2=null;
+		String str="from ZmCall where CDate!=null order by CDate desc";
 		List list=ser.query(str, null, str, new Page(1, 0, 1), ser);
 		if (list.size()>0) {
-			d1=(ZmVpn) list.get(0);//尾巴
+			d1=(ZmCall) list.get(0);//尾巴
 		}
-		str="from ZmVpn where VDate!=null order by VDate asc";
+		str="from ZmCall where CDate!=null order by CDate asc";
 		list=ser.query(str, null, str, new Page(1, 0, 1), ser);
 		if (list.size()>0) {
-			d2=(ZmVpn) list.get(0);//头
+			d2=(ZmCall) list.get(0);//头
 		}
 		if (d1!=null && d2!=null) {
 			if (dt.equals("W")) {
 				//获取相差天数
 				Calendar ca1 = Calendar.getInstance();
 				Calendar ca2 = Calendar.getInstance();
-				ca1.set(d1.getVDate().getYear(), d1.getVDate().getMonth(), d1.getVDate().getDate());
-				ca2.set(d2.getVDate().getYear(), d2.getVDate().getMonth(), d2.getVDate().getDate());
+				ca1.set(d1.getCDate().getYear(), d1.getCDate().getMonth(), d1.getCDate().getDate());
+				ca2.set(d2.getCDate().getYear(), d2.getCDate().getMonth(), d2.getCDate().getDate());
 				int weeknum = (ca1.get(Calendar.YEAR)-ca2.get(Calendar.YEAR))*52+(ca1.get(Calendar.WEEK_OF_YEAR)-ca2.get(Calendar.WEEK_OF_YEAR));
 				//从第一天开始循环组装数据封装
 				for (int i = 0; i <=weeknum+1; i++) {
-					Date tmp=new Date(d2.getVDate().getYear(), d2.getVDate().getMonth(), d2.getVDate().getDate()+7*i,0,0,0);
+					Date tmp=new Date(d1.getCDate().getYear(), d1.getCDate().getMonth(), d1.getCDate().getDate()-7*i,0,0,0);
 					Date dateStart=ser.weekDate(tmp).get(ser.KEY_DATE_START);
 					Date dateEnd=ser.weekDate(tmp).get(ser.KEY_DATE_END);
 					Calendar cas = Calendar.getInstance();
@@ -142,12 +131,12 @@ public class VpnCountAction extends MyBaseAction implements IMyBaseAction{
 				}
 			}else if (dt.equals("M")) {
 				//获取相差月数
-				long ms=(d1.getVDate().getYear()-d2.getVDate().getYear())*12+(d1.getVDate().getMonth()-d2.getVDate().getMonth());
+				long ms=(d1.getCDate().getYear()-d2.getCDate().getYear())*12+(d1.getCDate().getMonth()-d2.getCDate().getMonth());
 				//logger.debug(ms);
-				for (int i = 0; i <= ms+1; i++) {
-					Date dateStart=new Date(d2.getVDate().getYear(), d2.getVDate().getMonth()+i, 1,0,0,0);
+				for (int i = 0; i <= ms; i++) {
+					Date dateStart=new Date(d1.getCDate().getYear(), d1.getCDate().getMonth()-i, 1,0,0,0);
 					Calendar ca = Calendar.getInstance();    
-					ca.set(1900+d2.getVDate().getYear(), 1+d2.getVDate().getMonth()+i, 0);
+					ca.set(1900+d1.getCDate().getYear(), 1+d1.getCDate().getMonth()-i, 0);
 					Date dateTmp=ca.getTime();
 					Date dateEnd=new Date(dateTmp.getYear(), dateTmp.getMonth(), dateTmp.getDate(),23,59,59);
 					int m=dateStart.getMonth();
@@ -155,10 +144,10 @@ public class VpnCountAction extends MyBaseAction implements IMyBaseAction{
 				}
 			}else if (dt.equals("Y")) {
 				//获得相差年数
-				long ys=d1.getVDate().getYear()-d2.getVDate().getYear();
-				for (int i = 0; i <= ys+1; i++) {
-					Date dateStart=new Date(d2.getVDate().getYear()+i, 0, 1,0,0,0);
-					Date dateEnd=new Date(d2.getVDate().getYear()+i, 11, 31,23,59,59);
+				long ys=d1.getCDate().getYear()-d2.getCDate().getYear();
+				for (int i = 0; i <= ys; i++) {
+					Date dateStart=new Date(d1.getCDate().getYear()-i, 0, 1,0,0,0);
+					Date dateEnd=new Date(d1.getCDate().getYear()-i, 11, 31,23,59,59);
 					int y=dateStart.getYear();
 					initCount(dateStart, dateEnd, counts,y+1900);
 				}
@@ -180,7 +169,7 @@ public class VpnCountAction extends MyBaseAction implements IMyBaseAction{
 			clearOptions();
 		}
 		clearSpace();
-		counts=new ArrayList<ZmVpnCount>();
+		counts=new ArrayList<ZmCallCount>();
 		if(id!=null){
 			/*
 			由于是统计模块所以不需要按编号查询功能，但为了兼容，故保留，只不过其代码为空而已。
@@ -220,7 +209,7 @@ public class VpnCountAction extends MyBaseAction implements IMyBaseAction{
 	
 	public String exportExc() throws Exception{
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-		String filePath=getRequest().getRealPath("/")+"/files/export/zmz/vpn账号登记统计.xls";
+		String filePath=getRequest().getRealPath("/")+"/files/export/zmz/总部呼叫系统账号维护统计.xls";
 		String dayType = "周数";
 		if(filtrate.equals("M")){
 			dayType = "月数";

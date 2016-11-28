@@ -79,7 +79,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<li><span><a href="<%=path %>/bq!queryOfFenye?cz=yes" target="right">小仓巴枪电脑登记</a></span></li>
 						<li><span><a href="<%=path %>/wifi!queryOfFenye?cz=yes" target="right">园区wifi管理</a></span></li>
 						<li><span><a href="<%=path %>/phone!queryOfFenye?cz=yes" target="right">电话线分布</a></span></li>
-						<li><span><a href="<%=path %>/call!queryOfFenye?cz=yes" target="right">呼叫系统账号维护</a></span></li>
+						<li><span><a href="<%=path %>/call!queryOfFenye?cz=yes" target="right">总部呼叫系统账号维护</a></span></li>
+						<li><span><a href="<%=path %>/allianceCall!queryOfFenye?cz=yes" target="right">加盟商呼叫系统账号维护</a></span></li>
         			</ul>
         		</li>
         		<li><span>开发组</span></li>
@@ -134,11 +135,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<li><span><a href="<%=path %>/vpnCount!queryOfFenye?cz=yes" target="right">VPN账号登记</a></span></li>
 						<li><span><a href="<%=path %>/byNumberCount!queryOfFenye?cz=yes" target="right">IMO、邮箱账号</a></span></li>
 						<li><span><a href="<%=path %>/oaCount!queryOfFenye?cz=yes" target="right">oa账号</a></span></li>
-						<li><span><a href="<%=path %>/print!queryOfFenye?cz=yes" target="right">打印机登记</a></span></li>
-						<li><span><a href="<%=path %>/computer!queryOfFenye?cz=yes" target="right">管理电脑统计</a></span></li>
-						<li><span><a href="<%=path %>/bq!queryOfFenye?cz=yes" target="right">小仓巴枪电脑登记</a></span></li>
-						<li><span><a href="<%=path %>/wifi!queryOfFenye?cz=yes" target="right">园区wifi管理</a></span></li>
-						<li><span><a href="<%=path %>/phone!queryOfFenye?cz=yes" target="right">电话线分布</a></span></li>
+						<li><span><a href="<%=path %>/printCount!queryOfFenye?cz=yes" target="right">打印机登记</a></span></li>
+						<li><span><a href="<%=path %>/computerCount!queryOfFenye?cz=yes" target="right">管理电脑统计</a></span></li>
+						<li><span><a href="<%=path %>/bqCount!queryOfFenye?cz=yes" target="right">小仓巴枪电脑登记</a></span></li>
+						<li><span><a href="<%=path %>/callCount!queryOfFenye?cz=yes" target="right">总部呼叫系统维护统计</a></span></li>
+						<li><span><a href="<%=path %>/allianceCallCount!queryOfFenye?cz=yes" target="right">加盟商呼叫系统维护统计</a></span></li>
         			</ul>
         		</li>
         		<li><span>开发组</span></li>

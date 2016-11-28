@@ -32,7 +32,7 @@ public class BqAction extends MyBaseAction implements IMyBaseAction{
 	String BType;
 	String BNum;
 	String BSn;
-	
+	String BMac;
 	
 	private Logger logger=Logger.getLogger(BqAction.class);
 	
@@ -119,6 +119,14 @@ public class BqAction extends MyBaseAction implements IMyBaseAction{
 		this.bqs = bqs;
 	}
 
+	public String getBMac() {
+		return BMac;
+	}
+
+	public void setBMac(String bMac) {
+		BMac = bMac;
+	}
+
 	//**********************************************
 	public void clearOptions() {
 		id=null;
@@ -127,6 +135,7 @@ public class BqAction extends MyBaseAction implements IMyBaseAction{
 		BType=null;
 		BNum=null;
 		BSn=null;
+		BMac=null;
 	}
 	
 	private void clearSpace(){
@@ -147,6 +156,9 @@ public class BqAction extends MyBaseAction implements IMyBaseAction{
 		}
 		if(BSn!=null){
 			BSn=BSn.trim();
+		}
+		if(BMac!=null){
+			BMac=BMac.trim();
 		}
 	}
 	
@@ -178,6 +190,9 @@ public class BqAction extends MyBaseAction implements IMyBaseAction{
 			}
 			if(BSn!=null){
 				hql2=hql2+" and BSn like '%"+BSn+"%'";
+			}
+			if(BMac!=null){
+				hql2=hql2+" and BMac like '%"+BMac+"%'";
 			}
 			bqs=ser.query(hql2, null, hql2, page, ser);
 		}else {

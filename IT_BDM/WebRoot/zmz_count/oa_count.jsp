@@ -62,12 +62,22 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		//console.log(path);
 		window.location.href=path;
 	}
+	function xiazai(){
+		var path ="<%=path %>/oaCount!exportExc";
+		$.post(
+			path,
+			function(){
+				//console.log(result);
+				window.location.href="<%=path%>/files/export/zmz/oa账号统计.xls";
+			}
+		);
+	}
 	</script>
 	
   </head>
   
   <body>
- 	<div style="text-align: center;margin-right: 17px;color: white;background-color:#17B4FF;padding: 5px;font-size: 14px;font-weight:bold;">VPN账号登记统计</div>
+ 	<div style="text-align: center;margin-right: 17px;color: white;background-color:#17B4FF;padding: 5px;font-size: 14px;font-weight:bold;">oa账号登记统计</div>
  	
  	
 	<div style="background-color:white;margin-bottom: 5px;padding: 5px;border: 1px solid #224466;margin-right: 17px;margin-top: 10px;">
@@ -83,6 +93,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     		<br/>
     		<input type="submit" value="查询"/>
     	</form>	
+    		<input type= "button" onclick="xiazai()" value="导出" />
     </div>
     <div style="margin-bottom: 5px;">
 	    

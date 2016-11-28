@@ -23,40 +23,43 @@ import com.zs.entity.ZmBq;
 import com.zs.entity.ZmOaNumber;
 import com.zs.entity.ZmVpn;
 import com.zs.service.IService;
-import com.zs.service.iDataImportService;
 import com.zs.tools.NameOfDate;
 import com.zs.tools.Page;
+import com.zs.service.iDataImportService;
 
 public class OaAction extends MyBaseAction implements IMyBaseAction{
 	IService ser;
 	iDataImportService importSer;
 	Page page;
+	
 	ZmOaNumber oa;
 	List oas;
+	
 	String result="oa";
 	String result_succ="succ";
 	String result_fail="fail";
+	
 	String id;
 	String section;
 	String apply;
 	String num;
 	String dates;
 	String datee;
+	
 	private Logger logger=Logger.getLogger(OaAction.class);
 	private File fileExcel;
 	private String fileExcelContentType;
 	private String fileExcelFileName; 
 	
 	
-	
 	public iDataImportService getImportSer() {
-		return importSer;
+			return importSer;
 	}
-
+	
 	public void setImportSer(iDataImportService importSer) {
-		this.importSer = importSer;
+			this.importSer = importSer;
 	}
-
+		
 	public File getFileExcel() {
 		return fileExcel;
 	}
@@ -193,6 +196,10 @@ public class OaAction extends MyBaseAction implements IMyBaseAction{
 		clearOptions();
 		return gotoQuery();
 	}
+	public String importExcel() throws InterruptedException, IOException, ParseException {
+		importSer.importExcelData(fileExcelFileName, fileExcel);
+		return gotoQuery();
+	}
 
 	public String gotoQuery() throws UnsupportedEncodingException {
 		String hql="from ZmOaNumber order by ODate desc";
@@ -272,8 +279,4 @@ public class OaAction extends MyBaseAction implements IMyBaseAction{
 		return gotoQuery();
 	}
 	
-	public String importExcel() throws InterruptedException, IOException, ParseException {
-		importSer.importExcelData(fileExcelFileName, fileExcel);
-		return gotoQuery();
-	}
 }

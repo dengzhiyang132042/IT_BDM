@@ -85,6 +85,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     		巴枪编号:<input name="BNum" type="text" value="${BNum }"/>
     		&nbsp;&nbsp;&nbsp;&nbsp;
     		SN:<input name="BSn" type="text" value="${BSn }"/>
+    		&nbsp;&nbsp;&nbsp;&nbsp;
+    		MAC地址:<input name="BMac" type="text" value="${BMac }"/>
     		<br/>
     		<input type="submit" value="查询" style="margin:5px;"/>
     	</form>	
@@ -127,7 +129,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</div>
 	
 	<div class="easyui-panel" style="padding:5px;width: 100%;display: none;background-color: white;">
-		<form id="f1" action="<%=path %>/bq!queryOfFenye?id=${id}&BPda=${BPda }&BModel=${BModel }&BType=${BType }&BNum=${BNum }&BSn=${BSn }" method="post">
+		<form id="f1" action="<%=path %>/bq!queryOfFenye?id=${id}&BPda=${BPda }&BModel=${BModel }&BType=${BType }&BNum=${BNum }&BSn=${BSn }&Bsac=${BMac }" method="post">
 		<select id="sele" style="float: left;margin-top: 3px;margin-left: 5px;" name="page.size" onchange="$('#f1').submit();">
 			<option value="5">5</option>
 			<option value="10">10</option>
