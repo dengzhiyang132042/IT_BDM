@@ -1,5 +1,7 @@
 package com.zs.action.zmz;
 
+import java.io.File;
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.sql.Timestamp;
 import java.text.ParseException;
@@ -21,11 +23,13 @@ import com.zs.entity.ZmByNumber;
 import com.zs.entity.ZmCall;
 import com.zs.entity.ZmVpn;
 import com.zs.service.IService;
+import com.zs.service.iDataImportService;
 import com.zs.tools.NameOfDate;
 import com.zs.tools.Page;
 
 public class CallAction extends MyBaseAction implements IMyBaseAction{
 	IService ser;
+	iDataImportService importSer;
 	Page page;
 	
 	ZmCall call;
@@ -45,9 +49,35 @@ public class CallAction extends MyBaseAction implements IMyBaseAction{
 	
 	
 	private Logger logger=Logger.getLogger(CallAction.class);
+	private File fileExcel;
+	private String fileExcelContentType;
+	private String fileExcelFileName; 
 	
 	
-	
+	public iDataImportService getImportSer() {
+		return importSer;
+	}
+	public void setImportSer(iDataImportService importSer) {
+		this.importSer = importSer;
+	}
+	public File getFileExcel() {
+		return fileExcel;
+	}
+	public void setFileExcel(File fileExcel) {
+		this.fileExcel = fileExcel;
+	}
+	public String getFileExcelContentType() {
+		return fileExcelContentType;
+	}
+	public void setFileExcelContentType(String fileExcelContentType) {
+		this.fileExcelContentType = fileExcelContentType;
+	}
+	public String getFileExcelFileName() {
+		return fileExcelFileName;
+	}
+	public void setFileExcelFileName(String fileExcelFileName) {
+		this.fileExcelFileName = fileExcelFileName;
+	}
 	public ZmCall getCall() {
 		return call;
 	}
@@ -219,7 +249,7 @@ public class CallAction extends MyBaseAction implements IMyBaseAction{
 	
 	public String add() throws Exception {
 		if(call!=null){
-			call.setCId("by"+NameOfDate.getNum());
+			call.setCId("c"+NameOfDate.getNum());
 			Users user=(Users) getSession().getAttribute("user");
 			if(user!=null){
 				call.setCIt(user.getUName());
@@ -233,5 +263,8 @@ public class CallAction extends MyBaseAction implements IMyBaseAction{
 		call=null;
 		return gotoQuery();
 	}
-	
+	public String importExcel() throws InterruptedException, IOException, ParseException {
+		importSer.importExcelData(fileExcelFileName, fileExcel);
+		return gotoQuery();
+	}
 }

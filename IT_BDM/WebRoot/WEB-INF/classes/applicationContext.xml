@@ -89,13 +89,15 @@
 	</bean>
 	<bean id="zs_bq_zmz" class="com.zs.action.zmz.BqAction">
 		<property name="ser" ref="zs_ser"></property>
+		<property name="importSer" ref="zs_ser_zmz_bq"></property>
 	</bean>
-	
 	<bean id="zs_wifi_zmz" class="com.zs.action.zmz.WifiAction">
 		<property name="ser" ref="zs_ser"></property>
+		<property name="importSer" ref="zs_ser_zmz_wifi"></property>
 	</bean>
 	<bean id="zs_phone_zmz" class="com.zs.action.zmz.PhoneAction">
 		<property name="ser" ref="zs_ser"></property>
+		<property name="importSer" ref="zs_ser_zmz_phone"></property>
 	</bean>
 	<bean id="zs_oa_zmz" class="com.zs.action.zmz.OaAction">
 		<property name="ser" ref="zs_ser"></property>
@@ -103,13 +105,17 @@
 	</bean>
 	<bean id="zs_print_zmz" class="com.zs.action.zmz.PrintAction">
 		<property name="ser" ref="zs_ser"></property>
+		<property name="importSer" ref="zs_ser_zmz_print"></property>
 	</bean>
 	<bean id="zs_computer_zmz" class="com.zs.action.zmz.ComputerAction">
 		<property name="ser" ref="zs_ser"></property>
+		<property name="importSer" ref="zs_ser_zmz_computer"></property>
 	</bean>
 	<bean id="hgh_call_zmz" class="com.zs.action.zmz.CallAction">
 		<property name="ser" ref="zs_ser"></property>
+		<property name="importSer" ref="zs_ser_zmz_call"></property>
 	</bean>
+	
 	
 	<!-- *****************数据分析************************  -->
 	<!--系统组	-->
@@ -154,6 +160,8 @@
 	<bean id="hgh_count_call" class="com.zs.action.zmz.count.CallCountAction">
 		<property name="ser" ref="zs_ser"></property>
 	</bean>
+	
+	
 	<!-- *****************故障报修处理跟进系统************************ -->
 	<bean id="zs_manager_da" class="com.zs.action.da.DaManagerAction">
 		<property name="ser" ref="zs_ser"></property>
@@ -240,6 +248,24 @@
 		<property name="dao" ref="zs_dao"></property>
 	</bean>	
 	<bean id="zs_ser_zmz_oa" class="com.zs.service.impl.ZmOaServiceImpl">
+		<property name="dao" ref="zs_dao"></property>
+	</bean>
+	<bean id="zs_ser_zmz_print" class="com.zs.service.impl.ZmPrintServiceImpl">
+		<property name="dao" ref="zs_dao"></property>
+	</bean>
+	<bean id="zs_ser_zmz_computer" class="com.zs.service.impl.ZmComputerServiceImpl">
+		<property name="dao" ref="zs_dao"></property>
+	</bean>
+	<bean id="zs_ser_zmz_bq" class="com.zs.service.impl.ZmBqServiceImpl">
+		<property name="dao" ref="zs_dao"></property>
+	</bean>
+	<bean id="zs_ser_zmz_wifi" class="com.zs.service.impl.ZmWifiServiceImpl">
+		<property name="dao" ref="zs_dao"></property>
+	</bean>
+	<bean id="zs_ser_zmz_phone" class="com.zs.service.impl.ZmPhoneServiceImpl">
+		<property name="dao" ref="zs_dao"></property>
+	</bean>
+	<bean id="zs_ser_zmz_call" class="com.zs.service.impl.ZmCallServiceImpl">
 		<property name="dao" ref="zs_dao"></property>
 	</bean>
 	
