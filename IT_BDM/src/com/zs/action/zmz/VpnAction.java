@@ -20,13 +20,18 @@ import com.zs.entity.Users;
 import com.zs.entity.XtSite;
 import com.zs.entity.ZmVpn;
 import com.zs.service.IService;
+import com.zs.service.iDataImportService;
 import com.zs.service.iVpnService;
 import com.zs.tools.NameOfDate;
 import com.zs.tools.Page;
 
 public class VpnAction extends MyBaseAction{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	IService ser;
-	iVpnService vpnSer;
+	iDataImportService vpnSer;
 	Page page;
 	
 	ZmVpn vpn;
@@ -47,10 +52,11 @@ public class VpnAction extends MyBaseAction{
 	private Logger logger= Logger.getLogger(VpnAction.class);
 	
 	
-	public iVpnService getVpnSer() {
+	
+	public iDataImportService getVpnSer() {
 		return vpnSer;
 	}
-	public void setVpnSer(iVpnService vpnSer) {
+	public void setVpnSer(iDataImportService vpnSer) {
 		this.vpnSer = vpnSer;
 	}
 	public File getFileExcel() {

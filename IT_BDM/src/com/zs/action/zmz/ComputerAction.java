@@ -1,5 +1,7 @@
 package com.zs.action.zmz;
 
+import java.io.File;
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.sql.Timestamp;
 import java.text.ParseException;
@@ -23,11 +25,13 @@ import com.zs.entity.ZmOaNumber;
 import com.zs.entity.ZmPrinter;
 import com.zs.entity.ZmVpn;
 import com.zs.service.IService;
+import com.zs.service.iDataImportService;
 import com.zs.tools.NameOfDate;
 import com.zs.tools.Page;
 
 public class ComputerAction extends MyBaseAction implements IMyBaseAction{
 	IService ser;
+	iDataImportService importSer;
 	Page page;
 	
 	ZmComputer c;
@@ -43,10 +47,37 @@ public class ComputerAction extends MyBaseAction implements IMyBaseAction{
 	String num;
 	
 	private Logger logger=Logger.getLogger(ComputerAction.class);
-
+	private File fileExcel;
+	private String fileExcelContentType;
+	private String fileExcelFileName; 
 //----------------------------------------------------------------------------------	
+	
 	public IService getSer() {
 		return ser;
+	}
+	public iDataImportService getImportSer() {
+		return importSer;
+	}
+	public void setImportSer(iDataImportService importSer) {
+		this.importSer = importSer;
+	}
+	public File getFileExcel() {
+		return fileExcel;
+	}
+	public void setFileExcel(File fileExcel) {
+		this.fileExcel = fileExcel;
+	}
+	public String getFileExcelContentType() {
+		return fileExcelContentType;
+	}
+	public void setFileExcelContentType(String fileExcelContentType) {
+		this.fileExcelContentType = fileExcelContentType;
+	}
+	public String getFileExcelFileName() {
+		return fileExcelFileName;
+	}
+	public void setFileExcelFileName(String fileExcelFileName) {
+		this.fileExcelFileName = fileExcelFileName;
 	}
 	public void setSer(IService ser) {
 		this.ser = ser;
@@ -193,4 +224,10 @@ public class ComputerAction extends MyBaseAction implements IMyBaseAction{
 		return gotoQuery();
 	}
 	
+	public String importExcel() throws InterruptedException, IOException, ParseException {
+		importSer.importExcelData(fileExcelFileName, fileExcel);
+		return gotoQuery();
+	}
+	
+
 }
