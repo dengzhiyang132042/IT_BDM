@@ -1,0 +1,101 @@
+package com.zs.entity;
+
+/**
+ * WhTimeliness entity. @author MyEclipse Persistence Tools
+ */
+
+public class WhTimeliness implements java.io.Serializable {
+
+	// Fields
+
+	private String TId;
+	private Integer TNetPoint;
+	private Integer TIt;
+	private Integer TFinance;
+	private Integer TFacilitator;
+	private Integer TAmount;
+	private Integer TResortDate;
+
+	// Constructors
+
+	/** default constructor */
+	public WhTimeliness() {
+	}
+
+	/** minimal constructor */
+	public WhTimeliness(String TId) {
+		this.TId = TId;
+	}
+
+	/** full constructor */
+	public WhTimeliness(String TId, Integer TNetPoint, Integer TIt,
+			Integer TFinance, Integer TFacilitator, Integer TAmount,
+			Integer TResortDate) {
+		this.TId = TId;
+		this.TNetPoint = TNetPoint;
+		this.TIt = TIt;
+		this.TFinance = TFinance;
+		this.TFacilitator = TFacilitator;
+		this.TAmount = TAmount;
+		this.TResortDate = TResortDate;
+	}
+
+	// Property accessors
+
+	public String getTId() {
+		return this.TId;
+	}
+
+	public void setTId(String TId) {
+		this.TId = TId;
+	}
+
+	public Integer getTNetPoint() {
+		return this.TNetPoint;
+	}
+
+	public void setTNetPoint(Integer TNetPoint) {
+		this.TNetPoint = TNetPoint;
+	}
+
+	public Integer getTIt() {
+		return this.TIt;
+	}
+
+	public void setTIt(Integer TIt) {
+		this.TIt = TIt;
+	}
+
+	public Integer getTFinance() {
+		return this.TFinance;
+	}
+
+	public void setTFinance(Integer TFinance) {
+		this.TFinance = TFinance;
+	}
+
+	public Integer getTFacilitator() {
+		return this.TFacilitator;
+	}
+
+	public void setTFacilitator(Integer TFacilitator) {
+		this.TFacilitator = TFacilitator;
+	}
+
+	public Integer getTAmount() {
+		return this.TAmount;
+	}
+
+	public void setTAmount(Integer TAmount) {
+		this.TAmount = TAmount;
+	}
+
+	public Integer getTResortDate() {
+		return this.TResortDate;
+	}
+
+	public void setTResortDate(Integer TResortDate) {
+		this.TResortDate = TResortDate;
+	}
+
+}
