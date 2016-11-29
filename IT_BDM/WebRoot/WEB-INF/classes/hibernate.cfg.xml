@@ -81,6 +81,16 @@
 		<mapping resource="com/zs/entity/XtBqRepair.hbm.xml" />
 		<mapping resource="com/zs/entity/XtPdaChange.hbm.xml" />
 		<mapping resource="com/zs/entity/ZmCall.hbm.xml" />
+		<mapping resource="com/zs/entity/WhDeviceScout.hbm.xml" />
+		<mapping resource="com/zs/entity/WhMeetingScout.hbm.xml" />
+		<mapping resource="com/zs/entity/WhMassageReceive.hbm.xml" />
+		<mapping resource="com/zs/entity/WhTimeliness.hbm.xml" />
+		<mapping resource="com/zs/entity/WhBqDraw.hbm.xml" />
+		<mapping resource="com/zs/entity/WhExpressList.hbm.xml" />
+		<mapping resource="com/zs/entity/WhMonitorScout.hbm.xml" />
+		<mapping resource="com/zs/entity/WhThreeMeetingScout.hbm.xml" />
+		<mapping resource="com/zs/entity/WhAllDate.hbm.xml" />
+		<mapping resource="com/zs/entity/WhOutRepair.hbm.xml" />
 	</session-factory>
 
 </hibernate-configuration>
