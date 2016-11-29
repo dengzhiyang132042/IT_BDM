@@ -181,7 +181,7 @@ public class BqRepairAction extends MyBaseAction{
 				if(dates!=null&&!dates.equals("")){
 					hql=hql+" and RDate >='"+dates+"'";
 				}
-				if(datee!=null&&!dates.equals("")){
+				if(datee!=null&&!datee.equals("")){
 					hql=hql+" and RDate <='"+datee+"'";
 				}
 			hql=hql+" order by RDate desc";
