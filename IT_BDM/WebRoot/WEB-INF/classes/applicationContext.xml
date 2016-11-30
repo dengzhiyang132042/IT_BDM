@@ -14,7 +14,8 @@
 	
 	
 	<!-- **************************ACTION******************************************** -->
-	
+	<bean id="zs_test" class="com.zs.action.TestAction">
+	</bean>	
 	<!-- **************************硬件组******************************************** -->
 	<bean id="zs_section_yjz" class="com.zs.action.yjz.SectionAction">
 		<property name="ser" ref="zs_ser"></property>
