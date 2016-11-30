@@ -26,6 +26,7 @@ import com.zs.service.iXtZmNumberService;
 import com.zs.tools.Constant;
 import com.zs.tools.ExcelExport;
 import com.zs.tools.Page;
+import com.zs.tools.WeekDateArea;
 
 public class ZmNumberCountAction extends MyBaseAction implements IMyBaseAction{
 
@@ -89,6 +90,9 @@ public class ZmNumberCountAction extends MyBaseAction implements IMyBaseAction{
 	}
 	public void clearOptions() {
 		filtrate=null;
+		dates=null;
+		datee=null;
+		counts=null;
 	}
 	//----------------------------------------------------
 	
@@ -129,57 +133,26 @@ public class ZmNumberCountAction extends MyBaseAction implements IMyBaseAction{
 	private void initCounts(List<XtZmNumberCount> counts,String dt) throws ParseException {
 		//获取两个头尾的时间
 		XtZmNumber d1 = null,d2=null;
-		String str="from XtZmNumber where zmServiceDate!=null";
-		String str1="from XtZmNumber where zmServiceDate!=null";
-        SimpleDateFormat sdf= new SimpleDateFormat("yyyy-MM-dd");
+		String str="from XtZmNumber where zmApplyDate !=null";
+		String str1="from XtZmNumber where zmApplyDate !=null";
+		SimpleDateFormat sdf= new SimpleDateFormat("yyyy-MM-dd");
 		if(dates!=null&&datee!=null&&!dates.equals("")&&!datee.equals("")){
-			//备用
 //			if(dt.equals("D")){
-//				System.out.println(dates);
-//				System.out.println(datee);
-//				str=str+" where zmApplyDate <='"+datee+"'";
-//				str1=str1+" where zmApplyDate >='"+dates+"'";
+//				str=str+" where BMaintainDate <='"+datee+"'";
+//				str1=str1+" where BMaintainDate >='"+dates+"'";
 //			}
 			if(dt.equals("W")){
-//				System.out.println(dates);
-//				System.out.println(datee);
-				//头时间
-				Calendar cal1 = Calendar.getInstance();
-		        cal1.clear();
-		        cal1.set(Calendar.YEAR, Integer.parseInt(dates.substring(0,4)));
-		        //此处为了解决html5中使用日期插件和Calendar的不同
-		        if(Integer.parseInt(dates.substring(0,4))%5==1){
-		        	cal1.set(Calendar.WEEK_OF_YEAR,Integer.parseInt(dates.substring(6))+1);
-		        }else{
-		        	cal1.set(Calendar.WEEK_OF_YEAR,Integer.parseInt(dates.substring(6)));
-		        }
-		        cal1.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY);
-		        //获取尾时间
-		        Calendar cal2 = Calendar.getInstance();
-		        cal2.clear();
-		        cal2.set(Calendar.YEAR, Integer.parseInt(datee.substring(0,4)));
-		        if(Integer.parseInt(dates.substring(0,4))%5==1){
-		        	cal2.set(Calendar.WEEK_OF_YEAR,Integer.parseInt(datee.substring(6))+1);
-		        }else{
-		        	cal2.set(Calendar.WEEK_OF_YEAR,Integer.parseInt(datee.substring(6)));
-		        }
-		        cal2.set(Calendar.DAY_OF_WEEK, Calendar.SATURDAY);
-//		        System.out.println(cal2.getTime());
-		        
-				str=str+" and zmApplyDate <='"+sdf.format(cal2.getTime())+"'";
-				str1=str1+" and zmApplyDate >='"+sdf.format(cal1.getTime())+"'";
+				List datelist = WeekDateArea.weekdate(dates, datee);
+				str=str+" and zmApplyDate <='"+datelist.get(0)+"'";
+				str1=str1+" and zmApplyDate >='"+datelist.get(1)+"'";
 			}
 			if(dt.equals("M")){
-//				System.out.println(dates);
-//				System.out.println(datee);	
 				//获取月的最后一天
 				Date edate = new Date(Integer.parseInt(datee.substring(0,4))-1900, Integer.parseInt(datee.substring(5)),0);
 				str=str+" and zmApplyDate <='"+sdf.format(edate)+"'";
 				str1=str1+" and zmApplyDate >='"+dates+"'";
 			}
 			if(dt.equals("Y")){
-				System.out.println(dates);
-				System.out.println(datee);
 				//获取月的最后一天
 				Date edate = new Date(Integer.parseInt(datee)-1900, 12,0);
 				str=str+" and zmApplyDate <='"+sdf.format(edate)+"'";
@@ -196,8 +169,6 @@ public class ZmNumberCountAction extends MyBaseAction implements IMyBaseAction{
 		if (list.size()>0) {
 			d2=(XtZmNumber) list.get(0);//头
 		}
-		//用完清空
-		str=null;
 		if (d1!=null && d2!=null) {
 			if (dt.equals("W")) {
 				//获取相差天数
@@ -207,8 +178,8 @@ public class ZmNumberCountAction extends MyBaseAction implements IMyBaseAction{
 				ca2.set(d2.getZmApplyDate().getYear(), d2.getZmApplyDate().getMonth(), d2.getZmApplyDate().getDate());
 				int weeknum = (ca1.get(Calendar.YEAR)-ca2.get(Calendar.YEAR))*52+(ca1.get(Calendar.WEEK_OF_YEAR)-ca2.get(Calendar.WEEK_OF_YEAR));
 				//从第一天开始循环组装数据封装
-				for (int i = 0; i <=weeknum+1; i++) {
-					Date tmp=new Date(d1.getZmServiceDate().getYear(), d1.getZmServiceDate().getMonth(), d1.getZmServiceDate().getDate()-7*i,0,0,0);
+				for (int i = 0; i <=weeknum; i++) {
+					Date tmp=new Date(d1.getZmServiceDate().getYear(), d1.getZmServiceDate().getMonth(), d1.getZmServiceDate().getDate()-7*i);
 					Date dateStart=ser.weekDate(tmp).get(ser.KEY_DATE_START);
 					Date dateEnd=ser.weekDate(tmp).get(ser.KEY_DATE_END);
 					Calendar cas = Calendar.getInstance();

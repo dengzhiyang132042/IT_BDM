@@ -23,6 +23,7 @@ import com.zs.service.IService;
 import com.zs.tools.Constant;
 import com.zs.tools.ExcelExport;
 import com.zs.tools.Page;
+import com.zs.tools.WeekDateArea;
 
 public class SiteCountAction extends MyBaseAction implements IMyBaseAction{
 
@@ -86,6 +87,9 @@ public class SiteCountAction extends MyBaseAction implements IMyBaseAction{
 //----------------------------------------------------
 	public void clearOptions() {
 		filtrate=null;
+		dates=null;
+		datee=null;
+		counts=null;
 	}
 	private void clearSpace() {
 		if (filtrate!=null && !filtrate.equals("")) {
@@ -144,45 +148,17 @@ public class SiteCountAction extends MyBaseAction implements IMyBaseAction{
 		SimpleDateFormat sdf= new SimpleDateFormat("yyyy-MM-dd");
 		if(dates!=null&&datee!=null&&!dates.equals("")&&!datee.equals("")){
 			if(dt.equals("W")){
-//				System.out.println(dates);
-//				System.out.println(datee);
-				//头时间
-				Calendar cal1 = Calendar.getInstance();
-		        cal1.clear();
-		        cal1.set(Calendar.YEAR, Integer.parseInt(dates.substring(0,4)));
-		        //此处为了解决html5中使用日期插件和Calendar的不同
-		        if(Integer.parseInt(dates.substring(0,4))%5==1){
-		        	cal1.set(Calendar.WEEK_OF_YEAR,Integer.parseInt(dates.substring(6))+1);
-		        }else{
-		        	cal1.set(Calendar.WEEK_OF_YEAR,Integer.parseInt(dates.substring(6)));
-		        }
-		        cal1.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY);
-		        //获取尾时间
-		        Calendar cal2 = Calendar.getInstance();
-		        cal2.clear();
-		        cal2.set(Calendar.YEAR, Integer.parseInt(datee.substring(0,4)));
-		        if(Integer.parseInt(dates.substring(0,4))%5==1){
-		        	cal2.set(Calendar.WEEK_OF_YEAR,Integer.parseInt(datee.substring(6))+1);
-		        }else{
-		        	cal2.set(Calendar.WEEK_OF_YEAR,Integer.parseInt(datee.substring(6)));
-		        }
-		        cal2.set(Calendar.DAY_OF_WEEK, Calendar.SATURDAY);
-//		        System.out.println(cal2.getTime());
-		        
-				str=str+" where SStartDate <='"+sdf.format(cal2.getTime())+"'";
-				str1=str1+" where SStartDate >='"+sdf.format(cal1.getTime())+"'";
+				List datelist = WeekDateArea.weekdate(dates, datee);
+				str=str+" where SStartDate <='"+datelist.get(0)+"'";
+				str1=str1+" where SStartDate >='"+datelist.get(1)+"'";
 			}
 			if(dt.equals("M")){
-//				System.out.println(dates);
-//				System.out.println(datee);	
 				//获取月的最后一天
 				Date edate = new Date(Integer.parseInt(datee.substring(0,4))-1900, Integer.parseInt(datee.substring(5)),0);
 				str=str+" where SStartDate <='"+sdf.format(edate)+"'";
 				str1=str1+" where SStartDate >='"+dates+"'";
 			}
 			if(dt.equals("Y")){
-				System.out.println(dates);
-				System.out.println(datee);
 				//获取月的最后一天
 				Date edate = new Date(Integer.parseInt(datee)-1900, 12,0);
 				str=str+" where SStartDate <='"+sdf.format(edate)+"'";
@@ -209,7 +185,7 @@ public class SiteCountAction extends MyBaseAction implements IMyBaseAction{
 				ca2.set(d2.getSStartDate().getYear()+1900, d2.getSStartDate().getMonth()+1, d2.getSStartDate().getDate());
 				int weekyear = d1.getSStartDate().getYear()-d2.getSStartDate().getYear();
 				int weeknum =weekyear*52 + ca1.get(Calendar.WEEK_OF_YEAR)-ca2.get(Calendar.WEEK_OF_YEAR);
-				for (int i = 0; i <= weeknum+1; i++) {
+				for (int i = 0; i <= weeknum; i++) {
 					Date date = new Date(d1.getSStartDate().getYear(),d1.getSStartDate().getMonth(),d1.getSStartDate().getDate()-(7*i));
 					Date dateStart= ser.weekDate(date).get(ser.KEY_DATE_START);
 					Date dateEnd=ser.weekDate(date).get(ser.KEY_DATE_END);
@@ -223,7 +199,7 @@ public class SiteCountAction extends MyBaseAction implements IMyBaseAction{
 				//设置序号初始值
 				int orderNumber = 0;
 				//获取相差月数
-				long ms=(d1.getSStartDate().getYear()-d2.getSStartDate().getYear())*12+(d1.getSStartDate().getMonth()-d2.getSStartDate().getMonth());
+				int ms=(d1.getSStartDate().getYear()-d2.getSStartDate().getYear())*12+(d1.getSStartDate().getMonth()-d2.getSStartDate().getMonth());
 				for (int i = 0; i <= ms; i++) {
 					Date dateStart=new Date(d1.getSStartDate().getYear(), d1.getSStartDate().getMonth()-i, 1,0,0,0);
 					Calendar ca = Calendar.getInstance();    
@@ -238,7 +214,7 @@ public class SiteCountAction extends MyBaseAction implements IMyBaseAction{
 				//设置序号初始值
 				int orderNumber = 0;
 				//获得相差年数
-				long ys=d1.getSStartDate().getYear()-d2.getSStartDate().getYear();
+				int ys=d1.getSStartDate().getYear()-d2.getSStartDate().getYear();
 				for (int i = 0; i <= ys; i++) {
 					Date dateStart=new Date(d1.getSStartDate().getYear()-i, 0, 1,0,0,0);
 					Date dateEnd=new Date(d1.getSStartDate().getYear()-i, 11, 31,23,59,59);

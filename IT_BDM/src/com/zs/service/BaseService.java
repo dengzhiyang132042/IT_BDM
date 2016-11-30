@@ -621,6 +621,7 @@ public class BaseService implements IService{
 			return null;
 		}
 	}
+	
 	public Timestamp transToTimestamp(String str) {
 		try {
 			return str==null||str.trim().equals("")?new Timestamp(new Date().getTime()):Timestamp.valueOf(str);
@@ -629,5 +630,5 @@ public class BaseService implements IService{
 			return null;
 		}
 	}
-
+	
 }

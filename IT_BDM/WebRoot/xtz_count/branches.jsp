@@ -25,25 +25,22 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<link rel="stylesheet" type="text/css" href="<%=path %>/FRAMEWORK/jquery-easyui/demo/demo.css">
 	<script type="text/javascript" src="<%=path %>/FRAMEWORK/jquery-easyui/jquery.min.js"></script>
 	<script type="text/javascript" src="<%=path %>/FRAMEWORK/jquery-easyui/jquery.easyui.min.js"></script>
+	<script type="text/javascript" src="<%=path %>/FRAMEWORK/My97DatePicker/WdatePicker.js"></script>
 	
 	<link rel="stylesheet" type="text/css" href="<%=path %>/FRAMEWORK/css/mycss.css">
 	<script type="text/javascript">
 	$(function(){
-		if('${filtrate}'=='D'){
-			$('#dates').attr('type','date');
-			$('#datee').attr('type','date');
-		}
 		if('${filtrate}'=='W'){
-			$('#dates').attr('type','week');
-			$('#datee').attr('type','week');
+			var date ="<input name='dates' id='d4311' class='Wdate' type='text' onFocus=\"WdatePicker({maxDate:'#F{$dp.$D(\\'d4312\\')||\\'2020-10-01\\'}'})\" value='${dates }'/>~<input name='datee' id=\"d4312\" class=\"Wdate\" type=\"text\" onFocus=\"WdatePicker({minDate:'#F{$dp.$D(\\'d4311\\')}'})\" value='${datee }' />";
+			$('#datearea').html(date);
 		}
 		if('${filtrate}'=='M'){
-			$('#dates').attr('type','month');
-			$('#datee').attr('type','month');
+			var monthdate ="<input name='dates' type='month' value ='${dates}'/>~<input name='datee' type='month' value='${datee}'/>"
+			$('#datearea').html(monthdate);
 		}
 		if('${filtrate}'=='Y'){
-			$('#dates').attr({type:"number" ,min:"1900" ,max:"2199"});
-			$('#datee').attr({type:"number" ,min:"1900" ,max:"2199"});
+			var ydate = "<input name='dates' type='number' min='1900' max='2199' value='${dates}'/>~<input name='datee' type='number' min='1900' max='2199' value='${datee}'/>"
+			$('#datearea').html(ydate);
 		}
 		$("#sel_dt option[value='${filtrate}']").attr("selected",true);
 		$("#sele option[value='"+${page.size}+"']").attr("selected",true);
@@ -79,21 +76,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		window.location.href=path;
 	}
 	function changeDate(){
-		if($('#sel_dt').val()=='D'){
-			$('#dates').attr('type','date');
-			$('#datee').attr('type','date');
-		}
 		if($('#sel_dt').val()=='W'){
-			$('#dates').attr('type','week');
-			$('#datee').attr('type','week');
+			var date ="<input name='dates' id='d4311' class='Wdate' type='text' onFocus=\"WdatePicker({maxDate:'#F{$dp.$D(\\'d4312\\')||\\'2020-10-01\\'}'})\" value='${dates }'/>~<input name='datee' id=\"d4312\" class=\"Wdate\" type=\"text\" onFocus=\"WdatePicker({minDate:'#F{$dp.$D(\\'d4311\\')}'})\" value='${datee }' />";
+			$('#datearea').html(date);
 		}
 		if($('#sel_dt').val()=='M'){
-			$('#dates').attr('type','month');
-			$('#datee').attr('type','month');
+			var monthdate ="<input name='dates' type='month' value ='${dates}'/>~<input name='datee' type='month' value='${datee}'/>"
+			$('#datearea').html(monthdate);
 		}
 		if($('#sel_dt').val()=='Y'){
-			$('#dates').attr({type:"number" ,min:"1900" ,max:"2199"});
-			$('#datee').attr({type:"number" ,min:"1900" ,max:"2199"});
+			var ydate = "<input name='dates' type='number' min='1900' max='2199' value='${dates}'/>~<input name='datee' type='number' min='1900' max='2199' value='${datee}'/>"
+			$('#datearea').html(ydate);
 		}
 	}
 	function xiazai(){
@@ -132,18 +125,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    	快速查询
 	    	<br/>
 	    	<form action="<%=path %>/branchesCount!queryOfFenye" method="post">
-	    		当前查询条件:
-	    		<select id="sel_dt" name="filtrate" onchange="changeDate()">
-	    			<option value="D">日</option>
-	    			<option value="W">周</option>
-	    			<option value="M">月</option>
-	    			<option value="Y">年</option>
-	    		</select>
-	    		&nbsp;&nbsp;&nbsp;&nbsp;
-	    		选择日期:<input id="dates" name="dates"  value="${dates }"/>
-	    		~
-	    		<input id="datee" name="datee"  value="${datee }"/>
-	    		<br/>
+	    	当前查询条件:
+    		<select id="sel_dt" name="filtrate" onchange="changeDate()">
+    			<option value="W">周</option>
+    			<option value="M">月</option>
+    			<option value="Y">年</option>
+    		</select>
+    		&nbsp;&nbsp;&nbsp;&nbsp;
+    		选择日期:<span id ="datearea"></span>
+    		<br/>
 	    		<input type="submit" value="查询"/>
 	    	</form>	
 	    	<input type= "button" onclick="xiazai()" value="导出" />

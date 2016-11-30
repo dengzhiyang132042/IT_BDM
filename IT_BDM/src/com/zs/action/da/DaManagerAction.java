@@ -130,7 +130,7 @@ public class DaManagerAction extends MyBaseAction implements IMyBaseAction{
 		}
 		if (cz!=null && cz.equals("yes")) {
 			page=new Page(1, 0, 5);
-			clearOptions();
+//			clearOptions();
 		}
 		clearSpace();
 		if(id!=null){

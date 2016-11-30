@@ -17,6 +17,7 @@ import com.zs.action.IMyBaseAction;
 import com.zs.action.MyBaseAction;
 import com.zs.entity.DaCount;
 import com.zs.entity.DaDemand;
+import com.zs.entity.XtSite;
 import com.zs.entity.XtSiteCount;
 import com.zs.entity.XtZmNumber;
 import com.zs.entity.XtZmNumberCount;
@@ -30,6 +31,7 @@ import com.zs.service.iVpnService;
 import com.zs.service.iXtZmNumberService;
 import com.zs.tools.ExcelExport;
 import com.zs.tools.Page;
+import com.zs.tools.WeekDateArea;
 
 public class ByNumCountAction extends MyBaseAction implements IMyBaseAction{
 
@@ -42,6 +44,8 @@ public class ByNumCountAction extends MyBaseAction implements IMyBaseAction{
 	String result_succ="succ";
 	String result_fail="fail";
 	
+	String dates;
+	String datee;
 
 	Logger logger=Logger.getLogger(ByNumCountAction.class);
 	
@@ -70,11 +74,25 @@ public class ByNumCountAction extends MyBaseAction implements IMyBaseAction{
 	public void setCounts(List<ZmByNumCount> counts) {
 		this.counts = counts;
 	}
+	public String getDates() {
+		return dates;
+	}
+	public void setDates(String dates) {
+		this.dates = dates;
+	}
+	public String getDatee() {
+		return datee;
+	}
+	public void setDatee(String datee) {
+		this.datee = datee;
+	}
 	//----------------------------------------------------
-	
 	
 	public void clearOptions() {
 		filtrate=null;
+		dates=null;
+		datee=null;
+		counts=null;
 	}
 	
 	private void clearSpace() {
@@ -123,13 +141,35 @@ public class ByNumCountAction extends MyBaseAction implements IMyBaseAction{
 	private void initCounts(List<ZmByNumCount> counts,String dt) throws ParseException {
 		//获取两个头尾的时间
 		ZmByNumber d1 = null,d2=null;
-		String str="from ZmByNumber where byServiceDate!=null order by byServiceDate desc";
-		List list=ser.query(str, null, str, new Page(1, 0, 1), ser);
+		String str="from ZmByNumber where byServiceDate!=null";
+		String str1="from ZmByNumber where byServiceDate!=null";
+		SimpleDateFormat sdf= new SimpleDateFormat("yyyy-MM-dd");
+		if(dates!=null&&datee!=null&&!dates.equals("")&&!datee.equals("")){
+			if(dt.equals("W")){
+				List datelist = WeekDateArea.weekdate(dates, datee);
+				str=str+" and byServiceDate <='"+datelist.get(0)+"'";
+				str1=str1+" and byServiceDate >='"+datelist.get(1)+"'";
+			}
+			if(dt.equals("M")){
+				//获取月的最后一天
+				Date edate = new Date(Integer.parseInt(datee.substring(0,4))-1900, Integer.parseInt(datee.substring(5)),0);
+				str=str+" and byServiceDate <='"+sdf.format(edate)+"'";
+				str1=str1+" and byServiceDate >='"+dates+"'";
+			}
+			if(dt.equals("Y")){
+				//获取月的最后一天
+				Date edate = new Date(Integer.parseInt(datee)-1900, 12,0);
+				str=str+" and byServiceDate <='"+sdf.format(edate)+"'";
+				str1=str1+" and byServiceDate >='"+dates+"'";
+			}
+		}
+		str=str+" order by byServiceDate desc";
+		List list=ser.query(str, null, str, page, ser);
 		if (list.size()>0) {
 			d1=(ZmByNumber) list.get(0);//尾巴
 		}
-		str="from ZmByNumber where byServiceDate!=null order by byServiceDate asc";
-		list=ser.query(str, null, str, new Page(1, 0, 1), ser);
+		str1=str1+" order by byServiceDate asc";
+		list=ser.query(str1, null, str1, page, ser);
 		if (list.size()>0) {
 			d2=(ZmByNumber) list.get(0);//头
 		}
@@ -144,8 +184,8 @@ public class ByNumCountAction extends MyBaseAction implements IMyBaseAction{
 				ca2.set(d2.getByServiceDate().getYear(), d2.getByServiceDate().getMonth(), d2.getByServiceDate().getDate());
 				int weeknum = (ca1.get(Calendar.YEAR)-ca2.get(Calendar.YEAR))*52+(ca1.get(Calendar.WEEK_OF_YEAR)-ca2.get(Calendar.WEEK_OF_YEAR));
 				//从第一天开始循环组装数据封装
-				for (int i = 0; i <=weeknum; i++) {
-					Date tmp=new Date(d2.getByServiceDate().getYear(), d2.getByServiceDate().getMonth(), d2.getByServiceDate().getDate()+7*i,0,0,0);
+				for (int i = 0; i <=weeknum+1; i++) {
+					Date tmp=new Date(d1.getByServiceDate().getYear(), d1.getByServiceDate().getMonth(), d1.getByServiceDate().getDate()-(7*i));
 					Date dateStart=ser.weekDate(tmp).get(ser.KEY_DATE_START);
 					Date dateEnd=ser.weekDate(tmp).get(ser.KEY_DATE_END);
 					Calendar cas = Calendar.getInstance();
@@ -161,10 +201,10 @@ public class ByNumCountAction extends MyBaseAction implements IMyBaseAction{
 				//获取相差月数
 				long ms=(d1.getByServiceDate().getYear()-d2.getByServiceDate().getYear())*12+(d1.getByServiceDate().getMonth()-d2.getByServiceDate().getMonth());
 				//logger.debug(ms);
-				for (int i = 0; i <= ms; i++) {
-					Date dateStart=new Date(d2.getByServiceDate().getYear(), d2.getByServiceDate().getMonth()+i, 1,0,0,0);
+				for (int i = 0; i <= ms+1; i++) {
+					Date dateStart=new Date(d1.getByServiceDate().getYear(), d1.getByServiceDate().getMonth()-i, 1,0,0,0);
 					Calendar ca = Calendar.getInstance();    
-					ca.set(1900+d2.getByServiceDate().getYear(), 1+d2.getByServiceDate().getMonth()+i, 0);
+					ca.set(1900+d1.getByServiceDate().getYear(), 1+d1.getByServiceDate().getMonth()-i, 0);
 					Date dateTmp=ca.getTime();
 					Date dateEnd=new Date(dateTmp.getYear(), dateTmp.getMonth(), dateTmp.getDate(),23,59,59);
 					int m=dateStart.getMonth();
@@ -176,9 +216,9 @@ public class ByNumCountAction extends MyBaseAction implements IMyBaseAction{
 				int orderNumber=0;
 				//获得相差年数
 				long ys=d1.getByServiceDate().getYear()-d2.getByServiceDate().getYear();
-				for (int i = 0; i <= ys; i++) {
-					Date dateStart=new Date(d2.getByServiceDate().getYear()+i, 0, 1,0,0,0);
-					Date dateEnd=new Date(d2.getByServiceDate().getYear()+i, 11, 31,23,59,59);
+				for (int i = 0; i <= ys+1; i++) {
+					Date dateStart=new Date(d1.getByServiceDate().getYear()-i, 0, 1,0,0,0);
+					Date dateEnd=new Date(d1.getByServiceDate().getYear()-i, 11, 31,23,59,59);
 					int y=dateStart.getYear();
 					orderNumber++;
 					initCount(dateStart, dateEnd, counts,y+1900,orderNumber);

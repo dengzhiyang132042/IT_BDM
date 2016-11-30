@@ -1,4 +1,4 @@
-package com.zs.action.zmz.count;
+package com.zs.action.whz.count;
 
 import java.io.UnsupportedEncodingException;
 import java.sql.Timestamp;
@@ -15,18 +15,15 @@ import net.sf.json.JSONArray;
 
 import com.zs.action.IMyBaseAction;
 import com.zs.action.MyBaseAction;
-import com.zs.entity.XtSite;
-import com.zs.entity.XtSiteCount;
-import com.zs.entity.ZmOaNumber;
-import com.zs.entity.ZmVpn;
-import com.zs.entity.custom.ZmOaCount;
+import com.zs.entity.WhDeviceScout;
+import com.zs.entity.custom.WhDeviceScoutCount;
 
 import com.zs.service.IService;
+import com.zs.tools.Constant;
 import com.zs.tools.ExcelExport;
 import com.zs.tools.Page;
-import com.zs.tools.WeekDateArea;
 
-public class OaCountAction extends MyBaseAction implements IMyBaseAction{
+public class DeviceScoutCountAction extends MyBaseAction implements IMyBaseAction{
 
 	/**
 	 * 
@@ -35,46 +32,23 @@ public class OaCountAction extends MyBaseAction implements IMyBaseAction{
 	IService ser;
 	Page page;
 	
-	List<ZmOaCount> counts;
+	List<WhDeviceScoutCount> counts;
 	
 	String filtrate;
 	
-	String result="oaCount";
+	String result="siteCount";
 	String result_succ="succ";
 	String result_fail="fail";
 	
 	String dates;
 	String datee;
 	
-	Logger logger=Logger.getLogger(OaCountAction.class);
+	Logger logger=Logger.getLogger(DeviceScoutCountAction.class);
 //----------------------------------------------------	
 	
 	public IService getSer() {
 		return ser;
 	}
-	public String getFiltrate() {
-		return filtrate;
-	}
-	public void setFiltrate(String filtrate) {
-		this.filtrate = filtrate;
-	}
-	
-	public List<ZmOaCount> getCounts() {
-		return counts;
-	}
-	public void setCounts(List<ZmOaCount> counts) {
-		this.counts = counts;
-	}
-	public void setSer(IService ser) {
-		this.ser = ser;
-	}
-	public Page getPage() {
-		return page;
-	}
-	public void setPage(Page page) {
-		this.page = page;
-	}
-	
 	public String getDates() {
 		return dates;
 	}
@@ -87,12 +61,30 @@ public class OaCountAction extends MyBaseAction implements IMyBaseAction{
 	public void setDatee(String datee) {
 		this.datee = datee;
 	}
-	//----------------------------------------------------
+	public String getFiltrate() {
+		return filtrate;
+	}
+	public void setFiltrate(String filtrate) {
+		this.filtrate = filtrate;
+	}
+	public List<WhDeviceScoutCount> getCounts() {
+		return counts;
+	}
+	public void setCounts(List<WhDeviceScoutCount> counts) {
+		this.counts = counts;
+	}
+	public void setSer(IService ser) {
+		this.ser = ser;
+	}
+	public Page getPage() {
+		return page;
+	}
+	public void setPage(Page page) {
+		this.page = page;
+	}
+//----------------------------------------------------
 	public void clearOptions() {
 		filtrate=null;
-		dates=null;
-		datee=null;
-		counts=null;
 	}
 	private void clearSpace() {
 		if (filtrate!=null && !filtrate.equals("")) {
@@ -108,26 +100,22 @@ public class OaCountAction extends MyBaseAction implements IMyBaseAction{
 	 */
 	private void initCount(Date dateStart,Date dateEnd,List counts,int num,int orderNumber) {
 		//组装一个XtSiteCount
-		List list5 = ser.find("select OOnJob from ZmOaNumber where ODate>=? and ODate<=? group by OOnJob", new Object[]{new Timestamp(dateStart.getTime()),new Timestamp(dateEnd.getTime())});
+		List list5 = ser.find("select SMaintainType from WhDeviceScout where SStartDate>=? and SStartDate<=? group by SMaintainType", new Object[]{new Timestamp(dateStart.getTime()),new Timestamp(dateEnd.getTime())});
 		if(list5!=null&&list5.size()>0){
 //			System.out.println("----list5.size---->>"+list5.size());
 			for(int i = 0 ;i < list5.size(); i++){
 //				System.out.println("----list5---->>"+list5.get(i));
 				//获取在该时间范围内站点资料的所有数据
-				List list2=ser.find("from ZmOaNumber where ODate>=? and ODate<=? and OOnJob =?", new Object[]{new Timestamp(dateStart.getTime()),new Timestamp(dateEnd.getTime()),list5.get(i).toString()});
+				List list2=ser.find("from WhDeviceScout where SStartDate>=? and SStartDate<=? and SMaintainType =?", new Object[]{new Timestamp(dateStart.getTime()),new Timestamp(dateEnd.getTime()),list5.get(i).toString()});
 				if (list2.size()!=0) {//如果为0就不要了
-					ZmOaCount count = new ZmOaCount();
-					//这个组装数据有问题类型问题没有解决
+					WhDeviceScoutCount count = new WhDeviceScoutCount();
+					//i代表多少种类型
 					if(i<1){
 						count.setsTime(new Timestamp(dateStart.getTime()));
 						count.seteTime(new Timestamp(dateEnd.getTime()));
 						count.setOrderNum(orderNumber);
 						count.setNumber(num);
-						count.setRows(list5.size());
-					}else{
-						count.setRows(0);
 					}
-					count.setJob(list5.get(i).toString());
 					count.setCount(list2.size());
 					counts.add(count);
 				}
@@ -143,40 +131,68 @@ public class OaCountAction extends MyBaseAction implements IMyBaseAction{
 	 * @param dt
 	 * @throws ParseException
 	 */
-	private void initCounts(List<ZmOaCount> counts,String dt) throws ParseException {
+	private void initCounts(List<WhDeviceScoutCount> counts,String dt) throws ParseException {
 		//获取两个头尾的时间
-		ZmOaNumber d1 = null,d2=null;
-		String str="from ZmOaNumber where ODate!=null ";
-		String str1="from ZmOaNumber where ODate!=null ";
+		WhDeviceScout d1 = null,d2=null;
+		String str="from WhDeviceScout";
+		String str1="from WhDeviceScout";
 		SimpleDateFormat sdf= new SimpleDateFormat("yyyy-MM-dd");
 		if(dates!=null&&datee!=null&&!dates.equals("")&&!datee.equals("")){
 			if(dt.equals("W")){
-				List datelist = WeekDateArea.weekdate(dates, datee);
-				str=str+" and ODate <='"+datelist.get(0)+"'";
-				str1=str1+" and ODate >='"+datelist.get(1)+"'";
+//				System.out.println(dates);
+//				System.out.println(datee);
+				//头时间
+				Calendar cal1 = Calendar.getInstance();
+		        cal1.clear();
+		        cal1.set(Calendar.YEAR, Integer.parseInt(dates.substring(0,4)));
+		        //此处为了解决html5中使用日期插件和Calendar的不同
+		        if(Integer.parseInt(dates.substring(0,4))%5==1){
+		        	cal1.set(Calendar.WEEK_OF_YEAR,Integer.parseInt(dates.substring(6))+1);
+		        }else{
+		        	cal1.set(Calendar.WEEK_OF_YEAR,Integer.parseInt(dates.substring(6)));
+		        }
+		        cal1.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY);
+		        //获取尾时间
+		        Calendar cal2 = Calendar.getInstance();
+		        cal2.clear();
+		        cal2.set(Calendar.YEAR, Integer.parseInt(datee.substring(0,4)));
+		        if(Integer.parseInt(dates.substring(0,4))%5==1){
+		        	cal2.set(Calendar.WEEK_OF_YEAR,Integer.parseInt(datee.substring(6))+1);
+		        }else{
+		        	cal2.set(Calendar.WEEK_OF_YEAR,Integer.parseInt(datee.substring(6)));
+		        }
+		        cal2.set(Calendar.DAY_OF_WEEK, Calendar.SATURDAY);
+//		        System.out.println(cal2.getTime());
+		        
+				str=str+" where SStartDate <='"+sdf.format(cal2.getTime())+"'";
+				str1=str1+" where SStartDate >='"+sdf.format(cal1.getTime())+"'";
 			}
 			if(dt.equals("M")){
+//				System.out.println(dates);
+//				System.out.println(datee);	
 				//获取月的最后一天
 				Date edate = new Date(Integer.parseInt(datee.substring(0,4))-1900, Integer.parseInt(datee.substring(5)),0);
-				str=str+" and ODate <='"+sdf.format(edate)+"'";
-				str1=str1+" and ODate >='"+dates+"'";
+				str=str+" where SStartDate <='"+sdf.format(edate)+"'";
+				str1=str1+" where SStartDate >='"+dates+"'";
 			}
 			if(dt.equals("Y")){
+				System.out.println(dates);
+				System.out.println(datee);
 				//获取月的最后一天
 				Date edate = new Date(Integer.parseInt(datee)-1900, 12,0);
-				str=str+" and ODate <='"+sdf.format(edate)+"'";
-				str1=str1+" and ODate >='"+dates+"'";
+				str=str+" where SStartDate <='"+sdf.format(edate)+"'";
+				str1=str1+" where SStartDate >='"+dates+"'";
 			}
 		}
-		str=str+" order by ODate desc";
+		str=str+" order by SStartDate desc";
 		List list=ser.query(str, null, str, page, ser);
 		if (list.size()>0) {
-			d1=(ZmOaNumber) list.get(0);//尾巴
+			d1=(WhDeviceScout) list.get(0);//尾巴
 		}
-		str1=str1+" order by ODate asc";
+		str1=str1+" order by SStartDate asc";
 		list=ser.query(str1, null, str1, page, ser);
 		if (list.size()>0) {
-			d2=(ZmOaNumber) list.get(0);//头
+			d2=(WhDeviceScout) list.get(0);//头
 		}
 		if (d1!=null && d2!=null) {
 			if (dt.equals("W")) {
@@ -184,12 +200,12 @@ public class OaCountAction extends MyBaseAction implements IMyBaseAction{
 				int orderNumber=0;
 				Calendar ca1 = Calendar.getInstance();
 				Calendar ca2 = Calendar.getInstance();
-				ca1.set(d1.getODate().getYear()+1900, d1.getODate().getMonth()+1, d1.getODate().getDate());
-				ca2.set(d2.getODate().getYear()+1900, d2.getODate().getMonth()+1, d2.getODate().getDate());
-				int weekyear = d1.getODate().getYear()-d2.getODate().getYear();
+				ca1.set(d1.getDTime().getYear()+1900, d1.getDTime().getMonth()+1, d1.getDTime().getDate());
+				ca2.set(d2.getDTime().getYear()+1900, d2.getDTime().getMonth()+1, d2.getDTime().getDate());
+				int weekyear = d1.getDTime().getYear()-d2.getDTime().getYear();
 				int weeknum =weekyear*52 + ca1.get(Calendar.WEEK_OF_YEAR)-ca2.get(Calendar.WEEK_OF_YEAR);
-				for (int i = 0; i <= weeknum; i++) {
-					Date date = new Date(d1.getODate().getYear(),d1.getODate().getMonth(),d1.getODate().getDate()-(7*i));
+				for (int i = 0; i <= weeknum+1; i++) {
+					Date date = new Date(d1.getDTime().getYear(),d1.getDTime().getMonth(),d1.getDTime().getDate()-(7*i));
 					Date dateStart= ser.weekDate(date).get(ser.KEY_DATE_START);
 					Date dateEnd=ser.weekDate(date).get(ser.KEY_DATE_END);
 					Calendar ca3 = Calendar.getInstance();
@@ -202,11 +218,11 @@ public class OaCountAction extends MyBaseAction implements IMyBaseAction{
 				//设置序号初始值
 				int orderNumber = 0;
 				//获取相差月数
-				long ms=(d1.getODate().getYear()-d2.getODate().getYear())*12+(d1.getODate().getMonth()-d2.getODate().getMonth());
+				long ms=(d1.getDTime().getYear()-d2.getDTime().getYear())*12+(d1.getDTime().getMonth()-d2.getDTime().getMonth());
 				for (int i = 0; i <= ms; i++) {
-					Date dateStart=new Date(d1.getODate().getYear(), d1.getODate().getMonth()-i, 1,0,0,0);
+					Date dateStart=new Date(d1.getDTime().getYear(), d1.getDTime().getMonth()-i, 1,0,0,0);
 					Calendar ca = Calendar.getInstance();    
-					ca.set(1900+d1.getODate().getYear(), 1+d1.getODate().getMonth()-i, 0);
+					ca.set(1900+d1.getDTime().getYear(), 1+d1.getDTime().getMonth()-i, 0);
 					Date dateTmp=ca.getTime();
 					Date dateEnd=new Date(dateTmp.getYear(), dateTmp.getMonth(), dateTmp.getDate(),23,59,59);
 					int m=dateStart.getMonth();
@@ -217,10 +233,10 @@ public class OaCountAction extends MyBaseAction implements IMyBaseAction{
 				//设置序号初始值
 				int orderNumber = 0;
 				//获得相差年数
-				long ys=d1.getODate().getYear()-d2.getODate().getYear();
+				long ys=d1.getDTime().getYear()-d2.getDTime().getYear();
 				for (int i = 0; i <= ys; i++) {
-					Date dateStart=new Date(d1.getODate().getYear()-i, 0, 1,0,0,0);
-					Date dateEnd=new Date(d1.getODate().getYear()-i, 11, 31,23,59,59);
+					Date dateStart=new Date(d1.getDTime().getYear()-i, 0, 1,0,0,0);
+					Date dateEnd=new Date(d1.getDTime().getYear()-i, 11, 31,23,59,59);
 					int y=dateStart.getYear();
 					orderNumber++;
 					initCount(dateStart, dateEnd, counts,y+1900,orderNumber);
@@ -241,7 +257,7 @@ public class OaCountAction extends MyBaseAction implements IMyBaseAction{
 			clearOptions();
 		}
 		clearSpace();
-		counts=new ArrayList<ZmOaCount>();
+		counts=new ArrayList<WhDeviceScoutCount>();
 		if(id!=null){
 			/*
 			由于是统计模块所以不需要按编号查询功能，但为了兼容，故保留，只不过其代码为空而已。
@@ -282,10 +298,9 @@ public class OaCountAction extends MyBaseAction implements IMyBaseAction{
 		// TODO Auto-generated method stub
 		return null;
 	}
-	
 	public String exportExc() throws Exception{
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-		String filePath=getRequest().getRealPath("/")+"/files/export/zmz/oa账号统计.xls";
+		String filePath=getRequest().getRealPath("/")+"/files/export/xtz/站点资料统计.xls";
 		String dayType = "周数";
 		if(filtrate.equals("M")){
 			dayType = "月数";
@@ -295,18 +310,10 @@ public class OaCountAction extends MyBaseAction implements IMyBaseAction{
 		Object[] obj ={"序号","开始时间","结束时间",dayType,"维护类型","维护数量"};
 		Object objtmp[][]=new Object[counts.size()][6];
 		for (int i = 0; i < objtmp.length; i++) {
-			if(counts.get(i).getRows()!=0){
-				objtmp[i][0]=counts.get(i).getOrderNum();
-				objtmp[i][1]=sdf.format(new Date(counts.get(i).getsTime().getTime()));
-				objtmp[i][2]=sdf.format(new Date(counts.get(i).geteTime().getTime()));
-				objtmp[i][3]=counts.get(i).getNumber();
-			}else{
-				objtmp[i][0]="";
-				objtmp[i][1]="";
-				objtmp[i][2]="";
-				objtmp[i][3]="";
-			}
-			objtmp[i][4]=counts.get(i).getJob();
+			objtmp[i][0]=counts.get(i).getOrderNum();
+			objtmp[i][1]=sdf.format(new Date(counts.get(i).getsTime().getTime()));
+			objtmp[i][2]=sdf.format(new Date(counts.get(i).geteTime().getTime()));
+			objtmp[i][3]=counts.get(i).getNumber();
 			objtmp[i][5]=counts.get(i).getCount();
 		}
 		
@@ -315,5 +322,4 @@ public class OaCountAction extends MyBaseAction implements IMyBaseAction{
 //		return result;
 		return null;
 	}
-
 }

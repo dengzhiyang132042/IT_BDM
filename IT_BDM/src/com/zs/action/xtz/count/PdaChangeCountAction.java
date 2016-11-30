@@ -16,6 +16,7 @@ import net.sf.json.JSONArray;
 import com.zs.action.IMyBaseAction;
 import com.zs.action.MyBaseAction;
 import com.zs.entity.XtPdaChange;
+import com.zs.entity.XtSite;
 import com.zs.entity.custom.XtPdaChangeCount;
 
 import com.zs.service.IService;
@@ -23,6 +24,7 @@ import com.zs.service.iXtPdaChangeCountService;
 import com.zs.tools.Constant;
 import com.zs.tools.ExcelExport;
 import com.zs.tools.Page;
+import com.zs.tools.WeekDateArea;
 
 public class PdaChangeCountAction extends MyBaseAction implements IMyBaseAction{
 
@@ -88,6 +90,9 @@ public class PdaChangeCountAction extends MyBaseAction implements IMyBaseAction{
 	//----------------------------------------------------
 	public void clearOptions() {
 		filtrate=null;
+		dates=null;
+		datee=null;
+		counts=null;
 	}
 	private void clearSpace() {
 		if (filtrate!=null && !filtrate.equals("")) {
@@ -122,14 +127,37 @@ public class PdaChangeCountAction extends MyBaseAction implements IMyBaseAction{
 	 * @throws ParseException
 	 */
 	private void initCounts(List<XtPdaChangeCount> counts,String dt) throws ParseException {
-		//获取头尾时间
-		List<String> dlist = iser.queryDate(dt, dates, datee);
+		//获取两个头尾的时间
 		XtPdaChange d1 = null,d2=null;
-		List list=ser.query(dlist.get(0), null, dlist.get(0), page, ser);
+		String str="from XtPdaChange where CDate!=null ";
+		String str1="from XtPdaChange where CDate!=null ";
+		SimpleDateFormat sdf= new SimpleDateFormat("yyyy-MM-dd");
+		if(dates!=null&&datee!=null&&!dates.equals("")&&!datee.equals("")){
+			if(dt.equals("W")){
+				List datelist = WeekDateArea.weekdate(dates, datee);
+				str=str+" and CDate <='"+datelist.get(0)+"'";
+				str1=str1+" and CDate >='"+datelist.get(1)+"'";
+			}
+			if(dt.equals("M")){
+				//获取月的最后一天
+				Date edate = new Date(Integer.parseInt(datee.substring(0,4))-1900, Integer.parseInt(datee.substring(5)),0);
+				str=str+" and CDate <='"+sdf.format(edate)+"'";
+				str1=str1+" and CDate >='"+dates+"'";
+			}
+			if(dt.equals("Y")){
+				//获取月的最后一天
+				Date edate = new Date(Integer.parseInt(datee)-1900, 12,0);
+				str=str+" and CDate <='"+sdf.format(edate)+"'";
+				str1=str1+" and CDate >='"+dates+"'";
+			}
+		}
+		str=str+" order by CDate desc";
+		List list=ser.query(str, null, str, page, ser);
 		if (list.size()>0) {
 			d1=(XtPdaChange) list.get(0);//尾巴
 		}
-		list=ser.query(dlist.get(1), null, dlist.get(1), page, ser);
+		str1=str1+" order by CDate asc";
+		list=ser.query(str1, null, str1, page, ser);
 		if (list.size()>0) {
 			d2=(XtPdaChange) list.get(0);//头
 		}
@@ -141,7 +169,7 @@ public class PdaChangeCountAction extends MyBaseAction implements IMyBaseAction{
 				ca2.set(d2.getCDate().getYear()+1900, d2.getCDate().getMonth()+1, d2.getCDate().getDate());
 				int weekyear = d1.getCDate().getYear()-d2.getCDate().getYear();
 				int weeknum =weekyear*52 + ca1.get(Calendar.WEEK_OF_YEAR)-ca2.get(Calendar.WEEK_OF_YEAR);
-				for (int i = 0; i <=weeknum+1; i++) {
+				for (int i = 0; i <=weeknum; i++) {
 					Date date = new Date(d1.getCDate().getYear(),d1.getCDate().getMonth(),d1.getCDate().getDate()-(7*i));
 					Date dateStart= ser.weekDate(date).get(ser.KEY_DATE_START);
 					Date dateEnd=ser.weekDate(date).get(ser.KEY_DATE_END);

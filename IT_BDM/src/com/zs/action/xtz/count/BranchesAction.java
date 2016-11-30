@@ -19,12 +19,14 @@ import com.sun.java.swing.plaf.windows.resources.windows;
 import com.zs.action.IMyBaseAction;
 import com.zs.action.MyBaseAction;
 import com.zs.entity.XtBranches;
+import com.zs.entity.XtSite;
 import com.zs.entity.custom.XtBranchesCount;
 
 import com.zs.service.IService;
 import com.zs.tools.Constant;
 import com.zs.tools.ExcelExport;
 import com.zs.tools.Page;
+import com.zs.tools.WeekDateArea;
 
 public class BranchesAction extends MyBaseAction implements IMyBaseAction{
 
@@ -83,12 +85,16 @@ public class BranchesAction extends MyBaseAction implements IMyBaseAction{
 	//----------------------------------------------------
 	public void clearOptions() {
 		filtrate=null;
+		page=null;
+		dates=null;
+		datee=null;
+		counts=null;
 	}
 	private void clearSpace() {
 		if (filtrate!=null && !filtrate.equals("")) {
 			filtrate=filtrate.trim();
 		}else {
-			filtrate="D";
+			filtrate="W";
 		}
 	}
 	
@@ -119,60 +125,30 @@ public class BranchesAction extends MyBaseAction implements IMyBaseAction{
 	private void initCounts(List<XtBranchesCount> counts,String dt) throws ParseException {
 		//获取两个头尾的时间
 		XtBranches d1 = null,d2=null;
-		String str="from XtBranches";
-		String str1="from XtBranches";
-        SimpleDateFormat sdf= new SimpleDateFormat("yyyy-MM-dd");
+		String str="from XtBranches where BMaintainDate !=null";
+		String str1="from XtBranches where BMaintainDate !=null";
+		SimpleDateFormat sdf= new SimpleDateFormat("yyyy-MM-dd");
 		if(dates!=null&&datee!=null&&!dates.equals("")&&!datee.equals("")){
-			if(dt.equals("D")){
-				System.out.println(dates);
-				System.out.println(datee);
-				str=str+" where BMaintainDate <='"+datee+"'";
-				str1=str1+" where BMaintainDate >='"+dates+"'";
-			}
+//			if(dt.equals("D")){
+//				str=str+" where BMaintainDate <='"+datee+"'";
+//				str1=str1+" where BMaintainDate >='"+dates+"'";
+//			}
 			if(dt.equals("W")){
-//				System.out.println(dates);
-//				System.out.println(datee);
-				//头时间
-				Calendar cal1 = Calendar.getInstance();
-		        cal1.clear();
-		        cal1.set(Calendar.YEAR, Integer.parseInt(dates.substring(0,4)));
-		        //此处为了解决html5中使用日期插件和Calendar的不同
-		        if(Integer.parseInt(dates.substring(0,4))%5==1){
-		        	cal1.set(Calendar.WEEK_OF_YEAR,Integer.parseInt(dates.substring(6))+1);
-		        }else{
-		        	cal1.set(Calendar.WEEK_OF_YEAR,Integer.parseInt(dates.substring(6)));
-		        }
-		        cal1.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY);
-		        //获取尾时间
-		        Calendar cal2 = Calendar.getInstance();
-		        cal2.clear();
-		        cal2.set(Calendar.YEAR, Integer.parseInt(datee.substring(0,4)));
-		        if(Integer.parseInt(dates.substring(0,4))%5==1){
-		        	cal2.set(Calendar.WEEK_OF_YEAR,Integer.parseInt(datee.substring(6))+1);
-		        }else{
-		        	cal2.set(Calendar.WEEK_OF_YEAR,Integer.parseInt(datee.substring(6)));
-		        }
-		        cal2.set(Calendar.DAY_OF_WEEK, Calendar.SATURDAY);
-//		        System.out.println(cal2.getTime());
-		        
-				str=str+" where BMaintainDate <='"+sdf.format(cal2.getTime())+"'";
-				str1=str1+" where BMaintainDate >='"+sdf.format(cal1.getTime())+"'";
+				List datelist = WeekDateArea.weekdate(dates, datee);
+				str=str+" and BMaintainDate <='"+datelist.get(0)+"'";
+				str1=str1+" and BMaintainDate >='"+datelist.get(1)+"'";
 			}
 			if(dt.equals("M")){
-//				System.out.println(dates);
-//				System.out.println(datee);	
 				//获取月的最后一天
 				Date edate = new Date(Integer.parseInt(datee.substring(0,4))-1900, Integer.parseInt(datee.substring(5)),0);
-				str=str+" where BMaintainDate <='"+sdf.format(edate)+"'";
-				str1=str1+" where BMaintainDate >='"+dates+"'";
+				str=str+" and BMaintainDate <='"+sdf.format(edate)+"'";
+				str1=str1+" and BMaintainDate >='"+dates+"'";
 			}
 			if(dt.equals("Y")){
-				System.out.println(dates);
-				System.out.println(datee);
 				//获取月的最后一天
 				Date edate = new Date(Integer.parseInt(datee)-1900, 12,0);
-				str=str+" where BMaintainDate <='"+sdf.format(edate)+"'";
-				str1=str1+" where BMaintainDate >='"+dates+"'";
+				str=str+" and BMaintainDate <='"+sdf.format(edate)+"'";
+				str1=str1+" and BMaintainDate >='"+dates+"'";
 			}
 		}
 		str=str+" order by BMaintainDate desc";
@@ -185,23 +161,21 @@ public class BranchesAction extends MyBaseAction implements IMyBaseAction{
 		if (list.size()>0) {
 			d2=(XtBranches) list.get(0);//头
 		}
-		//用完清空
-		str=null;
 		if (d1!=null && d2!=null) {
-			if(dt.equals("D")){
-				//获取相差天数
-				Date date1=sdf.parse(d1.getBMaintainDate().toLocaleString());
-				Date date2=sdf.parse(d2.getBMaintainDate().toLocaleString());
-				long days=(date1.getTime()-date2.getTime())/(1000*3600*24);
-				for (int i = 0; i <=days; i++) {
-					Date dateStart=new Date(d1.getBMaintainDate().getYear(), d1.getBMaintainDate().getMonth(), d1.getBMaintainDate().getDate()-i,0,0,0);
-					Date dateEnd=new Date(d1.getBMaintainDate().getYear(), d1.getBMaintainDate().getMonth(), d1.getBMaintainDate().getDate()-i,23, 59, 59);
-					Calendar caDay = Calendar.getInstance();
-					caDay.setTime(dateStart);
-					int day = caDay.get(caDay.DAY_OF_MONTH);
-					initCount(dateStart, dateEnd, counts,day);
-				}
-			}
+//			if(dt.equals("D")){
+//				//获取相差天数
+//				Date date1=sdf.parse(d1.getBMaintainDate().toLocaleString());
+//				Date date2=sdf.parse(d2.getBMaintainDate().toLocaleString());
+//				long days=(date1.getTime()-date2.getTime())/(1000*3600*24);
+//				for (int i = 0; i <=days; i++) {
+//					Date dateStart=new Date(d1.getBMaintainDate().getYear(), d1.getBMaintainDate().getMonth(), d1.getBMaintainDate().getDate()-i,0,0,0);
+//					Date dateEnd=new Date(d1.getBMaintainDate().getYear(), d1.getBMaintainDate().getMonth(), d1.getBMaintainDate().getDate()-i,23, 59, 59);
+//					Calendar caDay = Calendar.getInstance();
+//					caDay.setTime(dateStart);
+//					int day = caDay.get(caDay.DAY_OF_MONTH);
+//					initCount(dateStart, dateEnd, counts,day);
+//				}
+//			}
 			if (dt.equals("W")) {
 				Calendar ca1 = Calendar.getInstance();
 				Calendar ca2 = Calendar.getInstance();
@@ -209,7 +183,7 @@ public class BranchesAction extends MyBaseAction implements IMyBaseAction{
 				ca2.set(d2.getBMaintainDate().getYear()+1900, d2.getBMaintainDate().getMonth()+1, d2.getBMaintainDate().getDate());
 				int weekyear = d1.getBMaintainDate().getYear()-d2.getBMaintainDate().getYear();
 				int weeknum =weekyear*52 + ca1.get(Calendar.WEEK_OF_YEAR)-ca2.get(Calendar.WEEK_OF_YEAR);
-				for (int i = 0; i <=weeknum+1; i++) {
+				for (int i = 0; i <=weeknum; i++) {
 					Date date = new Date(d1.getBMaintainDate().getYear(),d1.getBMaintainDate().getMonth(),d1.getBMaintainDate().getDate()-(7*i));
 					Date dateStart= ser.weekDate(date).get(ser.KEY_DATE_START);
 					Date dateEnd=ser.weekDate(date).get(ser.KEY_DATE_END);
@@ -249,12 +223,12 @@ public class BranchesAction extends MyBaseAction implements IMyBaseAction{
 	public String queryOfFenye() throws UnsupportedEncodingException {
 		String id=getRequest().getParameter("id");
 		String cz=getRequest().getParameter("cz");//用于判断是否清理page，yes清理，no不清理
-		if (page==null) {
-			page=new Page(1, 0, 5);
-		}
 		if (cz!=null && cz.equals("yes")) {
 			page=new Page(1, 0, 5);
 			clearOptions();
+		}
+		if (page==null) {
+			page=new Page(1, 0, 5);
 		}
 		clearSpace();
 		counts=new ArrayList<XtBranchesCount>();

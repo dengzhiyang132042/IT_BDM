@@ -25,21 +25,22 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<link rel="stylesheet" type="text/css" href="<%=path %>/FRAMEWORK/jquery-easyui/demo/demo.css">
 	<script type="text/javascript" src="<%=path %>/FRAMEWORK/jquery-easyui/jquery.min.js"></script>
 	<script type="text/javascript" src="<%=path %>/FRAMEWORK/jquery-easyui/jquery.easyui.min.js"></script>
+	<script type="text/javascript" src="<%=path %>/FRAMEWORK/My97DatePicker/WdatePicker.js"></script>
 	
 	<link rel="stylesheet" type="text/css" href="<%=path %>/FRAMEWORK/css/mycss.css">
 	<script type="text/javascript">
 	$(function(){
 		if('${filtrate}'=='W'){
-			$('#dates').attr('type','week');
-			$('#datee').attr('type','week');
+			var date ="<input name='dates' id='d4311' class='Wdate' type='text' onFocus=\"WdatePicker({maxDate:'#F{$dp.$D(\\'d4312\\')||\\'2020-10-01\\'}'})\" value='${dates }'/>~<input name='datee' id=\"d4312\" class=\"Wdate\" type=\"text\" onFocus=\"WdatePicker({minDate:'#F{$dp.$D(\\'d4311\\')}'})\" value='${datee }' />";
+			$('#datearea').html(date);
 		}
 		if('${filtrate}'=='M'){
-			$('#dates').attr('type','month');
-			$('#datee').attr('type','month');
+			var monthdate ="<input name='dates' type='month' value ='${dates}'/>~<input name='datee' type='month' value='${datee}'/>"
+			$('#datearea').html(monthdate);
 		}
 		if('${filtrate}'=='Y'){
-			$('#dates').attr({type:"number" ,min:"1900" ,max:"2199"});
-			$('#datee').attr({type:"number" ,min:"1900" ,max:"2199"});
+			var ydate = "<input name='dates' type='number' min='1900' max='2199' value='${dates}'/>~<input name='datee' type='number' min='1900' max='2199' value='${datee}'/>"
+			$('#datearea').html(ydate);
 		}
 		$("#sel_dt option[value='${filtrate}']").attr("selected",true);
 		$("#sele option[value='"+${page.size}+"']").attr("selected",true);
@@ -63,29 +64,32 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	}
 	</script>
 	<script type="text/javascript">
-	function queryDetails(dates,datee) {
-		var a1=new Array()
+	function queryDetails(dates,datee,type) {
+		console.log(dates);
+		console.log(datee);
+		console.log(type);
+		var a1=new Array();
 		a1=dates.split(" ");
 		//console.log(a1[0]);
-		var a2=new Array()
+		var a2=new Array();
 		a2=datee.split(" ");
 		//console.log(a2[0]);
-		var path="<%=path%>/site!queryOfFenye?cz=no&id=&dates="+a1[0]+"&datee="+a2[0];
+		var path="<%=path%>/site!queryOfFenye?cz=no&id=&type="+type+"&dates="+a1[0]+"&datee="+a2[0];
 		//console.log(path);
 		window.location.href=path;
 	}
 	function changeDate(){
 		if($('#sel_dt').val()=='W'){
-			$('#dates').attr('type','week');
-			$('#datee').attr('type','week');
+			var date ="<input name='dates' id='d4311' class='Wdate' type='text' onFocus=\"WdatePicker({maxDate:'#F{$dp.$D(\\'d4312\\')||\\'2020-10-01\\'}'})\" value='${dates }'/>~<input name='datee' id=\"d4312\" class=\"Wdate\" type=\"text\" onFocus=\"WdatePicker({minDate:'#F{$dp.$D(\\'d4311\\')}'})\" value='${datee }' />";
+			$('#datearea').html(date);
 		}
 		if($('#sel_dt').val()=='M'){
-			$('#dates').attr('type','month');
-			$('#datee').attr('type','month');
+			var monthdate ="<input name='dates' type='month' value ='${dates}'/>~<input name='datee' type='month' value='${datee}'/>"
+			$('#datearea').html(monthdate);
 		}
 		if($('#sel_dt').val()=='Y'){
-			$('#dates').attr({type:"number" ,min:"1900" ,max:"2199"});
-			$('#datee').attr({type:"number" ,min:"1900" ,max:"2199"});
+			var ydate = "<input name='dates' type='number' min='1900' max='2199' value='${dates}'/>~<input name='datee' type='number' min='1900' max='2199' value='${datee}'/>"
+			$('#datearea').html(ydate);
 		}
 	}
 	function xiazai(){
@@ -129,9 +133,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     			<option value="Y">年</option>
     		</select>
     		&nbsp;&nbsp;&nbsp;&nbsp;
-    		选择日期:<input id="dates" name="dates"  value="${dates }"/>
-    		~
-    		<input id="datee" name="datee"  value="${datee }"/>
+    		选择日期:<span id ="datearea"></span>
     		<br/>
     		<input type="submit" value="查询"/>
     		<input type= "button" onclick="xiazai()" value="导出" />
@@ -174,7 +176,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    	<td>${count.type }</td>
 	    	<td>${count.count }</td>
 	    	<td>
-				<a onclick="queryDetails('${count.sTime}','${count.eTime }')" class="easyui-linkbutton" title="查看详情">查看详情</a>
+				<a onclick="queryDetails('${count.sTime}','${count.eTime }','${count.type }')" class="easyui-linkbutton" title="查看详情">查看详情</a>
 			</td>
 	    </tr>
 	    </c:forEach>
