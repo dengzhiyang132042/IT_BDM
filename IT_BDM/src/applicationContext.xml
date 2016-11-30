@@ -167,8 +167,6 @@
 	</bean>
 	
 	
-	
-	
 	<!-- *****************故障报修处理跟进系统************************ -->
 	<bean id="zs_manager_da" class="com.zs.action.da.DaManagerAction">
 		<property name="ser" ref="zs_ser"></property>
@@ -273,9 +271,6 @@
 		<property name="dao" ref="zs_dao"></property>
 	</bean>
 	<bean id="zs_ser_zmz_call" class="com.zs.service.impl.ZmCallServiceImpl">
-		<property name="dao" ref="zs_dao"></property>
-	</bean>
-	<bean id="zs_ser_whz_device" class="com.zs.service.impl.WhDeviceServiceImpl">
 		<property name="dao" ref="zs_dao"></property>
 	</bean>
 	

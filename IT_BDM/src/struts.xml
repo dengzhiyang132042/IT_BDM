@@ -217,13 +217,12 @@
      <result name="succ">/success.jsp</result>
      <result name="fail">/fail.jsp</result>
   </action> 
-  <!-- *********维护组******** -->  
+   <!-- *********维护组******** -->  
   <action name="device" class="zs_device_whz">	
   	 <interceptor-ref name="mydefault" />
      <result>/index.jsp</result>
      <result name="device">/whz/device.jsp</result>
-  </action>  
-    
+  </action>   
     
   <!-- **********CompanySection************* -->
   <action name="cs" class="zs_cs">	

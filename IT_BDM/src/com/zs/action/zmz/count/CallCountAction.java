@@ -16,10 +16,12 @@ import org.apache.log4j.Logger;
 import com.zs.action.IMyBaseAction;
 import com.zs.action.MyBaseAction;
 import com.zs.entity.ZmCall;
+import com.zs.entity.ZmOaNumber;
 import com.zs.entity.custom.ZmCallCount;
 import com.zs.service.IService;
 import com.zs.tools.ExcelExport;
 import com.zs.tools.Page;
+import com.zs.tools.WeekDateArea;
 
 public class CallCountAction extends MyBaseAction implements IMyBaseAction{
 
@@ -31,6 +33,8 @@ public class CallCountAction extends MyBaseAction implements IMyBaseAction{
 	String result="callCount";
 	String result_succ="succ";
 	String result_fail="fail";
+	String dates;
+	String datee;
 	
 
 	Logger logger=Logger.getLogger(CallCountAction.class);
@@ -60,10 +64,26 @@ public class CallCountAction extends MyBaseAction implements IMyBaseAction{
 	public void setCounts(List<ZmCallCount> counts) {
 		this.counts = counts;
 	}
-	public void clearOptions() {
-		filtrate=null;
+	
+	public String getDates() {
+		return dates;
+	}
+	public void setDates(String dates) {
+		this.dates = dates;
+	}
+	public String getDatee() {
+		return datee;
+	}
+	public void setDatee(String datee) {
+		this.datee = datee;
 	}
 	//----------------------------------------------------
+	public void clearOptions() {
+		filtrate=null;
+		dates=null;
+		datee=null;
+		counts=null;
+	}
 	
 	private void clearSpace() {
 		if (filtrate!=null && !filtrate.equals("")) {
@@ -100,13 +120,35 @@ public class CallCountAction extends MyBaseAction implements IMyBaseAction{
 	private void initCounts(List<ZmCallCount> counts,String dt) throws ParseException {
 		//获取两个头尾的时间
 		ZmCall d1 = null,d2=null;
-		String str="from ZmCall where CDate!=null order by CDate desc";
-		List list=ser.query(str, null, str, new Page(1, 0, 1), ser);
+		String str="from ZmCall where CDate!=null ";
+		String str1="from ZmCall where CDate!=null ";
+		SimpleDateFormat sdf= new SimpleDateFormat("yyyy-MM-dd");
+		if(dates!=null&&datee!=null&&!dates.equals("")&&!datee.equals("")){
+			if(dt.equals("W")){
+				List datelist = WeekDateArea.weekdate(dates, datee);
+				str=str+" and CDate <='"+datelist.get(0)+"'";
+				str1=str1+" and CDate >='"+datelist.get(1)+"'";
+			}
+			if(dt.equals("M")){
+				//获取月的最后一天
+				Date edate = new Date(Integer.parseInt(datee.substring(0,4))-1900, Integer.parseInt(datee.substring(5)),0);
+				str=str+" and CDate <='"+sdf.format(edate)+"'";
+				str1=str1+" and CDate >='"+dates+"'";
+			}
+			if(dt.equals("Y")){
+				//获取月的最后一天
+				Date edate = new Date(Integer.parseInt(datee)-1900, 12,0);
+				str=str+" and CDate <='"+sdf.format(edate)+"'";
+				str1=str1+" and CDate >='"+dates+"'";
+			}
+		}
+		str=str+" order by CDate desc";
+		List list=ser.query(str, null, str, page, ser);
 		if (list.size()>0) {
 			d1=(ZmCall) list.get(0);//尾巴
 		}
-		str="from ZmCall where CDate!=null order by CDate asc";
-		list=ser.query(str, null, str, new Page(1, 0, 1), ser);
+		str1=str1+" order by CDate asc";
+		list=ser.query(str1, null, str1, page, ser);
 		if (list.size()>0) {
 			d2=(ZmCall) list.get(0);//头
 		}
