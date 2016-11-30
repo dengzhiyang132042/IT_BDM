@@ -18,6 +18,11 @@
       </interceptor-stack>  
   </interceptors>  
   
+  <action name="test" class="zs_test">	
+     <result>/test.jsp</result>
+  </action>
+  
+  
   <action name="section" class="zs_section_yjz">	   
   	 <interceptor-ref name="mydefault" />
      <result>/index.jsp</result>
