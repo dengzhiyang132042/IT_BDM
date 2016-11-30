@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
+import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -617,6 +618,14 @@ public class BaseService implements IService{
 			return str==null||str.trim().equals("")?null:Integer.valueOf(str);
 		} catch (Exception e) {
 			log.error("String转换Integer错误，错误的字符串是："+str);
+			return null;
+		}
+	}
+	public Timestamp transToTimestamp(String str) {
+		try {
+			return str==null||str.trim().equals("")?new Timestamp(new Date().getTime()):Timestamp.valueOf(str);
+		} catch (Exception e) {
+			log.error("String转换Timestamp错误，错误的字符串是："+str);
 			return null;
 		}
 	}

@@ -115,7 +115,11 @@
 		<property name="ser" ref="zs_ser"></property>
 		<property name="importSer" ref="zs_ser_zmz_call"></property>
 	</bean>
-	
+	<!-- *****************维护组****************** -->
+	<bean id="zs_device_whz" class="com.zs.action.whz.DeviceAction">
+		<property name="ser" ref="zs_ser"></property>
+		<property name="importSer" ref="zs_ser_whz_device"></property>
+	</bean>
 	
 	<!-- *****************数据分析************************  -->
 	<!--系统组	-->
@@ -160,6 +164,8 @@
 	<bean id="hgh_count_call" class="com.zs.action.zmz.count.CallCountAction">
 		<property name="ser" ref="zs_ser"></property>
 	</bean>
+	
+	
 	
 	
 	<!-- *****************故障报修处理跟进系统************************ -->
@@ -266,6 +272,9 @@
 		<property name="dao" ref="zs_dao"></property>
 	</bean>
 	<bean id="zs_ser_zmz_call" class="com.zs.service.impl.ZmCallServiceImpl">
+		<property name="dao" ref="zs_dao"></property>
+	</bean>
+	<bean id="zs_ser_whz_device" class="com.zs.service.impl.WhDeviceServiceImpl">
 		<property name="dao" ref="zs_dao"></property>
 	</bean>
 	

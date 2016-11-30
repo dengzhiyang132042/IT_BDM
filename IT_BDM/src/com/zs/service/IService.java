@@ -2,6 +2,7 @@ package com.zs.service;
 
 import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
+import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -206,5 +207,11 @@ public interface IService {
 	public Integer transToInt(String str);
 	
 	
+	/**字符串转换时间日期，并避免空指针异常
+	 * @author 张顺
+	 * @param str
+	 * @return
+	 */
+	public Timestamp transToTimestamp(String str);
 	
 }
