@@ -64,14 +64,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	}
 	</script>
 	<script type="text/javascript">
-	function queryDetails(dates,datee) {
-		var a1=new Array()
+	function queryDetails(dates,datee,type) {
+		console.log(dates);
+		console.log(datee);
+		console.log(type);
+		var a1=new Array();
 		a1=dates.split(" ");
 		//console.log(a1[0]);
-		var a2=new Array()
+		var a2=new Array();
 		a2=datee.split(" ");
 		//console.log(a2[0]);
-		var path="<%=path%>/site!queryOfFenye?cz=no&id=&dates="+a1[0]+"&datee="+a2[0];
+		var path="<%=path%>/site!queryOfFenye?cz=no&id=&type="+type+"&dates="+a1[0]+"&datee="+a2[0];
 		//console.log(path);
 		window.location.href=path;
 	}
@@ -173,7 +176,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    	<td>${count.type }</td>
 	    	<td>${count.count }</td>
 	    	<td>
-				<a onclick="queryDetails('${count.sTime}','${count.eTime }')" class="easyui-linkbutton" title="查看详情">查看详情</a>
+				<a onclick="queryDetails('${count.sTime}','${count.eTime }','${count.type }')" class="easyui-linkbutton" title="查看详情">查看详情</a>
 			</td>
 	    </tr>
 	    </c:forEach>

@@ -273,7 +273,9 @@
 	<bean id="zs_ser_zmz_call" class="com.zs.service.impl.ZmCallServiceImpl">
 		<property name="dao" ref="zs_dao"></property>
 	</bean>
-	
+	<bean id="zs_ser_whz_device" class="com.zs.service.impl.WhDeviceServiceImpl">
+		<property name="dao" ref="zs_dao"></property>
+	</bean>
 	
 	<!-- ************************************* -->
 	
