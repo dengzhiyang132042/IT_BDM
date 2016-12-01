@@ -83,6 +83,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<li><span><a href="<%=path %>/allianceCall!queryOfFenye?cz=yes" target="right">加盟商呼叫系统账号维护</a></span></li>
         			</ul>
         		</li>
+        		<li><span>维护组</span>
+        			<ul>
+						<li><span><a href="<%=path %>/device!queryOfFenye?cz=yes" target="right">操作设备巡检</a></span></li>
+						<li><span><a href="<%=path %>/monitor!queryOfFenye?cz=yes" target="right">监控设备巡检</a></span></li>
+						<li><span><a href="<%=path %>/oa!queryOfFenye?cz=yes" target="right">网点巴枪维修登记</a></span></li>
+						<li><span><a href="<%=path %>/print!queryOfFenye?cz=yes" target="right">观澜仓库3楼会议室巡检</a></span></li>
+						<li><span><a href="<%=path %>/computer!queryOfFenye?cz=yes" target="right">观澜仓库会议室巡检</a></span></li>
+						<li><span><a href="<%=path %>/bq!queryOfFenye?cz=yes" target="right">外修登记</a></span></li>
+        			</ul>
+        		</li>
         		<li><span>开发组</span></li>
         	</ul>
         </li>
@@ -145,7 +155,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         		<li><span>维护组</span>
         			<ul>
 						<li><span><a href="<%=path %>/device!queryOfFenye?cz=yes" target="right">操作设备巡检</a></span></li>
-						<li><span><a href="<%=path %>/by!queryOfFenye?cz=yes" target="right">监控设备巡检</a></span></li>
+						<li><span><a href="<%=path %>/monitor!queryOfFenye?cz=yes" target="right">监控设备巡检</a></span></li>
 						<li><span><a href="<%=path %>/oa!queryOfFenye?cz=yes" target="right">网点巴枪维修登记</a></span></li>
 						<li><span><a href="<%=path %>/print!queryOfFenye?cz=yes" target="right">观澜仓库3楼会议室巡检</a></span></li>
 						<li><span><a href="<%=path %>/computer!queryOfFenye?cz=yes" target="right">观澜仓库会议室巡检</a></span></li>

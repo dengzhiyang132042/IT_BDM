@@ -29,18 +29,28 @@ public class MonitorAction extends MyBaseAction{
 	Page page;
 	
 	WhMonitorScout moni;
-	
 	List<WhMonitorScout> monis;
-	
-	String result="pdaloss";
-	
+	String result="monitor";
 	String id;
+	String dates;
+	String datee;
 	private File fileExcel;
 	private String fileExcelContentType;
 	private String fileExcelFileName; 
 	
 	
-	
+	public String getDates() {
+		return dates;
+	}
+	public void setDates(String dates) {
+		this.dates = dates;
+	}
+	public String getDatee() {
+		return datee;
+	}
+	public void setDatee(String datee) {
+		this.datee = datee;
+	}
 	public iDataImportService getImportSer() {
 		return importSer;
 	}
@@ -101,11 +111,19 @@ public class MonitorAction extends MyBaseAction{
 		id=null;
 		moni=null;
 		monis=null;
+		dates=null;
+		datee=null;
 	}
 	
 	private void clearSpace(){
 		if(id!=null){
 			id=id.trim();
+		}
+		if(dates!=null){
+			dates=dates.trim();
+		}
+		if(datee!=null){
+			datee=datee.trim();
 		}
 	}
 	
@@ -115,26 +133,28 @@ public class MonitorAction extends MyBaseAction{
 			page=new Page(1, 0, 5);
 		}
 		if (cz!=null && cz.equals("yes")) {
-			page=new Page(1, 0, 5);
 			clearOptions();
+			page=new Page(1, 0, 5);
 		}
 		clearSpace();
+		String hql="from WhMonitorScout where 1=1";
 		if (id!=null) {
-			String hql="from WhMonitorScout where MId like '%"+id+"%'";
-			hql=hql+" order by MTime desc";
-			monis=ser.query(hql, null, hql, page, ser);
-		}else {
-			String hql="from WhMonitorScout where MId like '%"+id+"%'";
-			hql=hql+" order by MTime desc";
-			monis=ser.query(hql, null, hql, page, ser);
+			hql=hql+" and MId like '%"+id+"%'";
 		}
+		if (dates!=null && !dates.equals("")) {
+			hql=hql+" and MTime >= '"+dates+"'";
+		}
+		if (datee!=null && !datee.equals("")) {
+			hql=hql+" and MTime <= '"+datee+"'";
+		}
+		hql=hql+" order by MTime desc";
+		monis=ser.query(hql, null, hql, page, ser);
 		return result;
 	}
 	
 	private String gotoQuery() throws UnsupportedEncodingException {
 		clearOptions();
-		String hql="from WhMonitorScout where MId like '%"+id+"%'";
-		hql=hql+" order by MTime desc";
+		String hql="from WhMonitorScout order by MTime desc";
 		monis=ser.query(hql, null, hql, page, ser);
 		return result;
 	}
@@ -142,7 +162,9 @@ public class MonitorAction extends MyBaseAction{
 	public String delete() throws Exception {
 		if (id!=null) {
 			moni= (WhMonitorScout) ser.get(WhMonitorScout.class, id);
-			ser.delete(moni);
+			if (moni!=null) {
+				ser.delete(moni);
+			}
 		}
 		return gotoQuery();
 	}
