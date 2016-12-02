@@ -71,7 +71,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		var a2=new Array()
 		a2=datee.split(" ");
 		//console.log(a2[0]);
-		var path="<%=path%>/device!queryOfFenye?cz=no&id=&dates="+a1[0]+"&datee="+a2[0];
+		var path="<%=path%>/site!queryOfFenye?cz=no&id=&dates="+a1[0]+"&datee="+a2[0];
 		//console.log(path);
 		window.location.href=path;
 	}
@@ -90,7 +90,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		}
 	}
 	function xiazai(){
-		var path ="<%=path %>/deviceCount!exportExc";
+		var path ="<%=path %>/monitorCount!exportExc";
 		$.post(
 			path,
 			function(){

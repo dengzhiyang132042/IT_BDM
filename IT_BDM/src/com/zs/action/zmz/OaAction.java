@@ -42,6 +42,7 @@ public class OaAction extends MyBaseAction implements IMyBaseAction{
 	String num;
 	String dates;
 	String datee;
+	String job;
 	private Logger logger=Logger.getLogger(OaAction.class);
 	private File fileExcel;
 	private String fileExcelContentType;
@@ -160,8 +161,17 @@ public class OaAction extends MyBaseAction implements IMyBaseAction{
 	public void setDatee(String datee) {
 		this.datee = datee;
 	}
+	
+	public String getJob() {
+		return job;
+	}
+
+	public void setJob(String job) {
+		this.job = job;
+	}
 
 //----------------------------------------------------------------------------------	
+	
 	
 	public String add() throws Exception {
 		if (oa!=null) {
@@ -181,6 +191,7 @@ public class OaAction extends MyBaseAction implements IMyBaseAction{
 		num=null;
 		dates=null;
 		datee=null;
+		job=null;
 	}
 
 	public String delete() throws Exception {
@@ -224,6 +235,9 @@ public class OaAction extends MyBaseAction implements IMyBaseAction{
 			if(apply!=null && !"".equals(apply)){
 				hql=hql+" and OApply like '%"+apply+"%'";
 			}
+			if(job!=null && !"".equals(job)){
+				hql = hql+" and OOnJob like '%"+job+"%'";
+			}
 			if(dates!=null && !"".equals(dates)){
 				hql=hql+" and ODate >= '"+dates+"'";
 			}
@@ -259,6 +273,9 @@ public class OaAction extends MyBaseAction implements IMyBaseAction{
 		}
 		if (datee!=null) {
 			datee=datee.trim();
+		}
+		if(job!=null){
+			job=job.trim();
 		}
 	}
 

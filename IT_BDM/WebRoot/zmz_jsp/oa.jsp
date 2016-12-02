@@ -85,6 +85,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     		&nbsp;&nbsp;&nbsp;&nbsp;
     		部门:<input name="section" type="text" value="${section }"/>
     		&nbsp;&nbsp;&nbsp;&nbsp;
+    		在职情况:<input name="job" type="text" value="${job }"/>
+    		&nbsp;&nbsp;&nbsp;&nbsp;
     		登记时间:<input name="dates" type="date" value="${dates }"/>
     		~
     		<input name="datee" type="date" value="${datee }"/>
@@ -145,7 +147,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</div>
 	
 	<div class="easyui-panel" style="padding:5px;width: 100%;display: none;background-color: white;">
-		<form id="f1" action="<%=path %>/oa!queryOfFenye?id=${id}&num=${num}&apply=${apply }&section=${section }&dates=${dates}&datee=${datee}" method="post">
+		<form id="f1" action="<%=path %>/oa!queryOfFenye?id=${id}&num=${num}&apply=${apply }&section=${section }&dates=${dates}&datee=${datee}&job=${job}" method="post">
 		<select id="sele" style="float: left;margin-top: 3px;margin-left: 5px;" name="page.size" onchange="$('#f1').submit();">
 			<option value="5">5</option>
 			<option value="10">10</option>

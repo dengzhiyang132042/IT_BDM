@@ -114,9 +114,9 @@ public class ByNumCountAction extends MyBaseAction implements IMyBaseAction{
 				List list2=ser.find("from ZmByNumber where byServiceDate>=? and byServiceDate<=? and byServiceDate!=null and byOnJob =?", new Object[]{new Timestamp(dateStart.getTime()),new Timestamp(dateEnd.getTime()),list5.get(i).toString()});
 				if (list2.size()!=0) {//如果为0就不要了
 					ZmByNumCount count = new ZmByNumCount();
+					count.setsTime(new Timestamp(dateStart.getTime()));
+					count.seteTime(new Timestamp(dateEnd.getTime()));
 					if(i<1){
-						count.setsTime(new Timestamp(dateStart.getTime()));
-						count.seteTime(new Timestamp(dateEnd.getTime()));
 						count.setOrderNum(orderNumber);
 						count.setNumber(num);
 						count.setRows(list5.size());

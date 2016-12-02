@@ -41,6 +41,7 @@ public class ByAction extends MyBaseAction implements IMyBaseAction{
 	String section;
 	String dates;
 	String datee;
+	String job;
 	private File fileExcel;
 	private String fileExcelContentType;
 	private String fileExcelFileName; 
@@ -126,7 +127,13 @@ public class ByAction extends MyBaseAction implements IMyBaseAction{
 	public void setDatee(String datee) {
 		this.datee = datee;
 	}
-
+	
+	public String getJob() {
+		return job;
+	}
+	public void setJob(String job) {
+		this.job = job;
+	}
 	//------------------------------------------------
 	public void clearOptions() {
 		id=null;     
@@ -134,6 +141,7 @@ public class ByAction extends MyBaseAction implements IMyBaseAction{
 		section=null;
 		dates=null;  
 		datee=null;  
+		job=null;
 	}
 	
 	private void clearSpace(){
@@ -145,6 +153,9 @@ public class ByAction extends MyBaseAction implements IMyBaseAction{
 		}
 		if(section!=null){
 			section=section.trim();
+		}
+		if(job!=null){
+			job=job.trim();
 		}
 	}
 	
@@ -166,6 +177,9 @@ public class ByAction extends MyBaseAction implements IMyBaseAction{
 			}
 			if (section!=null && !section.trim().equals("")) {
 				hql=hql+" and bySection like '%"+section+"%'";
+			}
+			if (job!=null && !job.trim().equals("")) {
+				hql=hql+" and byOnJob like '%"+job+"%'";
 			}
 			if (dates!=null && !dates.trim().equals("")) {
 				hql=hql+" and byServiceDate >= '"+dates+"'";
