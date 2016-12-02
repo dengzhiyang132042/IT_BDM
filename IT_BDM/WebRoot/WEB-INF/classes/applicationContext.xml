@@ -121,6 +121,10 @@
 		<property name="ser" ref="zs_ser"></property>
 		<property name="importSer" ref="zs_ser_whz_device"></property>
 	</bean>
+	<bean id="zs_monitor_whz" class="com.zs.action.whz.MonitorAction">
+		<property name="ser" ref="zs_ser"></property>
+		<property name="importSer" ref="zs_ser_whz_monitor"></property>
+	</bean>
 	
 	<!-- *****************数据分析************************  -->
 	<!--系统组	-->
@@ -274,6 +278,9 @@
 		<property name="dao" ref="zs_dao"></property>
 	</bean>
 	<bean id="zs_ser_whz_device" class="com.zs.service.impl.WhDeviceServiceImpl">
+		<property name="dao" ref="zs_dao"></property>
+	</bean>
+	<bean id="zs_ser_whz_monitor" class="com.zs.service.impl.WhMonitorServiceImpl">
 		<property name="dao" ref="zs_dao"></property>
 	</bean>
 	

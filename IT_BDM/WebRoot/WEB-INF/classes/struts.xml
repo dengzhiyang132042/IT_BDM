@@ -222,7 +222,12 @@
   	 <interceptor-ref name="mydefault" />
      <result>/index.jsp</result>
      <result name="device">/whz/device.jsp</result>
-  </action>   
+  </action>
+  <action name="monitor" class="zs_monitor_whz">	
+  	 <interceptor-ref name="mydefault" />
+     <result>/index.jsp</result>
+     <result name="monitor">/whz/monitor.jsp</result>
+  </action>
     
   <!-- **********CompanySection************* -->
   <action name="cs" class="zs_cs">	
