@@ -222,7 +222,7 @@
   	 <interceptor-ref name="mydefault" />
      <result>/index.jsp</result>
      <result name="device">/whz/device.jsp</result>
-  </action>
+  </action>   
   <action name="monitor" class="zs_monitor_whz">	
   	 <interceptor-ref name="mydefault" />
      <result>/index.jsp</result>
@@ -323,6 +323,7 @@
      <result name="fail">/fail.jsp</result>
   </action>
   <!-- **************数据分析***************** -->
+  <!--系统组  -->
   <action name="siteCount" class="hgh_count_site">	
   	 <interceptor-ref name="mydefault" />
      <result>/index.jsp</result>
@@ -351,6 +352,21 @@
      <result name="succ">/success.jsp</result>
      <result name="fail">/fail.jsp</result>
   </action>
+  <action name="pdaChangeCount" class="hgh_count_pda_change">	
+  	 <interceptor-ref name="mydefault" />
+     <result>/index.jsp</result>
+     <result name="pdaChangeCount">/xtz_count/pda_change_count.jsp</result>
+     <result name="succ">/success.jsp</result>
+     <result name="fail">/fail.jsp</result>
+  </action>
+  <action name="bqRepairCount" class="hgh_count_bq_repair">	
+  	 <interceptor-ref name="mydefault" />
+     <result>/index.jsp</result>
+     <result name="bqRepairCount">/xtz_count/bq_repair_count.jsp</result>
+     <result name="succ">/success.jsp</result>
+     <result name="fail">/fail.jsp</result>
+  </action>
+  <!--桌面组  -->
   <action name="vpnCount" class="zs_count_vpn">	
   	 <interceptor-ref name="mydefault" />
      <result>/index.jsp</result>
@@ -393,21 +409,21 @@
      <result name="succ">/success.jsp</result>
      <result name="fail">/fail.jsp</result>
   </action>
-  <action name="pdaChangeCount" class="hgh_count_pda_change">	
+	<!--维护组  -->
+  <action name="deviceCount" class="hgh_count_device">	
   	 <interceptor-ref name="mydefault" />
      <result>/index.jsp</result>
-     <result name="pdaChangeCount">/xtz_count/pda_change_count.jsp</result>
+     <result name="deviceCount">/whz_count/device_scout_count.jsp</result>
      <result name="succ">/success.jsp</result>
      <result name="fail">/fail.jsp</result>
   </action>
-  <action name="bqRepairCount" class="hgh_count_bq_repair">	
+  <action name="monitorCount" class="hgh_count_monitor">	
   	 <interceptor-ref name="mydefault" />
      <result>/index.jsp</result>
-     <result name="bqRepairCount">/xtz_count/bq_repair_count.jsp</result>
+     <result name="monitorCount">/whz_count/monitor_scout_count.jsp</result>
      <result name="succ">/success.jsp</result>
      <result name="fail">/fail.jsp</result>
   </action>
-  
   
 </package>
 </struts>    

@@ -16,12 +16,14 @@ import net.sf.json.JSONArray;
 import com.zs.action.IMyBaseAction;
 import com.zs.action.MyBaseAction;
 import com.zs.entity.WhDeviceScout;
+import com.zs.entity.XtSite;
 import com.zs.entity.custom.WhDeviceScoutCount;
 
 import com.zs.service.IService;
 import com.zs.tools.Constant;
 import com.zs.tools.ExcelExport;
 import com.zs.tools.Page;
+import com.zs.tools.WeekDateArea;
 
 public class DeviceScoutCountAction extends MyBaseAction implements IMyBaseAction{
 
@@ -36,7 +38,7 @@ public class DeviceScoutCountAction extends MyBaseAction implements IMyBaseActio
 	
 	String filtrate;
 	
-	String result="siteCount";
+	String result="deviceCount";
 	String result_succ="succ";
 	String result_fail="fail";
 	
@@ -85,6 +87,8 @@ public class DeviceScoutCountAction extends MyBaseAction implements IMyBaseActio
 //----------------------------------------------------
 	public void clearOptions() {
 		filtrate=null;
+		dates=null;
+		datee=null;
 	}
 	private void clearSpace() {
 		if (filtrate!=null && !filtrate.equals("")) {
@@ -99,30 +103,24 @@ public class DeviceScoutCountAction extends MyBaseAction implements IMyBaseActio
 	 * 组装count
 	 */
 	private void initCount(Date dateStart,Date dateEnd,List counts,int num,int orderNumber) {
-		//组装一个XtSiteCount
-		List list5 = ser.find("select SMaintainType from WhDeviceScout where SStartDate>=? and SStartDate<=? group by SMaintainType", new Object[]{new Timestamp(dateStart.getTime()),new Timestamp(dateEnd.getTime())});
-		if(list5!=null&&list5.size()>0){
-//			System.out.println("----list5.size---->>"+list5.size());
-			for(int i = 0 ;i < list5.size(); i++){
-//				System.out.println("----list5---->>"+list5.get(i));
-				//获取在该时间范围内站点资料的所有数据
-				List list2=ser.find("from WhDeviceScout where SStartDate>=? and SStartDate<=? and SMaintainType =?", new Object[]{new Timestamp(dateStart.getTime()),new Timestamp(dateEnd.getTime()),list5.get(i).toString()});
-				if (list2.size()!=0) {//如果为0就不要了
-					WhDeviceScoutCount count = new WhDeviceScoutCount();
-					//i代表多少种类型
-					if(i<1){
-						count.setsTime(new Timestamp(dateStart.getTime()));
-						count.seteTime(new Timestamp(dateEnd.getTime()));
-						count.setOrderNum(orderNumber);
-						count.setNumber(num);
-					}
+		List list1=ser.find("from WhDeviceScout where DTime>=? and DTime<=?", new Object[]{new Timestamp(dateStart.getTime()),new Timestamp(dateEnd.getTime())});
+		List list2 = ser.find("from WhDeviceScout where DTime>=? and DTime<=? and DAbnormalNote!=''", new Object[]{new Timestamp(dateStart.getTime()),new Timestamp(dateEnd.getTime())});
+		for(int i = 0; i < 2; i++){
+			WhDeviceScoutCount count = new WhDeviceScoutCount();
+				count.setsTime(new Timestamp(dateStart.getTime()));
+				count.seteTime(new Timestamp(dateEnd.getTime()));
+				count.setOrderNum(orderNumber);
+				count.setNumber(num);
+				count.setAbnormal("正常");
+				count.setCount(list1.size()-list2.size());
+				count.setRows(2);
+				if(i>0){
 					count.setCount(list2.size());
-					counts.add(count);
+					count.setAbnormal("异常");
+					count.setRows(0);
 				}
-			}
-//			System.out.println("---------------------------");
+			counts.add(count);
 		}
-		
 	}
 	
 	/**
@@ -134,62 +132,34 @@ public class DeviceScoutCountAction extends MyBaseAction implements IMyBaseActio
 	private void initCounts(List<WhDeviceScoutCount> counts,String dt) throws ParseException {
 		//获取两个头尾的时间
 		WhDeviceScout d1 = null,d2=null;
-		String str="from WhDeviceScout";
-		String str1="from WhDeviceScout";
+		String str="from WhDeviceScout where DTime!=null ";
+		String str1="from WhDeviceScout where DTime!=null";
 		SimpleDateFormat sdf= new SimpleDateFormat("yyyy-MM-dd");
 		if(dates!=null&&datee!=null&&!dates.equals("")&&!datee.equals("")){
 			if(dt.equals("W")){
-//				System.out.println(dates);
-//				System.out.println(datee);
-				//头时间
-				Calendar cal1 = Calendar.getInstance();
-		        cal1.clear();
-		        cal1.set(Calendar.YEAR, Integer.parseInt(dates.substring(0,4)));
-		        //此处为了解决html5中使用日期插件和Calendar的不同
-		        if(Integer.parseInt(dates.substring(0,4))%5==1){
-		        	cal1.set(Calendar.WEEK_OF_YEAR,Integer.parseInt(dates.substring(6))+1);
-		        }else{
-		        	cal1.set(Calendar.WEEK_OF_YEAR,Integer.parseInt(dates.substring(6)));
-		        }
-		        cal1.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY);
-		        //获取尾时间
-		        Calendar cal2 = Calendar.getInstance();
-		        cal2.clear();
-		        cal2.set(Calendar.YEAR, Integer.parseInt(datee.substring(0,4)));
-		        if(Integer.parseInt(dates.substring(0,4))%5==1){
-		        	cal2.set(Calendar.WEEK_OF_YEAR,Integer.parseInt(datee.substring(6))+1);
-		        }else{
-		        	cal2.set(Calendar.WEEK_OF_YEAR,Integer.parseInt(datee.substring(6)));
-		        }
-		        cal2.set(Calendar.DAY_OF_WEEK, Calendar.SATURDAY);
-//		        System.out.println(cal2.getTime());
-		        
-				str=str+" where SStartDate <='"+sdf.format(cal2.getTime())+"'";
-				str1=str1+" where SStartDate >='"+sdf.format(cal1.getTime())+"'";
+				List datelist = WeekDateArea.weekdate(dates, datee);
+				str=str+" and DTime <='"+datelist.get(0)+"'";
+				str1=str1+" and DTime >='"+datelist.get(1)+"'";
 			}
 			if(dt.equals("M")){
-//				System.out.println(dates);
-//				System.out.println(datee);	
 				//获取月的最后一天
 				Date edate = new Date(Integer.parseInt(datee.substring(0,4))-1900, Integer.parseInt(datee.substring(5)),0);
-				str=str+" where SStartDate <='"+sdf.format(edate)+"'";
-				str1=str1+" where SStartDate >='"+dates+"'";
+				str=str+" and DTime <='"+sdf.format(edate)+"'";
+				str1=str1+" and DTime >='"+dates+"'";
 			}
 			if(dt.equals("Y")){
-				System.out.println(dates);
-				System.out.println(datee);
 				//获取月的最后一天
 				Date edate = new Date(Integer.parseInt(datee)-1900, 12,0);
-				str=str+" where SStartDate <='"+sdf.format(edate)+"'";
-				str1=str1+" where SStartDate >='"+dates+"'";
+				str=str+" and DTime <='"+sdf.format(edate)+"'";
+				str1=str1+" and DTime >='"+dates+"'";
 			}
 		}
-		str=str+" order by SStartDate desc";
+		str=str+" order by DTime desc";
 		List list=ser.query(str, null, str, page, ser);
 		if (list.size()>0) {
 			d1=(WhDeviceScout) list.get(0);//尾巴
 		}
-		str1=str1+" order by SStartDate asc";
+		str1=str1+" order by DTime asc";
 		list=ser.query(str1, null, str1, page, ser);
 		if (list.size()>0) {
 			d2=(WhDeviceScout) list.get(0);//头
@@ -300,20 +270,21 @@ public class DeviceScoutCountAction extends MyBaseAction implements IMyBaseActio
 	}
 	public String exportExc() throws Exception{
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-		String filePath=getRequest().getRealPath("/")+"/files/export/xtz/站点资料统计.xls";
+		String filePath=getRequest().getRealPath("/")+"/files/export/whz/监控设备巡检统计.xls";
 		String dayType = "周数";
 		if(filtrate.equals("M")){
 			dayType = "月数";
 		}else if(filtrate.equals("Y")){
 			dayType = "年数";
 		}
-		Object[] obj ={"序号","开始时间","结束时间",dayType,"维护类型","维护数量"};
+		Object[] obj ={"序号","开始时间","结束时间",dayType,"类型","数量"};
 		Object objtmp[][]=new Object[counts.size()][6];
 		for (int i = 0; i < objtmp.length; i++) {
 			objtmp[i][0]=counts.get(i).getOrderNum();
 			objtmp[i][1]=sdf.format(new Date(counts.get(i).getsTime().getTime()));
 			objtmp[i][2]=sdf.format(new Date(counts.get(i).geteTime().getTime()));
 			objtmp[i][3]=counts.get(i).getNumber();
+			objtmp[i][4]=counts.get(i).getAbnormal();
 			objtmp[i][5]=counts.get(i).getCount();
 		}
 		

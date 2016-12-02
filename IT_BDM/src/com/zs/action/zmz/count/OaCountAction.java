@@ -118,9 +118,9 @@ public class OaCountAction extends MyBaseAction implements IMyBaseAction{
 				if (list2.size()!=0) {//如果为0就不要了
 					ZmOaCount count = new ZmOaCount();
 					//这个组装数据有问题类型问题没有解决
+					count.setsTime(new Timestamp(dateStart.getTime()));
+					count.seteTime(new Timestamp(dateEnd.getTime()));
 					if(i<1){
-						count.setsTime(new Timestamp(dateStart.getTime()));
-						count.seteTime(new Timestamp(dateEnd.getTime()));
 						count.setOrderNum(orderNumber);
 						count.setNumber(num);
 						count.setRows(list5.size());

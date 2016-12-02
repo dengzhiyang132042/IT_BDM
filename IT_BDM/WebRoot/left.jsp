@@ -154,8 +154,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         		</li>
         		<li><span>维护组</span>
         			<ul>
-						<li><span><a href="<%=path %>/device!queryOfFenye?cz=yes" target="right">操作设备巡检</a></span></li>
-						<li><span><a href="<%=path %>/monitor!queryOfFenye?cz=yes" target="right">监控设备巡检</a></span></li>
+						<li><span><a href="<%=path %>/deviceCount!queryOfFenye?cz=yes" target="right">操作设备巡检</a></span></li>
+						<li><span><a href="<%=path %>/monitorCount!queryOfFenye?cz=yes" target="right">监控设备巡检</a></span></li>
 						<li><span><a href="<%=path %>/oa!queryOfFenye?cz=yes" target="right">网点巴枪维修登记</a></span></li>
 						<li><span><a href="<%=path %>/print!queryOfFenye?cz=yes" target="right">观澜仓库3楼会议室巡检</a></span></li>
 						<li><span><a href="<%=path %>/computer!queryOfFenye?cz=yes" target="right">观澜仓库会议室巡检</a></span></li>

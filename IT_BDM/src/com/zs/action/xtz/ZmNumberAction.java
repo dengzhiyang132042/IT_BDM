@@ -219,6 +219,7 @@ public class ZmNumberAction extends MyBaseAction{
 	public String update() throws Exception {
 		if(zmn!=null && zmn.getZmId()!=null && !"".equals(zmn.getZmId().trim())){
 			XtZmNumber number=(XtZmNumber) ser.get(XtZmNumber.class, zmn.getZmId());
+			zmn.setZmServiceMaster(number.getZmServiceMaster());
 			zmn.setZmApplyDate(number.getZmApplyDate());
 			zmn.setZmServiceDate(number.getZmServiceDate());
 			zmn.setZmServiceWeek(number.getZmServiceWeek());
