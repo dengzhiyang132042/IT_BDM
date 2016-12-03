@@ -3,7 +3,9 @@ package com.zs.action.whz;
 import java.io.File;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.sql.Timestamp;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -107,11 +109,15 @@ public class DeviceAction extends MyBaseAction implements IMyBaseAction{
 	}
 	//-------------------------------------------
 	public String add() throws Exception {
+		String dTime=getRequest().getParameter("d_time");
 		device.setDId("d"+NameOfDate.getNum());
 		device.setDDate(new Date());
 		Users user=(Users) getSession().getAttribute("user");
-		if (user!=null && device.getDTime()!=null) {
+		if (user!=null && dTime!=null) {
  			device.setDIt(user.getUName());
+ 			String da1=new SimpleDateFormat("yyyy-MM-dd").format(device.getDDate());
+ 			Timestamp tit=new Timestamp(new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(da1+" "+dTime).getTime());
+ 			device.setDTime(tit);
 			ser.save(device);
 		}
 		device=null;
@@ -190,9 +196,15 @@ public class DeviceAction extends MyBaseAction implements IMyBaseAction{
 
 	public String update() throws Exception {
 		WhDeviceScout device2=(WhDeviceScout) ser.get(WhDeviceScout.class, device.getDId());
+		String dTime=getRequest().getParameter("d_time");
 		device.setDDate(device2.getDDate());
 		device.setDIt(device2.getDIt());
-		ser.update(device);
+		if (dTime!=null) {
+ 			String da1=new SimpleDateFormat("yyyy-MM-dd").format(device.getDDate());
+ 			Timestamp tit=new Timestamp(new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(da1+" "+dTime).getTime());
+ 			device.setDTime(tit);
+ 			ser.update(device);
+		}
 		device=null;
 		return gotoQuery();
 	}

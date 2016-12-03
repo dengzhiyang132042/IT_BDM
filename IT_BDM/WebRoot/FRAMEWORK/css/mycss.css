@@ -164,3 +164,9 @@ form{
 .odd_even_tr{
 	background-color: rgba(23, 180, 255, 0.12);
 }
+/*
+只读表单的样式
+*/
+.read_only{
+	background-color: rgba(222, 164, 0, 0.06);
+}

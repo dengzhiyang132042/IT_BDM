@@ -277,12 +277,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</tr>
 			<tr>
 				<td colspan="2">
-					<input type="submit" value="导入"/>	
+					<input type="submit" value="导入" onclick="return show_hint(['in'])"/>	
 				</td>
 			</tr>
 		</table>
 		</form>
 	</div>
-	
+	<jsp:include page="../hintModal.jsp"/>
   </body>
 </html>

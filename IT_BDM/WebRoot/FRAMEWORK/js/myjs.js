@@ -38,10 +38,14 @@ function save() {
 	  (str_password!=undefined 
 			  && ($.trim(str_password)=="" || $.trim(str_password)=="请输入密码"))
 	  ){
-  	alert("用户名和密码不能为空!");
-  	return false;
-  }else {
-  	return true;
-	}
+	  	alert("用户名和密码不能为空!");
+	  	return false;
+	  }else {
+	  	return true;
+	  }
 }
-
+$(function(){
+	$("input[readonly]").each(function(){
+		$(this).addClass("read_only");
+	});
+});

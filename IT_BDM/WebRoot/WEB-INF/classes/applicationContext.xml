@@ -76,6 +76,11 @@
 		<property name="ser" ref="zs_ser"></property>
 		<property name="pdaLossSer" ref="zs_ser_xtz_pda_loss"></property>
 	</bean>
+	<bean id="zs_hitches_xtz" class="com.zs.action.xtz.HitchesAction">
+		<property name="ser" ref="zs_ser"></property>
+		<property name="importSer" ref="zs_ser_xtz_hitches"></property>
+	</bean>
+	
 	<!-- **************************桌面组******************************************** -->
 	<bean id="zs_vpn_zmz" class="com.zs.action.zmz.VpnAction">
 		<property name="ser" ref="zs_ser"></property>
@@ -124,6 +129,10 @@
 	<bean id="zs_monitor_whz" class="com.zs.action.whz.MonitorAction">
 		<property name="ser" ref="zs_ser"></property>
 		<property name="importSer" ref="zs_ser_whz_monitor"></property>
+	</bean>
+	<bean id="zs_massage_whz" class="com.zs.action.whz.MassageAction">
+		<property name="ser" ref="zs_ser"></property>
+		<property name="importSer" ref="zs_ser_whz_massage"></property>
 	</bean>
 	
 	<!-- *****************数据分析************************  -->
@@ -289,9 +298,16 @@
 	<bean id="zs_ser_whz_device" class="com.zs.service.impl.WhDeviceServiceImpl">
 		<property name="dao" ref="zs_dao"></property>
 	</bean>
-	<bean id="zs_ser_whz_monitor" class="com.zs.service.impl.WhMonitorServiceImpl">
+	<bean id="zs_ser_whz_monitor" class="com.zs.service.impl.WhMassageServiceImpl">
 		<property name="dao" ref="zs_dao"></property>
 	</bean>
+	<bean id="zs_ser_whz_massage" class="com.zs.service.impl.WhMassageServiceImpl">
+		<property name="dao" ref="zs_dao"></property>
+	</bean>
+	<bean id="zs_ser_xtz_hitches" class="com.zs.service.impl.XtHitchesServiceImpl">
+		<property name="dao" ref="zs_dao"></property>
+	</bean>
+	
 	
 	<!-- ************************************* -->
 	
@@ -318,8 +334,8 @@
 		</tx:attributes>
 	</tx:advice>
 	<!-- 添加事务 -->
-		<aop:config>
-		<aop:pointcut expression="execution(* com.zs.dao.*.*(..))" id="dao"/>
-		<aop:advisor advice-ref="txadvice" pointcut-ref="dao"/>
-		</aop:config>
-	</beans>
+	<aop:config>
+	<aop:pointcut expression="execution(* com.zs.dao.*.*(..))" id="dao"/>
+	<aop:advisor advice-ref="txadvice" pointcut-ref="dao"/>
+	</aop:config>
+</beans>

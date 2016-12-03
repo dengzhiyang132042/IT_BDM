@@ -12,7 +12,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <head>
     <base href="<%=basePath%>">
     
-    <title>哲盟数据检查登记</title>
+    <title>故障登记</title>
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
 	<meta http-equiv="expires" content="0">    
@@ -26,8 +26,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<link rel="stylesheet" type="text/css" href="<%=path %>/FRAMEWORK/jquery-easyui/demo/demo.css">
 	<script type="text/javascript" src="<%=path %>/FRAMEWORK/jquery-easyui/jquery.min.js"></script>
 	<script type="text/javascript" src="<%=path %>/FRAMEWORK/jquery-easyui/jquery.easyui.min.js"></script>
-	
+	<script type="text/javascript" src="<%=path %>/FRAMEWORK/My97DatePicker/WdatePicker.js"></script>
 	<link rel="stylesheet" type="text/css" href="<%=path %>/FRAMEWORK/css/mycss.css">
+	<script type="text/javascript" src="<%=path %>/FRAMEWORK/js/myjs.js"></script>
 	<script type="text/javascript">
 	$(function(){
 		$("#sele option[value='"+${page.size}+"']").attr("selected",true);
@@ -35,7 +36,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		$('#tt').show();
 	});
 	
-	function update(u1,u2,u3,u4,u5,u6,u7,u8,u9,u10){
+	function trans_radio(str){
+		if (str=="是") {
+			return 0;
+		}else if (str=="否") {
+			return 1;
+		}
+	}
+	
+	function update(u1,u2,u3,u4,u5,u6,u7){
 		$('#u').window('open');
 		$('#u_1').val(u1);
 		$('#u_2').val(u2);
@@ -44,9 +53,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		$('#u_5').val(u5);
 		$('#u_6').val(u6);
 		$('#u_7').val(u7);
-		$('#u_8').val(u8);
-		$('#u_9').val(u9);
-		$('#u_10').val(u10);
 	}
 	function page(no,cz){
 		var num1=$('#page').val();
@@ -63,61 +69,55 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		}
 		$('#f1').submit();
 	}
-	
 	</script>
 	
   </head>
   
   <body>
     
-    <div class="easyui-panel" title="哲盟数据检查登记" style="padding: 5px;display: none;" data-options="tools:'#tt'">
-    
+    <div class="easyui-panel" title="故障登记" style="padding: 5px;display: none;" data-options="tools:'#tt'">
     
     <div style="background-color:white;margin-bottom: 5px;padding: 5px;border: 1px solid #224466; ">
     	快速查询
     	<br/>
-    	<form action="<%=path %>/zmd!queryOfFenye" method="post">
+    	<form action="<%=path %>/hitches!queryOfFenye" method="post">
     		编号:<input name="id" type="text" value="${id }"/>
     		&nbsp;&nbsp;&nbsp;&nbsp;
-    		日期:<input name="dates" type="date" value="${dates }"/>
+    		日期:
+    		<input name="dates" id="d4311" class="Wdate" type="text" onFocus="WdatePicker({maxDate:'#F{$dp.$D(\'d4312\')}'})" value="${dates }"/> 
     		~
-    		<input name="datee" type="date" value="${datee }"/>
+			<input name="datee" id="d4312" class="Wdate" type="text" onFocus="WdatePicker({minDate:'#F{$dp.$D(\'d4311\')}'})" value="${datee }"/>	
     		<br/>
     		<input type="submit" value="查询"/>
     	</form>	
     </div>
-    <div style="margin-bottom: 5px;">
     
+    <div style="margin-bottom: 5px;">
     
     <table border="1" id="eidtASubjectWindow1" style="font-size: 12px;">
     <tr>
-    	<th>编号</th>
+    	<th width="130px">编号</th>
     	<th>日期</th>
-    	<th>9点末上传数据</th>
-    	<th>18点末上传数据</th>
-    	<th>深圳公司离线扫描</th>
-    	<th>集包到件</th>
-    	<th>集包未到件</th>
-    	<th>集包数据</th>
-    	<th>装车数据</th>
+    	<th>开始时间</th>
+    	<th>结束时间</th>
+    	<th>故障描述</th>
     	<th>备注</th>
+    	<th>解决路径</th>
     	<th>操作</th>
     </tr>
-    <c:forEach items="${zmds}" var="zmd">
+    <c:forEach items="${hs}" var="h">
     <tr>
-		<td width="">${zmd.DId }</td>
-		<td width=""><fmt:formatDate value="${zmd.DDate }" pattern="yyyy/M/d" /></td>
-		<td width="">${zmd.DNoUpload9 }</td>
-		<td width="">${zmd.DNoUpload18 }</td>
-		<td width="">${zmd.DOffline }</td>
-		<td width="">${zmd.DPackage }</td>
-		<td width="">${zmd.DNoPackage }</td>
-		<td width="">${zmd.DDataPackage }</td>
-		<td width="">${zmd.DDataCar }</td>
-		<td width="">${zmd.DNote }</td>
+		<td width="">${h.HId }</td>
+		<td width=""><fmt:formatDate value="${h.HTimeStart }" pattern="yyyy-MM-dd" /></td>
+		<td width=""><fmt:formatDate value="${h.HTimeStart }" pattern="HH:mm" /></td>
+		<td width=""><fmt:formatDate value="${h.HTimeEnd }" pattern="HH:mm" /></td>
+		<td width="">${h.HDesc }</td>
+		<td width="">${h.HNote }</td>
+		<td width="">${h.HSolve }</td>
 		<td width="5%" align="center">
-			<a onclick="update('${zmd.DId }','${zmd.DDate }','${zmd.DNoUpload9 }','${zmd.DNoUpload18 }','${zmd.DOffline }','${zmd.DPackage }','${zmd.DNoPackage }','${zmd.DDataPackage }','${zmd.DDataCar }','${zmd.DNote }')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-edit'" title="修改"></a>
-			<a href="<%=path %>/zmd!delete?id=${zmd.DId}" onclick="return confirm('确定删除吗?')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-delete'" title="删除"></a>
+			<a onclick="update('${h.HId }','<fmt:formatDate value="${h.HTimeStart }" pattern="yyyy-MM-dd" />','<fmt:formatDate value="${h.HTimeStart }" pattern="HH:mm" />',
+			'<fmt:formatDate value="${h.HTimeEnd }" pattern="HH:mm" />','${h.HDesc }','${h.HNote }','${h.HSolve}')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-edit'" title="修改"></a>
+			<a href="<%=path %>/hitches!delete?id=${h.HId}" onclick="return confirm('确定删除吗?')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-delete'" title="删除"></a>
 		</td>
     </tr>
     </c:forEach>
@@ -125,7 +125,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</div>
 	
 	<div class="easyui-panel" style="padding:5px;width: 100%;display: none;">
-		<form id="f1" action="<%=path %>/zmd!queryOfFenye?id=${id}&dates=${dates }&datee=${datee }" method="post">
+		<form id="f1" action="<%=path %>/hitches!queryOfFenye?id=${id}&sn=${sn }&dates=${dates}&datee=${datee}" method="post">
 		<select id="sele" style="float: left;margin-top: 3px;margin-left: 5px;" name="page.size" onchange="$('#f1').submit();">
 			<option value="5">5</option>
 			<option value="10">10</option>
@@ -155,60 +155,48 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</div>
 	
 	<div id="u" class="easyui-window" title="修改" data-options="modal:true,closed:true" style="width:500px;height:auto;padding:10px;display: none;">
-		<form action="<%=path %>/zmd!update" method="post">
+		<form action="<%=path %>/hitches!update" method="post">
 		<table border="0" class="table1">
 			<tr>
-				<td width="100">编号：</td>
+				<td width="120">编号：</td>
 				<td>
-					<input id="u_1" name="zmd.DId" type="text" style="width: 100%;" readonly="readonly"/>
+					<input id="u_1" name="h.HId" type="text" style="width: 100%;" readonly="readonly"/>
 				</td>
 			</tr>
 			<tr>
-				<td>9点末上传数据：</td>
+				<td>日期：</td>
 				<td>
-					<input id="u_3" name="zmd.DNoUpload9" type="number" style="width: 100%;"/>
+					<input id="u_2" name="h_date" type="text" style="width: 100%;" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})" class="Wdate"/>
 				</td>
 			</tr>
 			<tr>
-				<td>18点末上传数据：</td>
+				<td>开始时间：</td>
 				<td>
-					<input id="u_4" name="zmd.DNoUpload18" type="number" style="width: 100%;"/>
+					<input id="u_3" name="h_time_s" type="text" style="width: 100%;" onfocus="WdatePicker({dateFmt:'HH:mm',maxDate:'#F{$dp.$D(\'u_4\')}'})" class="Wdate"/>
 				</td>
 			</tr>
 			<tr>
-				<td>深圳公司离线扫描：</td>
+				<td>结束时间：</td>
 				<td>
-					<input id="u_5" name="zmd.DOffline" type="number" style="width: 100%;"/>
+					<input id="u_4" name="h_time_e" type="text" style="width: 100%;" onfocus="WdatePicker({dateFmt:'HH:mm',minDate:'#F{$dp.$D(\'u_3\')}'})" class="Wdate"/>
 				</td>
 			</tr>
 			<tr>
-				<td>集包到件：</td>
+				<td>故障描述：</td>
 				<td>
-					<input id="u_6" name="zmd.DPackage" type="number" style="width: 100%;"/>
-				</td>
-			</tr>
-			<tr>
-				<td>集包未到件：</td>
-				<td>
-					<input id="u_7" name="zmd.DNoPackage" type="number" style="width: 100%;"/>
-				</td>
-			</tr>
-			<tr>
-				<td>集包数据：</td>
-				<td>
-					<input id="u_8" name="zmd.DDataPackage" type="number" style="width: 100%;"/>
-				</td>
-			</tr>
-			<tr>
-				<td>装车数据：</td>
-				<td>
-					<input id="u_9" name="zmd.DDataCar" type="number" style="width: 100%;"/>
+					<input id="u_5" name="h.HDesc" type="text" style="width: 100%;"/>
 				</td>
 			</tr>
 			<tr>
 				<td>备注：</td>
 				<td>
-					<input id="u_10" name="zmd.DNote" type="text" style="width: 100%;"/>
+					<input id="u_6" name="h.HNote" type="text" style="width: 100%;"/>
+				</td>
+			</tr>
+			<tr>
+				<td>解决路径：</td>
+				<td>
+					<input id="u_7" name="h.HSolve" type="text" style="width: 100%;"/>
 				</td>
 			</tr>
 			<tr>
@@ -221,54 +209,42 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</div>
 	
 	<div id="a" class="easyui-window" title="添加" data-options="modal:true,closed:true" style="width:500px;height:auto;padding:10px;display: none;">
-		<form action="<%=path %>/zmd!add" method="post">
+		<form action="<%=path %>/hitches!add" method="post">
 		<table border="0" class="table1">
 			<tr>
-				<td width="100">9点末上传数据：</td>
+				<td width="120">日期：</td>
 				<td>
-					<input name="zmd.DNoUpload9" type="number" style="width: 100%;"/>
+					<input name="h_date" type="text" style="width: 100%;" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})" class="Wdate"/>
 				</td>
 			</tr>
 			<tr>
-				<td>18点末上传数据：</td>
+				<td>开始时间：</td>
 				<td>
-					<input name="zmd.DNoUpload18" type="number" style="width: 100%;"/>
+					<input name="h_time_s" id="a_time_s" type="text" style="width: 100%;" onfocus="WdatePicker({dateFmt:'HH:mm',maxDate:'#F{$dp.$D(\'a_time_e\')}'})" class="Wdate"/>
 				</td>
 			</tr>
 			<tr>
-				<td>深圳公司离线扫描：</td>
+				<td>结束时间：</td>
 				<td>
-					<input name="zmd.DOffline" type="number" style="width: 100%;"/>
+					<input name="h_time_e" id="a_time_e" type="text" style="width: 100%;" onfocus="WdatePicker({dateFmt:'HH:mm',minDate:'#F{$dp.$D(\'a_time_s\')}'})" class="Wdate"/>
 				</td>
 			</tr>
 			<tr>
-				<td>集包到件：</td>
+				<td>故障描述：</td>
 				<td>
-					<input name="zmd.DPackage" type="number" style="width: 100%;"/>
-				</td>
-			</tr>
-			<tr>
-				<td>集包未到件：</td>
-				<td>
-					<input name="zmd.DNoPackage" type="number" style="width: 100%;"/>
-				</td>
-			</tr>
-			<tr>
-				<td>集包数据：</td>
-				<td>
-					<input name="zmd.DDataPackage" type="number" style="width: 100%;"/>
-				</td>
-			</tr>
-			<tr>
-				<td>装车数据：</td>
-				<td>
-					<input name="zmd.DDataCar" type="number" style="width: 100%;"/>
+					<input name="h.HDesc" type="text" style="width: 100%;"/>
 				</td>
 			</tr>
 			<tr>
 				<td>备注：</td>
 				<td>
-					<input name="zmd.DNote" type="text" style="width: 100%;"/>
+					<input name="h.HNote" type="text" style="width: 100%;"/>
+				</td>
+			</tr>
+			<tr>
+				<td>解决路径：</td>
+				<td>
+					<input name="h.HSolve" type="text" style="width: 100%;"/>
 				</td>
 			</tr>
 			<tr>
@@ -287,11 +263,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	
 	
 	<div id="in" class="easyui-window" title="数据导入" data-options="modal:true,closed:true" style="width:400px;height:auto;padding:10px;display: none;overflow-x:hidden;">
-		<form action="<%=path %>/zmd!importExcel" method="post" enctype="multipart/form-data">
+		<form action="<%=path %>/hitches!importExcel" method="post" enctype="multipart/form-data">
 		<table border="1">
 			<tr>
 				<td>Excel模板</td>
-				<td onmousemove="$(this).css('background-color','red');" onmouseout="$(this).css('background-color','white');" style="cursor: pointer;" onclick="window.location.href='<%=path%>/files/import/xtz/哲盟异常数据.xlsx';">
+				<td onmousemove="$(this).css('background-color','red');" onmouseout="$(this).css('background-color','white');" style="cursor: pointer;" onclick="window.location.href='<%=path%>/files/import/xtz/故障登记 .xlsx';">
 					下载模板
 				</td>
 			</tr>
@@ -309,6 +285,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</table>
 		</form>
 	</div>
+	
+	
 	
 	<jsp:include page="../hintModal.jsp"/>
 	

@@ -1,4 +1,4 @@
-package com.zs.action.whz;
+package com.zs.action.xtz;
 
 import java.io.File;
 import java.io.IOException;
@@ -12,7 +12,9 @@ import java.util.List;
 
 import com.zs.action.MyBaseAction;
 import com.zs.entity.Users;
+import com.zs.entity.WhMassageReceive;
 import com.zs.entity.WhMonitorScout;
+import com.zs.entity.XtHitches;
 import com.zs.entity.XtPdaLoss;
 import com.zs.service.IService;
 import com.zs.service.iDataImportService;
@@ -20,7 +22,7 @@ import com.zs.service.iXtPdaLossService;
 import com.zs.tools.NameOfDate;
 import com.zs.tools.Page;
 
-public class MonitorAction extends MyBaseAction{
+public class HitchesAction extends MyBaseAction{
 	/**
 	 * 
 	 */
@@ -30,9 +32,9 @@ public class MonitorAction extends MyBaseAction{
 	iDataImportService importSer;
 	Page page;
 	
-	WhMonitorScout moni;
-	List<WhMonitorScout> monis;
-	String result="monitor";
+	XtHitches h;
+	List<XtHitches> hs;
+	String result="hitches";
 	String id;
 	String dates;
 	String datee;
@@ -89,17 +91,17 @@ public class MonitorAction extends MyBaseAction{
 	public void setPage(Page page) {
 		this.page = page;
 	}
-	public WhMonitorScout getMoni() {
-		return moni;
+	public XtHitches getH() {
+		return h;
 	}
-	public void setMoni(WhMonitorScout moni) {
-		this.moni = moni;
+	public void setH(XtHitches h) {
+		this.h = h;
 	}
-	public List<WhMonitorScout> getMonis() {
-		return monis;
+	public List<XtHitches> getHs() {
+		return hs;
 	}
-	public void setMonis(List<WhMonitorScout> monis) {
-		this.monis = monis;
+	public void setHs(List<XtHitches> hs) {
+		this.hs = hs;
 	}
 	public String getId() {
 		return id;
@@ -111,8 +113,8 @@ public class MonitorAction extends MyBaseAction{
 	//------------------------------------------------
 	private void clearOptions() {
 		id=null;
-		moni=null;
-		monis=null;
+		h=null;
+		hs=null;
 		dates=null;
 		datee=null;
 	}
@@ -139,68 +141,71 @@ public class MonitorAction extends MyBaseAction{
 			page=new Page(1, 0, 5);
 		}
 		clearSpace();
-		String hql="from WhMonitorScout where 1=1";
+		String hql="from XtHitches where 1=1";
 		if (id!=null) {
-			hql=hql+" and MId like '%"+id+"%'";
+			hql=hql+" and HId like '%"+id+"%'";
 		}
 		if (dates!=null && !dates.equals("")) {
-			hql=hql+" and MDate >= '"+dates+"'";
+			hql=hql+" and HTimeStart >= '"+dates+"'";
 		}
 		if (datee!=null && !datee.equals("")) {
-			hql=hql+" and MDate <= '"+datee+"'";
+			hql=hql+" and HTimeStart <= '"+datee+" 23:59:59'";
 		}
-		hql=hql+" order by MTime desc";
-		monis=ser.query(hql, null, hql, page, ser);
+		hql=hql+" order by HTimeStart desc";
+		hs=ser.query(hql, null, hql, page, ser);
 		return result;
 	}
 	
 	private String gotoQuery() throws UnsupportedEncodingException {
 		clearOptions();
-		String hql="from WhMonitorScout order by MTime desc";
-		monis=ser.query(hql, null, hql, page, ser);
+		String hql="from XtHitches order by HTimeStart desc";
+		hs=ser.query(hql, null, hql, page, ser);
 		return result;
 	}
 	
 	public String delete() throws Exception {
 		if (id!=null) {
-			moni= (WhMonitorScout) ser.get(WhMonitorScout.class, id);
-			if (moni!=null) {
-				ser.delete(moni);
+			h= (XtHitches) ser.get(XtHitches.class, id);
+			if (h!=null) {
+				ser.delete(h);
+				getRequest().setAttribute("h", h);
 			}
 		}
 		return gotoQuery();
 	}
 	
 	public String update() throws Exception {
-		String time=getRequest().getParameter("time");
-		if (moni!=null && time!=null) {
- 			String da1=new SimpleDateFormat("yyyy-MM-dd").format(moni.getMDate());
- 			Timestamp tit=new Timestamp(new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(da1+" "+time).getTime());
- 			moni.setMTime(tit);
- 			ser.update(moni);
- 			getRequest().setAttribute("moni", moni);
+		String date=getRequest().getParameter("h_date");
+		String times=getRequest().getParameter("h_time_s");
+		String timee=getRequest().getParameter("h_time_e");
+		if(h!=null && date!=null && times!=null && timee!=null && h.getHId()!=null){
+			SimpleDateFormat format=new SimpleDateFormat("yyyy-MM-dd HH:mm");
+			Date date1=format.parse(date+" "+times);
+			Date date2=format.parse(date+" "+timee);
+			h.setHTimeStart(new Timestamp(date1.getTime()));
+			h.setHTimeEnd(new Timestamp(date2.getTime()));
+			ser.update(h);
+			getRequest().setAttribute("h", h);
 		}
 		return gotoQuery();
 	}
 	
 	public String add() throws Exception {
-		Users user=(Users) getSession().getAttribute("user");
-		String time=getRequest().getParameter("time");
-		if(moni!=null && user!=null && time!=null){
-			moni.setMId("m"+NameOfDate.getNum());
-			moni.setMIt(user.getUName());
-			moni.setMDate(new Date());
-			if (user!=null && time!=null) {
-	 			String da1=new SimpleDateFormat("yyyy-MM-dd").format(moni.getMDate());
-	 			Timestamp tit=new Timestamp(new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(da1+" "+time).getTime());
-	 			moni.setMTime(tit);
-	 			ser.save(moni);
-			}
-			getRequest().setAttribute("moni", moni);
+		String date=getRequest().getParameter("h_date");
+		String times=getRequest().getParameter("h_time_s");
+		String timee=getRequest().getParameter("h_time_e");
+		if(h!=null && date!=null && times!=null && timee!=null){
+			SimpleDateFormat format=new SimpleDateFormat("yyyy-MM-dd HH:mm");
+			Date date1=format.parse(date+" "+times);
+			Date date2=format.parse(date+" "+timee);
+			h.setHId(NameOfDate.getNum());
+			h.setHTimeStart(new Timestamp(date1.getTime()));
+			h.setHTimeEnd(new Timestamp(date2.getTime()));
+			ser.save(h);
+			getRequest().setAttribute("h", h);
 		}
 		return gotoQuery();
 	}	
-	
 	
 	public String importExcel() throws InterruptedException, IOException, ParseException {
 		importSer.importExcelData(fileExcelFileName, fileExcel);

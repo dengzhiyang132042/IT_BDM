@@ -67,6 +67,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<li><span><a href="<%=path %>/pdachange!queryOfFenye?cz=yes" target="right">条码变更明细</a></span></li>
 						<li><span><a href="<%=path %>/bqrepair!queryOfFenye?cz=yes" target="right">送修坂田巴枪</a></span></li>
 						<li><span><a href="<%=path %>/pdaloss!queryOfFenye?cz=yes" target="right">PDA挂失</a></span></li>
+						<li><span><a href="<%=path %>/hitches!queryOfFenye?cz=yes" target="right">故障登记</a></span></li>
         			</ul>
         		</li>
         		<li><span>桌面组</span>
@@ -87,7 +88,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         			<ul>
 						<li><span><a href="<%=path %>/device!queryOfFenye?cz=yes" target="right">操作设备巡检</a></span></li>
 						<li><span><a href="<%=path %>/monitor!queryOfFenye?cz=yes" target="right">监控设备巡检</a></span></li>
-						<li><span><a href="<%=path %>/oa!queryOfFenye?cz=yes" target="right">网点巴枪维修登记</a></span></li>
+						<li><span><a href="<%=path %>/massage!queryOfFenye?cz=yes" target="right">网点巴枪维修登记</a></span></li>
 						<li><span><a href="<%=path %>/print!queryOfFenye?cz=yes" target="right">观澜仓库3楼会议室巡检</a></span></li>
 						<li><span><a href="<%=path %>/computer!queryOfFenye?cz=yes" target="right">观澜仓库会议室巡检</a></span></li>
 						<li><span><a href="<%=path %>/bq!queryOfFenye?cz=yes" target="right">外修登记</a></span></li>

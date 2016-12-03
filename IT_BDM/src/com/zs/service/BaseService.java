@@ -624,10 +624,10 @@ public class BaseService implements IService{
 	
 	public Timestamp transToTimestamp(String str) {
 		try {
-			return str==null||str.trim().equals("")?new Timestamp(new Date().getTime()):Timestamp.valueOf(str);
+			return str==null||str.trim().equals("")?new Timestamp(new Date().getTime()):new Timestamp(new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(str).getTime());
 		} catch (Exception e) {
 			log.error("String转换Timestamp错误，错误的字符串是："+str);
-			return null;
+			return new Timestamp(new Date().getTime());
 		}
 	}
 	

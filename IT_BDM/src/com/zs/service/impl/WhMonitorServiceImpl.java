@@ -21,7 +21,7 @@ public class WhMonitorServiceImpl extends BaseService implements iDataImportServ
 			for (int i = 1; i < list.size(); i++) {
 				try {
 					WhMonitorScout monitor=new WhMonitorScout("m"+NameOfDate.getNum(), transToDate(list.get(i)[0]), list.get(i)[1], 
-							list.get(i)[2],transToTimestamp(list.get(i)[3]), list.get(i)[4],
+							list.get(i)[2],transToTimestamp(list.get(i)[0]+" "+list.get(i)[3]), list.get(i)[4],
 							list.get(i)[5], list.get(i)[6], list.get(i)[7],list.get(i)[8], list.get(i)[9], list.get(i)[10]);
 					save(monitor);
 				} catch (Exception e) {

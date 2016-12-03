@@ -260,6 +260,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</table>
 		</form>
 	</div>
+	
+	<div id="tt" style="display: none;">
+		<a class="icon-zs-import" onclick="$('#in').window('open')" style="margin-left: 10px;" title="excel导入"></a>
+		<a class="icon-add" onclick="$('#a').window('open')" style="margin-left: 10px;" title="添加"></a>
+	</div>
+	
 	<div id="in" class="easyui-window" title="数据导入" data-options="modal:true,closed:true" style="width:400px;height:auto;padding:10px;display: none;overflow-x:hidden;">
 		<form action="<%=path %>/site!importExcel" method="post" enctype="multipart/form-data">
 		<table border="1">
@@ -277,19 +283,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</tr>
 			<tr>
 				<td colspan="2">
-					<input type="submit" value="导入"/>	
+					<input type="submit" value="导入" onclick="return show_hint(['in'])"/>	
 				</td>
 			</tr>
 		</table>
 		</form>
 	</div>
 	
-	
-	<div id="tt" style="display: none;">
-		<a class="icon-zs-import" onclick="$('#in').window('open')" style="margin-left: 10px;" title="excel导入"></a>
-		<a class="icon-add" onclick="$('#a').window('open')" style="margin-left: 10px;" title="添加"></a>
-	</div>
-	
-	
+	<jsp:include page="../hintModal.jsp"/>
   </body>
 </html>

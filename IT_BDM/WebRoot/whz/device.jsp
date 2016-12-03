@@ -1,5 +1,6 @@
 <%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
 <%@page import="com.zs.tools.Constant"%>
+<%@page import="java.text.SimpleDateFormat"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%
@@ -28,6 +29,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script type="text/javascript" src="<%=path %>/FRAMEWORK/jquery-easyui/jquery.easyui.min.js"></script>
 	<script type="text/javascript" src="<%=path %>/FRAMEWORK/My97DatePicker/WdatePicker.js"></script>
 	<link rel="stylesheet" type="text/css" href="<%=path %>/FRAMEWORK/css/mycss.css">
+	<link rel="stylesheet" type="text/css" href="<%=path %>/FRAMEWORK/css/mycss.css">
+	<script type="text/javascript" src="<%=path %>/FRAMEWORK/js/myjs.js"></script>
 	<script type="text/javascript">
 	$(function(){
 		$("#sele option[value='"+${page.size}+"']").attr("selected",true);
@@ -115,7 +118,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <c:forEach items="${devices}" var="d">
     <tr>
 		<td width="">${d.DId }</td>
-		<td width=""><fmt:formatDate value="${d.DDate }" pattern="yyyy-M-d" /></td>
+		<td width=""><fmt:formatDate value="${d.DDate }" pattern="yyyy-MM-dd" /></td>
 		<td width=""><fmt:formatDate value="${d.DTime }" pattern="HH:mm" /></td>
 		<td width="">${d.DFit }</td>
 		<td width="">${d.DFitFirm }</td>
@@ -126,7 +129,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<td width="">${d.DMonthMaintain }</td>
 		<td width="">${d.DNote }</td>
 		<td width="5%" align="center">
-			<a onclick="update('${d.DId }','<fmt:formatDate value="${d.DDate }" pattern="yyyy-M-d" />','<fmt:formatDate value="${d.DTime }" pattern="yyyy-MM-dd HH:mm:ss" />','${d.DFit }',
+			<a onclick="update('${d.DId }','<fmt:formatDate value="${d.DDate }" pattern="yyyy-M-d" />','<fmt:formatDate value="${d.DTime }" pattern="HH:mm" />','${d.DFit }',
 			'${d.DFitFirm }','${d.DAbnormalNote}','${d.DResult }','${d.DIt }','${d.DWeekMaintain }','${d.DMonthMaintain }','${d.DNote }' )" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-edit'" title="修改"></a>
 			<a href="<%=path %>/device!delete?id=${d.DId}" onclick="return confirm('确定删除吗?')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-delete'" title="删除"></a>
 		</td>
@@ -177,12 +180,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<tr>
 				<td>巡检时间：</td>
 				<td>
-					<input id="u_3" name="device.DTime" type="text" style="width: 100%;" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})" class="Wdate"/>
+					<input id="u_3" name="d_time" type="text" style="width: 100%;" onfocus="WdatePicker({dateFmt:'HH:mm'})" class="Wdate"/>
 				</td>
 			</tr>
 			<tr>
 				<td>电子秤较称：</td>
-				<td>
+				<td> 
 					<input id="u_4_0" name="device.DFit" type="radio" value="是" checked="checked"/>是
 					<input id="u_4_1" name="device.DFit" type="radio" value="否"/>否
 				</td>
@@ -241,7 +244,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<tr>
 				<td width="120">巡检时间：</td>
 				<td>
-					<input name="device.DTime" type="text" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})" class="Wdate" style="width: 100%;" value="<%=new Date().toLocaleString() %>"/>
+					<input name="d_time" type="text" onfocus="WdatePicker({dateFmt:'HH:mm'})" class="Wdate" style="width: 100%;" value="<%=new SimpleDateFormat("HH:mm").format(new Date()) %>"/>
 				</td>
 			</tr>
 			<tr>
@@ -322,12 +325,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</tr>
 			<tr>
 				<td colspan="2">
-					<input type="submit" value="导入"/>	
+					<input type="submit" value="导入" onclick="return show_hint(['in'])"/>	
 				</td>
 			</tr>
 		</table>
 		</form>
 	</div>
+	
+	<jsp:include page="../hintModal.jsp"/>
 	
   </body>
 </html>

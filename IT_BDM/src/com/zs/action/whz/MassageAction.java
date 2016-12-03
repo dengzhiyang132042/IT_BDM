@@ -5,13 +5,13 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.sql.Timestamp;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
 import com.zs.action.MyBaseAction;
 import com.zs.entity.Users;
+import com.zs.entity.WhMassageReceive;
 import com.zs.entity.WhMonitorScout;
 import com.zs.entity.XtPdaLoss;
 import com.zs.service.IService;
@@ -20,7 +20,7 @@ import com.zs.service.iXtPdaLossService;
 import com.zs.tools.NameOfDate;
 import com.zs.tools.Page;
 
-public class MonitorAction extends MyBaseAction{
+public class MassageAction extends MyBaseAction{
 	/**
 	 * 
 	 */
@@ -30,9 +30,9 @@ public class MonitorAction extends MyBaseAction{
 	iDataImportService importSer;
 	Page page;
 	
-	WhMonitorScout moni;
-	List<WhMonitorScout> monis;
-	String result="monitor";
+	WhMassageReceive massage;
+	List<WhMassageReceive> massages;
+	String result="massage";
 	String id;
 	String dates;
 	String datee;
@@ -89,17 +89,17 @@ public class MonitorAction extends MyBaseAction{
 	public void setPage(Page page) {
 		this.page = page;
 	}
-	public WhMonitorScout getMoni() {
-		return moni;
+	public WhMassageReceive getMassage() {
+		return massage;
 	}
-	public void setMoni(WhMonitorScout moni) {
-		this.moni = moni;
+	public void setMassage(WhMassageReceive massage) {
+		this.massage = massage;
 	}
-	public List<WhMonitorScout> getMonis() {
-		return monis;
+	public List<WhMassageReceive> getMassages() {
+		return massages;
 	}
-	public void setMonis(List<WhMonitorScout> monis) {
-		this.monis = monis;
+	public void setMassages(List<WhMassageReceive> massages) {
+		this.massages = massages;
 	}
 	public String getId() {
 		return id;
@@ -111,8 +111,8 @@ public class MonitorAction extends MyBaseAction{
 	//------------------------------------------------
 	private void clearOptions() {
 		id=null;
-		moni=null;
-		monis=null;
+		massage=null;
+		massages=null;
 		dates=null;
 		datee=null;
 	}
@@ -139,7 +139,7 @@ public class MonitorAction extends MyBaseAction{
 			page=new Page(1, 0, 5);
 		}
 		clearSpace();
-		String hql="from WhMonitorScout where 1=1";
+		String hql="from WhMassageReceive where 1=1";
 		if (id!=null) {
 			hql=hql+" and MId like '%"+id+"%'";
 		}
@@ -149,58 +149,47 @@ public class MonitorAction extends MyBaseAction{
 		if (datee!=null && !datee.equals("")) {
 			hql=hql+" and MDate <= '"+datee+"'";
 		}
-		hql=hql+" order by MTime desc";
-		monis=ser.query(hql, null, hql, page, ser);
+		hql=hql+" order by MCreateDatetime desc";
+		massages=ser.query(hql, null, hql, page, ser);
 		return result;
 	}
 	
 	private String gotoQuery() throws UnsupportedEncodingException {
 		clearOptions();
-		String hql="from WhMonitorScout order by MTime desc";
-		monis=ser.query(hql, null, hql, page, ser);
+		String hql="from WhMassageReceive order by MCreateDatetime desc";
+		massages=ser.query(hql, null, hql, page, ser);
 		return result;
 	}
 	
 	public String delete() throws Exception {
 		if (id!=null) {
-			moni= (WhMonitorScout) ser.get(WhMonitorScout.class, id);
-			if (moni!=null) {
-				ser.delete(moni);
+			massage= (WhMassageReceive) ser.get(WhMassageReceive.class, id);
+			if (massage!=null) {
+				ser.delete(massage);
 			}
 		}
 		return gotoQuery();
 	}
 	
 	public String update() throws Exception {
-		String time=getRequest().getParameter("time");
-		if (moni!=null && time!=null) {
- 			String da1=new SimpleDateFormat("yyyy-MM-dd").format(moni.getMDate());
- 			Timestamp tit=new Timestamp(new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(da1+" "+time).getTime());
- 			moni.setMTime(tit);
- 			ser.update(moni);
- 			getRequest().setAttribute("moni", moni);
+		if(massage!=null){
+			ser.update(massage);
+			getRequest().setAttribute("massage", massage);
 		}
 		return gotoQuery();
 	}
 	
 	public String add() throws Exception {
 		Users user=(Users) getSession().getAttribute("user");
-		String time=getRequest().getParameter("time");
-		if(moni!=null && user!=null && time!=null){
-			moni.setMId("m"+NameOfDate.getNum());
-			moni.setMIt(user.getUName());
-			moni.setMDate(new Date());
-			if (user!=null && time!=null) {
-	 			String da1=new SimpleDateFormat("yyyy-MM-dd").format(moni.getMDate());
-	 			Timestamp tit=new Timestamp(new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(da1+" "+time).getTime());
-	 			moni.setMTime(tit);
-	 			ser.save(moni);
-			}
-			getRequest().setAttribute("moni", moni);
+		if(massage!=null && user!=null){
+			massage.setMId("m"+NameOfDate.getNum());
+			massage.setMIt(user.getUName());
+			massage.setMCreateDatetime(new Timestamp(new Date().getTime()));
+			ser.save(massage);
+			getRequest().setAttribute("massage", massage);
 		}
 		return gotoQuery();
 	}	
-	
 	
 	public String importExcel() throws InterruptedException, IOException, ParseException {
 		importSer.importExcelData(fileExcelFileName, fileExcel);

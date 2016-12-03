@@ -153,6 +153,10 @@
      <result name="succ">/success.jsp</result>
      <result name="fail">/fail.jsp</result>
   </action>
+  <action name="hitches" class="zs_hitches_xtz">	
+  	 <interceptor-ref name="mydefault" />
+     <result name="hitches">/xtz_jsp/hitches.jsp</result>
+  </action>
   <!-- **************桌面组**************** -->
   <action name="vpn" class="zs_vpn_zmz">	
   	 <interceptor-ref name="mydefault" />
@@ -227,6 +231,16 @@
   	 <interceptor-ref name="mydefault" />
      <result>/index.jsp</result>
      <result name="monitor">/whz/monitor.jsp</result>
+  </action>
+  <action name="monitor" class="zs_monitor_whz">	
+  	 <interceptor-ref name="mydefault" />
+     <result>/index.jsp</result>
+     <result name="monitor">/whz/monitor.jsp</result>
+  </action>
+  <action name="massage" class="zs_massage_whz">	
+  	 <interceptor-ref name="mydefault" />
+     <result>/index.jsp</result>
+     <result name="massage">/whz/massage.jsp</result>
   </action>
     
   <!-- **********CompanySection************* -->
@@ -431,6 +445,7 @@
      <result name="succ">/success.jsp</result>
      <result name="fail">/fail.jsp</result>
   </action>
+  
   
 </package>
 </struts>    

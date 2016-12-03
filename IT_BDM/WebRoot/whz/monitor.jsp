@@ -12,7 +12,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <head>
     <base href="<%=basePath%>">
     
-    <title>操作设备巡检</title>
+    <title>监控设备巡检</title>
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
 	<meta http-equiv="expires" content="0">    
@@ -28,6 +28,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script type="text/javascript" src="<%=path %>/FRAMEWORK/jquery-easyui/jquery.easyui.min.js"></script>
 	<script type="text/javascript" src="<%=path %>/FRAMEWORK/My97DatePicker/WdatePicker.js"></script>
 	<link rel="stylesheet" type="text/css" href="<%=path %>/FRAMEWORK/css/mycss.css">
+	<script type="text/javascript" src="<%=path %>/FRAMEWORK/js/myjs.js"></script>
 	<script type="text/javascript">
 	$(function(){
 		$("#sele option[value='"+${page.size}+"']").attr("selected",true);
@@ -43,19 +44,20 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		}
 	}
 	
-	function update(u1,u2,u3,u4,u5,u6,u7,u8,u9,u10,u11){
+	function update(u1,u2,u3,u4,u5,u6,u7,u8,u9,u10,u11,u12){
 		$('#u').window('open');
 		$('#u_1').val(u1);
 		$('#u_2').val(u2);
 		$('#u_3').val(u3);
-		$("#u_4_"+trans_radio(u4)).click();
-		$("#u_5_"+trans_radio(u5)).click();
+		$('#u_4').val(u4);
+		$('#u_5').val(u5);
 		$('#u_6').val(u6);
 		$('#u_7').val(u7);
 		$('#u_8').val(u8);
-		$("#u_9_"+trans_radio(u9)).click();
-		$("#u_10_"+trans_radio(u10)).click();
+		$('#u_9').val(u9);
+		$('#u_10').val(u10);
 		$('#u_11').val(u11);
+		$('#u_12').val(u12);
 	}
 	function page(no,cz){
 		var num1=$('#page').val();
@@ -78,7 +80,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   
   <body>
     
-    <div class="easyui-panel" title="操作设备巡检" style="padding: 5px;display: none;" data-options="tools:'#tt'">
+    <div class="easyui-panel" title="监控设备巡检" style="padding: 5px;display: none;" data-options="tools:'#tt'">
     
     <div style="background-color:white;margin-bottom: 5px;padding: 5px;border: 1px solid #224466; ">
     	快速查询
@@ -116,19 +118,20 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <c:forEach items="${monis}" var="m">
     <tr>
 		<td width="">${m.MId }</td>
-		<td width=""><fmt:formatDate value="${m.MDate }" pattern="yyyy-M-d" /></td>
+		<td width=""><fmt:formatDate value="${m.MDate }" pattern="yyyy-MM-dd" /></td>
 		<td width="">${m.MIt }</td>
 		<td width="">${m.MMonitorMaster }</td>
-		<td width=""><fmt:formatDate value="${m.MTime }" pattern="yyyy-M-d" /></td>
+		<td width=""><fmt:formatDate value="${m.MTime }" pattern="HH:mm" /></td>
 		<td width="">${m.MVideo }</td>
 		<td width="">${m.MRoom }</td>
 		<td width="">${m.MService }</td>
 		<td width="">${m.MGeneratorDevice }</td>
 		<td width="">${m.MDepotCamera }</td>
+		<td width="">${m.MDepotDevice }</td>
 		<td width="">${m.MNote }</td>
 		<td width="5%" align="center">
 			<a onclick="update('${m.MId }','<fmt:formatDate value="${m.MDate }" pattern="yyyy-M-d" />','${m.MIt }','${m.MMonitorMaster }',
-			'${m.MTime }','${m.MVideo}','${m.MRoom }','${m.MService }','${m.MGeneratorDevice }','${m.MDepotCamera }','${m.MNote }' )" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-edit'" title="修改"></a>
+			'<fmt:formatDate value="${m.MTime }" pattern="HH:mm" />','${m.MVideo}','${m.MRoom }','${m.MService }','${m.MGeneratorDevice }','${m.MDepotCamera }','${m.MDepotDevice }','${m.MNote }' )" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-edit'" title="修改"></a>
 			<a href="<%=path %>/monitor!delete?id=${m.MId}" onclick="return confirm('确定删除吗?')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-delete'" title="删除"></a>
 		</td>
     </tr>
@@ -178,13 +181,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<tr>
 				<td>日期：</td>
 				<td>
-					<input id="u_2" name="moni.MDate" type="text" style="width: 100%;" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})" class="Wdate"/>
+					<input id="u_2" name="moni.MDate" type="text" style="width: 100%;" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})" class="Wdate"/>
 				</td>
 			</tr>
 			<tr>
 				<td>巡检IT：</td>
 				<td>
-					<input id="u_3" name="moni.MIt" type="text" style="width: 100%;"/>
+					<input id="u_3" name="moni.MIt" type="text" style="width: 100%;" readonly="readonly"/>
 				</td>
 			</tr>
 			<tr>
@@ -196,7 +199,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<tr>
 				<td>时间：</td>
 				<td>
-					<input id="u_5" name="moni.MTime" type="text" style="width: 100%;" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})" class="Wdate"/>
+					<input id="u_5" name="time" type="text" style="width: 100%;" onfocus="WdatePicker({dateFmt:'HH:mm'})" class="Wdate"/>
 				</td>
 			</tr>
 			<tr>
@@ -262,7 +265,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<tr>
 				<td>时间：</td>
 				<td>
-					<input name="moni.MTime" type="text" style="width: 100%;" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})" class="Wdate"/>
+					<input name="time" type="text" style="width: 100%;" onfocus="WdatePicker({dateFmt:'HH:mm'})" class="Wdate"/>
 				</td>
 			</tr>
 			<tr>
@@ -327,7 +330,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<table border="1">
 			<tr>
 				<td>Excel模板</td>
-				<td onmousemove="$(this).css('background-color','red');" onmouseout="$(this).css('background-color','white');" style="cursor: pointer;" onclick="window.location.href='<%=path%>/files/import/whz/操作设备巡检.xlsx';">
+				<td onmousemove="$(this).css('background-color','red');" onmouseout="$(this).css('background-color','white');" style="cursor: pointer;" onclick="window.location.href='<%=path%>/files/import/whz/监控巡检.xlsx';">
 					下载模板
 				</td>
 			</tr>
@@ -339,12 +342,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</tr>
 			<tr>
 				<td colspan="2">
-					<input type="submit" value="导入"/>	
+					<input type="submit" value="导入" onclick="return show_hint(['in'])"/>	
 				</td>
 			</tr>
 		</table>
 		</form>
 	</div>
+	
+	
+	
+	<jsp:include page="../hintModal.jsp"/>
 	
   </body>
 </html>
