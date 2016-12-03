@@ -424,6 +424,13 @@
      <result name="succ">/success.jsp</result>
      <result name="fail">/fail.jsp</result>
   </action>
+  <action name="threeMeetingCount" class="hgh_count_three_meeting">	
+  	 <interceptor-ref name="mydefault" />
+     <result>/index.jsp</result>
+     <result name="threeMeetingCount">/whz_count/three_meeting_count.jsp</result>
+     <result name="succ">/success.jsp</result>
+     <result name="fail">/fail.jsp</result>
+  </action>
   
 </package>
 </struts>    
