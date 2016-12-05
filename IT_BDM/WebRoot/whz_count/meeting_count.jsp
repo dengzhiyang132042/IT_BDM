@@ -11,7 +11,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <head>
     <base href="<%=basePath%>">
     
-    <title>3楼会议室巡检统计</title>
+    <title>会议室巡检统计</title>
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
 	<meta http-equiv="expires" content="0">    
@@ -71,7 +71,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		var a2=new Array()
 		a2=datee.split(" ");
 		//console.log(a2[0]);
-		var path="<%=path%>/device!queryOfFenye?cz=no&id=&dates="+a1[0]+"&datee="+a2[0];
+		var path="<%=path%>/meeting!queryOfFenye?cz=no&id=&dates="+a1[0]+"&datee="+a2[0];
 		//console.log(path);
 		window.location.href=path;
 	}
@@ -90,12 +90,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		}
 	}
 	function xiazai(){
-		var path ="<%=path %>/threeMeetingCount!exportExc";
+		var path ="<%=path %>/meetingCount!exportExc";
 		$.post(
 			path,
 			function(){
 				//console.log(result);
-				window.location.href="<%=path%>/files/export/whz/3楼会议室巡检统计.xls";
+				window.location.href="<%=path%>/files/export/whz/会议室巡检统计.xls";
 			}
 		);
 	}
@@ -116,13 +116,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   </head>
   <%boolean isAddColor=false; %>
   <body>
- 	<div style="text-align: center;margin-right: 17px;color: white;background-color:#17B4FF;padding: 5px;font-size: 14px;font-weight:bold;">3楼会议室巡检统计</div>
+ 	<div style="text-align: center;margin-right: 17px;color: white;background-color:#17B4FF;padding: 5px;font-size: 14px;font-weight:bold;">会议室巡检统计</div>
  	
  	
 	<div style="background-color:white;margin-bottom: 5px;padding: 5px;border: 1px solid #224466;margin-right: 17px;margin-top: 10px;">
     	快速查询
     	<br/>
-    	<form action="<%=path %>/threeMeetingCount!queryOfFenye" method="post">
+    	<form action="<%=path %>/meetingCount!queryOfFenye" method="post">
     		当前查询条件:
     		<select id="sel_dt" name="filtrate" onchange="changeDate()">
     			<option value="W">周</option>

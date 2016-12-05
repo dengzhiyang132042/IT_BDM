@@ -163,12 +163,7 @@ public class PdaChangeCountAction extends MyBaseAction implements IMyBaseAction{
 		}
 		if (d1!=null && d2!=null) {
 			if (dt.equals("W")) {
-				Calendar ca1 = Calendar.getInstance();
-				Calendar ca2 = Calendar.getInstance();
-				ca1.set(d1.getCDate().getYear()+1900, d1.getCDate().getMonth()+1, d1.getCDate().getDate());
-				ca2.set(d2.getCDate().getYear()+1900, d2.getCDate().getMonth()+1, d2.getCDate().getDate());
-				int weekyear = d1.getCDate().getYear()-d2.getCDate().getYear();
-				int weeknum =weekyear*52 + ca1.get(Calendar.WEEK_OF_YEAR)-ca2.get(Calendar.WEEK_OF_YEAR);
+				int weeknum =(int)((d1.getCDate().getTime()-d2.getCDate().getTime())/(1000*60*60*24))/7;
 				for (int i = 0; i <=weeknum; i++) {
 					Date date = new Date(d1.getCDate().getYear(),d1.getCDate().getMonth(),d1.getCDate().getDate()-(7*i));
 					Date dateStart= ser.weekDate(date).get(ser.KEY_DATE_START);

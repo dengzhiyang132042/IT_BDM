@@ -111,6 +111,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     		当前查询条件:
     		<select id="sel_dt" name="filtrate">
     			<option value="D">日</option>
+    			<option value="W">周</option>
     			<option value="M">月</option>
     			<option value="Y">年</option>
     		</select>

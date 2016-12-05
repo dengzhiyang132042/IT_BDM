@@ -14,6 +14,7 @@ import java.util.List;
 import org.apache.log4j.Logger;
 
 import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
 
 import com.sun.java.swing.plaf.windows.resources.windows;
 import com.zs.action.IMyBaseAction;
@@ -177,12 +178,7 @@ public class BranchesAction extends MyBaseAction implements IMyBaseAction{
 //				}
 //			}
 			if (dt.equals("W")) {
-				Calendar ca1 = Calendar.getInstance();
-				Calendar ca2 = Calendar.getInstance();
-				ca1.set(d1.getBMaintainDate().getYear()+1900, d1.getBMaintainDate().getMonth()+1, d1.getBMaintainDate().getDate());
-				ca2.set(d2.getBMaintainDate().getYear()+1900, d2.getBMaintainDate().getMonth()+1, d2.getBMaintainDate().getDate());
-				int weekyear = d1.getBMaintainDate().getYear()-d2.getBMaintainDate().getYear();
-				int weeknum =weekyear*52 + ca1.get(Calendar.WEEK_OF_YEAR)-ca2.get(Calendar.WEEK_OF_YEAR);
+				int weeknum =(int)((d1.getBMaintainDate().getTime()-d2.getBMaintainDate().getTime())/(1000*60*60*24))/7;
 				for (int i = 0; i <=weeknum; i++) {
 					Date date = new Date(d1.getBMaintainDate().getYear(),d1.getBMaintainDate().getMonth(),d1.getBMaintainDate().getDate()-(7*i));
 					Date dateStart= ser.weekDate(date).get(ser.KEY_DATE_START);

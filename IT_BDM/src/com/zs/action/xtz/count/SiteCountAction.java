@@ -143,26 +143,26 @@ public class SiteCountAction extends MyBaseAction implements IMyBaseAction{
 	private void initCounts(List<XtSiteCount> counts,String dt) throws ParseException {
 		//获取两个头尾的时间
 		XtSite d1 = null,d2=null;
-		String str="from XtSite";
-		String str1="from XtSite";
+		String str="from XtSite where SStartDate!=null ";
+		String str1="from XtSite where SStartDate!=null ";
 		SimpleDateFormat sdf= new SimpleDateFormat("yyyy-MM-dd");
 		if(dates!=null&&datee!=null&&!dates.equals("")&&!datee.equals("")){
 			if(dt.equals("W")){
 				List datelist = WeekDateArea.weekdate(dates, datee);
-				str=str+" where SStartDate <='"+datelist.get(0)+"'";
-				str1=str1+" where SStartDate >='"+datelist.get(1)+"'";
+				str=str+" and SStartDate <='"+datelist.get(0)+"'";
+				str1=str1+" and SStartDate >='"+datelist.get(1)+"'";
 			}
 			if(dt.equals("M")){
 				//获取月的最后一天
 				Date edate = new Date(Integer.parseInt(datee.substring(0,4))-1900, Integer.parseInt(datee.substring(5)),0);
-				str=str+" where SStartDate <='"+sdf.format(edate)+"'";
-				str1=str1+" where SStartDate >='"+dates+"'";
+				str=str+" and SStartDate <='"+sdf.format(edate)+"'";
+				str1=str1+" and SStartDate >='"+dates+"'";
 			}
 			if(dt.equals("Y")){
 				//获取月的最后一天
 				Date edate = new Date(Integer.parseInt(datee)-1900, 12,0);
-				str=str+" where SStartDate <='"+sdf.format(edate)+"'";
-				str1=str1+" where SStartDate >='"+dates+"'";
+				str=str+" and SStartDate <='"+sdf.format(edate)+"'";
+				str1=str1+" and SStartDate >='"+dates+"'";
 			}
 		}
 		str=str+" order by SStartDate desc";
@@ -177,14 +177,8 @@ public class SiteCountAction extends MyBaseAction implements IMyBaseAction{
 		}
 		if (d1!=null && d2!=null) {
 			if (dt.equals("W")) {
-				//设置序号初始值
 				int orderNumber=0;
-				Calendar ca1 = Calendar.getInstance();
-				Calendar ca2 = Calendar.getInstance();
-				ca1.set(d1.getSStartDate().getYear()+1900, d1.getSStartDate().getMonth()+1, d1.getSStartDate().getDate());
-				ca2.set(d2.getSStartDate().getYear()+1900, d2.getSStartDate().getMonth()+1, d2.getSStartDate().getDate());
-				int weekyear = d1.getSStartDate().getYear()-d2.getSStartDate().getYear();
-				int weeknum =weekyear*52 + ca1.get(Calendar.WEEK_OF_YEAR)-ca2.get(Calendar.WEEK_OF_YEAR);
+				int weeknum =(int)((d1.getSStartDate().getTime()-d2.getSStartDate().getTime())/(1000*60*60*24))/7;
 				for (int i = 0; i <= weeknum; i++) {
 					Date date = new Date(d1.getSStartDate().getYear(),d1.getSStartDate().getMonth(),d1.getSStartDate().getDate()-(7*i));
 					Date dateStart= ser.weekDate(date).get(ser.KEY_DATE_START);

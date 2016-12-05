@@ -139,6 +139,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<li><span><a href="<%=path %>/zmDataCount!queryOfFenye?cz=yes" target="right">哲盟数据检查登记统计</a></span></li>
 						<li><span><a href="<%=path %>/pdaChangeCount!queryOfFenye?cz=yes" target="right">条码变更明细统计</a></span></li>
 						<li><span><a href="<%=path %>/bqRepairCount!queryOfFenye?cz=yes" target="right">送修坂田巴枪统计</a></span></li>
+						<li><span><a href="<%=path %>/hitchesCount!queryOfFenye?cz=yes" target="right">故障登记统计</a></span></li>
         			</ul>
         		</li>
         		<li><span>桌面组</span>
@@ -158,8 +159,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<li><span><a href="<%=path %>/deviceCount!queryOfFenye?cz=yes" target="right">操作设备巡检</a></span></li>
 						<li><span><a href="<%=path %>/monitorCount!queryOfFenye?cz=yes" target="right">监控设备巡检</a></span></li>
 						<li><span><a href="<%=path %>/threeMeetingCount!queryOfFenye?cz=yes" target="right">网点巴枪维修登记</a></span></li>
-						<li><span><a href="<%=path %>/print!queryOfFenye?cz=yes" target="right">观澜仓库3楼会议室巡检</a></span></li>
-						<li><span><a href="<%=path %>/computer!queryOfFenye?cz=yes" target="right">观澜仓库会议室巡检</a></span></li>
+						<li><span><a href="<%=path %>/threeMeetingCount!queryOfFenye?cz=yes" target="right">观澜仓库3楼会议室巡检</a></span></li>
+						<li><span><a href="<%=path %>/meetingCount!queryOfFenye?cz=yes" target="right">观澜仓库会议室巡检</a></span></li>
 						<li><span><a href="<%=path %>/bq!queryOfFenye?cz=yes" target="right">外修登记</a></span></li>
         			</ul>
         		</li>

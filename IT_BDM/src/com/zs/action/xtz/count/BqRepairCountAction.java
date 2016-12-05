@@ -172,12 +172,7 @@ public class BqRepairCountAction extends MyBaseAction implements IMyBaseAction{
 		}
 		if (d1!=null && d2!=null) {
 			if (dt.equals("W")) {
-				//获取相差天数
-				Calendar ca1 = Calendar.getInstance();
-				Calendar ca2 = Calendar.getInstance();
-				ca1.set(d1.getRDate().getYear(), d1.getRDate().getMonth(), d1.getRDate().getDate());
-				ca2.set(d2.getRDate().getYear(), d2.getRDate().getMonth(), d2.getRDate().getDate());
-				int weeknum = (ca1.get(Calendar.YEAR)-ca2.get(Calendar.YEAR))*52+(ca1.get(Calendar.WEEK_OF_YEAR)-ca2.get(Calendar.WEEK_OF_YEAR));
+				int weeknum =(int)((d1.getRDate().getTime()-d2.getRDate().getTime())/(1000*60*60*24))/7;
 				//从第一天开始循环组装数据封装
 				for (int i = 0; i <=weeknum; i++) {
 					Date tmp=new Date(d1.getRDate().getYear(), d1.getRDate().getMonth(), d1.getRDate().getDate()-7*i);

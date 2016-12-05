@@ -182,12 +182,7 @@ public class OaCountAction extends MyBaseAction implements IMyBaseAction{
 			if (dt.equals("W")) {
 				//设置序号初始值
 				int orderNumber=0;
-				Calendar ca1 = Calendar.getInstance();
-				Calendar ca2 = Calendar.getInstance();
-				ca1.set(d1.getODate().getYear()+1900, d1.getODate().getMonth()+1, d1.getODate().getDate());
-				ca2.set(d2.getODate().getYear()+1900, d2.getODate().getMonth()+1, d2.getODate().getDate());
-				int weekyear = d1.getODate().getYear()-d2.getODate().getYear();
-				int weeknum =weekyear*52 + ca1.get(Calendar.WEEK_OF_YEAR)-ca2.get(Calendar.WEEK_OF_YEAR);
+				int weeknum =(int)((d1.getODate().getTime()-d2.getODate().getTime())/(1000*60*60*24))/7;
 				for (int i = 0; i <= weeknum; i++) {
 					Date date = new Date(d1.getODate().getYear(),d1.getODate().getMonth(),d1.getODate().getDate()-(7*i));
 					Date dateStart= ser.weekDate(date).get(ser.KEY_DATE_START);

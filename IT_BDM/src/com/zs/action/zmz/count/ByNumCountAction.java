@@ -177,14 +177,8 @@ public class ByNumCountAction extends MyBaseAction implements IMyBaseAction{
 			if (dt.equals("W")) {
 				//设置序号初始值
 				int orderNumber=0;
-				//获取相差天数
-				Calendar ca1 = Calendar.getInstance();
-				Calendar ca2 = Calendar.getInstance();
-				ca1.set(d1.getByServiceDate().getYear(), d1.getByServiceDate().getMonth(), d1.getByServiceDate().getDate());
-				ca2.set(d2.getByServiceDate().getYear(), d2.getByServiceDate().getMonth(), d2.getByServiceDate().getDate());
-				int weeknum = (ca1.get(Calendar.YEAR)-ca2.get(Calendar.YEAR))*52+(ca1.get(Calendar.WEEK_OF_YEAR)-ca2.get(Calendar.WEEK_OF_YEAR));
-				//从第一天开始循环组装数据封装
-				for (int i = 0; i <=weeknum+1; i++) {
+				int weeknum =(int)((d1.getByServiceDate().getTime()-d2.getByServiceDate().getTime())/(1000*60*60*24))/7;
+				for (int i = 0; i <=weeknum; i++) {
 					Date tmp=new Date(d1.getByServiceDate().getYear(), d1.getByServiceDate().getMonth(), d1.getByServiceDate().getDate()-(7*i));
 					Date dateStart=ser.weekDate(tmp).get(ser.KEY_DATE_START);
 					Date dateEnd=ser.weekDate(tmp).get(ser.KEY_DATE_END);
