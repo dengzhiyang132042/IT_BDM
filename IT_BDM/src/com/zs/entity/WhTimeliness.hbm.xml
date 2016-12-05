@@ -6,8 +6,8 @@
 -->
 <hibernate-mapping>
     <class name="com.zs.entity.WhTimeliness" table="wh_timeliness" catalog="it_bdm">
-        <id name="TId" type="java.lang.String">
-            <column name="t_id" />
+        <id name="MId" type="java.lang.String">
+            <column name="m_id" />
             <generator class="assigned" />
         </id>
         <property name="TNetPoint" type="java.lang.Integer">

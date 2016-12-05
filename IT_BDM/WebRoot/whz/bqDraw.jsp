@@ -1,6 +1,5 @@
 <%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
 <%@page import="com.zs.tools.Constant"%>
-<%@page import="java.text.SimpleDateFormat"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%
@@ -13,9 +12,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <head>
     <base href="<%=basePath%>">
     
-    <title>操作设备巡检</title>
+    <title>巴枪领取登记</title>
 	<meta http-equiv="pragma" content="no-cache">
-	<meta http-equiv="cache-control" content="no-cache">
+	<meta http-equiv="cache-control" content="no-cache">  
 	<meta http-equiv="expires" content="0">    
 	<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
 	<meta http-equiv="description" content="This is my page">
@@ -28,7 +27,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script type="text/javascript" src="<%=path %>/FRAMEWORK/jquery-easyui/jquery.min.js"></script>
 	<script type="text/javascript" src="<%=path %>/FRAMEWORK/jquery-easyui/jquery.easyui.min.js"></script>
 	<script type="text/javascript" src="<%=path %>/FRAMEWORK/My97DatePicker/WdatePicker.js"></script>
-	<link rel="stylesheet" type="text/css" href="<%=path %>/FRAMEWORK/css/mycss.css">
 	<link rel="stylesheet" type="text/css" href="<%=path %>/FRAMEWORK/css/mycss.css">
 	<script type="text/javascript" src="<%=path %>/FRAMEWORK/js/myjs.js"></script>
 	<script type="text/javascript">
@@ -44,19 +42,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			return 1;
 		}
 	}
-	function update(u1,u2,u3,u4,u5,u6,u7,u8,u9,u10,u11){
+	function update(u1,u2,u3,u4,u5,u6,u7,u8){
 		$('#u').window('open');
 		$('#u_1').val(u1);
 		$('#u_2').val(u2);
-		$('#u_3').val(u3);
-		$("#u_4_"+trans_radio(u4)).click();
-		$("#u_5_"+trans_radio(u5)).click();
+		$("#u_3_"+trans_radio(u3)).click();
+		$('#u_4').val(u4);
+		$('#u_5').val(u5);
 		$('#u_6').val(u6);
 		$('#u_7').val(u7);
 		$('#u_8').val(u8);
-		$("#u_9_"+trans_radio(u9)).click();
-		$("#u_10_"+trans_radio(u10)).click();
-		$('#u_11').val(u11);
 	}
 	function page(no,cz){
 		var num1=$('#page').val();
@@ -79,12 +74,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   
   <body>
     
-    <div class="easyui-panel" title="操作设备巡检" style="padding: 5px;display: none;" data-options="tools:'#tt'">
+    <div class="easyui-panel" title="巴枪领取登记" style="padding: 5px;display: none;" data-options="tools:'#tt'">
     
     <div style="background-color:white;margin-bottom: 5px;padding: 5px;border: 1px solid #224466; ">
     	快速查询
     	<br/>
-    	<form action="<%=path %>/device!queryOfFenye" method="post">
+    	<form action="<%=path %>/bqDraw!queryOfFenye" method="post">
     		编号:<input name="id" type="text" value="${id }"/>
     		&nbsp;&nbsp;&nbsp;&nbsp;
     		日期:
@@ -101,35 +96,30 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <table border="1" id="eidtASubjectWindow1" style="font-size: 12px;">
     <tr>
     	<th width="130px">编号</th>
-    	<th>日期</th>
-    	<th>巡检时间</th>
-    	<th>电子称较称</th>
-    	<th>称平台是否平稳</th>
-    	<th>异常描述</th>
-    	<th>处理结果</th>
-    	<th>巡检IT</th>
-    	<th>周保养</th>
-    	<th>月保养</th>
-    	<th>备注</th>
+    	<th>返回单号</th>
+    	<th>是否领取</th>
+    	<th>领取人</th>
+    	<th>联系电话</th>
+    	<th>领取日期</th>
+    	<th>附带配件</th>
+    	<th>发放IT</th>
     	<th>操作</th>
     </tr>
-    <c:forEach items="${devices}" var="d">
+    <c:forEach items="${bds}" var="d">
     <tr>
-		<td width="">${d.DId }</td>
-		<td width=""><fmt:formatDate value="${d.DDate }" pattern="yyyy-MM-dd" /></td>
-		<td width=""><fmt:formatDate value="${d.DTime }" pattern="HH:mm" /></td>
-		<td width="">${d.DFit }</td>
-		<td width="">${d.DFitFirm }</td>
-		<td width="">${d.DAbnormalNote }</td>
-		<td width="">${d.DResult }</td>
+		<td width="">${d.MId }</td>
+		<td width="">${d.EId }</td>
+		<td width="">${d.DDraw }</td>
+		<td width="">${d.DMan }</td>
+		<td width="">${d.DPhone }</td>
+		<td width=""><fmt:formatDate value="${d.DDate }" pattern="HH:mm" /></td>
+		<td width="">${d.DAppendix }</td>
 		<td width="">${d.DIt }</td>
-		<td width="">${d.DWeekMaintain }</td>
-		<td width="">${d.DMonthMaintain }</td>
-		<td width="">${d.DNote }</td>
 		<td width="5%" align="center">
-			<a onclick="update('${d.DId }','<fmt:formatDate value="${d.DDate }" pattern="yyyy-M-d" />','<fmt:formatDate value="${d.DTime }" pattern="HH:mm" />','${d.DFit }',
-			'${d.DFitFirm }','${d.DAbnormalNote}','${d.DResult }','${d.DIt }','${d.DWeekMaintain }','${d.DMonthMaintain }','${d.DNote }' )" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-edit'" title="修改"></a>
-			<a href="<%=path %>/device!delete?id=${d.DId}" onclick="return confirm('确定删除吗?')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-delete'" title="删除"></a>
+			<a href="<%=path %>/exp!queryOfFenye?id=${d.EId}&idlike=no" class="easyui-linkbutton">返回单号</a>
+			<a onclick="update('${d.MId }','${d.EId }','${d.DDraw }','${d.DMan }',
+			'${d.DPhone }','${d.DDate}','${d.DAppendix }','${d.DIt }')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-edit'" title="修改"></a>
+			<a href="<%=path %>/bqDraw!delete?id=${d.MId}" onclick="return confirm('确定删除吗?')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-delete'" title="删除"></a>
 		</td>
     </tr>
     </c:forEach>
@@ -137,7 +127,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</div>
 	
 	<div class="easyui-panel" style="padding:5px;width: 100%;display: none;">
-		<form id="f1" action="<%=path %>/device!queryOfFenye?id=${id}&sn=${sn }&num=${num }&dates=${dates}&datee=${datee}" method="post">
+		<form id="f1" action="<%=path %>/bqDraw!queryOfFenye?id=${id}&sn=${sn }&dates=${dates}&datee=${datee}" method="post">
 		<select id="sele" style="float: left;margin-top: 3px;margin-left: 5px;" name="page.size" onchange="$('#f1').submit();">
 			<option value="5">5</option>
 			<option value="10">10</option>
@@ -167,64 +157,55 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</div>
 	
 	<div id="u" class="easyui-window" title="修改" data-options="modal:true,closed:true" style="width:500px;height:auto;padding:10px;display: none;">
-		<form action="<%=path %>/device!update" method="post">
+		<form action="<%=path %>/bqDraw!update" method="post">
 		<table border="0" class="table1">
 			<tr>
 				<td width="120">编号：</td>
 				<td>
-					<input id="u_1" name="device.DId" type="text" style="width: 100%;" readonly="readonly"/>
+					<input id="u_1" name="bd.MId" type="text" style="width: 100%;" readonly="readonly"/>
 				</td>
 			</tr>
 			<tr>
-				<td>巡检时间：</td>
+				<td>返回单号：</td>
 				<td>
-					<input id="u_3" name="d_time" type="text" style="width: 100%;" onfocus="WdatePicker({dateFmt:'HH:mm'})" class="Wdate"/>
+					<input id="u_2" name="bd.EId" type="text" style="width: 100%;" readonly="readonly"/>
 				</td>
 			</tr>
 			<tr>
-				<td>电子秤较称：</td>
-				<td> 
-					<input id="u_4_0" name="device.DFit" type="radio" value="是" checked="checked"/>是
-					<input id="u_4_1" name="device.DFit" type="radio" value="否"/>否
-				</td>
-			</tr>
-			<tr>
-				<td>称平台是否平稳：</td>
+				<td>是否领取：</td>
 				<td>
-					<input id="u_5_0" name="device.DFitFirm" type="radio" value="是" checked="checked"/>是
-					<input id="u_5_1" name="device.DFitFirm" type="radio" value="否"/>否
+					<input id="u_3_0" name="bd.DDraw" type="radio" value="是" checked="checked"/>是
+					<input id="u_3_1" name="bd.DDraw" type="radio" value="否"/>否
 				</td>
 			</tr>
 			<tr>
-				<td>异常描述：</td>
+				<td>领取人：</td>
 				<td>
-					<input id="u_6" name="device.DAbnormalNote" type="text" style="width: 100%;"/>
+					<input id="u_4" name="bd.DMan" type="text" style="width: 100%;"/>
 				</td>
 			</tr>
 			<tr>
-				<td>处理结果：</td>
+				<td>联系电话：</td>
 				<td>
-					<input id="u_7" name="device.DResult" type="text" style="width: 100%;"/>
+					<input id="u_5" name="bd.DPhone" type="text" style="width: 100%;"/>
 				</td>
 			</tr>
 			<tr>
-				<td>周保养：</td>
+				<td>领取日期：</td>
 				<td>
-					<input id="u_9_0" name="device.DWeekMaintain" type="radio" value="是" checked="checked"/>是
-					<input id="u_9_1" name="device.DWeekMaintain" type="radio" value="否"/>否
+					<input id="u_6" name="bd.DDate" type="text" style="width: 100%;" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})" class="Wdate"/>
 				</td>
 			</tr>
 			<tr>
-				<td>月保养：</td>
+				<td>附带配件：</td>
 				<td>
-					<input id="u_10_0" name="device.DMonthMaintain" type="radio" value="是" checked="checked"/>是
-					<input id="u_10_1" name="device.DMonthMaintain" type="radio" value="否"/>否
+					<input id="u_7" name="bd.DAppendix" type="text" style="width: 100%;"/>
 				</td>
 			</tr>
 			<tr>
-				<td>备注：</td>
+				<td>发放IT：</td>
 				<td>
-					<input id="u_11" name="device.DNote" type="text" style="width: 100%;"/>
+					<input id="u_8" name="bd.DIt" type="text" style="width: 100%;"/>
 				</td>
 			</tr>
 			<tr>
@@ -237,58 +218,55 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</div>
 	
 	<div id="a" class="easyui-window" title="添加" data-options="modal:true,closed:true" style="width:500px;height:auto;padding:10px;display: none;">
-		<form action="<%=path %>/device!add" method="post">
+		<form action="<%=path %>/bqDraw!add" method="post">
 		<table border="0" class="table1">
 			<tr>
-				<td width="120">巡检时间：</td>
+				<td width="120">编号：</td>
 				<td>
-					<input name="d_time" type="text" onfocus="WdatePicker({dateFmt:'HH:mm'})" class="Wdate" style="width: 100%;" value="<%=new SimpleDateFormat("HH:mm").format(new Date()) %>"/>
+					<input name="bd.MId" type="text" style="width: 100%;" value="${id }" readonly="readonly"/>
 				</td>
 			</tr>
 			<tr>
-				<td>电子秤较称：</td>
+				<td>返回单号：</td>
 				<td>
-					<input type="radio" name="device.DFit" value="是" checked="checked"/>是
-					<input type="radio" name="device.DFit" value="否"/>否
+					<input name="bd.EId" type="text" style="width: 100%;"/>
 				</td>
 			</tr>
 			<tr>
-				<td>称平台是否平稳：</td>
+				<td>是否领取：</td>
 				<td>
-					<input type="radio" name="device.DFitFirm" value="是" checked="checked"/>是
-					<input type="radio" name="device.DFitFirm" value="否"/>否
+					<input name="bd.DDraw" type="radio" value="是" checked="checked"/>是
+					<input name="bd.DDraw" type="radio" value="否"/>否
 				</td>
 			</tr>
 			<tr>
-				<td>异常描述：</td>
+				<td>领取人：</td>
 				<td>
-					<input name="device.DAbnormalNote" type="text" style="width: 100%;"/>
+					<input name="bd.DMan" type="text" style="width: 100%;"/>
 				</td>
 			</tr>
 			<tr>
-				<td>处理结果：</td>
+				<td>联系电话：</td>
 				<td>
-					<input name="device.DResult" type="text" style="width: 100%;"/>
+					<input name="bd.DPhone" type="text" style="width: 100%;"/>
 				</td>
 			</tr>
 			<tr>
-				<td>周保养：</td>
+				<td>领取日期：</td>
 				<td>
-					<input type="radio" name="device.DWeekMaintain" value="是" checked="checked"/>是
-					<input type="radio" name="device.DWeekMaintain" value="否"/>否
+					<input name="bd.DDate" type="text" style="width: 100%;" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})" class="Wdate"/>
 				</td>
 			</tr>
 			<tr>
-				<td>月保养：</td>
+				<td>附带配件：</td>
 				<td>
-					<input type="radio" name="device.DMonthMaintain" value="是" checked="checked"/>是
-					<input type="radio" name="device.DMonthMaintain" value="否"/>否
+					<input name="bd.DAppendix" type="text" style="width: 100%;"/>
 				</td>
 			</tr>
 			<tr>
-				<td>备注：</td>
+				<td>发放IT：</td>
 				<td>
-					<input name="device.DNote" type="text" style="width: 100%;"/>
+					<input name="bd.DIt" type="text" style="width: 100%;"/>
 				</td>
 			</tr>
 			<tr>
@@ -301,34 +279,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</div>
 	
 	<div id="tt" style="display: none;">
-		<a class="icon-zs-import" onclick="$('#in').window('open')" style="margin-left: 10px;" title="excel导入"></a>
 		<a class="icon-add" onclick="$('#a').window('open')" style="margin-left: 10px;" title="添加"></a>
 	</div>
 	
 	
-	<div id="in" class="easyui-window" title="数据导入" data-options="modal:true,closed:true" style="width:400px;height:auto;padding:10px;display: none;overflow-x:hidden;">
-		<form action="<%=path %>/device!importExcel" method="post" enctype="multipart/form-data">
-		<table border="1">
-			<tr>
-				<td>Excel模板</td>
-				<td onmousemove="$(this).css('background-color','red');" onmouseout="$(this).css('background-color','white');" style="cursor: pointer;" onclick="window.location.href='<%=path%>/files/import/whz/操作设备巡检.xlsx';">
-					下载模板
-				</td>
-			</tr>
-			<tr>
-				<td>导入Excel数据</td>
-				<td>
-					<input type="file" name="fileExcel"/>
-				</td>
-			</tr>
-			<tr>
-				<td colspan="2">
-					<input type="submit" value="导入" onclick="return show_hint(['in'])"/>	
-				</td>
-			</tr>
-		</table>
-		</form>
-	</div>
+	
+	
 	
 	<jsp:include page="../hintModal.jsp"/>
 	

@@ -9,13 +9,19 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import net.sf.json.JSONObject;
+
+import org.apache.log4j.Logger;
+
 import com.zs.action.MyBaseAction;
 import com.zs.entity.Users;
 import com.zs.entity.WhMassageReceive;
 import com.zs.entity.WhMonitorScout;
+import com.zs.entity.WhTimeliness;
 import com.zs.entity.XtPdaLoss;
 import com.zs.service.IService;
 import com.zs.service.iDataImportService;
+import com.zs.service.iWhTimelineService;
 import com.zs.service.iXtPdaLossService;
 import com.zs.tools.NameOfDate;
 import com.zs.tools.Page;
@@ -25,9 +31,10 @@ public class MassageAction extends MyBaseAction{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	
+	private Logger log=Logger.getLogger(MassageAction.class); 
 	IService ser;
 	iDataImportService importSer;
+	iWhTimelineService tlSer;
 	Page page;
 	
 	WhMassageReceive massage;
@@ -41,6 +48,13 @@ public class MassageAction extends MyBaseAction{
 	private String fileExcelFileName; 
 	
 	
+	
+	public iWhTimelineService getTlSer() {
+		return tlSer;
+	}
+	public void setTlSer(iWhTimelineService tlSer) {
+		this.tlSer = tlSer;
+	}
 	public String getDates() {
 		return dates;
 	}
@@ -196,4 +210,42 @@ public class MassageAction extends MyBaseAction{
 		return gotoQuery();
 	}
 	
+	public String queryTime() {
+		String mid;
+		try {
+			mid = getRequest().getParameter("mid");
+			if (mid!=null) {
+				WhTimeliness tlt=(WhTimeliness) ser.get(WhTimeliness.class, mid);
+				if (tlt!=null) {
+					JSONObject json=JSONObject.fromObject(tlt);
+					getOut().print(json);
+					getOut().flush();
+					getOut().close();
+					return null;
+				}else {
+					WhTimeliness tl=tlSer.getTimeliness(mid);
+					tlSer.saveTimeliness(tl);
+					JSONObject json=JSONObject.fromObject(tl);
+					getOut().print(json);
+					getOut().flush();
+					getOut().close();
+					return null;
+				}
+			}
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+			log.error("查询时效错误:获取mid错误");
+		} catch (IOException e) {
+			e.printStackTrace();
+			log.error("查询时效错误：json转换错误");
+		}
+		try {
+			getOut().print("null");
+			getOut().flush();
+			getOut().close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
 }

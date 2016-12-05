@@ -10,9 +10,8 @@ public class WhBqDraw implements java.io.Serializable {
 
 	// Fields
 
-	private String DId;
+	private String MId;
 	private String EId;
-	private String DSn;
 	private String DDraw;
 	private String DMan;
 	private String DPhone;
@@ -27,16 +26,15 @@ public class WhBqDraw implements java.io.Serializable {
 	}
 
 	/** minimal constructor */
-	public WhBqDraw(String DId) {
-		this.DId = DId;
+	public WhBqDraw(String MId) {
+		this.MId = MId;
 	}
 
 	/** full constructor */
-	public WhBqDraw(String DId, String EId, String DSn, String DDraw,
+	public WhBqDraw(String MId, String EId, String DDraw,
 			String DMan, String DPhone, Date DDate, String DAppendix, String DIt) {
-		this.DId = DId;
+		this.MId = MId;
 		this.EId = EId;
-		this.DSn = DSn;
 		this.DDraw = DDraw;
 		this.DMan = DMan;
 		this.DPhone = DPhone;
@@ -47,12 +45,12 @@ public class WhBqDraw implements java.io.Serializable {
 
 	// Property accessors
 
-	public String getDId() {
-		return this.DId;
+	public String getMId() {
+		return this.MId;
 	}
 
-	public void setDId(String DId) {
-		this.DId = DId;
+	public void setMId(String MId) {
+		this.MId = MId;
 	}
 
 	public String getEId() {
@@ -61,14 +59,6 @@ public class WhBqDraw implements java.io.Serializable {
 
 	public void setEId(String EId) {
 		this.EId = EId;
-	}
-
-	public String getDSn() {
-		return this.DSn;
-	}
-
-	public void setDSn(String DSn) {
-		this.DSn = DSn;
 	}
 
 	public String getDDraw() {
