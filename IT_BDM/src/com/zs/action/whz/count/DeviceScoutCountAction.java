@@ -168,13 +168,8 @@ public class DeviceScoutCountAction extends MyBaseAction implements IMyBaseActio
 			if (dt.equals("W")) {
 				//设置序号初始值
 				int orderNumber=0;
-				Calendar ca1 = Calendar.getInstance();
-				Calendar ca2 = Calendar.getInstance();
-				ca1.set(d1.getDTime().getYear()+1900, d1.getDTime().getMonth()+1, d1.getDTime().getDate());
-				ca2.set(d2.getDTime().getYear()+1900, d2.getDTime().getMonth()+1, d2.getDTime().getDate());
-				int weekyear = d1.getDTime().getYear()-d2.getDTime().getYear();
-				int weeknum =weekyear*52 + ca1.get(Calendar.WEEK_OF_YEAR)-ca2.get(Calendar.WEEK_OF_YEAR);
-				for (int i = 0; i <= weeknum+1; i++) {
+				int weeknum =(int)((d1.getDTime().getTime()-d2.getDTime().getTime())/(1000*60*60*24))/7;
+				for (int i = 0; i <= weeknum; i++) {
 					Date date = new Date(d1.getDTime().getYear(),d1.getDTime().getMonth(),d1.getDTime().getDate()-(7*i));
 					Date dateStart= ser.weekDate(date).get(ser.KEY_DATE_START);
 					Date dateEnd=ser.weekDate(date).get(ser.KEY_DATE_END);

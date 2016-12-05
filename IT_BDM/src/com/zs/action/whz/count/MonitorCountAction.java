@@ -169,13 +169,8 @@ public class MonitorCountAction extends MyBaseAction implements IMyBaseAction{
 			if (dt.equals("W")) {
 				//设置序号初始值
 				int orderNumber=0;
-				Calendar ca1 = Calendar.getInstance();
-				Calendar ca2 = Calendar.getInstance();
-				ca1.set(d1.getMTime().getYear()+1900, d1.getMTime().getMonth()+1, d1.getMTime().getDate());
-				ca2.set(d2.getMTime().getYear()+1900, d2.getMTime().getMonth()+1, d2.getMTime().getDate());
-				int weekyear = d1.getMTime().getYear()-d2.getMTime().getYear();
-				int weeknum =weekyear*52 + ca1.get(Calendar.WEEK_OF_YEAR)-ca2.get(Calendar.WEEK_OF_YEAR);
-				for (int i = 0; i <= weeknum+1; i++) {
+				int weeknum =(int)((d1.getMTime().getTime()-d2.getMTime().getTime())/(1000*60*60*24))/7;
+				for (int i = 0; i <= weeknum; i++) {
 					Date date = new Date(d1.getMTime().getYear(),d1.getMTime().getMonth(),d1.getMTime().getDate()-(7*i));
 					Date dateStart= ser.weekDate(date).get(ser.KEY_DATE_START);
 					Date dateEnd=ser.weekDate(date).get(ser.KEY_DATE_END);

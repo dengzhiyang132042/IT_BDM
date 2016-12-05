@@ -162,14 +162,8 @@ public class VpnCountAction extends MyBaseAction implements IMyBaseAction{
 		}
 		if (d1!=null && d2!=null) {
 			if (dt.equals("W")) {
-				//获取相差天数
-				Calendar ca1 = Calendar.getInstance();
-				Calendar ca2 = Calendar.getInstance();
-				ca1.set(d1.getVDate().getYear(), d1.getVDate().getMonth(), d1.getVDate().getDate());
-				ca2.set(d2.getVDate().getYear(), d2.getVDate().getMonth(), d2.getVDate().getDate());
-				int weeknum = (ca1.get(Calendar.YEAR)-ca2.get(Calendar.YEAR))*52+(ca1.get(Calendar.WEEK_OF_YEAR)-ca2.get(Calendar.WEEK_OF_YEAR));
-				//从第一天开始循环组装数据封装
-				for (int i = 0; i <=weeknum+1; i++) {
+				int weeknum =(int)((d1.getVDate().getTime()-d2.getVDate().getTime())/(1000*60*60*24))/7;
+				for (int i = 0; i <=weeknum; i++) {
 					Date tmp=new Date(d2.getVDate().getYear(), d2.getVDate().getMonth(), d2.getVDate().getDate()+7*i,0,0,0);
 					Date dateStart=ser.weekDate(tmp).get(ser.KEY_DATE_START);
 					Date dateEnd=ser.weekDate(tmp).get(ser.KEY_DATE_END);

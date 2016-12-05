@@ -380,6 +380,13 @@
      <result name="succ">/success.jsp</result>
      <result name="fail">/fail.jsp</result>
   </action>
+  <action name="hitchesCount" class="hgh_count_hitches">	
+  	 <interceptor-ref name="mydefault" />
+     <result>/index.jsp</result>
+     <result name="hitchesCount">/xtz_count/hitches_count.jsp</result>
+     <result name="succ">/success.jsp</result>
+     <result name="fail">/fail.jsp</result>
+  </action>
   <!--桌面组  -->
   <action name="vpnCount" class="zs_count_vpn">	
   	 <interceptor-ref name="mydefault" />
@@ -442,6 +449,13 @@
   	 <interceptor-ref name="mydefault" />
      <result>/index.jsp</result>
      <result name="threeMeetingCount">/whz_count/three_meeting_count.jsp</result>
+     <result name="succ">/success.jsp</result>
+     <result name="fail">/fail.jsp</result>
+  </action>
+  <action name="meetingCount" class="hgh_count_meeting">	
+  	 <interceptor-ref name="mydefault" />
+     <result>/index.jsp</result>
+     <result name="meetingCount">/whz_count/meeting_count.jsp</result>
      <result name="succ">/success.jsp</result>
      <result name="fail">/fail.jsp</result>
   </action>

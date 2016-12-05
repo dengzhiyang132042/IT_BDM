@@ -15,10 +15,8 @@ import net.sf.json.JSONArray;
 
 import com.zs.action.IMyBaseAction;
 import com.zs.action.MyBaseAction;
-import com.zs.entity.WhThreeMeetingScout;
-import com.zs.entity.XtSite;
-import com.zs.entity.custom.WhDeviceScoutCount;
-import com.zs.entity.custom.WhThreeMeetingCount;
+import com.zs.entity.WhMeetingScout;
+import com.zs.entity.custom.WhMeetingCount;
 
 import com.zs.service.IService;
 import com.zs.tools.Constant;
@@ -26,7 +24,7 @@ import com.zs.tools.ExcelExport;
 import com.zs.tools.Page;
 import com.zs.tools.WeekDateArea;
 
-public class ThreeMeetingCountAction extends MyBaseAction implements IMyBaseAction{
+public class MeetingCountAction extends MyBaseAction implements IMyBaseAction{
 
 	/**
 	 * 
@@ -35,18 +33,18 @@ public class ThreeMeetingCountAction extends MyBaseAction implements IMyBaseActi
 	IService ser;
 	Page page;
 	
-	List<WhThreeMeetingCount> counts;
+	List<WhMeetingCount> counts;
 	
 	String filtrate;
 	
-	String result="threeMeetingCount";
+	String result="meetingCount";
 	String result_succ="succ";
 	String result_fail="fail";
 	
 	String dates;
 	String datee;
 	
-	Logger logger=Logger.getLogger(ThreeMeetingCountAction.class);
+	Logger logger=Logger.getLogger(MeetingCountAction.class);
 //----------------------------------------------------	
 	
 	public IService getSer() {
@@ -70,10 +68,10 @@ public class ThreeMeetingCountAction extends MyBaseAction implements IMyBaseActi
 	public void setFiltrate(String filtrate) {
 		this.filtrate = filtrate;
 	}
-	public List<WhThreeMeetingCount> getCounts() {
+	public List<WhMeetingCount> getCounts() {
 		return counts;
 	}
-	public void setCounts(List<WhThreeMeetingCount> counts) {
+	public void setCounts(List<WhMeetingCount> counts) {
 		this.counts = counts;
 	}
 	public void setSer(IService ser) {
@@ -104,10 +102,10 @@ public class ThreeMeetingCountAction extends MyBaseAction implements IMyBaseActi
 	 * 组装count
 	 */
 	private void initCount(Date dateStart,Date dateEnd,List counts,int num,int orderNumber) {
-		List list1=ser.find("from WhThreeMeetingScout where TDate>=? and TDate<=?", new Object[]{new Timestamp(dateStart.getTime()),new Timestamp(dateEnd.getTime())});
-		List list2 = ser.find("from WhThreeMeetingScout where TDate>=? and TDate<=? and TNote!=''", new Object[]{new Timestamp(dateStart.getTime()),new Timestamp(dateEnd.getTime())});
+		List list1=ser.find("from WhMeetingScout where MDate>=? and MDate<=?", new Object[]{new Timestamp(dateStart.getTime()),new Timestamp(dateEnd.getTime())});
+		List list2 = ser.find("from WhMeetingScout where MDate>=? and MDate<=? and MNote!=''", new Object[]{new Timestamp(dateStart.getTime()),new Timestamp(dateEnd.getTime())});
 		for(int i = 0; i < 2; i++){
-			WhThreeMeetingCount count = new WhThreeMeetingCount();
+			WhMeetingCount count = new WhMeetingCount();
 				count.setsTime(new Timestamp(dateStart.getTime()));
 				count.seteTime(new Timestamp(dateEnd.getTime()));
 				count.setOrderNum(orderNumber);
@@ -130,48 +128,48 @@ public class ThreeMeetingCountAction extends MyBaseAction implements IMyBaseActi
 	 * @param dt
 	 * @throws ParseException
 	 */
-	private void initCounts(List<WhThreeMeetingCount> counts,String dt) throws ParseException {
+	private void initCounts(List<WhMeetingCount> counts,String dt) throws ParseException {
 		//获取两个头尾的时间
-		WhThreeMeetingScout d1 = null,d2=null;
-		String str="from WhThreeMeetingScout where TDate!=null ";
-		String str1="from WhThreeMeetingScout where TDate!=null";
+		WhMeetingScout d1 = null,d2=null;
+		String str="from WhMeetingScout where MDate!=null ";
+		String str1="from WhMeetingScout where MDate!=null";
 		SimpleDateFormat sdf= new SimpleDateFormat("yyyy-MM-dd");
 		if(dates!=null&&datee!=null&&!dates.equals("")&&!datee.equals("")){
 			if(dt.equals("W")){
 				List datelist = WeekDateArea.weekdate(dates, datee);
-				str=str+" and TDate <='"+datelist.get(0)+"'";
-				str1=str1+" and TDate >='"+datelist.get(1)+"'";
+				str=str+" and MDate <='"+datelist.get(0)+"'";
+				str1=str1+" and MDate >='"+datelist.get(1)+"'";
 			}
 			if(dt.equals("M")){
 				//获取月的最后一天
 				Date edate = new Date(Integer.parseInt(datee.substring(0,4))-1900, Integer.parseInt(datee.substring(5)),0);
-				str=str+" and TDate <='"+sdf.format(edate)+"'";
-				str1=str1+" and TDate >='"+dates+"'";
+				str=str+" and MDate <='"+sdf.format(edate)+"'";
+				str1=str1+" and MDate >='"+dates+"'";
 			}
 			if(dt.equals("Y")){
 				//获取月的最后一天
 				Date edate = new Date(Integer.parseInt(datee)-1900, 12,0);
-				str=str+" and TDate <='"+sdf.format(edate)+"'";
-				str1=str1+" and TDate >='"+dates+"'";
+				str=str+" and MDate <='"+sdf.format(edate)+"'";
+				str1=str1+" and MDate >='"+dates+"'";
 			}
 		}
-		str=str+" order by TDate desc";
+		str=str+" order by MDate desc";
 		List list=ser.query(str, null, str, page, ser);
 		if (list.size()>0) {
-			d1=(WhThreeMeetingScout) list.get(0);//尾巴
+			d1=(WhMeetingScout) list.get(0);//尾巴
 		}
-		str1=str1+" order by TDate asc";
+		str1=str1+" order by MDate asc";
 		list=ser.query(str1, null, str1, page, ser);
 		if (list.size()>0) {
-			d2=(WhThreeMeetingScout) list.get(0);//头
+			d2=(WhMeetingScout) list.get(0);//头
 		}
 		if (d1!=null && d2!=null) {
 			if (dt.equals("W")) {
 				//设置序号初始值
 				int orderNumber=0;
-				int weeknum =(int)((d1.getTDate().getTime()-d2.getTDate().getTime())/(1000*60*60*24))/7;
+				int weeknum =(int)((d1.getMDate().getTime()-d2.getMDate().getTime())/(1000*60*60*24))/7;
 				for (int i = 0; i <= weeknum; i++) {
-					Date date = new Date(d1.getTDate().getYear(),d1.getTDate().getMonth(),d1.getTDate().getDate()-(7*i));
+					Date date = new Date(d1.getMDate().getYear(),d1.getMDate().getMonth(),d1.getMDate().getDate()-(7*i));
 					Date dateStart= ser.weekDate(date).get(ser.KEY_DATE_START);
 					Date dateEnd=ser.weekDate(date).get(ser.KEY_DATE_END);
 					Calendar ca3 = Calendar.getInstance();
@@ -184,11 +182,11 @@ public class ThreeMeetingCountAction extends MyBaseAction implements IMyBaseActi
 				//设置序号初始值
 				int orderNumber = 0;
 				//获取相差月数
-				long ms=(d1.getTDate().getYear()-d2.getTDate().getYear())*12+(d1.getTDate().getMonth()-d2.getTDate().getMonth());
+				long ms=(d1.getMDate().getYear()-d2.getMDate().getYear())*12+(d1.getMDate().getMonth()-d2.getMDate().getMonth());
 				for (int i = 0; i <= ms; i++) {
-					Date dateStart=new Date(d1.getTDate().getYear(), d1.getTDate().getMonth()-i, 1,0,0,0);
+					Date dateStart=new Date(d1.getMDate().getYear(), d1.getMDate().getMonth()-i, 1,0,0,0);
 					Calendar ca = Calendar.getInstance();    
-					ca.set(1900+d1.getTDate().getYear(), 1+d1.getTDate().getMonth()-i, 0);
+					ca.set(1900+d1.getMDate().getYear(), 1+d1.getMDate().getMonth()-i, 0);
 					Date dateTmp=ca.getTime();
 					Date dateEnd=new Date(dateTmp.getYear(), dateTmp.getMonth(), dateTmp.getDate(),23,59,59);
 					int m=dateStart.getMonth();
@@ -199,10 +197,10 @@ public class ThreeMeetingCountAction extends MyBaseAction implements IMyBaseActi
 				//设置序号初始值
 				int orderNumber = 0;
 				//获得相差年数
-				long ys=d1.getTDate().getYear()-d2.getTDate().getYear();
+				long ys=d1.getMDate().getYear()-d2.getMDate().getYear();
 				for (int i = 0; i <= ys; i++) {
-					Date dateStart=new Date(d1.getTDate().getYear()-i, 0, 1,0,0,0);
-					Date dateEnd=new Date(d1.getTDate().getYear()-i, 11, 31,23,59,59);
+					Date dateStart=new Date(d1.getMDate().getYear()-i, 0, 1,0,0,0);
+					Date dateEnd=new Date(d1.getMDate().getYear()-i, 11, 31,23,59,59);
 					int y=dateStart.getYear();
 					orderNumber++;
 					initCount(dateStart, dateEnd, counts,y+1900,orderNumber);
@@ -223,7 +221,7 @@ public class ThreeMeetingCountAction extends MyBaseAction implements IMyBaseActi
 			clearOptions();
 		}
 		clearSpace();
-		counts=new ArrayList<WhThreeMeetingCount>();
+		counts=new ArrayList<WhMeetingCount>();
 		if(id!=null){
 			/*
 			由于是统计模块所以不需要按编号查询功能，但为了兼容，故保留，只不过其代码为空而已。
@@ -266,7 +264,7 @@ public class ThreeMeetingCountAction extends MyBaseAction implements IMyBaseActi
 	}
 	public String exportExc() throws Exception{
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-		String filePath=getRequest().getRealPath("/")+"/files/export/whz/3楼会议室巡检统计.xls";
+		String filePath=getRequest().getRealPath("/")+"/files/export/whz/会议室巡检统计.xls";
 		String dayType = "周数";
 		if(filtrate.equals("M")){
 			dayType = "月数";

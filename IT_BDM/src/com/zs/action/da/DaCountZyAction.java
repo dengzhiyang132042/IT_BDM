@@ -153,6 +153,16 @@ public class DaCountZyAction extends MyBaseAction implements IMyBaseAction{
 					Date dateEnd=new Date(d1.getDTime().getYear(), d1.getDTime().getMonth(), d1.getDTime().getDate()-k,23, 59, 59);
 					initCount(dateStart, dateEnd, counts);
 				}				
+			}else if (dt.equals("W")) {
+				int weeknum =(int)((d1.getDTime().getTime()-d2.getDTime().getTime())/(1000*60*60*24))/7;
+				for (int i = 0; i <= weeknum; i++) {
+					Date date = new Date(d1.getDTime().getYear(),d1.getDTime().getMonth(),d1.getDTime().getDate()-(7*i));
+					Date dateStart= ser.weekDate(date).get(ser.KEY_DATE_START);
+					Date dateEnd=ser.weekDate(date).get(ser.KEY_DATE_END);
+					Calendar ca3 = Calendar.getInstance();
+					ca3.setTime(dateStart);
+					initCount(dateStart, dateEnd, counts);
+				}
 			}else if (dt.equals("M")) {
 				//获取相差月数
 				long ms=(d1.getDTime().getYear()-d2.getDTime().getYear())*12+(d1.getDTime().getMonth()-d2.getDTime().getMonth());

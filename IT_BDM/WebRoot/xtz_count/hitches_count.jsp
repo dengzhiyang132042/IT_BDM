@@ -11,7 +11,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <head>
     <base href="<%=basePath%>">
     
-    <title>3楼会议室巡检统计</title>
+    <title>故障登记统计</title>
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
 	<meta http-equiv="expires" content="0">    
@@ -71,7 +71,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		var a2=new Array()
 		a2=datee.split(" ");
 		//console.log(a2[0]);
-		var path="<%=path%>/device!queryOfFenye?cz=no&id=&dates="+a1[0]+"&datee="+a2[0];
+		var path="<%=path%>/hitches!queryOfFenye?cz=no&id=&dates="+a1[0]+"&datee="+a2[0];
 		//console.log(path);
 		window.location.href=path;
 	}
@@ -90,12 +90,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		}
 	}
 	function xiazai(){
-		var path ="<%=path %>/threeMeetingCount!exportExc";
+		var path ="<%=path %>/hitchesCount!exportExc";
+		//console.log("----------------------");
 		$.post(
 			path,
 			function(){
 				//console.log(result);
-				window.location.href="<%=path%>/files/export/whz/3楼会议室巡检统计.xls";
+				window.location.href="<%=path%>/files/export/xtz/故障登记统计.xls";
 			}
 		);
 	}
@@ -114,16 +115,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	  }
 	</style>
   </head>
-  <%boolean isAddColor=false; %>
+  
   <body>
- 	<div style="text-align: center;margin-right: 17px;color: white;background-color:#17B4FF;padding: 5px;font-size: 14px;font-weight:bold;">3楼会议室巡检统计</div>
+ 	<div style="text-align: center;margin-right: 17px;color: white;background-color:#17B4FF;padding: 5px;font-size: 14px;font-weight:bold;">故障登记统计</div>
  	
  	
 	<div style="background-color:white;margin-bottom: 5px;padding: 5px;border: 1px solid #224466;margin-right: 17px;margin-top: 10px;">
-    	快速查询
-    	<br/>
-    	<form action="<%=path %>/threeMeetingCount!queryOfFenye" method="post">
-    		当前查询条件:
+    	<div>
+	    	快速查询
+	    	<br/>
+	    	<form action="<%=path %>/hitchesCount!queryOfFenye" method="post">
+	    	当前查询条件:
     		<select id="sel_dt" name="filtrate" onchange="changeDate()">
     			<option value="W">周</option>
     			<option value="M">月</option>
@@ -132,9 +134,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     		&nbsp;&nbsp;&nbsp;&nbsp;
     		选择日期:<span id ="datearea"></span>
     		<br/>
-    		<input type="submit" value="查询"/>
-    		<input type= "button" onclick="xiazai()" value="导出" />
-    	</form>	
+	    		<input type="submit" value="查询"/>
+	    	</form>	
+	    	<input type= "button" onclick="xiazai()" value="导出" />
+    	</div>
     </div>
     <div style="margin-bottom: 5px;">
 	    
@@ -146,31 +149,27 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    	<th>开始时间</th>
 	    	<th>结束时间</th>
 	    	<th>
+	    		<c:if test="${filtrate=='D'}">日</c:if>
 	    		<c:if test="${filtrate=='W'}">周</c:if>
 	    		<c:if test="${filtrate=='M'}">月</c:if>
 	    		<c:if test="${filtrate=='Y'}">年</c:if>
 	    		数</th>
-	    	<th>巡检类型</th>
-	    	<th>数量</th>
+	    	<th>维护数量</th>
 	    	<th>操作</th>
 	    </tr>
 	    <c:forEach items="${counts}" var="count" varStatus="status">
-	    <c:if test="${count.rows!=0}">
-    		<%isAddColor=!isAddColor; %>
-   		</c:if>
-	   	<%if(isAddColor){ %>
-	    <tr class="odd_even_tr">
-	    <%}else{ %>
-	    <tr>
-	    <%} %>
-	    	<c:if test="${count.rows!=0}">
-	    		
-		    	<td rowspan="${count.rows}">${count.orderNum }</td>
-		    	<td rowspan="${count.rows}"><fmt:formatDate value="${count.sTime }" pattern="yyyy-M-d HH:mm:ss" /></td>
-		    	<td rowspan="${count.rows}"><fmt:formatDate value="${count.eTime }" pattern="yyyy-M-d HH:mm:ss" /></td>
-	    		<td rowspan="${count.rows}">${count.number }</td>
-	    	</c:if>
-	    	<td>${count.abnormal }</td>
+	    <c:choose>
+	    	<c:when test="${status.index %2 !=0}">
+	    		<tr class="odd_even_tr">
+	    	</c:when>
+	    	<c:otherwise>
+	    		<tr>
+	    	</c:otherwise>
+	    </c:choose>
+	    	<td>${status.index+1 }</td>
+	    	<td><fmt:formatDate value="${count.sTime }" pattern="yyyy-M-d HH:mm:ss" /></td>
+	    	<td><fmt:formatDate value="${count.eTime }" pattern="yyyy-M-d HH:mm:ss" /></td>
+	    	<td>${count.number }</td>
 	    	<td>${count.count }</td>
 	    	<td>
 				<a onclick="queryDetails('${count.sTime}','${count.eTime }')" class="easyui-linkbutton" title="查看详情">查看详情</a>
