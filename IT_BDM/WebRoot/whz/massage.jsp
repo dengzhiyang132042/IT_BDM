@@ -35,7 +35,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		$("#eidtASubjectWindow1").show();
 		$('#tt').show();
 	});
-	
 	function trans_radio(str){
 		if (str=="是") {
 			return 0;
@@ -43,7 +42,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			return 1;
 		}
 	}
-	
 	function update(u1,u2,u3,u4,u5,u6,u7,u8,u9,u10,u11,u12,u13){
 		$('#u').window('open');
 		$('#u_1').val(u1);
@@ -75,6 +73,30 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		}
 		$('#f1').submit();
 	}
+	function getTimeliness(mid){
+		$("#tls").window('open');
+		$.post(
+			"<%=path%>/massage!queryTime",
+			{"mid":mid},
+			function(data){
+				var hint=$("#tls_hint");
+				console.log(data);
+				console.log(hint.html());
+				if(data=="null"){
+					hint.append("<center style='color: red;'>数据不全，还无法计算出</center>");
+				}else{
+					var json = eval('(' + data + ')'); 
+					$("#tls_1").val(json.MId);
+					$("#tls_2").val(json.TNetPoint);
+					$("#tls_3").val(json.TIt);
+					$("#tls_4").val(json.TFinance);
+					$("#tls_5").val(json.TFacilitator);
+					$("#tls_6").val(json.TAmount);
+					$("#tls_7").val(json.TResortDate);
+				}
+			}
+		);
+	}
 	</script>
 	
   </head>
@@ -99,7 +121,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     </div>
     
     <div style="margin-bottom: 5px;">
-    
     <table border="1" id="eidtASubjectWindow1" style="font-size: 12px;">
     <tr>
     	<th width="130px">编号</th>
@@ -130,7 +151,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<td width="">${m.MHitchNote }</td>
 		<td width="">${m.EId }</td>
 		<td width="">${m.MNote }</td>
-		<td width="5%" align="center">
+		<td style="" align="center">
+			<a href="<%=path %>/exp!queryOfFenye?id=${m.EId}&idlike=no" class="easyui-linkbutton">送修单号</a>
+			<a href="<%=path %>/bqDraw!queryOfFenye?id=${m.MId}&idlike=no" class="easyui-linkbutton">巴枪领取</a>
+			<a onclick="getTimeliness('${m.MId}')" class="easyui-linkbutton">查看时效</a>
 			<a onclick="update('${m.MId }','${m.MIt }','<fmt:formatDate value="${m.MDate }" pattern="yyyy-MM-dd" />','${m.MType }','${m.MName }',
 			'${m.MNum }','${m.MSn}','${m.MSim }','${m.MHitchType }','${m.MHitchNote }','${m.EId }','${m.MNote }','${m.MCreateDatetime }')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-edit'" title="修改"></a>
 			<a href="<%=path %>/massage!delete?id=${m.MId}" onclick="return confirm('确定删除吗?')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-delete'" title="删除"></a>
@@ -263,8 +287,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<div id="a" class="easyui-window" title="添加" data-options="modal:true,closed:true" style="width:500px;height:auto;padding:10px;display: none;">
 		<form action="<%=path %>/massage!add" method="post">
 		<table border="0" class="table1">
-			<tr width="120">
-				<td>接收日期：</td>
+			<tr>
+				<td width="120">接收日期：</td>
 				<td>
 					<input name="massage.MDate" type="text" style="width: 100%;" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})" class="Wdate"/>
 				</td>
@@ -362,7 +386,57 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</form>
 	</div>
 	
-	
+	<div id="tls" class="easyui-window" title="查看时效" data-options="modal:true,closed:true" style="width:400px;height:auto;padding:10px;display: none;overflow-x:hidden;">
+		<table border="1">
+			<tr>
+				<td>接收表ID</td>
+				<td>
+					<input id="tls_1" type="text" readonly="readonly"/>
+				</td>
+			</tr>
+			<tr>
+				<td>网点时效</td>
+				<td>
+					<input id="tls_2" type="text" readonly="readonly"/>
+				</td>
+			</tr>
+			<tr>
+				<td>IT时效</td>
+				<td>
+					<input id="tls_3" type="text" readonly="readonly"/>
+				</td>
+			</tr>
+			<tr>
+				<td>财务时效</td>
+				<td>
+					<input id="tls_4" type="text" readonly="readonly"/>
+				</td>
+			</tr>
+			<tr>
+				<td>服务商时效</td>
+				<td>
+					<input id="tls_5" type="text" readonly="readonly"/>
+				</td>
+			</tr>
+			<tr>
+				<td>总时效</td>
+				<td>
+					<input id="tls_6" type="text" readonly="readonly"/>
+				</td>
+			</tr>
+			<tr>
+				<td>滞留时间</td>
+				<td>
+					<input id="tls_7" type="text" readonly="readonly"/>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2">
+					<div id="tls_hint"></div>
+				</td>
+			</tr>
+		</table>
+	</div>
 	
 	<jsp:include page="../hintModal.jsp"/>
 	

@@ -8,7 +8,7 @@ public class WhTimeliness implements java.io.Serializable {
 
 	// Fields
 
-	private String TId;
+	private String MId;
 	private Integer TNetPoint;
 	private Integer TIt;
 	private Integer TFinance;
@@ -23,15 +23,15 @@ public class WhTimeliness implements java.io.Serializable {
 	}
 
 	/** minimal constructor */
-	public WhTimeliness(String TId) {
-		this.TId = TId;
+	public WhTimeliness(String MId) {
+		this.MId = MId;
 	}
 
 	/** full constructor */
-	public WhTimeliness(String TId, Integer TNetPoint, Integer TIt,
+	public WhTimeliness(String MId, Integer TNetPoint, Integer TIt,
 			Integer TFinance, Integer TFacilitator, Integer TAmount,
 			Integer TResortDate) {
-		this.TId = TId;
+		this.MId = MId;
 		this.TNetPoint = TNetPoint;
 		this.TIt = TIt;
 		this.TFinance = TFinance;
@@ -42,12 +42,12 @@ public class WhTimeliness implements java.io.Serializable {
 
 	// Property accessors
 
-	public String getTId() {
-		return this.TId;
+	public String getMId() {
+		return this.MId;
 	}
 
-	public void setTId(String TId) {
-		this.TId = TId;
+	public void setMId(String MId) {
+		this.MId = MId;
 	}
 
 	public Integer getTNetPoint() {

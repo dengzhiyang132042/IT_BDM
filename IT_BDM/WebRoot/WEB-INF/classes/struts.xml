@@ -157,6 +157,15 @@
   	 <interceptor-ref name="mydefault" />
      <result name="hitches">/xtz_jsp/hitches.jsp</result>
   </action>
+  <action name="hitchesCount" class="hgh_count_hitches">	
+  	 <interceptor-ref name="mydefault" />
+     <result>/index.jsp</result>
+     <result name="hitchesCount">/xtz_count/hitches_count.jsp</result>
+     <result name="succ">/success.jsp</result>
+     <result name="fail">/fail.jsp</result>
+  </action>
+  
+  
   <!-- **************桌面组**************** -->
   <action name="vpn" class="zs_vpn_zmz">	
   	 <interceptor-ref name="mydefault" />
@@ -241,6 +250,16 @@
   	 <interceptor-ref name="mydefault" />
      <result>/index.jsp</result>
      <result name="massage">/whz/massage.jsp</result>
+  </action>
+  <action name="exp" class="zs_expree_list_whz">	
+  	 <interceptor-ref name="mydefault" />
+     <result>/index.jsp</result>
+     <result name="exp">/whz/expList.jsp</result>
+  </action>
+  <action name="bqDraw" class="zs_bq_draw_whz">	
+  	 <interceptor-ref name="mydefault" />
+     <result>/index.jsp</result>
+     <result name="bqDraw">/whz/bqDraw.jsp</result>
   </action>
     
   <!-- **********CompanySection************* -->
@@ -380,13 +399,6 @@
      <result name="succ">/success.jsp</result>
      <result name="fail">/fail.jsp</result>
   </action>
-  <action name="hitchesCount" class="hgh_count_hitches">	
-  	 <interceptor-ref name="mydefault" />
-     <result>/index.jsp</result>
-     <result name="hitchesCount">/xtz_count/hitches_count.jsp</result>
-     <result name="succ">/success.jsp</result>
-     <result name="fail">/fail.jsp</result>
-  </action>
   <!--桌面组  -->
   <action name="vpnCount" class="zs_count_vpn">	
   	 <interceptor-ref name="mydefault" />
@@ -459,7 +471,6 @@
      <result name="succ">/success.jsp</result>
      <result name="fail">/fail.jsp</result>
   </action>
-  
   
 </package>
 </struts>    

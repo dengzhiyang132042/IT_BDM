@@ -1,7 +1,7 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : b
+Source Server         : zs
 Source Server Version : 50617
 Source Host           : localhost:3306
 Source Database       : it_bdm
@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50617
 File Encoding         : 65001
 
-Date: 2016-11-24 17:54:10
+Date: 2016-12-05 18:50:24
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -352,6 +352,7 @@ INSERT INTO `da_demand` VALUES ('d021124584942893', '仲裁-张盼盼', 'BQQ打�
 INSERT INTO `da_demand` VALUES ('d021137318438800', '罗湖温华东', '电脑不开机', '维护组', '2016-11-02 11:37:31', '2016-11-02 18:00:00');
 INSERT INTO `da_demand` VALUES ('d021346115062266', '板田集包点', '哲盟通联充值密码忘记了', '系统组', '2016-11-02 13:46:11', '2016-11-02 18:00:00');
 INSERT INTO `da_demand` VALUES ('d021348279911559', '吉平集包点', '硬盘录像机检修', '硬件组', '2016-11-02 13:48:27', '2016-11-02 18:00:00');
+INSERT INTO `da_demand` VALUES ('d021444113426077', '', '', '桌面组', '2016-12-02 14:44:10', '2016-12-02 18:00:00');
 INSERT INTO `da_demand` VALUES ('d021602333364181', '518363', '电话可以接听但是不能拨打', '桌面组', '2016-11-02 16:02:33', '2016-11-02 18:00:00');
 INSERT INTO `da_demand` VALUES ('d021605298828429', '518892', '座机能拨打，但打进就显示客服繁忙请稍后再拨就直接挂断，座机没有来电显示', '桌面组', '2016-11-02 16:05:29', '2016-11-02 18:00:00');
 INSERT INTO `da_demand` VALUES ('d021618480329071', '深圳机场韵达', 'VPN无法登陆', '维护组', '2016-11-02 16:18:48', '2016-11-02 18:00:00');
@@ -722,6 +723,7 @@ INSERT INTO `da_perform` VALUES ('p021128401004227', 'yd-4988', '2016-11-02 11:3
 INSERT INTO `da_perform` VALUES ('p021137318741602', 'yd-4988', '2016-11-02 11:38:02', '已完成', '', 'd021137318438800', '更换主机电源');
 INSERT INTO `da_perform` VALUES ('p021346115381707', 'yd-4221', '2016-11-02 14:01:56', '已完成', '', 'd021346115062266', '');
 INSERT INTO `da_perform` VALUES ('p021348280221586', 'yd-7496', '2016-11-02 13:48:28', '未完成', '', 'd021348279911559', '超时，系统自动设定未完成');
+INSERT INTO `da_perform` VALUES ('p021444113873063', 'yd-0346', '2016-12-02 14:44:11', '未完成', null, 'd021444113426077', '超时，系统自动设定未完成');
 INSERT INTO `da_perform` VALUES ('p021602333681368', 'yd-7067', '2016-11-02 16:07:00', '已完成', '', 'd021602333364181', '移动号码切换完成后遗漏的号码，还在跟进切换中。');
 INSERT INTO `da_perform` VALUES ('p021605299137423', 'yd-7067', '2016-11-02 16:10:52', '已完成', '', 'd021605298828429', '重新注册，检查配置。并联系即时通讯监控查找问题。');
 INSERT INTO `da_perform` VALUES ('p021618480472540', 'yd-4988', '2016-11-02 16:21:09', '已完成', '', 'd021618480329071', '远程安装');
@@ -2251,6 +2253,10 @@ INSERT INTO `timeline` VALUES ('tl021430037426880', 'yd-7448', '2016-11-02 14:30
 INSERT INTO `timeline` VALUES ('tl021430057239208', 'yd-7448', '2016-11-02 14:30:05', '查看', '故障报修统计——客服', null);
 INSERT INTO `timeline` VALUES ('tl021430066286788', 'yd-7448', '2016-11-02 14:30:06', '查看', '故障报修统计——客服', null);
 INSERT INTO `timeline` VALUES ('tl021435098924754', 'yd-4221', '2016-11-02 14:35:09', '查看', '故障报修处理', null);
+INSERT INTO `timeline` VALUES ('tl021444091669573', 'yd-7111', '2016-12-02 14:44:09', '查看', '故障报修管理', null);
+INSERT INTO `timeline` VALUES ('tl021444128293496', 'yd-7111', '2016-12-02 14:44:12', '添加', '故障报修管理', 'd021444113426077');
+INSERT INTO `timeline` VALUES ('tl021444129667669', 'yd-7111', '2016-12-02 14:44:12', '添加', '故障报修管理', 'p021444113873063');
+INSERT INTO `timeline` VALUES ('tl021445370913281', 'yd-7111', '2016-12-02 14:45:37', '查看', '故障报修管理', null);
 INSERT INTO `timeline` VALUES ('tl021452524443284', 'yd-7448', '2016-11-02 14:52:52', '查看', '故障报修统计——客服', null);
 INSERT INTO `timeline` VALUES ('tl021456085063729', 'yd-7111', '2016-11-02 14:56:08', '查看', '故障报修统计——客服', null);
 INSERT INTO `timeline` VALUES ('tl021456094423861', 'yd-7111', '2016-11-02 14:56:09', '查看', '故障报修统计——专员', null);
@@ -3040,6 +3046,15 @@ INSERT INTO `timeline` VALUES ('tl041852438539508', 'yd-7111', '2016-11-04 18:52
 INSERT INTO `timeline` VALUES ('tl041852505304953', 'yd-7111', '2016-11-04 18:52:50', '查看', '故障报修统计——客服', null);
 INSERT INTO `timeline` VALUES ('tl041852564421142', 'yd-7111', '2016-11-04 18:52:56', '查看', '故障报修统计——专员', null);
 INSERT INTO `timeline` VALUES ('tl041939132635312', 'yd-6970', '2016-11-04 19:39:13', '查看', '故障报修处理', null);
+INSERT INTO `timeline` VALUES ('tl051617585228107', 'yd-7111', '2016-12-05 16:17:58', '查看', '故障报修统计——客服', null);
+INSERT INTO `timeline` VALUES ('tl051617594155601', 'yd-7111', '2016-12-05 16:17:59', '查看', '故障报修管理', null);
+INSERT INTO `timeline` VALUES ('tl051618009565226', 'yd-7111', '2016-12-05 16:18:00', '查看', '故障报修转发审核', null);
+INSERT INTO `timeline` VALUES ('tl051618016369531', 'yd-7111', '2016-12-05 16:18:01', '查看', '故障报修管理', null);
+INSERT INTO `timeline` VALUES ('tl051618024041654', 'yd-7111', '2016-12-05 16:18:02', '查看', '故障报修处理', null);
+INSERT INTO `timeline` VALUES ('tl051618031427816', 'yd-7111', '2016-12-05 16:18:03', '查看', '故障报修管理', null);
+INSERT INTO `timeline` VALUES ('tl051618062082064', 'yd-7111', '2016-12-05 16:18:06', '查看', '故障报修统计——客服', null);
+INSERT INTO `timeline` VALUES ('tl051618074549755', 'yd-7111', '2016-12-05 16:18:07', '查看', '故障报修管理', null);
+INSERT INTO `timeline` VALUES ('tl051829517918506', 'yd-7111', '2016-12-05 18:29:51', '查看', '故障报修管理', null);
 INSERT INTO `timeline` VALUES ('tl070900151973741', 'yd-7111', '2016-11-07 09:00:15', '查看', '故障报修管理', null);
 INSERT INTO `timeline` VALUES ('tl070900307824855', 'yd-7111', '2016-11-07 09:00:30', '查看', '故障报修转发审核', null);
 INSERT INTO `timeline` VALUES ('tl070900319057056', 'yd-7111', '2016-11-07 09:00:31', '查看', '故障报修统计——客服', null);
@@ -11587,6 +11602,49 @@ INSERT INTO `timeline` VALUES ('tl301150457977267', 'yd-7111', '2016-08-30 11:50
 INSERT INTO `timeline` VALUES ('tl301150465851675', 'yd-7111', '2016-08-30 11:50:46', '查看', 'XtSite', '');
 INSERT INTO `timeline` VALUES ('tl301151156599658', 'yd-7111', '2016-08-30 11:51:15', '查看', 'XtSite', null);
 INSERT INTO `timeline` VALUES ('tl301151169646157', 'yd-7111', '2016-08-30 11:51:16', '查看', 'XtSite', '');
+INSERT INTO `timeline` VALUES ('tl301209092806713', 'yd-7111', '2016-11-30 12:09:09', '查看', '故障报修转发审核', null);
+INSERT INTO `timeline` VALUES ('tl301209118124900', 'yd-7111', '2016-11-30 12:09:11', '查看', '故障报修统计——客服', null);
+INSERT INTO `timeline` VALUES ('tl301209134493137', 'yd-7111', '2016-11-30 12:09:13', '查看', '故障报修统计——客服', null);
+INSERT INTO `timeline` VALUES ('tl301209164654970', 'yd-7111', '2016-11-30 12:09:16', '查看', '故障报修统计——专员', null);
+INSERT INTO `timeline` VALUES ('tl301209220331376', 'yd-7111', '2016-11-30 12:09:22', '查看', '故障报修统计——专员', null);
+INSERT INTO `timeline` VALUES ('tl301209459149334', 'yd-7111', '2016-11-30 12:09:45', '查看', '故障报修统计——客服', null);
+INSERT INTO `timeline` VALUES ('tl301209478205623', 'yd-7111', '2016-11-30 12:09:47', '查看', '故障报修统计——专员', null);
+INSERT INTO `timeline` VALUES ('tl301209511468687', 'yd-7111', '2016-11-30 12:09:51', '查看', '故障报修统计——客服', null);
+INSERT INTO `timeline` VALUES ('tl301209533146281', 'yd-7111', '2016-11-30 12:09:53', '查看', '故障报修统计——专员', null);
+INSERT INTO `timeline` VALUES ('tl301210589092490', 'yd-7111', '2016-11-30 12:10:58', '查看', '故障报修统计——客服', null);
+INSERT INTO `timeline` VALUES ('tl301211008302584', 'yd-7111', '2016-11-30 12:11:00', '查看', '故障报修统计——专员', null);
+INSERT INTO `timeline` VALUES ('tl301211039661835', 'yd-7111', '2016-11-30 12:11:03', '查看', '故障报修统计——客服', null);
+INSERT INTO `timeline` VALUES ('tl301211065103752', 'yd-7111', '2016-11-30 12:11:06', '查看', '故障报修统计——专员', null);
+INSERT INTO `timeline` VALUES ('tl301215287355888', 'yd-7111', '2016-11-30 12:15:28', '查看', '故障报修统计——客服', null);
+INSERT INTO `timeline` VALUES ('tl301215306928887', 'yd-7111', '2016-11-30 12:15:30', '查看', '系统组-站点资料', null);
+INSERT INTO `timeline` VALUES ('tl301215426856020', 'yd-7111', '2016-11-30 12:15:42', '查看', '系统组-站点资料', '123');
+INSERT INTO `timeline` VALUES ('tl301215450397474', 'yd-7111', '2016-11-30 12:15:45', '查看', '系统组-站点资料', null);
+INSERT INTO `timeline` VALUES ('tl301216455658224', 'yd-7111', '2016-11-30 12:16:45', '查看', '系统组-站点资料', null);
+INSERT INTO `timeline` VALUES ('tl301216495593039', 'yd-7111', '2016-11-30 12:16:49', '查看', '系统组-站点资料', '');
+INSERT INTO `timeline` VALUES ('tl301216521482780', 'yd-7111', '2016-11-30 12:16:52', '查看', '系统组-二级站点资料', null);
+INSERT INTO `timeline` VALUES ('tl301216527672136', 'yd-7111', '2016-11-30 12:16:52', '查看', '系统组-站点资料', null);
+INSERT INTO `timeline` VALUES ('tl301218208911685', 'yd-7111', '2016-11-30 12:18:20', '查看', '故障报修统计——客服', null);
+INSERT INTO `timeline` VALUES ('tl301218240549284', 'yd-7111', '2016-11-30 12:18:24', '查看', '故障报修统计——客服', null);
+INSERT INTO `timeline` VALUES ('tl301218268961388', 'yd-7111', '2016-11-30 12:18:26', '查看', '故障报修统计——客服', null);
+INSERT INTO `timeline` VALUES ('tl301218291716918', 'yd-7111', '2016-11-30 12:18:29', '查看', '故障报修统计——专员', null);
+INSERT INTO `timeline` VALUES ('tl301218340411661', 'yd-7111', '2016-11-30 12:18:34', '查看', '故障报修统计——专员', null);
+INSERT INTO `timeline` VALUES ('tl301218358695328', 'yd-7111', '2016-11-30 12:18:35', '查看', '故障报修统计——客服', null);
+INSERT INTO `timeline` VALUES ('tl301218383984094', 'yd-7111', '2016-11-30 12:18:38', '查看', '故障报修统计——专员', null);
+INSERT INTO `timeline` VALUES ('tl301218421093289', 'yd-7111', '2016-11-30 12:18:42', '查看', '故障报修统计——专员', null);
+INSERT INTO `timeline` VALUES ('tl301218487441960', 'yd-7111', '2016-11-30 12:18:48', '查看', '故障报修统计——专员', null);
+INSERT INTO `timeline` VALUES ('tl301300111568576', 'yd-7111', '2016-11-30 13:00:11', '查看', '系统组-站点资料', null);
+INSERT INTO `timeline` VALUES ('tl301300215592271', 'yd-7111', '2016-11-30 13:00:21', '查看', '系统组-站点资料', '');
+INSERT INTO `timeline` VALUES ('tl301300243754245', 'yd-7111', '2016-11-30 13:00:24', '查看', '系统组-站点资料', null);
+INSERT INTO `timeline` VALUES ('tl301300263933387', 'yd-7111', '2016-11-30 13:00:26', '查看', '系统组-站点资料', null);
+INSERT INTO `timeline` VALUES ('tl301300286004370', 'yd-7111', '2016-11-30 13:00:28', '查看', '系统组-站点资料', null);
+INSERT INTO `timeline` VALUES ('tl301300304144006', 'yd-7111', '2016-11-30 13:00:30', '查看', '系统组-站点资料', null);
+INSERT INTO `timeline` VALUES ('tl301300326923478', 'yd-7111', '2016-11-30 13:00:32', '查看', '系统组-站点资料', null);
+INSERT INTO `timeline` VALUES ('tl301300343508739', 'yd-7111', '2016-11-30 13:00:34', '查看', '系统组-站点资料', null);
+INSERT INTO `timeline` VALUES ('tl301300520677536', 'yd-7111', '2016-11-30 13:00:52', '查看', '系统组-站点资料', null);
+INSERT INTO `timeline` VALUES ('tl301301359503443', 'yd-7264', '2016-11-30 13:01:35', '查看', '系统组-站点资料', null);
+INSERT INTO `timeline` VALUES ('tl301303030066126', 'yd-7264', '2016-11-30 13:03:03', '查看', '系统组-站点资料', null);
+INSERT INTO `timeline` VALUES ('tl301310239774501', 'yd-7111', '2016-11-30 13:10:23', '查看', '系统组-站点资料', null);
+INSERT INTO `timeline` VALUES ('tl301310265373448', 'yd-7111', '2016-11-30 13:10:26', '查看', '系统组-站点资料', null);
 INSERT INTO `timeline` VALUES ('tl301323169452921', 'yd-7111', '2016-08-30 13:23:16', '查看', 'XtSite', null);
 INSERT INTO `timeline` VALUES ('tl301323204704269', 'yd-7111', '2016-08-30 13:23:20', '查看', 'XtSite', null);
 INSERT INTO `timeline` VALUES ('tl301323258561254', 'yd-7111', '2016-08-30 13:23:25', '查看', 'XtSite', '');
@@ -12190,21 +12248,21 @@ CREATE TABLE `wh_all_date` (
 -- ----------------------------
 DROP TABLE IF EXISTS `wh_bq_draw`;
 CREATE TABLE `wh_bq_draw` (
-  `d_id` varchar(255) CHARACTER SET utf8 NOT NULL DEFAULT '',
+  `m_id` varchar(255) CHARACTER SET utf8 NOT NULL DEFAULT '',
   `e_id` varchar(255) CHARACTER SET utf8 DEFAULT NULL,
-  `d_sn` varchar(255) CHARACTER SET utf8 DEFAULT NULL,
   `d_draw` varchar(255) CHARACTER SET utf8 DEFAULT NULL,
   `d_man` varchar(255) CHARACTER SET utf8 DEFAULT NULL,
   `d_phone` varchar(255) CHARACTER SET utf8 DEFAULT NULL,
   `d_date` date DEFAULT NULL,
   `d_appendix` varchar(255) CHARACTER SET utf8 DEFAULT NULL,
   `d_it` varchar(255) CHARACTER SET utf8 DEFAULT NULL,
-  PRIMARY KEY (`d_id`)
+  PRIMARY KEY (`m_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of wh_bq_draw
 -- ----------------------------
+INSERT INTO `wh_bq_draw` VALUES ('m031059334498602', '2', '是', 'wqe', 'qwe', '2016-12-12', 'q', 'q');
 
 -- ----------------------------
 -- Table structure for `wh_device_scout`
@@ -12228,6 +12286,11 @@ CREATE TABLE `wh_device_scout` (
 -- ----------------------------
 -- Records of wh_device_scout
 -- ----------------------------
+INSERT INTO `wh_device_scout` VALUES ('d021327158383767', '2016-12-02', '2016-12-02 13:27:01', '是', '是', '1', '1', '张顺', '是', '是', '1');
+INSERT INTO `wh_device_scout` VALUES ('d031147457929661', '2016-12-03', '2016-12-03 10:00:00', '是', '是', 'nihao1', 'asdad', '张顺', '是', '是', 'asdasdsdasda');
+INSERT INTO `wh_device_scout` VALUES ('d031324318682701', '2016-12-03', '2016-12-03 14:00:00', '是', '是', '213sadas', 'asddf', '张顺', '是', '是', 'ff');
+INSERT INTO `wh_device_scout` VALUES ('d031329089034643', '2016-12-03', '2016-12-03 10:30:00', '是', '1', '1', '1', '1', '1', '1', '1');
+INSERT INTO `wh_device_scout` VALUES ('d291604207011545', '2016-11-29', '2016-11-29 16:04:13', '否', '否', '21312', '2131231', '张顺', '否', '否', '2131231211111111');
 
 -- ----------------------------
 -- Table structure for `wh_express_list`
@@ -12243,6 +12306,9 @@ CREATE TABLE `wh_express_list` (
 -- ----------------------------
 -- Records of wh_express_list
 -- ----------------------------
+INSERT INTO `wh_express_list` VALUES ('1', '2016-12-14', '2016-12-29');
+INSERT INTO `wh_express_list` VALUES ('1232132131232', '2016-12-05', '2016-12-06');
+INSERT INTO `wh_express_list` VALUES ('2', '2016-12-05', '2016-12-06');
 
 -- ----------------------------
 -- Table structure for `wh_massage_receive`
@@ -12268,6 +12334,7 @@ CREATE TABLE `wh_massage_receive` (
 -- ----------------------------
 -- Records of wh_massage_receive
 -- ----------------------------
+INSERT INTO `wh_massage_receive` VALUES ('m031059334498602', '张顺', '2016-12-03', '1', '1', '1', '1', '1', '1', '1', '1', '1', '2016-12-03 10:30:00');
 
 -- ----------------------------
 -- Table structure for `wh_meeting_scout`
@@ -12312,6 +12379,72 @@ CREATE TABLE `wh_monitor_scout` (
 -- ----------------------------
 -- Records of wh_monitor_scout
 -- ----------------------------
+INSERT INTO `wh_monitor_scout` VALUES ('m021419533839356', '2016-12-01', '张顺', '1', '2016-12-02 14:19:53', '1', '2', '1', '1', '1', '1', '1');
+INSERT INTO `wh_monitor_scout` VALUES ('m021419534409566', '2016-12-02', '1', '2', '2016-12-02 14:19:53', '4', '5', '6', '7', '8', '9', '0');
+INSERT INTO `wh_monitor_scout` VALUES ('m021419534871501', '2016-12-02', '', '', '2016-12-02 14:19:53', '', '', '', '', '', '9', '');
+INSERT INTO `wh_monitor_scout` VALUES ('m021436465221184', '2016-12-01', '张顺', '1', '2016-12-02 14:36:46', '1', '2', '1', '1', '1', '1', '1');
+INSERT INTO `wh_monitor_scout` VALUES ('m021436465788902', '2016-12-02', '1', '2', '2016-12-02 14:36:46', '4', '5', '6', '7', '8', '9', '0');
+INSERT INTO `wh_monitor_scout` VALUES ('m021436466627616', '2016-12-02', '', '', '2016-12-02 14:36:46', '', '', '', '', '', '9', '');
+INSERT INTO `wh_monitor_scout` VALUES ('m021440124446796', '2016-12-01', '张顺', '1', '2016-12-02 14:40:12', '1', '2', '1', '1', '1', '1', '1');
+INSERT INTO `wh_monitor_scout` VALUES ('m021440125428348', '2016-12-02', '1', '2', '2016-12-02 14:40:12', '4', '5', '6', '7', '8', '9', '0');
+INSERT INTO `wh_monitor_scout` VALUES ('m021440126211188', '2016-12-02', '1', '', '2016-12-02 14:40:12', '', '', '', '', '', '9', '');
+INSERT INTO `wh_monitor_scout` VALUES ('m021440126685936', '2016-12-02', '12', '', '2016-12-02 14:40:12', '', '', '', '', '', '', '');
+INSERT INTO `wh_monitor_scout` VALUES ('m021440127185069', '2016-12-02', '2', '', '2016-12-02 14:40:12', '', '', '', '', '', '', '');
+INSERT INTO `wh_monitor_scout` VALUES ('m021440127637455', '2016-12-02', '3', '', '2016-12-02 14:40:12', '', '', '', '', '', '', '');
+INSERT INTO `wh_monitor_scout` VALUES ('m021441494305430', '2016-12-01', '张顺', '1', '2016-12-02 14:41:49', '1', '2', '1', '1', '1', '1', '1');
+INSERT INTO `wh_monitor_scout` VALUES ('m021441494881940', '2016-12-02', '1', '2', '2016-12-02 14:41:49', '4', '5', '6', '7', '8', '9', '0');
+INSERT INTO `wh_monitor_scout` VALUES ('m021441495395465', '2016-12-02', '1', '', '2016-12-02 14:41:49', '', '', '', '', '', '9', '');
+INSERT INTO `wh_monitor_scout` VALUES ('m021441496111226', '2016-12-02', '12', '', '2016-12-02 14:41:49', '', '', '', '', '', '', '');
+INSERT INTO `wh_monitor_scout` VALUES ('m021441496772091', '2016-12-02', '2', '', '2016-12-02 14:41:49', '', '', '', '', '', '', '');
+INSERT INTO `wh_monitor_scout` VALUES ('m021441497524722', '2016-12-02', '3', '', '2016-12-02 14:41:49', '', '', '', '', '', '', '');
+INSERT INTO `wh_monitor_scout` VALUES ('m021441498115291', '2016-12-02', '5', '', '2016-12-02 14:41:49', '', '', '', '', '', '', '');
+INSERT INTO `wh_monitor_scout` VALUES ('m021441498694232', '2016-12-02', '6', '', '2016-12-02 14:41:49', '', '', '', '', '', '', '');
+INSERT INTO `wh_monitor_scout` VALUES ('m021441499313623', '2016-12-02', '6', '', '2016-12-02 14:41:49', '', '', '', '', '', '', '');
+INSERT INTO `wh_monitor_scout` VALUES ('m021441499925475', '2016-12-02', '7', '', '2016-12-02 14:41:49', '', '', '', '', '', '', '');
+INSERT INTO `wh_monitor_scout` VALUES ('m021441500525909', '2016-12-02', '7', '', '2016-12-02 14:41:50', '', '', '', '', '', '', '');
+INSERT INTO `wh_monitor_scout` VALUES ('m021441501063916', '2016-12-02', '8', '', '2016-12-02 14:41:50', '', '', '', '', '', '', '');
+INSERT INTO `wh_monitor_scout` VALUES ('m021441501619699', '2016-12-02', '8', '', '2016-12-02 14:41:50', '', '', '', '', '', '', '');
+INSERT INTO `wh_monitor_scout` VALUES ('m021441501981228', '2016-12-02', '9', '', '2016-12-02 14:41:50', '', '', '', '', '', '', '');
+INSERT INTO `wh_monitor_scout` VALUES ('m021441502483195', '2016-12-02', '9', '', '2016-12-02 14:41:50', '', '', '', '', '', '', '');
+INSERT INTO `wh_monitor_scout` VALUES ('m021441503024427', '2016-12-02', '10', '', '2016-12-02 14:41:50', '', '', '', '', '', '', '');
+INSERT INTO `wh_monitor_scout` VALUES ('m021441503528899', '2016-12-02', '10', '', '2016-12-02 14:41:50', '', '', '', '', '', '', '');
+INSERT INTO `wh_monitor_scout` VALUES ('m021441504024960', '2016-12-02', '11', '', '2016-12-02 14:41:50', '', '', '', '', '', '', '');
+INSERT INTO `wh_monitor_scout` VALUES ('m021441504522500', '2016-12-02', '11', '', '2016-12-02 14:41:50', '', '', '', '', '', '', '');
+INSERT INTO `wh_monitor_scout` VALUES ('m021441505021904', '2016-12-02', '12', '', '2016-12-02 14:41:50', '', '', '', '', '', '', '');
+INSERT INTO `wh_monitor_scout` VALUES ('m021441505738489', '2016-12-02', '12', '', '2016-12-02 14:41:50', '', '', '', '', '', '', '');
+INSERT INTO `wh_monitor_scout` VALUES ('m021443369002920', '2016-12-01', '张顺', '1', '2016-12-02 14:43:36', '1', '2', '1', '1', '1', '1', '1');
+INSERT INTO `wh_monitor_scout` VALUES ('m021443370135144', '2016-12-02', '1', '2', '2016-12-02 14:43:37', '4', '5', '6', '7', '8', '9', '0');
+INSERT INTO `wh_monitor_scout` VALUES ('m021443370629856', '2016-12-02', '1', '', '2016-12-02 14:43:37', '', '', '', '', '', '9', '');
+INSERT INTO `wh_monitor_scout` VALUES ('m021443370838625', '2016-12-02', '12', '', '2016-12-02 14:43:37', '', '', '', '', '', '', '');
+INSERT INTO `wh_monitor_scout` VALUES ('m021443371492831', '2016-12-02', '2', '', '2016-12-02 14:43:37', '', '', '', '', '', '', '');
+INSERT INTO `wh_monitor_scout` VALUES ('m021443372504940', '2016-12-02', '3', '', '2016-12-02 14:43:37', '', '', '', '', '', '', '');
+INSERT INTO `wh_monitor_scout` VALUES ('m021443374133467', '2016-12-02', '5', '', '2016-12-02 14:43:37', '', '', '', '', '', '', '');
+INSERT INTO `wh_monitor_scout` VALUES ('m021443374652987', '2016-12-02', '6', '', '2016-12-02 14:43:37', '', '', '', '', '', '', '');
+INSERT INTO `wh_monitor_scout` VALUES ('m021443375217041', '2016-12-02', '6', '', '2016-12-02 14:43:37', '', '', '', '', '', '', '');
+INSERT INTO `wh_monitor_scout` VALUES ('m021443375662611', '2016-12-02', '7', '', '2016-12-02 14:43:37', '', '', '', '', '', '', '');
+INSERT INTO `wh_monitor_scout` VALUES ('m021443375871755', '2016-12-02', '7', '', '2016-12-02 14:43:37', '', '', '', '', '', '', '');
+INSERT INTO `wh_monitor_scout` VALUES ('m021443376075905', '2016-12-02', '8', '', '2016-12-02 14:43:37', '', '', '', '', '', '', '');
+INSERT INTO `wh_monitor_scout` VALUES ('m021443376498938', '2016-12-02', '8', '', '2016-12-02 14:43:37', '', '', '', '', '', '', '');
+INSERT INTO `wh_monitor_scout` VALUES ('m021443377086801', '2016-12-02', '9', '', '2016-12-02 14:43:37', '', '', '', '', '', '', '');
+INSERT INTO `wh_monitor_scout` VALUES ('m021443377462700', '2016-12-02', '9', '', '2016-12-02 14:43:37', '', '', '', '', '', '', '');
+INSERT INTO `wh_monitor_scout` VALUES ('m021443377683894', '2016-12-02', '10', '', '2016-12-02 14:43:37', '', '', '', '', '', '', '');
+INSERT INTO `wh_monitor_scout` VALUES ('m021443378163193', '2016-12-02', '10', '', '2016-12-02 14:43:37', '', '', '', '', '', '', '');
+INSERT INTO `wh_monitor_scout` VALUES ('m021443378704659', '2016-12-02', '11', '', '2016-12-02 14:43:37', '', '', '', '', '', '', '');
+INSERT INTO `wh_monitor_scout` VALUES ('m021443379387141', '2016-12-02', '11', '', '2016-12-02 14:43:37', '', '', '', '', '', '', '');
+INSERT INTO `wh_monitor_scout` VALUES ('m021443379578457', '2016-12-02', '12', '', '2016-12-02 14:43:37', '', '', '', '', '', '', '');
+INSERT INTO `wh_monitor_scout` VALUES ('m021443379806531', '2016-12-02', '12', '', '2016-12-02 14:43:37', '', '', '', '', '', '', '');
+INSERT INTO `wh_monitor_scout` VALUES ('m021445487842518', '2016-12-01', '张顺', '1', '2016-12-02 14:45:48', '1', '2', '1', '1', '1', '1', '1');
+INSERT INTO `wh_monitor_scout` VALUES ('m021445488345014', '2016-12-02', '1', '2', '2016-12-02 14:45:48', '4', '5', '6', '7', '8', '9', '0');
+INSERT INTO `wh_monitor_scout` VALUES ('m021445488568575', '2016-12-02', '1', '', '2016-12-02 14:45:48', '', '', '', '', '', '9', '');
+INSERT INTO `wh_monitor_scout` VALUES ('m021445488976659', '2016-12-02', '12', '', '2016-12-02 14:45:48', '', '', '', '', '', '', '');
+INSERT INTO `wh_monitor_scout` VALUES ('m021445489181941', '2016-12-02', '2', '', '2016-12-02 14:45:48', '', '', '', '', '', '', '');
+INSERT INTO `wh_monitor_scout` VALUES ('m021445489393469', '2016-12-02', '3', '', '2016-12-02 14:45:48', '', '', '', '', '', '', '');
+INSERT INTO `wh_monitor_scout` VALUES ('m021445489683380', '2016-12-02', '5', '', '2016-12-02 14:45:48', '', '', '', '', '', '', '');
+INSERT INTO `wh_monitor_scout` VALUES ('m021445489897182', '2016-12-02', '6', '', '2016-12-02 14:45:48', '', '', '', '', '', '', '');
+INSERT INTO `wh_monitor_scout` VALUES ('m021451587335005', '2016-12-01', '张顺', '1', '2016-12-02 14:51:58', '1', '2', '1', '1', '1', '1', '1');
+INSERT INTO `wh_monitor_scout` VALUES ('m021451587907243', '2016-12-02', '1', '2', '2016-12-02 14:51:58', '4', '5', '6', '7', '8', '9', '0');
+INSERT INTO `wh_monitor_scout` VALUES ('m021451590109134', '2016-12-02', '3', '1', '2016-12-02 14:51:00', '1', '1', '1', '1', '1', '1', '1');
+INSERT INTO `wh_monitor_scout` VALUES ('m031346170767291', '2016-12-29', '张顺', 'aa', '2016-12-29 14:00:00', 'aa', 'aa', 'aa', 'aa', 'aa', 'aa', 'aa');
 
 -- ----------------------------
 -- Table structure for `wh_out_repair`
@@ -12362,19 +12495,20 @@ CREATE TABLE `wh_three_meeting_scout` (
 -- ----------------------------
 DROP TABLE IF EXISTS `wh_timeliness`;
 CREATE TABLE `wh_timeliness` (
-  `t_id` varchar(255) CHARACTER SET utf8 NOT NULL DEFAULT '',
+  `m_id` varchar(255) CHARACTER SET utf8 NOT NULL DEFAULT '',
   `t_net_point` int(255) DEFAULT NULL,
   `t_it` int(255) DEFAULT NULL,
   `t_finance` int(255) DEFAULT NULL,
   `t_facilitator` int(255) DEFAULT NULL,
   `t_amount` int(255) DEFAULT NULL,
   `t_resort_date` int(255) DEFAULT NULL,
-  PRIMARY KEY (`t_id`)
+  PRIMARY KEY (`m_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of wh_timeliness
 -- ----------------------------
+INSERT INTO `wh_timeliness` VALUES ('m031059334498602', null, '12', null, '-8', '3', '6');
 
 -- ----------------------------
 -- Table structure for `xt_bq_repair`
@@ -13090,6 +13224,26 @@ INSERT INTO `xt_branches` VALUES ('b241531281627429', '2016-10-24', '2016-10-24'
 INSERT INTO `xt_branches` VALUES ('b241532224343842', '2016-10-24', '2016-10-24', '44', '518073', '广东深圳公司罗湖区东门宝华分部', '张耀武', '51807323', '东门宝华分部李小明', '');
 INSERT INTO `xt_branches` VALUES ('b241532549918775', '2016-10-24', '2016-10-24', '44', '518073', '广东深圳公司罗湖区东门宝华分部', '张耀武', '51807324', '东门宝华分部陈少坛', '');
 INSERT INTO `xt_branches` VALUES ('b241533252096725', '2016-10-24', '2016-10-24', '44', '518900', '广东深圳公司龙岗区龙华德城淘宝分部', '江攀华', '51890020', '龙华德城淘宝分部江攀华', '');
+
+-- ----------------------------
+-- Table structure for `xt_hitches`
+-- ----------------------------
+DROP TABLE IF EXISTS `xt_hitches`;
+CREATE TABLE `xt_hitches` (
+  `h_id` varchar(255) NOT NULL DEFAULT '',
+  `h_time_start` datetime DEFAULT NULL,
+  `h_time_end` datetime DEFAULT NULL,
+  `h_desc` varchar(255) DEFAULT NULL,
+  `h_note` varchar(255) DEFAULT NULL,
+  `h_solve` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`h_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of xt_hitches
+-- ----------------------------
+INSERT INTO `xt_hitches` VALUES ('031548465337674', '2016-12-03 13:00:00', '2016-12-03 13:45:00', '2', '2', '2');
+INSERT INTO `xt_hitches` VALUES ('031601096679570', '2016-12-03 10:10:00', '2016-12-03 16:30:00', '重大错误', '损失500万', '不可挽回');
 
 -- ----------------------------
 -- Table structure for `xt_pda_change`

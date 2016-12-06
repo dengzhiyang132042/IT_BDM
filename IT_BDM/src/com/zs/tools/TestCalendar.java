@@ -62,39 +62,19 @@ public class TestCalendar {
 //        System.out.println(cal2.getTime());
 //        cal2.set(Calendar.DAY_OF_WEEK, Calendar.SATURDAY);
 //        System.out.println(cal2.getTime());
-		/*
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd"); 
 		Calendar ca = Calendar.getInstance();    
         ca.set(Calendar.DAY_OF_MONTH, ca.getActualMaximum(Calendar.DAY_OF_MONTH));  
         String last = format.format(ca.getTime());
         System.out.println("===============last:"+last);
-        Calendar ca1 = Calendar.getInstance();
-        ca1.set(2016,11, 31);
-        ca1.get(ca1.WEEK_OF_YEAR);
-        System.out.println(ca1.get(ca1.WEEK_OF_YEAR));
-        */
-		
-		Date date1=new Date(2015-1900, 11-1, 15);
-		Date date2=new Date(2016-1900, 11-1, 15);
-		System.err.println(date1.toLocaleString());
-		System.err.println(date2.toLocaleString());
-		long l1=(date2.getTime()-date1.getTime())/(1000*60*60*24);
-		System.out.println(l1);
-		
-		System.out.println(new Date().getTime()/(1000*60*60*24));
-		
-		/*
-		Calendar c1=Calendar.getInstance();
-		Calendar c2=Calendar.getInstance();
-		
-		c1.add(Calendar.DATE, 1);
-		
-		System.err.println("c1:"+c1.getTime().toLocaleString());
-		System.err.println("c2:"+c2.getTime().toLocaleString());
-		
-		long d=c1.getTimeInMillis()-c2.getTimeInMillis();
-		 */
 		
 	}
+	
+	
+	
+	
+	
+	
+	
 	
 }
