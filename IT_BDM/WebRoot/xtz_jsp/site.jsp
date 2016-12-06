@@ -254,7 +254,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</tr>
 			<tr>
 				<td colspan="2" align="center">
-					<input class="easyui-linkbutton" type="submit" style="width: 95%;padding: 5px;" value="提交"/>
+					<input class="easyui-linkbutton" type="submit"  style="width: 95%;padding: 5px;" value="提交"/>
 				</td>			
 			</tr>
 		</table>

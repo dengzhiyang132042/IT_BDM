@@ -31,5 +31,11 @@
         <property name="DIt" type="java.lang.String">
             <column name="d_it" />
         </property>
+        <property name="DResult" type="java.lang.String">
+            <column name="d_result" />
+        </property>
+        <property name="DNote" type="java.lang.String">
+            <column name="d_note" />
+        </property>
     </class>
 </hibernate-mapping>

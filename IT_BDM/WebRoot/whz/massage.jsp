@@ -111,6 +111,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     	<form action="<%=path %>/massage!queryOfFenye" method="post">
     		编号:<input name="id" type="text" value="${id }"/>
     		&nbsp;&nbsp;&nbsp;&nbsp;
+    		设备类型:<input name="type" type="text" value="${type }"/>
+    		&nbsp;&nbsp;&nbsp;&nbsp;
     		日期:
     		<input name="dates" id="d4311" class="Wdate" type="text" onFocus="WdatePicker({maxDate:'#F{$dp.$D(\'d4312\')}'})" value="${dates }"/> 
     		~
@@ -165,7 +167,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</div>
 	
 	<div class="easyui-panel" style="padding:5px;width: 100%;display: none;">
-		<form id="f1" action="<%=path %>/massage!queryOfFenye?id=${id}&sn=${sn }&dates=${dates}&datee=${datee}" method="post">
+		<form id="f1" action="<%=path %>/massage!queryOfFenye?id=${id}&sn=${type }&dates=${dates}&datee=${datee}" method="post">
 		<select id="sele" style="float: left;margin-top: 3px;margin-left: 5px;" name="page.size" onchange="$('#f1').submit();">
 			<option value="5">5</option>
 			<option value="10">10</option>

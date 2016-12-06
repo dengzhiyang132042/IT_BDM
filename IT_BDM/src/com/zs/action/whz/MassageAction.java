@@ -43,6 +43,7 @@ public class MassageAction extends MyBaseAction{
 	String id;
 	String dates;
 	String datee;
+	String type;
 	private File fileExcel;
 	private String fileExcelContentType;
 	private String fileExcelFileName; 
@@ -121,12 +122,18 @@ public class MassageAction extends MyBaseAction{
 	public void setId(String id) {
 		this.id = id;
 	}
-
+	public String getType() {
+		return type;
+	}
+	public void setType(String type) {
+		this.type = type;
+	}
 	//------------------------------------------------
 	private void clearOptions() {
 		id=null;
 		massage=null;
 		massages=null;
+		type=null;
 		dates=null;
 		datee=null;
 	}
@@ -134,6 +141,9 @@ public class MassageAction extends MyBaseAction{
 	private void clearSpace(){
 		if(id!=null){
 			id=id.trim();
+		}
+		if(type!=null){
+			type=type.trim();
 		}
 		if(dates!=null){
 			dates=dates.trim();
@@ -156,6 +166,9 @@ public class MassageAction extends MyBaseAction{
 		String hql="from WhMassageReceive where 1=1";
 		if (id!=null) {
 			hql=hql+" and MId like '%"+id+"%'";
+		}
+		if	(type!=null){
+			hql=hql+" and MType like '%"+type+"%'";
 		}
 		if (dates!=null && !dates.equals("")) {
 			hql=hql+" and MDate >= '"+dates+"'";

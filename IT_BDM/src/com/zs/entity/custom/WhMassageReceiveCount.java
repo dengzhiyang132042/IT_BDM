@@ -8,17 +8,18 @@ import java.util.List;
 
 /**
  * @author 黄光辉
- *<br/>这个类是用来对3楼会议室巡检表的统计
+ *<br/>这个类是用来对网点巴枪维修统计使用
  */
-public class WhThreeMeetingCount {
+public class WhMassageReceiveCount {
 	private Timestamp sTime;
 	private Timestamp eTime;
-	private String abnormal;
+	private String type;
 	private int OrderNum;
 	private int number;
 	private int count;
 	private int rows;
-	private List deviceScout;
+	private String result;
+	private List massageReceive;
 	
 	public Timestamp getsTime() {
 		return sTime;
@@ -31,12 +32,6 @@ public class WhThreeMeetingCount {
 	}
 	public void seteTime(Timestamp eTime) {
 		this.eTime = eTime;
-	}
-	public String getAbnormal() {
-		return abnormal;
-	}
-	public void setAbnormal(String abnormal) {
-		this.abnormal = abnormal;
 	}
 	public int getNumber() {
 		return number;
@@ -56,30 +51,38 @@ public class WhThreeMeetingCount {
 	public void setOrderNum(int orderNum) {
 		OrderNum = orderNum;
 	}
-	public List getDeviceScout() {
-		return deviceScout;
-	}
-	public void setDeviceScout(List deviceScout) {
-		this.deviceScout = deviceScout;
-	}
 	public int getRows() {
 		return rows;
 	}
 	public void setRows(int rows) {
 		this.rows = rows;
 	}
-	
-	
+	public List getMassageReceive() {
+		return massageReceive;
+	}
+	public void setMassageReceive(List massageReceive) {
+		this.massageReceive = massageReceive;
+	}
+	public String getType() {
+		return type;
+	}
+	public void setType(String type) {
+		this.type = type;
+	}
+	public String getResult() {
+		return result;
+	}
+	public void setResult(String result) {
+		this.result = result;
+	}
 	@Override
 	public String toString() {
-		return "WhDeviceScoutCount [OrderNum=" + OrderNum + ", abnormal="
-				+ abnormal + ", count=" + count + ", deviceScout="
-				+ deviceScout + ", eTime=" + eTime + ", number=" + number
-				+ ", rows=" + rows + ", sTime=" + sTime + "]";
+		return "WhMassageReceiveCount [OrderNum=" + OrderNum + ", count="
+				+ count + ", eTime=" + eTime + ", massageReceive="
+				+ massageReceive + ", number=" + number + ", result=" + result
+				+ ", rows=" + rows + ", sTime=" + sTime + ", type=" + type
+				+ "]";
 	}
-	
-	
-	
 	
 	
 	
