@@ -18,6 +18,8 @@ public class WhBqDraw implements java.io.Serializable {
 	private Date DDate;
 	private String DAppendix;
 	private String DIt;
+	private String DResult;
+	private String DNote;
 
 	// Constructors
 
@@ -31,8 +33,9 @@ public class WhBqDraw implements java.io.Serializable {
 	}
 
 	/** full constructor */
-	public WhBqDraw(String MId, String EId, String DDraw,
-			String DMan, String DPhone, Date DDate, String DAppendix, String DIt) {
+	public WhBqDraw(String MId, String EId, String DDraw, String DMan,
+			String DPhone, Date DDate, String DAppendix, String DIt,
+			String DResult, String DNote) {
 		this.MId = MId;
 		this.EId = EId;
 		this.DDraw = DDraw;
@@ -41,6 +44,8 @@ public class WhBqDraw implements java.io.Serializable {
 		this.DDate = DDate;
 		this.DAppendix = DAppendix;
 		this.DIt = DIt;
+		this.DResult = DResult;
+		this.DNote = DNote;
 	}
 
 	// Property accessors
@@ -107,6 +112,22 @@ public class WhBqDraw implements java.io.Serializable {
 
 	public void setDIt(String DIt) {
 		this.DIt = DIt;
+	}
+
+	public String getDResult() {
+		return this.DResult;
+	}
+
+	public void setDResult(String DResult) {
+		this.DResult = DResult;
+	}
+
+	public String getDNote() {
+		return this.DNote;
+	}
+
+	public void setDNote(String DNote) {
+		this.DNote = DNote;
 	}
 
 }

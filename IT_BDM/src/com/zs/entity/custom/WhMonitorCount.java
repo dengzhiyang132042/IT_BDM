@@ -8,7 +8,7 @@ import java.util.List;
 
 /**
  * @author 黄光辉
- *<br/>这个类是用来对操作设备巡检表的统计
+ *<br/>这个类是用来对监控设备巡检表的统计
  */
 public class WhMonitorCount {
 	private Timestamp sTime;
