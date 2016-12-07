@@ -37,12 +37,26 @@ public class DaCountAction extends MyBaseAction implements IMyBaseAction{
 	
 	String dates;
 	String datee;
+	String id;
+	String cz;
 	
 	Logger logger=Logger.getLogger(DaCountAction.class);
 //----------------------------------------------------	
 	
 	public IService getSer() {
 		return ser;
+	}
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
+	}
+	public String getCz() {
+		return cz;
+	}
+	public void setCz(String cz) {
+		this.cz = cz;
 	}
 	public String getFiltrate() {
 		return filtrate;
@@ -80,12 +94,21 @@ public class DaCountAction extends MyBaseAction implements IMyBaseAction{
 	//----------------------------------------------------
 	public void clearOptions() {
 		filtrate=null;
+		page=null;
+		dates=null;
+		datee=null;
 	}
 	private void clearSpace() {
 		if (filtrate!=null && !filtrate.equals("")) {
 			filtrate=filtrate.trim();
 		}else {
 			filtrate="D";
+		}
+		if (dates!=null) {
+			dates=dates.trim();
+		}
+		if (datee!=null) {
+			datee=datee.trim();
 		}
 	}
 	
@@ -127,6 +150,8 @@ public class DaCountAction extends MyBaseAction implements IMyBaseAction{
 	 */
 	private void initCounts(List<DaCount> counts,String dt) throws ParseException {
 		//获取两个头尾的时间
+//		logger.debug(dates);
+//		logger.debug(datee);
 		DaDemand d1 = null,d2=null;
 		String str="from DaDemand where DTime!=null ";
 		String str1="from DaDemand where DTime!=null ";
@@ -218,8 +243,7 @@ public class DaCountAction extends MyBaseAction implements IMyBaseAction{
 	
 	
 	public String queryOfFenye() throws UnsupportedEncodingException {
-		String id=getRequest().getParameter("id");
-		String cz=getRequest().getParameter("cz");//用于判断是否清理page，yes清理，no不清理
+		//用于判断是否清理page，yes清理，no不清理
 		if (page==null) {
 			page=new Page(1, 0, 5);
 		}

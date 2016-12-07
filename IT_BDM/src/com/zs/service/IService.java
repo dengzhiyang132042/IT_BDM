@@ -6,9 +6,10 @@ import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
-
 import javax.servlet.http.HttpServletRequest;
 
+import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
 import com.zs.entity.CompanySection;
 import com.zs.entity.Timeline;
 import com.zs.entity.Users;
@@ -212,5 +213,23 @@ public interface IService {
 	 * @return
 	 */
 	public Timestamp transToTimestamp(String str);
+
+	
+	/**
+	 * 张顺 2016-12-6
+	 * <br>object转换成json对象的封装方法，完美解决时间日期的问题，且可应对各种时间类型
+	 * @param obj
+	 * @return
+	 */
+	public JSONObject objToJsonObj(Object obj);
+	
+	/**
+	 * 张顺 2016-12-6
+	 * <br>object转换成json数组的封装方法，完美解决时间日期的问题，且可应对各种时间类型
+	 * @param obj
+	 * @return
+	 */
+	public JSONArray objToJsonArray(Object obj);
+	
 	
 }

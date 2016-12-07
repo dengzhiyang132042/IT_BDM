@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
+import java.sql.Time;
 import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -15,6 +16,9 @@ import java.util.List;
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 
+import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
+import net.sf.json.JsonConfig;
 import org.apache.log4j.Logger;
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFCellStyle;
@@ -42,6 +46,7 @@ import com.zs.entity.SectionFenbu;
 import com.zs.entity.SectionQubu;
 import com.zs.entity.Timeline;
 import com.zs.entity.Users;
+import com.zs.tools.JsonDateValueProcessor;
 import com.zs.tools.Page;
 
 public class BaseService implements IService{
@@ -631,4 +636,20 @@ public class BaseService implements IService{
 		}
 	}
 	
+	public JSONObject objToJsonObj(Object obj) {
+		JsonConfig jsonConfig=new JsonConfig();
+		jsonConfig.registerJsonValueProcessor(Date.class, new JsonDateValueProcessor("yyyy-MM-dd"));
+		jsonConfig.registerJsonValueProcessor(Timestamp.class, new JsonDateValueProcessor("yyyy-MM-dd HH:mm:ss"));
+		jsonConfig.registerJsonValueProcessor(Time.class, new JsonDateValueProcessor("HH:mm:ss"));
+		JSONObject object=JSONObject.fromObject(obj,jsonConfig);
+		return object;
+	}
+	public JSONArray objToJsonArray(Object obj) {
+		JsonConfig jsonConfig=new JsonConfig();
+		jsonConfig.registerJsonValueProcessor(Date.class, new JsonDateValueProcessor("yyyy-MM-dd"));
+		jsonConfig.registerJsonValueProcessor(Timestamp.class, new JsonDateValueProcessor("yyyy-MM-dd HH:mm:ss"));
+		jsonConfig.registerJsonValueProcessor(Time.class, new JsonDateValueProcessor("HH:mm:ss"));
+		JSONArray array=JSONArray.fromObject(obj,jsonConfig);
+		return array;
+	}
 }

@@ -10,11 +10,14 @@
       </interceptor>  
       <interceptor name="timeline_inter" class="zs_interceptor_timeline">
       </interceptor>
+      <interceptor name="cache_inter" class="zs_interceptor_cache">
+      </interceptor>
       <!-- 拦截器栈 -->  
       <interceptor-stack name="mydefault">  
           <interceptor-ref name="defaultStack" />  
           <interceptor-ref name="role_inter" />  
-          <interceptor-ref name="timeline_inter" />  
+          <interceptor-ref name="timeline_inter" />
+          <interceptor-ref name="cache_inter" />
       </interceptor-stack>  
   </interceptors>  
   
@@ -478,6 +481,8 @@
      <result name="succ">/success.jsp</result>
      <result name="fail">/fail.jsp</result>
   </action>
+  
+  
   
 </package>
 </struts>    

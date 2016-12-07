@@ -16,7 +16,7 @@ public class DaCount {
 	private int daSuc;
 	private int ratioSuc;
 	
-	private List demPer;
+	private List<DaDemPer> demPer;
 	
 	private int rows;
 	private int orderNum;
@@ -34,10 +34,10 @@ public class DaCount {
 	public void setRows(int rows) {
 		this.rows = rows;
 	}
-	public List getDemPer() {
+	public List<DaDemPer> getDemPer() {
 		return demPer;
 	}
-	public void setDemPer(List demPer) {
+	public void setDemPer(List<DaDemPer> demPer) {
 		this.demPer = demPer;
 	}
 	public Timestamp getsTime() {
@@ -70,8 +70,13 @@ public class DaCount {
 	public void setRatioSuc(int ratioSuc) {
 		this.ratioSuc = ratioSuc;
 	}
-	
-	
+	@Override
+	public String toString() {
+		return "DaCount [daAll=" + daAll + ", daSuc=" + daSuc + ", demPer="
+				+ demPer + ", eTime=" + eTime + ", orderNum=" + orderNum
+				+ ", ratioSuc=" + ratioSuc + ", rows=" + rows + ", sTime="
+				+ sTime + "]";
+	}
 	
 	
 }

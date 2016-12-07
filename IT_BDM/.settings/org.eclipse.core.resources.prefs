@@ -1,5 +1,6 @@
-#Wed Nov 02 13:21:53 CST 2016
+#Tue Dec 06 13:30:52 CST 2016
 eclipse.preferences.version=1
+encoding//src/com/zs/interceptor/CacheInterceptor.java=UTF-8
 encoding//src/com/zs/interceptor/RoleInterceptor.java=UTF-8
 encoding//src/com/zs/interceptor/TimelineInterceptor.java=UTF-8
 encoding//src/log4j.properties=UTF-8

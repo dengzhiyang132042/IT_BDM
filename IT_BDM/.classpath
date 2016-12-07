@@ -81,5 +81,6 @@
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/excel/poi-ooxml-3.8-20120326.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/excel/poi-ooxml-schemas-3.8-20120326.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/excel/xmlbeans-2.3.0.jar"/>
+	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/json/gson-2.3.1.jar"/>
 	<classpathentry kind="output" path="WebRoot/WEB-INF/classes"/>
 </classpath>
