@@ -20,8 +20,10 @@ import com.zs.entity.DaCount;
 import com.zs.entity.DaDemand;
 import com.zs.entity.DaPerform;
 import com.zs.entity.Users;
+import com.zs.entity.XtSite;
 import com.zs.service.IService;
 import com.zs.tools.Page;
+import com.zs.tools.WeekDateArea;
 
 public class DaCountZyAction extends MyBaseAction implements IMyBaseAction{
 
@@ -36,6 +38,8 @@ public class DaCountZyAction extends MyBaseAction implements IMyBaseAction{
 	String result="countZy";
 	String result_succ="succ";
 	String result_fail="fail";
+	String dates;
+	String datee;
 	
 	int number=0;
 	Logger logger=Logger.getLogger(DaCountZyAction.class);
@@ -65,9 +69,23 @@ public class DaCountZyAction extends MyBaseAction implements IMyBaseAction{
 	public void setPage(Page page) {
 		this.page = page;
 	}
-//----------------------------------------------------
+	public String getDates() {
+		return dates;
+	}
+	public void setDates(String dates) {
+		this.dates = dates;
+	}
+	public String getDatee() {
+		return datee;
+	}
+	public void setDatee(String datee) {
+		this.datee = datee;
+	}
+	//----------------------------------------------------
 	public void clearOptions() {
 		filtrate=null;
+		dates=null;
+		datee=null;
 	}
 	private void clearSpace() {
 		if (filtrate!=null && !filtrate.equals("")) {
@@ -130,20 +148,45 @@ public class DaCountZyAction extends MyBaseAction implements IMyBaseAction{
 	private void initCounts(List<DaCount> counts,String dt) throws ParseException {
 		//获取两个头尾的时间
 		DaDemand d1 = null,d2=null;
-		String str="from DaDemand order by DTime desc";
-		List list=ser.query(str, null, str, new Page(1, 0, 1), ser);
+		String str="from DaDemand where DTime!=null ";
+		String str1="from DaDemand where DTime!=null ";
+		SimpleDateFormat sdf= new SimpleDateFormat("yyyy-MM-dd");
+		if(dates!=null&&datee!=null&&!dates.equals("")&&!datee.equals("")){
+			if(dt.equals("D")){
+				str=str+" and DTime <='"+datee+"'";
+				str1=str1+" and DTime >='"+dates+"'";
+			}
+			if(dt.equals("W")){
+				List datelist = WeekDateArea.weekdate(dates, datee);
+				str=str+" and DTime <='"+datelist.get(0)+"'";
+				str1=str1+" and DTime >='"+datelist.get(1)+"'";
+			}
+			if(dt.equals("M")){
+				//获取月的最后一天
+				Date edate = new Date(Integer.parseInt(datee.substring(0,4))-1900, Integer.parseInt(datee.substring(5)),0);
+				str=str+" and DTime <='"+sdf.format(edate)+"'";
+				str1=str1+" and DTime >='"+dates+"'";
+			}
+			if(dt.equals("Y")){
+				//获取年的最后一天
+				Date edate = new Date(Integer.parseInt(datee)-1900, 12,0);
+				str=str+" and DTime <='"+sdf.format(edate)+"'";
+				str1=str1+" and DTime >='"+dates+"'";
+			}
+		}
+		str=str+" order by DTime desc";
+		List list=ser.query(str, null, str, page, ser);
 		if (list.size()>0) {
 			d1=(DaDemand) list.get(0);//尾巴
 		}
-		str="from DaDemand order by DTime asc";
-		list=ser.query(str, null, str, new Page(1, 0, 1), ser);
+		str1=str1+" order by DTime asc";
+		list=ser.query(str1, null, str1, page, ser);
 		if (list.size()>0) {
 			d2=(DaDemand) list.get(0);//头
 		}
 		if (d1!=null && d2!=null) {
 			if (dt.equals("D")) {
 				//获取相差天数
-				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 				Date date1=sdf.parse(d1.getDTime().toLocaleString());
 				Date date2=sdf.parse(d2.getDTime().toLocaleString());
 				long days=(date1.getTime()-date2.getTime())/(1000*3600*24);
