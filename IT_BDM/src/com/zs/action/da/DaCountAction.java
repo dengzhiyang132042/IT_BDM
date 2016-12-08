@@ -243,13 +243,12 @@ public class DaCountAction extends MyBaseAction implements IMyBaseAction{
 	
 	
 	public String queryOfFenye() throws UnsupportedEncodingException {
-		//用于判断是否清理page，yes清理，no不清理
-		if (page==null) {
+		if (cz!=null && cz.equals("yes")) {
+			clearOptions();
 			page=new Page(1, 0, 5);
 		}
-		if (cz!=null && cz.equals("yes")) {
+		if (page==null) {
 			page=new Page(1, 0, 5);
-			clearOptions();
 		}
 		clearSpace();
 		counts=new ArrayList<DaCount>();

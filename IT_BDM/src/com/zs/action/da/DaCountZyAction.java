@@ -32,8 +32,9 @@ public class DaCountZyAction extends MyBaseAction implements IMyBaseAction{
 	
 	
 	List<DaCount> counts;
-	
 	String filtrate;
+	String id;
+	String cz;
 	
 	String result="countZy";
 	String result_succ="succ";
@@ -47,6 +48,18 @@ public class DaCountZyAction extends MyBaseAction implements IMyBaseAction{
 	
 	public IService getSer() {
 		return ser;
+	}
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
+	}
+	public String getCz() {
+		return cz;
+	}
+	public void setCz(String cz) {
+		this.cz = cz;
 	}
 	public String getFiltrate() {
 		return filtrate;
@@ -240,14 +253,12 @@ public class DaCountZyAction extends MyBaseAction implements IMyBaseAction{
 	
 	
 	public String queryOfFenye() throws UnsupportedEncodingException {
-		String id=getRequest().getParameter("id");
-		String cz=getRequest().getParameter("cz");//用于判断是否清理page，yes清理，no不清理
-		if (page==null) {
+		if (cz!=null && cz.equals("yes")) {
+			clearOptions(); 
 			page=new Page(1, 0, 5);
 		}
-		if (cz!=null && cz.equals("yes")) {
+		if (page==null) {
 			page=new Page(1, 0, 5);
-			clearOptions(); 
 		}
 		clearSpace();
 		counts=new ArrayList<DaCount>();

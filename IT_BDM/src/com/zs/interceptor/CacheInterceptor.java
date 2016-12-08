@@ -1,50 +1,24 @@
 package com.zs.interceptor;
-
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-import java.sql.Time;
+import java.lang.reflect.Field;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
-import java.util.regex.Pattern;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import net.sf.json.JSONArray;
-import net.sf.json.JSONObject;
-import net.sf.json.JsonConfig;
-import net.sf.json.util.JSONUtils;
-
 import org.apache.log4j.Logger;
 import org.apache.struts2.ServletActionContext;
-import org.logicalcobwebs.concurrent.FJTask.Par;
-
 import com.google.gson.Gson;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionInvocation;
 import com.opensymphony.xwork2.interceptor.AbstractInterceptor;
 import com.opensymphony.xwork2.interceptor.PreResultListener;
-import com.opensymphony.xwork2.util.ValueStack;
-import com.zs.action.da.DaCountAction;
 import com.zs.entity.Cache;
-import com.zs.entity.CacheOther;
 import com.zs.entity.DaCount;
-import com.zs.entity.DaDemand;
-import com.zs.entity.Role;
-import com.zs.entity.RolePermission;
-import com.zs.entity.Users;
 import com.zs.service.IService;
-import com.zs.tools.JsonDateValueProcessor;
 import com.zs.tools.NameOfDate;
-import com.zs.tools.TimeStampMorpher;
 
 /**
  * @author 张顺
@@ -58,6 +32,7 @@ public class CacheInterceptor extends AbstractInterceptor{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	private final String COUNTS_NAME="counts";
 	ActionInvocation acin;
 	IService ser;
 	HttpServletRequest request;
@@ -96,39 +71,61 @@ public class CacheInterceptor extends AbstractInterceptor{
         acin=arg0;
         //获取action的名字
         actionName = arg0.getProxy().getActionName();
-        System.out.println(actionName);
         //获取action的方法名字
         methodName = arg0.getProxy().getMethod();
-        System.out.println(methodName);
-        
 	}
 	
-	
-	/**
-	 * 保存缓存
-	 */
-	private void saveCache(String listName,String filtrateName,String actionName) {
+	@Override
+	public String intercept(ActionInvocation arg0) throws Exception {
+		allInit(arg0);
+		if (user!=null) {
+			if ("count".equals(actionName)) {//客服统计
+				hadle("D",DaCount.class, "sTime");
+				return "count"; 
+			}
+			else if ("daManager".equals(actionName) && "add".equals(methodName)) {//故障添加
+				//有新数据我得把状态改下
+				List<Cache> list=getCaches("count");
+				for (int i = 0; i < list.size(); i++) {
+					list.get(i).setCNewData("是");
+					ser.update(list.get(i));
+				}
+			}
+			else if ("countZy".equals(actionName)) {//客服统计
+				hadle("D",DaCount.class, "sTime");
+				return "countZy"; 
+			}
+			
+			
+		}
+		close(); 
+		return arg0.invoke(); 
 	}
 	
+	private void close() {
+
+	}
 	
 	/**
 	 * 以缓存数据为数据源来显示(替换原有的计划数据)
 	 */
-	private void setCounts(String listname,String arrayjson,Class c) {
+	private void setCounts(Cache cache,Class count) {
 		List list=new ArrayList();
-		JSONArray arr=JSONArray.fromObject(arrayjson);
+		JSONArray arr=JSONArray.fromObject(cache.getCContent());
 		for (int i = 0; i < arr.size(); i++) {
 			String json=arr.getString(i);
-			Object obj=gson.fromJson(json, c);
+			Object obj=gson.fromJson(json, count);
 			list.add(obj);
 		}
-		acin.getStack().setValue(listname, list);
+		acin.getStack().set(COUNTS_NAME, list);
+		request.setAttribute("json", cache.getCContent());
 	}
 	
 	/**
 	 * 通过action的名字+筛选条件得到一个确定的缓存
+	 * 筛选条件必须为filtrate
 	 */
-	private Cache getCache(String actionName,String filtrate) {
+	private Cache getCache(String filtrate) {
 		List<Cache> caches=ser.find("from Cache where CAction=? and CFiltrate=?", new String[]{actionName,filtrate});
 		if (caches.size()>0) {
 			return caches.get(0);
@@ -138,142 +135,140 @@ public class CacheInterceptor extends AbstractInterceptor{
 	}
 	
 	/**
+	 * 得到帅选条件
+	 */
+	public String getFiltrate(String defaultFil) {
+		String filtrate=(String) acin.getStack().findValue("filtrate", String.class);
+		if (filtrate==null) {
+			filtrate=defaultFil;
+		}
+		return filtrate;
+	}
+	
+	
+	/**
 	 * 通过action的名字得到一系列的缓存
 	 */
 	private List<Cache> getCaches(String actionName) {
 		return ser.find("from Cache where CAction=?", new String[]{actionName});
 	}
 	
-	
-	//得到缓存的数据最后一条的开始时间
-	private void getLastDate(String array ) {
-		// TODO Auto-generated method stub
+	private void initActionOptions(Cache cache) {
+		
 	}
 	
 	/**
-	 * 张顺 2016-12-7
-	 * 处理缓存，找出
+	 *拼接json,处理json 
 	 */
-	private Cache hadleCache(String arrayjson,String actionName,Class c,String methodName) {
-		JSONArray arr=JSONArray.fromObject(arrayjson);
-		/*
-		//确保是否有新数据结论一定正确，采取对头尾数据判断两次的方式
-		2016-12-6
-		张顺
-		新思路：
-		新建一张表用于保存新数据的id的集合，以表名为id
-		在查看统计时就知道有哪些新数据了
-		在将新数据得到新的最终的json
-		然后在查看统计的页面以这个json为数据源来显示即可
-		*/
-		return null;
+	private void handleJson(List counts,Cache cache,Timestamp timestamp) {
+		String arrnew=gson.toJson(counts);//得到新数据封装的json
+		//拼接json
+		JSONArray arrt=JSONArray.fromObject(cache.getCContent());
+		arrt.remove(0);
+		String json=arrnew.substring(0, arrnew.length()-1)+","+arrt.toString().substring(1, arrt.toString().length());
+		cache.setCContent(json);
+		cache.setCTime(timestamp);
+		cache.setCNewData("否");
+		ser.update(cache);
+		List list=new ArrayList();
+		JSONArray arr=JSONArray.fromObject(cache.getCContent());
+		for (int i = 0; i < arr.size(); i++) {
+			String arra=arr.getString(i);
+			Object obj=gson.fromJson(arra, DaCount.class);
+			list.add(obj);
+		}
+		acin.getStack().set(COUNTS_NAME, list);
+		request.setAttribute("json", cache.getCContent());
 	}
 	
-	
-	@Override
-	public String intercept(ActionInvocation arg0) throws Exception {
-		allInit(arg0);
-		if (user!=null) {
-			if ("count".equals(actionName)) {//客服统计
-				String filtrate=(String) acin.getStack().findValue("filtrate", String.class);
-				if (filtrate==null) {
-					filtrate="D";
-				}
-				final Cache cache=getCache(actionName,filtrate); 
-				//得到缓存
-				if (cache!=null) {//有缓存
-					//看看有没有新数据，如果有，那么设置好条件，走一遍action，
-					if (cache.getCNewData()!=null && cache.getCNewData().equals("是")) {
-						Date dates=cache.getCTime();
-						Date datee=new Date();
-						
-						acin.getStack().setValue("dates", dates.toLocaleString());
-						acin.getStack().setValue("datee", datee.toLocaleString());
-						acin.getStack().setValue("cz", "no");
-						
-						arg0.addPreResultListener(new PreResultListener() {
-						     public void beforeResult(ActionInvocation actionInvocation, String arg1) {
-							     //do anything
-							     List counts=(List) acin.getStack().findValue("counts", List.class);//获取到新数据封装
-							     if (counts.size()>0) {//有新数据
-									DaCount daCount=(DaCount) counts.get(0);
-									Timestamp timestamp=daCount.getsTime();
-									
-									
-									String arrnew=gson.toJson(counts);//得到新数据封装的json
-									//拼接json
-									JSONArray arrt=JSONArray.fromObject(cache.getCContent());
-									arrt.remove(0);
-									
-									String json=arrnew.substring(0, arrnew.length()-1)+","+arrt.toString().substring(1, arrt.toString().length());
-									cache.setCContent(json);
-									cache.setCTime(timestamp);
-									cache.setCNewData("否");
-									ser.update(cache);
-									
-									List list=new ArrayList();
-									JSONArray arr=JSONArray.fromObject(cache.getCContent());
-									for (int i = 0; i < arr.size(); i++) {
-										String arra=arr.getString(i);
-										Object obj=gson.fromJson(arra, DaCount.class);
-										list.add(obj);
-									}
-									acin.getStack().set("counts", list);
-									request.setAttribute("json", cache.getCContent());
-								}
-						    }
-						});
-						arg0.invoke();//走一下action
-					}else if (cache.getCNewData()!=null && cache.getCNewData().equals("否")) {
-						List list=new ArrayList();
-						JSONArray arr=JSONArray.fromObject(cache.getCContent());
-						for (int i = 0; i < arr.size(); i++) {
-							String arra=arr.getString(i);
-							Object obj=gson.fromJson(arra, DaCount.class);
-							list.add(obj);
+	/**
+	 *最终封装——缓存相关处理 
+	 */
+	private void hadle(String defauFil,final Class c,final String filedName) {
+		if (reqPamrs!=null && reqPamrs.contains("cz=yes")) {
+			acin.getStack().setValue("filtrate", null);
+			acin.getStack().setValue("dates", null);
+			acin.getStack().setValue("datee", null);
+		}else {
+			acin.getStack().setValue("cz", null);
+		}
+		String filtrate=getFiltrate(defauFil);
+		final Cache cache=getCache(filtrate); //得到缓存
+		if (cache!=null) {//有缓存
+			//看看有没有新数据，如果有，那么设置好条件，走一遍action，
+			if (cache.getCNewData()!=null && cache.getCNewData().equals("是")) {
+				
+				Date dates=cache.getCTime();
+				Date datee=new Date();
+				acin.getStack().setValue("cz", null);
+				acin.getStack().setValue("dates", dates.toLocaleString());
+				acin.getStack().setValue("datee", datee.toLocaleString());
+				
+				acin.addPreResultListener(new PreResultListener() {
+				     public void beforeResult(ActionInvocation actionInvocation, String arg1) {
+					     //do anything
+					     List counts=(List) acin.getStack().findValue(COUNTS_NAME, List.class);//获取到新数据封装
+					     if (counts.size()>0) {//有新数据
+							Object daCount=counts.get(0);
+							try {
+								Field times = c.getDeclaredField(filedName);
+								times.setAccessible(true);
+								Object time=times.get(daCount);
+								Timestamp timestamp=(Timestamp) time;
+								handleJson(counts, cache, timestamp);
+							} catch (SecurityException e) {
+								e.printStackTrace();
+							} catch (NoSuchFieldException e) {
+								e.printStackTrace();
+							} catch (IllegalArgumentException e) {
+								e.printStackTrace();
+							} catch (IllegalAccessException e) {
+								e.printStackTrace();
+							}
 						}
-						acin.getStack().set("counts", list);
-						request.setAttribute("json", cache.getCContent());
-						
-					}
-					return "count";
-				}else {//没有缓存就走原来的查询语句，查询结束保存入缓存
-					logger.debug(actionName);
-					
-					arg0.invoke();
-//					saveCache("counts","filtrate","count");
-					List counts=(List) acin.getStack().findValue("counts", List.class);
-					//这里默认是倒序
-					if (counts.size()>0) {
-						DaCount daCount=(DaCount) counts.get(0);
-						Timestamp timestamp=daCount.getsTime();
-						String array=gson.toJson(counts);
-						Cache cache1=new Cache(NameOfDate.getNum(),"count",filtrate, array,timestamp,"否");
-						ser.save(cache1);
-					}
+				    }
+				});
+				try {
+					acin.invoke();//走一下action
+				} catch (Exception e) {
+					e.printStackTrace();
 				}
+			}else if (cache.getCNewData()!=null && cache.getCNewData().equals("否")) {
+				setCounts(cache, DaCount.class);
 			}
-			else if ("daManager".equals(actionName) && "add".equals(methodName)) {//故障添加
-				//有新数据我得把状态改下
-				List<Cache> list=getCaches("count");
-				for (int i = 0; i < list.size(); i++) {
-					list.get(i).setCNewData("是");
-					ser.update(list.get(i));
+			return;
+		}else {//没有缓存就走原来的查询语句，查询结束保存入缓存
+			try {
+				acin.invoke();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			List counts=(List) acin.getStack().findValue(COUNTS_NAME, List.class);
+			//这里默认是倒序
+			if (counts.size()>0) {
+				Object daCount=counts.get(0);
+				try {
+					Field times = c.getDeclaredField(filedName);
+					times.setAccessible(true);
+					Object time=times.get(daCount);
+					Timestamp timestamp=(Timestamp) time;
+					String array=gson.toJson(counts);
+					Cache cache1=new Cache(NameOfDate.getNum(),actionName,filtrate, array,timestamp,"否");
+					ser.save(cache1);
+				} catch (SecurityException e) {
+					e.printStackTrace();
+				} catch (NoSuchFieldException e) {
+					e.printStackTrace();
+				} catch (IllegalArgumentException e) {
+					e.printStackTrace();
+				} catch (IllegalAccessException e) {
+					e.printStackTrace();
 				}
+				return;
 				
-				
-			}
-			
-			else {
 				
 			}
 		}
-		close(); 
-		return arg0.invoke(); 
-	}
-	
-	private void close() {
-
 	}
 	
 }
