@@ -15,12 +15,14 @@ import com.zs.action.IMyBaseAction;
 import com.zs.action.MyBaseAction;
 import com.zs.entity.Users;
 import com.zs.entity.WhDeviceScout;
+import com.zs.entity.WhMeetingScout;
+import com.zs.entity.WhThreeMeetingScout;
 import com.zs.service.IService;
 import com.zs.service.iDataImportService;
 import com.zs.tools.NameOfDate;
 import com.zs.tools.Page;
 
-public class DeviceAction extends MyBaseAction implements IMyBaseAction{
+public class MeetAction extends MyBaseAction implements IMyBaseAction{
 
 	/**
 	 * 
@@ -29,10 +31,11 @@ public class DeviceAction extends MyBaseAction implements IMyBaseAction{
 	private IService ser;
 	private iDataImportService importSer;
 	private Page page;
-	private String result="device";
+	private String result="meet";
 	private String id;
-	private WhDeviceScout device;
-	private List<WhDeviceScout> devices;
+	private String cz;
+	private WhMeetingScout m;
+	private List<WhMeetingScout> ms;
 	private String dates;
 	private String datee;
 	private File fileExcel;
@@ -83,17 +86,23 @@ public class DeviceAction extends MyBaseAction implements IMyBaseAction{
 	public void setId(String id) {
 		this.id = id;
 	}
-	public WhDeviceScout getDevice() {
-		return device;
+	public String getCz() {
+		return cz;
 	}
-	public void setDevice(WhDeviceScout device) {
-		this.device = device;
+	public void setCz(String cz) {
+		this.cz = cz;
 	}
-	public List<WhDeviceScout> getDevices() {
-		return devices;
+	public WhMeetingScout getM() {
+		return m;
 	}
-	public void setDevices(List<WhDeviceScout> devices) {
-		this.devices = devices;
+	public void setM(WhMeetingScout m) {
+		this.m = m;
+	}
+	public List<WhMeetingScout> getMs() {
+		return ms;
+	}
+	public void setMs(List<WhMeetingScout> ms) {
+		this.ms = ms;
 	}
 	public IService getSer() {
 		return ser;
@@ -109,74 +118,66 @@ public class DeviceAction extends MyBaseAction implements IMyBaseAction{
 	}
 	//-------------------------------------------
 	public String add() throws Exception {
-		String dTime=getRequest().getParameter("d_time");
-		device.setDId("d"+NameOfDate.getNum());
-		device.setDDate(new Date());
+		clearSpace();
 		Users user=(Users) getSession().getAttribute("user");
-		if (user!=null && dTime!=null) {
- 			device.setDIt(user.getUName());
- 			String da1=new SimpleDateFormat("yyyy-MM-dd").format(device.getDDate());
- 			Timestamp tit=new Timestamp(new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(da1+" "+dTime).getTime());
- 			device.setDTime(tit);
-			ser.save(device);
+		if (user!=null && m!=null && m.getMDate()!=null) {
+			m.setMId("m"+NameOfDate.getNum());
+			m.setMIt(user.getUName());
+			ser.save(m);
 		}
-		device=null;
 		return gotoQuery();
 	}
 
 	public void clearOptions() {
-		if (id!=null) {
-			id=null;
-		}
-		if (dates!=null) {
-			dates=null;
-		}
-		if (datee!=null) {
-			datee=null;
-		}
+		id=null;
+		cz=null;
+		dates=null;
+		datee=null;
+		m=null;
+		ms=null;
 	}
 
 	public String delete() throws Exception {
-		String id=getRequest().getParameter("id");
-		device=(WhDeviceScout) ser.get(WhDeviceScout.class, id);
-		if (device!=null) {
-			ser.delete(device);
+		clearSpace();
+		if (id!=null) {
+			m=(WhMeetingScout) ser.get(WhMeetingScout.class, id);
+			if (m!=null) {
+				ser.delete(m);
+			}
 		}
-		device=null;
-		clearOptions();
 		return gotoQuery();
 	}
 
 	public String gotoQuery() throws UnsupportedEncodingException {
-		String hql="from WhDeviceScout order by DTime desc";
-		devices=ser.query(hql, null, hql, page, ser);
+		clearSpace();
+		clearOptions();
+		String hql="from WhMeetingScout order by MDate desc";
+		ms=ser.query(hql, null, hql, page, ser);
 		return result;
 	}
 
 	public String queryOfFenye() throws UnsupportedEncodingException {
-		id=getRequest().getParameter("id");
-		String cz=getRequest().getParameter("cz");//用于判断是否清理page，yes清理，no不清理
+		clearSpace();
+		if (cz!=null && cz.equals("yes")) {
+			clearOptions();
+			page=new Page(1, 0, 5);
+		}
 		if (page==null) {
 			page=new Page(1, 0, 5);
 		}
-		if (cz!=null && cz.equals("yes")) {
-			page=new Page(1, 0, 5);
-			clearOptions();
-		}
-		clearSpace();
 		if (id!=null) {
-			String hql="from WhDeviceScout where DId like '%"+id+"%'";
+			String hql="from WhMeetingScout where MId like '%"+id+"%'";
 			if(dates!=null&&!dates.equals("")){
-				hql=hql+" and DDate >='"+dates+"'";
+				hql=hql+" and MDate >='"+dates+"'";
 			}
 			if(datee!=null&&!datee.equals("")){
-				hql=hql+" and DDate <='"+datee+"'";
+				hql=hql+" and MDate <='"+datee+" 23:59:59'";
 			}
-			hql=hql+" order by DTime desc";
-			devices=ser.query(hql, null, hql, page, ser);
+			hql=hql+" order by MDate desc";
+			ms=ser.query(hql, null, hql, page, ser);
 		}else {
-			String hql="from WhDeviceScout order by DTime desc";
-			devices=ser.query(hql, null, hql, page, ser);
+			String hql="from WhMeetingScout order by MDate desc";
+			ms=ser.query(hql, null, hql, page, ser);
 		}
 		return result;
 	}
@@ -184,6 +185,9 @@ public class DeviceAction extends MyBaseAction implements IMyBaseAction{
 	private void clearSpace() {
 		if (id!=null) {
 			id=id.trim();
+		}
+		if (cz!=null) {
+			cz=cz.trim();
 		}
 		if (dates!=null) {
 			dates=dates.trim();
@@ -194,17 +198,10 @@ public class DeviceAction extends MyBaseAction implements IMyBaseAction{
 	}
 
 	public String update() throws Exception {
-		WhDeviceScout device2=(WhDeviceScout) ser.get(WhDeviceScout.class, device.getDId());
-		String dTime=getRequest().getParameter("d_time");
-		device.setDDate(device2.getDDate());
-		device.setDIt(device2.getDIt());
-		if (dTime!=null) {
- 			String da1=new SimpleDateFormat("yyyy-MM-dd").format(device.getDDate());
- 			Timestamp tit=new Timestamp(new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(da1+" "+dTime).getTime());
- 			device.setDTime(tit);
- 			ser.update(device);
+		clearSpace();
+		if (m!=null) {
+ 			ser.update(m);
 		}
-		device=null;
 		return gotoQuery();
 	}
 	public String importExcel() throws UnsupportedEncodingException {

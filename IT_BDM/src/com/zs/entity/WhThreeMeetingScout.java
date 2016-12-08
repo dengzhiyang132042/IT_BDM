@@ -141,4 +141,14 @@ public class WhThreeMeetingScout implements java.io.Serializable {
 		this.TNote = TNote;
 	}
 
+	@Override
+	public String toString() {
+		return "WhThreeMeetingScout [TComputer=" + TComputer + ", TDate="
+				+ TDate + ", TId=" + TId + ", TIt=" + TIt + ", TMonitor="
+				+ TMonitor + ", TMonitorScreen=" + TMonitorScreen
+				+ ", TMouseKeyboard=" + TMouseKeyboard + ", TNote=" + TNote
+				+ ", TProjector=" + TProjector + ", TVideo=" + TVideo
+				+ ", TYdSoftware=" + TYdSoftware + "]";
+	}
+
 }

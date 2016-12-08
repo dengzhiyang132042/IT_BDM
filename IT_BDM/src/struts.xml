@@ -264,6 +264,16 @@
      <result>/index.jsp</result>
      <result name="bqDraw">/whz/bqDraw.jsp</result>
   </action>
+  <action name="threeMeet" class="zs_three_meeting_whz">	
+  	 <interceptor-ref name="mydefault" />
+     <result>/index.jsp</result>
+     <result name="threeMeet">/whz/threeMeet.jsp</result>
+  </action>
+  <action name="meet" class="zs_meeting_whz">	
+  	 <interceptor-ref name="mydefault" />
+     <result>/index.jsp</result>
+     <result name="meet">/whz/meet.jsp</result>
+  </action>
     
   <!-- **********CompanySection************* -->
   <action name="cs" class="zs_cs">	
