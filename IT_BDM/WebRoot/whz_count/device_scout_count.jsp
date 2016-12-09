@@ -95,7 +95,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			path,
 			function(){
 				//console.log(result);
-				window.location.href="<%=path%>/files/export/whz/监控设备巡检统计.xls";
+				window.location.href="<%=path%>/files/export/whz/操作设备巡检统计.xls";
 			}
 		);
 	}

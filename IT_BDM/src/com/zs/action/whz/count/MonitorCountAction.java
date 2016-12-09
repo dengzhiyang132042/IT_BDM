@@ -106,7 +106,7 @@ public class MonitorCountAction extends MyBaseAction implements IMyBaseAction{
 		List list1=ser.find("from WhMonitorScout where MTime>=? and MTime<=?", new Object[]{new Timestamp(dateStart.getTime()),new Timestamp(dateEnd.getTime())});
 		List list2 = ser.find("from WhMonitorScout where MTime>=? and MTime<=? and MNote!=''", new Object[]{new Timestamp(dateStart.getTime()),new Timestamp(dateEnd.getTime())});
 		for(int i = 0; i < 2; i++){
-			WhDeviceScoutCount count = new WhDeviceScoutCount();
+			WhMonitorCount count = new WhMonitorCount();
 				count.setsTime(new Timestamp(dateStart.getTime()));
 				count.seteTime(new Timestamp(dateEnd.getTime()));
 				count.setOrderNum(orderNumber);
@@ -169,6 +169,8 @@ public class MonitorCountAction extends MyBaseAction implements IMyBaseAction{
 			if (dt.equals("W")) {
 				//设置序号初始值
 				int orderNumber=0;
+//				System.out.println(d1.getMTime());
+//				System.out.println(d2.getMTime());
 				int weeknum =(int)((d1.getMTime().getTime()-d2.getMTime().getTime())/(1000*60*60*24))/7;
 				for (int i = 0; i <= weeknum; i++) {
 					Date date = new Date(d1.getMTime().getYear(),d1.getMTime().getMonth(),d1.getMTime().getDate()-(7*i));

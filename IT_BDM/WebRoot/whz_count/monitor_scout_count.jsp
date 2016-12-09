@@ -11,7 +11,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <head>
     <base href="<%=basePath%>">
     
-    <title>操作设备巡检统计</title>
+    <title>监控设备巡检统计</title>
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
 	<meta http-equiv="expires" content="0">    
@@ -94,7 +94,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		$.post(
 			path,
 			function(){
-				//console.log(result);
 				window.location.href="<%=path%>/files/export/whz/监控设备巡检统计.xls";
 			}
 		);
@@ -116,13 +115,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   </head>
   <%boolean isAddColor=false; %>
   <body>
- 	<div style="text-align: center;margin-right: 17px;color: white;background-color:#17B4FF;padding: 5px;font-size: 14px;font-weight:bold;">操作设备巡检统计</div>
+ 	<div style="text-align: center;margin-right: 17px;color: white;background-color:#17B4FF;padding: 5px;font-size: 14px;font-weight:bold;">监控设备巡检统计</div>
  	
  	
 	<div style="background-color:white;margin-bottom: 5px;padding: 5px;border: 1px solid #224466;margin-right: 17px;margin-top: 10px;">
     	快速查询
     	<br/>
-    	<form action="<%=path %>/deviceCount!queryOfFenye" method="post">
+    	<form action="<%=path %>/monitorCount!queryOfFenye" method="post">
     		当前查询条件:
     		<select id="sel_dt" name="filtrate" onchange="changeDate()">
     			<option value="W">周</option>

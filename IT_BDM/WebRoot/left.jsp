@@ -163,7 +163,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<li><span><a href="<%=path %>/massageCount!queryOfFenye?cz=yes" target="right">网点巴枪维修登记</a></span></li>
 						<li><span><a href="<%=path %>/threeMeetingCount!queryOfFenye?cz=yes" target="right">观澜仓库3楼会议室巡检</a></span></li>
 						<li><span><a href="<%=path %>/meetingCount!queryOfFenye?cz=yes" target="right">观澜仓库会议室巡检</a></span></li>
-						<li><span><a href="<%=path %>/bq!queryOfFenye?cz=yes" target="right">外修登记</a></span></li>
+						<li><span><a href="<%=path %>/outRepairCount!queryOfFenye?cz=yes" target="right">外修登记</a></span></li>
         			</ul>
         		</li>
         		<li><span>开发组</span></li>

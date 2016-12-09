@@ -156,7 +156,7 @@ public class DaCountAction extends MyBaseAction implements IMyBaseAction{
 		String str="from DaDemand where DTime!=null ";
 		String str1="from DaDemand where DTime!=null ";
 		SimpleDateFormat sdf= new SimpleDateFormat("yyyy-MM-dd");
-		if(dates!=null&&datee!=null&&!dates.equals("")&&!datee.equals("")){
+		if((dates!=null||datee!=null)&&(!dates.equals("")||!datee.equals(""))){
 			if(dt.equals("D")){
 				str=str+" and DTime <='"+datee+"'";
 				str1=str1+" and DTime >='"+dates+"'";

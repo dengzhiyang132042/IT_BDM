@@ -17,6 +17,7 @@ import com.opensymphony.xwork2.interceptor.AbstractInterceptor;
 import com.opensymphony.xwork2.interceptor.PreResultListener;
 import com.zs.entity.Cache;
 import com.zs.entity.DaCount;
+import com.zs.entity.XtSiteCount;
 import com.zs.service.IService;
 import com.zs.tools.NameOfDate;
 
@@ -79,31 +80,54 @@ public class CacheInterceptor extends AbstractInterceptor{
 	public String intercept(ActionInvocation arg0) throws Exception {
 		allInit(arg0);
 		if (user!=null) {
-			if ("count".equals(actionName)) {//客服统计
-				hadle("D",DaCount.class, "sTime");
-				return "count"; 
-			}
-			else if ("daManager".equals(actionName) && "add".equals(methodName)) {//故障添加
-				//有新数据我得把状态改下
-				List<Cache> list=getCaches("count");
-				for (int i = 0; i < list.size(); i++) {
-					list.get(i).setCNewData("是");
-					ser.update(list.get(i));
+			String sdate=(String) acin.getStack().findValue("dates", String.class);
+			String edate=(String) acin.getStack().findValue("datee", String.class);
+			if(sdate==null&&edate==null){
+				if("login".equals(actionName)){
+					return "login";
 				}
+				else if ("count".equals(actionName)) {//客服统计
+					hadle("D",DaCount.class, "sTime");
+					return "count"; 
+				}
+				else if ("daManager".equals(actionName) && "add".equals(methodName)) {//故障添加
+					checkNewDate(new String[]{"count","countZy"});
+				}
+				else if ("countZy".equals(actionName)) {//专员统计
+					hadle("D",DaCount.class, "sTime");
+					return "countZy"; 
+				}
+				else if ("site".equals(actionName) && "add".equals(methodName)) {//添加站点资料
+					//有新数据我得把状态改下
+					checkNewDate(new String[]{"siteCount"});
+				}
+				else if ("siteCount".equals(actionName)) {//站点资料统计
+					hadle("W",XtSiteCount.class, "sTime");
+					return "siteCount"; 
+				}
+			}else {
+				acin.getStack().setValue("cz", "no");
 			}
-			else if ("countZy".equals(actionName)) {//客服统计
-				hadle("D",DaCount.class, "sTime");
-				return "countZy"; 
-			}
-			
-			
+			close();
 		}
-		close(); 
 		return arg0.invoke(); 
 	}
 	
 	private void close() {
 
+	}
+	
+	private void checkNewDate(String actionNames[]) {
+		if (actionNames!=null) {
+			for (int i = 0; i < actionNames.length; i++) {
+				//有新数据我得把状态改下
+				List<Cache> list=getCaches(actionNames[i]);
+				for (int j = 0; j < list.size(); j++) {
+					list.get(j).setCNewData("是");
+					ser.update(list.get(j));
+				}
+			}
+		}
 	}
 	
 	/**
@@ -160,7 +184,7 @@ public class CacheInterceptor extends AbstractInterceptor{
 	/**
 	 *拼接json,处理json 
 	 */
-	private void handleJson(List counts,Cache cache,Timestamp timestamp) {
+	private void handleJson(List counts,Cache cache,Timestamp timestamp,Class c) {
 		String arrnew=gson.toJson(counts);//得到新数据封装的json
 		//拼接json
 		JSONArray arrt=JSONArray.fromObject(cache.getCContent());
@@ -174,7 +198,7 @@ public class CacheInterceptor extends AbstractInterceptor{
 		JSONArray arr=JSONArray.fromObject(cache.getCContent());
 		for (int i = 0; i < arr.size(); i++) {
 			String arra=arr.getString(i);
-			Object obj=gson.fromJson(arra, DaCount.class);
+			Object obj=gson.fromJson(arra, c);
 			list.add(obj);
 		}
 		acin.getStack().set(COUNTS_NAME, list);
@@ -186,7 +210,7 @@ public class CacheInterceptor extends AbstractInterceptor{
 	 */
 	private void hadle(String defauFil,final Class c,final String filedName) {
 		if (reqPamrs!=null && reqPamrs.contains("cz=yes")) {
-			acin.getStack().setValue("filtrate", null);
+			acin.getStack().setValue("filtrate", defauFil);
 			acin.getStack().setValue("dates", null);
 			acin.getStack().setValue("datee", null);
 		}else {
@@ -215,7 +239,7 @@ public class CacheInterceptor extends AbstractInterceptor{
 								times.setAccessible(true);
 								Object time=times.get(daCount);
 								Timestamp timestamp=(Timestamp) time;
-								handleJson(counts, cache, timestamp);
+								handleJson(counts, cache, timestamp,c);
 							} catch (SecurityException e) {
 								e.printStackTrace();
 							} catch (NoSuchFieldException e) {
@@ -226,6 +250,8 @@ public class CacheInterceptor extends AbstractInterceptor{
 								e.printStackTrace();
 							}
 						}
+					    acin.getStack().setValue("dates", null);
+						acin.getStack().setValue("datee", null);
 				    }
 				});
 				try {
@@ -234,7 +260,7 @@ public class CacheInterceptor extends AbstractInterceptor{
 					e.printStackTrace();
 				}
 			}else if (cache.getCNewData()!=null && cache.getCNewData().equals("否")) {
-				setCounts(cache, DaCount.class);
+				setCounts(cache, c);
 			}
 			return;
 		}else {//没有缓存就走原来的查询语句，查询结束保存入缓存
