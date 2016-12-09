@@ -25,12 +25,28 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<link rel="stylesheet" type="text/css" href="<%=path %>/FRAMEWORK/jquery-easyui/demo/demo.css">
 	<script type="text/javascript" src="<%=path %>/FRAMEWORK/jquery-easyui/jquery.min.js"></script>
 	<script type="text/javascript" src="<%=path %>/FRAMEWORK/jquery-easyui/jquery.easyui.min.js"></script>
+	<script type="text/javascript" src="<%=path %>/FRAMEWORK/My97DatePicker/WdatePicker.js"></script>
 	
 	<link rel="stylesheet" type="text/css" href="<%=path %>/FRAMEWORK/css/mycss.css">
 	<script type="text/javascript">
 	$(function(){
+		if('${filtrate}'=='D'||'${filtrate}'==null){
+			var date ="<input name='dates' id='d4311' class='Wdate' type='text' onFocus=\"WdatePicker({maxDate:'#F{$dp.$D(\\'d4312\\')||\\'2020-10-01\\'}'})\" value='${dates }'/>~<input name='datee' id=\"d4312\" class=\"Wdate\" type=\"text\" onFocus=\"WdatePicker({minDate:'#F{$dp.$D(\\'d4311\\')}'})\" value='${datee }' />";
+			$('#datearea').html(date);
+		}
+		if('${filtrate}'=='W'){
+			var date ="<input name='dates' id='d4311' class='Wdate' type='text' onFocus=\"WdatePicker({maxDate:'#F{$dp.$D(\\'d4312\\')||\\'2020-10-01\\'}'})\" value='${dates }'/>~<input name='datee' id=\"d4312\" class=\"Wdate\" type=\"text\" onFocus=\"WdatePicker({minDate:'#F{$dp.$D(\\'d4311\\')}'})\" value='${datee }' />";
+			$('#datearea').html(date);
+		}
+		if('${filtrate}'=='M'){
+			var monthdate ="<input name='dates' type='month' value ='${dates}'/>~<input name='datee' type='month' value='${datee}'/>"
+			$('#datearea').html(monthdate);
+		}
+		if('${filtrate}'=='Y'){
+			var ydate = "<input name='dates' type='number' min='1900' max='2199' value='${dates}'/>~<input name='datee' type='number' min='1900' max='2199' value='${datee}'/>"
+			$('#datearea').html(ydate);
+		}
 		$("#sel_dt option[value='${filtrate}']").attr("selected",true);
-		$("#sele option[value='"+${page.size}+"']").attr("selected",true);
 		$("#eidtASubjectWindow1").show();
 		$('#tt').show();
 	});
@@ -53,21 +69,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		$('#u_14').val(u14);
 		$('#u_15').val(u15);
 		$('#u_16').val(u16);
-	}
-	function page(no,cz){
-		var num1=$('#page').val();
-		if(cz==1){//上下页
-			$('#page').val(num1*1+no*1);
-		}else if(cz==2){//首末页
-			$('#page').val(no);
-		}else{
-		}
-		if($('#page').val()*1<1){
-			$('#page').val(1);
-		}else if($('#page').val()*1>${page.pageMax}*1){
-			$('#page').val(${page.pageMax});
-		}
-		$('#f1').submit();
 	}
 	</script>
 	<script type="text/javascript">
@@ -96,6 +97,24 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	}
 	function forward() {
 		$("#u").window('open');
+	}
+	function changeDate(){
+		if($('#sel_dt').val()=='D'){
+			var date ="<input name='dates' id='d4311' class='Wdate' type='text' onFocus=\"WdatePicker({maxDate:'#F{$dp.$D(\\'d4312\\')||\\'2020-10-01\\'}'})\" value='${dates }'/>~<input name='datee' id=\"d4312\" class=\"Wdate\" type=\"text\" onFocus=\"WdatePicker({minDate:'#F{$dp.$D(\\'d4311\\')}'})\" value='${datee }' />";
+			$('#datearea').html(date);
+		}
+		if($('#sel_dt').val()=='W'){
+			var date ="<input name='dates' id='d4311' class='Wdate' type='text' onFocus=\"WdatePicker({maxDate:'#F{$dp.$D(\\'d4312\\')||\\'2020-10-01\\'}'})\" value='${dates }'/>~<input name='datee' id=\"d4312\" class=\"Wdate\" type=\"text\" onFocus=\"WdatePicker({minDate:'#F{$dp.$D(\\'d4311\\')}'})\" value='${datee }' />";
+			$('#datearea').html(date);
+		}
+		if($('#sel_dt').val()=='M'){
+			var monthdate ="<input name='dates' type='month' value ='${dates}'/>~<input name='datee' type='month' value='${datee}'/>"
+			$('#datearea').html(monthdate);
+		}
+		if($('#sel_dt').val()=='Y'){
+			var ydate = "<input name='dates' type='number' min='1900' max='2199' value='${dates}'/>~<input name='datee' type='number' min='1900' max='2199' value='${datee}'/>"
+			$('#datearea').html(ydate);
+		}
 	}
 	</script>
 	
@@ -130,12 +149,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     	<br/>
     	<form action="<%=path %>/countZy!queryOfFenye" method="post">
     		当前查询条件:
-    		<select id="sel_dt" name="filtrate">
+    		<select id="sel_dt" name="filtrate" onchange="changeDate()">
     			<option value="D">日</option>
     			<option value="W">周</option>
     			<option value="M">月</option>
     			<option value="Y">年</option>
     		</select>
+    		&nbsp;&nbsp;&nbsp;&nbsp;
+    		选择日期:<span id ="datearea"></span>
     		<br/>
     		<input type="submit" value="查询"/>
     	</form>	

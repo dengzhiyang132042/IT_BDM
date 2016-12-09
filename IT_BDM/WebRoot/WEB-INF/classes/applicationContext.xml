@@ -211,7 +211,9 @@
 	<bean id="hgh_count_massage" class="com.zs.action.whz.count.MassageReceiveAction">
 		<property name="ser" ref="zs_ser"></property>
 	</bean>
-	
+	<bean id="hgh_count_out_repair" class="com.zs.action.whz.count.OutRepairCoutAction">
+		<property name="ser" ref="zs_ser"></property>
+	</bean>
 	
 	
 	<!-- *****************故障报修处理跟进系统************************ -->

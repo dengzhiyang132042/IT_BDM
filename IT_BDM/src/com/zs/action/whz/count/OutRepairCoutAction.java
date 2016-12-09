@@ -15,9 +15,8 @@ import net.sf.json.JSONArray;
 
 import com.zs.action.IMyBaseAction;
 import com.zs.action.MyBaseAction;
-import com.zs.entity.WhDeviceScout;
-import com.zs.entity.XtSite;
-import com.zs.entity.custom.WhDeviceScoutCount;
+import com.zs.entity.WhOutRepair;
+import com.zs.entity.custom.WhOutRepairCount;
 
 import com.zs.service.IService;
 import com.zs.tools.Constant;
@@ -25,7 +24,7 @@ import com.zs.tools.ExcelExport;
 import com.zs.tools.Page;
 import com.zs.tools.WeekDateArea;
 
-public class DeviceScoutCountAction extends MyBaseAction implements IMyBaseAction{
+public class OutRepairCoutAction extends MyBaseAction implements IMyBaseAction{
 
 	/**
 	 * 
@@ -34,18 +33,18 @@ public class DeviceScoutCountAction extends MyBaseAction implements IMyBaseActio
 	IService ser;
 	Page page;
 	
-	List<WhDeviceScoutCount> counts;
+	List<WhOutRepairCount> counts;
 	
 	String filtrate;
 	
-	String result="deviceCount";
+	String result="outRepairCount";
 	String result_succ="succ";
 	String result_fail="fail";
 	
 	String dates;
 	String datee;
 	
-	Logger logger=Logger.getLogger(DeviceScoutCountAction.class);
+	Logger logger=Logger.getLogger(OutRepairCoutAction.class);
 //----------------------------------------------------	
 	
 	public IService getSer() {
@@ -69,10 +68,10 @@ public class DeviceScoutCountAction extends MyBaseAction implements IMyBaseActio
 	public void setFiltrate(String filtrate) {
 		this.filtrate = filtrate;
 	}
-	public List<WhDeviceScoutCount> getCounts() {
+	public List<WhOutRepairCount> getCounts() {
 		return counts;
 	}
-	public void setCounts(List<WhDeviceScoutCount> counts) {
+	public void setCounts(List<WhOutRepairCount> counts) {
 		this.counts = counts;
 	}
 	public void setSer(IService ser) {
@@ -103,23 +102,27 @@ public class DeviceScoutCountAction extends MyBaseAction implements IMyBaseActio
 	 * 组装count
 	 */
 	private void initCount(Date dateStart,Date dateEnd,List counts,int num,int orderNumber) {
-		List list1=ser.find("from WhDeviceScout where DTime>=? and DTime<=?", new Object[]{new Timestamp(dateStart.getTime()),new Timestamp(dateEnd.getTime())});
-		List list2 = ser.find("from WhDeviceScout where DTime>=? and DTime<=? and DAbnormalNote!=''", new Object[]{new Timestamp(dateStart.getTime()),new Timestamp(dateEnd.getTime())});
-		for(int i = 0; i < 2; i++){
-			WhDeviceScoutCount count = new WhDeviceScoutCount();
-				count.setsTime(new Timestamp(dateStart.getTime()));
-				count.seteTime(new Timestamp(dateEnd.getTime()));
-				count.setOrderNum(orderNumber);
-				count.setNumber(num);
-				count.setAbnormal("正常");
-				count.setCount(list1.size()-list2.size());
-				count.setRows(2);
-				if(i>0){
+		List list1=ser.find("select OType from WhOutRepair where ODate>=? and ODate<=? group by OType",new Object[]{new Timestamp(dateStart.getTime()),new Timestamp(dateEnd.getTime())} );
+		if(list1!=null&&list1.size()>0){
+			for (int i = 0; i < list1.size(); i++) {
+				List list2 = ser.find("from WhOutRepair where ODate>=? and ODate<=? and OType = ?",new Object[]{new Timestamp(dateStart.getTime()),new Timestamp(dateEnd.getTime()),list1.get(i)});
+				if (list2.size()!=0) {//如果为0就不要了
+					WhOutRepairCount count = new WhOutRepairCount();
+					//i代表多少种类型
+					count.setsTime(new Timestamp(dateStart.getTime()));
+					count.seteTime(new Timestamp(dateEnd.getTime()));
+					if(i<1){
+						count.setOrderNum(orderNumber);
+						count.setNumber(num);
+						count.setRows(list1.size());
+					}else{
+						count.setRows(0);
+					}
+					count.setType(list1.get(i).toString());
 					count.setCount(list2.size());
-					count.setAbnormal("异常");
-					count.setRows(0);
+					counts.add(count);
 				}
-			counts.add(count);
+			}
 		}
 	}
 	
@@ -129,48 +132,48 @@ public class DeviceScoutCountAction extends MyBaseAction implements IMyBaseActio
 	 * @param dt
 	 * @throws ParseException
 	 */
-	private void initCounts(List<WhDeviceScoutCount> counts,String dt) throws ParseException {
+	private void initCounts(List<WhOutRepairCount> counts,String dt) throws ParseException {
 		//获取两个头尾的时间
-		WhDeviceScout d1 = null,d2=null;
-		String str="from WhDeviceScout where DTime!=null ";
-		String str1="from WhDeviceScout where DTime!=null";
+		WhOutRepair d1 = null,d2=null;
+		String str="from WhOutRepair where ODate!=null ";
+		String str1="from WhOutRepair where ODate!=null";
 		SimpleDateFormat sdf= new SimpleDateFormat("yyyy-MM-dd");
 		if(dates!=null&&datee!=null&&!dates.equals("")&&!datee.equals("")){
 			if(dt.equals("W")){
 				List datelist = WeekDateArea.weekdate(dates, datee);
-				str=str+" and DTime <='"+datelist.get(0)+"'";
-				str1=str1+" and DTime >='"+datelist.get(1)+"'";
+				str=str+" and ODate <='"+datelist.get(0)+"'";
+				str1=str1+" and ODate >='"+datelist.get(1)+"'";
 			}
 			if(dt.equals("M")){
 				//获取月的最后一天
 				Date edate = new Date(Integer.parseInt(datee.substring(0,4))-1900, Integer.parseInt(datee.substring(5)),0);
-				str=str+" and DTime <='"+sdf.format(edate)+"'";
-				str1=str1+" and DTime >='"+dates+"'";
+				str=str+" and ODate <='"+sdf.format(edate)+"'";
+				str1=str1+" and ODate >='"+dates+"'";
 			}
 			if(dt.equals("Y")){
 				//获取月的最后一天
 				Date edate = new Date(Integer.parseInt(datee)-1900, 12,0);
-				str=str+" and DTime <='"+sdf.format(edate)+"'";
-				str1=str1+" and DTime >='"+dates+"'";
+				str=str+" and ODate <='"+sdf.format(edate)+"'";
+				str1=str1+" and ODate >='"+dates+"'";
 			}
 		}
-		str=str+" order by DTime desc";
+		str=str+" order by OCreateDatetime desc";
 		List list=ser.query(str, null, str, page, ser);
 		if (list.size()>0) {
-			d1=(WhDeviceScout) list.get(0);//尾巴
+			d1=(WhOutRepair) list.get(0);//尾巴
 		}
-		str1=str1+" order by DTime asc";
+		str1=str1+" order by OCreateDatetime asc";
 		list=ser.query(str1, null, str1, page, ser);
 		if (list.size()>0) {
-			d2=(WhDeviceScout) list.get(0);//头
+			d2=(WhOutRepair) list.get(0);//头
 		}
 		if (d1!=null && d2!=null) {
 			if (dt.equals("W")) {
 				//设置序号初始值
 				int orderNumber=0;
-				int weeknum =(int)((d1.getDTime().getTime()-d2.getDTime().getTime())/(1000*60*60*24))/7;
+				int weeknum =(int)((d1.getODate().getTime()-d2.getODate().getTime())/(1000*60*60*24))/7;
 				for (int i = 0; i <= weeknum; i++) {
-					Date date = new Date(d1.getDTime().getYear(),d1.getDTime().getMonth(),d1.getDTime().getDate()-(7*i));
+					Date date = new Date(d1.getODate().getYear(),d1.getODate().getMonth(),d1.getODate().getDate()-(7*i));
 					Date dateStart= ser.weekDate(date).get(ser.KEY_DATE_START);
 					Date dateEnd=ser.weekDate(date).get(ser.KEY_DATE_END);
 					Calendar ca3 = Calendar.getInstance();
@@ -183,11 +186,11 @@ public class DeviceScoutCountAction extends MyBaseAction implements IMyBaseActio
 				//设置序号初始值
 				int orderNumber = 0;
 				//获取相差月数
-				long ms=(d1.getDTime().getYear()-d2.getDTime().getYear())*12+(d1.getDTime().getMonth()-d2.getDTime().getMonth());
+				long ms=(d1.getODate().getYear()-d2.getODate().getYear())*12+(d1.getODate().getMonth()-d2.getODate().getMonth());
 				for (int i = 0; i <= ms; i++) {
-					Date dateStart=new Date(d1.getDTime().getYear(), d1.getDTime().getMonth()-i, 1,0,0,0);
+					Date dateStart=new Date(d1.getODate().getYear(), d1.getODate().getMonth()-i, 1,0,0,0);
 					Calendar ca = Calendar.getInstance();    
-					ca.set(1900+d1.getDTime().getYear(), 1+d1.getDTime().getMonth()-i, 0);
+					ca.set(1900+d1.getODate().getYear(), 1+d1.getODate().getMonth()-i, 0);
 					Date dateTmp=ca.getTime();
 					Date dateEnd=new Date(dateTmp.getYear(), dateTmp.getMonth(), dateTmp.getDate(),23,59,59);
 					int m=dateStart.getMonth();
@@ -198,10 +201,10 @@ public class DeviceScoutCountAction extends MyBaseAction implements IMyBaseActio
 				//设置序号初始值
 				int orderNumber = 0;
 				//获得相差年数
-				long ys=d1.getDTime().getYear()-d2.getDTime().getYear();
+				long ys=d1.getODate().getYear()-d2.getODate().getYear();
 				for (int i = 0; i <= ys; i++) {
-					Date dateStart=new Date(d1.getDTime().getYear()-i, 0, 1,0,0,0);
-					Date dateEnd=new Date(d1.getDTime().getYear()-i, 11, 31,23,59,59);
+					Date dateStart=new Date(d1.getODate().getYear()-i, 0, 1,0,0,0);
+					Date dateEnd=new Date(d1.getODate().getYear()-i, 11, 31,23,59,59);
 					int y=dateStart.getYear();
 					orderNumber++;
 					initCount(dateStart, dateEnd, counts,y+1900,orderNumber);
@@ -222,7 +225,7 @@ public class DeviceScoutCountAction extends MyBaseAction implements IMyBaseActio
 			clearOptions();
 		}
 		clearSpace();
-		counts=new ArrayList<WhDeviceScoutCount>();
+		counts=new ArrayList<WhOutRepairCount>();
 		if(id!=null){
 			/*
 			由于是统计模块所以不需要按编号查询功能，但为了兼容，故保留，只不过其代码为空而已。
@@ -265,21 +268,21 @@ public class DeviceScoutCountAction extends MyBaseAction implements IMyBaseActio
 	}
 	public String exportExc() throws Exception{
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-		String filePath=getRequest().getRealPath("/")+"/files/export/whz/操作设备巡检统计.xls";
+		String filePath=getRequest().getRealPath("/")+"/files/export/whz/巴枪外修统计.xls";
 		String dayType = "周数";
 		if(filtrate.equals("M")){
 			dayType = "月数";
 		}else if(filtrate.equals("Y")){
 			dayType = "年数";
 		}
-		Object[] obj ={"序号","开始时间","结束时间",dayType,"类型","数量"};
+		Object[] obj ={"序号","开始时间","结束时间",dayType,"设备类型","数量"};
 		Object objtmp[][]=new Object[counts.size()][6];
 		for (int i = 0; i < objtmp.length; i++) {
 			objtmp[i][0]=counts.get(i).getOrderNum();
 			objtmp[i][1]=sdf.format(new Date(counts.get(i).getsTime().getTime()));
 			objtmp[i][2]=sdf.format(new Date(counts.get(i).geteTime().getTime()));
 			objtmp[i][3]=counts.get(i).getNumber();
-			objtmp[i][4]=counts.get(i).getAbnormal();
+			objtmp[i][4]=counts.get(i).getType();
 			objtmp[i][5]=counts.get(i).getCount();
 		}
 		

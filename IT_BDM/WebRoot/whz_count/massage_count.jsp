@@ -11,7 +11,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <head>
     <base href="<%=basePath%>">
     
-    <title>故障统计</title>
+    <title>网点巴枪送修统计</title>
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
 	<meta http-equiv="expires" content="0">    
@@ -30,10 +30,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<link rel="stylesheet" type="text/css" href="<%=path %>/FRAMEWORK/css/mycss.css">
 	<script type="text/javascript">
 	$(function(){
-		if('${filtrate}'=='D'){
-			var date ="<input name='dates' id='d4311' class='Wdate' type='text' onFocus=\"WdatePicker({maxDate:'#F{$dp.$D(\\'d4312\\')||\\'2020-10-01\\'}'})\" value='${dates }'/>~<input name='datee' id=\"d4312\" class=\"Wdate\" type=\"text\" onFocus=\"WdatePicker({minDate:'#F{$dp.$D(\\'d4311\\')}'})\" value='${datee }' />";
-			$('#datearea').html(date);
-		}
 		if('${filtrate}'=='W'){
 			var date ="<input name='dates' id='d4311' class='Wdate' type='text' onFocus=\"WdatePicker({maxDate:'#F{$dp.$D(\\'d4312\\')||\\'2020-10-01\\'}'})\" value='${dates }'/>~<input name='datee' id=\"d4312\" class=\"Wdate\" type=\"text\" onFocus=\"WdatePicker({minDate:'#F{$dp.$D(\\'d4311\\')}'})\" value='${datee }' />";
 			$('#datearea').html(date);
@@ -47,39 +43,39 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			$('#datearea').html(ydate);
 		}
 		$("#sel_dt option[value='${filtrate}']").attr("selected",true);
+		$("#sele option[value='"+${page.size}+"']").attr("selected",true);
 		$("#eidtASubjectWindow1").show();
 		$('#tt').show();
 	});
+	function page(no,cz){
+		var num1=$('#page').val();
+		if(cz==1){//上下页
+			$('#page').val(num1*1+no*1);
+		}else if(cz==2){//首末页
+			$('#page').val(no);
+		}else{
+		}
+		if($('#page').val()*1<1){
+			$('#page').val(1);
+		}else if($('#page').val()*1>${page.pageMax}*1){
+			$('#page').val(${page.pageMax});
+		}
+		$('#f1').submit();
+	}
 	</script>
 	<script type="text/javascript">
-	function queryDetails(status) {
-		/*
-		console.log(${json}[status].demPer.length);
-		*/
-		var table1="<table border=\"1\" style=\"font-size: 12px;margin-top: 10px;\">";
-		table1=table1+
-		"<tr><th>编号</th><th>发起人</th><th>故障描述</th><th>故障类型</th><th>创建时间</th><th>当前处理人</th><th>超时时间</th><th>状态</th></tr>";
-		for ( var i = 0; i < ${json}[status].demPer.length; i++) {
-			table1=table1+"<tr>"+
-			"<td>"+${json}[status].demPer[i].demand.DId+"</td>"+
-			"<td>"+${json}[status].demPer[i].demand.DApplicant+"</td>"+
-			"<td>"+${json}[status].demPer[i].demand.DContent+"</td>"+
-			"<td>"+${json}[status].demPer[i].demand.DType+"</td>"+
-			"<td>"+${json}[status].demPer[i].demand.DTimeString+"</td>"+
-			"<td>"+${json}[status].demPer[i].performs[0].UName+"</td>"+
-			"<td>"+${json}[status].demPer[i].demand.DTimeExpectString+"</td>"+
-			"<td>"+${json}[status].demPer[i].performs[0].PState+"</td>"+
-			"</tr>";
-		}
-		table1=table1+"</table>";
-		$("#q").html(table1);
-		$("#q").window('open');
+	function queryDetails(dates,datee,type) {
+		var a1=new Array()
+		a1=dates.split(" ");
+		//console.log(a1[0]);
+		var a2=new Array()
+		a2=datee.split(" ");
+		//console.log(a2[0]);
+		var path="<%=path%>/massage!queryOfFenye?cz=no&id=&type="+type+"&dates="+a1[0]+"&datee="+a2[0];
+		//console.log(path);
+		window.location.href=path;
 	}
 	function changeDate(){
-		if($('#sel_dt').val()=='D'){
-			var date ="<input name='dates' id='d4311' class='Wdate' type='text' onFocus=\"WdatePicker({maxDate:'#F{$dp.$D(\\'d4312\\')||\\'2020-10-01\\'}'})\" value='${dates }'/>~<input name='datee' id=\"d4312\" class=\"Wdate\" type=\"text\" onFocus=\"WdatePicker({minDate:'#F{$dp.$D(\\'d4311\\')}'})\" value='${datee }' />";
-			$('#datearea').html(date);
-		}
 		if($('#sel_dt').val()=='W'){
 			var date ="<input name='dates' id='d4311' class='Wdate' type='text' onFocus=\"WdatePicker({maxDate:'#F{$dp.$D(\\'d4312\\')||\\'2020-10-01\\'}'})\" value='${dates }'/>~<input name='datee' id=\"d4312\" class=\"Wdate\" type=\"text\" onFocus=\"WdatePicker({minDate:'#F{$dp.$D(\\'d4311\\')}'})\" value='${datee }' />";
 			$('#datearea').html(date);
@@ -92,6 +88,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			var ydate = "<input name='dates' type='number' min='1900' max='2199' value='${dates}'/>~<input name='datee' type='number' min='1900' max='2199' value='${datee}'/>"
 			$('#datearea').html(ydate);
 		}
+	}
+	function xiazai(){
+		var path ="<%=path %>/massageCount!exportExc";
+		$.post(
+			path,
+			function(){
+				//console.log(result);
+				window.location.href="<%=path%>/files/export/whz/网点巴枪维修统计.xls";
+			}
+		);
 	}
 	</script>
 	
@@ -108,28 +114,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	  }
 	</style>
   </head>
-  
+  <%boolean isAddColor=false; %>
   <body>
- 	
- 	
-    <div class="tab" style="float: left;background-color: #FF0202;color: white;font-weight: ;">客服统计</div>
-
- 	<div class="tab" style="float: left;margin-left: 10px;" onmousemove="this.style.background='#FF0202';" onmouseout="this.style.background='#B00000';" onclick="window.location.href='<%=path %>/countZy!queryOfFenye?cz=yes'">专员统计</div>
- 	
- 	
- 	<br/>
- 	<br/>
- 	<br/>
- 	<div style="text-align: center;margin-right: 17px;color: white;background-color:#17B4FF;padding: 5px;font-size: 14px;font-weight:bold;">客服统计</div>
+ 	<div style="text-align: center;margin-right: 17px;color: white;background-color:#17B4FF;padding: 5px;font-size: 14px;font-weight:bold;">操作设备巡检统计</div>
  	
  	
 	<div style="background-color:white;margin-bottom: 5px;padding: 5px;border: 1px solid #224466;margin-right: 17px;margin-top: 10px;">
     	快速查询
     	<br/>
-    	<form action="<%=path %>/count!queryOfFenye" method="post">
+    	<form action="<%=path %>/massageCount!queryOfFenye" method="post">
     		当前查询条件:
     		<select id="sel_dt" name="filtrate" onchange="changeDate()">
-    			<option value="D">日</option>
     			<option value="W">周</option>
     			<option value="M">月</option>
     			<option value="Y">年</option>
@@ -138,54 +133,47 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     		选择日期:<span id ="datearea"></span>
     		<br/>
     		<input type="submit" value="查询"/>
+    		<input type= "button" onclick="xiazai()" value="导出" />
     	</form>	
     </div>
     <div style="margin-bottom: 5px;">
 	    
 	    
-  	<div style="margin-right: 27px;">
+  	<div style="margin-right: 17px;">
     <table border="1" id="" style="font-size: 12px;">
 	    <tr>
-	    	<th width="90">序号</th>
-	    	<th width="280">开始时间</th>
-	    	<th width="280">结束时间</th>
-	    	<th width="250">故障报修量</th>
-	    	<th width="250">故障完成量</th>
-	    	<th width="250">完成率</th>
+	    	<th>序号</th>
+	    	<th>开始时间</th>
+	    	<th>结束时间</th>
+	    	<th>
+	    		<c:if test="${filtrate=='W'}">周</c:if>
+	    		<c:if test="${filtrate=='M'}">月</c:if>
+	    		<c:if test="${filtrate=='Y'}">年</c:if>
+	    		数</th>
+	    	<th>巴枪类型</th>
+	    	<th>数量</th>
 	    	<th>操作</th>
 	    </tr>
-	    <tr style="height: 30px;visibility: hidden;">
-	    	<td>1</td>
-	    	<td>1</td>
-	    	<td>1</td>
-	    	<td>1</td>
-	    	<td>1</td>
-	    	<td>1</td>
-	    	<td>1</td>
-	    </tr>
-    </table>
-  	</div>
-    <div style="height:500px;overflow: scroll;margin-top: -30px;overflow-x:hidden;">
-    <table border="1" id="" style="font-size: 12px;margin-top: -31px;">
-    	<tr style="height: 30px;visibility: hidden;">
-    		<th width="90">1</th>
-    		<th width="280">1</th>
-    		<th width="280">1</th>
-    		<th width="250">1</th>
-    		<th width="250">1</th>
-    		<th width="250">1</th>
-    		<th>1</th>
-    	</tr>
 	    <c:forEach items="${counts}" var="count" varStatus="status">
+	    <c:if test="${count.rows!=0}">
+    		<%isAddColor=!isAddColor; %>
+   		</c:if>
+	   	<%if(isAddColor){ %>
+	    <tr class="odd_even_tr">
+	    <%}else{ %>
 	    <tr>
-	    	<td>${status.index+1 }</td>
-	    	<td>${count.sTime }</td>
-	    	<td>${count.eTime }</td>
-	    	<td>${count.daAll }</td>
-	    	<td>${count.daSuc }</td>
-	    	<td>${count.ratioSuc }%</td>
+	    <%} %>
+	    	<c:if test="${count.rows!=0}">
+	    		
+		    	<td rowspan="${count.rows}">${count.orderNum }</td>
+		    	<td rowspan="${count.rows}"><fmt:formatDate value="${count.sTime }" pattern="yyyy-M-d HH:mm:ss" /></td>
+		    	<td rowspan="${count.rows}"><fmt:formatDate value="${count.eTime }" pattern="yyyy-M-d HH:mm:ss" /></td>
+	    		<td rowspan="${count.rows}">${count.number }</td>
+	    	</c:if>
+	    	<td>${count.type }</td>
+	    	<td>${count.count }</td>
 	    	<td>
-				<a onclick="queryDetails('${status.index}')" class="easyui-linkbutton" title="查看详情">查看详情</a>
+				<a onclick="queryDetails('${count.sTime}','${count.eTime }','${count.type }')" class="easyui-linkbutton" title="查看详情">查看详情</a>
 			</td>
 	    </tr>
 	    </c:forEach>
