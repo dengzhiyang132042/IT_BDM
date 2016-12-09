@@ -151,6 +151,15 @@
 		<property name="ser" ref="zs_ser"></property>
 		<property name="importSer" ref="zs_ser_whz_meet"></property>
 	</bean>
+	<bean id="zs_out_whz" class="com.zs.action.whz.OutAction">
+		<property name="ser" ref="zs_ser"></property>
+		<property name="importSer" ref="zs_ser_whz_out"></property>
+	</bean>
+	<bean id="zs_all_date_whz" class="com.zs.action.whz.AllDateAction">
+		<property name="ser" ref="zs_ser"></property>
+		<property name="importSer" ref="zs_ser_whz_all_date"></property>
+	</bean>
+	
 	
 	<!-- *****************数据分析************************  -->
 	<!--系统组	-->
@@ -214,6 +223,7 @@
 	<bean id="hgh_count_out_repair" class="com.zs.action.whz.count.OutRepairCoutAction">
 		<property name="ser" ref="zs_ser"></property>
 	</bean>
+	
 	
 	
 	<!-- *****************故障报修处理跟进系统************************ -->
@@ -351,7 +361,12 @@
 	<bean id="zs_ser_whz_meet" class="com.zs.service.impl.WhMeetServiceImpl">
 		<property name="dao" ref="zs_dao"></property>
 	</bean>
-	
+	<bean id="zs_ser_whz_out" class="com.zs.service.impl.WhOutServiceImpl">
+		<property name="dao" ref="zs_dao"></property>
+	</bean>
+	<bean id="zs_ser_whz_all_date" class="com.zs.service.impl.WhAllDateServiceImpl">
+		<property name="dao" ref="zs_dao"></property>
+	</bean>
 	
 	
 	<!-- ************************************* -->

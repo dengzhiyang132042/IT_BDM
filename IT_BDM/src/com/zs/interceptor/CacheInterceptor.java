@@ -80,34 +80,30 @@ public class CacheInterceptor extends AbstractInterceptor{
 	public String intercept(ActionInvocation arg0) throws Exception {
 		allInit(arg0);
 		if (user!=null) {
-			String sdate=(String) acin.getStack().findValue("dates", String.class);
-			String edate=(String) acin.getStack().findValue("datee", String.class);
-			if(sdate==null&&edate==null){
-				if("login".equals(actionName)){
-					return "login";
-				}
-				else if ("count".equals(actionName)) {//客服统计
-					hadle("D",DaCount.class, "sTime");
-					return "count"; 
-				}
-				else if ("daManager".equals(actionName) && "add".equals(methodName)) {//故障添加
-					checkNewDate(new String[]{"count","countZy"});
-				}
-				else if ("countZy".equals(actionName)) {//专员统计
-					hadle("D",DaCount.class, "sTime");
-					return "countZy"; 
-				}
-				else if ("site".equals(actionName) && "add".equals(methodName)) {//添加站点资料
-					//有新数据我得把状态改下
-					checkNewDate(new String[]{"siteCount"});
-				}
-				else if ("siteCount".equals(actionName)) {//站点资料统计
-					hadle("W",XtSiteCount.class, "sTime");
-					return "siteCount"; 
-				}
-			}else {
-				acin.getStack().setValue("cz", "no");
+			if("login".equals(actionName)){
+				return "login";
 			}
+			else if ("count".equals(actionName)) {//客服统计
+				hadle("D",DaCount.class, "sTime");
+				return "count"; 
+			}
+			else if ("daManager".equals(actionName) && "add".equals(methodName)) {//故障添加
+				checkNewDate(new String[]{"count","countZy"});
+			}
+			/*
+			else if ("countZy".equals(actionName)) {//专员统计
+				hadle("D",DaCount.class, "sTime");
+				return "countZy"; 
+			}
+			else if ("site".equals(actionName) && "add".equals(methodName)) {//添加站点资料
+				//有新数据我得把状态改下
+				checkNewDate(new String[]{"siteCount"});
+			}
+			else if ("siteCount".equals(actionName)) {//站点资料统计
+				hadle("W",XtSiteCount.class, "sTime");
+				return "siteCount"; 
+			}
+			*/
 			close();
 		}
 		return arg0.invoke(); 
@@ -209,90 +205,105 @@ public class CacheInterceptor extends AbstractInterceptor{
 	 *最终封装——缓存相关处理 
 	 */
 	private void hadle(String defauFil,final Class c,final String filedName) {
+		boolean isGoto=false;
 		if (reqPamrs!=null && reqPamrs.contains("cz=yes")) {
 			acin.getStack().setValue("filtrate", defauFil);
-			acin.getStack().setValue("dates", null);
-			acin.getStack().setValue("datee", null);
+			isGoto=true;
 		}else {
 			acin.getStack().setValue("cz", null);
+			String dates=acin.getStack().findString("dates");
+			String datee=acin.getStack().findString("datee");
+			if ((dates==null || dates.trim().equals("")) && ((datee==null || datee.trim().equals("")))) {
+				isGoto=true;
+			}else {
+				isGoto=false;
+			}
 		}
-		String filtrate=getFiltrate(defauFil);
-		final Cache cache=getCache(filtrate); //得到缓存
-		if (cache!=null) {//有缓存
-			//看看有没有新数据，如果有，那么设置好条件，走一遍action，
-			if (cache.getCNewData()!=null && cache.getCNewData().equals("是")) {
-				
-				Date dates=cache.getCTime();
-				Date datee=new Date();
-				acin.getStack().setValue("cz", null);
-				acin.getStack().setValue("dates", dates.toLocaleString());
-				acin.getStack().setValue("datee", datee.toLocaleString());
-				
-				acin.addPreResultListener(new PreResultListener() {
-				     public void beforeResult(ActionInvocation actionInvocation, String arg1) {
-					     //do anything
-					     List counts=(List) acin.getStack().findValue(COUNTS_NAME, List.class);//获取到新数据封装
-					     if (counts.size()>0) {//有新数据
-							Object daCount=counts.get(0);
-							try {
-								Field times = c.getDeclaredField(filedName);
-								times.setAccessible(true);
-								Object time=times.get(daCount);
-								Timestamp timestamp=(Timestamp) time;
-								handleJson(counts, cache, timestamp,c);
-							} catch (SecurityException e) {
-								e.printStackTrace();
-							} catch (NoSuchFieldException e) {
-								e.printStackTrace();
-							} catch (IllegalArgumentException e) {
-								e.printStackTrace();
-							} catch (IllegalAccessException e) {
-								e.printStackTrace();
+		if (isGoto) {
+			String filtrate=getFiltrate(defauFil);
+			acin.getStack().setValue("dates", null);
+			acin.getStack().setValue("datee", null);
+			final Cache cache=getCache(filtrate); //得到缓存
+			if (cache!=null) {//有缓存
+				//看看有没有新数据，如果有，那么设置好条件，走一遍action，
+				if (cache.getCNewData()!=null && cache.getCNewData().equals("是")) {
+					
+					Date dates=cache.getCTime();
+					Date datee=new Date();
+					acin.getStack().setValue("cz", null);
+					acin.getStack().setValue("dates", dates.toLocaleString());
+					acin.getStack().setValue("datee", datee.toLocaleString());
+					
+					acin.addPreResultListener(new PreResultListener() {
+					     public void beforeResult(ActionInvocation actionInvocation, String arg1) {
+						     //do anything
+						     List counts=(List) acin.getStack().findValue(COUNTS_NAME, List.class);//获取到新数据封装
+						     if (counts.size()>0) {//有新数据
+								Object daCount=counts.get(0);
+								try {
+									Field times = c.getDeclaredField(filedName);
+									times.setAccessible(true);
+									Object time=times.get(daCount);
+									Timestamp timestamp=(Timestamp) time;
+									handleJson(counts, cache, timestamp,c);
+								} catch (SecurityException e) {
+									e.printStackTrace();
+								} catch (NoSuchFieldException e) {
+									e.printStackTrace();
+								} catch (IllegalArgumentException e) {
+									e.printStackTrace();
+								} catch (IllegalAccessException e) {
+									e.printStackTrace();
+								}
 							}
-						}
-					    acin.getStack().setValue("dates", null);
-						acin.getStack().setValue("datee", null);
-				    }
-				});
+						    acin.getStack().setValue("dates", null);
+							acin.getStack().setValue("datee", null);
+					    }
+					});
+					try {
+						acin.invoke();//走一下action
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+				}else if (cache.getCNewData()!=null && cache.getCNewData().equals("否")) {
+					setCounts(cache, c);
+				}
+				return;
+			}else {//没有缓存就走原来的查询语句，查询结束保存入缓存
 				try {
-					acin.invoke();//走一下action
+					acin.invoke();
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
-			}else if (cache.getCNewData()!=null && cache.getCNewData().equals("否")) {
-				setCounts(cache, c);
+				List counts=(List) acin.getStack().findValue(COUNTS_NAME, List.class);
+				//这里默认是倒序
+				if (counts.size()>0) {
+					Object daCount=counts.get(0);
+					try {
+						Field times = c.getDeclaredField(filedName);
+						times.setAccessible(true);
+						Object time=times.get(daCount);
+						Timestamp timestamp=(Timestamp) time;
+						String array=gson.toJson(counts);
+						Cache cache1=new Cache(NameOfDate.getNum(),actionName,filtrate, array,timestamp,"否");
+						ser.save(cache1);
+					} catch (SecurityException e) {
+						e.printStackTrace();
+					} catch (NoSuchFieldException e) {
+						e.printStackTrace();
+					} catch (IllegalArgumentException e) {
+						e.printStackTrace();
+					} catch (IllegalAccessException e) {
+						e.printStackTrace();
+					}
+					return;
+				}
 			}
-			return;
-		}else {//没有缓存就走原来的查询语句，查询结束保存入缓存
+		}else {
 			try {
 				acin.invoke();
 			} catch (Exception e) {
 				e.printStackTrace();
-			}
-			List counts=(List) acin.getStack().findValue(COUNTS_NAME, List.class);
-			//这里默认是倒序
-			if (counts.size()>0) {
-				Object daCount=counts.get(0);
-				try {
-					Field times = c.getDeclaredField(filedName);
-					times.setAccessible(true);
-					Object time=times.get(daCount);
-					Timestamp timestamp=(Timestamp) time;
-					String array=gson.toJson(counts);
-					Cache cache1=new Cache(NameOfDate.getNum(),actionName,filtrate, array,timestamp,"否");
-					ser.save(cache1);
-				} catch (SecurityException e) {
-					e.printStackTrace();
-				} catch (NoSuchFieldException e) {
-					e.printStackTrace();
-				} catch (IllegalArgumentException e) {
-					e.printStackTrace();
-				} catch (IllegalAccessException e) {
-					e.printStackTrace();
-				}
-				return;
-				
-				
 			}
 		}
 	}

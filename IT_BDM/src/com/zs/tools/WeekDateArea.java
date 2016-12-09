@@ -19,18 +19,26 @@ public class WeekDateArea {
 	public static List weekdate(String dates,String datee) throws ParseException{
 		SimpleDateFormat sdf= new SimpleDateFormat("yyyy-MM-dd");
 		Calendar ca = Calendar.getInstance();
-		ca.setTime(sdf.parse(dates));
+		if(dates!=null&&!dates.equals("")){
+			ca.setTime(sdf.parse(dates));
+		}
 		Calendar ca1 = Calendar.getInstance();
-		ca1.setTime(sdf.parse(datee));
+		if(datee!=null&&!datee.equals("")){
+			ca1.setTime(sdf.parse(datee));
+		}
 		Calendar cal1 = Calendar.getInstance();
-        cal1.clear();
-        cal1.set(Calendar.YEAR, Integer.parseInt(dates.substring(0,4)));
+		cal1.clear();
+		if(dates!=null&&!dates.equals("")){
+			cal1.set(Calendar.YEAR, Integer.parseInt(dates.substring(0,4)));
+		}
         cal1.set(Calendar.WEEK_OF_YEAR,ca.get(ca.WEEK_OF_YEAR));
         cal1.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY);
         //获取尾时间
         Calendar cal2 = Calendar.getInstance();
         cal2.clear();
-        cal2.set(Calendar.YEAR, Integer.parseInt(datee.substring(0,4)));
+        if(datee!=null&&!datee.equals("")){
+        	cal2.set(Calendar.YEAR, Integer.parseInt(datee.substring(0,4)));
+        }
         cal2.set(Calendar.WEEK_OF_YEAR,ca1.get(ca1.WEEK_OF_YEAR));
         cal2.set(Calendar.DAY_OF_WEEK, Calendar.SATURDAY);
        	List list = new ArrayList<String>();
