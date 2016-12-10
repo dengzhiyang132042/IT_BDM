@@ -274,7 +274,16 @@
      <result>/index.jsp</result>
      <result name="meet">/whz/meet.jsp</result>
   </action>
-    
+  <action name="out" class="zs_out_whz">	
+  	 <interceptor-ref name="mydefault" />
+     <result>/index.jsp</result>
+     <result name="out">/whz/out.jsp</result>
+  </action>
+  <action name="allDate" class="zs_all_date_whz">	
+  	 <interceptor-ref name="mydefault" />
+     <result>/index.jsp</result>
+     <result name="allDate">/whz/allDate.jsp</result>
+  </action>
   <!-- **********CompanySection************* -->
   <action name="cs" class="zs_cs">	
   	 <interceptor-ref name="mydefault" />
@@ -498,7 +507,6 @@
      <result name="succ">/success.jsp</result>
      <result name="fail">/fail.jsp</result>
   </action>
-  
   
   
 </package>
