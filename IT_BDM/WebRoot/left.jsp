@@ -43,64 +43,142 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <body style="padding: 0px;">
 
 <div class="easyui-accordion" style="width:100%;" data-options="fillSpace:true,fit: true,animate: true,selected:false">
-	<div title="基础数据" data-options="iconCls:'icon-add'" style="overflow:auto;padding:10px;">
+	<div title="基础数据登记" data-options="iconCls:'icon-add'" style="overflow:auto;padding:10px;">
 		<ul id="tt" class="easyui-tree" data-options="animate:true,lines:true">
-        <li><span>数据与流程管理部</span>
+        <li><span>信息与流程管理部</span>
         	<ul>
-        		<li><span>硬件组</span>
-        			<ul>
-						<li><span><a href="<%=path %>/fbd_asdl!queryOfFenyeAsdl?cz=yes" target="right">分拨点宽带登记ASDL</a></span></li>
-						<li><span><a href="<%=path %>/fbd_m!queryOfFenyeM?cz=yes" target="right">分拨点监控登记</a></span></li>
-						<li><span><a href="<%=path %>/fbd_c!queryOfFenyeC?cz=yes" target="right">分拨点电脑登记</a></span></li>
-						<li><span><a href="<%=path %>/fbd_ll!queryOfFenyeLL?cz=yes" target="right">分拨点监控材料申请清单</a></span></li>
-						<li><span><a href="<%=path %>/sim!queryOfFenyeSIM?cz=yes" target="right">SIM费用报销</a></span></li>
-						<li><span><a href="<%=path %>/goods!queryOfFenyeGoods?cz=yes" target="right">内件收发登记</a></span></li>
-						<li><span><a href="<%=path %>/go!queryOfFenyeGo?cz=yes" target="right">外出登记</a></span></li>        			
-        			</ul>
-        		</li>
         		<li><span>系统组</span>
         			<ul>
-						<li><span><a href="<%=path %>/site!queryOfFenye?cz=yes" target="right">站点资料</a></span></li>
-						<li><span><a href="<%=path %>/branches!queryOfFenye?cz=yes" target="right">二级站点资料</a></span></li>
-						<li><span><a href="<%=path %>/zmn!queryOfFenye?cz=yes" target="right">哲盟账号申请登记</a></span></li>
-						<li><span><a href="<%=path %>/zmd!queryOfFenye?cz=yes" target="right">哲盟数据检查登记</a></span></li>
-						<li><span><a href="<%=path %>/pdachange!queryOfFenye?cz=yes" target="right">条码变更明细</a></span></li>
-						<li><span><a href="<%=path %>/bqrepair!queryOfFenye?cz=yes" target="right">送修坂田巴枪</a></span></li>
-						<li><span><a href="<%=path %>/pdaloss!queryOfFenye?cz=yes" target="right">PDA挂失</a></span></li>
-						<li><span><a href="<%=path %>/hitches!queryOfFenye?cz=yes" target="right">故障登记</a></span></li>
+						<li><span><a href="<%=path %>/site!queryOfFenye?cz=yes" target="right">站点资料登记</a></span></li>
+						<li><span><a href="<%=path %>/branches!queryOfFenye?cz=yes" target="right">二级站点登记</a></span></li>
+						<li><span><a href="<%=path %>/zmn!queryOfFenye?cz=yes" target="right">哲盟职能用户</a></span></li>
+						<li><span><a href="<%=path %>/zmd!queryOfFenye?cz=yes" target="right">哲盟数据检查</a></span></li>
+						<li><span><a href="<%=path %>/pdachange!queryOfFenye?cz=yes" target="right">巴枪条码变更</a></span></li>
+						<li><span><a href="<%=path %>/bqrepair!queryOfFenye?cz=yes" target="right">设备维修登记</a></span></li>
+						<li><span><a href="<%=path %>/pdaloss!queryOfFenye?cz=yes" target="right">巴枪挂失登记</a></span></li>
+						<li><span><a href="<%=path %>/hitches!queryOfFenye?cz=yes" target="right">哲盟异常登记</a></span></li>
+						<li><span><a href="<%=path %>/hitches!queryOfFenye?cz=yes" target="right">公司BQQ登记</a></span></li>
+						<li><span><a href="<%=path %>/hitches!queryOfFenye?cz=yes" target="right">网点IMO登记</a></span></li>
+						<li><span><a href="<%=path %>/hitches!queryOfFenye?cz=yes" target="right">系统开发登记</a></span></li>
+        			</ul>
+        		</li>
+        		<li><span>开发组</span></li>
+        		<li><span>硬件组</span>
+        			<ul>
+						<li><span><a href="<%=path %>/fbd_asdl!queryOfFenyeAsdl?cz=yes" target="right">ASDL宽带登记</a></span></li>
+						<li><span><a href="<%=path %>/fbd_m!queryOfFenyeM?cz=yes" target="right">监控信息登记</a></span></li>
+						<li><span><a href="<%=path %>/fbd_c!queryOfFenyeC?cz=yes" target="right">电脑信息登记</a></span></li>
+						<li><span><a href="<%=path %>/fbd_ll!queryOfFenyeLL?cz=yes" target="right">监控材料清单</a></span></li>
+						<li><span><a href="<%=path %>/sim!queryOfFenyeSIM?cz=yes" target="right">SIM费用报销</a></span></li>
+						<li><span><a href="<%=path %>/goods!queryOfFenyeGoods?cz=yes" target="right">内件收发登记</a></span></li>
+						<li><span><a href="<%=path %>/go!queryOfFenyeGo?cz=yes" target="right">员工外出登记</a></span></li>        			
         			</ul>
         		</li>
         		<li><span>桌面组</span>
         			<ul>
 						<li><span><a href="<%=path %>/vpn!queryOfFenye?cz=yes" target="right">VPN账号登记</a></span></li>
-						<li><span><a href="<%=path %>/by!queryOfFenye?cz=yes" target="right">IMO、邮箱账号</a></span></li>
-						<li><span><a href="<%=path %>/oa!queryOfFenye?cz=yes" target="right">oa账号</a></span></li>
+						<li><span><a href="<%=path %>/by!queryOfFenye?cz=yes" target="right">IMO邮箱账号</a></span></li>
+						<li><span><a href="<%=path %>/computer!queryOfFenye?cz=yes" target="right">公司电脑信息</a></span></li>
+						<li><span><a href="<%=path %>/bq!queryOfFenye?cz=yes" target="right">骏达设备登记</a></span></li>
+						<li><span><a href="<%=path %>/wifi!queryOfFenye?cz=yes" target="right">公司wifi管理</a></span></li>
+						<li><span><a href="<%=path %>/call!queryOfFenye?cz=yes" target="right">总部呼叫系统</a></span></li>
+						<li><span><a href="<%=path %>/allianceCall!queryOfFenye?cz=yes" target="right">网点呼叫系统</a></span></li>
+						<li><span><a href="<%=path %>/oa!queryOfFenye?cz=yes" target="right">oa账号登记</a></span></li>
 						<li><span><a href="<%=path %>/print!queryOfFenye?cz=yes" target="right">打印机登记</a></span></li>
-						<li><span><a href="<%=path %>/computer!queryOfFenye?cz=yes" target="right">管理电脑统计</a></span></li>
-						<li><span><a href="<%=path %>/bq!queryOfFenye?cz=yes" target="right">小仓巴枪电脑登记</a></span></li>
-						<li><span><a href="<%=path %>/wifi!queryOfFenye?cz=yes" target="right">园区wifi管理</a></span></li>
 						<li><span><a href="<%=path %>/phone!queryOfFenye?cz=yes" target="right">电话线分布</a></span></li>
-						<li><span><a href="<%=path %>/call!queryOfFenye?cz=yes" target="right">总部呼叫系统账号维护</a></span></li>
-						<li><span><a href="<%=path %>/allianceCall!queryOfFenye?cz=yes" target="right">加盟商呼叫系统账号维护</a></span></li>
         			</ul>
         		</li>
         		<li><span>维护组</span>
         			<ul>
 						<li><span><a href="<%=path %>/device!queryOfFenye?cz=yes" target="right">操作设备巡检</a></span></li>
 						<li><span><a href="<%=path %>/monitor!queryOfFenye?cz=yes" target="right">监控设备巡检</a></span></li>
-						<li><span><a href="<%=path %>/massage!queryOfFenye?cz=yes" target="right">网点巴枪维修接收登记</a></span></li>
+						<li><span><a href="<%=path %>/threeMeet!queryOfFenye?cz=yes" target="right">观澜3楼巡检</a></span></li>
+						<li><span><a href="<%=path %>/meet!queryOfFenye?cz=yes" target="right">新仓仓库巡检</a></span></li>
+						<li><span><a href="<%=path %>/massage!queryOfFenye?cz=yes" target="right">巴枪维修登记</a></span></li>
 						<li><span><a href="<%=path %>/exp!queryOfFenye?cz=yes" target="right">快递单号登记</a></span></li>
 						<li><span><a href="<%=path %>/bqDraw!queryOfFenye?cz=yes" target="right">巴枪领取登记</a></span></li>
-						<li><span><a href="<%=path %>/threeMeet!queryOfFenye?cz=yes" target="right">观澜仓库3楼会议室巡检</a></span></li>
-						<li><span><a href="<%=path %>/meet!queryOfFenye?cz=yes" target="right">观澜仓库会议室巡检</a></span></li>
-						<li><span><a href="<%=path %>/out!queryOfFenye?cz=yes" target="right">外修登记</a></span></li>
+						<li><span><a href="<%=path %>/out!queryOfFenye?cz=yes" target="right">设备外修登记</a></span></li>
         			</ul>
         		</li>
-        		<li><span>开发组</span></li>
         	</ul>
         </li>
         </ul>
 	</div>
+	<div title="故障报修登记" data-options="iconCls:'icon-large-smartart'" style="padding:10px;">
+		<ul id="tt" class="easyui-tree" data-options="animate:true,lines:true">
+       		<li><span><a href="<%=path %>/daManager!queryOfFenye?cz=yes" target="right">故障报修管理</a></span></li>
+       		<li><span><a href="<%=path %>/auditing!queryOfFenye?cz=yes" target="right">故障报修转发审核</a></span></li>
+       		<li><span><a href="<%=path %>/count!queryOfFenye?cz=yes" target="right">故障报修统计</a></span></li>
+       		<li><span><a href="<%=path %>/handle!queryOfFenye?cz=yes" target="right">故障报修处理</a></span></li>
+        </ul>
+	</div>
+	<div title="数据统计报表" data-options="iconCls:'icon-large-shapes'" style="padding:10px;">
+		<ul id="tt" class="easyui-tree" data-options="animate:true,lines:true">
+        <li><span>信息与流程管理部</span>
+        	<ul>
+        		<li><span>系统组</span>
+        			<ul>
+						<li><span><a href="<%=path %>/siteCount!queryOfFenye?cz=yes" target="right">站点资料登记</a></span></li>
+						<li><span><a href="<%=path %>/branchesCount!queryOfFenye?cz=yes" target="right">二级站点登记</a></span></li>
+						<li><span><a href="<%=path %>/zmNumberCount!queryOfFenye?cz=yes" target="right">哲盟职能用户</a></span></li>
+						<li><span><a href="<%=path %>/zmDataCount!queryOfFenye?cz=yes" target="right">哲盟数据检查</a></span></li>
+						<li><span><a href="<%=path %>/pdaChangeCount!queryOfFenye?cz=yes" target="right">巴枪条码变更</a></span></li>
+						<li><span><a href="<%=path %>/bqRepairCount!queryOfFenye?cz=yes" target="right">设备维修登记</a></span></li>
+						<li><span><a href="<%=path %>/hitchesCount!queryOfFenye?cz=yes" target="right">哲盟异常登记</a></span></li>
+        			</ul>
+        		</li>
+        		<li><span>开发组</span></li>
+        		<li><span>硬件组</span>
+        			<ul>
+						<li><span><a href="<%=path %>/fbd_asdl!queryOfFenyeAsdl?cz=yes" target="right">ASDL宽带登记</a></span></li>
+						<li><span><a href="<%=path %>/fbd_m!queryOfFenyeM?cz=yes" target="right">监控信息登记</a></span></li>
+						<li><span><a href="<%=path %>/fbd_c!queryOfFenyeC?cz=yes" target="right">电脑信息登记</a></span></li>
+						<li><span><a href="<%=path %>/fbd_ll!queryOfFenyeLL?cz=yes" target="right">监控信息登记</a></span></li>
+						<li><span><a href="<%=path %>/sim!queryOfFenyeSIM?cz=yes" target="right">SIM费用报销</a></span></li>
+						<li><span><a href="<%=path %>/goods!queryOfFenyeGoods?cz=yes" target="right">内件收发登记</a></span></li>
+						<li><span><a href="<%=path %>/go!queryOfFenyeGo?cz=yes" target="right">员工外出登记</a></span></li>        			
+        			</ul>
+        		</li>
+        		<li><span>桌面组</span>
+        			<ul>
+						<li><span><a href="<%=path %>/vpnCount!queryOfFenye?cz=yes" target="right">VPN账号登记</a></span></li>
+						<li><span><a href="<%=path %>/byNumberCount!queryOfFenye?cz=yes" target="right">IMO邮箱账号</a></span></li>
+						<li><span><a href="<%=path %>/computerCount!queryOfFenye?cz=yes" target="right">公司管理信息</a></span></li>
+						<li><span><a href="<%=path %>/bqCount!queryOfFenye?cz=yes" target="right">骏达设备登记</a></span></li>
+						<li><span><a href="<%=path %>/callCount!queryOfFenye?cz=yes" target="right">总部呼叫系统</a></span></li>
+						<li><span><a href="<%=path %>/allianceCallCount!queryOfFenye?cz=yes" target="right">网点呼叫系统</a></span></li>
+						<li><span><a href="<%=path %>/oaCount!queryOfFenye?cz=yes" target="right">oa账号登记</a></span></li>
+						<li><span><a href="<%=path %>/printCount!queryOfFenye?cz=yes" target="right">打印机登记</a></span></li>
+        			</ul>
+        		</li>
+        		<li><span>维护组</span>
+        			<ul>
+						<li><span><a href="<%=path %>/deviceCount!queryOfFenye?cz=yes" target="right">操作设备巡检</a></span></li>
+						<li><span><a href="<%=path %>/monitorCount!queryOfFenye?cz=yes" target="right">监控设备巡检</a></span></li>
+						<li><span><a href="<%=path %>/threeMeetingCount!queryOfFenye?cz=yes" target="right">观澜3楼巡检</a></span></li>
+						<li><span><a href="<%=path %>/meetingCount!queryOfFenye?cz=yes" target="right">新仓仓库巡检</a></span></li>
+						<li><span><a href="<%=path %>/massageCount!queryOfFenye?cz=yes" target="right">巴枪维修登记</a></span></li>
+						<li><span><a href="<%=path %>/outRepairCount!queryOfFenye?cz=yes" target="right">设备外修登记</a></span></li>
+        			</ul>
+        		</li>
+        	</ul>
+        </li>
+        </ul>
+	</div>
+	<div title="系统管理" data-options="iconCls:'icon-large-smartart'" style="padding:10px;">
+		<ul id="tt" class="easyui-tree" data-options="animate:true,lines:true">
+      		<li><span><a href="<%=path %>/users!queryOfFenye?cz=yes" target="right">用户管理</a></span></li>
+      		<li><span><a href="<%=path %>/role!queryOfFenye?cz=yes" target="right">角色管理</a></span></li>
+        	<li><span>个人中心</span>
+	        	<ul>
+			        <li><span><a href="<%=path %>/timeline!query" target="right">时间轴</a></span></li>
+       		<li><span><a href="<%=path %>/information!query" target="right">提醒</a></span></li>
+       		<li><span><a href="<%=path %>/jobLog!gotoJob" target="right">工作日志</a></span></li>
+	        	</ul>
+	        </li>
+        </ul>
+	</div>
+	
 	<div title="通讯录" data-options="iconCls:'icon-print'" style="padding:10px;">
 		<ul id="tt" class="easyui-tree" data-options="animate:true,lines:true">
 	        <li><span>原通讯录设计</span>
@@ -118,80 +196,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	        </li>
 	    </ul>
 	</div>
-	<div title="数据分析" data-options="iconCls:'icon-large-shapes'" style="padding:10px;">
-		<ul id="tt" class="easyui-tree" data-options="animate:true,lines:true">
-        <li><span>数据与流程管理部</span>
-        	<ul>
-        		<li><span>硬件组</span>
-        			<ul>
-						<li><span><a href="<%=path %>/fbd_asdl!queryOfFenyeAsdl?cz=yes" target="right">分拨点宽带登记ASDL</a></span></li>
-						<li><span><a href="<%=path %>/fbd_m!queryOfFenyeM?cz=yes" target="right">分拨点监控登记</a></span></li>
-						<li><span><a href="<%=path %>/fbd_c!queryOfFenyeC?cz=yes" target="right">分拨点电脑登记</a></span></li>
-						<li><span><a href="<%=path %>/fbd_ll!queryOfFenyeLL?cz=yes" target="right">分拨点监控材料申请清单</a></span></li>
-						<li><span><a href="<%=path %>/sim!queryOfFenyeSIM?cz=yes" target="right">SIM费用报销</a></span></li>
-						<li><span><a href="<%=path %>/goods!queryOfFenyeGoods?cz=yes" target="right">内件收发登记</a></span></li>
-						<li><span><a href="<%=path %>/go!queryOfFenyeGo?cz=yes" target="right">外出登记</a></span></li>        			
-        			</ul>
-        		</li>
-        		<li><span>系统组</span>
-        			<ul>
-						<li><span><a href="<%=path %>/siteCount!queryOfFenye?cz=yes" target="right">站点资料统计</a></span></li>
-						<li><span><a href="<%=path %>/branchesCount!queryOfFenye?cz=yes" target="right">二级站点资料统计</a></span></li>
-						<li><span><a href="<%=path %>/zmNumberCount!queryOfFenye?cz=yes" target="right">哲盟账号申请登记统计</a></span></li>
-						<li><span><a href="<%=path %>/zmDataCount!queryOfFenye?cz=yes" target="right">哲盟数据检查登记统计</a></span></li>
-						<li><span><a href="<%=path %>/pdaChangeCount!queryOfFenye?cz=yes" target="right">条码变更明细统计</a></span></li>
-						<li><span><a href="<%=path %>/bqRepairCount!queryOfFenye?cz=yes" target="right">送修坂田巴枪统计</a></span></li>
-						<li><span><a href="<%=path %>/hitchesCount!queryOfFenye?cz=yes" target="right">故障登记统计</a></span></li>
-        			</ul>
-        		</li>
-        		<li><span>桌面组</span>
-        			<ul>
-						<li><span><a href="<%=path %>/vpnCount!queryOfFenye?cz=yes" target="right">VPN账号登记</a></span></li>
-						<li><span><a href="<%=path %>/byNumberCount!queryOfFenye?cz=yes" target="right">IMO、邮箱账号</a></span></li>
-						<li><span><a href="<%=path %>/oaCount!queryOfFenye?cz=yes" target="right">oa账号</a></span></li>
-						<li><span><a href="<%=path %>/printCount!queryOfFenye?cz=yes" target="right">打印机登记</a></span></li>
-						<li><span><a href="<%=path %>/computerCount!queryOfFenye?cz=yes" target="right">管理电脑统计</a></span></li>
-						<li><span><a href="<%=path %>/bqCount!queryOfFenye?cz=yes" target="right">小仓巴枪电脑登记</a></span></li>
-						<li><span><a href="<%=path %>/callCount!queryOfFenye?cz=yes" target="right">总部呼叫系统维护统计</a></span></li>
-						<li><span><a href="<%=path %>/allianceCallCount!queryOfFenye?cz=yes" target="right">加盟商呼叫系统维护统计</a></span></li>
-        			</ul>
-        		</li>
-        		<li><span>维护组</span>
-        			<ul>
-						<li><span><a href="<%=path %>/deviceCount!queryOfFenye?cz=yes" target="right">操作设备巡检</a></span></li>
-						<li><span><a href="<%=path %>/monitorCount!queryOfFenye?cz=yes" target="right">监控设备巡检</a></span></li>
-						<li><span><a href="<%=path %>/massageCount!queryOfFenye?cz=yes" target="right">网点巴枪维修登记</a></span></li>
-						<li><span><a href="<%=path %>/threeMeetingCount!queryOfFenye?cz=yes" target="right">观澜仓库3楼会议室巡检</a></span></li>
-						<li><span><a href="<%=path %>/meetingCount!queryOfFenye?cz=yes" target="right">观澜仓库会议室巡检</a></span></li>
-						<li><span><a href="<%=path %>/outRepairCount!queryOfFenye?cz=yes" target="right">外修登记</a></span></li>
-        			</ul>
-        		</li>
-        		<li><span>开发组</span></li>
-        	</ul>
-        </li>
-        </ul>
-	</div>
-	<div title="系统管理" data-options="iconCls:'icon-large-smartart'" style="padding:10px;">
-		<ul id="tt" class="easyui-tree" data-options="animate:true,lines:true">
-      		<li><span><a href="<%=path %>/users!queryOfFenye?cz=yes" target="right">用户管理</a></span></li>
-      		<li><span><a href="<%=path %>/role!queryOfFenye?cz=yes" target="right">角色管理</a></span></li>
-        </ul>
-	</div>
-	<div title="故障处理跟进系统" data-options="iconCls:'icon-large-smartart'" style="padding:10px;">
-		<ul id="tt" class="easyui-tree" data-options="animate:true,lines:true">
-       		<li><span><a href="<%=path %>/daManager!queryOfFenye?cz=yes" target="right">故障报修管理</a></span></li>
-       		<li><span><a href="<%=path %>/auditing!queryOfFenye?cz=yes" target="right">故障报修转发审核</a></span></li>
-       		<li><span><a href="<%=path %>/count!queryOfFenye?cz=yes" target="right">故障报修统计</a></span></li>
-       		<li><span><a href="<%=path %>/handle!queryOfFenye?cz=yes" target="right">故障报修处理</a></span></li>
-        </ul>
-	</div>
-	<div title="个人中心" data-options="iconCls:'icon-large-smartart'" style="padding:10px;">
-		<ul id="tt" class="easyui-tree" data-options="animate:true,lines:true">
-       		<li><span><a href="<%=path %>/timeline!query" target="right">时间轴</a></span></li>
-       		<li><span><a href="<%=path %>/information!query" target="right">提醒</a></span></li>
-       		<li><span><a href="<%=path %>/jobLog!gotoJob" target="right">工作日志</a></span></li>
-        </ul>
-	</div>
+	
+	
+	
 	
 </div>
 
