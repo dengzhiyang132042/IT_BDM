@@ -90,6 +90,7 @@ public class CacheInterceptor extends AbstractInterceptor{
 			else if ("daManager".equals(actionName) && "add".equals(methodName)) {//故障添加
 				checkNewDate(new String[]{"count","countZy"});
 			}
+			/*
 			else if ("countZy".equals(actionName)) {//专员统计
 				hadle("D",DaCount.class, "sTime");
 				return "countZy"; 
@@ -102,7 +103,6 @@ public class CacheInterceptor extends AbstractInterceptor{
 				hadle("W",XtSiteCount.class, "sTime");
 				return "siteCount"; 
 			}
-			/*
 			*/
 			close();
 		}

@@ -167,7 +167,13 @@
      <result name="succ">/success.jsp</result>
      <result name="fail">/fail.jsp</result>
   </action>
-  
+  <action name="project" class="hgh_project_xtz">	
+  	 <interceptor-ref name="mydefault" />
+     <result>/index.jsp</result>
+     <result name="project">/xtz_jsp/project_query.jsp</result>
+     <result name="succ">/success.jsp</result>
+     <result name="fail">/fail.jsp</result>
+  </action>
   
   <!-- **************桌面组**************** -->
   <action name="vpn" class="zs_vpn_zmz">	
