@@ -160,13 +160,6 @@
   	 <interceptor-ref name="mydefault" />
      <result name="hitches">/xtz_jsp/hitches.jsp</result>
   </action>
-  <action name="hitchesCount" class="hgh_count_hitches">	
-  	 <interceptor-ref name="mydefault" />
-     <result>/index.jsp</result>
-     <result name="hitchesCount">/xtz_count/hitches_count.jsp</result>
-     <result name="succ">/success.jsp</result>
-     <result name="fail">/fail.jsp</result>
-  </action>
   <action name="project" class="hgh_project_xtz">	
   	 <interceptor-ref name="mydefault" />
      <result>/index.jsp</result>
@@ -424,6 +417,13 @@
   	 <interceptor-ref name="mydefault" />
      <result>/index.jsp</result>
      <result name="bqRepairCount">/xtz_count/bq_repair_count.jsp</result>
+     <result name="succ">/success.jsp</result>
+     <result name="fail">/fail.jsp</result>
+  </action>
+   <action name="hitchesCount" class="hgh_count_hitches">	
+  	 <interceptor-ref name="mydefault" />
+     <result>/index.jsp</result>
+     <result name="hitchesCount">/xtz_count/hitches_count.jsp</result>
      <result name="succ">/success.jsp</result>
      <result name="fail">/fail.jsp</result>
   </action>
