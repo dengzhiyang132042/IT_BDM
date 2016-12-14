@@ -92,26 +92,29 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     	<th>达成率</th>
     	<th>操作</th>
     </tr>
-    <c:forEach items="${des}" var="de">
+    <c:forEach items="${des}" var="d">
     <tr>
-		<td width="">${de.EId }</td>
-		<td width=""><fmt:formatDate value="${de.EMonth}" pattern="yyyy/M/d" /></td>
-		<td width="">${de.EProjectDemand }</td>
-		<td width="">${de.EArrangeTime }</td>
-		<td width="">${de.EDevelopTime }</td>
-		<td width="">${de.ETestTime }</td>
-		<td width="">${de.EAllTime }</td>
-		<td width="">${de.EDemandEfficiency }</td>
-		<td width="">${de.EDevelopEfficiency }</td>
-		<td width="">${de.ETestEfficiency }</td>
-		<td width="">${de.EProjectEfficiency }</td>
-		<td width="">${de.ERealityComplete }</td>
-		<td width="">${de.EPlanComplete }</td>
-		<td width="">${de.EOverstep }</td>
-		<td width="">${de.ECompleteRatio }</td>
+		<td width="">${d.EId }</td>
+		<td width=""><fmt:formatDate value="${d.EMonth}" pattern="yyyy-M-d" /></td>
+		<td width="">${d.EProjectDemand }</td>
+		<td width="">${d.EArrangeTime }</td>
+		<td width="">${d.EDevelopTime }</td>
+		<td width="">${d.ETestTime }</td>
+		<td width="">${d.EAllTime }</td>
+		<td width="">${d.EDemandEfficiency }</td>
+		<td width="">${d.EDevelopEfficiency }</td>
+		<td width="">${d.ETestEfficiency }</td>
+		<td width="">${d.EProjectEfficiency }</td>
+		<td width="">${d.ERealityComplete }</td>
+		<td width="">${d.EPlanComplete }</td>
+		<td width="">${d.EOverstep }</td>
+		<td width="">${d.ECompleteRatio }</td>
 		<td width="5%" align="center">
-			<a onclick="update('${pda.CId }','${pda.CDate }','${pda.CMan }','${pda.CPage }','${pda.CNewNum }','${pda.COldNum }','${pda.CSn }','${pda.CResult}','${pda.CReceiveMan }','${pda.CNote }' )" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-edit'" title="修改"></a>
-			<a href="<%=path %>/pdachange!delete?id=${pda.CId}" onclick="return confirm('确定删除吗?')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-delete'" title="删除"></a>
+			<a onclick="update('${d.EId }','<fmt:formatDate value="${d.EMonth}" pattern="yyyy-M-d" />','${d.EProjectDemand }',
+			'${d.EArrangeTime }','${d.EDevelopTime }','${d.ETestTime }','${d.EAllTime }','${d.EDemandEfficiency}',
+			'${d.EDevelopEfficiency }','${d.ETestEfficiency }','${d.EProjectEfficiency }','${d.ERealityComplete }',
+			'${d.EPlanComplete }','${d.EOverstep }','${d.ECompleteRatio }')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-edit'" title="修改"></a>
+			<a href="<%=path %>/projectCount!delete?id=${d.EId}" onclick="return confirm('确定删除吗?')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-delete'" title="删除"></a>
 		</td>
     </tr>
     </c:forEach>
@@ -121,7 +124,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<div class="easyui-panel" style="padding:5px;width: 100%;display: none;">
 		<form id="f1" action="<%=path %>/projectCount!queryOfFenye?id=${id}&year=${year }" method="post">
 		<select id="sele" style="float: left;margin-top: 3px;margin-left: 5px;" name="page.size" onchange="$('#f1').submit();">
-			<option value="12">12</option>
+			<option value="10">10</option>
 		</select>
 		
 		<span style="float: left;margin-left: 5px;">

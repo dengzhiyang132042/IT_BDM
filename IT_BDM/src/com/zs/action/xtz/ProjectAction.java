@@ -15,6 +15,7 @@ import com.zs.action.MyBaseAction;
 import com.zs.entity.XtProject;
 import com.zs.entity.XtProjectDetail;
 import com.zs.service.IService;
+import com.zs.service.iXtProjectCountService;
 import com.zs.tools.NameOfDate;
 import com.zs.tools.Page;
 import com.zs.tools.WorkDays;
@@ -25,7 +26,12 @@ import com.zs.tools.WorkDays;
  *	
  */
 public class ProjectAction extends MyBaseAction implements IMyBaseAction{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private IService ser;
+	iXtProjectCountService proSer;
 	private Page page;
 	private List<XtProject> ps;
 	private List<XtProjectDetail> pds;
@@ -45,6 +51,12 @@ public class ProjectAction extends MyBaseAction implements IMyBaseAction{
 	
 	
 	
+	public iXtProjectCountService getProSer() {
+		return proSer;
+	}
+	public void setProSer(iXtProjectCountService proSer) {
+		this.proSer = proSer;
+	}
 	public IService getSer() {
 		return ser;
 	}
@@ -212,6 +224,8 @@ public class ProjectAction extends MyBaseAction implements IMyBaseAction{
 				ser.save(pd5);
 			}
 		}
+		//更新效率表
+		proSer.createTable(proSer.initProject(p));
 		p=null;
 		pd1=null;
 		pd2=null;

@@ -19,7 +19,6 @@ public class XtProject implements java.io.Serializable {
 	// Constructors
 	
 	
-	
 	/** default constructor */
 	public XtProject() {
 	}

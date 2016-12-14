@@ -85,7 +85,9 @@
 	</bean>
 	<bean id="hgh_project_xtz" class="com.zs.action.xtz.ProjectAction">
 		<property name="ser" ref="zs_ser"></property>
+		<property name="proSer" ref="zs_ser_xtz_project"></property>
 	</bean>
+	
 	<!-- **************************桌面组******************************************** -->
 	<bean id="zs_vpn_zmz" class="com.zs.action.zmz.VpnAction">
 		<property name="ser" ref="zs_ser"></property>
@@ -187,6 +189,12 @@
 		<property name="ser" ref="zs_ser"></property>
 		<property name="iser" ref="hgh_ser_xtz_bq_repair"></property>
 	</bean>
+	<bean id="zs_count_project" class="com.zs.action.xtz.count.ProjectCountAction">
+		<property name="ser" ref="zs_ser"></property>
+		<property name="proSer" ref="zs_ser_xtz_project"></property>
+	</bean>
+	
+	
 	<!--桌面组	-->
 	<bean id="zs_count_vpn" class="com.zs.action.zmz.count.VpnCountAction">
 		<property name="ser" ref="zs_ser"></property>
@@ -368,6 +376,9 @@
 		<property name="dao" ref="zs_dao"></property>
 	</bean>
 	<bean id="zs_ser_whz_all_date" class="com.zs.service.impl.WhAllDateServiceImpl">
+		<property name="dao" ref="zs_dao"></property>
+	</bean>
+	<bean id="zs_ser_xtz_project" class="com.zs.service.impl.XtProjectCountServiceImpl">
 		<property name="dao" ref="zs_dao"></property>
 	</bean>
 	

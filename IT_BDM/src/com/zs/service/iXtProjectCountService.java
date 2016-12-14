@@ -3,6 +3,11 @@
  */
 package com.zs.service;
 
+import java.util.Date;
+import java.util.List;
+
+import com.zs.entity.XtProject;
+
 /**
  * @author 黄光辉
  *
@@ -22,4 +27,23 @@ public interface iXtProjectCountService{
 	 * @param date
 	 */
 	public void createTableOfMonth(String date);
+	
+	/**张顺
+	 * 2016-12-14
+	 * 装配项目封装
+	 * */
+	public List<XtProject> initProject(List<XtProject> pros);
+	
+	/**
+	 * 一个装配的重载方法
+	 * @param pro
+	 * @return
+	 */
+	public XtProject initProject(XtProject pro);
+	
+	/**
+	 * 按月装配 张顺 2016-12-14
+	 * @param date
+	 */
+	public void createTable(XtProject pro) ;
 }

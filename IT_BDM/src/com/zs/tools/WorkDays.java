@@ -25,22 +25,41 @@ public class WorkDays {
     * -结束时间，共有3个重载方法，可以传入long型，Long型，与Date型
     * @return Long型时间差对象
     */
-    /*public static void main(String[] args) {
-        GetWorkDay g=new GetWorkDay();
+	/*
+    public static void main(String[] args) {
+        WorkDays g=new WorkDays();
         List<Date> initHoliday;
         try {
             initHoliday = g.initHoliday();
-            double days = g.getWorkdayTimeInMillisExcWeekendHolidays("2016-06-30 17-12-53","2016-08-30 11-27-50","yyyy-MM-dd HH-mm-ss",initHoliday);
-            double formateToDay = g.formateToDay(days);
+            double days = g.getWorkdayTimeInMillisExcWeekendHolidays("2016-06-30 17:12:53","2016-08-30 11:27:50","yyyy-MM-dd HH:mm:ss",initHoliday);
+            long formateToDay = g.formateToDay(days);
             String formatDuring = g.formatDuring(days);
-             System.out.println(formateToDay);
+            System.out.println(formateToDay);
             System.out.println(formatDuring);
         } catch (ParseException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
-    } */
-    
+    }
+    */
+	
+	/**
+	 * 张顺 2016-12-14
+	 * 封装后取得天数间隔的方法
+	 */
+	public long getBetweenDays(Date start,Date end) {
+		try {
+			List<Date> initHoliday=initHoliday();
+			String fma="yyyy-MM-dd HH:mm:ss";
+			SimpleDateFormat sdf=new SimpleDateFormat(fma);
+			double days=getWorkdayTimeInMillisExcWeekendHolidays(sdf.format(start),sdf.format(end),fma,initHoliday);
+			return formateToDay(days);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		return 0;
+	}
+	
+	
     private double getWorkdayTimeInMillis(long start, long end,
         List<Date> listHolidays) {
     
@@ -231,169 +250,166 @@ public class WorkDays {
     
     public double getWorkdayTimeInMillis(Long start, Long end) {
         return getWorkdayTimeInMillis(start.longValue(), end.longValue(), null);
-        }
+    }
 
-        public double getWorkdayTimeInMillis(Date start, Date end) {
-        return getWorkdayTimeInMillis(start.getTime(), end.getTime(), null);
-        }
+    public double getWorkdayTimeInMillis(Date start, Date end) {
+    	return getWorkdayTimeInMillis(start.getTime(), end.getTime(), null);
+    }
 
-        public double getWorkdayTimeInMillis(String start, String end, String format) {
-            SimpleDateFormat sdf = new SimpleDateFormat(format);
-            Date sdate;
-            Date edate;
-            try {
-                sdate = sdf.parse(start);
-                edate = sdf.parse(end);
-                return getWorkdayTimeInMillis(sdate, edate);
-            } catch (ParseException e) {
-                e.printStackTrace();
-                return new Long(0);
-            }
-            }
+    public double getWorkdayTimeInMillis(String start, String end, String format) {
+        SimpleDateFormat sdf = new SimpleDateFormat(format);
+        Date sdate;
+        Date edate;
+        try {
+            sdate = sdf.parse(start);
+            edate = sdf.parse(end);
+            return getWorkdayTimeInMillis(sdate, edate);
+        } catch (ParseException e) {
+            e.printStackTrace();
+            return new Long(0);
+        }
+    }
     
-            private long getHolidaysInMillis(long start, long end,
-                List<Date> listHolidays) {
-                Calendar scalendar = Calendar.getInstance();
-                Calendar ecalendar = Calendar.getInstance();
-                int daysofH = 0;
-                try {
-        
-                scalendar.setTimeInMillis(start);
-                ecalendar.setTimeInMillis(end);
-        
-                if (listHolidays == null)
-                return new Long(0);
-                Iterator<Date> iterator = listHolidays.iterator();
-                while (iterator.hasNext()) {
-                Calendar ca = Calendar.getInstance();
-                Date hdate = iterator.next();
-                ca.setTime(hdate);
-                if (ca.after(scalendar) && ca.before(ecalendar)) {
-                    daysofH = daysofH + 1;
-                } else if (ca.getTimeInMillis() == scalendar.getTimeInMillis()) {
-                    daysofH = daysofH + 1;
-                } else if (ca.getTimeInMillis() == ecalendar.getTimeInMillis()) {
-                    daysofH = daysofH + 1;
-                }
-                }
-        
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    return new Long(0);
-                }
-                   return daysofH * 24 * 3600000;
-         }
-        
-        
-        private Calendar getNextMonday(Calendar cal) {
-                int addnum = 9 - cal.get(Calendar.DAY_OF_WEEK);
-                if (addnum == 8)
-                addnum = 1;// 周日的情况
-                cal.add(Calendar.DATE, addnum);
-                return cal;
+    private long getHolidaysInMillis(long start, long end,
+        List<Date> listHolidays) {
+        Calendar scalendar = Calendar.getInstance();
+        Calendar ecalendar = Calendar.getInstance();
+        int daysofH = 0;
+        try {
+	        scalendar.setTimeInMillis(start);
+	        ecalendar.setTimeInMillis(end);
+	        if (listHolidays == null)
+	        	return new Long(0);
+	        Iterator<Date> iterator = listHolidays.iterator();
+	        while (iterator.hasNext()) {
+		        Calendar ca = Calendar.getInstance();
+		        Date hdate = iterator.next();
+		        ca.setTime(hdate);
+		        if (ca.after(scalendar) && ca.before(ecalendar)) {
+		            daysofH = daysofH + 1;
+		        } else if (ca.getTimeInMillis() == scalendar.getTimeInMillis()) {
+		            daysofH = daysofH + 1;
+		        } else if (ca.getTimeInMillis() == ecalendar.getTimeInMillis()) {
+		            daysofH = daysofH + 1;
+		        }
+	        }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new Long(0);
         }
+        return daysofH * 24 * 3600000;
+     }
+        
+        
+	private Calendar getNextMonday(Calendar cal) {
+		int addnum = 9 - cal.get(Calendar.DAY_OF_WEEK);
+		if (addnum == 8)
+		addnum = 1;// 周日的情况
+		cal.add(Calendar.DATE, addnum);
+		return cal;
+	}
 
-            /**
-            *
-            * @param mss 
-            * @param 要转换的毫秒数
-            * @return 该毫秒数转换为 * days * hours * minutes * seconds 后的格式
-            */
-        public String formatDuring(double mss) {
-            long days = (long) (mss / (1000 * 60 * 60 * 24));
-            long hours = (long) ((mss % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            long minutes = (long) ((mss % (1000 * 60 * 60)) / (1000 * 60));
-            long seconds = (long) ((mss % (1000 * 60)) / 1000);
-            return days + " days " + hours + " hours " + minutes + " minutes "
-            + seconds + " seconds ";
-            }
+    /**
+    *
+    * @param mss 
+    * @param 要转换的毫秒数
+    * @return 该毫秒数转换为 * days * hours * minutes * seconds 后的格式
+    */
+    public String formatDuring(double mss) {
+        long days = (long) (mss / (1000 * 60 * 60 * 24));
+        long hours = (long) ((mss % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        long minutes = (long) ((mss % (1000 * 60 * 60)) / (1000 * 60));
+        long seconds = (long) ((mss % (1000 * 60)) / 1000);
+        return days + " days " + hours + " hours " + minutes + " minutes "
+        + seconds + " seconds ";
+    }
             
-            /**
-            * 获取两个日期之间的实际天数，支持跨年
-            * @param start 
-            * @param end 
-            *  
-            */
-        /**
-         * 获得两个日期之间的工作日
-         * @since 1.0 
-         * @param mss
-         * @return
-         * <br><b>作者： @author 黄光辉</b>
-         * <br>创建时间：2016年12月13日14:21:57
-         */
-        public double formateToDay(double mss){
-            double days = mss / (1000 * 60 * 60 * 24);
-            return days;
-        }
+    /**
+    * 获取两个日期之间的实际天数，支持跨年
+    * @param start 
+    * @param end 
+    *  
+    */
+    /**
+     * 获得两个日期之间的工作日
+     * @since 1.0 
+     * @param mss
+     * @return
+     * <br><b>作者： @author 黄光辉</b>
+     * <br>创建时间：2016年12月13日14:21:57
+     */
+	public long formateToDay(double mss){
+	    long days = (long) (mss / (1000 * 60 * 60 * 24));
+	    return days;
+	}
         
-        public int getDaysBetween(Calendar start, Calendar end) {
-            if (start.after(end)) {
-            Calendar swap = start;
-            start = end;
-            end = swap;
-            }
+    public int getDaysBetween(Calendar start, Calendar end) {
+        if (start.after(end)) {
+	        Calendar swap = start;
+	        start = end;
+	        end = swap;
+        }	
 
-            int days = end.get(Calendar.DAY_OF_YEAR)- start.get(Calendar.DAY_OF_YEAR);
-            int y2 = end.get(Calendar.YEAR);
-            if (start.get(Calendar.YEAR) != y2) {
-                start = (Calendar) start.clone();
-                do {
-                    days += start.getActualMaximum(Calendar.DAY_OF_YEAR);
-                    start.add(Calendar.YEAR, 1);
-                } while (start.get(Calendar.YEAR) != y2);
-                
-            }
-            return days;
+        int days = end.get(Calendar.DAY_OF_YEAR)- start.get(Calendar.DAY_OF_YEAR);
+        int y2 = end.get(Calendar.YEAR);
+        if (start.get(Calendar.YEAR) != y2) {
+            start = (Calendar) start.clone();
+            do {
+                days += start.getActualMaximum(Calendar.DAY_OF_YEAR);
+                start.add(Calendar.YEAR, 1);
+            } while (start.get(Calendar.YEAR) != y2);
+            
         }
-        /**
-         * 手动维护2017年的节假日
-         * @return
-         * @throws ParseException
-         * <br><b>作者： @author 黄光辉</b>
-         * <br>创建时间：2016年12月13日14:21:38
-         */
-        public static List<Date> initHoliday() throws ParseException{                
-            List<Date> holidays = new ArrayList<Date>();
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-            //元旦
-            holidays.add(sdf.parse("2016-12-31"));
-            holidays.add(sdf.parse("2017-01-01"));
-            holidays.add(sdf.parse("2017-01-02"));
-            //春节
-            holidays.add(sdf.parse("2017-01-27"));
-            holidays.add(sdf.parse("2017-01-28"));
-            holidays.add(sdf.parse("2017-01-29"));
-            holidays.add(sdf.parse("2017-01-30"));
-            holidays.add(sdf.parse("2017-01-31"));
-            holidays.add(sdf.parse("2017-02-01"));
-            holidays.add(sdf.parse("2017-02-02"));
-            //清明节
-            holidays.add(sdf.parse("2017-04-02"));
-            holidays.add(sdf.parse("2017-04-03"));
-            holidays.add(sdf.parse("2017-04-04"));
-            //劳动节
-            holidays.add(sdf.parse("2017-04-29"));
-            holidays.add(sdf.parse("2017-04-30"));
-            holidays.add(sdf.parse("2017-05-01"));
-            //端午节
-            holidays.add(sdf.parse("2017-05-27"));
-            holidays.add(sdf.parse("2017-05-28"));
-            holidays.add(sdf.parse("2017-05-29"));
-            holidays.add(sdf.parse("2017-05-30"));
-//            //中秋节
-//            holidays.add(sdf.parse("2017-09-15"));
-//            holidays.add(sdf.parse("2017-09-16"));
-//            holidays.add(sdf.parse("2017-09-17"));
-            //国庆节
-            holidays.add(sdf.parse("2017-10-01"));
-            holidays.add(sdf.parse("2017-10-02"));
-            holidays.add(sdf.parse("2017-10-03"));
-            holidays.add(sdf.parse("2017-10-04"));
-            holidays.add(sdf.parse("2017-10-05"));
-            holidays.add(sdf.parse("2017-10-06"));
-            holidays.add(sdf.parse("2017-10-07"));
-            return holidays;
-        }
+        return days;
+    }
+    /**
+     * 手动维护2017年的节假日
+     * @return
+     * @throws ParseException
+     * <br><b>作者： @author 黄光辉</b>
+     * <br>创建时间：2016年12月13日14:21:38
+     */
+    public static List<Date> initHoliday() throws ParseException{                
+        List<Date> holidays = new ArrayList<Date>();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        //元旦
+        holidays.add(sdf.parse("2016-12-31"));
+        holidays.add(sdf.parse("2017-01-01"));
+        holidays.add(sdf.parse("2017-01-02"));
+        //春节
+        holidays.add(sdf.parse("2017-01-27"));
+        holidays.add(sdf.parse("2017-01-28"));
+        holidays.add(sdf.parse("2017-01-29"));
+        holidays.add(sdf.parse("2017-01-30"));
+        holidays.add(sdf.parse("2017-01-31"));
+        holidays.add(sdf.parse("2017-02-01"));
+        holidays.add(sdf.parse("2017-02-02"));
+        //清明节
+        holidays.add(sdf.parse("2017-04-02"));
+        holidays.add(sdf.parse("2017-04-03"));
+        holidays.add(sdf.parse("2017-04-04"));
+        //劳动节
+        holidays.add(sdf.parse("2017-04-29"));
+        holidays.add(sdf.parse("2017-04-30"));
+        holidays.add(sdf.parse("2017-05-01"));
+        //端午节
+        holidays.add(sdf.parse("2017-05-27"));
+        holidays.add(sdf.parse("2017-05-28"));
+        holidays.add(sdf.parse("2017-05-29"));
+        holidays.add(sdf.parse("2017-05-30"));
+        //中秋节
+//        holidays.add(sdf.parse("2017-09-15"));
+//        holidays.add(sdf.parse("2017-09-16"));
+//        holidays.add(sdf.parse("2017-09-17"));
+        //国庆节
+        holidays.add(sdf.parse("2017-10-01"));
+        holidays.add(sdf.parse("2017-10-02"));
+        holidays.add(sdf.parse("2017-10-03"));
+        holidays.add(sdf.parse("2017-10-04"));
+        holidays.add(sdf.parse("2017-10-05"));
+        holidays.add(sdf.parse("2017-10-06"));
+        holidays.add(sdf.parse("2017-10-07"));
+        return holidays;
+    }
         
 }
