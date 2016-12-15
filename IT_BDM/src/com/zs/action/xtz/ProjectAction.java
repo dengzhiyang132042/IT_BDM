@@ -12,6 +12,7 @@ import net.sf.json.JSONObject;
 
 import com.zs.action.IMyBaseAction;
 import com.zs.action.MyBaseAction;
+import com.zs.entity.XtDevelopEfficiency;
 import com.zs.entity.XtProject;
 import com.zs.entity.XtProjectDetail;
 import com.zs.service.IService;
@@ -193,7 +194,7 @@ public class ProjectAction extends MyBaseAction implements IMyBaseAction{
 		String month = getRequest().getParameter("pmonth");
 		if(p!=null){
 			p.setPId("p"+NameOfDate.getNum());
-			Date pdate = new Date(Integer.parseInt(year)-1900,Integer.parseInt(month)-1, 2);
+			Date pdate = new Date(Integer.parseInt(year)-1900,Integer.parseInt(month)-1, 20);
 			System.out.println(pdate);
 			p.setPDate(pdate);
 			ser.save(p);
@@ -225,7 +226,13 @@ public class ProjectAction extends MyBaseAction implements IMyBaseAction{
 			}
 		}
 		//更新效率表
-		proSer.createTable(proSer.initProject(p));
+		List<XtDevelopEfficiency> xdes  =ser.find("from XtDevelopEfficiency where EMonth=?", new Object[]{p.getPDate()});
+		if(xdes!=null&&xdes.size()>0){
+			ser.delete(xdes.get(0));		
+		}
+		List<XtProject> pros=ser.find("from XtProject where PDate=?", new Object[]{p.getPDate()});
+		proSer.createTable(pros);
+		
 		p=null;
 		pd1=null;
 		pd2=null;
@@ -318,6 +325,15 @@ public class ProjectAction extends MyBaseAction implements IMyBaseAction{
 				
 			}
 			ser.update(pd);
+			XtProject up =(XtProject) ser.get(XtProject.class, pd.getPId());
+			
+			//更新效率表
+			List<XtDevelopEfficiency> xdes  =ser.find("from XtDevelopEfficiency where EMonth=?", new Object[]{up.getPDate()});
+			if(xdes!=null){
+				ser.delete(xdes.get(0));		
+			}
+			List<XtProject> pros=ser.find("from XtProject where PDate=?", new Object[]{up.getPDate()});
+			proSer.createTable(pros);
 		}
 		pd=null;
 		return gotoQuery();

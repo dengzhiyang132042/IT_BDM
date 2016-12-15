@@ -183,4 +183,20 @@ public class XtDevelopEfficiency implements java.io.Serializable {
 		this.ECompleteRatio = ECompleteRatio;
 	}
 
+	@Override
+	public String toString() {
+		return "XtDevelopEfficiency [EAllTime=" + EAllTime + ", EArrangeTime="
+				+ EArrangeTime + ", ECompleteRatio=" + ECompleteRatio
+				+ ", EDemandEfficiency=" + EDemandEfficiency
+				+ ", EDevelopEfficiency=" + EDevelopEfficiency
+				+ ", EDevelopTime=" + EDevelopTime + ", EId=" + EId
+				+ ", EMonth=" + EMonth + ", EOverstep=" + EOverstep
+				+ ", EPlanComplete=" + EPlanComplete + ", EProjectDemand="
+				+ EProjectDemand + ", EProjectEfficiency=" + EProjectEfficiency
+				+ ", ERealityComplete=" + ERealityComplete
+				+ ", ETestEfficiency=" + ETestEfficiency + ", ETestTime="
+				+ ETestTime + "]";
+	}
+
+	
 }
