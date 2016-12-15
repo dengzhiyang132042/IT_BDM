@@ -523,6 +523,14 @@
   </action>
   
   
+  <!-- ******************工具*************************** -->  
+  
+  <action name="transId" class="zs_trans_id">	
+     <result>/index.jsp</result>
+     <result name="transId">/tools/update.jsp</result>
+  </action>
+  
+  
 </package>
 </struts>    
   

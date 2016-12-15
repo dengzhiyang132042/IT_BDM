@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
+import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.springframework.orm.hibernate3.HibernateCallback;
 import org.springframework.orm.hibernate3.HibernateTemplate;
@@ -61,6 +62,23 @@ public class BaseDaoOfSpring implements IBaseDaoOfSpring{
 	public void delete(Object obj) {
 		ht.delete(obj);
 	}
+
+	public List queryBySql(String sql) {    
+        List<Object[]> list = getSession().createSQLQuery(sql).list();    
+        return list;    
+    }    
+        
+
+	public int excuteBySql(String sql)    
+    {    
+        int result ;    
+        SQLQuery query = getSession().createSQLQuery(sql);    
+        result = query.executeUpdate();    
+        return result;    
+    }    
 	
-	
+	private Session getSession() {
+		return ht.getSessionFactory().getCurrentSession();
+	}
+    
 }
