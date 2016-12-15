@@ -20,7 +20,7 @@ public interface iXtProjectCountService{
 	 */
 	public void createTableAll();
 	
-	
+	public void createTable(List<XtProject> pros);
 	/**
 	 * @author 黄光辉
 	 * <br/>传一个月份进来，将本月的数据进行重新生成

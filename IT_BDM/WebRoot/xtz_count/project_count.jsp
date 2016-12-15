@@ -95,7 +95,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <c:forEach items="${des}" var="d">
     <tr>
 		<td width="">${d.EId }</td>
-		<td width=""><fmt:formatDate value="${d.EMonth}" pattern="yyyy-M-d" /></td>
+		<td width=""><fmt:formatDate value="${d.EMonth}" pattern="yyyy-MM" /></td>
 		<td width="">${d.EProjectDemand }</td>
 		<td width="">${d.EArrangeTime }</td>
 		<td width="">${d.EDevelopTime }</td>
@@ -108,13 +108,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<td width="">${d.ERealityComplete }</td>
 		<td width="">${d.EPlanComplete }</td>
 		<td width="">${d.EOverstep }</td>
-		<td width="">${d.ECompleteRatio }</td>
+		<td width="">${d.ECompleteRatio *100 }%</td>
 		<td width="5%" align="center">
-			<a onclick="update('${d.EId }','<fmt:formatDate value="${d.EMonth}" pattern="yyyy-M-d" />','${d.EProjectDemand }',
-			'${d.EArrangeTime }','${d.EDevelopTime }','${d.ETestTime }','${d.EAllTime }','${d.EDemandEfficiency}',
-			'${d.EDevelopEfficiency }','${d.ETestEfficiency }','${d.EProjectEfficiency }','${d.ERealityComplete }',
-			'${d.EPlanComplete }','${d.EOverstep }','${d.ECompleteRatio }')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-edit'" title="修改"></a>
-			<a href="<%=path %>/projectCount!delete?id=${d.EId}" onclick="return confirm('确定删除吗?')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-delete'" title="删除"></a>
+			<a href="<%=path %>/projectCount!update?id=${d.EId}" class="icon-hgh-refresh"  title="刷新" style="display:block;float:left;margin:5px 0 0 40px; width:16px;height:16px;"></a>
 		</td>
     </tr>
     </c:forEach>

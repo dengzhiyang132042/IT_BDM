@@ -138,6 +138,14 @@ public class ProjectCountAction extends MyBaseAction{
 	
 	public String update() throws Exception {
 		clearSpace();
+		if(id!=null){
+			XtDevelopEfficiency detmp =(XtDevelopEfficiency) ser.get(XtDevelopEfficiency.class, id);
+			if (detmp!=null) {
+				List<XtProject> pros=ser.find("from XtProject where PDate=?", new Object[]{detmp.getEMonth()});
+				ser.delete(detmp);
+				proSer.createTable(pros);
+			}
+		}
 		return gotoQuery();
 	}
 	
