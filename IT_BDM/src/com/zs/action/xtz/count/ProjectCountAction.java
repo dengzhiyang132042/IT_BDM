@@ -1,21 +1,12 @@
 package com.zs.action.xtz.count;
 
-import java.io.File;
-import java.io.IOException;
 import java.io.UnsupportedEncodingException;
-import java.sql.Timestamp;
-import java.text.ParseException;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
-
-import sun.security.krb5.internal.PAData;
-
 import com.zs.action.MyBaseAction;
-import com.zs.entity.Users;
 import com.zs.entity.XtDevelopEfficiency;
+import com.zs.entity.XtProject;
 import com.zs.service.IService;
-import com.zs.tools.NameOfDate;
+import com.zs.service.iXtProjectCountService;
 import com.zs.tools.Page;
 
 public class ProjectCountAction extends MyBaseAction{
@@ -25,15 +16,36 @@ public class ProjectCountAction extends MyBaseAction{
 	private static final long serialVersionUID = 1L;
 	
 	IService ser;
+	iXtProjectCountService proSer;
 	Page page;
+	XtDevelopEfficiency de;
 	List<XtDevelopEfficiency> des;
 	String result="projectCount";
 	
 	String id;
+	String cz;
 	String year;
 	
 	
 	
+	public XtDevelopEfficiency getDe() {
+		return de;
+	}
+	public void setDe(XtDevelopEfficiency de) {
+		this.de = de;
+	}
+	public String getCz() {
+		return cz;
+	}
+	public void setCz(String cz) {
+		this.cz = cz;
+	}
+	public iXtProjectCountService getProSer() {
+		return proSer;
+	}
+	public void setProSer(iXtProjectCountService proSer) {
+		this.proSer = proSer;
+	}
 	public IService getSer() {
 		return ser;
 	}
@@ -69,62 +81,68 @@ public class ProjectCountAction extends MyBaseAction{
 	//------------------------------------------------
 	private void clearOptions() {
 		id=null;
+		cz=null;
 		year=null;
+		de=null;
+		des=null;
 	}
 	
 	private void clearSpace(){
 		if(id!=null){
 			id=id.trim();
 		}
+		if (year!=null) {
+			year=year.trim();
+		}
 	}
 	
 	public String queryOfFenye() throws UnsupportedEncodingException {
-		id=getRequest().getParameter("id");
-		String cz=getRequest().getParameter("cz");//用于判断是否清理page，yes清理，no不清理
-		if (page==null) {
-			page=new Page(1, 0, 5);
-		}
+		clearSpace();
 		if (cz!=null && cz.equals("yes")) {
-			page=new Page(1, 0, 5);
 			clearOptions();
 		}
-		clearSpace();
-		if (id!=null) {
-			String hql="from XtDevelopEfficiency where EId like '%"+id+"%'";
-			hql=hql+" order by EMonth desc";
-			des=ser.query(hql, null, hql, page, ser);
-		}else {
-			String hql="from XtDevelopEfficiency order by EMonth desc";
-			String ss[]={};
-			String hql2="from XtDevelopEfficiency order by EMonth desc";
-			des=ser.query(hql, ss, hql2, page, ser);
-			if(des==null){
-				//第一次生成数据
-			}
+		if (page==null) {
+			page=new Page(1, 0, 10);
 		}
-		ser.receiveStructure(getRequest());
+		String hqltmp="from XtDevelopEfficiency order by EMonth desc";
+		List destmp=ser.query(hqltmp, null, hqltmp, page, ser);
+		if(destmp==null || destmp.size()==0){
+			//第一次生成数据
+			proSer.createTableAll();
+		}
+		String hql="from XtDevelopEfficiency where 1=1 ";
+		if (id!=null) {
+			hql=hql+"and EId like '%"+id+"%' ";
+		}
+		hql=hql+"order by EMonth desc";
+		des=ser.query(hql, null, hql, page, ser);
 		return result;
 	}
 	
 	private String gotoQuery() throws UnsupportedEncodingException {
 		clearOptions();
+		if (page!=null) {
+			page.setPageOn(1);
+		}else {
+			page=new Page(1, 0, 10);
+		}
 		String hql="from XtDevelopEfficiency order by EMonth desc";
-		String ss[]={};
-		String hql2="from XtDevelopEfficiency order by EMonth desc";
-		des=ser.query(hql, ss, hql2, page, ser);
-		ser.receiveStructure(getRequest());
+		des=ser.query(hql, null, hql, page, ser);
 		return result;
 	}
 	
 	public String delete() throws Exception {
+		clearSpace();
 		return gotoQuery();
 	}
 	
 	public String update() throws Exception {
+		clearSpace();
 		return gotoQuery();
 	}
 	
 	public String add() throws Exception {
+		clearSpace();
 		return gotoQuery();
 	}	
 

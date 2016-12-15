@@ -420,13 +420,21 @@
      <result name="succ">/success.jsp</result>
      <result name="fail">/fail.jsp</result>
   </action>
-   <action name="hitchesCount" class="hgh_count_hitches">	
+  <action name="hitchesCount" class="hgh_count_hitches">	
   	 <interceptor-ref name="mydefault" />
      <result>/index.jsp</result>
      <result name="hitchesCount">/xtz_count/hitches_count.jsp</result>
      <result name="succ">/success.jsp</result>
      <result name="fail">/fail.jsp</result>
   </action>
+  <action name="projectCount" class="zs_count_project">	
+  	 <interceptor-ref name="mydefault" />
+     <result>/index.jsp</result>
+     <result name="projectCount">/xtz_count/project_count.jsp</result>
+     <result name="succ">/success.jsp</result>
+     <result name="fail">/fail.jsp</result>
+  </action>
+  
   <!--桌面组  -->
   <action name="vpnCount" class="zs_count_vpn">	
   	 <interceptor-ref name="mydefault" />
