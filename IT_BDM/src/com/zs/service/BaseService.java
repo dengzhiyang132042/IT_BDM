@@ -652,4 +652,10 @@ public class BaseService implements IService{
 		JSONArray array=JSONArray.fromObject(obj,jsonConfig);
 		return array;
 	}
+	public int excuteBySql(String sql) {
+		return dao.excuteBySql(sql);
+	}
+	public List queryBySql(String sql) {
+		return dao.queryBySql(sql);
+	}
 }

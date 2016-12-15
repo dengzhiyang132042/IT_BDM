@@ -383,6 +383,11 @@
 	</bean>
 	
 	
+	<!-- ******************工具******************* -->
+	<bean id="zs_trans_id" class="com.zs.tools.TransIdAction">
+		<property name="ser" ref="zs_ser"></property>
+	</bean>
+	
 	<!-- ************************************* -->
 	
 	<bean id="sessionFactory"

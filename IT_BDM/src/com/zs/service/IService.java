@@ -231,5 +231,15 @@ public interface IService {
 	 */
 	public JSONArray objToJsonArray(Object obj);
 	
-	
+	/**
+	 * 张顺 2016-12-15
+	 * 使用原始的sql查询
+	 */
+	public List queryBySql(String sql);
+    
+	/**
+	 * 张顺 2016-12-15
+	 * 使用原始的sql增删改
+	 */
+    public int excuteBySql(String sql);    
 }
