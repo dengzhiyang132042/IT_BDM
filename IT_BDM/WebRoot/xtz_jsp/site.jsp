@@ -76,20 +76,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     		维护IT:<input name="it" type="text" value="${it }"/>
     		&nbsp;&nbsp;&nbsp;&nbsp;
     		维护类型:<input name="type" type="text" value="${type }"/>
-    		<br/><br/>
-    		<div style="float: left;">维护日期:</div>
-    		<div style="border:1px solid #878F8E;width:95px;display:block;float: left;">
-    			<input name="syear" type="text" value="${syear }"  min="2000" max="2100" style="width:35px;border:0;"/>-
-    			<input name="smonth" type="text" value="${smonth }" min="1" max="12" style="width:20px;border:0;"/>-
-    			<input name="sday" type="text" value="${sday }" min="1" max="31" style="width:20px;border:0;"/>
-    		</div>
-    		<div style="float: left;">&nbsp;至&nbsp;</div>
-    		<div style="border:1px solid #878F8E;width:95px;display:block;float: left;">
-	    		<input name="eyear" type="text" value="${eyear }"  min="2000" max="2100" style="width:35px;border:0;"/>-
-	    		<input name="emonth" type="text" value="${emonth }" min="1" max="12" style="width:20px;border:0;"/>-
-	    		<input name="eday" type="text" value="${eday }" min="1" max="31" style="width:20px;border:0;"/>
-    		</div>
-    		<br/><br/>
+    		<br/>
+    		维护日期：<input name="dates" type="date" value="${dates }">
+    		~<input name="datee" type="date" value="${datee }">
+    		<br/>
     		<input type="submit" value="查询"/>
     	</form>	
     </div>

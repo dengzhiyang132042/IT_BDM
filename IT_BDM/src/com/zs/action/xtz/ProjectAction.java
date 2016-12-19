@@ -3,9 +3,14 @@
  */
 package com.zs.action.xtz;
 
+import java.io.File;
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.text.ParseException;
 import java.util.Date;
 import java.util.List;
+
+import org.apache.log4j.Logger;
 
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
@@ -49,7 +54,11 @@ public class ProjectAction extends MyBaseAction implements IMyBaseAction{
 	String year;
 	String month;
 	String result="project";
+	private File fileExcel;
+	private String fileExcelContentType;
+	private String fileExcelFileName;
 	
+	private Logger logger = Logger.getLogger(ProjectAction.class);
 	
 	
 	public iXtProjectCountService getProSer() {
@@ -154,6 +163,26 @@ public class ProjectAction extends MyBaseAction implements IMyBaseAction{
 	public void setMonth(String month) {
 		this.month = month;
 	}
+	public File getFileExcel() {
+		return fileExcel;
+	}
+	public void setFileExcel(File fileExcel) {
+		this.fileExcel = fileExcel;
+	}
+	public String getFileExcelContentType() {
+		return fileExcelContentType;
+	}
+	public void setFileExcelContentType(String fileExcelContentType) {
+		this.fileExcelContentType = fileExcelContentType;
+	}
+	public String getFileExcelFileName() {
+		return fileExcelFileName;
+	}
+	public void setFileExcelFileName(String fileExcelFileName) {
+		this.fileExcelFileName = fileExcelFileName;
+	}
+	
+	
 	
 	public void clearOptions() {
 		ps=null;
@@ -338,5 +367,11 @@ public class ProjectAction extends MyBaseAction implements IMyBaseAction{
 		pd=null;
 		return gotoQuery();
 	}
-	
+	public String importExcel() throws InterruptedException, IOException, ParseException {
+		logger.debug(fileExcel);
+		logger.debug(fileExcelContentType);
+		logger.debug(fileExcelFileName);
+		proSer.ExcelImport(fileExcelFileName, fileExcel);
+		return gotoQuery();
+	}
 }

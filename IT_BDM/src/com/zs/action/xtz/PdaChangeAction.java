@@ -226,7 +226,7 @@ public class PdaChangeAction extends MyBaseAction{
 	public String add() throws Exception {
 		if(pda!=null){
 			Users users=(Users) getSession().getAttribute("user");
-			pda.setCId("p"+NameOfDate.getNum());
+			pda.setCId("c"+NameOfDate.getNum());
 			Date date=new Date();
 			Calendar ca = Calendar.getInstance();//创建一个日期实例
 			ca.setTime(date);//实例化一个日期
