@@ -3,6 +3,9 @@
  */
 package com.zs.service;
 
+import java.io.File;
+import java.io.IOException;
+import java.text.ParseException;
 import java.util.Date;
 import java.util.List;
 
@@ -46,4 +49,11 @@ public interface iXtProjectCountService{
 	 * @param date
 	 */
 	public void createTable(XtProject pro) ;
+	
+	/**
+	 * 导入数据  黄光辉 2016年12月16日
+	 * @param fileExcelFileName
+	 * @param fileExcel
+	 */
+	public void ExcelImport(String fileName,File file)throws NumberFormatException, ParseException, IOException;
 }

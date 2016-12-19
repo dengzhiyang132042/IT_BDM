@@ -3,16 +3,24 @@
  */
 package com.zs.service.impl;
 
+import java.io.File;
+import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+
+import net.sf.json.JSONObject;
 
 import org.apache.log4j.Logger;
 
 import com.zs.entity.XtDevelopEfficiency;
 import com.zs.entity.XtProject;
 import com.zs.entity.XtProjectDetail;
+import com.zs.entity.XtSite;
 import com.zs.service.BaseService;
 import com.zs.service.iXtProjectCountService;
+import com.zs.tools.ExcelImport;
 import com.zs.tools.NameOfDate;
 import com.zs.tools.WorkDays;
 
@@ -196,6 +204,24 @@ public class XtProjectCountServiceImpl extends BaseService implements iXtProject
 	
 	private int toInt(Integer i) {
 		return i==null?0:(int)i;
+	}
+
+
+	public void ExcelImport(String fileName, File file) throws IOException, NumberFormatException, ParseException {
+		List<String[]> list=ExcelImport.getDataFromExcel(fileName,file);
+		XtProject p = null;
+		for (int i = 1; i < list.size(); i++) {
+			System.out.println(list.get(i)[6].toString().substring(0,8)+"20");
+			if(!list.get(i)[0].toString().equals("")){
+				p = new XtProject("p"+NameOfDate.getNum(),new SimpleDateFormat("yyyy-MM-dd").parse(list.get(i)[6].toString().substring(0,8)+"20") , list.get(i)[0].toString(), list.get(i)[1].toString());
+				save(p);
+			}
+			System.out.println(p.getPId());
+			XtProjectDetail pd = new XtProjectDetail(NameOfDate.getNum(),p.getPId() , list.get(i)[2].toString(), list.get(i)[3].toString(), list.get(i)[4].toString(), list.get(i)[5].toString(), new SimpleDateFormat("yyyy-MM-dd").parse(list.get(i)[6].toString()), new SimpleDateFormat("yyyy-MM-dd").parse(list.get(i)[7].toString()), new SimpleDateFormat("yyyy-MM-dd").parse(list.get(i)[8].toString()), Double.parseDouble(list.get(i)[9].toString()),Integer.parseInt(list.get(i)[9].toString()));
+			System.out.println(JSONObject.fromObject(p));
+			System.out.println(JSONObject.fromObject(pd));
+			save(pd);
+		}
 	}
 
 

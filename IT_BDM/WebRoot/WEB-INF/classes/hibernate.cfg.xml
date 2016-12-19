@@ -95,6 +95,7 @@
 		<mapping resource="com/zs/entity/XtProject.hbm.xml" />
 		<mapping resource="com/zs/entity/XtProjectDetail.hbm.xml" />
 		<mapping resource="com/zs/entity/XtDevelopEfficiency.hbm.xml" />
+		<mapping resource="com/zs/entity/YjOut.hbm.xml" />
 	</session-factory>
 
 </hibernate-configuration>

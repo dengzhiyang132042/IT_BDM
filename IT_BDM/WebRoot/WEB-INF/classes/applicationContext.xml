@@ -47,6 +47,9 @@
 	<bean id="zs_fbd_go_yjz" class="com.zs.action.yjz.GoOutAction">
 		<property name="ser" ref="zs_ser"></property>
 	</bean>
+	<bean id="hgh_out_register" class="com.zs.action.yjz.OutRegisterAction">
+		<property name="ser" ref="zs_ser"></property>
+	</bean>
 	<!-- **************************系统组******************************************** -->
 	<bean id="zs_site_xtz" class="com.zs.action.xtz.SiteAction">
 		<property name="ser" ref="zs_ser"></property>

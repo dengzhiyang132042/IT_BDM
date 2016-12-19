@@ -57,8 +57,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<li><span><a href="<%=path %>/bqrepair!queryOfFenye?cz=yes" target="right">设备维修登记</a></span></li>
 						<li><span><a href="<%=path %>/pdaloss!queryOfFenye?cz=yes" target="right">巴枪挂失登记</a></span></li>
 						<li><span><a href="<%=path %>/hitches!queryOfFenye?cz=yes" target="right">哲盟异常登记</a></span></li>
-						<li><span><a href="<%=path %>/hitches!queryOfFenye?cz=yes" target="right">公司BQQ登记</a></span></li>
-						<li><span><a href="<%=path %>/hitches!queryOfFenye?cz=yes" target="right">网点IMO登记</a></span></li>
+						<li><span><a href="<%=path %>/develop_error.jsp" target="right">公司BQQ登记</a></span></li>
+						<li><span><a href="<%=path %>/develop_error.jsp" target="right">网点IMO登记</a></span></li>
 						<li><span><a href="<%=path %>/project!queryOfFenye?cz=yes" target="right">系统开发登记</a></span></li>
         			</ul>
         		</li>
@@ -71,7 +71,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<li><span><a href="<%=path %>/fbd_ll!queryOfFenyeLL?cz=yes" target="right">监控材料清单</a></span></li>
 						<li><span><a href="<%=path %>/sim!queryOfFenyeSIM?cz=yes" target="right">SIM费用报销</a></span></li>
 						<li><span><a href="<%=path %>/goods!queryOfFenyeGoods?cz=yes" target="right">内件收发登记</a></span></li>
-						<li><span><a href="<%=path %>/go!queryOfFenyeGo?cz=yes" target="right">员工外出登记</a></span></li>        			
+						<li><span><a href="<%=path %>/go!queryOfFenyeGo?cz=yes" target="right">员工外出登记</a></span></li>
+						<li><span><a href="<%=path %>/outRegister!queryOfFenye?cz=yes" target="right">外出登记新表</a></span></li>        			
         			</ul>
         		</li>
         		<li><span>桌面组</span>

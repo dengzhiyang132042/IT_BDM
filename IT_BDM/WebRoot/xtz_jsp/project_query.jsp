@@ -96,11 +96,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</tr>
 			<c:forEach items="${ps}" var="p">
 				<tr style="height:400px;">
-					<td><input value="${p.PProject }" name="p.PProject" type="text" style="width: 80%;text-align: center; " />
+					<td style="padding:10px;">
+					<br/><br/><br/>
+					${p.PProject }
 					<br/><br/><br/>
 					<fmt:formatDate value="${p.PDate }" pattern="yyyy-M" />月
 					</td>
-					<td ><textarea style="height:100px;width: 100%;font-size:14px;" name="p.PTarget">${p.PTarget }</textarea></td>
+					<td style="padding:20px;">${p.PTarget }</td>
 				</tr>
 				<tr>
 					<td>
@@ -129,10 +131,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<c:forEach items="${ps }" var="p">
 				<c:forEach items="${p.projectDetails}" var="pd">
 					<tr>
-						<td ><input type="text" value="${pd.DContent }" readonly="readonly" style="width:100px;text-align: center;"/></td>
-						<td ><input type="text" value="${pd.DMan }" readonly="readonly" style="width: 100px;text-align: center;"/></td>
-						<td ><textarea readonly="readonly" style="height:80px;width: 98%;">${pd.DDetail }</textarea></td>
-						<td ><textarea readonly="readonly" style="height:80px;width: 93%;">${pd.DSituation }</textarea></td>
+						<td >${pd.DContent }</td>
+						<td >${pd.DMan }</td>
+						<td >${pd.DDetail }</td>
+						<td ><textarea readonly="readonly" style="height:80px;width: 93%;display:table-cell;vertical-aglin:middle;" >${pd.DSituation }</textarea></td>
 						<td ><fmt:formatDate value="${pd.DStartDate }" pattern="yyyy-MM-dd" /></td>
 						<td ><fmt:formatDate value="${pd.DPlanDate }" pattern="yyyy-MM-dd" /></td>
 						<td ><fmt:formatDate value="${pd.DRealityDate }" pattern="yyyy-MM-dd" /></td>
@@ -222,7 +224,31 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</div>
 	</div>
 	<div id="tt" style="display: none;">
+		<a class="icon-zs-import" onclick="$('#in').window('open')" style="margin-left: 10px;" title="excel导入"></a>
 		<a class="icon-add" onclick="add()" style="margin-left: 10px;" title="添加">
+	</div>
+	<div id="in" class="easyui-window" title="数据导入" data-options="modal:true,closed:true" style="width:400px;height:auto;padding:10px;display: none;overflow-x:hidden;">
+		<form action="<%=path %>/project!importExcel" method="post" enctype="multipart/form-data">
+		<table border="1">
+			<tr>
+				<td>Excel模板</td>
+				<td onmousemove="$(this).css('background-color','red');" onmouseout="$(this).css('background-color','white');" style="cursor: pointer;" onclick="window.location.href='<%=path%>/files/import/xtz/系统开发登记.xlsx';">
+					下载模板
+				</td>
+			</tr>
+			<tr>
+				<td>导入Excel数据</td>
+				<td>
+					<input type="file" name="fileExcel"/>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2">
+					<input type="submit" value="导入" onclick="return show_hint(['in'])"/>	
+				</td>
+			</tr>
+		</table>
+		</form>
 	</div>
 	<jsp:include page="../hintModal.jsp"/>
   </body>
