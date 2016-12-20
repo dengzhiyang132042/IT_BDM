@@ -62,7 +62,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<li><span><a href="<%=path %>/project!queryOfFenye?cz=yes" target="right">系统开发登记</a></span></li>
         			</ul>
         		</li>
-        		<li><span>开发组</span></li>
         		<li><span>硬件组</span>
         			<ul>
 						<li><span><a href="<%=path %>/fbd_asdl!queryOfFenyeAsdl?cz=yes" target="right">ASDL宽带登记</a></span></li>
@@ -129,13 +128,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<li><span><a href="<%=path %>/projectCount!queryOfFenye?cz=yes" target="right">系统开发登记</a></span></li>
         			</ul>
         		</li>
-        		<li><span>开发组</span></li>
         		<li><span>硬件组</span>
         			<ul>
 						<li><span><a href="<%=path %>/fbd_asdl!queryOfFenyeAsdl?cz=yes" target="right">ASDL宽带登记</a></span></li>
 						<li><span><a href="<%=path %>/fbd_m!queryOfFenyeM?cz=yes" target="right">监控信息登记</a></span></li>
 						<li><span><a href="<%=path %>/fbd_c!queryOfFenyeC?cz=yes" target="right">电脑信息登记</a></span></li>
-						<li><span><a href="<%=path %>/fbd_ll!queryOfFenyeLL?cz=yes" target="right">监控信息登记</a></span></li>
+						<li><span><a href="<%=path %>/fbd_ll!queryOfFenyeLL?cz=yes" target="right">监控材料清单</a></span></li>
 						<li><span><a href="<%=path %>/sim!queryOfFenyeSIM?cz=yes" target="right">SIM费用报销</a></span></li>
 						<li><span><a href="<%=path %>/goods!queryOfFenyeGoods?cz=yes" target="right">内件收发登记</a></span></li>
 						<li><span><a href="<%=path %>/go!queryOfFenyeGo?cz=yes" target="right">员工外出登记</a></span></li>        			

@@ -31,6 +31,7 @@ public class SiteAction extends MyBaseAction{
 	private IService ser;
 	private iSiteService siteSer;
 	private Page page;
+	private Page pageGj;
 	private XtSite site;
 	private List<XtSite> sites;
 	private String result_site="site";
@@ -52,6 +53,12 @@ public class SiteAction extends MyBaseAction{
 	
 	
 	
+	public Page getPageGj() {
+		return pageGj;
+	}
+	public void setPageGj(Page pageGj) {
+		this.pageGj = pageGj;
+	}
 	public String getCz() {
 		return cz;
 	}
@@ -181,7 +188,11 @@ public class SiteAction extends MyBaseAction{
 		if (page==null) {
 			page=new Page(1, 0, 5);
 		}
+		if (pageGj==null) {
+			pageGj=new Page(1, 0, 5);
+		}
 		String gj=getRequest().getParameter("gj");
+		String more=getRequest().getParameter("more");
 		String hql="from XtSite where 1=1 ";
 		if (id!=null)
 			hql=hql+"and SId like '%"+id+"%' ";
@@ -196,10 +207,14 @@ public class SiteAction extends MyBaseAction{
 		if (type!=null)
 			hql=hql+"and SMaintainType like '%"+type+"%' ";
 		if (gj!=null && gj.equals("yes")) {
+			if (more!=null && more.equals("yes")) {
+				pageGj.setPageOn(pageGj.getPageOn()+1);
+			}else {
+				pageGj.setPageOn(1);
+			}
 			hql=hql+"order by SMaintainDate desc";
-			sites=ser.query(hql, null, hql, page, ser);
+			sites=ser.query(hql, null, hql, pageGj, ser);
 			sendArrayJson(sites, ser);
-			System.out.println(hql);
 			return null;
 		}else {
 			hql=hql+"and SState='有效' order by SMaintainDate desc";
@@ -214,6 +229,11 @@ public class SiteAction extends MyBaseAction{
 			page=new Page(1, 0, 5);
 		}else {
 			page.setPageOn(1);
+		}
+		if (pageGj==null) {
+			pageGj=new Page(1, 0, 5);
+		}else {
+			pageGj.setPageOn(1);
 		}
 		String hql="from XtSite where SState='有效' order by SMaintainDate desc";
 		sites=ser.query(hql, null, hql, page, ser);

@@ -33,53 +33,58 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		$("#sele option[value='"+${page.size}+"']").attr("selected",true);
 		$("#eidtASubjectWindow1").show();
 		$('#tt').show();
-		$("#gj_btn").click(function(){
-			$.post(
-				"<%=path%>/site!queryOfFenye?gj=yes",
-				$("#ks").serializeArray(),
-				function(data){
-					var json=$.parseJSON(data);
-					var str="<table border='1'>";
-					str=str+"<tr>";
-					str=str+"<td>编号</td>";
-					str=str+"<td>网点条码</td>";
-					str=str+"<td>网点名称</td>";
-					str=str+"<td>开通日期</td>";
-					str=str+"<td>维护日期</td>";
-					str=str+"<td>维护周期</td>";
-					str=str+"<td>操作类型</td>";
-					str=str+"<td>网点类型</td>";
-					str=str+"<td>维护IT<</td>";
-					str=str+"<td>通知方式</td>";
-					str=str+"<td>备注</td>";
-					str=str+"<td>状态</td>";
-					str=str+"<td>录入时间</td>";
-					str=str+"</tr>"
-					for ( var i = 0; i < json.length; i++) {
-						str=str+"<tr>";
-						str=str+"<td>"+json[i].SId+"</td>";
-						str=str+"<td>"+json[i].SNum+"</td>";
-						str=str+"<td>"+json[i].SName+"</td>";
-						str=str+"<td>"+json[i].SStartDate+"</td>";
-						str=str+"<td>"+json[i].SMaintainDate+"</td>";
-						str=str+"<td>"+json[i].SMaintainCycle+"</td>";
-						str=str+"<td>"+json[i].SMaintainType+"</td>";
-						str=str+"<td>"+json[i].SMaintainMan+"</td>";
-						str=str+"<td>"+json[i].SNotice+"</td>";
-						str=str+"<td>"+json[i].SNote+"</td>";
-						str=str+"<td>"+json[i].SSiteType+"</td>";
-						str=str+"<td>"+json[i].SState+"</td>";
-						str=str+"<td>"+json[i].SCreateTime+"</td>";
-						str=str+"</tr>";
-					}
-					str=str+"</table>";
-					$("#gj").html(str);
-					$("#gj").window("open");
-				}
-			);
-		});
 	});
-	
+	function gj_query(m,isClear){
+		console.log(isClear);
+		if (isClear=="true") {
+			console.log("11111111111111");
+			$("#gj").html("");
+		}
+		$.post(
+			"<%=path%>/site!queryOfFenye?gj=yes&more="+m,
+			$("#ks").serializeArray(),
+			function(data){
+				var json=$.parseJSON(data);
+				var str="<table border='1'>";
+				str=str+"<tr>";
+				str=str+"<th>编号</th>";
+				str=str+"<th>网点条码</th>";
+				str=str+"<th>网点名称</th>";
+				str=str+"<th>开通日期</th>";
+				str=str+"<th>维护日期</th>";
+				str=str+"<th>维护周期</th>";
+				str=str+"<th>操作类型</th>";
+				str=str+"<th>网点类型</th>";
+				str=str+"<th>维护IT</th>";
+				str=str+"<th>通知方式</th>";
+				str=str+"<th>备注</th>";
+				str=str+"<th>状态</th>";
+				str=str+"<th>录入时间</th>";
+				str=str+"</tr>"
+				for ( var i = 0; i < json.length; i++) {
+					str=str+"<tr>";
+					str=str+"<td>"+json[i].SId+"</td>";
+					str=str+"<td>"+json[i].SNum+"</td>";
+					str=str+"<td>"+json[i].SName+"</td>";
+					str=str+"<td>"+json[i].SStartDate+"</td>";
+					str=str+"<td>"+json[i].SMaintainDate+"</td>";
+					str=str+"<td>"+json[i].SMaintainCycle+"</td>";
+					str=str+"<td>"+json[i].SMaintainType+"</td>";
+					str=str+"<td>"+json[i].SMaintainMan+"</td>";
+					str=str+"<td>"+json[i].SNotice+"</td>";
+					str=str+"<td>"+json[i].SNote+"</td>";
+					str=str+"<td>"+json[i].SSiteType+"</td>";
+					str=str+"<td>"+json[i].SState+"</td>";
+					str=str+"<td>"+json[i].SCreateTime+"</td>";
+					str=str+"</tr>";
+				}
+				str=str+"</table>";
+				str=str+"<center><input type=\"button\" value=\"显示更多\" onclick=\"gj_query('yes','false')\"/></center>";
+				$("#gj").append(str);
+				$("#gj").window("open");
+			}
+		);
+	}
 	function update(u1,u2,u3,u4,u5,u6,u7){
 		$('#u').window('open');
 		$('#u_1').val(u1);
@@ -127,7 +132,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     		~<input name="datee" type="date" value="${datee }">
     		<br/>
     		<input type="submit" value="查询"/>
-    		<input type="button" id="gj_btn" value="轨迹查询"/>
+    		<input type="button" value="轨迹查询" onclick="gj_query('no','true')"/>
     	</form>	
     </div>
     <div style="margin-bottom: 5px;">
@@ -176,20 +181,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<option value="10">10</option>
 			<option value="15">15</option>
 		</select>
-		
 		<span style="float: left;margin-left: 5px;">
 		<span style="color: #A5A5A5;">|</span>
 		<a onclick="page(1,2)" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-last'" title="首页"></a>
 		<a onclick="page(-1,1)" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-l'" title="上一页"></a>
 		<span style="color: #A5A5A5;">|</span>
 		</span>
-		
 		<span style="float: left;margin-top: 3px;margin-left: 5px;">
 		<input id="page" name="page.pageOn" type="number" style="width: 50px;height: 20px;" value="${page.pageOn }" min="1" max="${page.pageMax }" onchange="$('#f1').submit();"/>
 		</span>
-		
 		<span style="float: left;margin-top: 5px;margin-left: 5px;">/${page.pageMax }</span>
-		
 		<span style="float: left;margin-left: 5px;">
 		<span style="color: #A5A5A5;">|</span>
 		<a onclick="page(1,1)" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-n'" title="下一页"></a>
@@ -265,7 +266,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</form>
 	</div>
 	
-	<div id="a" class="easyui-window" title="添加" data-options="modal:true,closed:true" style="width:400px;height:80%;padding:10px;display: none;">
+	<div id="a" class="easyui-window" title="添加" data-options="modal:true,closed:true" style="width:400px;height:auto;padding:10px;display: none;">
 		<form action="<%=path %>/site!add" method="post">
 		<table border="0" class="table1">
 			<tr>
@@ -325,7 +326,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</form>
 	</div>
 	
-	<div id="gj" class="easyui-window" title="轨迹" data-options="modal:true,closed:true" style="width:95%;height:auto;padding:10px;display: none;">
+	<div id="gj" class="easyui-window" title="轨迹" data-options="modal:true,closed:true" style="width:95%;height:300px;padding:10px;display: none;">
 		
 		
 	</div>
