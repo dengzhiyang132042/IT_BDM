@@ -15,5 +15,5 @@ public interface iSiteService {
 	 * @throws ParseException
 	 * @throws IOException
 	 */
-	public void importExcelData(String fileName,File file)throws NumberFormatException, ParseException, IOException;
+	public void importExcelData(String fileName,File file,String uNum)throws NumberFormatException, ParseException, IOException;
 }

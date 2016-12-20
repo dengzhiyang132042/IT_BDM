@@ -1,5 +1,6 @@
 package com.zs.entity;
 
+import java.sql.Timestamp;
 import java.util.Date;
 
 /**
@@ -20,6 +21,10 @@ public class XtSite implements java.io.Serializable {
 	private String SMaintainMan;
 	private String SNotice;
 	private String SNote;
+	private String SSiteType;
+	private Timestamp SCreateTime;
+	private String SState;
+	private String UNum;
 
 	// Constructors
 
@@ -35,7 +40,8 @@ public class XtSite implements java.io.Serializable {
 	/** full constructor */
 	public XtSite(String SId, String SNum, String SName, Date SStartDate,
 			Date SMaintainDate, Integer SMaintainCycle, String SMaintainType,
-			String SMaintainMan, String SNotice, String SNote) {
+			String SMaintainMan, String SNotice, String SNote,
+			String SSiteType, Timestamp SCreateTime, String SState, String UNum) {
 		this.SId = SId;
 		this.SNum = SNum;
 		this.SName = SName;
@@ -46,6 +52,10 @@ public class XtSite implements java.io.Serializable {
 		this.SMaintainMan = SMaintainMan;
 		this.SNotice = SNotice;
 		this.SNote = SNote;
+		this.SSiteType = SSiteType;
+		this.SCreateTime = SCreateTime;
+		this.SState = SState;
+		this.UNum = UNum;
 	}
 
 	// Property accessors
@@ -128,6 +138,38 @@ public class XtSite implements java.io.Serializable {
 
 	public void setSNote(String SNote) {
 		this.SNote = SNote;
+	}
+
+	public String getSSiteType() {
+		return this.SSiteType;
+	}
+
+	public void setSSiteType(String SSiteType) {
+		this.SSiteType = SSiteType;
+	}
+
+	public Timestamp getSCreateTime() {
+		return this.SCreateTime;
+	}
+
+	public void setSCreateTime(Timestamp SCreateTime) {
+		this.SCreateTime = SCreateTime;
+	}
+
+	public String getSState() {
+		return this.SState;
+	}
+
+	public void setSState(String SState) {
+		this.SState = SState;
+	}
+
+	public String getUNum() {
+		return this.UNum;
+	}
+
+	public void setUNum(String UNum) {
+		this.UNum = UNum;
 	}
 
 }
