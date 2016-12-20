@@ -3,14 +3,19 @@ package com.zs.action;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
+
 import org.apache.struts2.ServletActionContext;
 
 import com.opensymphony.xwork2.ActionSupport;
+import com.zs.service.IService;
 
 public class MyBaseAction extends ActionSupport{
 	
@@ -65,6 +70,26 @@ public class MyBaseAction extends ActionSupport{
 		this.out = out;
 	}
 	
+	public void sendArrayJson(List list,IService ser) {
+		JSONArray arr=ser.objToJsonArray(list);
+		try {
+			getOut().print(arr);
+			getOut().flush();
+			getOut().close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 	
+	public void sendObjectJson(Object obj,IService ser) {
+		JSONObject ob=ser.objToJsonObj(obj);
+		try {
+			getOut().print(ob);
+			getOut().flush();
+			getOut().close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 	
 }

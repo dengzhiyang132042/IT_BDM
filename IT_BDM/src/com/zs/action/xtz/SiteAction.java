@@ -42,6 +42,8 @@ public class SiteAction extends MyBaseAction{
 	private String datee;
 	private String it;
 	private String type;
+	private String cz;
+	
 	private File fileExcel;
 	private String fileExcelContentType;
 	private String fileExcelFileName; 
@@ -49,7 +51,13 @@ public class SiteAction extends MyBaseAction{
 	private Logger logger=Logger.getLogger(SiteAction.class);
 	
 	
-	 
+	
+	public String getCz() {
+		return cz;
+	}
+	public void setCz(String cz) {
+		this.cz = cz;
+	}
 	public iSiteService getSiteSer() {
 		return siteSer;
 	}
@@ -142,6 +150,9 @@ public class SiteAction extends MyBaseAction{
 		datee=null;
 		it=null;
 		type=null;
+		cz=null;
+		site=null;
+		sites=null;
 	}
 	
 	private void clearSpace(){
@@ -157,89 +168,93 @@ public class SiteAction extends MyBaseAction{
 		if (num!=null) {
 			num=num.trim();
 		}
+		dates=dates==null?null:dates.trim();
+		datee=datee==null?null:datee.trim();
+		cz=cz==null?null:cz.trim();
 	}
 	
 	public String queryOfFenye() throws UnsupportedEncodingException, ParseException {
-		id=getRequest().getParameter("id");
-		String cz=getRequest().getParameter("cz");//用于判断是否清理page，yes清理，no不清理
+		clearSpace();
+		if (cz!=null && cz.equals("yes")) {
+			clearOptions();
+		}
 		if (page==null) {
 			page=new Page(1, 0, 5);
 		}
-		if (cz!=null && cz.equals("yes")) {
-			page=new Page(1, 0, 5);
-			clearOptions();
-		}
-		clearSpace();
-		if (id!=null) {
-			String hql2="from XtSite where SId like '%"+id+"%'";
-			if (num!=null && !num.trim().equals("")) {
-				hql2=hql2+" and SNum like '%"+num+"%'";
-			}
-			if (dates!=null && !dates.trim().equals("")) {
-				hql2=hql2+" and SMaintainDate>='"+dates+"'";
-			}
-			if (datee!=null && !datee.trim().equals("")) {
-				hql2=hql2+" and SMaintainDate<='"+datee+"'";
-			}
-			if (it!=null && !it.trim().equals("")) {
-				hql2=hql2+" and SMaintainMan like '%"+it+"%'";
-			}
-			if (type!=null && !type.trim().equals("")) {
-				hql2=hql2+" and SMaintainType like '%"+type+"%'";
-			}
-			hql2=hql2+" order by SMaintainDate desc";
-			
-			sites=ser.query(hql2, null, hql2, page, ser);
+		String gj=getRequest().getParameter("gj");
+		String hql="from XtSite where 1=1 ";
+		if (id!=null)
+			hql=hql+"and SId like '%"+id+"%' ";
+		if (num!=null)
+			hql=hql+"and SNum like '%"+num+"%' ";
+		if (dates!=null && !dates.trim().equals("")) 
+			hql=hql+"and SMaintainDate>='"+dates+"' ";
+		if (datee!=null && !datee.trim().equals("")) 
+			hql=hql+"and SMaintainDate<='"+datee+"' ";
+		if (it!=null)
+			hql=hql+"and SMaintainMan like '%"+it+"%' ";
+		if (type!=null)
+			hql=hql+"and SMaintainType like '%"+type+"%' ";
+		if (gj!=null && gj.equals("yes")) {
+			hql=hql+"order by SMaintainDate desc";
+			sites=ser.query(hql, null, hql, page, ser);
+			sendArrayJson(sites, ser);
+			System.out.println(hql);
+			return null;
 		}else {
-			String hql="from XtSite order by SMaintainDate desc";
-			String ss[]={};
-			String hql2="from XtSite order by SMaintainDate desc";
-			sites=ser.query(hql, ss, hql2, page, ser);
+			hql=hql+"and SState='有效' order by SMaintainDate desc";
+			sites=ser.query(hql, null, hql, page, ser);
+			return result_site;
 		}
-		ser.receiveStructure(getRequest());
-		return result_site;
 	}
 	
 	private String gotoQuery() throws UnsupportedEncodingException {
 		clearOptions();
-		String hql="from XtSite order by SMaintainDate desc";
-		String ss[]={};
-		String hql2="from XtSite order by SMaintainDate desc";
-		sites=ser.query(hql, ss, hql2, page, ser);
+		if (page==null) {
+			page=new Page(1, 0, 5);
+		}else {
+			page.setPageOn(1);
+		}
+		String hql="from XtSite where SState='有效' order by SMaintainDate desc";
+		sites=ser.query(hql, null, hql, page, ser);
 		ser.receiveStructure(getRequest());
 		return result_site;
 	}
 	
 	public String delete() throws Exception {
-		String id=getRequest().getParameter("id");
+		clearSpace();
 		if (id!=null) {
 			site=(XtSite) ser.get(XtSite.class, id);
 			ser.delete(site);
 		}
-		site=null;
-		
 		return gotoQuery();
 	}
 	
 	public String update() throws Exception {
-		if(site!=null && site.getSId()!=null && !"".equals(site.getSId().trim())){
+		clearSpace();
+		Users user=(Users) getSession().getAttribute("user");
+		if(user!=null && site!=null && site.getSId()!=null && !"".equals(site.getSId().trim())){
 			XtSite xtSite=(XtSite) ser.get(XtSite.class, site.getSId());
+			site.setSId("s"+NameOfDate.getNum());
 			site.setSStartDate(xtSite.getSStartDate());
 			site.setSMaintainDate(xtSite.getSMaintainDate());
 			site.setSMaintainCycle(xtSite.getSMaintainCycle());
-			site.setSMaintainMan(xtSite.getSMaintainMan());
-			ser.update(site);
+			site.setSMaintainMan(user.getUName());
+			site.setSCreateTime(new Timestamp(new Date().getTime()));
+			site.setSState("有效");
+			site.setUNum(user.getUNum());
+			xtSite.setSState("无效");
+			ser.update(xtSite);
+			ser.save(site);
 			getRequest().setAttribute("site", site);
 		}
-		site=null;
-
 		return gotoQuery();
 	}
 	
 	public String add() throws Exception {
+		clearSpace();
 		if(site!=null){
 			site.setSId("s"+NameOfDate.getNum());
-			
 			Users users=(Users) getSession().getAttribute("user");
 			Date date=new Date();
 			Calendar ca = Calendar.getInstance();//创建一个日期实例
@@ -250,10 +265,12 @@ public class SiteAction extends MyBaseAction{
 			if (users!=null) {
 				site.setSMaintainMan(users.getUName());
 			}
+			site.setSCreateTime(new Timestamp(new Date().getTime()));
+			site.setSState("有效");
+			site.setUNum(users.getUNum());
 			ser.save(site);
 			getRequest().setAttribute("site", site);
 		}
-		site=null;
 		return gotoQuery();
 	}	
 	
@@ -266,10 +283,8 @@ public class SiteAction extends MyBaseAction{
 	 * @throws ParseException
 	 */
 	public String importExcel() throws InterruptedException, IOException, ParseException {
-		logger.debug(fileExcel);
-		logger.debug(fileExcelContentType);
-		logger.debug(fileExcelFileName);
-		siteSer.importExcelData(fileExcelFileName, fileExcel);
+		Users user=(Users) getSession().getAttribute("user");
+		siteSer.importExcelData(fileExcelFileName, fileExcel,user.getUNum());
 		return gotoQuery();
 	}
 }

@@ -33,16 +33,62 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		$("#sele option[value='"+${page.size}+"']").attr("selected",true);
 		$("#eidtASubjectWindow1").show();
 		$('#tt').show();
+		$("#gj_btn").click(function(){
+			$.post(
+				"<%=path%>/site!queryOfFenye?gj=yes",
+				$("#ks").serializeArray(),
+				function(data){
+					var json=$.parseJSON(data);
+					var str="<table border='1'>";
+					str=str+"<tr>";
+					str=str+"<td>编号</td>";
+					str=str+"<td>网点条码</td>";
+					str=str+"<td>网点名称</td>";
+					str=str+"<td>开通日期</td>";
+					str=str+"<td>维护日期</td>";
+					str=str+"<td>维护周期</td>";
+					str=str+"<td>操作类型</td>";
+					str=str+"<td>网点类型</td>";
+					str=str+"<td>维护IT<</td>";
+					str=str+"<td>通知方式</td>";
+					str=str+"<td>备注</td>";
+					str=str+"<td>状态</td>";
+					str=str+"<td>录入时间</td>";
+					str=str+"</tr>"
+					for ( var i = 0; i < json.length; i++) {
+						str=str+"<tr>";
+						str=str+"<td>"+json[i].SId+"</td>";
+						str=str+"<td>"+json[i].SNum+"</td>";
+						str=str+"<td>"+json[i].SName+"</td>";
+						str=str+"<td>"+json[i].SStartDate+"</td>";
+						str=str+"<td>"+json[i].SMaintainDate+"</td>";
+						str=str+"<td>"+json[i].SMaintainCycle+"</td>";
+						str=str+"<td>"+json[i].SMaintainType+"</td>";
+						str=str+"<td>"+json[i].SMaintainMan+"</td>";
+						str=str+"<td>"+json[i].SNotice+"</td>";
+						str=str+"<td>"+json[i].SNote+"</td>";
+						str=str+"<td>"+json[i].SSiteType+"</td>";
+						str=str+"<td>"+json[i].SState+"</td>";
+						str=str+"<td>"+json[i].SCreateTime+"</td>";
+						str=str+"</tr>";
+					}
+					str=str+"</table>";
+					$("#gj").html(str);
+					$("#gj").window("open");
+				}
+			);
+		});
 	});
 	
-	function update(u1,u2,u3,u4,u5,u6){
+	function update(u1,u2,u3,u4,u5,u6,u7){
 		$('#u').window('open');
 		$('#u_1').val(u1);
 		$('#u_2').val(u2);
 		$('#u_3').val(u3);
-		$("#u_4 option[value='"+u4+"']").attr("selected",true);
+		$('#u_4').val(u4);
 		$("#u_5 option[value='"+u5+"']").attr("selected",true);
-		$('#u_6').val(u6);
+		$("#u_6 option[value='"+u6+"']").attr("selected",true);
+		$('#u_7').val(u7);
 	}
 	function page(no,cz){
 		var num1=$('#page').val();
@@ -68,7 +114,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <div style="background-color:white;margin-bottom: 5px;padding: 5px;border: 1px solid #224466; ">
     	快速查询
     	<br/>
-    	<form action="<%=path %>/site!queryOfFenye" method="post">
+    	<form id="ks" action="<%=path %>/site!queryOfFenye" method="post">
     		编号:<input name="id" type="text" value="${id }"/>
     		&nbsp;&nbsp;&nbsp;&nbsp;
     		网点条码：<input name="num" type="text" value="${num }"/>
@@ -81,6 +127,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     		~<input name="datee" type="date" value="${datee }">
     		<br/>
     		<input type="submit" value="查询"/>
+    		<input type="button" id="gj_btn" value="轨迹查询"/>
     	</form>	
     </div>
     <div style="margin-bottom: 5px;">
@@ -93,10 +140,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     	<th>开通日期</th>
     	<th>维护日期</th>
     	<th>维护周期</th>
-    	<th>维护类型</th>
+    	<th>操作类型</th>
+    	<th>网点类型</th>
     	<th>维护IT</th>
     	<th>通知方式</th>
-    	<th>备注说明</th>
+    	<th>备注</th>
     	<th>操作</th>
     </tr>
     <c:forEach items="${sites}" var="site">
@@ -108,11 +156,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<td width=""><fmt:formatDate value="${site.SMaintainDate }" pattern="yyyy/M/d" /></td>
 		<td width="">${site.SMaintainCycle }</td>
 		<td width="">${site.SMaintainType }</td>
+		<td width="">${site.SSiteType }</td>
 		<td width="">${site.SMaintainMan }</td>
 		<td width="">${site.SNotice }</td>
 		<td width="">${site.SNote }</td>
 		<td width="5%" align="center">
-			<a onclick="update('${site.SId }','${site.SNum }','${site.SName }','${site.SMaintainType }','${site.SNotice }','${site.SNote }')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-edit'" title="修改"></a>
+			<a onclick="update('${site.SId }','${site.SNum }','${site.SName }','${site.SMaintainType }','${site.SSiteType }','${site.SNotice }','${site.SNote }')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-edit'" title="修改"></a>
 			<a href="<%=path %>/site!delete?id=${site.SId}" onclick="return confirm('确定删除吗?')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-delete'" title="删除"></a>
 		</td>
     </tr>
@@ -175,17 +224,25 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<td>维护类型：</td>
 				<td>
 					<select id="u_4" name="site.SMaintainType">
-						<option value="变更负责人">变更负责人</option>
-						<option value="新开大客户">新开大客户</option>
-						<option value="新开站点">新开站点</option>
-						<option value="停止操作">停止操作</option>
+						<option value="注册">注册</option>
+						<option value="维护">维护</option>
+						<option value="注销">注销</option>
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<td>网点类型：</td>
+				<td>
+					<select id="u_5" name="site.SSiteType">
+						<option value="一级网点">一级网点</option>
+						<option value="大客户">大客户</option>
 					</select>
 				</td>
 			</tr>
 			<tr>
 				<td>通知方式：</td>
 				<td>
-					<select id="u_5" name="site.SNotice">
+					<select id="u_6" name="site.SNotice">
 						<option value="电话通知">电话通知</option>
 						<option value="短信通知">短信通知</option>
 						<option value="布谷鸟通知">布谷鸟通知</option>
@@ -196,7 +253,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<tr>
 				<td>备注说明：</td>
 				<td>
-					<input id="u_6" name="site.SNote" type="text" style="width: 100%;"/>
+					<input id="u_7" name="site.SNote" type="text" style="width: 100%;"/>
 				</td>
 			</tr>
 			<tr>
@@ -208,7 +265,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</form>
 	</div>
 	
-	<div id="a" class="easyui-window" title="添加" data-options="modal:true,closed:true" style="width:400px;height:auto;padding:10px;display: none;">
+	<div id="a" class="easyui-window" title="添加" data-options="modal:true,closed:true" style="width:400px;height:80%;padding:10px;display: none;">
 		<form action="<%=path %>/site!add" method="post">
 		<table border="0" class="table1">
 			<tr>
@@ -224,13 +281,21 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				</td>
 			</tr>
 			<tr>
-				<td>维护类型：</td>
+				<td>操作类型：</td>
 				<td>
 					<select name="site.SMaintainType">
-						<option value="变更负责人">变更负责人</option>
-						<option value="新开大客户">新开大客户</option>
-						<option value="新开站点">新开站点</option>
-						<option value="停止操作">停止操作</option>
+						<option value="注册">注册</option>
+						<option value="维护">维护</option>
+						<option value="注销">注销</option>
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<td>网点类型：</td>
+				<td>
+					<select name="site.SSiteType">
+						<option value="一级网点">一级网点</option>
+						<option value="大客户">大客户</option>
 					</select>
 				</td>
 			</tr>
@@ -258,6 +323,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</tr>
 		</table>
 		</form>
+	</div>
+	
+	<div id="gj" class="easyui-window" title="轨迹" data-options="modal:true,closed:true" style="width:95%;height:auto;padding:10px;display: none;">
+		
+		
 	</div>
 	
 	<div id="tt" style="display: none;">
