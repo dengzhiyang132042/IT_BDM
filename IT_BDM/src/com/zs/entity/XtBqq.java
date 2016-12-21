@@ -1,5 +1,6 @@
 package com.zs.entity;
 
+import java.sql.Timestamp;
 import java.util.Date;
 
 /**
@@ -15,11 +16,14 @@ public class XtBqq implements java.io.Serializable {
 	private String BName;
 	private String BNetNumber;
 	private String BNetName;
+	private String BMan;
 	private String BSection;
 	private Date BRegisterDate;
 	private String BIt;
-	private Date BServiceDate;
+	private Timestamp BServiceDate;
 	private String BType;
+	private String BState;
+	private String UNum;
 
 	// Constructors
 
@@ -34,18 +38,22 @@ public class XtBqq implements java.io.Serializable {
 
 	/** full constructor */
 	public XtBqq(String BId, String BNum, String BName, String BNetNumber,
-			String BNetName, String BSection, Date BRegisterDate, String BIt,
-			Date BServiceDate, String BType) {
+			String BNetName, String BMan, String BSection, Date BRegisterDate,
+			String BIt, Timestamp BServiceDate, String BType, String BState,
+			String UNum) {
 		this.BId = BId;
 		this.BNum = BNum;
 		this.BName = BName;
 		this.BNetNumber = BNetNumber;
 		this.BNetName = BNetName;
+		this.BMan = BMan;
 		this.BSection = BSection;
 		this.BRegisterDate = BRegisterDate;
 		this.BIt = BIt;
 		this.BServiceDate = BServiceDate;
 		this.BType = BType;
+		this.BState = BState;
+		this.UNum = UNum;
 	}
 
 	// Property accessors
@@ -90,6 +98,14 @@ public class XtBqq implements java.io.Serializable {
 		this.BNetName = BNetName;
 	}
 
+	public String getBMan() {
+		return this.BMan;
+	}
+
+	public void setBMan(String BMan) {
+		this.BMan = BMan;
+	}
+
 	public String getBSection() {
 		return this.BSection;
 	}
@@ -114,11 +130,11 @@ public class XtBqq implements java.io.Serializable {
 		this.BIt = BIt;
 	}
 
-	public Date getBServiceDate() {
+	public Timestamp getBServiceDate() {
 		return this.BServiceDate;
 	}
 
-	public void setBServiceDate(Date BServiceDate) {
+	public void setBServiceDate(Timestamp BServiceDate) {
 		this.BServiceDate = BServiceDate;
 	}
 
@@ -128,6 +144,22 @@ public class XtBqq implements java.io.Serializable {
 
 	public void setBType(String BType) {
 		this.BType = BType;
+	}
+
+	public String getBState() {
+		return this.BState;
+	}
+
+	public void setBState(String BState) {
+		this.BState = BState;
+	}
+
+	public String getUNum() {
+		return this.UNum;
+	}
+
+	public void setUNum(String UNum) {
+		this.UNum = UNum;
 	}
 
 }

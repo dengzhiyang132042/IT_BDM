@@ -1,6 +1,8 @@
 package com.zs.entity;
 
+import java.sql.Timestamp;
 import java.util.Date;
+import java.util.List;
 
 /**
  * XtNetImo entity. @author MyEclipse Persistence Tools
@@ -19,10 +21,13 @@ public class XtNetImo implements java.io.Serializable {
 	private String IPass;
 	private String IIt;
 	private Date IRegisterDate;
-	private Date IServiceDate;
+	private Timestamp IServiceDate;
 	private String IServiceType;
+	private String IState;
+	private String IUnum;
 
 	// Constructors
+	private String childNum;
 
 	/** default constructor */
 	public XtNetImo() {
@@ -36,7 +41,8 @@ public class XtNetImo implements java.io.Serializable {
 	/** full constructor */
 	public XtNetImo(String IId, String IArea, String INum, String IName,
 			String IType, String IAccount, String IPass, String IIt,
-			Date IRegisterDate, Date IServiceDate, String IServiceType) {
+			Date IRegisterDate, Timestamp IServiceDate, String IServiceType,
+			String IState, String IUnum) {
 		this.IId = IId;
 		this.IArea = IArea;
 		this.INum = INum;
@@ -48,12 +54,23 @@ public class XtNetImo implements java.io.Serializable {
 		this.IRegisterDate = IRegisterDate;
 		this.IServiceDate = IServiceDate;
 		this.IServiceType = IServiceType;
+		this.IState = IState;
+		this.IUnum = IUnum;
 	}
 
 	// Property accessors
 
+	
 	public String getIId() {
 		return this.IId;
+	}
+
+	public String getChildNum() {
+		return childNum;
+	}
+
+	public void setChildNum(String childNum) {
+		this.childNum = childNum;
 	}
 
 	public void setIId(String IId) {
@@ -124,11 +141,11 @@ public class XtNetImo implements java.io.Serializable {
 		this.IRegisterDate = IRegisterDate;
 	}
 
-	public Date getIServiceDate() {
+	public Timestamp getIServiceDate() {
 		return this.IServiceDate;
 	}
 
-	public void setIServiceDate(Date IServiceDate) {
+	public void setIServiceDate(Timestamp IServiceDate) {
 		this.IServiceDate = IServiceDate;
 	}
 
@@ -138,6 +155,22 @@ public class XtNetImo implements java.io.Serializable {
 
 	public void setIServiceType(String IServiceType) {
 		this.IServiceType = IServiceType;
+	}
+
+	public String getIState() {
+		return this.IState;
+	}
+
+	public void setIState(String IState) {
+		this.IState = IState;
+	}
+
+	public String getIUnum() {
+		return this.IUnum;
+	}
+
+	public void setIUnum(String IUnum) {
+		this.IUnum = IUnum;
 	}
 
 }

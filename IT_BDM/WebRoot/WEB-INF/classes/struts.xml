@@ -181,7 +181,13 @@
      <result name="succ">/success.jsp</result>
      <result name="fail">/fail.jsp</result>
   </action>
-  
+  <action name="netImo" class="hgh_net_imo_xtz">	
+  	 <interceptor-ref name="mydefault" />
+     <result>/index.jsp</result>
+     <result name="netImo">/xtz_jsp/net_imo.jsp</result>
+     <result name="succ">/success.jsp</result>
+     <result name="fail">/fail.jsp</result>
+  </action>
   <!-- **************桌面组**************** -->
   <action name="vpn" class="zs_vpn_zmz">	
   	 <interceptor-ref name="mydefault" />

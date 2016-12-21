@@ -22,6 +22,9 @@
         <property name="BNetName" type="java.lang.String">
             <column name="b_net_name" />
         </property>
+        <property name="BMan" type="java.lang.String">
+            <column name="b_man" />
+        </property>
         <property name="BSection" type="java.lang.String">
             <column name="b_section" />
         </property>
@@ -31,11 +34,17 @@
         <property name="BIt" type="java.lang.String">
             <column name="b_it" />
         </property>
-        <property name="BServiceDate" type="java.util.Date">
-            <column name="b_service_date" length="10" />
+        <property name="BServiceDate" type="java.sql.Timestamp">
+            <column name="b_service_date" length="19" />
         </property>
         <property name="BType" type="java.lang.String">
             <column name="b_type" />
+        </property>
+        <property name="BState" type="java.lang.String">
+            <column name="b_state" />
+        </property>
+        <property name="UNum" type="java.lang.String">
+            <column name="u_num" />
         </property>
     </class>
 </hibernate-mapping>

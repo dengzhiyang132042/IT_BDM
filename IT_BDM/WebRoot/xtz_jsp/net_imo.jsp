@@ -12,7 +12,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <head>
     <base href="<%=basePath%>">
     
-    <title>BQQ账号登记</title>
+    <title>网点Imo登记</title>
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
 	<meta http-equiv="expires" content="0">    
@@ -63,28 +63,39 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		}
 		$('#f1').submit();
 	}
-	
+	function queryNum(a){
+		var as = new Array();
+		as = a.split(",");
+		var table1 = "<table><tr><td>子账号</td></tr>"
+		for ( var i = 0; i < as.length; i++) {
+			table1=table1+
+			"<tr><td>"+as[i]+"</td></tr>";
+		}
+		table1=table1+"</table>";
+		$("#q").html(table1);
+		$("#q").window('open');
+	}
 	</script>
 	
   </head>
   
   <body>
     
-    <div class="easyui-panel" title="BQQ账号登记" style="padding: 5px;display: none;" data-options="tools:'#tt'">
+    <div class="easyui-panel" title="网点IMO账号登记" style="padding: 5px;display: none;" data-options="tools:'#tt'">
     
     <div style="background-color:white;margin-bottom: 5px;padding: 5px;border: 1px solid #224466; ">
     	快速查询
     	<br/>
-    	<form action="<%=path %>/bqq!queryOfFenye" method="post">
+    	<form action="<%=path %>/netImo!queryOfFenye" method="post">
     		编号:<input name="id" type="text" value="${id }"/>
     		&nbsp;&nbsp;&nbsp;&nbsp;
-    		BQQ：<input name="num" type="text" value="${num }"/>
+    		片区：<input name="area" type="text" value="${area }"/>
     		&nbsp;&nbsp;&nbsp;&nbsp;
-    		姓名：<input name="name" type="text" value="${name }"/>
+    		条码：<input name="num" type="text" value="${num }"/>
     		&nbsp;&nbsp;&nbsp;&nbsp;
-    		所属网点名称：<input name="netName" type="text" value="${netName }"/>
+    		站点名：<input name="netName" type="text" value="${netName }"/>
     		&nbsp;&nbsp;&nbsp;&nbsp;
-    		登记日期:<input name="dates" type="date" value="${dates }"/>
+    		维护日期:<input name="dates" type="date" value="${dates }"/>
     		~
     		<input name="datee" type="date" value="${datee }"/>
     		<br/>
@@ -98,33 +109,34 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <tr>
     	<th>编号</th>
     	<th>登记时间</th>
-    	<th>BQQ账号</th>
-    	<th>申请人姓名</th>
-    	<th>所属网点代码</th>
-    	<th>所属网点名称</th>
-    	<th>实际使用人</th>
-    	<th>使用部门</th>
+    	<th>片区</th>
+    	<th>条码</th>
+    	<th>站点名</th>
+    	<th>类别</th>
+    	<th>IMO账号</th>
+    	<th>IMO密码</th>
     	<th>维护类型</th>
     	<th>登记人</th>
     	<th>维护时间</th>
     	<th>操作</th>
     </tr>
-    <c:forEach items="${bs}" var="b">
+    <c:forEach items="${imos}" var="i">
     <tr>
-		<td width="">${b.BId }</td>
-		<td width=""><fmt:formatDate value="${b.BRegisterDate }" pattern="yyyy/MM/dd" /></td>
-		<td width="">${b.BNum }</td>
-		<td width="">${b.BName }</td>
-		<td width="">${b.BNetNumber }</td>
-		<td width="">${b.BNetName }</td>
-		<td width="">${b.BMan }</td>
-		<td width="">${b.BSection }</td>
-		<td width="">${b.BType }</td>
-		<td width="">${b.BIt }</td>
-		<td width=""><fmt:formatDate value="${b.BServiceDate }" pattern="yyyy/MM/dd" /></td>
+		<td width="">${i.IId }</td>
+		<td width=""><fmt:formatDate value="${i.IRegisterDate }" pattern="yyyy/MM/dd" /></td>
+		<td width="">${i.IArea }</td>
+		<td width="">${i.INum }</td>
+		<td width="">${i.IName }</td>
+		<td width="">${i.IType }</td>
+		<td width="">${i.IAccount }</td>
+		<td width="">${i.IPass }</td>
+		<td width="">${i.IServiceType }</td>
+		<td width="">${i.IIt }</td>
+		<td width=""><fmt:formatDate value="${i.IServiceDate }" pattern="yyyy/MM/dd" /></td>
 		<td width="5%" align="center">
-			<a onclick="update('${b.BId }','<fmt:formatDate value="${b.BRegisterDate }" pattern="yyyy-MM-dd" />','${b.BNum }','${b.BName }','${b.BNetNumber }','${b.BNetName }','${b.BSection }','${b.BMan }')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-edit'" title="修改"></a>
-			<a href="<%=path %>/bqq!delete?id=${b.BId}" onclick="return confirm('确定删除吗?')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-delete'" title="删除"></a>
+			<a onclick="queryNum('${i.childNum}')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-search'" title="查看子账号"></a>
+			<a onclick="update('${i.IId }','<fmt:formatDate value="${i.IRegisterDate }" pattern="yyyy-MM-dd" />','${i.IArea }','${i.INum }','${i.IName }','${i.IType }','${i.IAccount }','${i.IPass }')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-edit'" title="修改"></a>
+			<a href="<%=path %>/netImo!delete?id=${i.IId}" onclick="return confirm('确定删除吗?')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-delete'" title="删除"></a>
 		</td>
     </tr>
     </c:forEach>
@@ -132,7 +144,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</div>
 	
 	<div class="easyui-panel" style="padding:5px;width: 100%;display: none;">
-		<form id="f1" action="<%=path %>/bqq!queryOfFenye?id=${id}&num=${num}&name=${name}&netName=${netName}&dates=${dates}&datee=${datee}" method="post">
+		<form id="f1" action="<%=path %>/netImo!queryOfFenye?id=${id}&area=${area}&num=${num}&netName=${netName}&dates=${dates}&datee=${datee}" method="post">
 		<select id="sele" style="float: left;margin-top: 3px;margin-left: 5px;" name="page.size" onchange="$('#f1').submit();">
 			<option value="5">5</option>
 			<option value="10">10</option>
@@ -162,55 +174,62 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</div>
 	
 	<div id="u" class="easyui-window" title="修改" data-options="modal:true,closed:true" style="width:350px;height:auto;padding:10px;display: none;">
-		<form action="<%=path %>/bqq!update" method="post">
-			<input id="u_1" name="b.BId" type="text" style="width: 100%;display: none;"/>
+		<form action="<%=path %>/netImo!update" method="post">
+			<input id="u_1" name="imo.IId" type="text" style="width: 100%;display: none;"/>
 		<table border="0" class="table1">
 			<tr>
 				<td width="100">登记日期：</td>
 				<td>
-					<input id="u_2" name="b.BRegisterDate" type="date" style="width: 100%;"/>
+					<input id="u_2" name="imo.IRegisterDate" type="date" style="width: 100%;"/>
 				</td>
 			</tr>
 			<tr>
-				<td>BQQ：</td>
+				<td>片区：</td>
 				<td>
-					<input id="u_3" name="b.BNum" type="text" style="width: 100%;"/>
+					<input id="u_3" name="imo.IArea" type="text" style="width: 100%;"/>
 				</td>
 			</tr>
 			<tr>
-				<td>姓名：</td>
+				<td>条码：</td>
 				<td>
-					<input id="u_4" name="b.BName" type="text" style="width: 100%;"/>
+					<input id="u_4" name="imo.INum" type="text" style="width: 100%;"/>
 				</td>
 			</tr>
 			<tr>
-				<td>所属网点代码：</td>
+				<td>站点名：</td>
 				<td>
-					<input id="u_5" name="b.BNetNumber" type="text" style="width: 100%;"/>
+					<input id="u_5" name="imo.IName" type="text" style="width: 100%;"/>
 				</td>
 			</tr>
 			<tr>
-				<td>所属网点名称：</td>
+				<td>类别：</td>
 				<td>
-					<input id="u_6" name="b.BNetName" type="text" style="width: 100%;"/>
+					<input id="u_6" name="imo.IType" type="text" style="width: 100%;"/>
 				</td>
 			</tr>
 			<tr>
-				<td>使用人：</td>
+				<td>IMO账号：</td>
 				<td>
-					<input id="u_8" name="b.BMan" type="text" style="width: 100%;"/>
+					<input id="u_7" name="imo.IAccount" type="text" style="width: 100%;"/>
 				</td>
 			</tr>
 			<tr>
-				<td>使用部门：</td>
+				<td>IMO密码：</td>
 				<td>
-					<input id="u_7" name="b.BSection" type="text" style="width: 100%;"/>
+					<input id="u_8" name="imo.IPass" type="text" style="width: 100%;"/>
 				</td>
 			</tr>
 			<tr>
-				<td>使用部门：</td>
+				<td>子账号：</td>
 				<td>
-					<select name="b.BType" style="width: 80px;">
+					<input name="childNumStart" type="number" style="width:50px;"/> ~
+					<input name="childNumEnd" type="number" style="width:50px;"/>（只添加）
+				</td>
+			</tr>
+			<tr>
+				<td>维护类型：</td>
+				<td>
+					<select name="imo.IServiceType" style="width: 80px;">
 						<option value="维护" >维 护</option>
 						<option value="注册" >注 册</option>
 						<option value="注销" >注 销</option>
@@ -227,56 +246,63 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</div>
 	
 	<div id="a" class="easyui-window" title="添加" data-options="modal:true,closed:true" style="width:350px;height:auto;padding:10px;display: none;">
-		<form action="<%=path %>/bqq!add" method="post">
+		<form action="<%=path %>/netImo!add" method="post">
 		<table border="0" class="table1">
 			<tr>
 				<td width="100">登记日期：</td>
 				<td>
-					<input name="b.BRegisterDate" type="date" style="width: 100%;"/>
+					<input name="imo.IRegisterDate" type="date" style="width: 100%;"/>
 				</td>
 			</tr>
 			<tr>
-				<td>BQQ：</td>
+				<td>片区：</td>
 				<td>
-					<input name="b.BNum" type="text" style="width: 100%;"/>
+					<input name="imo.IArea" type="text" style="width: 100%;"/>
 				</td>
 			</tr>
 			<tr>
-				<td>姓名：</td>
+				<td>条码：</td>
 				<td>
-					<input name="b.BName" type="text" style="width: 100%;"/>
+					<input name="imo.INum" type="text" style="width: 100%;"/>
 				</td>
 			</tr>
 			<tr>
-				<td>所属网点代码：</td>
+				<td>站点名：</td>
 				<td>
-					<input name="b.BNetNumber" type="text" style="width: 100%;"/>
+					<input name="imo.IName" type="text" style="width: 100%;"/>
 				</td>
 			</tr>
 			<tr>
-				<td>所属网点名称：</td>
+				<td>类别：</td>
 				<td>
-					<input name="b.BNetName" type="text" style="width: 100%;"/>
+					<input name="imo.IType" type="text" style="width: 100%;"/>
 				</td>
 			</tr>
 			<tr>
-				<td>使用人：</td>
+				<td>IMO账号：</td>
 				<td>
-					<input name="b.BMan" type="text" style="width: 100%;"/>
+					<input name="imo.IAccount" type="text" style="width: 100%;"/>
 				</td>
 			</tr>
 			<tr>
-				<td>使用部门：</td>
+				<td>IMO密码：</td>
 				<td>
-					<input name="b.BSection" type="text" style="width: 100%;"/>
+					<input name="imo.IPass" type="text" style="width: 100%;"/>
+				</td>
+			</tr>
+			<tr>
+				<td>子账号：</td>
+				<td>
+					<input name="childNumStart" type="number" style="width:50px;"/> ~
+					<input name="childNumEnd" type="number" style="width:50px;"/>
 				</td>
 			</tr>
 			<tr>
 				<td>维护类型：</td>
 				<td>
-					<select name="b.BType" style="width: 80px;">
-						<option value="维护" >维 护</option>
+					<select name="imo.IServiceType" style="width: 80px;">
 						<option value="注册" >注 册</option>
+						<option value="维护" >维 护</option>
 						<option value="注销" >注 销</option>
 					</select>
 				</td>
@@ -296,11 +322,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</div>
 	
 	<div id="in" class="easyui-window" title="数据导入" data-options="modal:true,closed:true" style="width:400px;height:auto;padding:10px;display: none;overflow-x:hidden;">
-		<form action="<%=path %>/bqq!importExcel" method="post" enctype="multipart/form-data">
+		<form action="<%=path %>/netImo!importExcel" method="post" enctype="multipart/form-data">
 		<table border="1">
 			<tr>
 				<td>Excel模板</td>
-				<td onmousemove="$(this).css('background-color','red');" onmouseout="$(this).css('background-color','white');" style="cursor: pointer;" onclick="window.location.href='<%=path%>/files/import/xtz/BQQ账号登记.xlsx';">
+				<td onmousemove="$(this).css('background-color','red');" onmouseout="$(this).css('background-color','white');" style="cursor: pointer;" onclick="window.location.href='<%=path%>/files/import/xtz/网点IMO.xlsx';">
 					下载模板
 				</td>
 			</tr>
@@ -317,6 +343,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</tr>
 		</table>
 		</form>
+	</div>
+	<div id="q" class="easyui-window" title="查看详情" data-options="modal:true,closed:true" style="width:300px;height:400px;padding:10px;display: none;left:45%;top:30%;">
 	</div>
 	<jsp:include page="../hintModal.jsp"/>
   </body>

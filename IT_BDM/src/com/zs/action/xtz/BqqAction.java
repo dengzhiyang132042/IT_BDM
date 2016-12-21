@@ -5,23 +5,23 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.sql.Timestamp;
 import java.text.ParseException;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
 import net.sf.json.JSONArray;
 
 import com.zs.action.MyBaseAction;
+import com.zs.entity.Users;
 import com.zs.entity.XtBqq;
 import com.zs.service.IService;
-import com.zs.service.iBranchesService;
+import com.zs.service.iXtBqqService;
 import com.zs.tools.NameOfDate;
 import com.zs.tools.Page;
 
 public class BqqAction extends MyBaseAction{
 	
 	private IService ser;
-	private iBranchesService branchesSer;
+	private iXtBqqService bqqSer;
 	private Page page;
 	private XtBqq b;
 	private List<XtBqq> bs;
@@ -29,15 +29,15 @@ public class BqqAction extends MyBaseAction{
 	private String result_succ="succ";
 	private String result_fail="fail";
 	private String id;
-	private String num1;
-	private String num2;
-	private String name1;
-	private String name2;
+	private String num;
+	private String name;
+	private String netName;
 	private String dates;
 	private String datee;
 	private File fileExcel;
 	private String fileExcelContentType;
 	private String fileExcelFileName; 
+	private String cz;
 	
 	public File getFileExcel() {
 		return fileExcel;
@@ -57,41 +57,11 @@ public class BqqAction extends MyBaseAction{
 	public void setFileExcelFileName(String fileExcelFileName) {
 		this.fileExcelFileName = fileExcelFileName;
 	}
-	public iBranchesService getBranchesSer() {
-		return branchesSer;
-	}
-	public void setBranchesSer(iBranchesService branchesSer) {
-		this.branchesSer = branchesSer;
-	}
 	public String getId() {
 		return id;
 	}
 	public void setId(String id) {
 		this.id = id;
-	}
-	public String getNum1() {
-		return num1;
-	}
-	public void setNum1(String num1) {
-		this.num1 = num1;
-	}
-	public String getNum2() {
-		return num2;
-	}
-	public void setNum2(String num2) {
-		this.num2 = num2;
-	}
-	public String getName1() {
-		return name1;
-	}
-	public void setName1(String name1) {
-		this.name1 = name1;
-	}
-	public String getName2() {
-		return name2;
-	}
-	public void setName2(String name2) {
-		this.name2 = name2;
 	}
 	public String getDates() {
 		return dates;
@@ -129,99 +99,131 @@ public class BqqAction extends MyBaseAction{
 	public void setBs(List<XtBqq> bs) {
 		this.bs = bs;
 	}
+	public String getNum() {
+		return num;
+	}
+	public void setNum(String num) {
+		this.num = num;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public String getNetName() {
+		return netName;
+	}
+	public void setNetName(String netName) {
+		this.netName = netName;
+	}
+	public iXtBqqService getBqqSer() {
+		return bqqSer;
+	}
+	public void setBqqSer(iXtBqqService bqqSer) {
+		this.bqqSer = bqqSer;
+	}
+	public String getCz() {
+		return cz;
+	}
+	public void setCz(String cz) {
+		this.cz = cz;
+	}
 	//------------------------------------------------
 	private void clearOptions() {
 		id=null;
-		num1=null;
-		name1=null;
-		num2=null;
-		name2=null;
+		num=null;
+		name=null;
+		netName=null;
 		dates=null;
 		datee=null;
+		b=null;
+		bs=null;
+		cz=null;
+		if (cz!=null && cz.equals("yes")) {
+			page=new Page(1, 0, 5);
+		}
 	}
 	
 	private void clearSpace(){
 		if(id!=null){
 			id=id.trim();
 		}
-		if(num1!=null){
-			num1=num1.trim();
+		if(num!=null){
+			num=num.trim();
 		}
-		if(name1!=null){
-			name1=name1.trim();
+		if(name!=null){
+			name=name.trim();
 		}
-		if(num2!=null){
-			num2=num2.trim();
+		if(netName!=null){
+			netName=netName.trim();
 		}
-		if(name2!=null){
-			name2=name2.trim();
+		if(cz!=null){
+			cz = cz.trim();
 		}
-		
+		if(dates!=null){
+			dates=dates.trim();
+		}
+		if(datee!=null){
+			datee=datee.trim();
+		}
 	}
 	
 	public String queryOfFenye() throws UnsupportedEncodingException {
-		id=getRequest().getParameter("id");
-		String cz=getRequest().getParameter("cz");//用于判断是否清理page，yes清理，no不清理
+		clearSpace();
 		if (page==null) {
 			page=new Page(1, 0, 5);
 		}
-		if (cz!=null && cz.equals("yes")) {
-			page=new Page(1, 0, 5);
-			clearOptions();
+		String hql="from XtBqq where BState='有效'";
+		if (id!=null)
+			hql=hql+" and BId like '%"+id+"%'";
+		if (num!=null && !num.trim().equals("")) {
+			hql=hql+" and BNum like '%"+num+"%'";
 		}
-		clearSpace();
-		if (id!=null) {
-			String hql="from XtBqq where BId like '%"+id+"%'";
-			if (num2!=null && !num2.trim().equals("")) {
-				hql=hql+" and BNum2 like '%"+num2+"%'";
-			}
-			if (name1!=null && !name1.trim().equals("")) {
-				hql=hql+" and BName1 like '%"+name1+"%'";
-			}
-			if (name2!=null && !name2.trim().equals("")) {
-				hql=hql+" and BName2 like '%"+name2+"%'";
-			}
-			if (dates!=null && !dates.trim().equals("")) {
-				hql=hql+" and BRegisterDate >= '"+dates+"'";
-			}
-			if (datee!=null && !datee.trim().equals("")) {
-				hql=hql+" and BRegisterDate <= '"+datee+"'";
-			}
-			hql=hql+" order by BRegisterDate desc";
-			bs=ser.query(hql, null, hql, page, ser);
-		}else {
-			String hql="from XtBqq order by BRegisterDate desc";
-			String ss[]={};
-			String hql2="from XtBqq order by BRegisterDate desc";
-			bs=ser.query(hql, ss, hql2, page, ser);
+		if (name!=null && !name.trim().equals("")) {
+			hql=hql+" and BName like '%"+name+"%'";
 		}
-		ser.receiveStructure(getRequest());
+		if (netName!=null && !netName.trim().equals("")) {
+			hql=hql+" and BNetName like '%"+netName+"%'";
+		}
+		if (dates!=null && !dates.trim().equals("")) {
+			hql=hql+" and BRegisterDate >= '"+dates+"'";
+		}
+		if (datee!=null && !datee.trim().equals("")) {
+			hql=hql+" and BRegisterDate <= '"+datee+"'";
+		}
+		hql=hql+" order by BServiceDate desc";
+		bs=ser.query(hql, null, hql, page, ser);
 		return result_b;
 	}
 	
 	private String gotoQuery() throws UnsupportedEncodingException {
 		clearOptions();
-		String hql="from XtBqq order by BRegisterDate desc";
-		String ss[]={};
-		String hql2="from XtBqq order by BRegisterDate desc";
-		bs=ser.query(hql, ss, hql2, page, ser);
-		ser.receiveStructure(getRequest());
+		String hql="from XtBqq where BState='有效' order by BServiceDate desc";
+		bs=ser.query(hql, null, hql, page, ser);
 		return result_b;
 	}
 	
 	public String delete() throws Exception {
-		String id=getRequest().getParameter("id");
 		if (id!=null) {
 			b=(XtBqq) ser.get(XtBqq.class, id);
 			ser.delete(b);
 		}
-		b=null;
 		return gotoQuery();
 	}
 	
 	public String update() throws Exception {
 		if(b!=null && b.getBId()!=null && !"".equals(b.getBId().trim())){
-			XtBqq branches=(XtBqq) ser.get(XtBqq.class, b.getBId());
+			XtBqq ob = (XtBqq) ser.get(XtBqq.class, b.getBId());
+			ob.setBState("无效");
+			ser.update(ob);
+			b.setBId("b"+NameOfDate.getNum());
+			Users users=(Users) getSession().getAttribute("user");
+			b.setBIt(users.getUName());
+			b.setUNum(users.getUNum());
+			b.setBServiceDate(new Timestamp(new Date().getTime()));
+			b.setBState("有效");
+			ser.save(b);
 		}
 		b=null;
 		return gotoQuery();
@@ -231,7 +233,13 @@ public class BqqAction extends MyBaseAction{
 		if(b!=null){
 			b.setBId("b"+NameOfDate.getNum());
 			Date date=new Date();
-			b.setBServiceDate(date);
+			b.setBServiceDate(new Timestamp(date.getTime()));
+			Users users=(Users) getSession().getAttribute("user");
+			if (users!=null) {
+				b.setBIt(users.getUName());
+				b.setUNum(users.getUNum());
+			}
+			b.setBState("有效");
 			ser.save(b);
 			getRequest().setAttribute("b", b);
 		}
@@ -241,7 +249,8 @@ public class BqqAction extends MyBaseAction{
 	
 	
 	public String importExcel() throws InterruptedException, IOException, ParseException {
-		branchesSer.importExcelData(fileExcelFileName, fileExcel);
+		Users users=(Users) getSession().getAttribute("user");
+		bqqSer.importExcelData(fileExcelFileName, fileExcel,users.getUNum());
 		return gotoQuery();
 	}
 	

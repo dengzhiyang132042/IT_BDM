@@ -34,11 +34,17 @@
         <property name="IRegisterDate" type="java.util.Date">
             <column name="i_register_date" length="10" />
         </property>
-        <property name="IServiceDate" type="java.util.Date">
-            <column name="i_service_date" length="10" />
+        <property name="IServiceDate" type="java.sql.Timestamp">
+            <column name="i_service_date" length="19" />
         </property>
         <property name="IServiceType" type="java.lang.String">
             <column name="i_service_type" />
+        </property>
+        <property name="IState" type="java.lang.String">
+            <column name="i_state" />
+        </property>
+        <property name="IUnum" type="java.lang.String">
+            <column name="i_unum" />
         </property>
     </class>
 </hibernate-mapping>
