@@ -92,6 +92,11 @@
 	</bean>
 	<bean id="hgh_bqq_xtz" class="com.zs.action.xtz.BqqAction">
 		<property name="ser" ref="zs_ser"></property>
+		<property name="bqqSer" ref="hgh_ser_xtz_bqq"></property>
+	</bean>
+	<bean id="hgh_net_imo_xtz" class="com.zs.action.xtz.NetImoAction">
+		<property name="ser" ref="zs_ser"></property>
+		<property name="netInoSer" ref="hgh_ser_xtz_imo_net"></property>
 	</bean>
 	
 	<!-- **************************桌面组******************************************** -->
@@ -387,7 +392,12 @@
 	<bean id="zs_ser_xtz_project" class="com.zs.service.impl.XtProjectCountServiceImpl">
 		<property name="dao" ref="zs_dao"></property>
 	</bean>
-	
+	<bean id="hgh_ser_xtz_bqq" class="com.zs.service.impl.XtBqqServiceImpl">
+		<property name="dao" ref="zs_dao"></property>
+	</bean>
+	<bean id="hgh_ser_xtz_imo_net" class="com.zs.service.impl.XtNetImoServiceImpl">
+		<property name="dao" ref="zs_dao"></property>
+	</bean>
 	<!-- ******************工具******************* -->
 	<bean id="zs_trans_id" class="com.zs.tools.TransIdAction">
 		<property name="ser" ref="zs_ser"></property>

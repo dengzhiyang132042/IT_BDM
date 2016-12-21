@@ -8,7 +8,9 @@ public class ChildNum implements java.io.Serializable {
 
 	// Fields
 
-	private ChildNumId id;
+	private String NId;
+	private String NNum;
+	private String NChildNum;
 
 	// Constructors
 
@@ -16,19 +18,42 @@ public class ChildNum implements java.io.Serializable {
 	public ChildNum() {
 	}
 
+	/** minimal constructor */
+	public ChildNum(String NId) {
+		this.NId = NId;
+	}
+
 	/** full constructor */
-	public ChildNum(ChildNumId id) {
-		this.id = id;
+	public ChildNum(String NId, String NNum, String NChildNum) {
+		this.NId = NId;
+		this.NNum = NNum;
+		this.NChildNum = NChildNum;
 	}
 
 	// Property accessors
 
-	public ChildNumId getId() {
-		return this.id;
+	public String getNId() {
+		return this.NId;
 	}
 
-	public void setId(ChildNumId id) {
-		this.id = id;
+	public void setNId(String NId) {
+		this.NId = NId;
+	}
+
+	public String getNNum() {
+		return this.NNum;
+	}
+
+	public void setNNum(String NNum) {
+		this.NNum = NNum;
+	}
+
+	public String getNChildNum() {
+		return this.NChildNum;
+	}
+
+	public void setNChildNum(String NChildNum) {
+		this.NChildNum = NChildNum;
 	}
 
 }

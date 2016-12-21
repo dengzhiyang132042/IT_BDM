@@ -6,16 +6,15 @@
 -->
 <hibernate-mapping>
     <class name="com.zs.entity.ChildNum" table="child_num" catalog="it_bdm">
-        <composite-id name="id" class="com.zs.entity.ChildNumId">
-            <key-property name="NId" type="java.lang.String">
-                <column name="n_id" />
-            </key-property>
-            <key-property name="NNum" type="java.lang.String">
-                <column name="n_num" />
-            </key-property>
-            <key-property name="NChildNum" type="java.lang.String">
-                <column name="n_child_num" />
-            </key-property>
-        </composite-id>
+        <id name="NId" type="java.lang.String">
+            <column name="n_id" />
+            <generator class="assigned" />
+        </id>
+        <property name="NNum" type="java.lang.String">
+            <column name="n_num" />
+        </property>
+        <property name="NChildNum" type="java.lang.String">
+            <column name="n_child_num" />
+        </property>
     </class>
 </hibernate-mapping>
