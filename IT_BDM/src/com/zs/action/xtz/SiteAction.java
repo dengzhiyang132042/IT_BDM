@@ -160,6 +160,16 @@ public class SiteAction extends MyBaseAction{
 		cz=null;
 		site=null;
 		sites=null;
+		if (page==null) {
+			page=new Page(1, 0, 10);
+		}else {
+			page.setPageOn(1);
+		}
+		if (pageGj==null) {
+			pageGj=new Page(1, 0, 5);
+		}else {
+			pageGj.setPageOn(1);
+		}
 	}
 	
 	private void clearSpace(){
@@ -185,12 +195,6 @@ public class SiteAction extends MyBaseAction{
 		if (cz!=null && cz.equals("yes")) {
 			clearOptions();
 		}
-		if (page==null) {
-			page=new Page(1, 0, 5);
-		}
-		if (pageGj==null) {
-			pageGj=new Page(1, 0, 5);
-		}
 		String gj=getRequest().getParameter("gj");
 		String more=getRequest().getParameter("more");
 		String hql="from XtSite where 1=1 ";
@@ -212,12 +216,12 @@ public class SiteAction extends MyBaseAction{
 			}else {
 				pageGj.setPageOn(1);
 			}
-			hql=hql+"order by SMaintainDate desc";
+			hql=hql+"order by SCreateTime desc";
 			sites=ser.query(hql, null, hql, pageGj, ser);
 			sendArrayJson(sites, ser);
 			return null;
 		}else {
-			hql=hql+"and SState='有效' order by SMaintainDate desc";
+			hql=hql+"and SState='有效' order by SCreateTime desc";
 			sites=ser.query(hql, null, hql, page, ser);
 			return result_site;
 		}
@@ -225,17 +229,7 @@ public class SiteAction extends MyBaseAction{
 	
 	private String gotoQuery() throws UnsupportedEncodingException {
 		clearOptions();
-		if (page==null) {
-			page=new Page(1, 0, 5);
-		}else {
-			page.setPageOn(1);
-		}
-		if (pageGj==null) {
-			pageGj=new Page(1, 0, 5);
-		}else {
-			pageGj.setPageOn(1);
-		}
-		String hql="from XtSite where SState='有效' order by SMaintainDate desc";
+		String hql="from XtSite where SState='有效' order by SCreateTime desc";
 		sites=ser.query(hql, null, hql, page, ser);
 		ser.receiveStructure(getRequest());
 		return result_site;

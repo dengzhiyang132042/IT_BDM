@@ -21,20 +21,23 @@ import com.zs.tools.NameOfDate;
 import com.zs.tools.Page;
 
 public class ZmNumberAction extends MyBaseAction{
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	Logger logger=Logger.getLogger(ZmNumberAction.class);
 	IService ser;
 	iXtZmNumberService xtZmNumberSer;
 	Page page;
-	
-	Logger logger=Logger.getLogger(ZmNumberAction.class);
 	
 	XtZmNumber zmn;
 	List<XtZmNumber> zmns;
 	
 	String result="zmn";
-	String result_succ="succ";
-	String result_fail="fail";
 	
 	String id;
+	String cz;
 	String section;
 	String men;
 	String dates;
@@ -44,6 +47,12 @@ public class ZmNumberAction extends MyBaseAction{
 	private String fileExcelFileName; 
 	
 	
+	public String getCz() {
+		return cz;
+	}
+	public void setCz(String cz) {
+		this.cz = cz;
+	}
 	public iXtZmNumberService getXtZmNumberSer() {
 		return xtZmNumberSer;
 	}
@@ -125,63 +134,47 @@ public class ZmNumberAction extends MyBaseAction{
 	//------------------------------------------------
 	private void clearOptions() {
 		id=null;
+		cz=null;
 		section=null;
 		men=null;
 		dates=null;
 		datee=null; 
+		zmn=null;
+		zmns=null;
+		if (page==null) {
+			page=new Page(1, 0, 10);
+		}else {
+			page.setPageOn(1);
+		}
 	}
 	
 	private void clearSpace(){
-		if(id!=null){
-			id=id.trim();
-		}
-		if (section!=null) {
-			section=section.trim();
-		}
-		if (men!=null) {
-			men=men.trim();
-		}
-		if (dates!=null) {
-			dates=dates.trim();
-		}
-		if (datee!=null) {
-			datee=datee.trim();
-		}
+		id=id==null?null:id.trim();
+		section=section==null?null:section.trim();
+		men=men==null?null:men.trim();
+		dates=dates==null?null:dates.trim();
+		datee=datee==null?null:datee.trim();
+		cz=cz==null?null:cz.trim();
 	}
 	
 	public String queryOfFenye() throws UnsupportedEncodingException {
-		id=getRequest().getParameter("id");
-		String cz=getRequest().getParameter("cz");//用于判断是否清理page，yes清理，no不清理
-		if (page==null) {
-			page=new Page(1, 0, 5);
-		}
+		clearSpace();
 		if (cz!=null && cz.equals("yes")) {
-			page=new Page(1, 0, 5);
 			clearOptions();
 		}
-		clearSpace();
-		if (id!=null) {
-			String hql="from XtZmNumber where zmId like '%"+id+"%'";
-			if (section!=null && !section.trim().equals("")) {
-				hql=hql+" and zmApplyCs like '%"+section+"%'";
-			}
-			if (men!=null && !men.trim().equals("")) {
-				hql=hql+" and zmApplyMaster like '%"+men+"%'";
-			}
-			if (dates!=null && !dates.trim().equals("")) {
-				hql=hql+" and zmApplyDate >= '"+dates+"'";
-			}
-			if (datee!=null && !datee.trim().equals("")) {
-				hql=hql+" and zmApplyDate <= '"+datee+"'";
-			}
-			hql=hql+" order by zmServiceDate desc"; 
-			zmns=ser.query(hql, null, hql, page, ser);
-		}else {
-			String hql="from XtZmNumber order by zmServiceDate desc";
-			String ss[]={};
-			String hql2="from XtZmNumber order by zmServiceDate desc";
-			zmns=ser.query(hql, ss, hql2, page, ser);
-		}
+		String hql="from XtZmNumber where zmState='有效' ";
+		if (id!=null && !id.equals("")) 
+			hql=hql+"and zmId like '%"+id+"%' ";
+		if (section!=null && !section.trim().equals("")) 
+			hql=hql+"and zmApplyCs like '%"+section+"%' ";
+		if (men!=null && !men.trim().equals("")) 
+			hql=hql+"and zmApplyMaster like '%"+men+"%' ";
+		if (dates!=null && !dates.trim().equals("")) 
+			hql=hql+"and zmApplyDate >= '"+dates+"' ";
+		if (datee!=null && !datee.trim().equals("")) 
+			hql=hql+"and zmApplyDate <= '"+datee+"' ";
+		hql=hql+" order by zmCreateTime desc"; 
+		zmns=ser.query(hql, null, hql, page, ser);
 		/*老版tree方法——已不用
 		//带上通讯录信息
 		getRequest().setAttribute("html", ser.fitting1(ser.queryFirst()));
@@ -193,10 +186,8 @@ public class ZmNumberAction extends MyBaseAction{
 	
 	private String gotoQuery() throws UnsupportedEncodingException {
 		clearOptions();
-		String hql="from XtZmNumber order by zmServiceDate desc";
-		String ss[]={};
-		String hql2="from XtZmNumber order by zmServiceDate desc";
-		zmns=ser.query(hql, ss, hql2, page, ser);
+		String hql="from XtZmNumber where zmState='有效' order by zmCreateTime desc";
+		zmns=ser.query(hql, null, hql, page, ser);
 		/*老版tree方法——已不用
 		//带上通讯录信息
 		getRequest().setAttribute("html", ser.fitting1(ser.queryFirst()));
@@ -207,53 +198,64 @@ public class ZmNumberAction extends MyBaseAction{
 	}
 	
 	public String delete() throws Exception {
-		String id=getRequest().getParameter("id");
+		clearSpace();
 		if (id!=null) {
 			zmn=(XtZmNumber) ser.get(XtZmNumber.class, id);
 			ser.delete(zmn);
 		}
-		zmn=null;
 		return gotoQuery();
 	}
 	
 	public String update() throws Exception {
+		clearSpace();
+		Users user=(Users) getSession().getAttribute("user");
 		if(zmn!=null && zmn.getZmId()!=null && !"".equals(zmn.getZmId().trim())){
 			XtZmNumber number=(XtZmNumber) ser.get(XtZmNumber.class, zmn.getZmId());
+			number.setZmState("无效");
+			ser.update(number);
+			
+			zmn.setZmId(NameOfDate.getNum());
 			zmn.setZmServiceMaster(number.getZmServiceMaster());
 			zmn.setZmApplyDate(number.getZmApplyDate());
 			zmn.setZmServiceDate(number.getZmServiceDate());
 			zmn.setZmServiceWeek(number.getZmServiceWeek());
-			ser.update(zmn);
+			zmn.setZmCreateTime(new Timestamp(new Date().getTime()));
+			zmn.setZmState("有效");
+			zmn.setUNum(user.getUNum());
+			ser.save(zmn);
+			
 			getRequest().setAttribute("zmn", zmn);
 		}
-		zmn=null;
 		return gotoQuery();
 	}
 	
 	public String add() throws Exception {
+		clearSpace();
+		Users user=(Users) getSession().getAttribute("user");
 		if(zmn!=null){
-			zmn.setZmId("n"+NameOfDate.getNum());
-
 			Date date=new Date();
 			Calendar ca = Calendar.getInstance();//创建一个日期实例
 			ca.setTime(date);//实例化一个日期
+			zmn.setZmId("n"+NameOfDate.getNum());
 			zmn.setZmApplyDate(new Timestamp(date.getTime()));
 			zmn.setZmServiceDate(new Timestamp(date.getTime()));
 			zmn.setZmServiceWeek(ca.get(Calendar.WEEK_OF_YEAR));
-			Users user=(Users) getSession().getAttribute("user");
-			if (user!=null) {
+			if (user!=null)
 				zmn.setZmServiceMaster(user.getUName());
-			}
+			zmn.setZmCreateTime(new Timestamp(new Date().getTime()));
+			zmn.setZmState("有效");
+			zmn.setUNum(user.getUNum());
+			
 			ser.save(zmn);
 			getRequest().setAttribute("zmn", zmn);
 		}
-		zmn=null;
 		return gotoQuery();
 	}	
 	
 	
 	public String importExcel() throws InterruptedException, IOException, ParseException {
-		xtZmNumberSer.importExcelData(fileExcelFileName, fileExcel);
+		Users user=(Users) getSession().getAttribute("user");
+		xtZmNumberSer.importExcelData(fileExcelFileName, fileExcel,user.getUNum());
 		return gotoQuery();
 	}
 	

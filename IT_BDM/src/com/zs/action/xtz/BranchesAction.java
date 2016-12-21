@@ -10,6 +10,7 @@ import java.util.Date;
 import java.util.List;
 
 import com.zs.action.MyBaseAction;
+import com.zs.entity.Users;
 import com.zs.entity.XtBranches;
 import com.zs.entity.XtSite;
 import com.zs.service.IService;
@@ -19,14 +20,16 @@ import com.zs.tools.Page;
 
 public class BranchesAction extends MyBaseAction{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private IService ser;
 	private iBranchesService branchesSer;
 	private Page page;
+	private String result_b="branches";
 	private XtBranches b;
 	private List<XtBranches> bs;
-	private String result_b="branches";
-	private String result_succ="succ";
-	private String result_fail="fail";
 	private String id;
 	private String num1;
 	private String num2;
@@ -34,10 +37,20 @@ public class BranchesAction extends MyBaseAction{
 	private String name2;
 	private String dates;
 	private String datee;
+	private String cz;
+	
 	private File fileExcel;
 	private String fileExcelContentType;
 	private String fileExcelFileName; 
 	
+	
+	
+	public String getCz() {
+		return cz;
+	}
+	public void setCz(String cz) {
+		this.cz = cz;
+	}
 	public File getFileExcel() {
 		return fileExcel;
 	}
@@ -137,6 +150,12 @@ public class BranchesAction extends MyBaseAction{
 		name2=null;
 		dates=null;
 		datee=null;
+		cz=null;
+		if (page==null) {
+			page=new Page(1, 0, 10);
+		}else {
+			page.setPageOn(1);
+		}
 	}
 	
 	private void clearSpace(){
@@ -155,87 +174,78 @@ public class BranchesAction extends MyBaseAction{
 		if(name2!=null){
 			name2=name2.trim();
 		}
-		
+		dates=dates==null?null:dates.trim();
+		datee=datee==null?null:datee.trim();
+		cz=cz==null?null:cz.trim();
 	}
 	
 	public String queryOfFenye() throws UnsupportedEncodingException {
-		id=getRequest().getParameter("id");
-		String cz=getRequest().getParameter("cz");//用于判断是否清理page，yes清理，no不清理
-		if (page==null) {
-			page=new Page(1, 0, 5);
-		}
+		clearSpace();
 		if (cz!=null && cz.equals("yes")) {
-			page=new Page(1, 0, 5);
 			clearOptions();
 		}
-		clearSpace();
-		if (id!=null) {
-			String hql="from XtBranches where BId like '%"+id+"%'";
-			if (num1!=null && !num1.trim().equals("")) {
-				hql=hql+" and BNum1 like '%"+num1+"%'";
-			}
-			if (num2!=null && !num2.trim().equals("")) {
-				hql=hql+" and BNum2 like '%"+num2+"%'";
-			}
-			if (name1!=null && !name1.trim().equals("")) {
-				hql=hql+" and BName1 like '%"+name1+"%'";
-			}
-			if (name2!=null && !name2.trim().equals("")) {
-				hql=hql+" and BName2 like '%"+name2+"%'";
-			}
-			if (dates!=null && !dates.trim().equals("")) {
-				hql=hql+" and BMaintainDate >= '"+dates+"'";
-			}
-			if (datee!=null && !datee.trim().equals("")) {
-				hql=hql+" and BMaintainDate <= '"+datee+"'";
-			}
-			hql=hql+" order by BMaintainDate desc";
-			bs=ser.query(hql, null, hql, page, ser);
-		}else {
-			String hql="from XtBranches order by BMaintainDate desc";
-			String ss[]={};
-			String hql2="from XtBranches order by BMaintainDate desc";
-			bs=ser.query(hql, ss, hql2, page, ser);
-		}
-		ser.receiveStructure(getRequest());
+		String hql="from XtBranches where 1=1 ";
+		if (id!=null && !id.equals(""))
+			hql=hql+"and BId like '%"+id+"%' ";
+		if (num1!=null && !num1.equals("")) 
+			hql=hql+"and BNum1 like '%"+num1+"%' ";
+		if (num2!=null && !num2.equals("")) 
+			hql=hql+"and BNum2 like '%"+num2+"%' ";
+		if (name1!=null && !name1.equals("")) 
+			hql=hql+"and BName1 like '%"+name1+"%' ";
+		if (name2!=null && !name2.equals("")) 
+			hql=hql+"and BName2 like '%"+name2+"%' ";
+		if (dates!=null && !dates.equals("")) 
+			hql=hql+"and BMaintainDate >= '"+dates+"' ";
+		if (datee!=null && !datee.equals("")) 
+			hql=hql+"and BMaintainDate <= '"+datee+"' ";
+		hql=hql+"and BState='有效' order by BCreateTime desc";
+		bs=ser.query(hql, null, hql, page, ser);
 		return result_b;
 	}
 	
 	private String gotoQuery() throws UnsupportedEncodingException {
 		clearOptions();
-		String hql="from XtBranches order by BMaintainDate desc";
-		String ss[]={};
-		String hql2="from XtBranches order by BMaintainDate desc";
-		bs=ser.query(hql, ss, hql2, page, ser);
-		ser.receiveStructure(getRequest());
+		String hql="from XtBranches where BState='有效' order by BCreateTime desc";
+		bs=ser.query(hql, null, hql, page, ser);
 		return result_b;
 	}
 	
 	public String delete() throws Exception {
-		String id=getRequest().getParameter("id");
+		clearSpace();
 		if (id!=null) {
 			b=(XtBranches) ser.get(XtBranches.class, id);
 			ser.delete(b);
 		}
-		b=null;
 		return gotoQuery();
 	}
 	
 	public String update() throws Exception {
+		clearSpace();
+		Users user=(Users) getSession().getAttribute("user");
 		if(b!=null && b.getBId()!=null && !"".equals(b.getBId().trim())){
 			XtBranches branches=(XtBranches) ser.get(XtBranches.class, b.getBId());
+			branches.setBState("无效");
+			ser.update(branches);
+			
+			b.setBId(NameOfDate.getNum());
 			b.setBDate(branches.getBDate());
 			b.setBMaintainDate(branches.getBMaintainDate());
 			b.setBMaintainWeek(branches.getBMaintainWeek());
-			ser.update(b);
+			b.setBCreateTime(new Timestamp(new Date().getTime()));
+			b.setBState("有效");
+			b.setUNum(user.getUNum());
+			
+			ser.save(b);
 			getRequest().setAttribute("b", b);
 		}
-		b=null;
 		return gotoQuery();
 	}
 	
 	public String add() throws Exception {
-		if(b!=null){
+		clearSpace();
+		Users user=(Users) getSession().getAttribute("user");
+		if(b!=null && user!=null){
 			b.setBId("b"+NameOfDate.getNum());
 			
 			Date date=new Date();
@@ -244,16 +254,21 @@ public class BranchesAction extends MyBaseAction{
 			b.setBDate(new Timestamp(date.getTime()));
 			b.setBMaintainDate(new Timestamp(date.getTime()));
 			b.setBMaintainWeek(ca.get(Calendar.WEEK_OF_YEAR));
+			
+			b.setBCreateTime(new Timestamp(new Date().getTime()));
+			b.setBState("有效");
+			b.setUNum(user.getUNum());
+			
 			ser.save(b);
 			getRequest().setAttribute("b", b);
 		}
-		b=null;
 		return gotoQuery();
 	}	
 	
 	
 	public String importExcel() throws InterruptedException, IOException, ParseException {
-		branchesSer.importExcelData(fileExcelFileName, fileExcel);
+		Users user=(Users) getSession().getAttribute("user");
+		branchesSer.importExcelData(fileExcelFileName, fileExcel,user.getUNum());
 		return gotoQuery();
 	}
 	

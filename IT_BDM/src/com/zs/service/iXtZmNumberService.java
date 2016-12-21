@@ -24,5 +24,5 @@ public interface iXtZmNumberService{
 	 * @throws NumberFormatException
 	 * @throws ParseException
 	 */
-	public void importExcelData(String fileName, File file) throws IOException, NumberFormatException, ParseException;
+	public void importExcelData(String fileName, File file,String uNum) throws IOException, NumberFormatException, ParseException;
 }

@@ -23,8 +23,8 @@ public class WhOutServiceImpl extends BaseService implements iDataImportService{
 			List<String[]> list=ExcelImport.getDataFromExcel(fileName,file);
 			for (int i = 1; i < list.size(); i++) {
 				try {
-					WhOutRepair ot=new WhOutRepair("o"+NameOfDate.getNum(), transToDate(list.get(i)[0]), list.get(i)[1], list.get(i)[2],
-							list.get(i)[3], list.get(i)[4], list.get(i)[5], transToInt(list.get(i)[6]), new Timestamp(new Date().getTime()));
+					WhOutRepair ot=new WhOutRepair("o"+NameOfDate.getNum(), transToDate(list.get(i)[0]), list.get(i)[1].replace(",", ""), list.get(i)[2],
+							list.get(i)[3], list.get(i)[4].replace(",", ""), list.get(i)[5], transToInt(list.get(i)[6]), new Timestamp(new Date().getTime()));
 					save(ot);
 				} catch (Exception e) {
 					log.error("数据格式错误:请注意填写的数据格式，另外不要留空，数字类型的没有就写0，文本类型的没有可以不写，时间类型的一定要写");

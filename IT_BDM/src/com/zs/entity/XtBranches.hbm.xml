@@ -37,5 +37,17 @@
         <property name="BNote" type="java.lang.String">
             <column name="b_note" />
         </property>
+        <property name="BType" type="java.lang.String">
+            <column name="b_type" />
+        </property>
+        <property name="BCreateTime" type="java.sql.Timestamp">
+            <column name="b_create_time" length="19" />
+        </property>
+        <property name="BState" type="java.lang.String">
+            <column name="b_state" />
+        </property>
+        <property name="UNum" type="java.lang.String">
+            <column name="u_num" />
+        </property>
     </class>
 </hibernate-mapping>

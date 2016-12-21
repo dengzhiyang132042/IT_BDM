@@ -90,11 +90,11 @@ public class CacheInterceptor extends AbstractInterceptor{
 			else if ("daManager".equals(actionName) && "add".equals(methodName)) {//故障添加
 				checkNewDate(new String[]{"count","countZy"});
 			}
+			/*
 			else if ("countZy".equals(actionName)) {//专员统计
 				hadle("D",DaCount.class, "sTime");
 				return "countZy"; 
 			}
-			/*
 			else if ("site".equals(actionName) && "add".equals(methodName)) {//添加站点资料
 				//有新数据我得把状态改下
 				checkNewDate(new String[]{"siteCount"});

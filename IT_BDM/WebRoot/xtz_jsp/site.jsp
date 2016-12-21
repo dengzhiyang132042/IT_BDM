@@ -90,7 +90,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		$('#u_1').val(u1);
 		$('#u_2').val(u2);
 		$('#u_3').val(u3);
-		$('#u_4').val(u4);
 		$("#u_5 option[value='"+u5+"']").attr("selected",true);
 		$("#u_6 option[value='"+u6+"']").attr("selected",true);
 		$('#u_7').val(u7);
@@ -132,7 +131,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     		~<input name="datee" type="date" value="${datee }">
     		<br/>
     		<input type="submit" value="查询"/>
-    		<input type="button" value="轨迹查询" onclick="gj_query('no','true')"/>
+    		<input type="button" value="记录查询" onclick="gj_query('no','true')"/>
     	</form>	
     </div>
     <div style="margin-bottom: 5px;">
@@ -224,10 +223,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<tr>
 				<td>维护类型：</td>
 				<td>
-					<select id="u_4" name="site.SMaintainType">
-						<option value="注册">注册</option>
+					<select name="site.SMaintainType">
 						<option value="维护">维护</option>
 						<option value="注销">注销</option>
+						<option value="注册">注册</option>
 					</select>
 				</td>
 			</tr>
@@ -246,7 +245,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<select id="u_6" name="site.SNotice">
 						<option value="电话通知">电话通知</option>
 						<option value="短信通知">短信通知</option>
-						<option value="布谷鸟通知">布谷鸟通知</option>
+						<option value="IMO通知">IMO通知</option>
 						<option value="告知网点管理部">告知网点管理部</option>
 					</select>
 				</td>
@@ -306,7 +305,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<select name="site.SNotice">
 						<option value="电话通知">电话通知</option>
 						<option value="短信通知">短信通知</option>
-						<option value="布谷鸟通知">布谷鸟通知</option>
+						<option value="IMO通知">IMO通知</option>
 						<option value="告知网点管理部">告知网点管理部</option>
 					</select>
 				</td>
