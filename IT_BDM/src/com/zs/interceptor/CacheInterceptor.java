@@ -80,6 +80,7 @@ public class CacheInterceptor extends AbstractInterceptor{
 	public String intercept(ActionInvocation arg0) throws Exception {
 		allInit(arg0);
 		if (user!=null) {
+			/*
 			if("login".equals(actionName)){
 				return "login";
 			}
@@ -90,7 +91,6 @@ public class CacheInterceptor extends AbstractInterceptor{
 			else if ("daManager".equals(actionName) && "add".equals(methodName)) {//故障添加
 				checkNewDate(new String[]{"count","countZy"});
 			}
-			/*
 			else if ("countZy".equals(actionName)) {//专员统计
 				hadle("D",DaCount.class, "sTime");
 				return "countZy"; 

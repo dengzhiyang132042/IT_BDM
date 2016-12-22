@@ -93,10 +93,16 @@ public class DaCountAction extends MyBaseAction implements IMyBaseAction{
 	}
 	//----------------------------------------------------
 	public void clearOptions() {
-		filtrate=null;
 		page=null;
 		dates=null;
 		datee=null;
+		filtrate=null;
+		cz=null;
+		if (page==null) {
+			page=new Page(1, 0, 10);
+		}else {
+			page.setPageOn(1);
+		}
 	}
 	private void clearSpace() {
 		if (filtrate!=null && !filtrate.equals("")) {
@@ -156,6 +162,22 @@ public class DaCountAction extends MyBaseAction implements IMyBaseAction{
 		String str="from DaDemand where DTime!=null ";
 		String str1="from DaDemand where DTime!=null ";
 		SimpleDateFormat sdf= new SimpleDateFormat("yyyy-MM-dd");
+		if((dates==null||dates.equals(""))&&(datee==null||datee.equals(""))){
+			Date d = new Date();
+			if(dt.equals("D")){
+				datee =	new SimpleDateFormat("yyyy-MM-dd").format(new Date(d.getYear(), d.getMonth(),d.getDate()));
+				dates =	new SimpleDateFormat("yyyy-MM-dd").format(new Date(d.getYear(), d.getMonth(),d.getDate()-7));
+			}
+			if(dt.equals("W")){
+				datee =	new SimpleDateFormat("yyyy-MM-dd").format(new Date(d.getYear(), d.getMonth(),d.getDate()));
+				dates =	new SimpleDateFormat("yyyy-MM-dd").format(new Date(d.getYear(), d.getMonth(),d.getDate()-7));
+			}
+			if(dt.equals("M")){
+				datee =	new SimpleDateFormat("yyyy-MM").format(new Date(d.getYear(), d.getMonth(),d.getDate()));
+				dates =	new SimpleDateFormat("yyyy-MM").format(new Date(d.getYear(), d.getMonth()-1,d.getDate()));
+			}
+			
+		}
 		if(dates!=null && !dates.equals("")){
 			if(dt.equals("D")||dt.equals("M")||dt.equals("Y")){
 				str1=str1+" and DTime >='"+dates+"'";
@@ -249,10 +271,6 @@ public class DaCountAction extends MyBaseAction implements IMyBaseAction{
 	public String queryOfFenye() throws UnsupportedEncodingException {
 		if (cz!=null && cz.equals("yes")) {
 			clearOptions();
-			page=new Page(1, 0, 5);
-		}
-		if (page==null) {
-			page=new Page(1, 0, 5);
 		}
 		clearSpace();
 		counts=new ArrayList<DaCount>();

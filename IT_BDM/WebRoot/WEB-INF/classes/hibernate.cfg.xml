@@ -99,6 +99,7 @@
 		<mapping resource="com/zs/entity/XtBqq.hbm.xml" />
 		<mapping resource="com/zs/entity/ChildNum.hbm.xml" />
 		<mapping resource="com/zs/entity/XtNetImo.hbm.xml" />
+		<mapping resource="com/zs/entity/ZmNetCall.hbm.xml" />
 	</session-factory>
 
 </hibernate-configuration>

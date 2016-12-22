@@ -82,7 +82,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<li><span><a href="<%=path %>/bq!queryOfFenye?cz=yes" target="right">骏达设备登记</a></span></li>
 						<li><span><a href="<%=path %>/wifi!queryOfFenye?cz=yes" target="right">公司wifi管理</a></span></li>
 						<li><span><a href="<%=path %>/call!queryOfFenye?cz=yes" target="right">总部呼叫系统</a></span></li>
-						<li><span><a href="<%=path %>/allianceCall!queryOfFenye?cz=yes" target="right">网点呼叫系统</a></span></li>
+						<li><span><a href="<%=path %>/netCall!queryOfFenye?cz=yes" target="right">网点呼叫系统</a></span></li>
 						<li><span><a href="<%=path %>/oa!queryOfFenye?cz=yes" target="right">oa账号登记</a></span></li>
 						<li><span><a href="<%=path %>/print!queryOfFenye?cz=yes" target="right">打印机登记</a></span></li>
 						<li><span><a href="<%=path %>/phone!queryOfFenye?cz=yes" target="right">电话线分布</a></span></li>

@@ -10,14 +10,14 @@
       </interceptor>  
       <interceptor name="timeline_inter" class="zs_interceptor_timeline">
       </interceptor>
-      <interceptor name="cache_inter" class="zs_interceptor_cache">
-      </interceptor>
+     <!-- <interceptor name="cache_inter" class="zs_interceptor_cache"> 
+      </interceptor> --> 
       <!-- 拦截器栈 -->  
       <interceptor-stack name="mydefault">  
           <interceptor-ref name="defaultStack" />  
           <interceptor-ref name="role_inter" />  
           <interceptor-ref name="timeline_inter" />
-          <interceptor-ref name="cache_inter" />
+        <!--   <interceptor-ref name="cache_inter" /> --> 
       </interceptor-stack>  
   </interceptors>  
   
@@ -252,6 +252,13 @@
      <result name="succ">/success.jsp</result>
      <result name="fail">/fail.jsp</result>
   </action> 
+  <action name="netCall" class="hgh_net_call_zmz">	
+  	 <interceptor-ref name="mydefault" />
+     <result>/index.jsp</result>
+     <result name="netCall">/zmz_jsp/net_call.jsp</result>
+     <result name="succ">/success.jsp</result>
+     <result name="fail">/fail.jsp</result>
+  </action>
    <!-- *********维护组******** -->  
   <action name="device" class="zs_device_whz">	
   	 <interceptor-ref name="mydefault" />

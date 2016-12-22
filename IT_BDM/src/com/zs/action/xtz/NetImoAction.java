@@ -154,7 +154,9 @@ public class NetImoAction extends MyBaseAction{
 		imo=null;
 		cz=null;
 		if (page==null) {
-			page=new Page(1, 0, 5);
+			page=new Page(1, 0, 10);
+		}else {
+			page.setPageOn(1);
 		}
 	}
 	
@@ -240,7 +242,6 @@ public class NetImoAction extends MyBaseAction{
 			}
 			ser.delete(imo);
 		}
-		imo=null;
 		return gotoQuery();
 	}
 	
@@ -287,7 +288,6 @@ public class NetImoAction extends MyBaseAction{
 				}
 			}
 		}
-		imo=null;
 		return gotoQuery();
 	}
 	
@@ -329,7 +329,6 @@ public class NetImoAction extends MyBaseAction{
 			}
 			getRequest().setAttribute("imo", imo);
 		}
-		imo=null;
 		return gotoQuery();
 	}	
 	
