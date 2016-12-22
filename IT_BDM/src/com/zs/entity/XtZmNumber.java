@@ -1,5 +1,6 @@
 package com.zs.entity;
 
+import java.sql.Timestamp;
 import java.util.Date;
 
 /**
@@ -20,6 +21,10 @@ public class XtZmNumber implements java.io.Serializable {
 	private Date zmServiceDate;
 	private Integer zmServiceWeek;
 	private String zmNote;
+	private String zmType;
+	private Timestamp zmCreateTime;
+	private String zmState;
+	private String UNum;
 
 	// Constructors
 
@@ -36,7 +41,8 @@ public class XtZmNumber implements java.io.Serializable {
 	public XtZmNumber(String zmId, Date zmApplyDate, String zmApplyCs,
 			String zmApplyMaster, String zmNumber, String zmOnJob,
 			String zmServiceMaster, Date zmServiceDate, Integer zmServiceWeek,
-			String zmNote) {
+			String zmNote, String zmType, Timestamp zmCreateTime,
+			String zmState, String UNum) {
 		this.zmId = zmId;
 		this.zmApplyDate = zmApplyDate;
 		this.zmApplyCs = zmApplyCs;
@@ -47,6 +53,10 @@ public class XtZmNumber implements java.io.Serializable {
 		this.zmServiceDate = zmServiceDate;
 		this.zmServiceWeek = zmServiceWeek;
 		this.zmNote = zmNote;
+		this.zmType = zmType;
+		this.zmCreateTime = zmCreateTime;
+		this.zmState = zmState;
+		this.UNum = UNum;
 	}
 
 	// Property accessors
@@ -129,6 +139,38 @@ public class XtZmNumber implements java.io.Serializable {
 
 	public void setZmNote(String zmNote) {
 		this.zmNote = zmNote;
+	}
+
+	public String getZmType() {
+		return this.zmType;
+	}
+
+	public void setZmType(String zmType) {
+		this.zmType = zmType;
+	}
+
+	public Timestamp getZmCreateTime() {
+		return this.zmCreateTime;
+	}
+
+	public void setZmCreateTime(Timestamp zmCreateTime) {
+		this.zmCreateTime = zmCreateTime;
+	}
+
+	public String getZmState() {
+		return this.zmState;
+	}
+
+	public void setZmState(String zmState) {
+		this.zmState = zmState;
+	}
+
+	public String getUNum() {
+		return this.UNum;
+	}
+
+	public void setUNum(String UNum) {
+		this.UNum = UNum;
 	}
 
 }

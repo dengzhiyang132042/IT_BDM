@@ -1,5 +1,6 @@
 package com.zs.entity;
 
+import java.sql.Timestamp;
 import java.util.Date;
 
 /**
@@ -20,6 +21,10 @@ public class XtBranches implements java.io.Serializable {
 	private String BNum2;
 	private String BName2;
 	private String BNote;
+	private String BType;
+	private Timestamp BCreateTime;
+	private String BState;
+	private String UNum;
 
 	// Constructors
 
@@ -35,7 +40,8 @@ public class XtBranches implements java.io.Serializable {
 	/** full constructor */
 	public XtBranches(String BId, Date BDate, Date BMaintainDate,
 			Integer BMaintainWeek, String BNum1, String BName1,
-			String BMaster1, String BNum2, String BName2, String BNote) {
+			String BMaster1, String BNum2, String BName2, String BNote,
+			String BType, Timestamp BCreateTime, String BState, String UNum) {
 		this.BId = BId;
 		this.BDate = BDate;
 		this.BMaintainDate = BMaintainDate;
@@ -46,6 +52,10 @@ public class XtBranches implements java.io.Serializable {
 		this.BNum2 = BNum2;
 		this.BName2 = BName2;
 		this.BNote = BNote;
+		this.BType = BType;
+		this.BCreateTime = BCreateTime;
+		this.BState = BState;
+		this.UNum = UNum;
 	}
 
 	// Property accessors
@@ -128,6 +138,38 @@ public class XtBranches implements java.io.Serializable {
 
 	public void setBNote(String BNote) {
 		this.BNote = BNote;
+	}
+
+	public String getBType() {
+		return this.BType;
+	}
+
+	public void setBType(String BType) {
+		this.BType = BType;
+	}
+
+	public Timestamp getBCreateTime() {
+		return this.BCreateTime;
+	}
+
+	public void setBCreateTime(Timestamp BCreateTime) {
+		this.BCreateTime = BCreateTime;
+	}
+
+	public String getBState() {
+		return this.BState;
+	}
+
+	public void setBState(String BState) {
+		this.BState = BState;
+	}
+
+	public String getUNum() {
+		return this.UNum;
+	}
+
+	public void setUNum(String UNum) {
+		this.UNum = UNum;
 	}
 
 }

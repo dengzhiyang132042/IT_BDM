@@ -12,7 +12,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <head>
     <base href="<%=basePath%>">
     
-    <title>哲盟账号申请记录登记</title>
+    <title>哲盟职能用户</title>
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
 	<meta http-equiv="expires" content="0">    
@@ -125,7 +125,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     
 	
     
-    <div class="easyui-panel" title="哲盟账号申请记录登记" style="padding: 5px;display: none;" data-options="tools:'#tt'">
+    <div class="easyui-panel" title="哲盟职能用户" style="padding: 5px;display: none;" data-options="tools:'#tt'">
     
     <div style="background-color:white;margin-bottom: 5px;padding: 5px;border: 1px solid #224466; ">
     	快速查询
@@ -159,6 +159,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     	<th>维护日期</th>
     	<th>维护周数</th>
     	<th>备注</th>
+    	<th>操作类型</th>
     	<th>操作</th>
     </tr>
     <c:forEach items="${zmns}" var="zmn">
@@ -173,6 +174,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<td width=""><fmt:formatDate value="${zmn.zmServiceDate }" pattern="yyyy/M/d" /></td>
 		<td width="">${zmn.zmServiceWeek }</td>
 		<td width="">${zmn.zmNote }</td>
+		<td width="">${zmn.zmType }</td>
 		<td width="5%" align="center">
 			<a onclick="update('${zmn.zmId }','${zmn.zmApplyDate }','${zmn.zmApplyCs }','${zmn.zmApplyMaster }','${zmn.zmNumber }','${zmn.zmOnJob }','${zmn.zmServiceMaster }','${zmn.zmServiceDate }','${zmn.zmServiceWeek }','${zmn.zmNote }')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-edit'" title="修改"></a>
 			<a href="<%=path %>/zmn!delete?id=${zmn.zmId}" onclick="return confirm('确定删除吗?')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-delete'" title="删除"></a>
@@ -248,18 +250,20 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					</select>
 				</td>
 			</tr>
-			<!-- 
-			<tr>
-				<td>维护IT：</td>
-				<td>
-					<input id="u_7" name="zmn.zmServiceMaster" type="text" style="width: 100%;"/>
-				</td>
-			</tr>
-			 -->
 			<tr>
 				<td>备注：</td>
 				<td>
 					<input id="u_10" name="zmn.zmNote" type="text" style="width: 100%;"/>
+				</td>
+			</tr>
+			<tr>
+				<td>操作类型：</td>
+				<td>
+					<select name="zmn.zmType">
+						<option value="维护">维护</option>
+						<option value="注销">注销</option>
+						<option value="注册">注册</option>
+					</select>
 				</td>
 			</tr>
 			<tr>
@@ -301,18 +305,20 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					</select>
 				</td>
 			</tr>
-			<!-- 
-			<tr>
-				<td>维护IT：</td>
-				<td>
-					<input name="zmn.zmServiceMaster" type="text" style="width: 100%;"/>
-				</td>
-			</tr>
-			 -->
 			<tr>
 				<td>备注：</td>
 				<td>
 					<input name="zmn.zmNote" type="text" style="width: 100%;"/>
+				</td>
+			</tr>
+			<tr>
+				<td>操作类型：</td>
+				<td>
+					<select name="zmn.zmType">
+						<option value="注册">注册</option>
+						<option value="维护">维护</option>
+						<option value="注销">注销</option>
+					</select>
 				</td>
 			</tr>
 			<tr>
@@ -335,7 +341,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<table border="1">
 			<tr>
 				<td>Excel模板</td>
-				<td onmousemove="$(this).css('background-color','red');" onmouseout="$(this).css('background-color','white');" style="cursor: pointer;" onclick="window.location.href='<%=path%>/files/import/xtz/哲盟账号申请.xlsx';">
+				<td onmousemove="$(this).css('background-color','red');" onmouseout="$(this).css('background-color','white');" style="cursor: pointer;" onclick="window.location.href='<%=path%>/files/import/xtz/哲盟职能用户.xlsx';">
 					下载模板
 				</td>
 			</tr>

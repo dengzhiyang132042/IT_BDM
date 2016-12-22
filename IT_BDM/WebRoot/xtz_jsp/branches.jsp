@@ -12,7 +12,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <head>
     <base href="<%=basePath%>">
     
-    <title>二级网点资料</title>
+    <title>二级站点登记</title>
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
 	<meta http-equiv="expires" content="0">    
@@ -72,7 +72,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   
   <body>
     
-    <div class="easyui-panel" title="二级网点资料" style="padding: 5px;display: none;" data-options="tools:'#tt'">
+    <div class="easyui-panel" title="二级站点登记" style="padding: 5px;display: none;" data-options="tools:'#tt'">
     
     <div style="background-color:white;margin-bottom: 5px;padding: 5px;border: 1px solid #224466; ">
     	快速查询
@@ -87,7 +87,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     		二级网点条码：<input name="num2" type="text" value="${num2 }"/>
     		&nbsp;&nbsp;&nbsp;&nbsp;
     		二级网点名称：<input name="name2" type="text" value="${name2 }"/>
-    		<br/><br/>
+    		&nbsp;&nbsp;&nbsp;&nbsp;
     		维护日期:<input name="dates" type="date" value="${dates }"/>
     		~
     		<input name="datee" type="date" value="${datee }"/>
@@ -110,6 +110,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     	<th>二级网点条码</th>
     	<th>二级网点名称</th>
     	<th>备注</th>
+    	<th>操作类型</th>
     	<th>操作</th>
     </tr>
     <c:forEach items="${bs}" var="b">
@@ -124,6 +125,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<td width="">${b.BNum2 }</td>
 		<td width="">${b.BName2 }</td>
 		<td width="">${b.BNote }</td>
+		<td width="">${b.BType }</td>
 		<td width="5%" align="center">
 			<a onclick="update('${b.BId }','${b.BDate }','${b.BMaintainDate }','${b.BMaintainWeek }','${b.BNum1 }','${b.BName1 }','${b.BMaster1 }','${b.BNum2 }','${b.BName2 }','${b.BNote }')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-edit'" title="修改"></a>
 			<a href="<%=path %>/branches!delete?id=${b.BId}" onclick="return confirm('确定删除吗?')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-delete'" title="删除"></a>
@@ -209,6 +211,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				</td>
 			</tr>
 			<tr>
+				<td>操作类型：</td>
+				<td>
+					<select name="b.BType">
+						<option value="维护">维护</option>
+						<option value="注销">注销</option>
+						<option value="注册">注册</option>
+					</select>
+				</td>
+			</tr>
+			<tr>
 				<td colspan="2" align="center">
 					<input class="easyui-linkbutton" type="submit" style="width: 95%;padding: 5px;" value="提交"/>
 				</td>			
@@ -254,6 +266,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<td>备注：</td>
 				<td>
 					<input name="b.BNote" type="text" style="width: 100%;"/>
+				</td>
+			</tr>
+			<tr>
+				<td>操作类型：</td>
+				<td>
+					<select name="b.BType">
+						<option value="注册">注册</option>
+						<option value="维护">维护</option>
+						<option value="注销">注销</option>
+					</select>
 				</td>
 			</tr>
 			<tr>
