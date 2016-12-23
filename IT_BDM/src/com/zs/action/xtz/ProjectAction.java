@@ -345,6 +345,7 @@ public class ProjectAction extends MyBaseAction implements IMyBaseAction{
 			pd.setDDetail(proDetail.getDDetail());
 			pd.setDSituation(proDetail.getDSituation());
 			pd.setDMan(proDetail.getDMan());
+			pd.setDSchedule(pd.getDSchedule()/100);
 			if(pd.getDStartDate()!=null&&pd.getDRealityDate()!=null){
 				WorkDays wd = new WorkDays();
 				double userDate =wd.getWorkdayTimeInMillis(pd.getDRealityDate().getTime(),pd.getDStartDate().getTime());
