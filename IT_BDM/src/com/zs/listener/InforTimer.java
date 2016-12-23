@@ -15,6 +15,8 @@ import org.apache.struts2.ServletActionContext;
 import com.zs.entity.Role;
 import com.zs.entity.Timeline;
 import com.zs.entity.Users;
+import com.zs.entity.custom.MailModel;
+import com.zs.mail.MailManager;
 import com.zs.mail.MailTest;
 import com.zs.service.IService;
 
@@ -24,13 +26,14 @@ public class InforTimer extends TimerTask{
 	private IService ser = null;  
     
 	private Logger logger=Logger.getLogger(InforTimer.class);
+	private String title="IT基础数据管理系统——消息提醒";
+	private MailManager mailManager=MailManager.getInstance();//邮件发送者
+	
 	
 	public InforTimer(ServletContext context,IService ser){  
         this.context = context;  
         this.ser=ser;
     }
-	private String title="IT基础数据管理系统——消息提醒";
-	
 	
 	/**
 	 * 2016年8月12日16:16:31
@@ -130,12 +133,7 @@ public class InforTimer extends TimerTask{
 				}
 				String content=css+str+"</table>";
 				logger.debug(content);
-				try {
-					MailTest.outputMail(u.getUMail(), MailTest.IT_ROBOT, content,title);
-				} catch (MessagingException e) {
-					e.printStackTrace();
-					logger.error("监听器--定时器--发送邮件出问题了,出异常账号:"+u.getUName()+"   "+u.getUNum());
-				}
+				mailManager.addMail(new MailModel(u.getUMail(), MailTest.IT_ROBOT, content,title));
 			}else if (r.getRName().equals("系统组")) {
 				//查找该用户的系统组日常事项
 				List<Timeline> tls=ser.find("from Timeline where userNum=? and tlTime>? and tlTime<? and tlState!=?", new Object[]{u.getUNum(),timestamp1,timestamp2,"查看"});
@@ -207,12 +205,7 @@ public class InforTimer extends TimerTask{
 				}
 				String content=css+str+"</table>";
 				logger.debug(content);
-				try {
-					MailTest.outputMail(u.getUMail(), MailTest.IT_ROBOT, content,title);
-				} catch (MessagingException e) {
-					e.printStackTrace();
-					logger.error("监听器--定时器--发送邮件出问题了,出异常账号:"+u.getUName()+"   "+u.getUNum());
-				}
+				mailManager.addMail(new MailModel(u.getUMail(), MailTest.IT_ROBOT, content,title));
 			}
 			
 			

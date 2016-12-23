@@ -14,6 +14,8 @@ import com.zs.entity.DaDemPer;
 import com.zs.entity.DaDemand;
 import com.zs.entity.DaPerform;
 import com.zs.entity.Users;
+import com.zs.entity.custom.MailModel;
+import com.zs.mail.MailManager;
 import com.zs.mail.MailTest;
 import com.zs.service.IService;
 import com.zs.tools.Page;
@@ -50,83 +52,68 @@ public class DaHandleAction extends MyBaseAction implements IMyBaseAction{
 	public static final String STATE_TO_OTHER="转发";
 	public static final String STATE_AUDITING="审核中";
 	
-	
 	private Logger logger=Logger.getLogger(DaHandleAction.class);
+	private static MailManager mailManager=MailManager.getInstance();//邮件发送者
 
-
+	
+	
 	public IService getSer() {
 		return ser;
 	}
-
 	public void setSer(IService ser) {
 		this.ser = ser;
 	}
-	
 	public DaPerform getP() {
 		return p;
 	}
-
 	public void setP(DaPerform p) {
 		this.p = p;
 	}
-
 	public DaDemand getD() {
 		return d;
 	}
-
 	public void setD(DaDemand d) {
 		this.d = d;
 	}
-
 	public List<DaDemPer> getDemper() {
 		return demper;
 	}
-
 	public void setDemper(List<DaDemPer> demper) {
 		this.demper = demper;
 	}
-
 	public Page getPage() {
 		return page;
 	}
-
 	public void setPage(Page page) {
 		this.page = page;
 	}
-
-	
 	public String getId() {
 		return id;
 	}
-
 	public void setId(String id) {
 		this.id = id;
 	}
-
 	public String getDates() {
 		return dates;
 	}
-
 	public void setDates(String dates) {
 		this.dates = dates;
 	}
-
 	public String getDatee() {
 		return datee;
 	}
-
 	public void setDatee(String datee) {
 		this.datee = datee;
 	}
-
 	public String getType() {
 		return type;
 	}
-
 	public void setType(String type) {
 		this.type = type;
 	}
-
+	
+	
+	
 	public void clearOptions() {
 		id=null;
 		datee=null;
@@ -278,7 +265,7 @@ public class DaHandleAction extends MyBaseAction implements IMyBaseAction{
 				
 				//添加一个给主管发送邮件，并标明为什么未完成
 				//邮件模块需要带的数据
-				if(DaHandleAction.outMailFromUpdate(tmpper, d, getSer())==false){
+				if(outMailFromUpdate(tmpper, d, getSer())==false){
 					//日后换成邮件错误界面
 					getResponse().getWriter().write("邮件发送错误!请手动发送邮件");
 					logger.error("邮件发送错误!请手动发送邮件,错误单号"+d.getDId());
@@ -321,7 +308,7 @@ public class DaHandleAction extends MyBaseAction implements IMyBaseAction{
 		String title="故障处理未完成";
 		String sj="lidan_zhang@szexpress.com.cn";
 		try {
-			MailTest.outputMail(sj,MailTest.IT_ROBOT, content, title);
+			mailManager.addMail(new MailModel(sj,MailTest.IT_ROBOT, content, title));
 		} catch (Exception e) {
 			return false;
 		}

@@ -11,6 +11,8 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
 import org.apache.log4j.Logger;
+
+import com.zs.entity.custom.MailModel;
 public class MailTest {
 
 	// 配置发送邮件的环境属性
@@ -47,7 +49,7 @@ public class MailTest {
 	 * @return
 	 * @throws MessagingException
 	 */
-	public static String outputMail(String toAddress,String ccAddress,String mailContent,String title) throws MessagingException {
+	public static String outputMail(MailModel mail) throws MessagingException {
         // 构建授权信息，用于进行SMTP进行身份验证
         Authenticator authenticator = new Authenticator() {
             @Override
@@ -66,21 +68,21 @@ public class MailTest {
         InternetAddress form = new InternetAddress(props.getProperty("mail.user"));
         message.setFrom(form);
         // 设置收件人
-        InternetAddress to = new InternetAddress(toAddress);
+        InternetAddress to = new InternetAddress(mail.getToAddress());
         message.setRecipient(RecipientType.TO, to);
 
         // 设置抄送
-        InternetAddress cc = new InternetAddress(ccAddress);
+        InternetAddress cc = new InternetAddress(mail.getCcAddress());
         message.setRecipient(RecipientType.CC, cc);
 
         // 设置密送，其他的收件人不能看到密送的邮件地址
-        InternetAddress bcc = new InternetAddress(ccAddress);
+        InternetAddress bcc = new InternetAddress(mail.getCcAddress());
         message.setRecipient(RecipientType.CC, bcc);
         // 设置邮件标题
-        message.setSubject(title);
+        message.setSubject(mail.getTitle());
 
         // 设置邮件的内容体
-        message.setContent(mailContent, "text/html;charset=UTF-8");
+        message.setContent(mail.getMailContent(), "text/html;charset=UTF-8");
         // 发送邮件
         Transport.send(message);
         
