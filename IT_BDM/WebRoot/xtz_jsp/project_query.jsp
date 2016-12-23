@@ -43,7 +43,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		$('#u_3').val(u3);
 		$('#u_4').val(u4);
 		$('#u_5').val(u5);
-		$('#u_6').val(u6);
+		$('#u_6').val(u6*100);
 	}
 	function page(no,cz){
 		var num1=$('#page').val();
@@ -138,7 +138,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<td ><fmt:formatDate value="${pd.DStartDate }" pattern="yyyy-MM-dd" /></td>
 						<td ><fmt:formatDate value="${pd.DPlanDate }" pattern="yyyy-MM-dd" /></td>
 						<td ><fmt:formatDate value="${pd.DRealityDate }" pattern="yyyy-MM-dd" /></td>
-						<td >${pd.DSchedule }%</td>
+						<td >${pd.DSchedule *100 }%</td>
 						<td >${pd.DUserDate }</td>
 						<td>
 						<a onclick="update('${pd.DId }','${pd.DContent }','<fmt:formatDate value="${pd.DStartDate }" pattern="yyyy-MM-dd" />','<fmt:formatDate value="${pd.DPlanDate }" pattern="yyyy-MM-dd" />','<fmt:formatDate value="${pd.DRealityDate }" pattern="yyyy-MM-dd" />','${pd.DSchedule }')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-edit'" title="修改"></a>

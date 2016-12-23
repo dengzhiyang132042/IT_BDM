@@ -179,11 +179,11 @@ public class DaCountZyAction extends MyBaseAction implements IMyBaseAction{
 		if((dates==null||dates.equals(""))&&(datee==null||datee.equals(""))){
 			Date d = new Date();
 			if(dt.equals("D")){
-				datee =	new SimpleDateFormat("yyyy-MM-dd").format(new Date(d.getYear(), d.getMonth(),d.getDate()));
+				datee =	new SimpleDateFormat("yyyy-MM-dd").format(new Date(d.getYear(), d.getMonth(),d.getDate()+1));
 				dates =	new SimpleDateFormat("yyyy-MM-dd").format(new Date(d.getYear(), d.getMonth(),d.getDate()-7));
 			}
 			if(dt.equals("W")){
-				datee =	new SimpleDateFormat("yyyy-MM-dd").format(new Date(d.getYear(), d.getMonth(),d.getDate()));
+				datee =	new SimpleDateFormat("yyyy-MM-dd").format(new Date(d.getYear(), d.getMonth(),d.getDate()+1));
 				dates =	new SimpleDateFormat("yyyy-MM-dd").format(new Date(d.getYear(), d.getMonth(),d.getDate()-7));
 				System.out.println(dates);
 			}

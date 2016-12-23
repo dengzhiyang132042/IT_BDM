@@ -154,7 +154,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     	<th>申请部门</th>
     	<th>申请人</th>
     	<th>哲盟</th>
-    	<th>在职情况</th>
     	<th>维护IT</th>
     	<th>维护日期</th>
     	<th>维护周数</th>
@@ -169,7 +168,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<td width="">${zmn.zmApplyCs }</td>
 		<td width="">${zmn.zmApplyMaster }</td>
 		<td width="">${zmn.zmNumber }</td>
-		<td width="">${zmn.zmOnJob }</td>
 		<td width="">${zmn.zmServiceMaster }</td>
 		<td width=""><fmt:formatDate value="${zmn.zmServiceDate }" pattern="yyyy/M/d" /></td>
 		<td width="">${zmn.zmServiceWeek }</td>

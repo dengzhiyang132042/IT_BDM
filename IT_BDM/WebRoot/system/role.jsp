@@ -126,22 +126,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     
 	    <table border="1" id="eidtASubjectWindow1" style="font-size: 12px;">
 	    <tr align="center" style="height: 28px;background-color: #E6E6E6;">
-	    	<th width="150">编号</td>
-	    	<th width="90">名称</td>
-	    	<th width="150">描述</td>
-	    	<th>权限明细</td>
-	    	<th width="70">操作</td>
+	    	<th width="150">编号</th>
+	    	<th width="90">名称</th>
+	    	<th width="150">描述</th>
+	    	<th width="70">操作</th>
 	    </tr>
 	    <c:forEach items="${rs}" var="r">
 	    <tr>
 			<td width="10%">${r.RId }</td>
 			<td width="10%">${r.RName }</td>
 			<td width="20%">${r.RDescription }</td>
-			<td id="td_${r.RId }" width="55%">
-				<c:forEach items="${r.ps}" var="p" varStatus="sta">
-				${p.PId },${p.PName };
-				</c:forEach>
-			</td>
 			<td width="5%" align="center">
 				<a onclick="update('${r.RId }','${r.RName }','${r.RDescription }','td_${r.RId }')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-edit'" title="修改"></a>
 				<a href="<%=path %>/role!delete?id=${r.RId}" onclick="return confirm('确定删除吗?')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-delete'" title="删除"></a>

@@ -75,7 +75,7 @@ public class XtProjectCountServiceImpl extends BaseService implements iXtProject
 					de.setEMonth(pro.getPDate());
 					isHave=false;
 				}
-				System.out.println("计算一次"+pro.getPId());
+//				System.out.println("计算一次"+pro.getPId());
 				de.setEProjectDemand(toInt(de.getEProjectDemand())+1);
 				de.setEArrangeTime(toInt(de.getEArrangeTime())+toInt(xq.getDUserDate())+toInt(fa.getDUserDate()));
 				de.setEDevelopTime(toInt(de.getEDevelopTime())+toInt(kf.getDUserDate()));
@@ -90,7 +90,7 @@ public class XtProjectCountServiceImpl extends BaseService implements iXtProject
 				de.setEOverstep(toInt(de.getEOverstep())+countOver(pro));
 				de.setECompleteRatio((double)toInt(de.getERealityComplete())/toInt(de.getEPlanComplete()));
 				
-				log.debug(de.toString());
+//				log.debug(de.toString());
 				
 				if (isHave) {
 					update(de);
