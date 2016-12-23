@@ -170,3 +170,17 @@ form{
 .read_only{
 	background-color: rgba(222, 164, 0, 0.06);
 }
+/*快速查询样式
+*/
+.kscx{
+	padding-bottom: 5px;
+}
+.kscx h1{
+	font-size: 12px;
+}
+.kscx .btn{
+	float: right;width: 300px;
+}
+.kscx .inp{
+	margin-right: 300px;
+}

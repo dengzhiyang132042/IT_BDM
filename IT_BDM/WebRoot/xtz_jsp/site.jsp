@@ -28,6 +28,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script type="text/javascript" src="<%=path %>/FRAMEWORK/jquery-easyui/jquery.easyui.min.js"></script>
 	
 	<link rel="stylesheet" type="text/css" href="<%=path %>/FRAMEWORK/css/mycss.css">
+	<script type="text/javascript" src="<%=path %>/FRAMEWORK/js/myjs.js"></script>
 	<script type="text/javascript">
 	$(function(){
 		$("#sele option[value='"+${page.size}+"']").attr("selected",true);
@@ -115,27 +116,31 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <body>
     
     <div class="easyui-panel" title="站点资料" style="padding: 5px;display: none;" data-options="tools:'#tt'">
-    <div style="background-color:white;margin-bottom: 5px;padding: 5px;border: 1px solid #224466; ">
-    	快速查询
-    	<br/>
-    	<form id="ks" action="<%=path %>/site!queryOfFenye" method="post">
-    		编号:<input name="id" type="text" value="${id }"/>
-    		&nbsp;&nbsp;&nbsp;&nbsp;
-    		网点条码：<input name="num" type="text" value="${num }"/>
-    		&nbsp;&nbsp;&nbsp;&nbsp;
-    		维护IT:<input name="it" type="text" value="${it }"/>
-    		&nbsp;&nbsp;&nbsp;&nbsp;
-    		维护类型:<input name="type" type="text" value="${type }"/>
-    		<br/>
-    		维护日期：<input name="dates" type="date" value="${dates }">
-    		~<input name="datee" type="date" value="${datee }">
-    		<br/>
-    		<input type="submit" value="查询"/>
+     <div class="kscx">
+ 		<h1>快速查询</h1>
+   		<div  class="btn">
+   			<input type="submit" value="查询" onclick="$('.kscx .inp form').submit();"/>
     		<input type="button" value="记录查询" onclick="gj_query('no','true')"/>
-    	</form>	
+   		</div>
+   		<div class="inp">
+	    	<form id="ks" action="<%=path %>/site!queryOfFenye" method="post">
+	    		编号:<input name="id" type="text" value="${id }"/>
+	    		&nbsp;&nbsp;&nbsp;&nbsp;
+	    		网点条码：<input name="num" type="text" value="${num }"/>
+	    		&nbsp;&nbsp;&nbsp;&nbsp;
+	    		维护IT:<input name="it" type="text" value="${it }"/>
+	    		&nbsp;&nbsp;&nbsp;&nbsp;
+	    		维护类型:<input name="type" type="text" value="${type }"/>
+	    		<br/>
+	    		维护日期：<input name="dates" type="date" value="${dates }">
+	    		~<input name="datee" type="date" value="${datee }">
+	    		<br/>
+	    	</form>	
+   		</div>
     </div>
-    <div style="margin-bottom: 5px;">
     
+    
+    <div style="margin-bottom: 5px;">
     <table border="1" id="eidtASubjectWindow1" style="font-size: 12px;">
     <tr>
     	<th>编号</th>

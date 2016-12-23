@@ -35,8 +35,6 @@ public class SiteAction extends MyBaseAction{
 	private XtSite site;
 	private List<XtSite> sites;
 	private String result_site="site";
-	private String result_succ="succ";
-	private String result_fail="fail";
 	private String id;
 	private String num;
 	private String dates;
@@ -216,12 +214,12 @@ public class SiteAction extends MyBaseAction{
 			}else {
 				pageGj.setPageOn(1);
 			}
-			hql=hql+"order by SCreateTime desc";
+			hql=hql+"order by SCreateTime desc,SMaintainDate desc";
 			sites=ser.query(hql, null, hql, pageGj, ser);
 			sendArrayJson(sites, ser);
 			return null;
 		}else {
-			hql=hql+"and SState='有效' order by SCreateTime desc";
+			hql=hql+"and SState='有效' order by SCreateTime desc,SMaintainDate desc";
 			sites=ser.query(hql, null, hql, page, ser);
 			return result_site;
 		}
@@ -229,7 +227,7 @@ public class SiteAction extends MyBaseAction{
 	
 	private String gotoQuery() throws UnsupportedEncodingException {
 		clearOptions();
-		String hql="from XtSite where SState='有效' order by SCreateTime desc";
+		String hql="from XtSite where SState='有效' order by SCreateTime desc,SMaintainDate desc";
 		sites=ser.query(hql, null, hql, page, ser);
 		ser.receiveStructure(getRequest());
 		return result_site;

@@ -173,7 +173,7 @@ public class ZmNumberAction extends MyBaseAction{
 			hql=hql+"and zmApplyDate >= '"+dates+"' ";
 		if (datee!=null && !datee.trim().equals("")) 
 			hql=hql+"and zmApplyDate <= '"+datee+"' ";
-		hql=hql+" order by zmCreateTime desc"; 
+		hql=hql+" order by zmCreateTime desc,zmServiceDate desc"; 
 		zmns=ser.query(hql, null, hql, page, ser);
 		/*老版tree方法——已不用
 		//带上通讯录信息
@@ -186,7 +186,7 @@ public class ZmNumberAction extends MyBaseAction{
 	
 	private String gotoQuery() throws UnsupportedEncodingException {
 		clearOptions();
-		String hql="from XtZmNumber where zmState='有效' order by zmCreateTime desc";
+		String hql="from XtZmNumber where zmState='有效' order by zmCreateTime desc,zmServiceDate desc";
 		zmns=ser.query(hql, null, hql, page, ser);
 		/*老版tree方法——已不用
 		//带上通讯录信息
