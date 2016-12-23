@@ -11,6 +11,7 @@ import java.util.List;
 import org.apache.log4j.Logger;
 
 import com.zs.action.MyBaseAction;
+import com.zs.entity.Users;
 import com.zs.entity.XtSite;
 import com.zs.entity.XtZmData;
 import com.zs.entity.XtZmNumber;
@@ -20,20 +21,22 @@ import com.zs.tools.NameOfDate;
 import com.zs.tools.Page;
 
 public class ZmDataAction extends MyBaseAction{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	Logger logger=Logger.getLogger(ZmDataAction.class);
 	IService ser;
 	iXtZmDataService xtZmDataSer;
 	Page page;
-	
-	Logger logger=Logger.getLogger(ZmDataAction.class);
 	
 	XtZmData zmd;
 	List<XtZmData> zmds;
 	
 	String result="zmd";
-	String result_succ="succ";
-	String result_fail="fail";
 	
 	String id;
+	String cz;
 	String dates;
 	String datee;
 	private File fileExcel;
@@ -42,6 +45,12 @@ public class ZmDataAction extends MyBaseAction{
 	
 	
 	
+	public String getCz() {
+		return cz;
+	}
+	public void setCz(String cz) {
+		this.cz = cz;
+	}
 	public iXtZmDataService getXtZmDataSer() {
 		return xtZmDataSer;
 	}
@@ -111,89 +120,96 @@ public class ZmDataAction extends MyBaseAction{
 	//------------------------------------------------
 	private void clearOptions() {
 		id=null;
+		cz=null;
 		dates=null;
 		datee=null;
+		zmd=null;
+		zmds=null;
+		if (page==null) {
+			page=new Page(1, 0, 10);
+		}else {
+			page.setPageOn(1);
+		}
 	}
 	
 	private void clearSpace(){
-		if(id!=null){
-			id=id.trim();
-		}
+		id=id==null?null:id.trim();
+		cz=cz==null?null:cz.trim();
+		dates=dates==null?null:dates.trim();
+		datee=datee==null?null:datee.trim();
 	}
 	
 	public String queryOfFenye() throws UnsupportedEncodingException {
-		id=getRequest().getParameter("id");
-		String cz=getRequest().getParameter("cz");//用于判断是否清理page，yes清理，no不清理
-		if (page==null) {
-			page=new Page(1, 0, 5);
-		}
+		clearSpace();
 		if (cz!=null && cz.equals("yes")) {
-			page=new Page(1, 0, 5);
 			clearOptions();
 		}
-		clearSpace();
-		if (id!=null) {
-			String hql="from XtZmData where DId like '%"+id+"%'";
-			if (dates!=null && !dates.trim().equals("")) {
-				hql=hql+" and DDate >= '"+dates+"'";
-			}
-			if (datee!=null && !datee.trim().equals("")) {
-				hql=hql+" and DDate <= '"+datee+"'";
-			}
-			hql=hql+" order by DDate desc";
-			zmds=ser.query(hql, null, hql, page, ser);
-		}else {
-			String hql="from XtZmData order by DDate desc";
-			String ss[]={};
-			String hql2="from XtZmData order by DDate desc";
-			zmds=ser.query(hql, ss, hql2, page, ser);
-		}
+		String hql="from XtZmData where DState='有效' ";
+		if (id!=null && !id.equals("")) 
+			hql=hql+"and DId like '%"+id+"%' ";
+		if (dates!=null && !dates.trim().equals("")) 
+			hql=hql+"and DDate >= '"+dates+"' ";
+		if (datee!=null && !datee.trim().equals("")) 
+			hql=hql+"and DDate <= '"+datee+"' ";
+		hql=hql+"order by DCreateTime desc,DDate desc";
+		zmds=ser.query(hql, null, hql, page, ser);
 		return result;
 	}
 	
 	private String gotoQuery() {
 		clearOptions();
-		String hql="from XtZmData order by DDate desc";
-		String ss[]={};
-		String hql2="from XtZmData order by DDate desc";
-		zmds=ser.query(hql, ss, hql2, page, ser);
+		String hql="from XtZmData where DState='有效' order by DCreateTime desc,DDate desc";
+		zmds=ser.query(hql, null, hql, page, ser);
 		return result;
 	}
 	
 	public String delete() throws Exception {
-		String id=getRequest().getParameter("id");
+		clearSpace();
 		if (id!=null) {
 			zmd=(XtZmData) ser.get(XtZmData.class, id);
 			ser.delete(zmd);
 		}
-		zmd=null;
 		return gotoQuery();
 	}
 	
 	public String update() throws Exception {
+		clearSpace();
+		Users user=(Users) getSession().getAttribute("user");
 		if(zmd!=null && zmd.getDId()!=null && !"".equals(zmd.getDId().trim())){
 			XtZmData data=(XtZmData) ser.get(XtZmData.class, zmd.getDId());
+			data.setDState("无效");
+			ser.update(data);
+			
+			zmd.setDId(NameOfDate.getNum());
 			zmd.setDDate(data.getDDate());
-			ser.update(zmd);
+			zmd.setDCreateTime(new Timestamp(new Date().getTime()));
+			zmd.setDState("有效");
+			zmd.setUNum(user.getUNum());
+			ser.save(zmd);
 			getRequest().setAttribute("zmd", zmd);
 		}
-		zmd=null;
 		return gotoQuery();
 	}
 	
 	public String add() throws Exception {
+		clearSpace();
+		Users user=(Users) getSession().getAttribute("user");
 		if(zmd!=null){
 			zmd.setDId("d"+NameOfDate.getNum());
 			zmd.setDDate(new Timestamp(new Date().getTime()));
+			
+			zmd.setDCreateTime(new Timestamp(new Date().getTime()));
+			zmd.setDState("有效");
+			zmd.setUNum(user.getUNum());
 			ser.save(zmd);
 			getRequest().setAttribute("zmd", zmd);
 		}
-		zmd=null;
 		return gotoQuery();
 	}	
 	
 	public String importExcel() throws InterruptedException, IOException, ParseException {
-		xtZmDataSer.importExcelData(fileExcelFileName, fileExcel);
+		Users user=(Users) getSession().getAttribute("user");
+		xtZmDataSer.importExcelData(fileExcelFileName, fileExcel,user.getUNum());
 		return gotoQuery();
 	}
 }

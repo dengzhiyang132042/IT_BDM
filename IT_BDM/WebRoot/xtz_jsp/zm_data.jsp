@@ -28,6 +28,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script type="text/javascript" src="<%=path %>/FRAMEWORK/jquery-easyui/jquery.easyui.min.js"></script>
 	
 	<link rel="stylesheet" type="text/css" href="<%=path %>/FRAMEWORK/css/mycss.css">
+	<script type="text/javascript" src="<%=path %>/FRAMEWORK/js/myjs.js"></script>
 	<script type="text/javascript">
 	$(function(){
 		$("#sele option[value='"+${page.size}+"']").attr("selected",true);
@@ -63,32 +64,29 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		}
 		$('#f1').submit();
 	}
-	
 	</script>
-	
   </head>
-  
   <body>
     
     <div class="easyui-panel" title="哲盟数据检查登记" style="padding: 5px;display: none;" data-options="tools:'#tt'">
     
-    
-    <div style="background-color:white;margin-bottom: 5px;padding: 5px;border: 1px solid #224466; ">
-    	快速查询
-    	<br/>
-    	<form action="<%=path %>/zmd!queryOfFenye" method="post">
-    		编号:<input name="id" type="text" value="${id }"/>
-    		&nbsp;&nbsp;&nbsp;&nbsp;
-    		日期:<input name="dates" type="date" value="${dates }"/>
-    		~
-    		<input name="datee" type="date" value="${datee }"/>
-    		<br/>
-    		<input type="submit" value="查询"/>
-    	</form>	
+    <div class="kscx">
+   		<h1>快速查询</h1>
+   		<div  class="btn">
+   			<input type="submit" value="查询" onclick="$('.kscx .inp form').submit();"/>
+   		</div>
+   		<div class="inp">
+	    	<form action="<%=path %>/zmd!queryOfFenye" method="post">
+		    		编号:<input name="id" type="text" value="${id }"/>
+		    		&nbsp;&nbsp;&nbsp;&nbsp;
+		    		日期:<input name="dates" type="date" value="${dates }"/>
+		    		~
+		    		<input name="datee" type="date" value="${datee }"/>
+	    	</form>	
+   		</div>
     </div>
+    
     <div style="margin-bottom: 5px;">
-    
-    
     <table border="1" id="eidtASubjectWindow1" style="font-size: 12px;">
     <tr>
     	<th>编号</th>
@@ -101,6 +99,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     	<th>集包数据</th>
     	<th>装车数据</th>
     	<th>备注</th>
+    	<th>操作类型</th>
     	<th>操作</th>
     </tr>
     <c:forEach items="${zmds}" var="zmd">
@@ -115,6 +114,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<td width="">${zmd.DDataPackage }</td>
 		<td width="">${zmd.DDataCar }</td>
 		<td width="">${zmd.DNote }</td>
+		<td width="">${zmd.DType }</td>
 		<td width="5%" align="center">
 			<a onclick="update('${zmd.DId }','${zmd.DDate }','${zmd.DNoUpload9 }','${zmd.DNoUpload18 }','${zmd.DOffline }','${zmd.DPackage }','${zmd.DNoPackage }','${zmd.DDataPackage }','${zmd.DDataCar }','${zmd.DNote }')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-edit'" title="修改"></a>
 			<a href="<%=path %>/zmd!delete?id=${zmd.DId}" onclick="return confirm('确定删除吗?')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-delete'" title="删除"></a>
@@ -212,6 +212,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				</td>
 			</tr>
 			<tr>
+				<td>操作类型：</td>
+				<td>
+					<select name="zmd.DType">
+						<option value="维护">维护</option>
+						<option value="注销">注销</option>
+						<option value="注册">注册</option>
+					</select>
+				</td>
+			</tr>
+			<tr>
 				<td colspan="2" align="center">
 					<input class="easyui-linkbutton" type="submit" style="width: 95%;padding: 5px;" value="提交"/>
 				</td>			
@@ -272,6 +282,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				</td>
 			</tr>
 			<tr>
+				<td>操作类型：</td>
+				<td>
+					<select name="zmd.DType">
+						<option value="维护">维护</option>
+						<option value="注销">注销</option>
+						<option value="注册">注册</option>
+					</select>
+				</td>
+			</tr>
+			<tr>
 				<td colspan="2" align="center">
 					<input class="easyui-linkbutton" type="submit" style="width: 95%;padding: 5px;" value="提交"/>
 				</td>			
@@ -291,7 +311,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<table border="1">
 			<tr>
 				<td>Excel模板</td>
-				<td onmousemove="$(this).css('background-color','red');" onmouseout="$(this).css('background-color','white');" style="cursor: pointer;" onclick="window.location.href='<%=path%>/files/import/xtz/哲盟异常数据.xlsx';">
+				<td onmousemove="$(this).css('background-color','red');" onmouseout="$(this).css('background-color','white');" style="cursor: pointer;" onclick="window.location.href='<%=path%>/files/import/xtz/哲盟数据检查.xlsx';">
 					下载模板
 				</td>
 			</tr>

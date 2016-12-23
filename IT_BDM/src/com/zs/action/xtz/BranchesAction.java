@@ -184,7 +184,7 @@ public class BranchesAction extends MyBaseAction{
 		if (cz!=null && cz.equals("yes")) {
 			clearOptions();
 		}
-		String hql="from XtBranches where 1=1 ";
+		String hql="from XtBranches where BState='有效' ";
 		if (id!=null && !id.equals(""))
 			hql=hql+"and BId like '%"+id+"%' ";
 		if (num1!=null && !num1.equals("")) 
@@ -199,14 +199,14 @@ public class BranchesAction extends MyBaseAction{
 			hql=hql+"and BMaintainDate >= '"+dates+"' ";
 		if (datee!=null && !datee.equals("")) 
 			hql=hql+"and BMaintainDate <= '"+datee+"' ";
-		hql=hql+"and BState='有效' order by BCreateTime desc";
+		hql=hql+"order by BCreateTime desc,BMaintainDate desc";
 		bs=ser.query(hql, null, hql, page, ser);
 		return result_b;
 	}
 	
 	private String gotoQuery() throws UnsupportedEncodingException {
 		clearOptions();
-		String hql="from XtBranches where BState='有效' order by BCreateTime desc";
+		String hql="from XtBranches where BState='有效' order by BCreateTime desc,BMaintainDate desc";
 		bs=ser.query(hql, null, hql, page, ser);
 		return result_b;
 	}

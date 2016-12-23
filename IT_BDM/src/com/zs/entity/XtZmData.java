@@ -1,5 +1,6 @@
 package com.zs.entity;
 
+import java.sql.Timestamp;
 import java.util.Date;
 
 /**
@@ -20,6 +21,10 @@ public class XtZmData implements java.io.Serializable {
 	private Integer DDataPackage;
 	private Integer DDataCar;
 	private String DNote;
+	private String DType;
+	private Timestamp DCreateTime;
+	private String DState;
+	private String UNum;
 
 	// Constructors
 
@@ -36,7 +41,8 @@ public class XtZmData implements java.io.Serializable {
 	public XtZmData(String DId, Date DDate, Integer DNoUpload9,
 			Integer DNoUpload18, Integer DOffline, Integer DPackage,
 			Integer DNoPackage, Integer DDataPackage, Integer DDataCar,
-			String DNote) {
+			String DNote, String DType, Timestamp DCreateTime, String DState,
+			String UNum) {
 		this.DId = DId;
 		this.DDate = DDate;
 		this.DNoUpload9 = DNoUpload9;
@@ -47,6 +53,10 @@ public class XtZmData implements java.io.Serializable {
 		this.DDataPackage = DDataPackage;
 		this.DDataCar = DDataCar;
 		this.DNote = DNote;
+		this.DType = DType;
+		this.DCreateTime = DCreateTime;
+		this.DState = DState;
+		this.UNum = UNum;
 	}
 
 	// Property accessors
@@ -129,6 +139,38 @@ public class XtZmData implements java.io.Serializable {
 
 	public void setDNote(String DNote) {
 		this.DNote = DNote;
+	}
+
+	public String getDType() {
+		return this.DType;
+	}
+
+	public void setDType(String DType) {
+		this.DType = DType;
+	}
+
+	public Timestamp getDCreateTime() {
+		return this.DCreateTime;
+	}
+
+	public void setDCreateTime(Timestamp DCreateTime) {
+		this.DCreateTime = DCreateTime;
+	}
+
+	public String getDState() {
+		return this.DState;
+	}
+
+	public void setDState(String DState) {
+		this.DState = DState;
+	}
+
+	public String getUNum() {
+		return this.UNum;
+	}
+
+	public void setUNum(String UNum) {
+		this.UNum = UNum;
 	}
 
 }

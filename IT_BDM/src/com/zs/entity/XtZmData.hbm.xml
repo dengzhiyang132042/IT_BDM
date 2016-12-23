@@ -37,5 +37,17 @@
         <property name="DNote" type="java.lang.String">
             <column name="d_note" />
         </property>
+        <property name="DType" type="java.lang.String">
+            <column name="d_type" />
+        </property>
+        <property name="DCreateTime" type="java.sql.Timestamp">
+            <column name="d_create_time" length="19" />
+        </property>
+        <property name="DState" type="java.lang.String">
+            <column name="d_state" />
+        </property>
+        <property name="UNum" type="java.lang.String">
+            <column name="u_num" />
+        </property>
     </class>
 </hibernate-mapping>
