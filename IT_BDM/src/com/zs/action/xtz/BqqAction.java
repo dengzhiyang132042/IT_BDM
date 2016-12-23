@@ -26,8 +26,6 @@ public class BqqAction extends MyBaseAction{
 	private XtBqq b;
 	private List<XtBqq> bs;
 	private String result_b="bqq";
-	private String result_succ="succ";
-	private String result_fail="fail";
 	private String id;
 	private String num;
 	private String name;
@@ -140,8 +138,10 @@ public class BqqAction extends MyBaseAction{
 		b=null;
 		bs=null;
 		cz=null;
-		if (cz!=null && cz.equals("yes")) {
-			page=new Page(1, 0, 5);
+		if (page==null) {
+			page=new Page(1, 0, 10);
+		}else {
+			page.setPageOn(1);
 		}
 	}
 	
@@ -171,11 +171,11 @@ public class BqqAction extends MyBaseAction{
 	
 	public String queryOfFenye() throws UnsupportedEncodingException {
 		clearSpace();
-		if (page==null) {
-			page=new Page(1, 0, 5);
+		if (cz!=null && cz.equals("yes")) {
+			clearOptions();
 		}
 		String hql="from XtBqq where BState='有效'";
-		if (id!=null)
+		if (id!=null && !id.equals(""))
 			hql=hql+" and BId like '%"+id+"%'";
 		if (num!=null && !num.trim().equals("")) {
 			hql=hql+" and BNum like '%"+num+"%'";
@@ -205,6 +205,7 @@ public class BqqAction extends MyBaseAction{
 	}
 	
 	public String delete() throws Exception {
+		clearSpace();
 		if (id!=null) {
 			b=(XtBqq) ser.get(XtBqq.class, id);
 			ser.delete(b);
@@ -213,6 +214,7 @@ public class BqqAction extends MyBaseAction{
 	}
 	
 	public String update() throws Exception {
+		clearSpace();
 		if(b!=null && b.getBId()!=null && !"".equals(b.getBId().trim())){
 			XtBqq ob = (XtBqq) ser.get(XtBqq.class, b.getBId());
 			ob.setBState("无效");
@@ -225,11 +227,11 @@ public class BqqAction extends MyBaseAction{
 			b.setBState("有效");
 			ser.save(b);
 		}
-		b=null;
 		return gotoQuery();
 	}
 	
 	public String add() throws Exception {
+		clearSpace();
 		if(b!=null){
 			b.setBId("b"+NameOfDate.getNum());
 			Date date=new Date();
@@ -243,7 +245,6 @@ public class BqqAction extends MyBaseAction{
 			ser.save(b);
 			getRequest().setAttribute("b", b);
 		}
-		b=null;
 		return gotoQuery();
 	}	
 	

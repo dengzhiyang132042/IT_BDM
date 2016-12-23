@@ -99,12 +99,24 @@ public class DaCountZyAction extends MyBaseAction implements IMyBaseAction{
 		filtrate=null;
 		dates=null;
 		datee=null;
+		cz=null;
+		if (page==null) {
+			page=new Page(1, 0, 10);
+		}else {
+			page.setPageOn(1);
+		}
 	}
 	private void clearSpace() {
 		if (filtrate!=null && !filtrate.equals("")) {
 			filtrate=filtrate.trim();
 		}else {
 			filtrate="D";
+		}
+		if (dates!=null) {
+			dates=dates.trim();
+		}
+		if (datee!=null) {
+			datee=datee.trim();
 		}
 	}
 	
@@ -164,27 +176,48 @@ public class DaCountZyAction extends MyBaseAction implements IMyBaseAction{
 		String str="from DaDemand where DTime!=null ";
 		String str1="from DaDemand where DTime!=null ";
 		SimpleDateFormat sdf= new SimpleDateFormat("yyyy-MM-dd");
-		if(dates!=null&&datee!=null&&!dates.equals("")&&!datee.equals("")){
+		if((dates==null||dates.equals(""))&&(datee==null||datee.equals(""))){
+			Date d = new Date();
 			if(dt.equals("D")){
-				str=str+" and DTime <='"+datee+"'";
+				datee =	new SimpleDateFormat("yyyy-MM-dd").format(new Date(d.getYear(), d.getMonth(),d.getDate()));
+				dates =	new SimpleDateFormat("yyyy-MM-dd").format(new Date(d.getYear(), d.getMonth(),d.getDate()-7));
+			}
+			if(dt.equals("W")){
+				datee =	new SimpleDateFormat("yyyy-MM-dd").format(new Date(d.getYear(), d.getMonth(),d.getDate()));
+				dates =	new SimpleDateFormat("yyyy-MM-dd").format(new Date(d.getYear(), d.getMonth(),d.getDate()-7));
+				System.out.println(dates);
+			}
+			if(dt.equals("M")){
+				datee =	new SimpleDateFormat("yyyy-MM").format(new Date(d.getYear(), d.getMonth(),d.getDate()));
+				dates =	new SimpleDateFormat("yyyy-MM").format(new Date(d.getYear(), d.getMonth()-1,d.getDate()));
+			}
+			
+		}
+		if(dates!=null && !dates.equals("")){
+			if(dt.equals("D")||dt.equals("M")||dt.equals("Y")){
 				str1=str1+" and DTime >='"+dates+"'";
 			}
 			if(dt.equals("W")){
 				List datelist = WeekDateArea.weekdate(dates, datee);
-				str=str+" and DTime <='"+datelist.get(0)+"'";
 				str1=str1+" and DTime >='"+datelist.get(1)+"'";
 			}
+			
+		}
+		if(datee!=null && !datee.equals("")){
+			if(dt.equals("D")){
+				str=str+" and DTime <='"+datee+"'";
+			}
+			if(dt.equals("W")){
+				List datelist = WeekDateArea.weekdate(dates, datee);
+				str=str+" and DTime <='"+datelist.get(0)+"'";
+			}
 			if(dt.equals("M")){
-				//获取月的最后一天
 				Date edate = new Date(Integer.parseInt(datee.substring(0,4))-1900, Integer.parseInt(datee.substring(5)),0);
 				str=str+" and DTime <='"+sdf.format(edate)+"'";
-				str1=str1+" and DTime >='"+dates+"'";
 			}
 			if(dt.equals("Y")){
-				//获取年的最后一天
 				Date edate = new Date(Integer.parseInt(datee)-1900, 12,0);
 				str=str+" and DTime <='"+sdf.format(edate)+"'";
-				str1=str1+" and DTime >='"+dates+"'";
 			}
 		}
 		str=str+" order by DTime desc";
@@ -254,11 +287,7 @@ public class DaCountZyAction extends MyBaseAction implements IMyBaseAction{
 	
 	public String queryOfFenye() throws UnsupportedEncodingException {
 		if (cz!=null && cz.equals("yes")) {
-			clearOptions(); 
-			page=new Page(1, 0, 5);
-		}
-		if (page==null) {
-			page=new Page(1, 0, 5);
+			clearOptions();
 		}
 		clearSpace();
 		counts=new ArrayList<DaCount>();
