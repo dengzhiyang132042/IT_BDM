@@ -1,5 +1,6 @@
 package com.zs.entity;
 
+import java.sql.Timestamp;
 import java.util.Date;
 
 /**
@@ -19,6 +20,10 @@ public class XtBqRepair implements java.io.Serializable {
 	private String RBattery;
 	private String RLib;
 	private String RNote;
+	private Timestamp RCreateTime;
+	private String RType;
+	private String RState;
+	private String UNum;
 
 	// Constructors
 
@@ -33,7 +38,9 @@ public class XtBqRepair implements java.io.Serializable {
 
 	/** full constructor */
 	public XtBqRepair(String RId, Date RDate, Integer RWeek, String RNum,
-			String RSn, String RSim, String RBattery, String RLib, String RNote) {
+			String RSn, String RSim, String RBattery, String RLib,
+			String RNote, Timestamp RCreateTime, String RType, String RState,
+			String UNum) {
 		this.RId = RId;
 		this.RDate = RDate;
 		this.RWeek = RWeek;
@@ -43,6 +50,10 @@ public class XtBqRepair implements java.io.Serializable {
 		this.RBattery = RBattery;
 		this.RLib = RLib;
 		this.RNote = RNote;
+		this.RCreateTime = RCreateTime;
+		this.RType = RType;
+		this.RState = RState;
+		this.UNum = UNum;
 	}
 
 	// Property accessors
@@ -117,6 +128,38 @@ public class XtBqRepair implements java.io.Serializable {
 
 	public void setRNote(String RNote) {
 		this.RNote = RNote;
+	}
+
+	public Timestamp getRCreateTime() {
+		return this.RCreateTime;
+	}
+
+	public void setRCreateTime(Timestamp RCreateTime) {
+		this.RCreateTime = RCreateTime;
+	}
+
+	public String getRType() {
+		return this.RType;
+	}
+
+	public void setRType(String RType) {
+		this.RType = RType;
+	}
+
+	public String getRState() {
+		return this.RState;
+	}
+
+	public void setRState(String RState) {
+		this.RState = RState;
+	}
+
+	public String getUNum() {
+		return this.UNum;
+	}
+
+	public void setUNum(String UNum) {
+		this.UNum = UNum;
 	}
 
 }

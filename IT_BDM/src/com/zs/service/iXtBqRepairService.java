@@ -6,5 +6,5 @@ import java.text.ParseException;
 
 public interface iXtBqRepairService {
 
-	public void importExcelData(String fileName,File file)throws NumberFormatException, ParseException, IOException;
+	public void importExcelData(String fileName,File file,String unum)throws NumberFormatException, ParseException, IOException;
 }

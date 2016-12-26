@@ -10,6 +10,7 @@ import java.util.Date;
 import java.util.List;
 
 import com.zs.action.MyBaseAction;
+import com.zs.entity.Users;
 import com.zs.entity.XtBqRepair;
 import com.zs.service.IService;
 import com.zs.service.iXtBqRepairService;
@@ -39,6 +40,7 @@ public class BqRepairAction extends MyBaseAction{
 	String datee;
 	String sn;
 	String num;
+	String cz;
 	private File fileExcel;
 	private String fileExcelContentType;
 	private String fileExcelFileName; 
@@ -95,43 +97,39 @@ public class BqRepairAction extends MyBaseAction{
 	public XtBqRepair getBq() {
 		return bq;
 	}
-
 	public void setBq(XtBqRepair bq) {
 		this.bq = bq;
 	}
-
 	public List<XtBqRepair> getBqs() {
 		return bqs;
 	}
-
 	public void setBqs(List<XtBqRepair> bqs) {
 		this.bqs = bqs;
 	}
-
 	public String getId() {
 		return id;
 	}
-
 	public void setId(String id) {
 		this.id = id;
 	}
-
 	public String getDates() {
 		return dates;
 	}
-
 	public void setDates(String dates) {
 		this.dates = dates;
 	}
-
 	public String getDatee() {
 		return datee;
 	}
-
 	public void setDatee(String datee) {
 		this.datee = datee;
 	}
-
+	public String getCz() {
+		return cz;
+	}
+	public void setCz(String cz) {
+		this.cz = cz;
+	}
 	//------------------------------------------------
 	private void clearOptions() {
 		id=null;
@@ -139,6 +137,12 @@ public class BqRepairAction extends MyBaseAction{
 		datee=null;
 		sn=null;
 		num=null;
+		cz=null;
+		if (page==null) {
+			page=new Page(1, 0, 10);
+		}else {
+			page.setPageOn(1);
+		}
 	}
 	
 	private void clearSpace(){
@@ -160,37 +164,24 @@ public class BqRepairAction extends MyBaseAction{
 	}
 	
 	public String queryOfFenye() throws UnsupportedEncodingException {
-		id=getRequest().getParameter("id");
-		String cz=getRequest().getParameter("cz");//用于判断是否清理page，yes清理，no不清理
-		if (page==null) {
-			page=new Page(1, 0, 5);
-		}
+		clearSpace();
 		if (cz!=null && cz.equals("yes")) {
-			page=new Page(1, 0, 5);
 			clearOptions();
 		}
-		clearSpace();
 		if (id!=null) {
-			String hql="from XtBqRepair where RId like '%"+id+"%'";
-				if(sn!=null){
-					hql=hql+" and RSn like '%"+sn+"%'";
-				}
-				if(num!=null){
-					hql=hql+" and RNum like '%"+num+"%'";
-				}
-				if(dates!=null&&!dates.equals("")){
-					hql=hql+" and RDate >='"+dates+"'";
-				}
-				if(datee!=null&&!datee.equals("")){
-					hql=hql+" and RDate <='"+datee+"'";
-				}
-			hql=hql+" order by RDate desc";
+			String hql="from XtBqRepair where RState ='有效'";
+			if(id!=null&&!id.equals(""))
+				hql=hql+" RId like '%"+id+"%'";
+			if(sn!=null)
+				hql=hql+" and RSn like '%"+sn+"%'";
+			if(num!=null)
+				hql=hql+" and RNum like '%"+num+"%'";
+			if(dates!=null&&!dates.equals(""))
+				hql=hql+" and RDate >='"+dates+"'";
+			if(datee!=null&&!datee.equals(""))
+				hql=hql+" and RDate <='"+datee+"'";
+			hql=hql+" order by RCreateTime desc RDate desc";
 			bqs=ser.query(hql, null, hql, page, ser);
-		}else {
-			String hql="from XtBqRepair order by RDate desc";
-			String ss[]={};
-			String hql2="from XtBqRepair order by RDate desc";
-			bqs=ser.query(hql, ss, hql2, page, ser);
 		}
 		ser.receiveStructure(getRequest());
 		return result_bq;
@@ -198,16 +189,13 @@ public class BqRepairAction extends MyBaseAction{
 	
 	private String gotoQuery() throws UnsupportedEncodingException {
 		clearOptions();
-		String hql="from XtBqRepair order by RDate desc";
-		String ss[]={};
-		String hql2="from XtBqRepair order by RDate desc";
-		bqs=ser.query(hql, ss, hql2, page, ser);
+		String hql="from XtBqRepair where RState ='有效' order by RDate desc";
+		bqs=ser.query(hql, null, hql, page, ser);
 		ser.receiveStructure(getRequest());
 		return result_bq;
 	}
 	
 	public String delete() throws Exception {
-		String id=getRequest().getParameter("id");
 		if (id!=null) {
 			bq=(XtBqRepair) ser.get(XtBqRepair.class, id);
 			ser.delete(bq);
@@ -219,9 +207,18 @@ public class BqRepairAction extends MyBaseAction{
 	public String update() throws Exception {
 		if(bq!=null && bq.getRId()!=null && !"".equals(bq.getRId().trim())){
 			XtBqRepair bqrepair=(XtBqRepair) ser.get(XtBqRepair.class, bq.getRId());
+			bqrepair.setRState("无效");
+			ser.update(bqrepair);
+			
+			bq.setRId("R"+NameOfDate.getNum());
+			bq.setRCreateTime(new Timestamp(new Date().getTime()));
+			bq.setRType("维护");
+			bq.setRState("有效");
+			Users users=(Users) getSession().getAttribute("user");
+			bq.setUNum(users.getUNum());
 			bq.setRDate(bqrepair.getRDate());
 			bq.setRWeek(bqrepair.getRWeek());
-			ser.update(bq);
+			ser.save(bq);
 			getRequest().setAttribute("bq", bq);
 		}
 		bq=null;
@@ -234,6 +231,11 @@ public class BqRepairAction extends MyBaseAction{
 			Date date=new Date();
 			Calendar ca = Calendar.getInstance();//创建一个日期实例
 			ca.setTime(date);//实例化一个日期
+			Users users=(Users) getSession().getAttribute("user");
+			bq.setUNum(users.getUNum());
+			bq.setRCreateTime(new Timestamp(new Date().getTime()));
+			bq.setRType("维护");
+			bq.setRState("有效");
 			bq.setRDate(new Timestamp(date.getTime()));
 			bq.setRWeek(ca.get(Calendar.WEEK_OF_YEAR));
 			ser.save(bq);
@@ -244,7 +246,8 @@ public class BqRepairAction extends MyBaseAction{
 	}	
 	
 	public String importExcel() throws InterruptedException, IOException, ParseException {
-		bqRepairSer.importExcelData(fileExcelFileName, fileExcel);
+		Users us = (Users) getSession().getAttribute("user");
+		bqRepairSer.importExcelData(fileExcelFileName, fileExcel,us.getUNum());
 		return gotoQuery();
 	}
 	
