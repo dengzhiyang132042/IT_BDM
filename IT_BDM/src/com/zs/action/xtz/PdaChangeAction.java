@@ -4,10 +4,13 @@ import java.io.File;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.sql.Timestamp;
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+
+import net.sf.json.JSONObject;
 
 import sun.security.krb5.internal.PAData;
 
@@ -34,14 +37,13 @@ public class PdaChangeAction extends MyBaseAction{
 	List<XtPdaChange> pdas;
 	
 	String result_pda="pdachange";
-	String result_succ="succ";
-	String result_fail="fail";
 	
 	String id;
 	String weekNum;
 	String sn;
 	String dates;
 	String datee;
+	String cz;
 	private File fileExcel;
 	private String fileExcelContentType;
 	private String fileExcelFileName; 
@@ -126,6 +128,12 @@ public class PdaChangeAction extends MyBaseAction{
 	public void setPdas(List<XtPdaChange> pdas) {
 		this.pdas = pdas;
 	}
+	public String getCz() {
+		return cz;
+	}
+	public void setCz(String cz) {
+		this.cz = cz;
+	}
 	//------------------------------------------------
 	private void clearOptions() {
 		id=null;
@@ -133,6 +141,13 @@ public class PdaChangeAction extends MyBaseAction{
 		sn=null;
 		dates=null;
 		datee=null;
+		pda=null;
+		pdas=null;
+		if (page==null) {
+			page=new Page(1, 0, 10);
+		}else {
+			page.setPageOn(1);
+		}
 	}
 	
 	private void clearSpace(){
@@ -154,48 +169,31 @@ public class PdaChangeAction extends MyBaseAction{
 	}
 	
 	public String queryOfFenye() throws UnsupportedEncodingException {
-		id=getRequest().getParameter("id");
-		String cz=getRequest().getParameter("cz");//用于判断是否清理page，yes清理，no不清理
-		if (page==null) {
-			page=new Page(1, 0, 5);
-		}
+		clearSpace();
 		if (cz!=null && cz.equals("yes")) {
-			page=new Page(1, 0, 5);
 			clearOptions();
 		}
-		clearSpace();
-		if (id!=null) {
-			String hql="from XtPdaChange where CId like '%"+id+"%'";
-				if(weekNum!=null){
-					hql=hql+" and CWeek like '%"+weekNum+"%'";
-				}
-				if(sn!=null){
-					hql=hql+" and CSn like '%"+sn+"%'";
-				}
-				if(dates!=null&&!dates.equals("")){
-					hql=hql+" and CChangeDate >='"+dates+"'";
-				}
-				if(datee!=null&&!dates.equals("")){
-					hql=hql+" and CChangeDate <='"+datee+"'";
-				}
-			hql=hql+" order by CChangeDate desc";
-			pdas=ser.query(hql, null, hql, page, ser);
-		}else {
-			String hql="from XtPdaChange order by CChangeDate desc";
-			String ss[]={};
-			String hql2="from XtPdaChange order by CChangeDate desc";
-			pdas=ser.query(hql, ss, hql2, page, ser);
-		}
+		String hql="from XtPdaChange where CState = '有效' "; 
+		if (id!=null&&!id.equals(""))
+			hql = hql +" and CId like '%"+id+"%'";
+		if(weekNum!=null&&!weekNum.equals(""))
+			hql=hql+" and CWeek like '%"+weekNum+"%'";
+		if(sn!=null&&!sn.equals(""))
+			hql=hql+" and CSn like '%"+sn+"%'";
+		if(dates!=null&&!dates.equals(""))
+			hql=hql+" and CChangeDate >='"+dates+"'";
+		if(datee!=null&&!dates.equals(""))
+			hql=hql+" and CChangeDate <='"+datee+"'";
+		hql=hql+" order by CChangeDate desc";
+		pdas=ser.query(hql, null, hql, page, ser);
 		ser.receiveStructure(getRequest());
 		return result_pda;
 	}
 	
 	private String gotoQuery() throws UnsupportedEncodingException {
 		clearOptions();
-		String hql="from XtPdaChange order by CChangeDate desc";
-		String ss[]={};
-		String hql2="from XtPdaChange order by CChangeDate desc";
-		pdas=ser.query(hql, ss, hql2, page, ser);
+		String hql="from XtPdaChange where CState = '有效'  order by CCreateTime desc CChangeDate desc";
+		pdas=ser.query(hql, null, hql, page, ser);
 		ser.receiveStructure(getRequest());
 		return result_pda;
 	}
@@ -213,38 +211,57 @@ public class PdaChangeAction extends MyBaseAction{
 	public String update() throws Exception {
 		if(pda!=null && pda.getCId()!=null && !"".equals(pda.getCId().trim())){
 			XtPdaChange pdachange=(XtPdaChange) ser.get(XtPdaChange.class, pda.getCId());
+			pdachange.setCState("无效");
+			ser.update(pdachange);
+			
+			pda.setCId("c"+NameOfDate.getNum());
 			pda.setCDate(pdachange.getCDate());
-			pda.setCChangeDate(pdachange.getCChangeDate());
+			pda.setCChangeDate(new Date());
+			pda.setCCreateTime(new Timestamp(new Date().getTime()));
 			pda.setCWeek(pdachange.getCWeek());
-			ser.update(pda);
+			pda.setCState("有效");
+			Users users=(Users) getSession().getAttribute("user");
+			if(users!=null){
+				pda.setCIt(users.getUName());
+				pda.setUNum(users.getUNum());
+			}
+			ser.save(pda);
 			getRequest().setAttribute("pda", pda);
 		}
-		pda=null;
 		return gotoQuery();
 	}
 	
 	public String add() throws Exception {
+		String email = getRequest().getParameter("email");
 		if(pda!=null){
 			Users users=(Users) getSession().getAttribute("user");
 			pda.setCId("c"+NameOfDate.getNum());
 			Date date=new Date();
 			Calendar ca = Calendar.getInstance();//创建一个日期实例
 			ca.setTime(date);//实例化一个日期
-			pda.setCChangeDate(new Timestamp(date.getTime()));
 			pda.setCWeek(ca.get(Calendar.WEEK_OF_YEAR));
-			if(users!=null){
+			pda.setCCreateTime(new Timestamp(date.getTime()));
+			pda.setCState("有效");
+			pda.setUNum(users.getUNum());
+			if(pda.getCResult()!=null&&pda.getCReceiveMan()!=null
+					&&!pda.getCResult().trim().equals("")
+					&&!pda.getCReceiveMan().trim().equals("")){
 				pda.setCIt(users.getUName());
+				pda.setCChangeDate(new Date());
 			}
 			ser.save(pda);
+			if(email.equals("是")){
+				System.out.println("----成功进入");
+				pdaChangeSer.outEmail(users, pda);
+			}
 			getRequest().setAttribute("pda", pda);
 		}
-		pda=null;
 		return gotoQuery();
 	}	
 
-	
 	public String importExcel() throws InterruptedException, IOException, ParseException {
-		pdaChangeSer.importExcelData(fileExcelFileName, fileExcel);
+		Users users=(Users) getSession().getAttribute("user");
+		pdaChangeSer.importExcelData(fileExcelFileName, fileExcel,users.getUNum());
 		return gotoQuery();
 	}
 }

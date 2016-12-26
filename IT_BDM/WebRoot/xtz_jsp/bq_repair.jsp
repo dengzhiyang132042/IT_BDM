@@ -99,6 +99,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     	<th>有无SIM卡</th>
     	<th>有无电池</th>
     	<th>有无后盖</th>
+    	<th>操作类型</th>
     	<th>备注</th>
     	<th>操作</th>
     </tr>
@@ -112,6 +113,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<td width="">${bq.RSim }</td>
 		<td width="">${bq.RBattery }</td>
 		<td width="">${bq.RLib }</td>
+		<td width="">${bq.RType }</td>
 		<td width="">${bq.RNote }</td>
 		<td width="5%" align="center">
 			<a onclick="update('${bq.RId }','${bq.RNum }','${bq.RSn }','${bq.RSim }','${bq.RBattery }','${bq.RLib}','${bq.RNote }' )" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-edit'" title="修改"></a>
@@ -206,11 +208,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</form>
 	</div>
 	
-	<div id="a" class="easyui-window" title="添加" data-options="modal:true,closed:true" style="width:500px;height:auto;padding:10px;display: none;">
+	<div id="a" class="easyui-window" title="添加" data-options="modal:true,closed:true" style="width:350px;height:auto;padding:10px;display: none;">
 		<form action="<%=path %>/bqrepair!add" method="post">
 		<table border="0" class="table1">
 			<tr>
-				<td>站点条码：</td>
+				<td width="80">站点条码：</td>
 				<td>
 					<input name="bq.RNum" type="text" style="width: 100%;"/>
 				</td>

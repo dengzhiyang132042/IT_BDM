@@ -1,5 +1,6 @@
 package com.zs.entity;
 
+import java.sql.Timestamp;
 import java.util.Date;
 
 /**
@@ -23,6 +24,10 @@ public class XtPdaChange implements java.io.Serializable {
 	private String CResult;
 	private String CReceiveMan;
 	private String CNote;
+	private Timestamp CCreateTime;
+	private String CType;
+	private String CState;
+	private String UNum;
 
 	// Constructors
 
@@ -39,7 +44,8 @@ public class XtPdaChange implements java.io.Serializable {
 	public XtPdaChange(String CId, Date CDate, Integer CWeek, String CMan,
 			String CPage, String COldNum, String CNewNum, String CSn,
 			String CIt, Date CChangeDate, String CResult, String CReceiveMan,
-			String CNote) {
+			String CNote, Timestamp CCreateTime, String CType, String CState,
+			String UNum) {
 		this.CId = CId;
 		this.CDate = CDate;
 		this.CWeek = CWeek;
@@ -53,6 +59,10 @@ public class XtPdaChange implements java.io.Serializable {
 		this.CResult = CResult;
 		this.CReceiveMan = CReceiveMan;
 		this.CNote = CNote;
+		this.CCreateTime = CCreateTime;
+		this.CType = CType;
+		this.CState = CState;
+		this.UNum = UNum;
 	}
 
 	// Property accessors
@@ -159,6 +169,38 @@ public class XtPdaChange implements java.io.Serializable {
 
 	public void setCNote(String CNote) {
 		this.CNote = CNote;
+	}
+
+	public Timestamp getCCreateTime() {
+		return this.CCreateTime;
+	}
+
+	public void setCCreateTime(Timestamp CCreateTime) {
+		this.CCreateTime = CCreateTime;
+	}
+
+	public String getCType() {
+		return this.CType;
+	}
+
+	public void setCType(String CType) {
+		this.CType = CType;
+	}
+
+	public String getCState() {
+		return this.CState;
+	}
+
+	public void setCState(String CState) {
+		this.CState = CState;
+	}
+
+	public String getUNum() {
+		return this.UNum;
+	}
+
+	public void setUNum(String UNum) {
+		this.UNum = UNum;
 	}
 
 }

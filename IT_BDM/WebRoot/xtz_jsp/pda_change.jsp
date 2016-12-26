@@ -63,7 +63,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		}
 		$('#f1').submit();
 	}
-	
+	function addWindow(){
+		var today = new Date();   
+	    var day = today.getDate();   
+	    var month = today.getMonth() + 1;   
+	    var year = today.getYear()+1900;    
+	    var date = year + "-" + month + "-" + day;   
+	    $('#serdate').val(date);
+	    $('#a').window('open'); 
+	}
 	</script>
 	
   </head>
@@ -106,6 +114,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     	<th>变更日期</th>
     	<th>结果</th>
     	<th>领枪人</th>
+    	<th>操作类型</th>
     	<th>备注</th>
     	<th>操作</th>
     </tr>
@@ -123,6 +132,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<td width=""><fmt:formatDate value="${pda.CChangeDate }" pattern="yyyy/M/d"/></td>
 		<td width="">${pda.CResult }</td>
 		<td width="">${pda.CReceiveMan }</td>
+		<td width="">${pda.CType }</td>
 		<td width="">${pda.CNote }</td>
 		<td width="5%" align="center">
 			<a onclick="update('${pda.CId }','${pda.CDate }','${pda.CMan }','${pda.CPage }','${pda.CNewNum }','${pda.COldNum }','${pda.CSn }','${pda.CResult}','${pda.CReceiveMan }','${pda.CNote }' )" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-edit'" title="修改"></a>
@@ -163,11 +173,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</div>
 	</div>
 	
-	<div id="u" class="easyui-window" title="修改" data-options="modal:true,closed:true" style="width:500px;height:auto;padding:10px;display: none;">
+	<div id="u" class="easyui-window" title="修改" data-options="modal:true,closed:true" style="width:350px;height:auto;padding:10px;display: none;">
 		<form action="<%=path %>/pdachange!update" method="post">
 		<table border="0" class="table1">
 			<tr>
-				<td width="120">编号：</td>
+				<td width="80">编号：</td>
 				<td>
 					<input id="u_1" name="pda.CId" type="text" style="width: 100%;" readonly="readonly"/>
 				</td>
@@ -227,6 +237,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				</td>
 			</tr>
 			<tr>
+				<td>操作类型</td>
+				<td>
+					<select name="pda.CType" style="width:80px;">
+						<option value="维护">维 护</option>
+						<option value="注册">注 册</option>
+						<option value="注销">注 销</option>
+					</select>
+				</td>
+			</tr>
+			<tr>
 				<td colspan="2" align="center">
 					<input class="easyui-linkbutton" type="submit" style="width: 95%;padding: 5px;" value="提交"/>
 				</td>			
@@ -235,13 +255,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</form>
 	</div>
 	
-	<div id="a" class="easyui-window" title="添加" data-options="modal:true,closed:true" style="width:500px;height:auto;padding:10px;display: none;">
+	<div id="a" class="easyui-window" title="添加" data-options="modal:true,closed:true" style="width:350px;height:auto;padding:10px;display: none;">
 		<form action="<%=path %>/pdachange!add" method="post">
 		<table border="0" class="table1">
 			<tr>
-				<td width="120">提交日期：</td>
+				<td width="80">提交日期：</td>
 				<td>
-					<input name="pda.CDate" type="date" style="width: 100%;"/>
+					<input id="serdate" name="pda.CDate" type="date" style="width: 100%;"/>
 				</td>
 			</tr>
 			<tr>
@@ -293,8 +313,25 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				</td>
 			</tr>
 			<tr>
+				<td>操作类型</td>
+				<td>
+					<select name="pda.CType" style="width:80px;">
+						<option value="维护">维 护</option>
+						<option value="注册">注 册</option>
+						<option value="注销">注 销</option>
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<td>生成报修单：</td>
+				<td>
+					<input name="email" type="radio" checked="checked" value="是"/>是
+					<input name="email" type="radio" value="否" />否
+				</td>
+			</tr>
+			<tr>
 				<td colspan="2" align="center">
-					<input class="easyui-linkbutton" type="submit" style="width: 95%;padding: 5px;" value="提交"/>
+					<input class="easyui-linkbutton" type=submit style="width:100px;padding: 5px;" value="提 交"/>
 				</td>			
 			</tr>
 		</table>
@@ -303,7 +340,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	
 	<div id="tt" style="display: none;">
 		<a class="icon-zs-import" onclick="$('#in').window('open')" style="margin-left: 10px;" title="excel导入"></a>
-		<a class="icon-add" onclick="$('#a').window('open')" style="margin-left: 10px;" title="添加"></a>
+		<a class="icon-add" onclick="addWindow()" style="margin-left: 10px;" title="添加"></a>
 	</div>
 	
 	<div id="in" class="easyui-window" title="数据导入" data-options="modal:true,closed:true" style="width:400px;height:auto;padding:10px;display: none;overflow-x:hidden;">
