@@ -10,14 +10,18 @@
       </interceptor>  
       <interceptor name="timeline_inter" class="zs_interceptor_timeline">
       </interceptor>
-     <!-- <interceptor name="cache_inter" class="zs_interceptor_cache"> 
-      </interceptor> --> 
+      <!-- 
+      <interceptor name="cache_inter" class="zs_interceptor_cache"> 
+      </interceptor>
+      --> 
       <!-- 拦截器栈 -->  
       <interceptor-stack name="mydefault">  
           <interceptor-ref name="defaultStack" />  
           <interceptor-ref name="role_inter" />  
           <interceptor-ref name="timeline_inter" />
-        <!--   <interceptor-ref name="cache_inter" /> --> 
+          <!--   
+          <interceptor-ref name="cache_inter" />
+          --> 
       </interceptor-stack>  
   </interceptors>  
   
@@ -322,7 +326,6 @@
   </action>
   <!-- **********login************* -->
   <action name="login" class="zs_login_xtz">	
-  	 <interceptor-ref name="mydefault" />
      <result>/index.jsp</result>
      <result name="login">/login.jsp</result>
      <result name="succ">/success.jsp</result>

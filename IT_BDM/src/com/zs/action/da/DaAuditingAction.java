@@ -17,7 +17,9 @@ import com.zs.entity.DaDemand;
 import com.zs.entity.DaPerform;
 import com.zs.entity.Users;
 import com.zs.entity.ZmVpn;
+import com.zs.entity.custom.MailModel;
 
+import com.zs.mail.MailManager;
 import com.zs.mail.MailTest;
 import com.zs.service.IService;
 import com.zs.tools.NameOfDate;
@@ -46,44 +48,37 @@ public class DaAuditingAction extends MyBaseAction implements IMyBaseAction{
 	String content=null;
 	
 	private Logger logger=Logger.getLogger(DaAuditingAction.class);
+	private MailManager mailManager=MailManager.getInstance();//邮件发送者
 
-
+	
+	
 	public IService getSer() {
 		return ser;
 	}
-
 	public void setSer(IService ser) {
 		this.ser = ser;
 	}
-	
 	public DaPerform getP() {
 		return p;
 	}
-
 	public void setP(DaPerform p) {
 		this.p = p;
 	}
-
 	public DaDemand getD() {
 		return d;
 	}
-
 	public void setD(DaDemand d) {
 		this.d = d;
 	}
-
 	public List<DaDemPer> getDemper() {
 		return demper;
 	}
-
 	public void setDemper(List<DaDemPer> demper) {
 		this.demper = demper;
 	}
-
 	public Page getPage() {
 		return page;
 	}
-
 	public void setPage(Page page) {
 		this.page = page;
 	}
@@ -339,7 +334,7 @@ public class DaAuditingAction extends MyBaseAction implements IMyBaseAction{
 			}
 		}
 		try {
-			MailTest.outputMail(sj,MailTest.IT_ROBOT, content, title);
+			mailManager.addMail(new MailModel(sj,MailTest.IT_ROBOT, content, title));
 		} catch (Exception e) {
 			//日后换成邮件错误界面
 			getResponse().getWriter().write("邮件发送错误!请手动发送邮件");

@@ -18,6 +18,8 @@ import com.zs.entity.DaPerform;
 import com.zs.entity.Role;
 import com.zs.entity.Timeline;
 import com.zs.entity.Users;
+import com.zs.entity.custom.MailModel;
+import com.zs.mail.MailManager;
 import com.zs.mail.MailTest;
 import com.zs.service.IService;
 
@@ -29,6 +31,8 @@ public class TimeOutTimer extends TimerTask{
 	private IService ser = null;  
     
 	private Logger logger=Logger.getLogger(TimeOutTimer.class);
+	private static MailManager mailManager=MailManager.getInstance();//邮件发送者
+	
 	
 	public TimeOutTimer(ServletContext context,IService ser){  
         this.context = context;  
@@ -105,7 +109,7 @@ public class TimeOutTimer extends TimerTask{
 		String title="故障超时处理";
 		String sj=um.getUMail();
 		try {
-			MailTest.outputMail(sj,MailTest.IT_ROBOT, content, title);
+			mailManager.addMail(new MailModel(sj,MailTest.IT_ROBOT, content, title));
 		} catch (Exception e) {
 			return false;
 		}
@@ -142,7 +146,7 @@ public class TimeOutTimer extends TimerTask{
 		String title="故障预超时提醒";
 		String sj=um.getUMail();
 		try {
-			MailTest.outputMail(sj,MailTest.IT_ROBOT, content, title);
+			mailManager.addMail(new MailModel(sj,MailTest.IT_ROBOT, content, title));
 		} catch (Exception e) {
 			return false;
 		}

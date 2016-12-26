@@ -16,6 +16,8 @@ import com.zs.entity.DaDemPer;
 import com.zs.entity.DaDemand;
 import com.zs.entity.DaPerform;
 import com.zs.entity.Users;
+import com.zs.entity.custom.MailModel;
+import com.zs.mail.MailManager;
 import com.zs.mail.MailTest;
 import com.zs.service.IService;
 import com.zs.tools.NameOfDate;
@@ -42,6 +44,8 @@ public class DaManagerAction extends MyBaseAction implements IMyBaseAction{
 	String type;
 	
 	Logger logger=Logger.getLogger(DaManagerAction.class);
+	private static MailManager mailManager=MailManager.getInstance();//邮件发送者
+	
 	
 	public String getType() {
 		return type;
@@ -207,9 +211,8 @@ public class DaManagerAction extends MyBaseAction implements IMyBaseAction{
 		"<br/>地址：广东省深圳市龙华新区观澜大道114号（交警中队正对面）<br/>"+
 		"***************************************************<br/></div>";
 		try {
-			MailTest.outputMail(sj,MailTest.IT_ROBOT, content, title);
+			mailManager.addMail(new MailModel(sj,MailTest.IT_ROBOT, content, title));
 		} catch (Exception e) {
-//			return result_fail;
 			return false;
 		}
 		return true;
@@ -241,7 +244,7 @@ public class DaManagerAction extends MyBaseAction implements IMyBaseAction{
 		"<br/>地址：广东省深圳市龙华新区观澜大道114号（交警中队正对面）<br/>"+
 		"***************************************************<br/></div>";
 		try {
-			MailTest.outputMail(sj,MailTest.IT_ROBOT, content, title);
+			mailManager.addMail(new MailModel(sj,MailTest.IT_ROBOT, content, title));
 		} catch (Exception e) {
 			return false;
 		}
@@ -269,7 +272,7 @@ public class DaManagerAction extends MyBaseAction implements IMyBaseAction{
 				getRequest().setAttribute("p",p);
 				
 				String sj=um.getUMail();
-				if(DaManagerAction.outMailFromAdd(um,d)==false){
+				if(outMailFromAdd(um,d)==false){
 					//日后换成邮件错误界面
 					getResponse().getWriter().write("邮件发送错误!请手动发送邮件");
 					logger.error("邮件发送错误!请手动发送邮件,错误单号"+d.getDId());
@@ -328,7 +331,7 @@ public class DaManagerAction extends MyBaseAction implements IMyBaseAction{
 				um = (Users) ser.get(Users.class, tmpper.getUNum());
 				umnext = (Users) ser.get(Users.class, tmpper.getUNumNext());
 				
-				if(DaManagerAction.outMailFromUpdate(um, umnext, d)==false){
+				if(outMailFromUpdate(um, umnext, d)==false){
 					//日后换成邮件错误界面
 					getResponse().getWriter().write("邮件发送错误!请手动发送邮件");
 					logger.error("邮件发送错误!请手动发送邮件,错误单号"+d.getDId());

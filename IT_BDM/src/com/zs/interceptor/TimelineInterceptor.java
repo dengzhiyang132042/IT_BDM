@@ -54,6 +54,10 @@ import com.zs.tools.NameOfDate;
 public class TimelineInterceptor extends AbstractInterceptor{
 
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	IService ser;
 	HttpServletRequest request;
 	HttpServletResponse response;
