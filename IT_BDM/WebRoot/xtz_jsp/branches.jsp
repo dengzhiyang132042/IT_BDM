@@ -28,7 +28,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script type="text/javascript" src="<%=path %>/FRAMEWORK/jquery-easyui/jquery.easyui.min.js"></script>
 	<script type="text/javascript" src="<%=path %>/FRAMEWORK/My97DatePicker/WdatePicker.js"></script>
 	
-	
+	<script type="text/javascript" src="<%=path %>/FRAMEWORK/js/myjs.js"></script>
 	<link rel="stylesheet" type="text/css" href="<%=path %>/FRAMEWORK/css/mycss.css">
 	<script type="text/javascript">
 	$(function(){
@@ -36,7 +36,56 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		$("#eidtASubjectWindow1").show();
 		$('#tt').show();
 	});
-	
+	function gj_query(m,isClear){
+		console.log(isClear);
+		if (isClear=="true") {
+			$("#gj").html("");
+		}
+		$.post(
+			"<%=path%>/branches!queryOfFenye?gj=yes&more="+m,
+			$("#ks").serializeArray(),
+			function(data){
+				var json=$.parseJSON(data);
+				var str="<table border='1'>";
+				str=str+"<tr>";
+				str=str+"<th>编号</th>";
+				str=str+"<th>申请时间</th>";
+				str=str+"<th>维护日期</th>";
+				str=str+"<th>维护周数</th>";
+				str=str+"<th>一级网点条码</th>";
+				str=str+"<th>一级网点名称</th>";
+				str=str+"<th>一级网点负责人姓名</th>";
+				str=str+"<th>二级网点条码</th>";
+				str=str+"<th>二级网点名称</th>";
+				str=str+"<th>备注</th>";
+				str=str+"<th>操作类型</th>";
+				str=str+"<th>状态</th>";
+				str=str+"<th>录入时间</th>";
+				str=str+"</tr>"
+				for ( var i = 0; i < json.length; i++) {
+					str=str+"<tr>";
+					str=str+"<td>"+json[i].BId+"</td>";
+					str=str+"<td>"+json[i].BDate+"</td>";
+					str=str+"<td>"+json[i].BMaintainDate+"</td>";
+					str=str+"<td>"+json[i].BMaintainWeek+"</td>";
+					str=str+"<td>"+json[i].BNum1+"</td>";
+					str=str+"<td>"+json[i].BName1+"</td>";
+					str=str+"<td>"+json[i].BMaster1+"</td>";
+					str=str+"<td>"+json[i].BNum2+"</td>";
+					str=str+"<td>"+json[i].BName2+"</td>";
+					str=str+"<td>"+json[i].BNote+"</td>";
+					str=str+"<td>"+json[i].BType+"</td>";
+					str=str+"<td>"+json[i].BState+"</td>";
+					str=str+"<td>"+json[i].BCreateTime+"</td>";
+					str=str+"</tr>";
+				}
+				str=str+"</table>";
+				str=str+"<center><input type=\"button\" value=\"显示更多\" onclick=\"gj_query('yes','false')\"/></center>";
+				$("#gj").append(str);
+				$("#gj").window("open");
+			}
+		);
+	}
 	function update(u1,u2,u3,u4,u5,u6,u7,u8,u9,u10){
 		$('#u').window('open');
 		$('#u_1').val(u1);
@@ -74,27 +123,30 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     
     <div class="easyui-panel" title="二级站点登记" style="padding: 5px;display: none;" data-options="tools:'#tt'">
     
-    <div style="background-color:white;margin-bottom: 5px;padding: 5px;border: 1px solid #224466; ">
-    	快速查询
-    	<br/>
-    	<form action="<%=path %>/branches!queryOfFenye" method="post">
-    		编号:<input name="id" type="text" value="${id }"/>
-    		&nbsp;&nbsp;&nbsp;&nbsp;
-    		一级网点条码：<input name="num1" type="text" value="${num1 }"/>
-    		&nbsp;&nbsp;&nbsp;&nbsp;
-    		一级网点名称：<input name="name1" type="text" value="${name1 }"/>
-    		&nbsp;&nbsp;&nbsp;&nbsp;
-    		二级网点条码：<input name="num2" type="text" value="${num2 }"/>
-    		&nbsp;&nbsp;&nbsp;&nbsp;
-    		二级网点名称：<input name="name2" type="text" value="${name2 }"/>
-    		&nbsp;&nbsp;&nbsp;&nbsp;
-    		维护日期:<input name="dates" type="date" value="${dates }"/>
-    		~
-    		<input name="datee" type="date" value="${datee }"/>
-    		<br/>
-    		<input type="submit" value="查询"/>
-    	</form>	
+    <div class="kscx">
+   		<div  class="btn">
+   			<input type="submit" value="查询" onclick="$('.kscx .inp form').submit();"/>
+    		<input type="button" value="记录查询" onclick="gj_query('no','true')"/>
+   		</div>
+   		<div class="inp">
+	    	<form action="<%=path %>/branches!queryOfFenye" method="post">
+	    		编号:<input name="id" type="text" value="${id }"/>
+	    		&nbsp;&nbsp;&nbsp;&nbsp;
+	    		一级网点条码：<input name="num1" type="text" value="${num1 }"/>
+	    		&nbsp;&nbsp;&nbsp;&nbsp;
+	    		一级网点名称：<input name="name1" type="text" value="${name1 }"/>
+	    		&nbsp;&nbsp;&nbsp;&nbsp;
+	    		二级网点条码：<input name="num2" type="text" value="${num2 }"/>
+	    		&nbsp;&nbsp;&nbsp;&nbsp;
+	    		二级网点名称：<input name="name2" type="text" value="${name2 }"/>
+	    		&nbsp;&nbsp;&nbsp;&nbsp;
+	    		维护日期:<input name="dates" type="date" value="${dates }"/>
+	    		~
+	    		<input name="datee" type="date" value="${datee }"/>
+	    	</form>	
+   		</div>
     </div>
+    
     
     <div style="margin-bottom: 5px;">
     
@@ -285,6 +337,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</tr>
 		</table>
 		</form>
+	</div>
+	
+	<div id="gj" class="easyui-window" title="轨迹" data-options="modal:true,closed:true" style="width:95%;height:300px;padding:10px;display: none;">
 	</div>
 	
 	<div id="tt" style="display: none;">

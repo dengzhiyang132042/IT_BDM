@@ -26,7 +26,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<link rel="stylesheet" type="text/css" href="<%=path %>/FRAMEWORK/jquery-easyui/demo/demo.css">
 	<script type="text/javascript" src="<%=path %>/FRAMEWORK/jquery-easyui/jquery.min.js"></script>
 	<script type="text/javascript" src="<%=path %>/FRAMEWORK/jquery-easyui/jquery.easyui.min.js"></script>
-	<link rel="stylesheet" type="text/css" href="<%=path %>/FRAMEWORK/js/myjs.js">
+	
 	<link rel="stylesheet" type="text/css" href="<%=path %>/FRAMEWORK/css/mycss.css">
 	<script type="text/javascript" src="<%=path %>/FRAMEWORK/js/myjs.js"></script>
 	<script type="text/javascript">
@@ -38,7 +38,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	function gj_query(m,isClear){
 		console.log(isClear);
 		if (isClear=="true") {
-			console.log("11111111111111");
 			$("#gj").html("");
 		}
 		$.post(
@@ -116,8 +115,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <body>
     
     <div class="easyui-panel" title="站点资料" style="padding: 5px;display: none;" data-options="tools:'#tt'">
-     <div class="kscx">
- 		<h1>快速查询</h1>
+    <div class="kscx">
    		<div  class="btn">
    			<input type="submit" value="查询" onclick="$('.kscx .inp form').submit();"/>
     		<input type="button" value="记录查询" onclick="gj_query('no','true')"/>

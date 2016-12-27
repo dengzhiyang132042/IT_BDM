@@ -27,6 +27,7 @@ public class BranchesAction extends MyBaseAction{
 	private IService ser;
 	private iBranchesService branchesSer;
 	private Page page;
+	private Page pageGj;
 	private String result_b="branches";
 	private XtBranches b;
 	private List<XtBranches> bs;
@@ -45,6 +46,12 @@ public class BranchesAction extends MyBaseAction{
 	
 	
 	
+	public Page getPageGj() {
+		return pageGj;
+	}
+	public void setPageGj(Page pageGj) {
+		this.pageGj = pageGj;
+	}
 	public String getCz() {
 		return cz;
 	}
@@ -156,6 +163,11 @@ public class BranchesAction extends MyBaseAction{
 		}else {
 			page.setPageOn(1);
 		}
+		if (pageGj==null) {
+			pageGj=new Page(1, 0, 5);
+		}else {
+			pageGj.setPageOn(1);
+		}
 	}
 	
 	private void clearSpace(){
@@ -184,6 +196,8 @@ public class BranchesAction extends MyBaseAction{
 		if (cz!=null && cz.equals("yes")) {
 			clearOptions();
 		}
+		String gj=getRequest().getParameter("gj");
+		String more=getRequest().getParameter("more");
 		String hql="from XtBranches where BState='有效' ";
 		if (id!=null && !id.equals(""))
 			hql=hql+"and BId like '%"+id+"%' ";
@@ -199,9 +213,21 @@ public class BranchesAction extends MyBaseAction{
 			hql=hql+"and BMaintainDate >= '"+dates+"' ";
 		if (datee!=null && !datee.equals("")) 
 			hql=hql+"and BMaintainDate <= '"+datee+"' ";
-		hql=hql+"order by BCreateTime desc,BMaintainDate desc";
-		bs=ser.query(hql, null, hql, page, ser);
-		return result_b;
+		if (gj!=null && gj.equals("yes")) {
+			if (more!=null && more.equals("yes")) {
+				pageGj.setPageOn(pageGj.getPageOn()+1);
+			}else {
+				pageGj.setPageOn(1);
+			}
+			hql=hql+"order by BCreateTime desc,BMaintainDate desc";
+			bs=ser.query(hql, null, hql, pageGj, ser);
+			sendArrayJson(bs, ser);
+			return null;
+		}else {
+			hql=hql+"order by BCreateTime desc,BMaintainDate desc";
+			bs=ser.query(hql, null, hql, page, ser);
+			return result_b;
+		}
 	}
 	
 	private String gotoQuery() throws UnsupportedEncodingException {
