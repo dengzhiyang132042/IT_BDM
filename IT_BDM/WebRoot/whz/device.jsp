@@ -103,11 +103,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     	<th width="130px">编号</th>
     	<th>日期</th>
     	<th>巡检时间</th>
+    	<th>巡检IT</th>
     	<th>电子称较称</th>
     	<th>称平台是否平稳</th>
     	<th>异常描述</th>
     	<th>处理结果</th>
-    	<th>巡检IT</th>
     	<th>周保养</th>
     	<th>月保养</th>
     	<th>备注</th>
@@ -118,11 +118,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<td width="">${d.DId }</td>
 		<td width=""><fmt:formatDate value="${d.DDate }" pattern="yyyy-MM-dd" /></td>
 		<td width=""><fmt:formatDate value="${d.DTime }" pattern="HH:mm" /></td>
+		<td width="">${d.DIt }</td>
 		<td width="">${d.DFit }</td>
 		<td width="">${d.DFitFirm }</td>
 		<td width="">${d.DAbnormalNote }</td>
 		<td width="">${d.DResult }</td>
-		<td width="">${d.DIt }</td>
 		<td width="">${d.DWeekMaintain }</td>
 		<td width="">${d.DMonthMaintain }</td>
 		<td width="">${d.DNote }</td>

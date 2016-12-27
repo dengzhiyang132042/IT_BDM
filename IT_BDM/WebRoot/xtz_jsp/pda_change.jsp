@@ -26,7 +26,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<link rel="stylesheet" type="text/css" href="<%=path %>/FRAMEWORK/jquery-easyui/demo/demo.css">
 	<script type="text/javascript" src="<%=path %>/FRAMEWORK/jquery-easyui/jquery.min.js"></script>
 	<script type="text/javascript" src="<%=path %>/FRAMEWORK/jquery-easyui/jquery.easyui.min.js"></script>
-	
+	<link rel="stylesheet" type="text/css" href="<%=path %>/FRAMEWORK/js/myjs.js">
 	<link rel="stylesheet" type="text/css" href="<%=path %>/FRAMEWORK/css/mycss.css">
 	<script type="text/javascript">
 	$(function(){
@@ -71,6 +71,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    var date = year + "-" + month + "-" + day;   
 	    $('#serdate').val(date);
 	    $('#a').window('open'); 
+	}
+	function validateNum(){
+		var onum = $('#oldNum').val();
+		var nnum = $('#newNum').val();
+		var errors="原条码不能和新条码相同";
+		if(onum==nnum){
+			alert(errors);
+		}else{
+			$('#from_a').submit(); 
+		}
 	}
 	</script>
 	
@@ -146,7 +156,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<div class="easyui-panel" style="padding:5px;width: 100%;display: none;">
 		<form id="f1" action="<%=path %>/pdachange!queryOfFenye?id=${id}&weekNum=${weekNum }&sn=${sn }&dates=${dates}&datee=${datee}" method="post">
 		<select id="sele" style="float: left;margin-top: 3px;margin-left: 5px;" name="page.size" onchange="$('#f1').submit();">
-			<option value="5">5</option>
 			<option value="10">10</option>
 			<option value="15">15</option>
 		</select>
@@ -183,15 +192,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				</td>
 			</tr>
 			<tr>
-				<td>提交日期：</td>
-				<td>
-					<input id="u_2" name="pda.CDate" type="date" style="width: 100%;"/>
-				</td>
-			</tr>
-			<tr>
 				<td>申请人：</td>
 				<td>
-					<input id="u_3" name="pda.CMan" type="text" style="width: 100%;"/>
+					<input id="u_3" name="pda.CMan" type="text" style="width: 100%;" readonly="readonly"/>
 				</td>
 			</tr>
 			<tr>
@@ -256,7 +259,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</div>
 	
 	<div id="a" class="easyui-window" title="添加" data-options="modal:true,closed:true" style="width:350px;height:auto;padding:10px;display: none;">
-		<form action="<%=path %>/pdachange!add" method="post">
+		<form action="<%=path %>/pdachange!add" method="post" id="from_a">
+		<span id="error_num"></span>
 		<table border="0" class="table1">
 			<tr>
 				<td width="80">提交日期：</td>
@@ -279,13 +283,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<tr>
 				<td>原条码：</td>
 				<td>
-					<input name="pda.COldNum" type="text" style="width: 100%;"/>
+					<input id="oldNum" name="pda.COldNum" type="text" style="width: 100%;"/>
 				</td>
 			</tr>
 			<tr>
 				<td>新条码：</td>
 				<td>
-					<input name="pda.CNewNum" type="text" style="width: 100%;"/>
+					<input id="newNum" name="pda.CNewNum" type="text" style="width: 100%;"/>
 				</td>
 			</tr>
 			<tr>
@@ -331,7 +335,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</tr>
 			<tr>
 				<td colspan="2" align="center">
-					<input class="easyui-linkbutton" type=submit style="width:100px;padding: 5px;" value="提 交"/>
+					<input class="easyui-linkbutton" type="button" onclick="validateNum()" style="width:100px;padding: 5px;margin-left:100px;" value="提 交"/>
 				</td>			
 			</tr>
 		</table>

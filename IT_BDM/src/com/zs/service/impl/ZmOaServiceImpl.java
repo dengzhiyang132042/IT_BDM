@@ -15,7 +15,7 @@ import com.zs.tools.NameOfDate;
 public class ZmOaServiceImpl extends BaseService implements iDataImportService{
 	private Logger log=Logger.getLogger(ZmOaServiceImpl.class);
 
-	public void importExcelData(String fileName, File file) {
+	public void importExcelData(String fileName, File file,String unum) {
 		try {
 			List<String[]> list=ExcelImport.getDataFromExcel(fileName,file);
 			for (int i = 1; i < list.size(); i++) {

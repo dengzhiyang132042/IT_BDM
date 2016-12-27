@@ -17,7 +17,7 @@ public class ZmBqServiceImpl extends BaseService implements iDataImportService{
 
 	private Logger log=Logger.getLogger(ZmBqServiceImpl.class);
 	
-	public void importExcelData(String fileName, File file) {
+	public void importExcelData(String fileName, File file,String unum) {
 		try {
 			List<String[]> list=ExcelImport.getDataFromExcel(fileName,file);
 			for (int i = 1; i < list.size(); i++) {

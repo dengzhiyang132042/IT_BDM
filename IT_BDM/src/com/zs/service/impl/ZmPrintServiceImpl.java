@@ -16,7 +16,7 @@ public class ZmPrintServiceImpl extends BaseService implements iDataImportServic
 	
 	private Logger log=Logger.getLogger(ZmPrintServiceImpl.class);
 	
-	public void importExcelData(String fileName, File file) {
+	public void importExcelData(String fileName, File file,String unum) {
 		try {
 			List<String[]> list=ExcelImport.getDataFromExcel(fileName,file);
 			for (int i = 1; i < list.size(); i++) {

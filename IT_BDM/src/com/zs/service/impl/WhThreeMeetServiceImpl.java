@@ -16,7 +16,7 @@ public class WhThreeMeetServiceImpl extends BaseService implements iDataImportSe
 
 	private Logger log=Logger.getLogger(WhThreeMeetServiceImpl.class);
 	
-	public void importExcelData(String fileName, File file) {
+	public void importExcelData(String fileName, File file,String unum) {
 		try {
 			List<String[]> list=ExcelImport.getDataFromExcel(fileName,file);
 			for (int i = 1; i < list.size(); i++) {

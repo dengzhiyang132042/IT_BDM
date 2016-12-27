@@ -30,7 +30,7 @@ String beforeTime= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Calendar.g
 	<script type="text/javascript" src="<%=path %>/FRAMEWORK/My97DatePicker/WdatePicker.js"></script>
 	
 	<link rel="stylesheet" type="text/css" href="<%=path %>/FRAMEWORK/css/mycss.css">
-	
+	<link rel="stylesheet" type="text/css" href="<%=path %>/FRAMEWORK/js/myjs.js">
 	<script type="text/javascript">
 	$(function(){
 		$("#type_sel option[value='${type}']").attr("selected",true);

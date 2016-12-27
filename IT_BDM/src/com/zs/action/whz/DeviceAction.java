@@ -208,7 +208,8 @@ public class DeviceAction extends MyBaseAction implements IMyBaseAction{
 		return gotoQuery();
 	}
 	public String importExcel() throws UnsupportedEncodingException {
-		importSer.importExcelData(fileExcelFileName, fileExcel);
+		Users users=(Users) getSession().getAttribute("user");
+		importSer.importExcelData(fileExcelFileName, fileExcel,users.getUNum());
 		return gotoQuery();
 	}
 }
