@@ -38,7 +38,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			if (index >= tabs.length){
 				index = 0;
 			}
-		}, 1000);
+		}, 3000);
 	});
 	</script>
 	

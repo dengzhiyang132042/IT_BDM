@@ -20,7 +20,7 @@ public class VpnServiceImpl extends BaseService implements iVpnService,iDataImpo
 	
 	private Logger log=Logger.getLogger(VpnServiceImpl.class);
 
-	public void importExcelData(String fileName, File file){
+	public void importExcelData(String fileName, File file,String unum){
 		try {
 			List<String[]> list=ExcelImport.getDataFromExcel(fileName,file);
 			for (int i = 1; i < list.size(); i++) {

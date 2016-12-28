@@ -143,6 +143,7 @@ public class PdaChangeAction extends MyBaseAction{
 		datee=null;
 		pda=null;
 		pdas=null;
+		cz=null;
 		if (page==null) {
 			page=new Page(1, 0, 10);
 		}else {
@@ -166,6 +167,7 @@ public class PdaChangeAction extends MyBaseAction{
 		if(datee!=null){
 			datee=datee.trim();
 		}
+		cz=cz==null?null:cz.trim();
 	}
 	
 	public String queryOfFenye() throws UnsupportedEncodingException {
@@ -184,7 +186,7 @@ public class PdaChangeAction extends MyBaseAction{
 			hql=hql+" and CChangeDate >='"+dates+"'";
 		if(datee!=null&&!dates.equals(""))
 			hql=hql+" and CChangeDate <='"+datee+"'";
-		hql=hql+" order by CChangeDate desc";
+		hql=hql+" order by CCreateTime desc CChangeDate desc";
 		pdas=ser.query(hql, null, hql, page, ser);
 		ser.receiveStructure(getRequest());
 		return result_pda;

@@ -18,13 +18,13 @@ public class WhMassageServiceImpl extends BaseService implements iDataImportServ
 
 	private Logger log=Logger.getLogger(WhMassageServiceImpl.class);
 	
-	public void importExcelData(String fileName, File file) {
+	public void importExcelData(String fileName, File file,String unum) {
 		try {
 			List<String[]> list=ExcelImport.getDataFromExcel(fileName,file);
 			for (int i = 1; i < list.size(); i++) {
 				try {
 					WhMassageReceive massage=new WhMassageReceive("m"+NameOfDate.getNum(), list.get(i)[0], transToDate(list.get(i)[1]), 
-							list.get(i)[2],list.get(i)[3], list.get(i)[4],list.get(i)[5], list.get(i)[6], list.get(i)[7],
+							list.get(i)[2],list.get(i)[3], list.get(i)[4],list.get(i)[5].replace(",", ""), list.get(i)[6], list.get(i)[7],
 							list.get(i)[8], list.get(i)[9],list.get(i)[10], new Timestamp(new Date().getTime()));
 					save(massage);
 				} catch (Exception e) {

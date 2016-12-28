@@ -103,9 +103,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <tr>
     	<th width="130px">编号</th>
     	<th>日期</th>
+    	<th>时间</th>
     	<th>巡检it</th>
     	<th>监控主机</th>
-    	<th>时间</th>
     	<th>录像</th>
     	<th>空间</th>
     	<th>服务器</th>
@@ -119,9 +119,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <tr>
 		<td width="">${m.MId }</td>
 		<td width=""><fmt:formatDate value="${m.MDate }" pattern="yyyy-MM-dd" /></td>
+		<td width=""><fmt:formatDate value="${m.MTime }" pattern="HH:mm" /></td>
 		<td width="">${m.MIt }</td>
 		<td width="">${m.MMonitorMaster }</td>
-		<td width=""><fmt:formatDate value="${m.MTime }" pattern="HH:mm" /></td>
 		<td width="">${m.MVideo }</td>
 		<td width="">${m.MRoom }</td>
 		<td width="">${m.MService }</td>

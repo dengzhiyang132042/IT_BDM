@@ -25,5 +25,17 @@
         <property name="HSolve" type="java.lang.String">
             <column name="h_solve" />
         </property>
+        <property name="HCreateTime" type="java.sql.Timestamp">
+            <column name="h_create_time" length="19" />
+        </property>
+        <property name="HState" type="java.lang.String">
+            <column name="h_state" />
+        </property>
+        <property name="HType" type="java.lang.String">
+            <column name="h_type" />
+        </property>
+        <property name="UNum" type="java.lang.String">
+            <column name="u_num" />
+        </property>
     </class>
 </hibernate-mapping>

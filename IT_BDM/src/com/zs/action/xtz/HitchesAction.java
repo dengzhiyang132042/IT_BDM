@@ -141,7 +141,7 @@ public class HitchesAction extends MyBaseAction{
 			page=new Page(1, 0, 5);
 		}
 		clearSpace();
-		String hql="from XtHitches where 1=1";
+		String hql="from XtHitches where HState ='有效' ";
 		if (id!=null) {
 			hql=hql+" and HId like '%"+id+"%'";
 		}
@@ -151,15 +151,23 @@ public class HitchesAction extends MyBaseAction{
 		if (datee!=null && !datee.equals("")) {
 			hql=hql+" and HTimeStart <= '"+datee+" 23:59:59'";
 		}
-		hql=hql+" order by HTimeStart desc";
+		hql=hql+" order by HCreateTime desc HTimeStart desc";
 		hs=ser.query(hql, null, hql, page, ser);
+		for(int i = 0 ; i< hs.size(); i++){
+			int interval =  (int) ((hs.get(i).getHTimeEnd().getTime()-hs.get(i).getHTimeStart().getTime())/(1000*60));
+			hs.get(i).setHTimeInterval(interval);
+		}
 		return result;
 	}
 	
 	private String gotoQuery() throws UnsupportedEncodingException {
 		clearOptions();
-		String hql="from XtHitches order by HTimeStart desc";
+		String hql="from XtHitches where HState ='有效' order by HCreateTime desc HTimeStart desc";
 		hs=ser.query(hql, null, hql, page, ser);
+		for(int i = 0 ; i< hs.size(); i++){
+			int interval =  (int) ((hs.get(i).getHTimeEnd().getTime()-hs.get(i).getHTimeStart().getTime())/(1000*60));
+			hs.get(i).setHTimeInterval(interval);
+		}
 		return result;
 	}
 	
@@ -179,12 +187,22 @@ public class HitchesAction extends MyBaseAction{
 		String times=getRequest().getParameter("h_time_s");
 		String timee=getRequest().getParameter("h_time_e");
 		if(h!=null && date!=null && times!=null && timee!=null && h.getHId()!=null){
+			XtHitches xh = (XtHitches) ser.get(XtHitches.class, h.getHId());
+			xh.setHState("无效");
+			ser.update(xh);
+			
+			h.setHId(NameOfDate.getNum());
 			SimpleDateFormat format=new SimpleDateFormat("yyyy-MM-dd HH:mm");
 			Date date1=format.parse(date+" "+times);
 			Date date2=format.parse(date+" "+timee);
 			h.setHTimeStart(new Timestamp(date1.getTime()));
 			h.setHTimeEnd(new Timestamp(date2.getTime()));
-			ser.update(h);
+			h.setHCreateTime(new Timestamp(new Date().getTime()));
+			h.setHState("有效");
+			h.setHType("维护");
+			Users users=(Users) getSession().getAttribute("user");
+			h.setUNum(users.getUNum());
+			ser.save(h);
 			getRequest().setAttribute("h", h);
 		}
 		return gotoQuery();
@@ -201,6 +219,11 @@ public class HitchesAction extends MyBaseAction{
 			h.setHId(NameOfDate.getNum());
 			h.setHTimeStart(new Timestamp(date1.getTime()));
 			h.setHTimeEnd(new Timestamp(date2.getTime()));
+			h.setHCreateTime(new Timestamp(new Date().getTime()));
+			h.setHState("有效");
+			h.setHType("维护");
+			Users users=(Users) getSession().getAttribute("user");
+			h.setUNum(users.getUNum());
 			ser.save(h);
 			getRequest().setAttribute("h", h);
 		}
@@ -208,7 +231,8 @@ public class HitchesAction extends MyBaseAction{
 	}	
 	
 	public String importExcel() throws InterruptedException, IOException, ParseException {
-		importSer.importExcelData(fileExcelFileName, fileExcel);
+		Users users=(Users) getSession().getAttribute("user");
+		importSer.importExcelData(fileExcelFileName, fileExcel,users.getUNum());
 		return gotoQuery();
 	}
 	

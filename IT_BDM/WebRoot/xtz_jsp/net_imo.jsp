@@ -75,6 +75,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		$("#q").html(table1);
 		$("#q").window('open');
 	}
+	function addWindow(){
+		var today = new Date();   
+	    var day = today.getDate();   
+	    var month = today.getMonth() + 1;   
+	    var year = today.getYear()+1900;    
+	    var date = year + "-" + month + "-" + day;   
+	    $('#serdate').val(date);
+	    $('#a').window('open'); 
+	}
 	</script>
 	
   </head>
@@ -251,7 +260,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<tr>
 				<td width="100">登记日期：</td>
 				<td>
-					<input name="imo.IRegisterDate" type="date" style="width: 100%;"/>
+					<input id="serdate" name="imo.IRegisterDate" type="date" style="width: 100%;"/>
 				</td>
 			</tr>
 			<tr>
@@ -318,7 +327,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	
 	<div id="tt" style="display: none;">
 		<a class="icon-zs-import" onclick="$('#in').window('open')" style="margin-left: 10px;" title="excel导入"></a>
-		<a class="icon-add" onclick="$('#a').window('open')" style="margin-left: 10px;" title="添加"></a>
+		<a class="icon-add" onclick="addWindow();defualtOutTime()" style="margin-left: 10px;" title="添加"></a>
 	</div>
 	
 	<div id="in" class="easyui-window" title="数据导入" data-options="modal:true,closed:true" style="width:400px;height:auto;padding:10px;display: none;overflow-x:hidden;">

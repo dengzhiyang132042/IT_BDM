@@ -100,7 +100,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     	<th>日期</th>
     	<th>开始时间</th>
     	<th>结束时间</th>
+    	<th>时间间隔</th>
     	<th>故障描述</th>
+    	<th>操作类型</th>
     	<th>备注</th>
     	<th>解决路径</th>
     	<th>操作</th>
@@ -111,7 +113,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<td width=""><fmt:formatDate value="${h.HTimeStart }" pattern="yyyy-MM-dd" /></td>
 		<td width=""><fmt:formatDate value="${h.HTimeStart }" pattern="HH:mm" /></td>
 		<td width=""><fmt:formatDate value="${h.HTimeEnd }" pattern="HH:mm" /></td>
+		<td width="">${h.HTimeInterval }</td>
 		<td width="">${h.HDesc }</td>
+		<td width="">${h.HType }</td>
 		<td width="">${h.HNote }</td>
 		<td width="">${h.HSolve }</td>
 		<td width="5%" align="center">

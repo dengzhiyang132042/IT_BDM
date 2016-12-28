@@ -12,6 +12,7 @@ import org.apache.log4j.Logger;
 
 import com.zs.action.IMyBaseAction;
 import com.zs.action.MyBaseAction;
+import com.zs.entity.Users;
 import com.zs.entity.ZmWifi;
 import com.zs.service.IService;
 import com.zs.service.iDataImportService;
@@ -242,7 +243,8 @@ public class WifiAction extends MyBaseAction implements IMyBaseAction{
 	}
 
 	public String importExcel() throws InterruptedException, IOException, ParseException {
-		importSer.importExcelData(fileExcelFileName, fileExcel);
+		Users users=(Users) getSession().getAttribute("user");
+		importSer.importExcelData(fileExcelFileName, fileExcel,users.getUNum());
 		return gotoQuery();
 	}
 	

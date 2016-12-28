@@ -19,13 +19,14 @@ public class XtHitchesServiceImpl extends BaseService implements iDataImportServ
 
 	private Logger log=Logger.getLogger(XtHitchesServiceImpl.class);
 	
-	public void importExcelData(String fileName, File file) {
+	public void importExcelData(String fileName, File file,String unum) {
 		try {
 			List<String[]> list=ExcelImport.getDataFromExcel(fileName,file);
 			for (int i = 1; i < list.size(); i++) {
 				try {
 					XtHitches hitches=new XtHitches(NameOfDate.getNum(), transToTimestamp(list.get(i)[0]+" "+list.get(i)[1]),
-							transToTimestamp(list.get(i)[0]+" "+list.get(i)[2]), list.get(i)[3], list.get(i)[4], list.get(i)[5]);
+							transToTimestamp(list.get(i)[0]+" "+list.get(i)[2]), list.get(i)[3], list.get(i)[4], list.get(i)[5],
+							new Timestamp(new Date().getTime()),"有效","维护",unum);
 					save(hitches);
 				} catch (Exception e) {
 					log.error("数据格式错误:请注意填写的数据格式，另外不要留空，数字类型的没有就写0，文本类型的没有可以不写，时间类型的一定要写");

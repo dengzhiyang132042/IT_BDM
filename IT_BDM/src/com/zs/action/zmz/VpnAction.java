@@ -249,7 +249,8 @@ public class VpnAction extends MyBaseAction{
 	}	
 	
 	public String importExcel() throws InterruptedException, IOException, ParseException {
-		vpnSer.importExcelData(fileExcelFileName, fileExcel);
+		Users users=(Users) getSession().getAttribute("user");
+		vpnSer.importExcelData(fileExcelFileName, fileExcel,users.getUNum());
 		return gotoQuery();
 	}
 }

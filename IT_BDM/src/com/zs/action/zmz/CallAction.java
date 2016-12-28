@@ -264,7 +264,8 @@ public class CallAction extends MyBaseAction implements IMyBaseAction{
 		return gotoQuery();
 	}
 	public String importExcel() throws InterruptedException, IOException, ParseException {
-		importSer.importExcelData(fileExcelFileName, fileExcel);
+		Users users=(Users) getSession().getAttribute("user");
+		importSer.importExcelData(fileExcelFileName, fileExcel,users.getUNum());
 		return gotoQuery();
 	}
 }

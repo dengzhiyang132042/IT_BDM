@@ -33,7 +33,7 @@ public class XtPdaChangeServiceImpl extends BaseService implements iXtPdaChangeS
 		DaDemand d  = new DaDemand();
 		d.setDId("d"+NameOfDate.getNum());
 		d.setDApplicant(p.getCMan());
-		d.setDContent("条码变更："+p.getCOldNum()+"-->"+p.getCNewNum());
+		d.setDContent("条码变更："+p.getCOldNum()+"-->"+p.getCNewNum()+"<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;sn&nbsp;号:"+p.getCSn());
 		d.setDType("系统组");
 		d.setDTime(new Timestamp(new Date().getTime()));
 		Date date = new Date();
@@ -47,7 +47,9 @@ public class XtPdaChangeServiceImpl extends BaseService implements iXtPdaChangeS
 		pf.setPTime(new Timestamp(new Date().getTime()));
 		pf.setPState("进行中");
 		save(pf);
-		if(DaManagerAction.outMailFromAdd(um,d)==false){
+		Users u = (Users) get(Users.class,"yd-7119");
+		
+		if(DaManagerAction.outMailFromAdd(u,d)==false){
 			//日后换成邮件错误界面
 			System.out.println("邮件发送错误!请手动发送邮件,错误单号"+d.getDId());
 		}

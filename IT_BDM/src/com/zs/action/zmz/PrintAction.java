@@ -220,7 +220,8 @@ public class PrintAction extends MyBaseAction implements IMyBaseAction{
 	}
 	
 	public String importExcel() throws InterruptedException, IOException, ParseException {
-		importSer.importExcelData(fileExcelFileName, fileExcel);
+		Users users=(Users) getSession().getAttribute("user");
+		importSer.importExcelData(fileExcelFileName, fileExcel,users.getUNum());
 		return gotoQuery();
 	}
 	
