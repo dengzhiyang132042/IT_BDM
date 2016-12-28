@@ -274,11 +274,6 @@
      <result>/index.jsp</result>
      <result name="monitor">/whz/monitor.jsp</result>
   </action>
-  <action name="monitor" class="zs_monitor_whz">	
-  	 <interceptor-ref name="mydefault" />
-     <result>/index.jsp</result>
-     <result name="monitor">/whz/monitor.jsp</result>
-  </action>
   <action name="massage" class="zs_massage_whz">	
   	 <interceptor-ref name="mydefault" />
      <result>/index.jsp</result>
