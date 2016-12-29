@@ -193,6 +193,7 @@ public class RoleInterceptor extends AbstractInterceptor{
 			}else if ((PRO_NAME+"/outRegister!add").equals(path)) {//硬件组-新外出登记——添加
 				return roleControl(arg0, r, "2004");
 			}
+			
 			//-------------------------------硬件组结束,系统组开始------------------------------------------------
 			else if ((PRO_NAME+"/site!queryOfFenye").equals(path)) {//站点资料查询
 				return roleControl(arg0, r, "29");
@@ -292,6 +293,86 @@ public class RoleInterceptor extends AbstractInterceptor{
 				return roleControl(arg0, r, "1023");
 			}else if ((PRO_NAME+"/project!add").equals(path)) {//系统开发登记添加
 				return roleControl(arg0, r, "1024");
+			}
+			//-----------统计报表----------------
+			else if ((PRO_NAME+"/siteCount!queryOfFenye").equals(path)) {//站点资料统计查看
+				return roleControl(arg0, r, "1101");
+			}else if ((PRO_NAME+"/siteCount!delete").equals(path)) {//站点资料统计删除
+				return roleControl(arg0, r, "1102");
+			}else if ((PRO_NAME+"/siteCount!update").equals(path)) {//站点资料统计修改
+				return roleControl(arg0, r, "1103");
+			}else if ((PRO_NAME+"/siteCount!add").equals(path)) {//站点资料统计添加
+				return roleControl(arg0, r, "1104");
+			}
+			
+			else if ((PRO_NAME+"/branchesCount!queryOfFenye").equals(path)) {//二级站点资料统计查看
+				return roleControl(arg0, r, "1105");
+			}else if ((PRO_NAME+"/branchesCount!delete").equals(path)) {//二级站点资料统计删除
+				return roleControl(arg0, r, "1106");
+			}else if ((PRO_NAME+"/branchesCount!update").equals(path)) {//二级站点资料统计修改
+				return roleControl(arg0, r, "1107");
+			}else if ((PRO_NAME+"/branchesCount!add").equals(path)) {//二级站点资料统计添加
+				return roleControl(arg0, r, "1108");
+			}
+			
+			else if ((PRO_NAME+"/zmNumberCount!queryOfFenye").equals(path)) {//哲盟职能用户统计查看
+				return roleControl(arg0, r, "1109");
+			}else if ((PRO_NAME+"/zmNumberCount!delete").equals(path)) {//哲盟职能用户统计删除
+				return roleControl(arg0, r, "1110");
+			}else if ((PRO_NAME+"/zmNumberCount!update").equals(path)) {//哲盟职能用户统计修改
+				return roleControl(arg0, r, "1111");
+			}else if ((PRO_NAME+"/zmNumberCount!add").equals(path)) {//哲盟职能用户统计添加
+				return roleControl(arg0, r, "1112");
+			}
+			
+			else if ((PRO_NAME+"/zmDataCount!queryOfFenye").equals(path)) {//哲盟数据检查统计查看
+				return roleControl(arg0, r, "1113");
+			}else if ((PRO_NAME+"/zmDataCount!delete").equals(path)) {//哲盟数据检查统计删除
+				return roleControl(arg0, r, "1114");
+			}else if ((PRO_NAME+"/zmDataCount!update").equals(path)) {//哲盟数据检查统计修改
+				return roleControl(arg0, r, "1115");
+			}else if ((PRO_NAME+"/zmDataCount!add").equals(path)) {//哲盟数据检查统计添加
+				return roleControl(arg0, r, "1116");
+			}
+			
+			else if ((PRO_NAME+"/pdaChangeCount!queryOfFenye").equals(path)) {//巴枪条码变更统计查看
+				return roleControl(arg0, r, "1117");
+			}else if ((PRO_NAME+"/pdaChangeCount!delete").equals(path)) {//巴枪条码变更统计删除
+				return roleControl(arg0, r, "1118");
+			}else if ((PRO_NAME+"/pdaChangeCount!update").equals(path)) {//巴枪条码变更统计修改
+				return roleControl(arg0, r, "1119");
+			}else if ((PRO_NAME+"/pdaChangeCount!add").equals(path)) {//巴枪条码变更统计添加
+				return roleControl(arg0, r, "1120");
+			}
+			
+			else if ((PRO_NAME+"/bqRepairCount!queryOfFenye").equals(path)) {//设备维修登记统计查看
+				return roleControl(arg0, r, "1121");
+			}else if ((PRO_NAME+"/bqRepairCount!delete").equals(path)) {//设备维修登记统计删除
+				return roleControl(arg0, r, "1122");
+			}else if ((PRO_NAME+"/bqRepairCount!update").equals(path)) {//设备维修登记统计修改
+				return roleControl(arg0, r, "1123");
+			}else if ((PRO_NAME+"/bqRepairCount!add").equals(path)) {//设备维修登记统计添加
+				return roleControl(arg0, r, "1124");
+			}
+			
+			else if ((PRO_NAME+"/hitchesCount!queryOfFenye").equals(path)) {//哲盟异常登记统计查看
+				return roleControl(arg0, r, "1125");
+			}else if ((PRO_NAME+"/hitchesCount!delete").equals(path)) {//哲盟异常登记统计删除
+				return roleControl(arg0, r, "1126");
+			}else if ((PRO_NAME+"/hitchesCount!update").equals(path)) {//哲盟异常登记统计修改
+				return roleControl(arg0, r, "1127");
+			}else if ((PRO_NAME+"/hitchesCount!add").equals(path)) {//哲盟异常登记统计添加
+				return roleControl(arg0, r, "1128");
+			}
+			
+			else if ((PRO_NAME+"/projectCount!queryOfFenye").equals(path)) {//系统开发统计查看
+				return roleControl(arg0, r, "1129");
+			}else if ((PRO_NAME+"/projectCount!delete").equals(path)) {//系统开发统计删除
+				return roleControl(arg0, r, "1130");
+			}else if ((PRO_NAME+"/projectCount!update").equals(path)) {//系统开发统计修改
+				return roleControl(arg0, r, "1131");
+			}else if ((PRO_NAME+"/projectCount!add").equals(path)) {//系统开发统计添加
+				return roleControl(arg0, r, "1132");
 			}
 			
 			//---------------------------系统组结束，系统设置开始----------------------------------------
@@ -463,6 +544,68 @@ public class RoleInterceptor extends AbstractInterceptor{
 			}else if ((PRO_NAME+"/netCall!add").equals(path)) {//网点呼叫系统添加
 				return roleControl(arg0, r, "3008");
 			}
+			//-----------统计报表----------------
+			else if ((PRO_NAME+"/vpnCount!queryOfFenye").equals(path)) {//VPN账号登记统计查看
+				return roleControl(arg0, r, "3101");
+			}else if ((PRO_NAME+"/vpnCount!delete").equals(path)) {//VPN账号登记统计删除
+				return roleControl(arg0, r, "3102");
+			}else if ((PRO_NAME+"/vpnCount!update").equals(path)) {//VPN账号登记统计修改
+				return roleControl(arg0, r, "3103");
+			}else if ((PRO_NAME+"/vpnCount!add").equals(path)) {//VPN账号登记统计添加
+				return roleControl(arg0, r, "3104");
+			}
+			
+			else if ((PRO_NAME+"/byNumberCount!queryOfFenye").equals(path)) {//IMO邮箱账号统计查看
+				return roleControl(arg0, r, "3105");
+			}else if ((PRO_NAME+"/byNumberCount!delete").equals(path)) {//IMO邮箱账号统计删除
+				return roleControl(arg0, r, "3106");
+			}else if ((PRO_NAME+"/byNumberCount!update").equals(path)) {//IMO邮箱账号统计修改
+				return roleControl(arg0, r, "3107");
+			}else if ((PRO_NAME+"/byNumberCount!add").equals(path)) {//IMO邮箱账号统计添加
+				return roleControl(arg0, r, "3108");
+			}
+			
+			else if ((PRO_NAME+"/computerCount!queryOfFenye").equals(path)) {//公司电脑登记统计查看
+				return roleControl(arg0, r, "3109");
+			}else if ((PRO_NAME+"/computerCount!delete").equals(path)) {//公司电脑登记统计删除
+				return roleControl(arg0, r, "3110");
+			}else if ((PRO_NAME+"/computerCount!update").equals(path)) {//公司电脑登记统计修改
+				return roleControl(arg0, r, "3111");
+			}else if ((PRO_NAME+"/computerCount!add").equals(path)) {//公司电脑登记统计添加
+				return roleControl(arg0, r, "3112");
+			}
+			
+			else if ((PRO_NAME+"/callCount!queryOfFenye").equals(path)) {//总部呼叫系统统计查看
+				return roleControl(arg0, r, "3113");
+			}else if ((PRO_NAME+"/callCount!delete").equals(path)) {//总部呼叫系统统计删除
+				return roleControl(arg0, r, "3114");
+			}else if ((PRO_NAME+"/callCount!update").equals(path)) {//总部呼叫系统统计修改
+				return roleControl(arg0, r, "3115");
+			}else if ((PRO_NAME+"/callCount!add").equals(path)) {//总部呼叫系统统计添加
+				return roleControl(arg0, r, "3116");
+			}
+			
+			else if ((PRO_NAME+"/oaCount!queryOfFenye").equals(path)) {//OA账号登记统计查看
+				return roleControl(arg0, r, "3117");
+			}else if ((PRO_NAME+"/oaCount!delete").equals(path)) {//OA账号登记统计删除
+				return roleControl(arg0, r, "3118");
+			}else if ((PRO_NAME+"/oaCount!update").equals(path)) {//OA账号登记统计修改
+				return roleControl(arg0, r, "3119");
+			}else if ((PRO_NAME+"/oaCount!add").equals(path)) {//OA账号登记统计添加
+				return roleControl(arg0, r, "3120");
+			}
+			
+			else if ((PRO_NAME+"/printCount!queryOfFenye").equals(path)) {//打印机登记统计查看
+				return roleControl(arg0, r, "3121");
+			}else if ((PRO_NAME+"/printCount!delete").equals(path)) {//打印机登记统计删除
+				return roleControl(arg0, r, "3122");
+			}else if ((PRO_NAME+"/printCount!update").equals(path)) {//打印机登记统计修改
+				return roleControl(arg0, r, "3123");
+			}else if ((PRO_NAME+"/printCount!add").equals(path)) {//打印机登记统计添加
+				return roleControl(arg0, r, "3124");
+			}
+			
+			
 			//------------------------------维护组--------------------------
 			
 			else if ((PRO_NAME+"/device!queryOfFenye").equals(path)) {//操作设备巡检查看
@@ -544,6 +687,68 @@ public class RoleInterceptor extends AbstractInterceptor{
 			}else if ((PRO_NAME+"/out!add").equals(path)) {//设备外修登记添加
 				return roleControl(arg0, r, "4032");
 			}
+			//-----------统计报表----------------
+			else if ((PRO_NAME+"/deviceCount!queryOfFenye").equals(path)) {//操作设备巡检统计查看
+				return roleControl(arg0, r, "4101");
+			}else if ((PRO_NAME+"/deviceCount!delete").equals(path)) {//操作设备巡检统计删除
+				return roleControl(arg0, r, "4102");
+			}else if ((PRO_NAME+"/deviceCount!update").equals(path)) {//操作设备巡检统计修改
+				return roleControl(arg0, r, "4103");
+			}else if ((PRO_NAME+"/deviceCount!add").equals(path)) {//操作设备巡检统计添加
+				return roleControl(arg0, r, "4104 ");
+			}
+			
+			else if ((PRO_NAME+"/monitorCount!queryOfFenye").equals(path)) {//监控设备巡检统计查看
+				return roleControl(arg0, r, "4105");
+			}else if ((PRO_NAME+"/monitorCount!delete").equals(path)) {//监控设备巡检统计删除
+				return roleControl(arg0, r, "4106");
+			}else if ((PRO_NAME+"/monitorCount!update").equals(path)) {//监控设备巡检统计修改
+				return roleControl(arg0, r, "4107");
+			}else if ((PRO_NAME+"/monitorCount!add").equals(path)) {//监控设备巡检统计添加
+				return roleControl(arg0, r, "4108 ");
+			}
+			
+			else if ((PRO_NAME+"/threeMeetingCount!queryOfFenye").equals(path)) {//观澜3楼巡检统计查看
+				return roleControl(arg0, r, "4109");
+			}else if ((PRO_NAME+"/threeMeetingCount!delete").equals(path)) {//观澜3楼巡检统计删除
+				return roleControl(arg0, r, "4110");
+			}else if ((PRO_NAME+"/threeMeetingCount!update").equals(path)) {//观澜3楼巡检统计修改
+				return roleControl(arg0, r, "4111");
+			}else if ((PRO_NAME+"/threeMeetingCount!add").equals(path)) {//观澜3楼巡检统计添加
+				return roleControl(arg0, r, "4112 ");
+			}
+			
+			else if ((PRO_NAME+"/meetingCount!queryOfFenye").equals(path)) {//新仓仓库巡检统计查看
+				return roleControl(arg0, r, "4113");
+			}else if ((PRO_NAME+"/meetingCount!delete").equals(path)) {//新仓仓库巡检统计删除
+				return roleControl(arg0, r, "4114");
+			}else if ((PRO_NAME+"/meetingCount!update").equals(path)) {//新仓仓库巡检统计修改
+				return roleControl(arg0, r, "4115");
+			}else if ((PRO_NAME+"/meetingCount!add").equals(path)) {//新仓仓库巡检统计添加
+				return roleControl(arg0, r, "4116 ");
+			}
+			
+			else if ((PRO_NAME+"/massageCount!queryOfFenye").equals(path)) {//巴枪维修登记统计查看
+				return roleControl(arg0, r, "4117");
+			}else if ((PRO_NAME+"/massageCount!delete").equals(path)) {//巴枪维修登记统计删除
+				return roleControl(arg0, r, "4118");
+			}else if ((PRO_NAME+"/massageCount!update").equals(path)) {//巴枪维修登记统计修改
+				return roleControl(arg0, r, "4119");
+			}else if ((PRO_NAME+"/massageCount!add").equals(path)) {//巴枪维修登记统计添加
+				return roleControl(arg0, r, "4120 ");
+			}
+			
+			else if ((PRO_NAME+"/outRepairCount!queryOfFenye").equals(path)) {//设备外修登记统计查看
+				return roleControl(arg0, r, "4121");
+			}else if ((PRO_NAME+"/outRepairCount!delete").equals(path)) {//设备外修登记统计删除
+				return roleControl(arg0, r, "4122");
+			}else if ((PRO_NAME+"/outRepairCount!update").equals(path)) {//设备外修登记统计修改
+				return roleControl(arg0, r, "4123");
+			}else if ((PRO_NAME+"/outRepairCount!add").equals(path)) {//设备外修登记统计添加
+				return roleControl(arg0, r, "4124 ");
+			}
+			
+			
 			
 			//------------------------故障报修处理跟进系统----------------------------
 			//-------------------------------故障管理--------------------
@@ -596,6 +801,11 @@ public class RoleInterceptor extends AbstractInterceptor{
 			}else if ((PRO_NAME+"/auditing!add").equals(path)) {//故障报修转发审核添加
 				return roleControl(arg0, r, "122");
 			}
+			
+			
+			
+			
+			
 			
 		}
 		close(); 
