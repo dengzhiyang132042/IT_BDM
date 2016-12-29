@@ -19,11 +19,11 @@
         <property name="byName" type="java.lang.String">
             <column name="by_name" />
         </property>
-        <property name="byImoPass" type="java.lang.String">
-            <column name="by_imo_pass" />
-        </property>
         <property name="byBgn" type="java.lang.String">
             <column name="by_bgn" />
+        </property>
+        <property name="byImoPass" type="java.lang.String">
+            <column name="by_imo_pass" />
         </property>
         <property name="byMail" type="java.lang.String">
             <column name="by_mail" />
@@ -51,6 +51,18 @@
         </property>
         <property name="byNote" type="java.lang.String">
             <column name="by_note" />
+        </property>
+        <property name="byCreateTime" type="java.sql.Timestamp">
+            <column name="by_create_time" length="19" />
+        </property>
+        <property name="byState" type="java.lang.String">
+            <column name="by_state" />
+        </property>
+        <property name="byType" type="java.lang.String">
+            <column name="by_type" />
+        </property>
+        <property name="UNum" type="java.lang.String">
+            <column name="u_num" />
         </property>
     </class>
 </hibernate-mapping>

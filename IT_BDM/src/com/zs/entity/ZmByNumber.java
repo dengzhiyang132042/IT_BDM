@@ -1,5 +1,6 @@
 package com.zs.entity;
 
+import java.sql.Timestamp;
 import java.util.Date;
 
 /**
@@ -14,8 +15,8 @@ public class ZmByNumber implements java.io.Serializable {
 	private Date byOaDate;
 	private String bySection;
 	private String byName;
-	private String byImoPass;
 	private String byBgn;
+	private String byImoPass;
 	private String byMail;
 	private String byMailPass;
 	private String byService;
@@ -25,6 +26,10 @@ public class ZmByNumber implements java.io.Serializable {
 	private Integer byServiceTime;
 	private String byIsTimely;
 	private String byNote;
+	private Timestamp byCreateTime;
+	private String byState;
+	private String byType;
+	private String UNum;
 
 	// Constructors
 
@@ -39,16 +44,17 @@ public class ZmByNumber implements java.io.Serializable {
 
 	/** full constructor */
 	public ZmByNumber(String byId, Date byOaDate, String bySection,
-			String byName, String byImoPass, String byBgn, String byMail,
+			String byName, String byBgn, String byImoPass, String byMail,
 			String byMailPass, String byService, String byOnJob,
 			Date byServiceDate, Integer byServiceWeek, Integer byServiceTime,
-			String byIsTimely, String byNote) {
+			String byIsTimely, String byNote, Timestamp byCreateTime,
+			String byState, String byType, String UNum) {
 		this.byId = byId;
 		this.byOaDate = byOaDate;
 		this.bySection = bySection;
 		this.byName = byName;
-		this.byImoPass = byImoPass;
 		this.byBgn = byBgn;
+		this.byImoPass = byImoPass;
 		this.byMail = byMail;
 		this.byMailPass = byMailPass;
 		this.byService = byService;
@@ -58,6 +64,10 @@ public class ZmByNumber implements java.io.Serializable {
 		this.byServiceTime = byServiceTime;
 		this.byIsTimely = byIsTimely;
 		this.byNote = byNote;
+		this.byCreateTime = byCreateTime;
+		this.byState = byState;
+		this.byType = byType;
+		this.UNum = UNum;
 	}
 
 	// Property accessors
@@ -94,20 +104,20 @@ public class ZmByNumber implements java.io.Serializable {
 		this.byName = byName;
 	}
 
-	public String getByImoPass() {
-		return this.byImoPass;
-	}
-
-	public void setByImoPass(String byImoPass) {
-		this.byImoPass = byImoPass;
-	}
-
 	public String getByBgn() {
 		return this.byBgn;
 	}
 
 	public void setByBgn(String byBgn) {
 		this.byBgn = byBgn;
+	}
+
+	public String getByImoPass() {
+		return this.byImoPass;
+	}
+
+	public void setByImoPass(String byImoPass) {
+		this.byImoPass = byImoPass;
 	}
 
 	public String getByMail() {
@@ -180,6 +190,38 @@ public class ZmByNumber implements java.io.Serializable {
 
 	public void setByNote(String byNote) {
 		this.byNote = byNote;
+	}
+
+	public Timestamp getByCreateTime() {
+		return this.byCreateTime;
+	}
+
+	public void setByCreateTime(Timestamp byCreateTime) {
+		this.byCreateTime = byCreateTime;
+	}
+
+	public String getByState() {
+		return this.byState;
+	}
+
+	public void setByState(String byState) {
+		this.byState = byState;
+	}
+
+	public String getByType() {
+		return this.byType;
+	}
+
+	public void setByType(String byType) {
+		this.byType = byType;
+	}
+
+	public String getUNum() {
+		return this.UNum;
+	}
+
+	public void setUNum(String UNum) {
+		this.UNum = UNum;
 	}
 
 }

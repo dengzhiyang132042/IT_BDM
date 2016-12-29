@@ -11,7 +11,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <head>
     <base href="<%=basePath%>">
     
-    <title>IMO、邮箱账号</title>
+    <title>IMO账号登记</title>
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
 	<meta http-equiv="expires" content="0">    
@@ -34,7 +34,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		$('#tt').show();
 	});
 	
-	function update(u1,u2,u3,u4,u5,u6,u7,u8,u9,u10,u11,u12,u13,u14,u15){
+	function update(u1,u2,u3,u4,u5,u6,u7){
 		$('#u').window('open');
 		$('#u_1').val(u1);
 		$('#u_2').val(u2);
@@ -43,14 +43,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		$('#u_5').val(u5);
 		$('#u_6').val(u6);
 		$('#u_7').val(u7);
-		$('#u_8').val(u8);
-		$('#u_9').val(u9);
-		$('#u_10').val(u10);
-		$('#u_11').val(u11);
-		$('#u_12').val(u12);
-		$('#u_13').val(u13);
-		$('#u_14').val(u14);
-		$('#u_15').val(u15);
 	}
 	function page(no,cz){
 		var num1=$('#page').val();
@@ -66,6 +58,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			$('#page').val(${page.pageMax});
 		}
 		$('#f1').submit();
+	}
+	function addWindow(){
+		var today = new Date();   
+	    var day = today.getDate();   
+	    var month = today.getMonth() + 1;   
+	    var year = today.getYear()+1900;    
+	    var date = year + "-" + month + "-" + day;   
+	    $('#serdate').val(date);
+	    $('#a').window('open'); 
 	}
 	</script>
 	
@@ -102,10 +103,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     	<th>姓名</th>
     	<th>IMO</th>
     	<th>IMO默认密码</th>
-    	<th>邮箱</th>
-    	<th>邮箱默认密码</th>
     	<th>维护IT</th>
-    	<th>入职情况</th>
+    	<th>维护类型</th>
     	<th>维护周数</th>
     	<th>备注说明</th>
     	<th>操作</th>
@@ -118,14 +117,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<td width="">${by.byName }</td>
 		<td width="">${by.byBgn }</td>
 		<td width="">${by.byImoPass }</td>
-		<td width="">${by.byMail }</td>
-		<td width="">${by.byMailPass }</td>
 		<td width="">${by.byService }</td>
 		<td width="">${by.byOnJob }</td>
 		<td width="">${by.byServiceWeek }</td>
 		<td width="">${by.byNote }</td>
 		<td width="5%" align="center">
-			<a onclick="update('${by.byId }','${by.byOaDate }','${by.bySection }','${by.byName }','${by.byBgn }','${by.byMail }','${by.byMailPass }','${by.byService }','${by.byOnJob }','${by.byServiceDate }','${by.byServiceWeek }','${by.byServiceTime }','${by.byIsTimely }','${by.byNote }','${by.byImoPass }')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-edit'" title="修改"></a>
+			<a onclick="update('${by.byId }','<fmt:formatDate value="${by.byOaDate }" pattern="yyyy-MM-dd" />','${by.bySection }','${by.byName }','${by.byBgn }','${by.byImoPass }','${by.byNote }')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-edit'" title="修改"></a>
 			<a href="<%=path %>/by!delete?id=${by.byId}" onclick="return confirm('确定删除吗?')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-delete'" title="删除"></a>
 		</td>
     </tr>
@@ -136,9 +133,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<div class="easyui-panel" style="padding:5px;width: 100%;display: none;background-color: white;">
 		<form id="f1" action="<%=path %>/by!queryOfFenye?id=${id}&name=${name }&section=${section }&dates=${dates}&datee=${datee}&job=${job}" method="post">
 		<select id="sele" style="float: left;margin-top: 3px;margin-left: 5px;" name="page.size" onchange="$('#f1').submit();">
-			<option value="5">5</option>
 			<option value="10">10</option>
 			<option value="15">15</option>
+			<option value="20">20</option>
 		</select>
 		
 		<span style="float: left;margin-left: 5px;">
@@ -163,11 +160,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</div>
 	</div>
 	
-	<div id="u" class="easyui-window" title="修改" data-options="modal:true,closed:true" style="width:400px;height:auto;padding:10px;display: none;">
+	<div id="u" class="easyui-window" title="修改" data-options="modal:true,closed:true" style="width:300px;height:auto;padding:10px;display: none;">
 		<form action="<%=path %>/by!update" method="post">
 		<table border="0" class="table1">
 			<tr>
-				<td>编号：</td>
+				<td width="80">编号：</td>
 				<td>
 					<input id="u_1" name="by.byId" type="text" style="width: 100%;" readonly="readonly"/>
 				</td>
@@ -197,45 +194,25 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				</td>
 			</tr>
 			<tr>
-				<td>IMO默认密码：</td>
+				<td>默认密码：</td>
 				<td>
-					<input id="u_15" name="by.byImoPass" type="text" style="width: 100%;"/>
-				</td>
-			</tr>
-			<tr>
-				<td>邮箱：</td>
-				<td>
-					<input id="u_6" name="by.byMail" type="text" style="width: 100%;"/>
-				</td>
-			</tr>
-			<tr>
-				<td>邮箱默认密码：</td>
-				<td>
-					<input id="u_7" name="by.byMailPass" type="text" style="width: 100%;"/>
-				</td>
-			</tr>
-			<tr>
-				<td>维护IT：</td>
-				<td>
-					<input id="u_8" name="by.byService" type="text" style="width: 100%;"/>
+					<input id="u_6" name="by.byImoPass" type="text" style="width: 100%;"/>
 				</td>
 			</tr>
 			<tr>
 				<td>入职情况：</td>
 				<td>
-					<input id="u_9" name="by.byOnJob" type="text" style="width: 100%;"/>
-				</td>
-			</tr>
-			<tr>
-				<td>维护周数：</td>
-				<td>
-					<input id="u_11" name="by.byServiceWeek" type="number" style="width: 100%;"/>
+					<select name="by.byOnJob" >
+						<option value="维护">维 护</option>
+						<option value="停用">停 用</option>
+						<option value="离职">离 职</option>
+					</select>
 				</td>
 			</tr>
 			<tr>
 				<td>备注说明：</td>
 				<td>
-					<input id="u_14" name="by.byNote" type="text" style="width: 100%;"/>
+					<input id="u_7" name="by.byNote" type="text" style="width: 100%;"/>
 				</td>
 			</tr>
 			<tr>
@@ -247,13 +224,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</form>
 	</div>
 	
-	<div id="a" class="easyui-window" title="添加" data-options="modal:true,closed:true" style="width:400px;height:auto;padding:10px;display: none;">
+	<div id="a" class="easyui-window" title="添加" data-options="modal:true,closed:true" style="width:300px;height:auto;padding:10px;display: none;">
 		<form action="<%=path %>/by!add" method="post">
 		<table border="0" class="table1">
 			<tr>
-				<td>维护日期：</td>
+				<td width="80">维护日期：</td>
 				<td>
-					<input name="by.byServiceDate" type="date" style="width: 100%;"/>
+					<input id="serdate" name="by.byServiceDate" type="date" style="width: 100%;"/>
 				</td>
 			</tr>
 			<tr>
@@ -275,27 +252,20 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				</td>
 			</tr>
 			<tr>
-				<td>IMO默认密码：</td>
+				<td>默认密码：</td>
 				<td>
 					<input name="by.byImoPass" type="text" style="width: 100%;"/>
 				</td>
 			</tr>
 			<tr>
-				<td>邮箱：</td>
-				<td>
-					<input name="by.byMail" type="text" style="width: 100%;"/>
-				</td>
-			</tr>
-			<tr>
-				<td>邮箱默认密码：</td>
-				<td>
-					<input name="by.byMailPass" type="text" style="width: 100%;"/>
-				</td>
-			</tr>
-			<tr>
 				<td>入职情况：</td>
 				<td>
-					<input name="by.byOnJob" type="text" style="width: 100%;"/>
+					<select name="by.byOnJob" >
+						<option value="入职">入 职</option>
+						<option value="维护">维 护</option>
+						<option value="停用">停 用</option>
+						<option value="离职">离 职</option>
+					</select>
 				</td>
 			</tr>
 			<tr>
@@ -315,7 +285,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	
 	<div id="tt" style="display: none;">
 		<a class="icon-zs-import" onclick="$('#in').window('open')" style="margin-left: 10px;" title="excel导入"></a>
-		<a class="icon-add" onclick="$('#a').window('open')" style="margin-left: 10px;" title="添加"></a>
+		<a class="icon-add" onclick="addWindow();defualtOutTime()" style="margin-left: 10px;" title="添加"></a>
 	</div>
 	
 	
@@ -324,7 +294,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<table border="1">
 			<tr>
 				<td>Excel模板</td>
-				<td onmousemove="$(this).css('background-color','red');" onmouseout="$(this).css('background-color','white');" style="cursor: pointer;" onclick="window.location.href='<%=path%>/files/import/zmz/IMO邮箱账号.xlsx';">
+				<td onmousemove="$(this).css('background-color','red');" onmouseout="$(this).css('background-color','white');" style="cursor: pointer;" onclick="window.location.href='<%=path%>/files/import/zmz/IMO账号登记.xlsx';">
 					下载模板
 				</td>
 			</tr>

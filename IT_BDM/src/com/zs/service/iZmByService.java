@@ -5,5 +5,5 @@ import java.io.IOException;
 import java.text.ParseException;
 
 public interface iZmByService {
-	public void importExcelData(String fileName, File file);
+	public void importExcelData(String fileName, File file,String unum);
 }
