@@ -32,7 +32,7 @@ public class ByAction extends MyBaseAction implements IMyBaseAction{
 	Page page;
 	
 	ZmByNumber by;
-	List bys;
+	List<ZmByNumber> bys;
 	String result="by";
 	String result_succ="succ";
 	String result_fail="fail";
@@ -42,6 +42,7 @@ public class ByAction extends MyBaseAction implements IMyBaseAction{
 	String dates;
 	String datee;
 	String job;
+	String cz;
 	private File fileExcel;
 	private String fileExcelContentType;
 	private String fileExcelFileName; 
@@ -134,6 +135,12 @@ public class ByAction extends MyBaseAction implements IMyBaseAction{
 	public void setJob(String job) {
 		this.job = job;
 	}
+	public String getCz() {
+		return cz;
+	}
+	public void setCz(String cz) {
+		this.cz = cz;
+	}
 	//------------------------------------------------
 	public void clearOptions() {
 		id=null;     
@@ -142,6 +149,14 @@ public class ByAction extends MyBaseAction implements IMyBaseAction{
 		dates=null;  
 		datee=null;  
 		job=null;
+		cz=null;
+		bys=null;
+		by=null;
+		if (page==null) {
+			page=new Page(1, 0, 10);
+		}else {
+			page.setPageOn(1);
+		}
 	}
 	
 	private void clearSpace(){
@@ -160,51 +175,39 @@ public class ByAction extends MyBaseAction implements IMyBaseAction{
 	}
 	
 	public String queryOfFenye() throws UnsupportedEncodingException {
-		id=getRequest().getParameter("id");
-		String cz=getRequest().getParameter("cz");//用于判断是否清理page，yes清理，no不清理
-		if (page==null) {
-			page=new Page(1, 0, 5);
-		}
+		clearSpace();
 		if (cz!=null && cz.equals("yes")) {
-			page=new Page(1, 0, 5);
 			clearOptions();
 		}
-		clearSpace();
+		String hql="from ZmByNumber where byState='有效' ";
 		if (id!=null) {
-			String hql="from ZmByNumber where byId like '%"+id+"%'";
-			if (name!=null && !name.trim().equals("")) {
-				hql=hql+" and byName like '%"+name+"%'";
-			}
-			if (section!=null && !section.trim().equals("")) {
-				hql=hql+" and bySection like '%"+section+"%'";
-			}
-			if (job!=null && !job.trim().equals("")) {
-				hql=hql+" and byOnJob like '%"+job+"%'";
-			}
-			if (dates!=null && !dates.trim().equals("")) {
-				hql=hql+" and byServiceDate >= '"+dates+"'";
-			}
-			if (datee!=null && !datee.trim().equals("")) {
-				hql=hql+" and byServiceDate <= '"+datee+"'";
-			}
-			hql=hql+" order by byServiceDate desc";
-			bys=ser.query(hql, null, hql, page, ser);
-		}else {
-			String hql="from ZmByNumber order by byServiceDate desc";
-			String ss[]={};
-			String hql2="from ZmByNumber order by byServiceDate desc";
-			bys=ser.query(hql, ss, hql2, page, ser);
+			hql=hql+" and byId like '%"+id+"%'";
 		}
+		if (name!=null && !name.trim().equals("")) {
+			hql=hql+" and byName like '%"+name+"%'";
+		}
+		if (section!=null && !section.trim().equals("")) {
+			hql=hql+" and bySection like '%"+section+"%'";
+		}
+		if (job!=null && !job.trim().equals("")) {
+			hql=hql+" and byOnJob like '%"+job+"%'";
+		}
+		if (dates!=null && !dates.trim().equals("")) {
+			hql=hql+" and byServiceDate >= '"+dates+"'";
+		}
+		if (datee!=null && !datee.trim().equals("")) {
+			hql=hql+" and byServiceDate <= '"+datee+"'";
+		}
+		hql=hql+" order by byServiceDate desc byCreateTime desc";
+		bys=ser.query(hql, null, hql, page, ser);
 		ser.receiveStructure(getRequest());
 		return result;
 	}
 	
 	public String gotoQuery() throws UnsupportedEncodingException {
 		clearOptions();
-		String hql="from ZmByNumber order by byServiceDate desc";
-		String ss[]={};
-		String hql2="from ZmByNumber order by byServiceDate desc";
-		bys=ser.query(hql, ss, hql2, page, ser);
+		String hql="from ZmByNumber where byState='有效' order by byServiceDate desc byCreateTime desc";
+		bys=ser.query(hql, null, hql, page, ser);
 		ser.receiveStructure(getRequest());
 		return result;
 	}
@@ -222,7 +225,27 @@ public class ByAction extends MyBaseAction implements IMyBaseAction{
 	public String update() throws Exception {
 		if(by!=null && by.getById()!=null && !"".equals(by.getById().trim())){
 			ZmByNumber zmby=(ZmByNumber) ser.get(ZmByNumber.class, by.getById());
-			ser.update(by);
+			zmby.setByState("无效");
+			ser.update(zmby);
+			
+			by.setById("by"+NameOfDate.getNum());
+			Users user=(Users) getSession().getAttribute("user");
+			if(user!=null){
+				by.setByService(user.getUName());
+				by.setUNum(user.getUNum());
+			}
+			by.setByOaDate(zmby.getByOaDate());
+			by.setByServiceWeek(zmby.getByServiceWeek());
+			if(by.getByOnJob().equals("入职")){
+				by.setByType("注册");
+			}else if(by.getByOnJob().equals("离职")){
+				by.setByType("注销");
+			}else{
+				by.setByType("维护");
+			}
+			by.setByState("有效");
+			by.setByCreateTime(new Timestamp(new Date().getTime()));
+			ser.save(by);
 			getRequest().setAttribute("by", by);
 		}
 		by=null;
@@ -237,11 +260,20 @@ public class ByAction extends MyBaseAction implements IMyBaseAction{
 			Users user=(Users) getSession().getAttribute("user");
 			if(user!=null){
 				by.setByService(user.getUName());
+				by.setUNum(user.getUNum());
 			}
 			Calendar ca = Calendar.getInstance();
 			ca.setTime(by.getByServiceDate());
-			System.out.println(ca.get(Calendar.WEEK_OF_YEAR));
 			by.setByServiceWeek(ca.get(Calendar.WEEK_OF_YEAR));
+			if(by.getByOnJob().equals("入职")){
+				by.setByType("注册");
+			}else if(by.getByOnJob().equals("离职")){
+				by.setByType("注销");
+			}else{
+				by.setByType("维护");
+			}
+			by.setByState("有效");
+			by.setByCreateTime(new Timestamp(date.getTime()));
 			ser.save(by);
 			getRequest().setAttribute("by", by);
 		}
@@ -250,7 +282,8 @@ public class ByAction extends MyBaseAction implements IMyBaseAction{
 	}
 	
 	public String importExcel() throws InterruptedException, IOException, ParseException {
-		bySer.importExcelData(fileExcelFileName, fileExcel);
+		Users user=(Users) getSession().getAttribute("user");
+		bySer.importExcelData(fileExcelFileName, fileExcel,user.getUNum());
 		return gotoQuery();
 	}
 }
