@@ -77,7 +77,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         		<li><span>桌面组</span>
         			<ul>
 						<li><span><a href="<%=path %>/vpn!queryOfFenye?cz=yes" target="right">VPN账号登记</a></span></li>
-						<li><span><a href="<%=path %>/by!queryOfFenye?cz=yes" target="right">IMO邮箱账号</a></span></li>
+						<li><span><a href="<%=path %>/by!queryOfFenye?cz=yes" target="right">IMO账号登记</a></span></li>
+						<li><span><a href="<%=path %>/mail!queryOfFenye?cz=yes" target="right">邮箱账号登记</a></span></li>
 						<li><span><a href="<%=path %>/computer!queryOfFenye?cz=yes" target="right">公司电脑信息</a></span></li>
 						<li><span><a href="<%=path %>/bq!queryOfFenye?cz=yes" target="right">骏达设备登记</a></span></li>
 						<li><span><a href="<%=path %>/wifi!queryOfFenye?cz=yes" target="right">公司wifi管理</a></span></li>
@@ -128,7 +129,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<li><span><a href="<%=path %>/projectCount!queryOfFenye?cz=yes" target="right">系统开发登记</a></span></li>
         			</ul>
         		</li>
-        		<!-- 
         		<li><span>硬件组</span>
         			<ul>
 						<li><span><a href="<%=path %>/fbd_asdl!queryOfFenyeAsdl?cz=yes" target="right">ASDL宽带登记</a></span></li>
@@ -140,17 +140,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<li><span><a href="<%=path %>/go!queryOfFenyeGo?cz=yes" target="right">员工外出登记</a></span></li>        			
         			</ul>
         		</li>
-        		 -->
         		<li><span>桌面组</span>
         			<ul>
 						<li><span><a href="<%=path %>/vpnCount!queryOfFenye?cz=yes" target="right">VPN账号登记</a></span></li>
 						<li><span><a href="<%=path %>/byNumberCount!queryOfFenye?cz=yes" target="right">IMO邮箱账号</a></span></li>
 						<li><span><a href="<%=path %>/computerCount!queryOfFenye?cz=yes" target="right">公司管理信息</a></span></li>
 						<li><span><a href="<%=path %>/callCount!queryOfFenye?cz=yes" target="right">总部呼叫系统</a></span></li>
-						<!-- 
 						<li><span><a href="<%=path %>/bqCount!queryOfFenye?cz=yes" target="right">骏达设备登记</a></span></li>
 						<li><span><a href="<%=path %>/allianceCallCount!queryOfFenye?cz=yes" target="right">网点呼叫系统</a></span></li>
-						 -->
 						<li><span><a href="<%=path %>/oaCount!queryOfFenye?cz=yes" target="right">oa账号登记</a></span></li>
 						<li><span><a href="<%=path %>/printCount!queryOfFenye?cz=yes" target="right">打印机登记</a></span></li>
         			</ul>

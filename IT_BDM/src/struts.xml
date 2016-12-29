@@ -263,6 +263,13 @@
      <result name="succ">/success.jsp</result>
      <result name="fail">/fail.jsp</result>
   </action>
+  <action name="mail" class="hgh_mail_zmz">	
+  	 <interceptor-ref name="mydefault" />
+     <result>/index.jsp</result>
+     <result name="mail">/zmz_jsp/mail.jsp</result>
+     <result name="succ">/success.jsp</result>
+     <result name="fail">/fail.jsp</result>
+  </action>
    <!-- *********维护组******** -->  
   <action name="device" class="zs_device_whz">	
   	 <interceptor-ref name="mydefault" />
