@@ -136,6 +136,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<td width="10%">${r.RId }</td>
 			<td width="10%">${r.RName }</td>
 			<td width="20%">${r.RDescription }</td>
+			<td id="td_${r.RId }" width="55%" style="display: none;">
+				<c:forEach items="${r.ps}" var="p" varStatus="sta">
+				${p.PId },${p.PName };
+				</c:forEach>
+			</td>
 			<td width="5%" align="center">
 				<a onclick="update('${r.RId }','${r.RName }','${r.RDescription }','td_${r.RId }')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-edit'" title="修改"></a>
 				<a href="<%=path %>/role!delete?id=${r.RId}" onclick="return confirm('确定删除吗?')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-delete'" title="删除"></a>
