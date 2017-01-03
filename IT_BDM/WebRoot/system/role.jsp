@@ -20,12 +20,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<!--
 	<link rel="stylesheet" type="text/css" href="styles.css">
 	-->
-	<link rel="stylesheet" type="text/css" href="<%=path %>/FRAMEWORK/jquery-easyui/themes/yellow/easyui.css">
+	<link rel="stylesheet" type="text/css" href="<%=path %>/FRAMEWORK/jquery-easyui/themes/${theme }/easyui.css">
 	<link rel="stylesheet" type="text/css" href="<%=path %>/FRAMEWORK/jquery-easyui/themes/icon.css">
 	<link rel="stylesheet" type="text/css" href="<%=path %>/FRAMEWORK/jquery-easyui/demo/demo.css">
 	<script type="text/javascript" src="<%=path %>/FRAMEWORK/jquery-easyui/jquery.min.js"></script>
 	<script type="text/javascript" src="<%=path %>/FRAMEWORK/jquery-easyui/jquery.easyui.min.js"></script>
 	
+	<script type="text/javascript" src="<%=path %>/FRAMEWORK/js/myjs.js"></script>
 	<link rel="stylesheet" type="text/css" href="<%=path %>/FRAMEWORK/css/mycss.css">
 	<script type="text/javascript">
 	$(function(){
@@ -120,64 +121,64 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	
   </head>
   
-  <body style="padding-right: 40px;">
+  <body>
     
     <div class="easyui-panel" title="角色管理" style="padding: 5px;display: none;" data-options="tools:'#tt'">
     
 	    <table border="1" id="eidtASubjectWindow1" style="font-size: 12px;">
-	    <tr align="center" style="height: 28px;background-color: #E6E6E6;">
-	    	<th width="150">编号</th>
-	    	<th width="90">名称</th>
-	    	<th width="150">描述</th>
-	    	<th width="70">操作</th>
-	    </tr>
-	    <c:forEach items="${rs}" var="r">
-	    <tr>
-			<td width="10%">${r.RId }</td>
-			<td width="10%">${r.RName }</td>
-			<td width="20%">${r.RDescription }</td>
-			<td id="td_${r.RId }" width="55%" style="display: none;">
-				<c:forEach items="${r.ps}" var="p" varStatus="sta">
-				${p.PId },${p.PName };
-				</c:forEach>
-			</td>
-			<td width="5%" align="center">
-				<a onclick="update('${r.RId }','${r.RName }','${r.RDescription }','td_${r.RId }')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-edit'" title="修改"></a>
-				<a href="<%=path %>/role!delete?id=${r.RId}" onclick="return confirm('确定删除吗?')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-delete'" title="删除"></a>
-			</td>
-	    </tr>
-	    </c:forEach>
+		    <tr align="center" style="height: 28px;background-color: #E6E6E6;">
+		    	<th width="150">编号</th>
+		    	<th width="90">名称</th>
+		    	<th width="150">描述</th>
+		    	<th width="70">操作</th>
+		    </tr>
+		    <c:forEach items="${rs}" var="r">
+		    <tr>
+				<td width="10%">${r.RId }</td>
+				<td width="10%">${r.RName }</td>
+				<td width="20%">${r.RDescription }</td>
+				<td id="td_${r.RId }" width="55%" style="display: none;">
+					<c:forEach items="${r.ps}" var="p" varStatus="sta">
+					${p.PId },${p.PName };
+					</c:forEach>
+				</td>
+				<td width="5%" align="center">
+					<a onclick="update('${r.RId }','${r.RName }','${r.RDescription }','td_${r.RId }')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-edit'" title="修改"></a>
+					<a href="<%=path %>/role!delete?id=${r.RId}" onclick="return confirm('确定删除吗?')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-delete'" title="删除"></a>
+				</td>
+		    </tr>
+		    </c:forEach>
 	    </table>
 		<br/>
 			
-	<div class="easyui-panel" style="padding:5px;width: 100%;display: none;">
-		<form id="f1" action="<%=path %>/role!queryOfFenye" method="post">
-		<select id="sele" style="float: left;margin-top: 3px;margin-left: 5px;" name="page.size" onchange="$('#f1').submit();">
-			<option value="5">5</option>
-			<option value="10">10</option>
-			<option value="15">15</option>
-		</select>
-		
-		<span style="float: left;margin-left: 5px;">
-		<span style="color: #A5A5A5;">|</span>
-		<a onclick="page(1,2)" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-last'" title="首页"></a>
-		<a onclick="page(-1,1)" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-l'" title="上一页"></a>
-		<span style="color: #A5A5A5;">|</span>
-		</span>
-		
-		<span style="float: left;margin-top: 3px;margin-left: 5px;">
-		<input id="page" name="page.pageOn" type="number" style="width: 50px;height: 20px;" value="${page.pageOn }" min="1" max="${page.pageMax }" onchange="$('#f1').submit();"/>
-		</span>
-		
-		<span style="float: left;margin-top: 5px;margin-left: 5px;">/${page.pageMax }</span>
-		
-		<span style="float: left;margin-left: 5px;">
-		<span style="color: #A5A5A5;">|</span>
-		<a onclick="page(1,1)" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-n'" title="下一页"></a>
-		<a onclick="page('${page.pageMax}',2)" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-next'" title="末页"></a>
-		</span>
-		</form>
-	</div>
+		<div class="easyui-panel" style="padding:5px;width: 100%;display: none;">
+			<form id="f1" action="<%=path %>/role!queryOfFenye" method="post">
+			<select id="sele" style="float: left;margin-top: 3px;margin-left: 5px;" name="page.size" onchange="$('#f1').submit();">
+				<option value="5">5</option>
+				<option value="10">10</option>
+				<option value="15">15</option>
+			</select>
+			
+			<span style="float: left;margin-left: 5px;">
+			<span style="color: #A5A5A5;">|</span>
+			<a onclick="page(1,2)" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-last'" title="首页"></a>
+			<a onclick="page(-1,1)" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-l'" title="上一页"></a>
+			<span style="color: #A5A5A5;">|</span>
+			</span>
+			
+			<span style="float: left;margin-top: 3px;margin-left: 5px;">
+			<input id="page" name="page.pageOn" type="number" style="width: 50px;height: 20px;" value="${page.pageOn }" min="1" max="${page.pageMax }" onchange="$('#f1').submit();"/>
+			</span>
+			
+			<span style="float: left;margin-top: 5px;margin-left: 5px;">/${page.pageMax }</span>
+			
+			<span style="float: left;margin-left: 5px;">
+			<span style="color: #A5A5A5;">|</span>
+			<a onclick="page(1,1)" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-n'" title="下一页"></a>
+			<a onclick="page('${page.pageMax}',2)" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-next'" title="末页"></a>
+			</span>
+			</form>
+		</div>
 	</div>
 	
 	<div id="u" class="easyui-window" title="修改" data-options="modal:true,closed:true" style="width:400px;height:auto;padding:10px;display: none;">

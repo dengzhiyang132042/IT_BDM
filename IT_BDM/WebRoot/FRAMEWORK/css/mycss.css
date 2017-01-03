@@ -1,17 +1,18 @@
 a{ text-decoration:none;}
 body{
 	margin:0px;
-	padding: 10px;
+	padding: 3px;
+	padding-right: 10px;
 }
 table{
-	border: #224466;
+	border: #cccccc;
 	border-collapse:collapse;
 	width: 100%;
 	table-layout:fixed;
 }
 table tr th{
-	background-color: #607D8B;
-	color: white;
+	background-color: #e8e8e8;
+	color: black;
 	font-weight: bold;
 	padding: 7px;
 	font-size: 12px;
@@ -173,14 +174,24 @@ form{
 /*快速查询样式
 */
 .kscx{
-	padding-bottom: 5px;
+	margin-bottom: 5px;
+	border: 1px solid #cccccc;
+	line-height: 2;
 }
 .kscx h1{
 	font-size: 12px;
 }
 .kscx .btn{
-	float: right;width: 300px;
+	margin-left: 1000px;
+	padding: 5px;
 }
 .kscx .inp{
-	margin-right: 300px;
+	float: left;
+	width: 1000px;
+	padding: 5px;
+}
+.kscx .inp form div{
+	text-align: right;
+	width: 250px;
+	float: left;
 }

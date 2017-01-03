@@ -231,26 +231,31 @@ public class ProjectAction extends MyBaseAction implements IMyBaseAction{
 			if(pd1!=null){
 				pd1.setDId(NameOfDate.getNum());
 				pd1.setPId(p.getPId());
+				pd1.setDSituation(pd1.getDSituation().replaceAll("\n", "<br/>"));
 				ser.save(pd1);
 			}
 			if(pd2!=null){
 				pd2.setDId(NameOfDate.getNum());
 				pd2.setPId(p.getPId());
+				pd2.setDSituation(pd2.getDSituation().replaceAll("\n", "<br/>"));
 				ser.save(pd2);
 			}
 			if(pd3!=null){
 				pd3.setDId(NameOfDate.getNum());
 				pd3.setPId(p.getPId());
+				pd3.setDSituation(pd3.getDSituation().replaceAll("\n", "<br/>"));
 				ser.save(pd3);
 			}
 			if(pd4!=null){
 				pd4.setDId(NameOfDate.getNum());
 				pd4.setPId(p.getPId());
+				pd4.setDSituation(pd4.getDSituation().replaceAll("\n", "<br/>"));
 				ser.save(pd4);
 			}
 			if(pd5!=null){
 				pd5.setDId(NameOfDate.getNum());
 				pd5.setPId(p.getPId());
+				pd5.setDSituation(pd5.getDSituation().replaceAll("\n", "<br/>"));
 				ser.save(pd5);
 			}
 		}

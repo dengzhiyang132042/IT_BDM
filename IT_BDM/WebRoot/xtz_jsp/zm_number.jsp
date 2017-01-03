@@ -21,7 +21,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<!--
 	<link rel="stylesheet" type="text/css" href="styles.css">
 	-->
-	<link rel="stylesheet" type="text/css" href="<%=path %>/FRAMEWORK/jquery-easyui/themes/yellow/easyui.css">
+	<link rel="stylesheet" type="text/css" href="<%=path %>/FRAMEWORK/jquery-easyui/themes/${theme }/easyui.css">
 	<link rel="stylesheet" type="text/css" href="<%=path %>/FRAMEWORK/jquery-easyui/themes/icon.css">
 	<link rel="stylesheet" type="text/css" href="<%=path %>/FRAMEWORK/jquery-easyui/demo/demo.css">
 	<script type="text/javascript" src="<%=path %>/FRAMEWORK/jquery-easyui/jquery.min.js"></script>
@@ -30,7 +30,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <link rel="stylesheet" type="text/css" href="<%=path %>/FRAMEWORK/autocomplete/src/jquery.autocomplete.css"></link>
     <script type="text/javascript" src="<%=path %>/FRAMEWORK/autocomplete/src/jquery.autocomplete.js"></script>
 	<!-- 自动补全插件 -->
+	
+	<script type="text/javascript" src="<%=path %>/FRAMEWORK/My97DatePicker/WdatePicker.js"></script>
+	
+	<script type="text/javascript" src="<%=path %>/FRAMEWORK/js/myjs.js"></script>
 	<link rel="stylesheet" type="text/css" href="<%=path %>/FRAMEWORK/css/mycss.css">
+
 	<script type="text/javascript">
    	var isSelect=false;
 	$(function(){
@@ -127,26 +132,41 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     
     <div class="easyui-panel" title="哲盟职能用户" style="padding: 5px;display: none;" data-options="tools:'#tt'">
     
-    <div style="background-color:white;margin-bottom: 5px;padding: 5px;border: 1px solid #224466; ">
-    	快速查询
-    	<br/>
-    	<form action="<%=path %>/zmn!queryOfFenye" method="post">
-    		编号:<input name="id" type="text" value="${id }"/>
-    		&nbsp;&nbsp;&nbsp;&nbsp;
-    		申请部门：<input name="section" type="text" value="${section }"/>
-    		&nbsp;&nbsp;&nbsp;&nbsp;
-    		申请人：<input name="men" type="text" value="${men }"/>
-    		&nbsp;&nbsp;&nbsp;&nbsp;
-    		申请时间:<input name="dates" type="date" value="${dates }"/>
-    		~
-    		<input name="datee" type="date" value="${datee }"/>
-    		<br/>
-    		<input type="submit" value="查询"/>
-    	</form>	
+    <div class="kscx">
+   		<div class="inp">
+	    	<form id="ks" action="<%=path %>/zmn!queryOfFenye" method="post">
+	    		<div>
+		    		<div>
+			    		申请开始日期：<input name="dates" id="d4311" class="Wdate" type="text" onFocus="WdatePicker({maxDate:'#F{$dp.$D(\'d4312\')}'})" value="${dates }"/>
+		    		</div>
+		    		<div>
+		    			申请结束日期：<input name="datee" id="d4312" class="Wdate" type="text" onFocus="WdatePicker({minDate:'#F{$dp.$D(\'d4311\')}'})" value="${datee }"/>
+		    		</div>
+	    		</div>
+	    		<div>
+	    			<div>
+	    				申请部门：<input name="section" type="text" value="${section }"/>
+	    			</div>
+	    			<div>
+	    				申请人：<input name="men" type="text" value="${men }"/>
+	    			</div>
+	    		</div>
+	    		<div>
+		    		<div>
+			    		编号:<input name="id" type="text" value="${id }"/>
+		    		</div>
+	    			<div>
+	    			</div>
+	    		</div>
+	    	</form>
+   		</div>
+   		<div  class="btn">
+   			<input type="submit" value="查询" onclick="$('.kscx .inp form').submit();"/>
+   		</div>
+   		<div style="clear:both;"></div>
     </div>
+    
     <div style="margin-bottom: 5px;">
-    
-    
     <table border="1" id="eidtASubjectWindow1" style="font-size: 12px;">
     <tr>
     	<th>编号</th>

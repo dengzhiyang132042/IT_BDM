@@ -20,14 +20,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<!--
 	<link rel="stylesheet" type="text/css" href="styles.css">
 	-->
-	<link rel="stylesheet" type="text/css" href="<%=path %>/FRAMEWORK/jquery-easyui/themes/yellow/easyui.css">
+	<link rel="stylesheet" type="text/css" href="<%=path %>/FRAMEWORK/jquery-easyui/themes/${theme }/easyui.css">
 	<link rel="stylesheet" type="text/css" href="<%=path %>/FRAMEWORK/jquery-easyui/themes/icon.css">
 	<link rel="stylesheet" type="text/css" href="<%=path %>/FRAMEWORK/jquery-easyui/demo/demo.css">
 	<script type="text/javascript" src="<%=path %>/FRAMEWORK/jquery-easyui/jquery.min.js"></script>
 	<script type="text/javascript" src="<%=path %>/FRAMEWORK/jquery-easyui/jquery.easyui.min.js"></script>
 	<script type="text/javascript" src="<%=path %>/FRAMEWORK/My97DatePicker/WdatePicker.js"></script>
 	
+	<script type="text/javascript" src="<%=path %>/FRAMEWORK/js/myjs.js"></script>
 	<link rel="stylesheet" type="text/css" href="<%=path %>/FRAMEWORK/css/mycss.css">
+
 	<script type="text/javascript">
 	$(function(){
 		if('${filtrate}'=='D'||'${filtrate}'==null){
@@ -141,12 +143,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
  	<br/>
  	<br/>
  	<br/>
- 	<div style="text-align: center;margin-right: 17px;color: white;background-color:#17B4FF;padding: 5px;font-size: 14px;font-weight:bold;">专员统计</div>
+ 	<div style="text-align: center;color: white;background-color:#17B4FF;padding: 5px;font-size: 14px;font-weight:bold;">专员统计</div>
  	
  	
-	<div style="background-color:white;margin-bottom: 5px;padding: 5px;border: 1px solid #224466;margin-right: 17px;margin-top: 10px;">
-    	快速查询
-    	<br/>
+	<div style="background-color:white;margin-bottom: 5px;padding: 5px;border: 1px solid #224466;margin-top: 10px;">
     	<form action="<%=path %>/countZy!queryOfFenye" method="post">
     		当前查询条件:
     		<select id="sel_dt" name="filtrate" onchange="changeDate()">
@@ -161,45 +161,21 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     		<input type="submit" value="查询"/>
     	</form>	
     </div>
-    <div style="margin-bottom: 5px;">
+    
+    <div style="margin-bottom: 5px;"></div>
 	    
 	    
-  	<div style="margin-right: 27px;">
-    <table border="1" id="" style="font-size: 12px;">
+    <table border="1">
 	    <tr>
-	    	<th width="90">序号</th>
-	    	<th width="230">开始时间</th>
-	    	<th width="230">结束时间</th>
-	    	<th width="90">处理人</th>
-	    	<th width="250">故障报修量</th>
-	    	<th width="250">故障完成量</th>
-	    	<th width="250">完成率</th>
+	    	<th>序号</th>
+	    	<th>开始时间</th>
+	    	<th>结束时间</th>
+	    	<th>处理人</th>
+	    	<th>故障报修量</th>
+	    	<th>故障完成量</th>
+	    	<th>完成率</th>
 	    	<th>操作</th>
 	    </tr>
-	    <tr style="height: 30px;visibility: hidden;">
-	    	<td>1</td>
-	    	<td>1</td>
-	    	<td>1</td>
-	    	<td>1</td>
-	    	<td>1</td>
-	    	<td>1</td>
-	    	<td>1</td>
-	    	<td>1</td>
-	    </tr>
-    </table>
-  	</div>
-    <div style="height:500px;overflow: scroll;margin-top: -30px;overflow-x:hidden;">
-    <table border="1" id="" style="font-size: 12px;margin-top: -31px;">
-    	<tr style="height: 30px;visibility: hidden;">
-    		<th width="90">1</th>
-    		<th width="230">1</th>
-    		<th width="230">1</th>
-    		<th width="90">1</th>
-    		<th width="250">1</th>
-    		<th width="250">1</th>
-    		<th width="250">1</th>
-    		<th>1</th>
-    	</tr>
 	    <c:forEach items="${counts}" var="count" varStatus="status">
 	    <c:if test="${count.rows!=0}">
     		<%isAddColor=!isAddColor; %>
@@ -223,10 +199,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</td>
 	    </tr>
 	    </c:forEach>
-	    
     </table>
-	</div>
-  	</div>
   	
 	   
 	<div id="q" class="easyui-window" title="查看详情" data-options="modal:true,closed:true" style="width:1400px;height:600px;padding:10px;display: none;">

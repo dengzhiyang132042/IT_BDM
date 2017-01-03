@@ -52,6 +52,8 @@ public class LoginAction extends MyBaseAction{
 				user.setR(r);
 				getSession().setAttribute("user", user);
 				getResponse().sendRedirect("safe.jsp");
+				//存主题
+				getSession().setAttribute("theme", "bootstrap");
 				return SUCCESS;
 			}else {
 				hint="密码错误";

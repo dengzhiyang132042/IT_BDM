@@ -22,15 +22,16 @@ String beforeTime= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Calendar.g
 	<!--
 	<link rel="stylesheet" type="text/css" href="styles.css">
 	-->
-	<link rel="stylesheet" type="text/css" href="<%=path %>/FRAMEWORK/jquery-easyui/themes/yellow/easyui.css">
+	<link rel="stylesheet" type="text/css" href="<%=path %>/FRAMEWORK/jquery-easyui/themes/${theme }/easyui.css">
 	<link rel="stylesheet" type="text/css" href="<%=path %>/FRAMEWORK/jquery-easyui/themes/icon.css">
 	<link rel="stylesheet" type="text/css" href="<%=path %>/FRAMEWORK/jquery-easyui/demo/demo.css">
 	<script type="text/javascript" src="<%=path %>/FRAMEWORK/jquery-easyui/jquery.min.js"></script>
 	<script type="text/javascript" src="<%=path %>/FRAMEWORK/jquery-easyui/jquery.easyui.min.js"></script>
 	<script type="text/javascript" src="<%=path %>/FRAMEWORK/My97DatePicker/WdatePicker.js"></script>
 	
+	<script type="text/javascript" src="<%=path %>/FRAMEWORK/js/myjs.js"></script>
 	<link rel="stylesheet" type="text/css" href="<%=path %>/FRAMEWORK/css/mycss.css">
-	<link rel="stylesheet" type="text/css" href="<%=path %>/FRAMEWORK/js/myjs.js">
+
 	<script type="text/javascript">
 	$(function(){
 		$("#type_sel option[value='${type}']").attr("selected",true);
