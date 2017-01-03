@@ -19,45 +19,50 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
 	<meta http-equiv="description" content="This is my page">
 	
-	<link rel="stylesheet" type="text/css" href="<%=path %>/FRAMEWORK/jquery-easyui/themes/yellow/easyui.css">
+	<link rel="stylesheet" type="text/css" href="<%=path %>/FRAMEWORK/jquery-easyui/themes/${theme }/easyui.css">
 	<link rel="stylesheet" type="text/css" href="<%=path %>/FRAMEWORK/jquery-easyui/themes/icon.css">
 	<link rel="stylesheet" type="text/css" href="<%=path %>/FRAMEWORK/jquery-easyui/demo/demo.css">
 	<script type="text/javascript" src="<%=path %>/FRAMEWORK/jquery-easyui/jquery.min.js"></script>
 	<script type="text/javascript" src="<%=path %>/FRAMEWORK/jquery-easyui/jquery.easyui.min.js"></script>
 	
-	<link rel="stylesheet" type="text/css" href="<%=path %>/FRAMEWORK/css/mycss.css">
+	<script type="text/javascript" src="<%=path %>/FRAMEWORK/My97DatePicker/WdatePicker.js"></script>
 	
+	<script type="text/javascript" src="<%=path %>/FRAMEWORK/js/myjs.js"></script>
+	<link rel="stylesheet" type="text/css" href="<%=path %>/FRAMEWORK/css/mycss.css">
   </head>
   
   <body>
     
     <div class="easyui-panel" title="开发录入" style="padding: 5px;display: none;" data-options="tools:'#tt'">
-    
-    <div style="background-color:white;margin-bottom: 5px;padding: 5px;border: 1px solid #224466; ">
-    </div>
     	<div>
-			<form action="<%=path %>/project!add">
-				<table style="font-size: 15px;">
+			<form id="ff1" action="<%=path %>/project!add">
+				<table border="1">
 					<tr>
-						<th style="width: 9%;">工作项目</th>
+						<th style="width: 110px;">工作项目</th>
 						<th style="width: 11%;">工作目标</th>
 						<th style="width: 8%;">工作内容</th>
 						<th style="width: 8%;">需求人员</th>
-						<th style="width: 14%;">工作详情</th>
+						<th>工作详情</th>
 						<th style="width: 30%;">进展情况</th>
 						<th style="width: 10%;">开始时间</th>
 						<th style="width: 10%;">计划完成时间</th>
 					</tr>
 					<tr>
-						<td rowspan="5" ><input name="p.PProject" type="text" style="width: 90%"/>
-						<br/><br/><br/>
-						<input type="number" style="width: 50px;" name="pyear"/> 年 <input type="number" style="width: 40px;" name="pmonth"/> 月
+						<td rowspan="5" >
+						<input name="p.PProject" type="text" style="width: 90%"/>
+						<br/><br/>
+						<input type="number" style="width: 50px;" name="pyear"/>年
+						<input type="number" style="width: 40px;" name="pmonth"/>月
 						</td>
 						<td rowspan="5" ><textarea style="height:80px;width: 100%;font-size:15px;" name="p.PTarget"></textarea></td>
 						<td ><input name="pd1.DContent" type="text" value="需求调研" readonly="readonly" style="width: 100px;text-align: center;"/></td>
 						<td ><input name="pd1.DMan" type="text" value="" style="width: 100px;text-align: center;"/></td>
-						<td ><textarea name="pd1.DDetail" style="height:80px;width: 100%;">确定模板格式以及框架</textarea></td>
-						<td ><textarea name="pd1.DSituation" style="height:80px;width: 93%;"></textarea></td>
+						<td >
+							<textarea name="pd1.DDetail" style="height:80px;width: 100%;">确认模板取值规则</textarea>
+						</td>
+						<td >
+							<textarea name="pd1.DSituation" style="height:80px;width: 93%;"></textarea>
+						</td>
 						<td ><input name="pd1.DStartDate" type="date"/></td>
 						<td ><input name="pd1.DPlanDate" type="date"/></td>
 					</tr>

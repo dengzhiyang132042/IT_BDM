@@ -21,14 +21,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<!--
 	<link rel="stylesheet" type="text/css" href="styles.css">
 	-->
-	<link rel="stylesheet" type="text/css" href="<%=path %>/FRAMEWORK/jquery-easyui/themes/yellow/easyui.css">
+	<link rel="stylesheet" type="text/css" href="<%=path %>/FRAMEWORK/jquery-easyui/themes/${theme }/easyui.css">
 	<link rel="stylesheet" type="text/css" href="<%=path %>/FRAMEWORK/jquery-easyui/themes/icon.css">
 	<link rel="stylesheet" type="text/css" href="<%=path %>/FRAMEWORK/jquery-easyui/demo/demo.css">
 	<script type="text/javascript" src="<%=path %>/FRAMEWORK/jquery-easyui/jquery.min.js"></script>
 	<script type="text/javascript" src="<%=path %>/FRAMEWORK/jquery-easyui/jquery.easyui.min.js"></script>
 	
-	<link rel="stylesheet" type="text/css" href="<%=path %>/FRAMEWORK/css/mycss.css">
+	<script type="text/javascript" src="<%=path %>/FRAMEWORK/My97DatePicker/WdatePicker.js"></script>
+	
 	<script type="text/javascript" src="<%=path %>/FRAMEWORK/js/myjs.js"></script>
+	<link rel="stylesheet" type="text/css" href="<%=path %>/FRAMEWORK/css/mycss.css">
+
 	<script type="text/javascript">
 	$(function(){
 		$("#sele option[value='"+${page.size}+"']").attr("selected",true);
@@ -115,28 +118,43 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <body>
     
     <div class="easyui-panel" title="站点资料" style="padding: 5px;display: none;" data-options="tools:'#tt'">
+    
     <div class="kscx">
+   		<div class="inp">
+	    	<form id="ks" action="<%=path %>/site!queryOfFenye" method="post">
+	    		<div>
+		    		<div>
+			    		维护开始日期：<input name="dates" id="d4311" class="Wdate" type="text" onFocus="WdatePicker({maxDate:'#F{$dp.$D(\'d4312\')}'})" value="${dates }"/>
+		    		</div>
+		    		<div>
+		    			维护结束日期：<input name="datee" id="d4312" class="Wdate" type="text" onFocus="WdatePicker({minDate:'#F{$dp.$D(\'d4311\')}'})" value="${datee }"/>
+		    		</div>
+	    		</div>
+	    		<div>
+		    		<div>
+			    		编号:<input name="id" type="text" value="${id }"/>
+		    		</div>
+	    			<div>
+	    				网点条码：<input name="num" type="text" value="${num }"/>
+	    			</div>
+	    		</div>
+	    		<div>
+	    			<div>
+	    				维护IT:<input name="it" type="text" value="${it }"/>
+	    			</div>
+	    			<div>
+	    				维护类型:<input name="type" type="text" value="${type }"/>
+	    			</div>
+	    		</div>
+	    	</form>
+   		</div>
    		<div  class="btn">
    			<input type="submit" value="查询" onclick="$('.kscx .inp form').submit();"/>
     		<input type="button" value="记录查询" onclick="gj_query('no','true')"/>
    		</div>
-   		<div class="inp">
-	    	<form id="ks" action="<%=path %>/site!queryOfFenye" method="post">
-	    		编号:<input name="id" type="text" value="${id }"/>
-	    		&nbsp;&nbsp;&nbsp;&nbsp;
-	    		网点条码：<input name="num" type="text" value="${num }"/>
-	    		&nbsp;&nbsp;&nbsp;&nbsp;
-	    		维护IT:<input name="it" type="text" value="${it }"/>
-	    		&nbsp;&nbsp;&nbsp;&nbsp;
-	    		维护类型:<input name="type" type="text" value="${type }"/>
-	    		<br/>
-	    		维护日期：<input name="dates" type="date" value="${dates }">
-	    		~<input name="datee" type="date" value="${datee }">
-	    		<br/>
-	    	</form>	
-   		</div>
+   		<div style="clear:both;"></div>
     </div>
-    
+    	
     
     <div style="margin-bottom: 5px;">
     <table border="1" id="eidtASubjectWindow1" style="font-size: 12px;">

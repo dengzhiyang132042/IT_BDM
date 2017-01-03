@@ -20,12 +20,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<!--
 	<link rel="stylesheet" type="text/css" href="styles.css">
 	-->
-	<link rel="stylesheet" type="text/css" href="<%=path %>/FRAMEWORK/jquery-easyui/themes/yellow/easyui.css">
+	<link rel="stylesheet" type="text/css" href="<%=path %>/FRAMEWORK/jquery-easyui/themes/${theme }/easyui.css">
 	<link rel="stylesheet" type="text/css" href="<%=path %>/FRAMEWORK/jquery-easyui/themes/icon.css">
 	<link rel="stylesheet" type="text/css" href="<%=path %>/FRAMEWORK/jquery-easyui/demo/demo.css">
 	<script type="text/javascript" src="<%=path %>/FRAMEWORK/jquery-easyui/jquery.min.js"></script>
 	<script type="text/javascript" src="<%=path %>/FRAMEWORK/jquery-easyui/jquery.easyui.min.js"></script>
 	
+	<script type="text/javascript" src="<%=path %>/FRAMEWORK/js/myjs.js"></script>
 	<link rel="stylesheet" type="text/css" href="<%=path %>/FRAMEWORK/css/mycss.css">
 	<script type="text/javascript">
 	$(function(){
@@ -110,34 +111,34 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     
     <div class="easyui-panel" title="用户管理" style="padding: 5px;display: none;" data-options="tools:'#tt'">
     
-    <table border="1" id="eidtASubjectWindow1" style="font-size: 12px;">
-    <tr align="center" style="height: 28px;background-color: #E6E6E6;">
-    	<th>账号</th>
-    	<th>密码</th>
-    	<th>名字</th>
-    	<th>部门</th>
-    	<th>职位</th>
-    	<th>邮箱</th>
-    	<th>创建时间</th>
-    	<th>角色</th>
-    	<th>操作</th>
-    </tr>
-    <c:forEach items="${us}" var="u">
-    <tr>
-		<td width="">${u.UNum }</td>
-		<td width="">${u.UPass }</td>
-		<td width="">${u.UName }</td>
-		<td width="">${u.UCs }</td>
-		<td width="">${u.UJob }</td>
-		<td width="">${u.UMail }</td>
-		<td width="">${u.UStartTime }</td>
-		<td width="">${u.r.RName }</td>
-		<td width="5%" align="center">
-			<a onclick="update('${u.UNum }','${u.UPass }','${u.UName }','${u.UCs }','${u.UJob }','${u.RId }','${u.UMail }')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-edit'" title="修改"></a>
-			<a href="<%=path %>/users!delete?id=${u.UNum}" onclick="return confirm('确定删除吗?')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-delete'" title="删除"></a>
-		</td>
-    </tr>
-    </c:forEach>
+    <table border="1" id="eidtASubjectWindow1">
+	    <tr>
+	    	<th>账号</th>
+	    	<th>密码</th>
+	    	<th>名字</th>
+	    	<th>部门</th>
+	    	<th>职位</th>
+	    	<th>邮箱</th>
+	    	<th>创建时间</th>
+	    	<th>角色</th>
+	    	<th>操作</th>
+	    </tr>
+	    <c:forEach items="${us}" var="u">
+	    <tr>
+			<td width="">${u.UNum }</td>
+			<td width="">${u.UPass }</td>
+			<td width="">${u.UName }</td>
+			<td width="">${u.UCs }</td>
+			<td width="">${u.UJob }</td>
+			<td width="">${u.UMail }</td>
+			<td width="">${u.UStartTime }</td>
+			<td width="">${u.r.RName }</td>
+			<td width="5%" align="center">
+				<a onclick="update('${u.UNum }','${u.UPass }','${u.UName }','${u.UCs }','${u.UJob }','${u.RId }','${u.UMail }')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-edit'" title="修改"></a>
+				<a href="<%=path %>/users!delete?id=${u.UNum}" onclick="return confirm('确定删除吗?')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-delete'" title="删除"></a>
+			</td>
+	    </tr>
+	    </c:forEach>
     </table>
 	<br/>
 	
@@ -237,7 +238,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<form action="<%=path %>/users!add" method="post">
 		<table border="0" class="table1">
 			<tr>
-				<td>账号：</td>
+				<td width="70">账号：</td>
 				<td>
 					<input id="a_1" name="u.UNum" type="text" style="width: 100%;"/>
 				</td>
@@ -267,13 +268,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<tr>
 				<td>职位：</td>
 				<td>
-					<input name="u.UJob" type="text"/>
+					<input name="u.UJob" type="text" style="width: 100%;"/>
 				</td>
 			</tr>
 			<tr>
 				<td>邮箱</td>
 				<td>
-					<input name="u.UMail" type="email"/>
+					<input name="u.UMail" type="email" style="width: 100%;"/>
 				</td>
 			</tr>
 			<tr>

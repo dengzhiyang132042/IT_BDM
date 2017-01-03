@@ -19,12 +19,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<!--
 	<link rel="stylesheet" type="text/css" href="styles.css">
 	-->
+	
+	<script type="text/javascript" src="<%=path %>/FRAMEWORK/js/myjs.js"></script>
 	<link rel="stylesheet" type="text/css" href="<%=path %>/FRAMEWORK/css/mycss.css">
+
   </head>
   	
   <body>
   	<h1>错误代码：691</h1>
 	<p>您还没有登录，请先登录。</p>
-	<a href="<%=path %>/login.jsp">跳转登录</a>
+	<a href="<%=path %>/login.jsp" target="_parent">跳转登录</a>
    </body>
 </html>

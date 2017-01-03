@@ -19,12 +19,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<!--
 	<link rel="stylesheet" type="text/css" href="styles.css">
 	-->
-	<link rel="stylesheet" type="text/css" href="<%=path %>/FRAMEWORK/jquery-easyui/themes/yellow/easyui.css">
+	<link rel="stylesheet" type="text/css" href="<%=path %>/FRAMEWORK/jquery-easyui/themes/${theme }/easyui.css">
 	<link rel="stylesheet" type="text/css" href="<%=path %>/FRAMEWORK/jquery-easyui/themes/icon.css">
 	<link rel="stylesheet" type="text/css" href="<%=path %>/FRAMEWORK/jquery-easyui/demo/demo.css">
 	<script type="text/javascript" src="<%=path %>/FRAMEWORK/jquery-easyui/jquery.min.js"></script>
 	<script type="text/javascript" src="<%=path %>/FRAMEWORK/jquery-easyui/jquery.easyui.min.js"></script>
 	
+	<script type="text/javascript" src="<%=path %>/FRAMEWORK/js/myjs.js"></script>
 	<link rel="stylesheet" type="text/css" href="<%=path %>/FRAMEWORK/css/mycss.css">
 	
 	<script>
@@ -51,7 +52,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   			<div class="easyui-layout" data-options="fit:true,border:false">
   				<div class="easyui-layout" data-options="fit:true,border:false">
   					<div data-options="region:'north',split:true" title="公司简介" style="height:50%;padding:5px">
-  						<div style="color:#FF6600;font-size: 26px;font-family: 隶书; margin-left:330px;">韵达简介</div>
+  						<div style="color:#FF6600;font-size: 26px;font-family: 隶书;text-align: center;">韵达简介</div>
   						<div style="font-size:16px;">
   						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;深圳市韵达速递有限公司（www.yundaex.com）成立于2003年8月12日，是一家国内民营的专业快递公司，主要静音国内快件寄递。
   						速递业务。公司秉承“准时送达、安全可靠”的服务准则，为客户提供“可限点、点到点、门到门、次日达”为主的递送服务。<br/>

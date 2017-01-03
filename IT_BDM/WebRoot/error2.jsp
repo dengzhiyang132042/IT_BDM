@@ -19,12 +19,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<!--
 	<link rel="stylesheet" type="text/css" href="styles.css">
 	-->
+	
+	<script type="text/javascript" src="<%=path %>/FRAMEWORK/js/myjs.js"></script>
 	<link rel="stylesheet" type="text/css" href="<%=path %>/FRAMEWORK/css/mycss.css">
+
   </head>
   
   <body>
   	<h1>错误代码：300</h1>
 	<p>您的权限不够，请联系管理员。</p>
-	<a href="<%=path %>/welcom.jsp">返回首页</a>
+	<a href="<%=path %>/welcom.jsp" target="right">返回首页</a>
   </body>
 </html>
