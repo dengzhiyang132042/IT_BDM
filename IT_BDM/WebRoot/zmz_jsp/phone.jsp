@@ -26,6 +26,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script type="text/javascript" src="<%=path %>/FRAMEWORK/jquery-easyui/jquery.min.js"></script>
 	<script type="text/javascript" src="<%=path %>/FRAMEWORK/jquery-easyui/jquery.easyui.min.js"></script>
 	
+	<script type="text/javascript" src="<%=path %>/FRAMEWORK/My97DatePicker/WdatePicker.js"></script>
+	
 	<script type="text/javascript" src="<%=path %>/FRAMEWORK/js/myjs.js"></script>
 	<link rel="stylesheet" type="text/css" href="<%=path %>/FRAMEWORK/css/mycss.css">
 
@@ -73,60 +75,73 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <body>
     
     <div class="easyui-panel" title="电话线分布" style="padding: 5px;display: none;" data-options="tools:'#tt'">
-    <div style="background-color:white;margin-bottom: 5px;padding: 5px;border: 1px solid #224466; ">
-    	快速查询
-    	<br/>
-    	<form action="<%=path %>/phone!queryOfFenye" method="post">
-    		编号:<input name="id" type="text" value="${id }"/>
-    		&nbsp;&nbsp;&nbsp;&nbsp;
-    		使用部门：<input name="PSection" type="text" value="${PSection }"/>
-    		&nbsp;&nbsp;&nbsp;&nbsp;
-    		电话号码:<input name="PNumber" type="text" value="${PNumber }"/>
-    		<br/>
-    		<input type="submit" value="查询" style="margin:5px;"/>
-    	</form>	
+   
+   	<div class="kscx">
+   		<div class="inp">
+	    	<form id="ks" action="<%=path %>/phone!queryOfFenye" method="post">
+	    		<div>
+		    		<div>
+			    		编号:<input name="id" type="text" value="${id }"/>
+		    		</div>
+	    			<div>
+	    				使用部门：<input name="PSection" type="text" value="${PSection }"/>
+	    			</div>
+	    		</div>
+	    		<div>
+		    		<div>
+			    		电话号码:<input name="PNumber" type="text" value="${PNumber }"/>
+		    		</div>
+	    			<div>
+	    			</div>
+	    		</div>
+	    	</form>
+   		</div>
+   		<div  class="btn">
+   			<input type="submit" value="查询" onclick="$('.kscx .inp form').submit();"/>
+   		</div>
+   		<div style="clear:both;"></div>
     </div>
+   	
     <div style="margin-bottom: 5px;">
-    
-    <table border="1" id="eidtASubjectWindow1" style="font-size: 12px;">
-    <tr>
-    	<th>编号</th>
-    	<th>节点A</th>
-    	<th>节点B</th>
-    	<th>节点C</th>
-    	<!-- 
-    	<th>节点D</th>
-    	<th>节点E</th>
-    	 -->
-    	<th>电话号码</th>
-    	<th>使用部门</th>
-    	<th>功能</th>
-    	<th>账单</th>
-    	<th>备注说明</th>
-    	<th>操作</th>
-    </tr>
-    <c:forEach items="${phones}" var="p">
-    <tr>
-		<td width="">${p.PId }</td>
-		<td width="">${p.PA }</td>
-		<td width="">${p.PB }</td>
-		<td width="">${p.PC }</td>
-		<!-- 
-		<td width="">${p.PD }</td>
-		<td width="">${p.PE }</td>
-		-->
-		<td width="">${p.PNumber }</td>
-		<td width="">${p.PSection }</td>
-		<td width="">${p.PFunction }</td>
-		<td width="">${p.PBill }</td>
-		<td width="">${p.PNote }</td>
-		<td width="5%" align="center">
-			<a onclick="update('${p.PId }','${p.PA }','${p.PB }','${p.PC }','${p.PD }','${p.PE }','${p.PNumber }','${p.PSection }','${p.PFunction }','${p.PBill }','${p.PNote }')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-edit'" title="修改"></a>
-			<a href="<%=path %>/phone!delete?id=${p.PId}" onclick="return confirm('确定删除吗?')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-delete'" title="删除"></a>
-		</td>
-    </tr>
-    </c:forEach>
-    </table>
+	    <table border="1" id="eidtASubjectWindow1" style="font-size: 12px;">
+	    <tr>
+	    	<th>编号</th>
+	    	<th>节点A</th>
+	    	<th>节点B</th>
+	    	<th>节点C</th>
+	    	<!-- 
+	    	<th>节点D</th>
+	    	<th>节点E</th>
+	    	 -->
+	    	<th>电话号码</th>
+	    	<th>使用部门</th>
+	    	<th>功能</th>
+	    	<th>账单</th>
+	    	<th>备注说明</th>
+	    	<th>操作</th>
+	    </tr>
+	    <c:forEach items="${phones}" var="p">
+	    <tr>
+			<td width="">${p.PId }</td>
+			<td width="">${p.PA }</td>
+			<td width="">${p.PB }</td>
+			<td width="">${p.PC }</td>
+			<!-- 
+			<td width="">${p.PD }</td>
+			<td width="">${p.PE }</td>
+			-->
+			<td width="">${p.PNumber }</td>
+			<td width="">${p.PSection }</td>
+			<td width="">${p.PFunction }</td>
+			<td width="">${p.PBill }</td>
+			<td width="">${p.PNote }</td>
+			<td width="5%" align="center">
+				<a onclick="update('${p.PId }','${p.PA }','${p.PB }','${p.PC }','${p.PD }','${p.PE }','${p.PNumber }','${p.PSection }','${p.PFunction }','${p.PBill }','${p.PNote }')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-edit'" title="修改"></a>
+				<a href="<%=path %>/phone!delete?id=${p.PId}" onclick="return confirm('确定删除吗?')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-delete'" title="删除"></a>
+			</td>
+	    </tr>
+	    </c:forEach>
+	    </table>
 	</div>
 	
 	<div class="easyui-panel" style="padding:5px;width: 100%;display: none;background-color: white;">

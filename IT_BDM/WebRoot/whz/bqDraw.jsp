@@ -26,6 +26,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<link rel="stylesheet" type="text/css" href="<%=path %>/FRAMEWORK/jquery-easyui/demo/demo.css">
 	<script type="text/javascript" src="<%=path %>/FRAMEWORK/jquery-easyui/jquery.min.js"></script>
 	<script type="text/javascript" src="<%=path %>/FRAMEWORK/jquery-easyui/jquery.easyui.min.js"></script>
+	
 	<script type="text/javascript" src="<%=path %>/FRAMEWORK/My97DatePicker/WdatePicker.js"></script>
 	
 	<script type="text/javascript" src="<%=path %>/FRAMEWORK/js/myjs.js"></script>
@@ -78,54 +79,65 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     
     <div class="easyui-panel" title="巴枪领取登记" style="padding: 5px;display: none;" data-options="tools:'#tt'">
     
-    <div style="background-color:white;margin-bottom: 5px;padding: 5px;border: 1px solid #224466; ">
-    	快速查询
-    	<br/>
-    	<form action="<%=path %>/bqDraw!queryOfFenye" method="post">
-    		编号:<input name="id" type="text" value="${id }"/>
-    		&nbsp;&nbsp;&nbsp;&nbsp;
-    		日期:
-    		<input name="dates" id="d4311" class="Wdate" type="text" onFocus="WdatePicker({maxDate:'#F{$dp.$D(\'d4312\')}'})" value="${dates }"/> 
-    		~
-			<input name="datee" id="d4312" class="Wdate" type="text" onFocus="WdatePicker({minDate:'#F{$dp.$D(\'d4311\')}'})" value="${datee }"/>	
-    		<br/>
-    		<input type="submit" value="查询"/>
-    	</form>	
+    <div class="kscx">
+   		<div class="inp">
+	    	<form id="ks" action="<%=path %>/bqDraw!queryOfFenye" method="post">
+	    		<div>
+		    		<div>
+			    		开始日期：<input name="dates" id="d4311" class="Wdate" type="text" onFocus="WdatePicker({maxDate:'#F{$dp.$D(\'d4312\')}'})" value="${dates }"/>
+		    		</div>
+		    		<div>
+		    			结束日期：<input name="datee" id="d4312" class="Wdate" type="text" onFocus="WdatePicker({minDate:'#F{$dp.$D(\'d4311\')}'})" value="${datee }"/>
+		    		</div>
+	    		</div>
+	    		<div>
+		    		<div>
+			    		编号:<input name="id" type="text" value="${id }"/>
+		    		</div>
+	    			<div>
+	    			</div>
+	    		</div>
+	    	</form>
+   		</div>
+   		<div  class="btn">
+   			<input type="submit" value="查询" onclick="$('.kscx .inp form').submit();"/>
+   		</div>
+   		<div style="clear:both;"></div>
     </div>
     
-    <div style="margin-bottom: 5px;">
     
-    <table border="1" id="eidtASubjectWindow1" style="font-size: 12px;">
-    <tr>
-    	<th width="130px">编号</th>
-    	<th>返回单号</th>
-    	<th>是否领取</th>
-    	<th>领取人</th>
-    	<th>联系电话</th>
-    	<th>领取日期</th>
-    	<th>附带配件</th>
-    	<th>发放IT</th>
-    	<th>操作</th>
-    </tr>
-    <c:forEach items="${bds}" var="d">
-    <tr>
-		<td width="">${d.MId }</td>
-		<td width="">${d.EId }</td>
-		<td width="">${d.DDraw }</td>
-		<td width="">${d.DMan }</td>
-		<td width="">${d.DPhone }</td>
-		<td width=""><fmt:formatDate value="${d.DDate }" pattern="HH:mm" /></td>
-		<td width="">${d.DAppendix }</td>
-		<td width="">${d.DIt }</td>
-		<td width="5%" align="center">
-			<a href="<%=path %>/exp!queryOfFenye?id=${d.EId}&idlike=no" class="easyui-linkbutton">返回单号</a>
-			<a onclick="update('${d.MId }','${d.EId }','${d.DDraw }','${d.DMan }',
-			'${d.DPhone }','${d.DDate}','${d.DAppendix }','${d.DIt }')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-edit'" title="修改"></a>
-			<a href="<%=path %>/bqDraw!delete?id=${d.MId}" onclick="return confirm('确定删除吗?')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-delete'" title="删除"></a>
-		</td>
-    </tr>
-    </c:forEach>
-    </table>
+    <div style="margin-bottom: 5px;">
+	    <table border="1" id="eidtASubjectWindow1" style="font-size: 12px;">
+	    <tr>
+	    	<th width="130px">编号</th>
+	    	<th>返回单号</th>
+	    	<th>是否领取</th>
+	    	<th>领取人</th>
+	    	<th>联系电话</th>
+	    	<th>领取日期</th>
+	    	<th>附带配件</th>
+	    	<th>发放IT</th>
+	    	<th>操作</th>
+	    </tr>
+	    <c:forEach items="${bds}" var="d">
+	    <tr>
+			<td width="">${d.MId }</td>
+			<td width="">${d.EId }</td>
+			<td width="">${d.DDraw }</td>
+			<td width="">${d.DMan }</td>
+			<td width="">${d.DPhone }</td>
+			<td width=""><fmt:formatDate value="${d.DDate }" pattern="HH:mm" /></td>
+			<td width="">${d.DAppendix }</td>
+			<td width="">${d.DIt }</td>
+			<td width="5%" align="center">
+				<a href="<%=path %>/exp!queryOfFenye?id=${d.EId}&idlike=no" class="easyui-linkbutton">返回单号</a>
+				<a onclick="update('${d.MId }','${d.EId }','${d.DDraw }','${d.DMan }',
+				'${d.DPhone }','${d.DDate}','${d.DAppendix }','${d.DIt }')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-edit'" title="修改"></a>
+				<a href="<%=path %>/bqDraw!delete?id=${d.MId}" onclick="return confirm('确定删除吗?')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-delete'" title="删除"></a>
+			</td>
+	    </tr>
+	    </c:forEach>
+	    </table>
 	</div>
 	
 	<div class="easyui-panel" style="padding:5px;width: 100%;display: none;">

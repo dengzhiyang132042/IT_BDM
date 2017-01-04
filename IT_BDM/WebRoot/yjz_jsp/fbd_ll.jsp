@@ -26,6 +26,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script type="text/javascript" src="<%=path %>/FRAMEWORK/jquery-easyui/jquery.min.js"></script>
 	<script type="text/javascript" src="<%=path %>/FRAMEWORK/jquery-easyui/jquery.easyui.min.js"></script>
 	
+	<script type="text/javascript" src="<%=path %>/FRAMEWORK/My97DatePicker/WdatePicker.js"></script>
+	
 	<script type="text/javascript" src="<%=path %>/FRAMEWORK/js/myjs.js"></script>
 	<link rel="stylesheet" type="text/css" href="<%=path %>/FRAMEWORK/css/mycss.css">
 
@@ -71,64 +73,77 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   
   <body>
     
-    <div class="easyui-panel" title="分拨点监控材料申请清单链接" style="padding: 5px;display: none;" data-options="tools:'#tt'">
-    <div style="background-color:white;margin-bottom: 5px;padding: 5px;border: 1px solid #224466; ">
-    	快速查询
-    	<br/>
-    	<form action="<%=path %>/fbd_ll!queryOfFenyeLL" method="post">
-    		编号:<input name="id" type="text" value="${id }"/>
-    		&nbsp;&nbsp;&nbsp;&nbsp;
-    		分拨点：<input name="fbdName" type="text" value="${fbdName }"/>
-    		&nbsp;&nbsp;&nbsp;&nbsp;
-    		名称：<input name="llName" type="text" value="${llName }"/>
-    		&nbsp;&nbsp;&nbsp;&nbsp;
-    		状态：<input name="llState" type="text" value="${llState }"/>
-    		<br/>
-    		<input type="submit" value="查询" style="margin:5px;"/>
-    	</form>	
+    <div class="easyui-panel" title="监控材料清单" style="padding: 5px;display: none;" data-options="tools:'#tt'">
+    
+    <div class="kscx">
+   		<div class="inp">
+	    	<form id="ks" action="<%=path %>/fbd_ll!queryOfFenyeLL" method="post">
+	    		<div>
+		    		<div>
+			    		编号:<input name="id" type="text" value="${id }"/>
+		    		</div>
+		    		<div>
+		    			分拨点：<input name="fbdName" type="text" value="${fbdName }"/>
+		    		</div>
+	    		</div>
+	    		<div>
+		    		<div>
+			    		名称：<input name="llName" type="text" value="${llName }"/>
+		    		</div>
+	    			<div>
+	    				状态：<input name="llState" type="text" value="${llState }"/>
+	    			</div>
+	    		</div>
+	    	</form>
+   		</div>
+   		<div  class="btn">
+   			<input type="submit" value="查询" onclick="$('.kscx .inp form').submit();"/>
+   		</div>
+   		<div style="clear:both;"></div>
     </div>
     
-    <table border="1" id="eidtASubjectWindow1" style="font-size: 12px;">
-    <tr>
-    	<th>编号</th>
-    	<th>分部</th>
-    	<th>分拨点</th>
-    	<th>硬件专员</th>
-    	<th>需求日期</th>
-    	<th>提交日期</th>
-    	<th>名称</th>
-    	<th>数量</th>
-    	<th>单位</th>
-    	<th>规格</th>
-    	<th>链接</th>
-    	<th>备注</th>
-    	<th>状态</th>
-    	<th>操作</th>
-    </tr>
-    <c:forEach items="${lls}" var="ll">
-    <tr>
-		<td width="">${ll.llId }</td>
-		<td width="">${ll.fbd.fb.fbName }</td>
-		<td width="">${ll.fbd.fbdName }</td>
-		<td width="">${ll.csMaster }</td>
-		<td width=""><fmt:formatDate value="${ll.llDateNeed }" pattern="yyyy/M/d" /></td>
-		<td width=""><fmt:formatDate value="${ll.llDateCommit }" pattern="yyyy/M/d" /></td>
-		<td width="">${ll.llName }</td>
-		<td width="">${ll.llNumber }</td>
-		<td width="">${ll.llUnit }</td>
-		<td width="">${ll.llNorms }</td>
-		<td width=""><a href="${ll.llLink }" target="blant">${ll.llLink }</a></td>
-		<td width="">${ll.llNote }</td>
-		<td width="">${ll.llState }</td>
-		<td width="5%" align="center">
-			<a onclick="update('${ll.llId }','${ll.fbd.fbdId }','${ll.csMaster }','${ll.llDateNeed }','${ll.llDateCommit }','${ll.llName }','${ll.llNumber }','${ll.llUnit }','${ll.llNorms }','${ll.llLink }','${ll.llNote }','${ll.llState }')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-edit'" title="修改"></a>
-			<a href="<%=path %>/fbd_ll!deleteLL?id=${ll.llId}" onclick="return confirm('确定删除吗?')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-delete'" title="删除"></a>
-		</td>
-    </tr>
-    </c:forEach>
-    </table>
+    
+    <div style="margin-bottom: 5px;">
+	    <table border="1" id="eidtASubjectWindow1">
+	    <tr>
+	    	<th>编号</th>
+	    	<th>分部</th>
+	    	<th>分拨点</th>
+	    	<th>硬件专员</th>
+	    	<th>需求日期</th>
+	    	<th>提交日期</th>
+	    	<th>名称</th>
+	    	<th>数量</th>
+	    	<th>单位</th>
+	    	<th>规格</th>
+	    	<th>链接</th>
+	    	<th>备注</th>
+	    	<th>状态</th>
+	    	<th>操作</th>
+	    </tr>
+	    <c:forEach items="${lls}" var="ll">
+	    <tr>
+			<td width="">${ll.llId }</td>
+			<td width="">${ll.fbd.fb.fbName }</td>
+			<td width="">${ll.fbd.fbdName }</td>
+			<td width="">${ll.csMaster }</td>
+			<td width=""><fmt:formatDate value="${ll.llDateNeed }" pattern="yyyy/M/d" /></td>
+			<td width=""><fmt:formatDate value="${ll.llDateCommit }" pattern="yyyy/M/d" /></td>
+			<td width="">${ll.llName }</td>
+			<td width="">${ll.llNumber }</td>
+			<td width="">${ll.llUnit }</td>
+			<td width="">${ll.llNorms }</td>
+			<td width=""><a href="${ll.llLink }" target="blant">${ll.llLink }</a></td>
+			<td width="">${ll.llNote }</td>
+			<td width="">${ll.llState }</td>
+			<td width="5%" align="center">
+				<a onclick="update('${ll.llId }','${ll.fbd.fbdId }','${ll.csMaster }','${ll.llDateNeed }','${ll.llDateCommit }','${ll.llName }','${ll.llNumber }','${ll.llUnit }','${ll.llNorms }','${ll.llLink }','${ll.llNote }','${ll.llState }')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-edit'" title="修改"></a>
+				<a href="<%=path %>/fbd_ll!deleteLL?id=${ll.llId}" onclick="return confirm('确定删除吗?')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-delete'" title="删除"></a>
+			</td>
+	    </tr>
+	    </c:forEach>
+	    </table>
 	</div>
-	<br/>
 	
 	<div class="easyui-panel" style="padding:5px;width: 100%;display: none;">
 		<form id="f1" action="<%=path %>/fbd_ll!queryOfFenyeLL?id=${id }&fbdName=${fbdName }&llName=${llName }&llState=${llState }" method="post">

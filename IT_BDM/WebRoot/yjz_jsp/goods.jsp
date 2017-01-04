@@ -26,6 +26,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script type="text/javascript" src="<%=path %>/FRAMEWORK/jquery-easyui/jquery.min.js"></script>
 	<script type="text/javascript" src="<%=path %>/FRAMEWORK/jquery-easyui/jquery.easyui.min.js"></script>
 	
+	<script type="text/javascript" src="<%=path %>/FRAMEWORK/My97DatePicker/WdatePicker.js"></script>
+	
 	<script type="text/javascript" src="<%=path %>/FRAMEWORK/js/myjs.js"></script>
 	<link rel="stylesheet" type="text/css" href="<%=path %>/FRAMEWORK/css/mycss.css">
 
@@ -71,55 +73,68 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <body>
     
     <div class="easyui-panel" title="内件收发登记" style="padding: 5px;display: none;" data-options="tools:'#tt'">
-    <div style="background-color:white;margin-bottom: 5px;padding: 5px;border: 1px solid #224466; ">
-    	快速查询
-    	<br/>
-    	<form action="<%=path %>/goods!queryOfFenyeGoods" method="post">
-    		编号:<input name="id" type="text" value="${id }"/>
-    		&nbsp;&nbsp;&nbsp;&nbsp;
-    		物品名称：<input name="GName" type="text" value="${GName }"/>
-    		&nbsp;&nbsp;&nbsp;&nbsp;
-    		单位：<input name="GUnit" type="text" value="${GUnit }"/>
-    		&nbsp;&nbsp;&nbsp;&nbsp;
-    		接收人员：<input name="csMasterIn" type="text" value="${csMasterIn }"/>
-    		<br/>
-    		<input type="submit" value="查询" style="margin:5px;"/>
-    	</form>	
+    
+    <div class="kscx">
+   		<div class="inp">
+	    	<form id="ks" action="<%=path %>/goods!queryOfFenyeGoods" method="post">
+	    		<div>
+		    		<div>
+			    		编号:<input name="id" type="text" value="${id }"/>
+		    		</div>
+	    			<div>
+	    				物品名称：<input name="GName" type="text" value="${GName }"/>
+	    			</div>
+	    		</div>
+	    		<div>
+		    		<div>
+			    		单位：<input name="GUnit" type="text" value="${GUnit }"/>
+		    		</div>
+	    			<div>
+	    				接收人员：<input name="csMasterIn" type="text" value="${csMasterIn }"/>
+	    			</div>
+	    		</div>
+	    	</form>
+   		</div>
+   		<div  class="btn">
+   			<input type="submit" value="查询" onclick="$('.kscx .inp form').submit();"/>
+   		</div>
+   		<div style="clear:both;"></div>
     </div>
     
-    <table border="1" id="eidtASubjectWindow1" style="font-size: 12px;">
-    <tr align="center" style="height: 28px;background-color: #E6E6E6;">
-    	<th>编号</th>
-    	<th>物品名称</th>
-    	<th>数量 </th>
-    	<th>单位</th>
-    	<th>接受日期</th>
-    	<th>接收人员</th>
-    	<th>发送日期</th>
-    	<th>发送人员</th>
-    	<th>备注</th>
-    	<th>操作</th>
-    </tr>
-    <c:forEach items="${goods}" var="good">
-    <tr>
-		<td width="">${good.GId }</td>
-		<td width="">${good.GName }</td>
-		<td width="">${good.GNumber }</td>
-		<td width="">${good.GUnit }</td>
-		<td width=""><fmt:formatDate value="${good.GDateIn }" pattern="yyyy/M/d" /></td>
-		<td width="">${good.csMasterIn }</td>
-		<td width=""><fmt:formatDate value="${good.GDateOut }" pattern="yyyy/M/d" /></td>
-		<td width="">${good.csMasterOut }</td>
-		<td width="">${good.GNote }</td>
-		<td width="5%" align="center">
-			<a onclick="update('${good.GId }','${good.GName }','${good.GNumber }','${good.GUnit }','${good.GDateIn }','${good.csMasterIn }','${good.GDateOut }','${good.csMasterOut }','${good.GNote }')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-edit'" title="修改"></a>
-			<a href="<%=path %>/goods!deleteGoods?id=${good.GId}" onclick="return confirm('确定删除吗?')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-delete'" title="删除"></a>
-		</td>
-    </tr>
-    </c:forEach>
-    </table>
+    
+    <div style="margin-bottom: 5px;">
+	    <table border="1" id="eidtASubjectWindow1">
+	    <tr>
+	    	<th>编号</th>
+	    	<th>物品名称</th>
+	    	<th>数量 </th>
+	    	<th>单位</th>
+	    	<th>接受日期</th>
+	    	<th>接收人员</th>
+	    	<th>发送日期</th>
+	    	<th>发送人员</th>
+	    	<th>备注</th>
+	    	<th>操作</th>
+	    </tr>
+	    <c:forEach items="${goods}" var="good">
+	    <tr>
+			<td width="">${good.GId }</td>
+			<td width="">${good.GName }</td>
+			<td width="">${good.GNumber }</td>
+			<td width="">${good.GUnit }</td>
+			<td width=""><fmt:formatDate value="${good.GDateIn }" pattern="yyyy/M/d" /></td>
+			<td width="">${good.csMasterIn }</td>
+			<td width=""><fmt:formatDate value="${good.GDateOut }" pattern="yyyy/M/d" /></td>
+			<td width="">${good.csMasterOut }</td>
+			<td width="">${good.GNote }</td>
+			<td width="5%" align="center">
+				<a onclick="update('${good.GId }','${good.GName }','${good.GNumber }','${good.GUnit }','${good.GDateIn }','${good.csMasterIn }','${good.GDateOut }','${good.csMasterOut }','${good.GNote }')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-edit'" title="修改"></a>
+				<a href="<%=path %>/goods!deleteGoods?id=${good.GId}" onclick="return confirm('确定删除吗?')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-delete'" title="删除"></a>
+			</td>
+	    </tr>
+	    </c:forEach>
+	    </table>
 	</div>
-	<br/>
 	
 	<div class="easyui-panel" style="padding:5px;width: 100%;display: none;">
 		<form id="f1" action="<%=path %>/goods!queryOfFenyeGoods?id=${id}&GName=${GName}&GUnit=${GUnit}&csMasterIn=${csMasterIn}" method="post">

@@ -26,6 +26,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script type="text/javascript" src="<%=path %>/FRAMEWORK/jquery-easyui/jquery.min.js"></script>
 	<script type="text/javascript" src="<%=path %>/FRAMEWORK/jquery-easyui/jquery.easyui.min.js"></script>
 	
+	<script type="text/javascript" src="<%=path %>/FRAMEWORK/My97DatePicker/WdatePicker.js"></script>
+	
 	<script type="text/javascript" src="<%=path %>/FRAMEWORK/js/myjs.js"></script>
 	<link rel="stylesheet" type="text/css" href="<%=path %>/FRAMEWORK/css/mycss.css">
 
@@ -71,52 +73,64 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <body>
     
     <div class="easyui-panel" title="园区wifi管理" style="padding: 5px;display: none;" data-options="tools:'#tt'">
-    <div style="background-color:white;margin-bottom: 5px;padding: 5px;border: 1px solid #224466; ">
-    	快速查询
-    	<br/>
-    	<form action="<%=path %>/wifi!queryOfFenye" method="post">
-    		编号:<input name="id" type="text" value="${id }"/>
-    		&nbsp;&nbsp;&nbsp;&nbsp;
-    		位置：<input name="WAddress" type="text" value="${WAddress }"/>
-    		&nbsp;&nbsp;&nbsp;&nbsp;
-    		远程设置IP:<input name="WIp" type="text" value="${WIp }"/>
-    		&nbsp;&nbsp;&nbsp;&nbsp;
-    		SSID:<input name="WSsid" type="text" value="${WSsid }"/>
-    		<br/>
-    		<input type="submit" value="查询" style="margin:5px;"/>
-    	</form>	
-    </div>
-    <div style="margin-bottom: 5px;">
     
-    <table border="1" id="eidtASubjectWindow1" style="font-size: 12px;">
-    <tr>
-    	<th>编号</th>
-    	<th>位置</th>
-    	<th>远程设置IP</th>
-    	<th>管理账号</th>
-    	<th>管理密码</th>
-    	<th>SSID</th>
-    	<th>密码</th>
-    	<th>备注说明</th>
-    	<th>操作</th>
-    </tr>
-    <c:forEach items="${wifis}" var="w">
-    <tr>
-		<td width="">${w.WId }</td>
-		<td width="">${w.WAddress }</td>
-		<td width="">${w.WIp }</td>
-		<td width="">${w.WManagerNum }</td>
-		<td width="">${w.WManagerPass }</td>
-		<td width="">${w.WSsid }</td>
-		<td width="">${w.WPass }</td>
-		<td width="">${w.WNote }</td>
-		<td width="5%" align="center">
-			<a onclick="update('${w.WId }','${w.WAddress }','${w.WIp }','${w.WManagerNum }','${w.WManagerPass }','${w.WSsid }','${w.WPass }','${w.WNote }')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-edit'" title="修改"></a>
-			<a href="<%=path %>/wifi!delete?id=${w.WId }" onclick="return confirm('确定删除吗?')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-delete'" title="删除"></a>
-		</td>
-    </tr>
-    </c:forEach>
-    </table>
+    <div class="kscx">
+   		<div class="inp">
+	    	<form id="ks" action="<%=path %>/wifi!queryOfFenye" method="post">
+	    		<div>
+		    		<div>
+			    		编号:<input name="id" type="text" value="${id }"/>
+		    		</div>
+	    			<div>
+	    				位置：<input name="WAddress" type="text" value="${WAddress }"/>
+	    			</div>
+	    		</div>
+	    		<div>
+		    		<div>
+			    		远程设置IP:<input name="WIp" type="text" value="${WIp }"/>
+		    		</div>
+	    			<div>
+	    				SSID:<input name="WSsid" type="text" value="${WSsid }"/>
+	    			</div>
+	    		</div>
+	    	</form>
+   		</div>
+   		<div  class="btn">
+   			<input type="submit" value="查询" onclick="$('.kscx .inp form').submit();"/>
+   		</div>
+   		<div style="clear:both;"></div>
+    </div>
+    
+    <div style="margin-bottom: 5px;">
+	    <table border="1" id="eidtASubjectWindow1" style="font-size: 12px;">
+	    <tr>
+	    	<th>编号</th>
+	    	<th>位置</th>
+	    	<th>远程设置IP</th>
+	    	<th>管理账号</th>
+	    	<th>管理密码</th>
+	    	<th>SSID</th>
+	    	<th>密码</th>
+	    	<th>备注说明</th>
+	    	<th>操作</th>
+	    </tr>
+	    <c:forEach items="${wifis}" var="w">
+	    <tr>
+			<td width="">${w.WId }</td>
+			<td width="">${w.WAddress }</td>
+			<td width="">${w.WIp }</td>
+			<td width="">${w.WManagerNum }</td>
+			<td width="">${w.WManagerPass }</td>
+			<td width="">${w.WSsid }</td>
+			<td width="">${w.WPass }</td>
+			<td width="">${w.WNote }</td>
+			<td width="5%" align="center">
+				<a onclick="update('${w.WId }','${w.WAddress }','${w.WIp }','${w.WManagerNum }','${w.WManagerPass }','${w.WSsid }','${w.WPass }','${w.WNote }')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-edit'" title="修改"></a>
+				<a href="<%=path %>/wifi!delete?id=${w.WId }" onclick="return confirm('确定删除吗?')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-delete'" title="删除"></a>
+			</td>
+	    </tr>
+	    </c:forEach>
+	    </table>
 	</div>
 	
 	<div class="easyui-panel" style="padding:5px;width: 100%;display: none;background-color: white;">

@@ -94,7 +94,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    			</div>
 	    		</div>
 	    	</form>
-	    	
    		</div>
    		<div  class="btn">
    			<input type="submit" value="查询" onclick="$('.kscx .inp form').submit();"/>

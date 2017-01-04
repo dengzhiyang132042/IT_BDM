@@ -11,7 +11,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <head>
     <base href="<%=basePath%>">
     
-    <title>呼叫系统账号维护</title>
+    <title>总部呼叫系统</title>
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
 	<meta http-equiv="expires" content="0">    
@@ -25,6 +25,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<link rel="stylesheet" type="text/css" href="<%=path %>/FRAMEWORK/jquery-easyui/demo/demo.css">
 	<script type="text/javascript" src="<%=path %>/FRAMEWORK/jquery-easyui/jquery.min.js"></script>
 	<script type="text/javascript" src="<%=path %>/FRAMEWORK/jquery-easyui/jquery.easyui.min.js"></script>
+	
+	<script type="text/javascript" src="<%=path %>/FRAMEWORK/My97DatePicker/WdatePicker.js"></script>
 	
 	<script type="text/javascript" src="<%=path %>/FRAMEWORK/js/myjs.js"></script>
 	<link rel="stylesheet" type="text/css" href="<%=path %>/FRAMEWORK/css/mycss.css">
@@ -79,65 +81,86 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   </head>
   
   <body>
-    <div class="easyui-panel" title="呼叫系统账号维护" style="padding: 5px;display: none;" data-options="tools:'#tt'">
-    <div style="background-color:white;margin-bottom: 5px;padding: 5px;border: 1px solid #224466; ">
-    	快速查询
-    	<br/>
-    	<form action="<%=path %>/call!queryOfFenye" method="post">
-    		编号:<input name="id" type="text" value="${id }"/>
-    		&nbsp;&nbsp;&nbsp;&nbsp;
-    		姓名  :<input name="name" type="text" value="${name }"/>
-    		&nbsp;&nbsp;&nbsp;&nbsp;
-    		部门:<input name="section" type="text" value="${section }"/>
-    		&nbsp;&nbsp;&nbsp;&nbsp;
-    		站点条码:<input name="cnum" type="text" value="${cnum }"/>
-    		&nbsp;&nbsp;&nbsp;&nbsp;
-    		分机号码:<input name="phone" type="text" value="${phone }"/>
-    		&nbsp;&nbsp;&nbsp;&nbsp;
-    		维护时间:<input name="dates" type="date" value="${dates }"/>
-    		~
-    		<input name="datee" type="date" value="${datee }"/>
-    		<br/>
-    		<input type="submit" value="查询"/>
-    	</form>	
-    </div>
-    <div style="margin-bottom: 5px;">
+    <div class="easyui-panel" title="总部呼叫系统" style="padding: 5px;display: none;" data-options="tools:'#tt'">
     
-    <table border="1" id="eidtASubjectWindow1" style="font-size: 12px;">
-    <tr>
-    	<th width="130px">编号</th>
-    	<th>维护日期</th>
-    	<th>部门</th>
-    	<th>站点条码</th>
-    	<th>姓名</th>
-    	<th>分机号码</th>
-    	<th>默认密码</th>
-    	<th>维护IT</th>
-    	<th>入职情况</th>
-    	<th>维护周数</th>
-    	<th>备注说明</th>
-    	<th>操作</th>
-    </tr>
-    <c:forEach items="${calls}" var="call">
-    <tr>
-		<td width="">${call.CId }</td>
-		<td width=""><fmt:formatDate value="${call.CDate }" pattern="yyyy/M/d" /></td>
-		<td width="">${call.CSection}</td>
-		<td width="">${call.CNum }</td>
-		<td width="">${call.CName }</td>
-		<td width="">${call.CPhone }</td>
-		<td width="">${call.CPass }</td>
-		<td width="">${call.CIt }</td>
-		<td width="">${call.CJob }</td>
-		<td width="">${call.CWeek }</td>
-		<td width="">${call.CNote }</td>
-		<td width="5%" align="center">
-			<a onclick="update('${call.CId }','${call.CDate }','${call.CSection }','${call.CNum }','${call.CName }','${call.CPhone }','${call.CPass }','${call.CIt }','${call.CJob }','${call.CWeek }','${call.CNote }')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-edit'" title="修改"></a>
-			<a href="<%=path %>/call!delete?id=${call.CId}" onclick="return confirm('确定删除吗?')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-delete'" title="删除"></a>
-		</td>
-    </tr>
-    </c:forEach>
-    </table>
+    <div class="kscx">
+   		<div class="inp">
+	    	<form id="ks" action="<%=path %>/call!queryOfFenye" method="post">
+	    		<div>
+		    		<div>
+			    		维护开始日期：<input name="dates" id="d4311" class="Wdate" type="text" onFocus="WdatePicker({maxDate:'#F{$dp.$D(\'d4312\')}'})" value="${dates }"/>
+		    		</div>
+		    		<div>
+		    			维护结束日期：<input name="datee" id="d4312" class="Wdate" type="text" onFocus="WdatePicker({minDate:'#F{$dp.$D(\'d4311\')}'})" value="${datee }"/>
+		    		</div>
+	    		</div>
+	    		<div>
+		    		<div>
+			    		编号:<input name="id" type="text" value="${id }"/>
+		    		</div>
+	    			<div>
+	    				姓名  :<input name="name" type="text" value="${name }"/>
+	    			</div>
+	    		</div>
+	    		<div>
+		    		<div>
+			    		部门:<input name="section" type="text" value="${section }"/>
+		    		</div>
+	    			<div>
+	    				站点条码:<input name="cnum" type="text" value="${cnum }"/>
+	    			</div>
+	    		</div>
+	    		<div>
+		    		<div>
+			    		分机号码:<input name="phone" type="text" value="${phone }"/>
+		    		</div>
+	    			<div>
+	    			</div>
+	    		</div>
+	    	</form>
+   		</div>
+   		<div  class="btn">
+   			<input type="submit" value="查询" onclick="$('.kscx .inp form').submit();"/>
+   		</div>
+   		<div style="clear:both;"></div>
+    </div>
+    
+    <div style="margin-bottom: 5px;">
+	    <table border="1" id="eidtASubjectWindow1" style="font-size: 12px;">
+	    <tr>
+	    	<th width="130px">编号</th>
+	    	<th>维护日期</th>
+	    	<th>部门</th>
+	    	<th>站点条码</th>
+	    	<th>姓名</th>
+	    	<th>分机号码</th>
+	    	<th>默认密码</th>
+	    	<th>维护IT</th>
+	    	<th>入职情况</th>
+	    	<th>维护周数</th>
+	    	<th>备注说明</th>
+	    	<th>操作</th>
+	    </tr>
+	    <c:forEach items="${calls}" var="call">
+	    <tr>
+			<td width="">${call.CId }</td>
+			<td width=""><fmt:formatDate value="${call.CDate }" pattern="yyyy/M/d" /></td>
+			<td width="">${call.CSection}</td>
+			<td width="">${call.CNum }</td>
+			<td width="">${call.CName }</td>
+			<td width="">${call.CPhone }</td>
+			<td width="">${call.CPass }</td>
+			<td width="">${call.CIt }</td>
+			<td width="">${call.CJob }</td>
+			<td width="">${call.CWeek }</td>
+			<td width="">${call.CNote }</td>
+			<td width="5%" align="center">
+				<a onclick="update('${call.CId }','${call.CDate }','${call.CSection }','${call.CNum }','${call.CName }','${call.CPhone }','${call.CPass }','${call.CIt }','${call.CJob }','${call.CWeek }','${call.CNote }')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-edit'" title="修改"></a>
+				<a href="<%=path %>/call!delete?id=${call.CId}" onclick="return confirm('确定删除吗?')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-delete'" title="删除"></a>
+			</td>
+	    </tr>
+	    </c:forEach>
+    	</table>
 	</div>
 	
 	<div class="easyui-panel" style="padding:5px;width: 100%;display: none;background-color: white;">

@@ -13,7 +13,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <head>
     <base href="<%=basePath%>">
     
-    <title>观澜仓库3楼会议室巡检</title>
+    <title>观澜3楼巡检</title>
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
 	<meta http-equiv="expires" content="0">    
@@ -27,6 +27,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<link rel="stylesheet" type="text/css" href="<%=path %>/FRAMEWORK/jquery-easyui/demo/demo.css">
 	<script type="text/javascript" src="<%=path %>/FRAMEWORK/jquery-easyui/jquery.min.js"></script>
 	<script type="text/javascript" src="<%=path %>/FRAMEWORK/jquery-easyui/jquery.easyui.min.js"></script>
+	
 	<script type="text/javascript" src="<%=path %>/FRAMEWORK/My97DatePicker/WdatePicker.js"></script>
 	
 	<script type="text/javascript" src="<%=path %>/FRAMEWORK/js/myjs.js"></script>
@@ -80,61 +81,72 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   
   <body>
     
-    <div class="easyui-panel" title="观澜仓库3楼会议室巡检" style="padding: 5px;display: none;" data-options="tools:'#tt'">
+    <div class="easyui-panel" title="观澜3楼巡检" style="padding: 5px;display: none;" data-options="tools:'#tt'">
     
-    <div style="background-color:white;margin-bottom: 5px;padding: 5px;border: 1px solid #224466; ">
-    	快速查询
-    	<br/>
-    	<form action="<%=path %>/threeMeet!queryOfFenye" method="post">
-    		编号:<input name="id" type="text" value="${id }"/>
-    		&nbsp;&nbsp;&nbsp;&nbsp;
-    		日期:
-    		<input name="dates" id="d4311" class="Wdate" type="text" onFocus="WdatePicker({readOnly:true,maxDate:'#F{$dp.$D(\'d4312\')}'})" value="${dates }"/> 
-    		~
-			<input name="datee" id="d4312" class="Wdate" type="text" onFocus="WdatePicker({readOnly:true,minDate:'#F{$dp.$D(\'d4311\')}'})" value="${datee }"/>	
-    		<br/>
-    		<input type="submit" value="查询"/>
-    	</form>	
+    <div class="kscx">
+   		<div class="inp">
+	    	<form id="ks" action="<%=path %>/threeMeet!queryOfFenye" method="post">
+	    		<div>
+		    		<div>
+			    		开始日期：<input name="dates" id="d4311" class="Wdate" type="text" onFocus="WdatePicker({maxDate:'#F{$dp.$D(\'d4312\')}'})" value="${dates }"/>
+		    		</div>
+		    		<div>
+		    			结束日期：<input name="datee" id="d4312" class="Wdate" type="text" onFocus="WdatePicker({minDate:'#F{$dp.$D(\'d4311\')}'})" value="${datee }"/>
+		    		</div>
+	    		</div>
+	    		<div>
+		    		<div>
+			    		编号:<input name="id" type="text" value="${id }"/>
+		    		</div>
+	    			<div>
+	    			</div>
+	    		</div>
+	    	</form>
+   		</div>
+   		<div  class="btn">
+   			<input type="submit" value="查询" onclick="$('.kscx .inp form').submit();"/>
+   		</div>
+   		<div style="clear:both;"></div>
     </div>
     
-    <div style="margin-bottom: 5px;">
     
-    <table border="1" id="eidtASubjectWindow1" style="font-size: 12px;">
-    <tr>
-    	<th width="130px">编号</th>
-    	<th>日期</th>
-    	<th>巡检IT</th>
-    	<th>电脑主机</th>
-    	<th>监控时间</th>
-    	<th>录像</th>
-    	<th>监控屏</th>
-    	<th>键盘鼠标</th>
-    	<th>投影仪</th>
-    	<th>韵达软件</th>
-    	<th>备注</th>
-    	<th>操作</th>
-    </tr>
-    <c:forEach items="${tms}" var="t">
-    <tr>
-		<td width="">${t.TId }</td>
-		<td width=""><fmt:formatDate value="${t.TDate }" pattern="yyyy-MM-dd" /></td>
-		<td width="">${t.TIt }</td>
-		<td width="">${t.TComputer }</td>
-		<td width="">${t.TMonitor }</td>
-		<td width="">${t.TVideo }</td>
-		<td width="">${t.TMonitorScreen }</td>
-		<td width="">${t.TMouseKeyboard }</td>
-		<td width="">${t.TProjector }</td>
-		<td width="">${t.TYdSoftware }</td>
-		<td width="">${t.TNote }</td>
-		<td width="5%" align="center">
-			<a onclick="update('${t.TId }','<fmt:formatDate value="${t.TDate }" pattern="yyyy-MM-dd" />','${t.TIt }','${t.TComputer }',
-			'${t.TMonitor }','${t.TVideo}','${t.TMonitorScreen }','${t.TMouseKeyboard }','${t.TProjector }','${t.TYdSoftware }','${t.TNote }' )" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-edit'" title="修改"></a>
-			<a href="<%=path %>/threeMeet!delete?id=${t.TId}" onclick="return confirm('确定删除吗?')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-delete'" title="删除"></a>
-		</td>
-    </tr>
-    </c:forEach>
-    </table>
+    <div style="margin-bottom: 5px;">
+	    <table border="1" id="eidtASubjectWindow1" style="font-size: 12px;">
+	    <tr>
+	    	<th width="130px">编号</th>
+	    	<th>日期</th>
+	    	<th>巡检IT</th>
+	    	<th>电脑主机</th>
+	    	<th>监控时间</th>
+	    	<th>录像</th>
+	    	<th>监控屏</th>
+	    	<th>键盘鼠标</th>
+	    	<th>投影仪</th>
+	    	<th>韵达软件</th>
+	    	<th>备注</th>
+	    	<th>操作</th>
+	    </tr>
+	    <c:forEach items="${tms}" var="t">
+	    <tr>
+			<td width="">${t.TId }</td>
+			<td width=""><fmt:formatDate value="${t.TDate }" pattern="yyyy-MM-dd" /></td>
+			<td width="">${t.TIt }</td>
+			<td width="">${t.TComputer }</td>
+			<td width="">${t.TMonitor }</td>
+			<td width="">${t.TVideo }</td>
+			<td width="">${t.TMonitorScreen }</td>
+			<td width="">${t.TMouseKeyboard }</td>
+			<td width="">${t.TProjector }</td>
+			<td width="">${t.TYdSoftware }</td>
+			<td width="">${t.TNote }</td>
+			<td width="5%" align="center">
+				<a onclick="update('${t.TId }','<fmt:formatDate value="${t.TDate }" pattern="yyyy-MM-dd" />','${t.TIt }','${t.TComputer }',
+				'${t.TMonitor }','${t.TVideo}','${t.TMonitorScreen }','${t.TMouseKeyboard }','${t.TProjector }','${t.TYdSoftware }','${t.TNote }' )" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-edit'" title="修改"></a>
+				<a href="<%=path %>/threeMeet!delete?id=${t.TId}" onclick="return confirm('确定删除吗?')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-delete'" title="删除"></a>
+			</td>
+	    </tr>
+	    </c:forEach>
+	    </table>
 	</div>
 	
 	<div class="easyui-panel" style="padding:5px;width: 100%;display: none;">

@@ -11,7 +11,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <head>
     <base href="<%=basePath%>">
     
-    <title>分拨点监控登记</title>
+    <title>监控信息登记</title>
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
 	<meta http-equiv="expires" content="0">    
@@ -25,6 +25,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<link rel="stylesheet" type="text/css" href="<%=path %>/FRAMEWORK/jquery-easyui/demo/demo.css">
 	<script type="text/javascript" src="<%=path %>/FRAMEWORK/jquery-easyui/jquery.min.js"></script>
 	<script type="text/javascript" src="<%=path %>/FRAMEWORK/jquery-easyui/jquery.easyui.min.js"></script>
+	
+	<script type="text/javascript" src="<%=path %>/FRAMEWORK/My97DatePicker/WdatePicker.js"></script>
 	
 	<script type="text/javascript" src="<%=path %>/FRAMEWORK/js/myjs.js"></script>
 	<link rel="stylesheet" type="text/css" href="<%=path %>/FRAMEWORK/css/mycss.css">
@@ -78,81 +80,100 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   
   <body>
     
-    <div class="easyui-panel" title="分拨点监控登记" style="padding: 5px;display: none;" data-options="tools:'#tt'">
-    <div style="background-color:white;margin-bottom: 5px;padding: 5px;border: 1px solid #224466; ">
-    	快速查询
-    	<br/>
-    	<form action="<%=path %>/fbd_m!queryOfFenyeM" method="post">
-    		编号:<input name="id" type="text" value="${id }"/>
-    		&nbsp;&nbsp;&nbsp;&nbsp;
-    		分拨点：<input name="fbdName" type="text" value="${fbdName }"/>
-    		&nbsp;&nbsp;&nbsp;&nbsp;
-    		监控账号：<input name="MNum" type="text" value="${MNum }"/>
-    		&nbsp;&nbsp;&nbsp;&nbsp;
-    		是否可报废：<input name="MScrap" type="text" value="${MScrap }"/>
-    		&nbsp;&nbsp;&nbsp;&nbsp;
-    		状态：<input name="MState" type="text" value="${MState }"/>
-    		<br/>
-    		<input type="submit" value="查询" style="margin:5px;"/>
-    	</form>	 
+    <div class="easyui-panel" title="监控信息登记" style="padding: 5px;display: none;" data-options="tools:'#tt'">
+    
+    <div class="kscx">
+   		<div class="inp">
+	    	<form id="ks" action="<%=path %>/fbd_m!queryOfFenyeM" method="post">
+	    		<div>
+		    		<div>
+			    		编号:<input name="id" type="text" value="${id }"/>
+		    		</div>
+	    			<div>
+	    				分拨点：<input name="fbdName" type="text" value="${fbdName }"/>
+	    			</div>
+	    		</div>
+	    		<div>
+		    		<div>
+			    		监控账号：<input name="MNum" type="text" value="${MNum }"/>
+		    		</div>
+	    			<div>
+	    				是否可报废：<input name="MScrap" type="text" value="${MScrap }"/>
+	    			</div>
+	    		</div>
+	    		<div>
+		    		<div>
+			    		状态：<input name="MState" type="text" value="${MState }"/>
+		    		</div>
+	    			<div>
+	    			</div>
+	    		</div>
+	    	</form>
+   		</div>
+   		<div  class="btn">
+   			<input type="submit" value="查询" onclick="$('.kscx .inp form').submit();"/>
+   		</div>
+   		<div style="clear:both;"></div>
     </div>
-    <table border="1" id="eidtASubjectWindow1" style="font-size: 12px;">
-    <tr>
-    	<th>编号</th>
-    	<th>区部</th>
-    	<th>分部</th>
-    	<th>分部经理</th>
-    	<th>联系电话</th>
-    	<th>分拨点</th>
-    	<th>摄像头</th>
-    	<th>硬盘数</th>
-    	<th>硬盘容量</th>
-    	<th>监控账号</th>
-    	<th>监控密码</th>
-    	<th>显示器</th>
-    	<th>监控主机</th>
-    	<th>主机型号</th>
-    	<th>监控总接口数</th>
-    	<th>监控主机使用时间</th>
-    	<th>使用年限</th>
-    	<th>是否可报废</th>
-    	<th>录像周期（天）</th>
-    	<th>备注说明</th>
-    	<th>状态</th>
-    	<th>操作</th>
-    </tr>
-    <c:forEach items="${ms}" var="m">
-    <tr>
-		<td width="">${m.MId }</td>
-		<td width="">${m.fbd.fb.qb.qbName }</td>
-		<td width="">${m.fbd.fb.fbName }</td>
-		<td width="">${m.fbd.fb.fbMaster }</td>
-		<td width="">${m.fbd.fb.fbPhonePrivate }</td>
-		<td width="">${m.fbd.fbdName }</td>
-		<td width="">${m.MCamera }</td>
-		<td width="">${m.MDisk }</td>
-		<td width="">${m.MDiskCapacity }</td>
-		<td width="">${m.MNum }</td>
-		<td width="">${m.MPass }</td>
-		<td width="">${m.MDisplayer }</td>
-		<td width="">${m.MMainframeBrand }</td>
-		<td width="">${m.MMainframeNumber }</td>
-		<td width="">${m.MInterface }</td>
-		<td width=""><fmt:formatDate value="${m.MTimeStart }" pattern="yyyy/M/d" /></td>
-		<td width="">${m.MUsedYear }</td>
-		<td width="">${m.MScrap }</td>
-		<td width="">${m.MPeriod }</td>
-		<td width="">${m.MNote }</td>
-		<td width="">${m.MState }</td>
-		<td width="5%" align="center">
-			<a onclick="update('${m.MId }','${m.fbd.fbdId }','${m.MCamera }','${m.MDisk }','${m.MDiskCapacity }','${m.MNum }','${m.MPass }','${m.MDisplayer }','${m.MMainframeBrand }','${m.MMainframeNumber }','${m.MInterface }','${m.MTimeStart }','${m.MUsedYear }','${m.MScrap }','${m.MPeriod }','${m.MNote }','${m.MState }')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-edit'" title="修改"></a>
-			<a href="<%=path %>/fbd_m!deleteM?id=${m.MId}" onclick="return confirm('确定删除吗?')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-delete'" title="删除"></a>
-		</td>
-    </tr>
-    </c:forEach>
-    </table>
+    
+    
+    <div style="margin-bottom: 5px;">
+	    <table border="1" id="eidtASubjectWindow1">
+	    <tr>
+	    	<th>编号</th>
+	    	<th>区部</th>
+	    	<th>分部</th>
+	    	<th>分部经理</th>
+	    	<th>联系电话</th>
+	    	<th>分拨点</th>
+	    	<th>摄像头</th>
+	    	<th>硬盘数</th>
+	    	<th>硬盘容量</th>
+	    	<th>监控账号</th>
+	    	<th>监控密码</th>
+	    	<th>显示器</th>
+	    	<th>监控主机</th>
+	    	<th>主机型号</th>
+	    	<th>监控总接口数</th>
+	    	<th>监控主机使用时间</th>
+	    	<th>使用年限</th>
+	    	<th>是否可报废</th>
+	    	<th>录像周期（天）</th>
+	    	<th>备注说明</th>
+	    	<th>状态</th>
+	    	<th>操作</th>
+	    </tr>
+	    <c:forEach items="${ms}" var="m">
+	    <tr>
+			<td width="">${m.MId }</td>
+			<td width="">${m.fbd.fb.qb.qbName }</td>
+			<td width="">${m.fbd.fb.fbName }</td>
+			<td width="">${m.fbd.fb.fbMaster }</td>
+			<td width="">${m.fbd.fb.fbPhonePrivate }</td>
+			<td width="">${m.fbd.fbdName }</td>
+			<td width="">${m.MCamera }</td>
+			<td width="">${m.MDisk }</td>
+			<td width="">${m.MDiskCapacity }</td>
+			<td width="">${m.MNum }</td>
+			<td width="">${m.MPass }</td>
+			<td width="">${m.MDisplayer }</td>
+			<td width="">${m.MMainframeBrand }</td>
+			<td width="">${m.MMainframeNumber }</td>
+			<td width="">${m.MInterface }</td>
+			<td width=""><fmt:formatDate value="${m.MTimeStart }" pattern="yyyy/M/d" /></td>
+			<td width="">${m.MUsedYear }</td>
+			<td width="">${m.MScrap }</td>
+			<td width="">${m.MPeriod }</td>
+			<td width="">${m.MNote }</td>
+			<td width="">${m.MState }</td>
+			<td width="5%" align="center">
+				<a onclick="update('${m.MId }','${m.fbd.fbdId }','${m.MCamera }','${m.MDisk }','${m.MDiskCapacity }','${m.MNum }','${m.MPass }','${m.MDisplayer }','${m.MMainframeBrand }','${m.MMainframeNumber }','${m.MInterface }','${m.MTimeStart }','${m.MUsedYear }','${m.MScrap }','${m.MPeriod }','${m.MNote }','${m.MState }')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-edit'" title="修改"></a>
+				<a href="<%=path %>/fbd_m!deleteM?id=${m.MId}" onclick="return confirm('确定删除吗?')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-delete'" title="删除"></a>
+			</td>
+	    </tr>
+	    </c:forEach>
+	    </table>
 	</div>
-	<br/>
 	
 	<div class="easyui-panel" style="padding:5px;width: 100%;display: none;">
 		<form id="f1" action="<%=path %>/fbd_m!queryOfFenyeM?id=${id }&fbdName=${fbdName }&MNum=${MNum }&MScrap=${MScrap }&MState=${MState }" method="post">

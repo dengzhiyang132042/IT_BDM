@@ -12,7 +12,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <head>
     <base href="<%=basePath%>">
     
-    <title>网点呼叫系统登记</title>
+    <title>网点呼叫系统</title>
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
 	<meta http-equiv="expires" content="0">    
@@ -26,6 +26,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<link rel="stylesheet" type="text/css" href="<%=path %>/FRAMEWORK/jquery-easyui/demo/demo.css">
 	<script type="text/javascript" src="<%=path %>/FRAMEWORK/jquery-easyui/jquery.min.js"></script>
 	<script type="text/javascript" src="<%=path %>/FRAMEWORK/jquery-easyui/jquery.easyui.min.js"></script>
+	<script type="text/javascript" src="<%=path %>/FRAMEWORK/My97DatePicker/WdatePicker.js"></script>
+	
 	<script type="text/javascript" src="<%=path %>/FRAMEWORK/My97DatePicker/WdatePicker.js"></script>
 	
 	<script type="text/javascript" src="<%=path %>/FRAMEWORK/js/myjs.js"></script>
@@ -91,70 +93,85 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   
   <body>
     
-    <div class="easyui-panel" title="网点呼叫系统账号登记" style="padding: 5px;display: none;" data-options="tools:'#tt'">
+    <div class="easyui-panel" title="网点呼叫系统" style="padding: 5px;display: none;" data-options="tools:'#tt'">
     
-    <div style="background-color:white;margin-bottom: 5px;padding: 5px;border: 1px solid #224466; ">
-    	快速查询
-    	<br/>
-    	<form action="<%=path %>/netCall!queryOfFenye" method="post">
-    		编号:<input name="id" type="text" value="${id }"/>
-    		&nbsp;&nbsp;&nbsp;&nbsp;
-    		站点名：<input name="site" type="text" value="${site }"/>
-    		&nbsp;&nbsp;&nbsp;&nbsp;
-    		条码：<input name="num" type="text" value="${num }"/>
-    		&nbsp;&nbsp;&nbsp;&nbsp;
-    		固定电话：<input name="phone" type="text" value="${phone }"/>
-    		&nbsp;&nbsp;&nbsp;&nbsp;
-    		维护日期:<input name="dates" type="date" value="${dates }"/>
-    		~
-    		<input name="datee" type="date" value="${datee }"/>
-    		<br/>
-    		<input type="submit" value="查询"/>
-    	</form>	
+    <div class="kscx">
+   		<div class="inp">
+	    	<form id="ks" action="<%=path %>/netCall!queryOfFenye" method="post">
+	    		<div>
+		    		<div>
+			    		维护开始日期：<input name="dates" id="d4311" class="Wdate" type="text" onFocus="WdatePicker({maxDate:'#F{$dp.$D(\'d4312\')}'})" value="${dates }"/>
+		    		</div>
+		    		<div>
+		    			维护结束日期：<input name="datee" id="d4312" class="Wdate" type="text" onFocus="WdatePicker({minDate:'#F{$dp.$D(\'d4311\')}'})" value="${datee }"/>
+		    		</div>
+	    		</div>
+	    		<div>
+		    		<div>
+			    		编号:<input name="id" type="text" value="${id }"/>
+		    		</div>
+	    			<div>
+	    				站点名：<input name="site" type="text" value="${site }"/>
+	    			</div>
+	    		</div>
+	    		<div>
+		    		<div>
+			    		条码：<input name="num" type="text" value="${num }"/>
+		    		</div>
+	    			<div>
+	    				固定电话：<input name="phone" type="text" value="${phone }"/>
+	    			</div>
+	    		</div>
+	    	</form>
+   		</div>
+   		<div  class="btn">
+   			<input type="submit" value="查询" onclick="$('.kscx .inp form').submit();"/>
+   		</div>
+   		<div style="clear:both;"></div>
     </div>
     
-    <div style="margin-bottom: 5px;">
     
-    <table border="1" id="eidtASubjectWindow1" style="font-size: 12px;">
-    <tr>
-    	<th width="120">编号</th>
-    	<th>维护时间</th>
-    	<th>站点名</th>
-    	<th>条码</th>
-    	<th>移动固话</th>
-    	<th>分机号1</th>
-    	<th>分机号2</th>
-    	<th><a href="<%=path %>/netCall!queryOfFenye?newcall='1' " style="color: white;">新增分机号</a></th>
-    	<th>使用情况</th>
-    	<th>维护人</th>
-    	<th>维护周</th>
-    	<th>操作类型</th>
-    	<th>操作</th>
-    </tr>
-    <c:forEach items="${ncs}" var="c">
-    <tr>
-		<td width="">${c.NId }</td>
-		<td width=""><fmt:formatDate value="${c.NServiceDate }" pattern="yyyy/MM/dd" /></td>
-		<td width="">${c.NSite }</td>
-		<td width="">${c.NNumber }</td>
-		<td width="">${c.NPhone }</td>
-		<td width="">${c.NCall1 }</td>
-		<td width="">${c.NCall2 }</td>
-		<td width="">${c.NCallAll }</td>
-		<td width="">${c.NCondition }</td>
-		<td width="">${c.NIt }</td>
-		<td width="">${c.NServiceWeek }</td>
-		<td width="">${c.NType }</td>
-		<td width="5%" align="center">
-			<a onclick="update('${c.NId }','${c.NPactMan }','<fmt:formatDate value="${c.NServiceDate }" pattern="yyyy-MM-dd" />',
-			'${c.NBigQb }','${c.NQb }','${c.NFb }','${c.NFbd }','${c.NSite }','${c.NFunctionary }','${c.NFunctionaryPhone }','${c.NQueryPhone }',
-			'${c.NAddress }','${c.NNumber }','${c.NPhone }','${c.NCall1 }','${c.NCall2 }','${c.NCallAll }',
-			'${c.NCallNum }','${c.NCondition }','${c.NNote }')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-edit'" title="修改"></a>
-			<a href="<%=path %>/netCall!delete?id=${c.NId}" onclick="return confirm('确定删除吗?')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-delete'" title="删除"></a>
-		</td>
-    </tr>
-    </c:forEach>
-    </table>
+    <div style="margin-bottom: 5px;">
+	    <table border="1" id="eidtASubjectWindow1" style="font-size: 12px;">
+	    <tr>
+	    	<th width="120">编号</th>
+	    	<th>维护时间</th>
+	    	<th>站点名</th>
+	    	<th>条码</th>
+	    	<th>移动固话</th>
+	    	<th>分机号1</th>
+	    	<th>分机号2</th>
+	    	<th><a href="<%=path %>/netCall!queryOfFenye?newcall='1' " style="color: white;">新增分机号</a></th>
+	    	<th>使用情况</th>
+	    	<th>维护人</th>
+	    	<th>维护周</th>
+	    	<th>操作类型</th>
+	    	<th>操作</th>
+	    </tr>
+	    <c:forEach items="${ncs}" var="c">
+	    <tr>
+			<td width="">${c.NId }</td>
+			<td width=""><fmt:formatDate value="${c.NServiceDate }" pattern="yyyy/MM/dd" /></td>
+			<td width="">${c.NSite }</td>
+			<td width="">${c.NNumber }</td>
+			<td width="">${c.NPhone }</td>
+			<td width="">${c.NCall1 }</td>
+			<td width="">${c.NCall2 }</td>
+			<td width="">${c.NCallAll }</td>
+			<td width="">${c.NCondition }</td>
+			<td width="">${c.NIt }</td>
+			<td width="">${c.NServiceWeek }</td>
+			<td width="">${c.NType }</td>
+			<td width="5%" align="center">
+				<a onclick="update('${c.NId }','${c.NPactMan }','<fmt:formatDate value="${c.NServiceDate }" pattern="yyyy-MM-dd" />',
+				'${c.NBigQb }','${c.NQb }','${c.NFb }','${c.NFbd }','${c.NSite }','${c.NFunctionary }','${c.NFunctionaryPhone }','${c.NQueryPhone }',
+				'${c.NAddress }','${c.NNumber }','${c.NPhone }','${c.NCall1 }','${c.NCall2 }','${c.NCallAll }',
+				'${c.NCallNum }','${c.NCondition }','${c.NNote }')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-edit'" title="修改"></a>
+				<a href="<%=path %>/netCall!delete?id=${c.NId}" onclick="return confirm('确定删除吗?')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-delete'" title="删除"></a>
+			</td>
+	    </tr>
+	    </c:forEach>
+	    </table>
 	</div>
 	
 	<div class="easyui-panel" style="padding:5px;width: 100%;display: none;">

@@ -11,7 +11,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <head>
     <base href="<%=basePath%>">
     
-    <title>打印机</title>
+    <title>打印机登记</title>
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
 	<meta http-equiv="expires" content="0">    
@@ -25,6 +25,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<link rel="stylesheet" type="text/css" href="<%=path %>/FRAMEWORK/jquery-easyui/demo/demo.css">
 	<script type="text/javascript" src="<%=path %>/FRAMEWORK/jquery-easyui/jquery.min.js"></script>
 	<script type="text/javascript" src="<%=path %>/FRAMEWORK/jquery-easyui/jquery.easyui.min.js"></script>
+	
+	<script type="text/javascript" src="<%=path %>/FRAMEWORK/My97DatePicker/WdatePicker.js"></script>
 	
 	<script type="text/javascript" src="<%=path %>/FRAMEWORK/js/myjs.js"></script>
 	<link rel="stylesheet" type="text/css" href="<%=path %>/FRAMEWORK/css/mycss.css">
@@ -78,76 +80,84 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <body>
     
     <div class="easyui-panel" title="打印机登记" style="padding: 5px;display: none;" data-options="tools:'#tt'">
-    <div style="background-color:white;margin-bottom: 5px;padding: 5px;border: 1px solid #224466; ">
-    	快速查询
-    	<br/>
-    	<form action="<%=path %>/print!queryOfFenye" method="post">
-    		编号:<input name="id" type="text" value="${id }"/>
-    		&nbsp;&nbsp;&nbsp;&nbsp;
-    		品牌:<input name="brand" type="text" value="${brand }"/>
-    		&nbsp;&nbsp;&nbsp;&nbsp;
-    		<!-- 
-    		区域:<input name="area" type="text" value="${area }"/>
-    		 -->
-    		打印机位置:<input name="address" type="text" value="${address }"/>
-    		&nbsp;&nbsp;&nbsp;&nbsp;
-    		IP:<input name="ip" type="text" value="${ip }"/>
-    		&nbsp;&nbsp;&nbsp;&nbsp;
-    		<br/>
-    		<input type="submit" value="查询"/>
-    	</form>	
-    </div>
-    <div style="margin-bottom: 5px;">
     
-    <table border="1" id="eidtASubjectWindow1" style="font-size: 12px;">
-    <tr>
-    	<th>编号</th>
-    	<th>品牌</th>
-    	<th>型号</th>
-    	<!-- 
-    	<th>区域</th>
-    	 -->
-    	<th>打印机位置</th>
-    	<th>资产类型</th>
-    	<th>端口</th>
-    	<th>IP</th>
-    	<th>备用墨盒</th>
-    	<th>备用墨粉</th>
-    	<th>设备性能</th>
-    	<th>主要功能</th>
-    	<th>纸张支持</th>
-    	<th>加墨维护</th>
-    	<th>上次加墨时间</th>
-    	<th>下次加墨时间</th>
-    	<th>操作</th>
-    </tr>
-    <c:forEach items="${ps}" var="p">
-    <tr>
-		<td width="">${p.PId }</td>
-		<td width="">${p.PBrand }</td>
-		<td width="">${p.PNumber }</td>
-		<!-- 
-		<td width="">${p.PArea }</td>
-		 -->
-		<td width="">${p.PAddress }</td>
-		<td width="">${p.PType }</td>
-		<td width="">${p.PPort }</td>
-		<td width="">${p.PIp }</td>
-		<td width="">${p.PCartridge }</td>
-		<td width="">${p.PToner }</td>
-		<td width="">${p.PTrait }</td>
-		<td width="">${p.PFunction }</td>
-		<td width="">${p.PPage }</td>
-		<td width="">${p.PAdd }</td>
-		<td width="">${p.PLast }</td>
-		<td width="">${p.PNext }</td>
-		<td width="5%" align="center">
-			<a onclick="update('${p.PId }','${p.PBrand }','${p.PNumber }','${p.PArea }','${p.PAddress }','${p.PType }','${p.PPort }','${p.PIp }','${p.PCartridge }','${p.PToner }','${p.PTrait }','${p.PFunction }','${p.PPage }','${p.PAdd }','${p.PLast }','${p.PNext }')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-edit'" title="修改"></a>
-			<a href="<%=path %>/print!delete?id=${p.PId}" onclick="return confirm('确定删除吗?')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-delete'" title="删除"></a>
-		</td>
-    </tr>
-    </c:forEach>
-    </table>
+    <div class="kscx">
+   		<div class="inp">
+	    	<form id="ks" action="<%=path %>/print!queryOfFenye" method="post">
+	    		<div>
+		    		<div>
+			    		编号:<input name="id" type="text" value="${id }"/>
+		    		</div>
+	    			<div>
+	    				品牌:<input name="brand" type="text" value="${brand }"/>
+	    			</div>
+	    		</div>
+	    		<div>
+		    		<div>
+			    		打印机位置:<input name="address" type="text" value="${address }"/>
+		    		</div>
+	    			<div>
+	    				IP:<input name="ip" type="text" value="${ip }"/>
+	    			</div>
+	    		</div>
+	    	</form>
+   		</div>
+   		<div  class="btn">
+   			<input type="submit" value="查询" onclick="$('.kscx .inp form').submit();"/>
+   		</div>
+   		<div style="clear:both;"></div>
+    </div>
+    
+    <div style="margin-bottom: 5px;">
+	    <table border="1" id="eidtASubjectWindow1" style="font-size: 12px;">
+	    <tr>
+	    	<th>编号</th>
+	    	<th>品牌</th>
+	    	<th>型号</th>
+	    	<!-- 
+	    	<th>区域</th>
+	    	 -->
+	    	<th>打印机位置</th>
+	    	<th>资产类型</th>
+	    	<th>端口</th>
+	    	<th>IP</th>
+	    	<th>备用墨盒</th>
+	    	<th>备用墨粉</th>
+	    	<th>设备性能</th>
+	    	<th>主要功能</th>
+	    	<th>纸张支持</th>
+	    	<th>加墨维护</th>
+	    	<th>上次加墨时间</th>
+	    	<th>下次加墨时间</th>
+	    	<th>操作</th>
+	    </tr>
+	    <c:forEach items="${ps}" var="p">
+	    <tr>
+			<td width="">${p.PId }</td>
+			<td width="">${p.PBrand }</td>
+			<td width="">${p.PNumber }</td>
+			<!-- 
+			<td width="">${p.PArea }</td>
+			 -->
+			<td width="">${p.PAddress }</td>
+			<td width="">${p.PType }</td>
+			<td width="">${p.PPort }</td>
+			<td width="">${p.PIp }</td>
+			<td width="">${p.PCartridge }</td>
+			<td width="">${p.PToner }</td>
+			<td width="">${p.PTrait }</td>
+			<td width="">${p.PFunction }</td>
+			<td width="">${p.PPage }</td>
+			<td width="">${p.PAdd }</td>
+			<td width="">${p.PLast }</td>
+			<td width="">${p.PNext }</td>
+			<td width="5%" align="center">
+				<a onclick="update('${p.PId }','${p.PBrand }','${p.PNumber }','${p.PArea }','${p.PAddress }','${p.PType }','${p.PPort }','${p.PIp }','${p.PCartridge }','${p.PToner }','${p.PTrait }','${p.PFunction }','${p.PPage }','${p.PAdd }','${p.PLast }','${p.PNext }')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-edit'" title="修改"></a>
+				<a href="<%=path %>/print!delete?id=${p.PId}" onclick="return confirm('确定删除吗?')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-delete'" title="删除"></a>
+			</td>
+	    </tr>
+	    </c:forEach>
+	    </table>
 	</div>
 	
 	<div class="easyui-panel" style="padding:5px;width: 100%;display: none;background-color: white;">

@@ -26,6 +26,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script type="text/javascript" src="<%=path %>/FRAMEWORK/jquery-easyui/jquery.min.js"></script>
 	<script type="text/javascript" src="<%=path %>/FRAMEWORK/jquery-easyui/jquery.easyui.min.js"></script>
 	
+	<script type="text/javascript" src="<%=path %>/FRAMEWORK/My97DatePicker/WdatePicker.js"></script>
+	
 	<script type="text/javascript" src="<%=path %>/FRAMEWORK/js/myjs.js"></script>
 	<link rel="stylesheet" type="text/css" href="<%=path %>/FRAMEWORK/css/mycss.css">
 
@@ -112,69 +114,86 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <body>
     
     <div class="easyui-panel" title="外出登记表新" style="padding: 5px;display: none;" data-options="tools:'#tt'">
-    <div style="background-color:white;margin-bottom: 5px;padding: 5px;border: 1px solid #224466; ">
-    	快速查询
-    	<br/>
-    	<form action="<%=path %>/outRegister!queryOfFenye" method="post">
-    		编号:<input name="id" type="text" value="${id }"/>
-    		&nbsp;&nbsp;&nbsp;&nbsp;
-    		分拨点：<input name="fbdName" type="text" value="${fbdName }"/>
-    		&nbsp;&nbsp;&nbsp;&nbsp;
-    		区域：<input name="area" type="text" value="${area }"/>
-    		&nbsp;&nbsp;&nbsp;&nbsp;
-    		跟进人：<input name="itman" type="text" value="${itman }"/>
-    		&nbsp;&nbsp;&nbsp;&nbsp;
-    		登记时间：<input name="dates" type="date" value="${dates }"/>
-    		~<input name="datee" type="date" value="${datee }"/>
-    		<br/>
-    		<input type="submit" value="查询" style="margin:5px;"/>
-    	</form>	
+    
+    <div class="kscx">
+   		<div class="inp">
+	    	<form id="ks" action="<%=path %>/outRegister!queryOfFenye" method="post">
+	    		<div>
+		    		<div>
+			    		登记开始日期：<input name="dates" id="d4311" class="Wdate" type="text" onFocus="WdatePicker({maxDate:'#F{$dp.$D(\'d4312\')}'})" value="${dates }"/>
+		    		</div>
+		    		<div>
+		    			登记结束日期：<input name="datee" id="d4312" class="Wdate" type="text" onFocus="WdatePicker({minDate:'#F{$dp.$D(\'d4311\')}'})" value="${datee }"/>
+		    		</div>
+	    		</div>
+	    		<div>
+		    		<div>
+			    		编号:<input name="id" type="text" value="${id }"/>
+		    		</div>
+	    			<div>
+	    				分拨点：<input name="fbdName" type="text" value="${fbdName }"/>
+	    			</div>
+	    		</div>
+	    		<div>
+		    		<div>
+			    		区域：<input name="area" type="text" value="${area }"/>
+		    		</div>
+	    			<div>
+	    				跟进人：<input name="itman" type="text" value="${itman }"/>
+	    			</div>
+	    		</div>
+	    	</form>
+   		</div>
+   		<div  class="btn">
+   			<input type="submit" value="查询" onclick="$('.kscx .inp form').submit();"/>
+   		</div>
+   		<div style="clear:both;"></div>
     </div>
     
-    <table border="1" id="eidtASubjectWindow1" style="font-size: 12px;">
-    <tr>
-    	<th>编号</th>
-    	<th>分拨点</th>
-    	<th>区域</th>
-    	<th>登记日期</th>
-    	<th>联系人/电话</th>
-    	<th>概述</th>
-    	<th>跟进人</th>
-    	<th>申购邮件</th>
-    	<th>完成情况</th>
-    	<th>计划时间</th>
-    	<th>实际时间</th>
-    	<th>操作</th>
-    </tr>
-    <c:forEach items="${outs}" var="o">
-    <tr>
-		<td width="">${o.OId}</td>
-		<td width="">${o.OFbd }</td>
-		<td width="">${o.OArea }</td>
-		<td width=""><fmt:formatDate value="${o.ODjrq }" pattern="yyyy/MM/dd" /></td>
-		<td width="">${o.OLxr }</td>
-		<td width="">${o.OGs }</td>
-		<td width="">${o.OGjr }</td>
-		<td width="">${o.OSgyj }</td>
-		<td width="">${o.OWcqk }</td>
-		<td width=""><fmt:formatDate value="${o.OJhsj }" pattern="yyyy/MM/dd" /></td>
-		<td width=""><fmt:formatDate value="${o.OSjsj }" pattern="yyyy/MM/dd" /></td>
-		<td width="5%" align="center">
-			<a onclick="update('${o.OId}','${o.OFbd}','${o.OArea}','<fmt:formatDate value="${o.ODjrq}" pattern="yyyy-MM-dd" />','${o.ODjr}',
-			'${o.OLxr}','${o.OFbdDz}','${o.OGs}','${o.OXySxtSl}','${o.OXySxtZt}','${o.OXyJkzjZt}','${o.OXyJkzjZh}',
-			'${o.OKdh}','${o.OPass}','<fmt:formatDate value="${o.OAzsj}" pattern="yyyy-MM-dd" />','<fmt:formatDate value="${o.ODqsj}" pattern="yyyy-MM-dd" />','${o.OWlQy}','${o.OWlGz}','${o.OJkQy}',
-			'${o.OJkAz}','${o.OJkHz}','${o.OJkWx}','${o.ODdSl}','<fmt:formatDate value="${o.ODdSj}" pattern="yyyy-MM-dd" />','${o.OZyxz}','${o.OXgSxtSl}',
-			'${o.OXgSxtXh}','${o.OXgJkzjSl}','${o.OXgJkzjXh}','${o.OXgXc}','${o.OXgZj}','${o.OXgdwSxt}','${o.OXgdwJkzj}',
-			'${o.OXgdwXc}','${o.OXgdwZj}','${o.OYwcSxt}','${o.OYwcJkzj}','${o.OYwcXc}','${o.OYwcZj}','<fmt:formatDate value="${o.OYwcSj}" pattern="yyyy-MM-dd" />',
-			'${o.OWwcSxt}','${o.OWwcJkzj}','${o.OWwcXc}','${o.OWwcZj}','<fmt:formatDate value="${o.OWwcSj}" pattern="yyyy-MM-dd" />','${o.OGjr}','${o.OSgyj}',
-			'${o.OWcqk}','<fmt:formatDate value="${o.OJhsj }" pattern="yyyy-MM-dd" />','<fmt:formatDate value="${o.OSjsj }" pattern="yyyy-MM-dd" />')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-edit'" title="修改"></a>
-			<a href="<%=path %>/outRegister!delete?id=${o.OId}" onclick="return confirm('确定删除吗?')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-delete'" title="删除"></a>
-		</td>
-    </tr>
-    </c:forEach>
-    </table>
+    <div style="margin-bottom: 5px;">
+	    <table border="1" id="eidtASubjectWindow1">
+	    <tr>
+	    	<th>编号</th>
+	    	<th>分拨点</th>
+	    	<th>区域</th>
+	    	<th>登记日期</th>
+	    	<th>联系人/电话</th>
+	    	<th>概述</th>
+	    	<th>跟进人</th>
+	    	<th>申购邮件</th>
+	    	<th>完成情况</th>
+	    	<th>计划时间</th>
+	    	<th>实际时间</th>
+	    	<th>操作</th>
+	    </tr>
+	    <c:forEach items="${outs}" var="o">
+	    <tr>
+			<td width="">${o.OId}</td>
+			<td width="">${o.OFbd }</td>
+			<td width="">${o.OArea }</td>
+			<td width=""><fmt:formatDate value="${o.ODjrq }" pattern="yyyy/MM/dd" /></td>
+			<td width="">${o.OLxr }</td>
+			<td width="">${o.OGs }</td>
+			<td width="">${o.OGjr }</td>
+			<td width="">${o.OSgyj }</td>
+			<td width="">${o.OWcqk }</td>
+			<td width=""><fmt:formatDate value="${o.OJhsj }" pattern="yyyy/MM/dd" /></td>
+			<td width=""><fmt:formatDate value="${o.OSjsj }" pattern="yyyy/MM/dd" /></td>
+			<td width="5%" align="center">
+				<a onclick="update('${o.OId}','${o.OFbd}','${o.OArea}','<fmt:formatDate value="${o.ODjrq}" pattern="yyyy-MM-dd" />','${o.ODjr}',
+				'${o.OLxr}','${o.OFbdDz}','${o.OGs}','${o.OXySxtSl}','${o.OXySxtZt}','${o.OXyJkzjZt}','${o.OXyJkzjZh}',
+				'${o.OKdh}','${o.OPass}','<fmt:formatDate value="${o.OAzsj}" pattern="yyyy-MM-dd" />','<fmt:formatDate value="${o.ODqsj}" pattern="yyyy-MM-dd" />','${o.OWlQy}','${o.OWlGz}','${o.OJkQy}',
+				'${o.OJkAz}','${o.OJkHz}','${o.OJkWx}','${o.ODdSl}','<fmt:formatDate value="${o.ODdSj}" pattern="yyyy-MM-dd" />','${o.OZyxz}','${o.OXgSxtSl}',
+				'${o.OXgSxtXh}','${o.OXgJkzjSl}','${o.OXgJkzjXh}','${o.OXgXc}','${o.OXgZj}','${o.OXgdwSxt}','${o.OXgdwJkzj}',
+				'${o.OXgdwXc}','${o.OXgdwZj}','${o.OYwcSxt}','${o.OYwcJkzj}','${o.OYwcXc}','${o.OYwcZj}','<fmt:formatDate value="${o.OYwcSj}" pattern="yyyy-MM-dd" />',
+				'${o.OWwcSxt}','${o.OWwcJkzj}','${o.OWwcXc}','${o.OWwcZj}','<fmt:formatDate value="${o.OWwcSj}" pattern="yyyy-MM-dd" />','${o.OGjr}','${o.OSgyj}',
+				'${o.OWcqk}','<fmt:formatDate value="${o.OJhsj }" pattern="yyyy-MM-dd" />','<fmt:formatDate value="${o.OSjsj }" pattern="yyyy-MM-dd" />')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-edit'" title="修改"></a>
+				<a href="<%=path %>/outRegister!delete?id=${o.OId}" onclick="return confirm('确定删除吗?')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-delete'" title="删除"></a>
+			</td>
+	    </tr>
+	    </c:forEach>
+	    </table>
 	</div>
-	<br/>
 	
 	<div class="easyui-panel" style="padding:5px;width: 100%;display: none;">
 		<form id="f1" action="<%=path %>/fbd_c!queryOfFenyeC?id=${id }&fbdName=${fbdName }&area=${area }&itman=${itman }&dates=${dates }&datee=${datee }" method="post">
@@ -203,6 +222,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<a onclick="page('${page.pageMax}',2)" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-next'" title="末页"></a>
 		</span>
 		</form>
+	</div>
 	</div>
 	
 	<div id="u" class="easyui-window" title="修改" data-options="modal:true,closed:true" style="width:890px;height:auto;padding:10px;display: none;">

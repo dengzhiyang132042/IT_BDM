@@ -27,6 +27,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<link rel="stylesheet" type="text/css" href="<%=path %>/FRAMEWORK/jquery-easyui/demo/demo.css">
 	<script type="text/javascript" src="<%=path %>/FRAMEWORK/jquery-easyui/jquery.min.js"></script>
 	<script type="text/javascript" src="<%=path %>/FRAMEWORK/jquery-easyui/jquery.easyui.min.js"></script>
+	
 	<script type="text/javascript" src="<%=path %>/FRAMEWORK/My97DatePicker/WdatePicker.js"></script>
 	
 	<script type="text/javascript" src="<%=path %>/FRAMEWORK/js/myjs.js"></script>
@@ -78,56 +79,66 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   
   <body>
     
-    <div class="easyui-panel" title="外修登记" style="padding: 5px;display: none;" data-options="tools:'#tt'">
+    <div class="easyui-panel" title="设备外修登记" style="padding: 5px;display: none;" data-options="tools:'#tt'">
     
-    <div style="background-color:white;margin-bottom: 5px;padding: 5px;border: 1px solid #224466; ">
-    	快速查询
-    	<br/>
-    	<form action="<%=path %>/out!queryOfFenye" method="post">
-    		编号:<input name="id" type="text" value="${id }"/>
-    		&nbsp;&nbsp;&nbsp;&nbsp;
-    		日期:
-    		<input name="dates" id="d4311" class="Wdate" type="text" onFocus="WdatePicker({readOnly:true,maxDate:'#F{$dp.$D(\'d4312\')}'})" value="${dates }"/> 
-    		~
-			<input name="datee" id="d4312" class="Wdate" type="text" onFocus="WdatePicker({readOnly:true,minDate:'#F{$dp.$D(\'d4311\')}'})" value="${datee }"/>	
-    		<br/>
-    		<input type="submit" value="查询"/>
-    	</form>	
+    <div class="kscx">
+   		<div class="inp">
+	    	<form id="ks" action="<%=path %>/out!queryOfFenye" method="post">
+	    		<div>
+		    		<div>
+			    		开始日期：<input name="dates" id="d4311" class="Wdate" type="text" onFocus="WdatePicker({maxDate:'#F{$dp.$D(\'d4312\')}'})" value="${dates }"/>
+		    		</div>
+		    		<div>
+		    			结束日期：<input name="datee" id="d4312" class="Wdate" type="text" onFocus="WdatePicker({minDate:'#F{$dp.$D(\'d4311\')}'})" value="${datee }"/>
+		    		</div>
+	    		</div>
+	    		<div>
+		    		<div>
+			    		编号:<input name="id" type="text" value="${id }"/>
+		    		</div>
+	    			<div>
+	    			</div>
+	    		</div>
+	    	</form>
+   		</div>
+   		<div  class="btn">
+   			<input type="submit" value="查询" onclick="$('.kscx .inp form').submit();"/>
+   		</div>
+   		<div style="clear:both;"></div>
     </div>
     
     <div style="margin-bottom: 5px;">
-    
-    <table border="1" id="eidtASubjectWindow1" style="font-size: 12px;">
-    <tr>
-    	<th width="130px">编号</th>
-    	<th>送修日期</th>
-    	<th>送修单号</th>
-    	<th>巴枪类型</th>
-    	<th>条码</th>
-    	<th>SN明细</th>
-    	<th>故障描述</th>
-    	<th>维护周期</th>
-    	<th>操作</th>
-    </tr>
-    <c:forEach items="${ots}" var="o">
-    <tr>
-		<td width="">${o.OId }</td>
-		<td width=""><fmt:formatDate value="${o.ODate }" pattern="yyyy-MM-dd" /></td>
-		<td width="">${o.OPage }</td>
-		<td width="">${o.OType }</td>
-		<td width="">${o.ONum }</td>
-		<td width="">${o.OSn }</td>
-		<td width="">${o.ONote }</td>
-		<td width="">${o.OPeriod }</td>
-		<td width="5%" align="center">
-			<a href="<%=path %>/allDate!queryOfFenye?id=${o.OId}" class="easyui-linkbutton">各方回复</a>
-			<a onclick="update('${o.OId }','<fmt:formatDate value="${o.ODate }" pattern="yyyy-MM-dd" />','${o.OPage }','${o.OType }',
-			'${o.ONum }','${o.OSn}','${o.ONote }','${o.OPeriod }','${o.OCreateDatetime }')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-edit'" title="修改"></a>
-			<a href="<%=path %>/out!delete?id=${o.OId}" onclick="return confirm('确定删除吗?')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-delete'" title="删除"></a>
-		</td>
-    </tr>
-    </c:forEach>
-    </table>
+	    <table border="1" id="eidtASubjectWindow1" style="font-size: 12px;">
+	    <tr>
+	    	<th width="130px">编号</th>
+	    	<th>送修日期</th>
+	    	<th>送修单号</th>
+	    	<th>巴枪类型</th>
+	    	<th>条码</th>
+	    	<th>SN明细</th>
+	    	<th>故障描述</th>
+	    	<th>维护周期</th>
+	    	<th>操作</th>
+	    </tr>
+	    <c:forEach items="${ots}" var="o">
+	    <tr>
+			<td width="">${o.OId }</td>
+			<td width=""><fmt:formatDate value="${o.ODate }" pattern="yyyy-MM-dd" /></td>
+			<td width="">${o.OPage }</td>
+			<td width="">${o.OType }</td>
+			<td width="">${o.ONum }</td>
+			<td width="">${o.OSn }</td>
+			<td width="">${o.ONote }</td>
+			<td width="">${o.OPeriod }</td>
+			<td width="5%" align="center">
+				<a href="<%=path %>/allDate!queryOfFenye?id=${o.OId}" class="easyui-linkbutton">各方回复</a>
+				<a onclick="update('${o.OId }','<fmt:formatDate value="${o.ODate }" pattern="yyyy-MM-dd" />','${o.OPage }','${o.OType }',
+				'${o.ONum }','${o.OSn}','${o.ONote }','${o.OPeriod }','${o.OCreateDatetime }')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-edit'" title="修改"></a>
+				<a href="<%=path %>/out!delete?id=${o.OId}" onclick="return confirm('确定删除吗?')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-delete'" title="删除"></a>
+			</td>
+	    </tr>
+	    </c:forEach>
+	    </table>
 	</div>
 	
 	<div class="easyui-panel" style="padding:5px;width: 100%;display: none;">

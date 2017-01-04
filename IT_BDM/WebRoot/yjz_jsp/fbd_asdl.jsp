@@ -26,6 +26,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script type="text/javascript" src="<%=path %>/FRAMEWORK/jquery-easyui/jquery.min.js"></script>
 	<script type="text/javascript" src="<%=path %>/FRAMEWORK/jquery-easyui/jquery.easyui.min.js"></script>
 	
+	<script type="text/javascript" src="<%=path %>/FRAMEWORK/My97DatePicker/WdatePicker.js"></script>
+	
 	<script type="text/javascript" src="<%=path %>/FRAMEWORK/js/myjs.js"></script>
 	<link rel="stylesheet" type="text/css" href="<%=path %>/FRAMEWORK/css/mycss.css">
 
@@ -71,75 +73,100 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   
   <body>
     
-    <div class="easyui-panel" title="分拨点宽带登记ASDL" style="padding: 5px;display: none;" data-options="tools:'#tt'">
-    <div style="background-color:white;margin-bottom: 5px;padding: 5px;border: 1px solid #224466; ">
-    	快速查询
-    	<br/>
-    	<form action="<%=path %>/fbd_asdl!queryOfFenyeAsdl" method="post">
-    		编号:<input name="id" type="text" value="${id }"/>
-    		&nbsp;&nbsp;&nbsp;&nbsp;
-    		分拨点：<input name="fbdName" type="text" value="${fbdName }"/>
-    		&nbsp;&nbsp;&nbsp;&nbsp;
-    		承包人：<input name="fbdMaster" type="text" value="${fbdMaster }"/>
-    		&nbsp;&nbsp;&nbsp;&nbsp;
-    		接入号：<input name="asdlInput" type="text" value="${asdlInput }"/>
-    		&nbsp;&nbsp;&nbsp;&nbsp;
-    		账号：<input name="asdlNum" type="text" value="${asdlNum }"/>
-    		&nbsp;&nbsp;&nbsp;&nbsp;
-    		状态：<input name="asdlState" type="text" value="${asdlState }"/>
-    		<br/>
-    		<input type="submit" value="查询" style="margin:5px;"/>
-    	</form>	
-    </div>
-    <div style="margin-bottom: 5px;">
+    <div class="easyui-panel" title="ASDL宽带登记" style="padding: 5px;display: none;" data-options="tools:'#tt'">
     
-    <table border="1" id="eidtASubjectWindow1" style="font-size: 12px;">
-    <tr align="center" style="height: 28px;background-color: #E6E6E6;">
-    	<th>编号</td>
-    	<th>区部</td>
-    	<th>分部</td>
-    	<th>分部经理</td>
-    	<th>联系电话</td>
-    	<th>分拨点</td>
-    	<th>承包人</td>
-    	<th>联系电话</td>
-    	<th>地址</td>
-    	<th>接入号</td>
-    	<th>账号</td>
-    	<th>密码</td>
-    	<th>包年资费</td>
-    	<th>合约到期</td>
-    	<th>续约提醒</td>
-    	<th>备注</td>
-    	<th>状态</td>
-    	<th>操作</td>
-    </tr>
-    <c:forEach items="${asdls}" var="asdl">
-    <tr>
-		<td width="">${asdl.asdlId }</td>
-		<td width="">${asdl.fbd.fb.qb.qbName }</td>
-		<td width="">${asdl.fbd.fb.fbName }</td>
-		<td width="">${asdl.fbd.fb.fbMaster }</td>
-		<td width="">${asdl.fbd.fb.fbPhonePrivate }</td>
-		<td width="">${asdl.fbd.fbdName }</td>
-		<td width="">${asdl.fbd.fbdMaster }</td>
-		<td width="">${asdl.fbd.fbdPhonePrivate }</td>
-		<td width="">${asdl.fbd.fbdAddress }</td>
-		<td width="">${asdl.asdlInput }</td>
-		<td width="">${asdl.asdlNum }</td>
-		<td width="">${asdl.asdlPass }</td>
-		<td width="">${asdl.asdlFeeYear }</td>
-		<td width=""><fmt:formatDate value="${asdl.asdlTimeExpire }" pattern="yyyy/M/d" /></td>
-		<td width="">${asdl.asdlContract }</td>
-		<td width="">${asdl.asdlNote }</td>
-		<td width="">${asdl.asdlState }</td>
-		<td width="5%" align="center">
-			<a onclick="update('${asdl.fbd.fbdId }','${asdl.asdlInput }','${asdl.asdlNum }','${asdl.asdlPass }','${asdl.asdlFeeYear }','${asdl.asdlTimeExpire }','${asdl.asdlContract }','${asdl.asdlNote }','${asdl.asdlState }','${asdl.asdlId }')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-edit'" title="修改"></a>
-			<a href="<%=path %>/fbd_asdl!deleteAsdl?id=${asdl.asdlId}" onclick="return confirm('确定删除吗?')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-delete'" title="删除"></a>
-		</td>
-    </tr>
-    </c:forEach>
-    </table>
+    <div class="kscx">
+   		<div class="inp">
+	    	<form id="ks" action="<%=path %>/fbd_asdl!queryOfFenyeAsdl" method="post">
+	    		<div>
+		    		<div>
+			    		编号:<input name="id" type="text" value="${id }"/>
+		    		</div>
+		    		<div>
+		    			分拨点：<input name="fbdName" type="text" value="${fbdName }"/>
+		    		</div>
+	    		</div>
+	    		<div>
+		    		<div>
+			    		编号:<input name="id" type="text" value="${id }"/>
+		    		</div>
+	    			<div>
+	    				承包人：<input name="fbdMaster" type="text" value="${fbdMaster }"/>
+	    			</div>
+	    		</div>
+	    		<div>
+		    		<div>
+			    		接入号：<input name="asdlInput" type="text" value="${asdlInput }"/>
+		    		</div>
+	    			<div>
+	    				账号：<input name="asdlNum" type="text" value="${asdlNum }"/>
+	    			</div>
+	    		</div>
+	    		<div>
+		    		<div>
+			    		状态：<input name="asdlState" type="text" value="${asdlState }"/>
+		    		</div>
+	    			<div>
+	    			</div>
+	    		</div>
+	    	</form>
+   		</div>
+   		<div  class="btn">
+   			<input type="submit" value="查询" onclick="$('.kscx .inp form').submit();"/>
+   		</div>
+   		<div style="clear:both;"></div>
+    </div>
+    
+    
+    
+    <div style="margin-bottom: 5px;">
+	    <table border="1" id="eidtASubjectWindow1">
+	    <tr>
+	    	<th>编号</th>
+	    	<th>区部</th>
+	    	<th>分部</th>
+	    	<th>分部经理</th>
+	    	<th>联系电话</th>
+	    	<th>分拨点</th>
+	    	<th>承包人</th>
+	    	<th>联系电话</th>
+	    	<th>地址</th>
+	    	<th>接入号</th>
+	    	<th>账号</th>
+	    	<th>密码</th>
+	    	<th>包年资费</th>
+	    	<th>合约到期</th>
+	    	<th>续约提醒</th>
+	    	<th>备注</th>
+	    	<th>状态</th>
+	    	<th>操作</th>
+	    </tr>
+	    <c:forEach items="${asdls}" var="asdl">
+	    <tr>
+			<td width="">${asdl.asdlId }</td>
+			<td width="">${asdl.fbd.fb.qb.qbName }</td>
+			<td width="">${asdl.fbd.fb.fbName }</td>
+			<td width="">${asdl.fbd.fb.fbMaster }</td>
+			<td width="">${asdl.fbd.fb.fbPhonePrivate }</td>
+			<td width="">${asdl.fbd.fbdName }</td>
+			<td width="">${asdl.fbd.fbdMaster }</td>
+			<td width="">${asdl.fbd.fbdPhonePrivate }</td>
+			<td width="">${asdl.fbd.fbdAddress }</td>
+			<td width="">${asdl.asdlInput }</td>
+			<td width="">${asdl.asdlNum }</td>
+			<td width="">${asdl.asdlPass }</td>
+			<td width="">${asdl.asdlFeeYear }</td>
+			<td width=""><fmt:formatDate value="${asdl.asdlTimeExpire }" pattern="yyyy/M/d" /></td>
+			<td width="">${asdl.asdlContract }</td>
+			<td width="">${asdl.asdlNote }</td>
+			<td width="">${asdl.asdlState }</td>
+			<td width="5%" align="center">
+				<a onclick="update('${asdl.fbd.fbdId }','${asdl.asdlInput }','${asdl.asdlNum }','${asdl.asdlPass }','${asdl.asdlFeeYear }','${asdl.asdlTimeExpire }','${asdl.asdlContract }','${asdl.asdlNote }','${asdl.asdlState }','${asdl.asdlId }')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-edit'" title="修改"></a>
+				<a href="<%=path %>/fbd_asdl!deleteAsdl?id=${asdl.asdlId}" onclick="return confirm('确定删除吗?')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-delete'" title="删除"></a>
+			</td>
+	    </tr>
+	    </c:forEach>
+	    </table>
 	</div>
 	
 	<div class="easyui-panel" style="padding:5px;width: 100%;display: none;">
@@ -170,6 +197,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</span>
 		</form>
 	</div>
+	</div>
+	
 	
 	<div id="u" class="easyui-window" title="修改" data-options="modal:true,closed:true" style="width:400px;height:auto;padding:10px;display: none;">
 		<form action="<%=path %>/fbd_asdl!updateAsdl" method="post">
