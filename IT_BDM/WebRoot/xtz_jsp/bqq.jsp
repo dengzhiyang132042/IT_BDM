@@ -84,63 +84,78 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     
     <div class="easyui-panel" title="BQQ账号登记" style="padding: 5px;display: none;" data-options="tools:'#tt'">
     
-    <div style="background-color:white;margin-bottom: 5px;padding: 5px;border: 1px solid #224466; ">
-    	快速查询
-    	<br/>
-    	<form action="<%=path %>/bqq!queryOfFenye" method="post">
-    		编号:<input name="id" type="text" value="${id }"/>
-    		&nbsp;&nbsp;&nbsp;&nbsp;
-    		BQQ：<input name="num" type="text" value="${num }"/>
-    		&nbsp;&nbsp;&nbsp;&nbsp;
-    		姓名：<input name="name" type="text" value="${name }"/>
-    		&nbsp;&nbsp;&nbsp;&nbsp;
-    		所属网点名称：<input name="netName" type="text" value="${netName }"/>
-    		&nbsp;&nbsp;&nbsp;&nbsp;
-    		登记日期:<input name="dates" type="date" value="${dates }"/>
-    		~
-    		<input name="datee" type="date" value="${datee }"/>
-    		<br/>
-    		<input type="submit" value="查询"/>
-    	</form>	
+    <div class="kscx">
+   		<div class="inp">
+	    	<form id="ks" action="<%=path %>/bqq!queryOfFenye" method="post">
+	    		<div>
+		    		<div>
+			    		登记开始日期：<input name="dates" id="d4311" class="Wdate" type="text" onFocus="WdatePicker({maxDate:'#F{$dp.$D(\'d4312\')}'})" value="${dates }"/>
+		    		</div>
+		    		<div>
+		    			登记结束日期：<input name="datee" id="d4312" class="Wdate" type="text" onFocus="WdatePicker({minDate:'#F{$dp.$D(\'d4311\')}'})" value="${datee }"/>
+		    		</div>
+	    		</div>
+	    		<div>
+		    		<div>
+			    		编号:<input name="id" type="text" value="${id }"/>
+		    		</div>
+	    			<div>
+	    				BQQ：<input name="num" type="text" value="${num }"/>
+	    			</div>
+	    		</div>
+	    		<div>
+		    		<div>
+			    		姓名：<input name="name" type="text" value="${name }"/>
+		    		</div>
+	    			<div>
+	    				所属网点名称：<input name="netName" type="text" value="${netName }"/>
+	    			</div>
+	    		</div>
+	    	</form>
+   		</div>
+   		<div  class="btn">
+   			<input type="submit" value="查询" onclick="$('.kscx .inp form').submit();"/>
+   		</div>
+   		<div style="clear:both;"></div>
     </div>
     
-    <div style="margin-bottom: 5px;">
     
-    <table border="1" id="eidtASubjectWindow1" style="font-size: 12px;">
-    <tr>
-    	<th>编号</th>
-    	<th>登记时间</th>
-    	<th>BQQ账号</th>
-    	<th>申请人姓名</th>
-    	<th>所属网点代码</th>
-    	<th>所属网点名称</th>
-    	<th>实际使用人</th>
-    	<th>使用部门</th>
-    	<th>维护类型</th>
-    	<th>登记人</th>
-    	<th>维护时间</th>
-    	<th>操作</th>
-    </tr>
-    <c:forEach items="${bs}" var="b">
-    <tr>
-		<td width="">${b.BId }</td>
-		<td width=""><fmt:formatDate value="${b.BRegisterDate }" pattern="yyyy/MM/dd" /></td>
-		<td width="">${b.BNum }</td>
-		<td width="">${b.BName }</td>
-		<td width="">${b.BNetNumber }</td>
-		<td width="">${b.BNetName }</td>
-		<td width="">${b.BMan }</td>
-		<td width="">${b.BSection }</td>
-		<td width="">${b.BType }</td>
-		<td width="">${b.BIt }</td>
-		<td width=""><fmt:formatDate value="${b.BServiceDate }" pattern="yyyy/MM/dd" /></td>
-		<td width="5%" align="center">
-			<a onclick="update('${b.BId }','<fmt:formatDate value="${b.BRegisterDate }" pattern="yyyy-MM-dd" />','${b.BNum }','${b.BName }','${b.BNetNumber }','${b.BNetName }','${b.BSection }','${b.BMan }')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-edit'" title="修改"></a>
-			<a href="<%=path %>/bqq!delete?id=${b.BId}" onclick="return confirm('确定删除吗?')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-delete'" title="删除"></a>
-		</td>
-    </tr>
-    </c:forEach>
-    </table>
+    <div style="margin-bottom: 5px;">
+	    <table border="1" id="eidtASubjectWindow1" style="font-size: 12px;">
+	    <tr>
+	    	<th>编号</th>
+	    	<th>登记时间</th>
+	    	<th>BQQ账号</th>
+	    	<th>申请人姓名</th>
+	    	<th>所属网点代码</th>
+	    	<th>所属网点名称</th>
+	    	<th>实际使用人</th>
+	    	<th>使用部门</th>
+	    	<th>维护类型</th>
+	    	<th>登记人</th>
+	    	<th>维护时间</th>
+	    	<th>操作</th>
+	    </tr>
+	    <c:forEach items="${bs}" var="b">
+	    <tr>
+			<td width="">${b.BId }</td>
+			<td width=""><fmt:formatDate value="${b.BRegisterDate }" pattern="yyyy/MM/dd" /></td>
+			<td width="">${b.BNum }</td>
+			<td width="">${b.BName }</td>
+			<td width="">${b.BNetNumber }</td>
+			<td width="">${b.BNetName }</td>
+			<td width="">${b.BMan }</td>
+			<td width="">${b.BSection }</td>
+			<td width="">${b.BType }</td>
+			<td width="">${b.BIt }</td>
+			<td width=""><fmt:formatDate value="${b.BServiceDate }" pattern="yyyy/MM/dd" /></td>
+			<td width="5%" align="center">
+				<a onclick="update('${b.BId }','<fmt:formatDate value="${b.BRegisterDate }" pattern="yyyy-MM-dd" />','${b.BNum }','${b.BName }','${b.BNetNumber }','${b.BNetName }','${b.BSection }','${b.BMan }')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-edit'" title="修改"></a>
+				<a href="<%=path %>/bqq!delete?id=${b.BId}" onclick="return confirm('确定删除吗?')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-delete'" title="删除"></a>
+			</td>
+	    </tr>
+	    </c:forEach>
+	    </table>
 	</div>
 	
 	<div class="easyui-panel" style="padding:5px;width: 100%;display: none;">

@@ -11,7 +11,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <head>
     <base href="<%=basePath%>">
     
-    <title>小仓巴枪电脑登记</title>
+    <title>骏达设备登记</title>
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
 	<meta http-equiv="expires" content="0">    
@@ -25,6 +25,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<link rel="stylesheet" type="text/css" href="<%=path %>/FRAMEWORK/jquery-easyui/demo/demo.css">
 	<script type="text/javascript" src="<%=path %>/FRAMEWORK/jquery-easyui/jquery.min.js"></script>
 	<script type="text/javascript" src="<%=path %>/FRAMEWORK/jquery-easyui/jquery.easyui.min.js"></script>
+	
+	<script type="text/javascript" src="<%=path %>/FRAMEWORK/My97DatePicker/WdatePicker.js"></script>
 	
 	<script type="text/javascript" src="<%=path %>/FRAMEWORK/js/myjs.js"></script>
 	<link rel="stylesheet" type="text/css" href="<%=path %>/FRAMEWORK/css/mycss.css">
@@ -71,63 +73,85 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   
   <body>
     
-    <div class="easyui-panel" title="小仓巴枪电脑登记" style="padding: 5px;display: none;" data-options="tools:'#tt'">
-    <div style="background-color:white;margin-bottom: 5px;padding: 5px;border: 1px solid #224466; ">
-    	快速查询
-    	<br/>
-    	<form action="<%=path %>/bq!queryOfFenye" method="post">
-    		编号:<input name="id" type="text" value="${id }"/>
-    		&nbsp;&nbsp;&nbsp;&nbsp;
-    		PDA品牌：<input name="BPda" type="text" value="${BPda }"/>
-    		&nbsp;&nbsp;&nbsp;&nbsp;
-    		型号:<input name="BModel" type="text" value="${BModel }"/>
-    		&nbsp;&nbsp;&nbsp;&nbsp;
-    		组别:<input name="BType" type="text" value="${BType }"/>
-    		&nbsp;&nbsp;&nbsp;&nbsp;
-    		巴枪编号:<input name="BNum" type="text" value="${BNum }"/>
-    		&nbsp;&nbsp;&nbsp;&nbsp;
-    		SN:<input name="BSn" type="text" value="${BSn }"/>
-    		&nbsp;&nbsp;&nbsp;&nbsp;
-    		MAC地址:<input name="BMac" type="text" value="${BMac }"/>
-    		<br/>
-    		<input type="submit" value="查询" style="margin:5px;"/>
-    	</form>	
-    </div>
-    <div style="margin-bottom: 5px;">
+    <div class="easyui-panel" title="骏达设备登记" style="padding: 5px;display: none;" data-options="tools:'#tt'">
     
-    <table border="1" id="eidtASubjectWindow1" style="font-size: 12px;">
-    <tr>
-    	<th>编号</th>
-    	<th>PDA品牌</th>
-    	<th>型号</th>
-    	<th>组别</th>
-    	<th>巴枪编号</th>
-    	<th>SN</th>
-    	<th>MAC</th>
-    	<th>分配WIFI</th>
-    	<th>WIFI密码</th>
-    	<th>备注说明</th>
-    	<th>操作</th>
-    </tr>
-    <c:forEach items="${bqs}" var="bq">
-    <tr>
-		<td width="">${bq.BId }</td>
-		<td width="">${bq.BPda }</td>
-		<td width="">${bq.BModel }</td>
-		<td width="">${bq.BType }</td>
-		<td width="">${bq.BNum }</td>
-		<td width="">${bq.BSn }</td>
-		<td width="">${bq.BMac }</td>
-		<td width="">${bq.BWifi }</td>
-		<td width="">${bq.BWifiPass }</td>
-		<td width="">${bq.BNote }</td>
-		<td width="5%" align="center">
-			<a onclick="update('${bq.BId }','${bq.BPda }','${bq.BModel }','${bq.BType }','${bq.BNum }','${bq.BSn }','${bq.BMac }','${bq.BWifi }','${bq.BWifiPass }','${bq.BNote }')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-edit'" title="修改"></a>
-			<a href="<%=path %>/bq!delete?id=${bq.BId}" onclick="return confirm('确定删除吗?')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-delete'" title="删除"></a>
-		</td>
-    </tr>
-    </c:forEach>
-    </table>
+    <div class="kscx">
+   		<div class="inp">
+	    	<form id="ks" action="<%=path %>/bq!queryOfFenye" method="post">
+	    		<div>
+		    		<div>
+			    		编号:<input name="id" type="text" value="${id }"/>
+		    		</div>
+		    		<div>
+		    			PDA品牌：<input name="BPda" type="text" value="${BPda }"/>
+		    		</div>
+	    		</div>
+	    		<div>
+		    		<div>
+			    		型号:<input name="BModel" type="text" value="${BModel }"/>
+		    		</div>
+	    			<div>
+	    				组别:<input name="BType" type="text" value="${BType }"/>
+	    			</div>
+	    		</div>
+	    		<div>
+		    		<div>
+			    		巴枪编号:<input name="BNum" type="text" value="${BNum }"/>
+		    		</div>
+	    			<div>
+	    				SN:<input name="BSn" type="text" value="${BSn }"/>
+	    			</div>
+	    		</div>
+	    		<div>
+		    		<div>
+			    		MAC地址:<input name="BMac" type="text" value="${BMac }"/>
+		    		</div>
+	    			<div>
+	    			</div>
+	    		</div>
+	    	</form>
+   		</div>
+   		<div  class="btn">
+   			<input type="submit" value="查询" onclick="$('.kscx .inp form').submit();"/>
+   		</div>
+   		<div style="clear:both;"></div>
+    </div>
+    
+    
+    <div style="margin-bottom: 5px;">
+	    <table border="1" id="eidtASubjectWindow1" style="font-size: 12px;">
+	    <tr>
+	    	<th>编号</th>
+	    	<th>PDA品牌</th>
+	    	<th>型号</th>
+	    	<th>组别</th>
+	    	<th>巴枪编号</th>
+	    	<th>SN</th>
+	    	<th>MAC</th>
+	    	<th>分配WIFI</th>
+	    	<th>WIFI密码</th>
+	    	<th>备注说明</th>
+	    	<th>操作</th>
+	    </tr>
+	    <c:forEach items="${bqs}" var="bq">
+	    <tr>
+			<td width="">${bq.BId }</td>
+			<td width="">${bq.BPda }</td>
+			<td width="">${bq.BModel }</td>
+			<td width="">${bq.BType }</td>
+			<td width="">${bq.BNum }</td>
+			<td width="">${bq.BSn }</td>
+			<td width="">${bq.BMac }</td>
+			<td width="">${bq.BWifi }</td>
+			<td width="">${bq.BWifiPass }</td>
+			<td width="">${bq.BNote }</td>
+			<td width="5%" align="center">
+				<a onclick="update('${bq.BId }','${bq.BPda }','${bq.BModel }','${bq.BType }','${bq.BNum }','${bq.BSn }','${bq.BMac }','${bq.BWifi }','${bq.BWifiPass }','${bq.BNote }')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-edit'" title="修改"></a>
+				<a href="<%=path %>/bq!delete?id=${bq.BId}" onclick="return confirm('确定删除吗?')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-delete'" title="删除"></a>
+			</td>
+	    </tr>
+	    </c:forEach>
+	    </table>
 	</div>
 	
 	<div class="easyui-panel" style="padding:5px;width: 100%;display: none;background-color: white;">

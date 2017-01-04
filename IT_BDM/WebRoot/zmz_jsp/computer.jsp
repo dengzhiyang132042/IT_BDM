@@ -11,7 +11,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <head>
     <base href="<%=basePath%>">
     
-    <title>管理电脑统计</title>
+    <title>公司电脑信息</title>
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
 	<meta http-equiv="expires" content="0">    
@@ -25,6 +25,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<link rel="stylesheet" type="text/css" href="<%=path %>/FRAMEWORK/jquery-easyui/demo/demo.css">
 	<script type="text/javascript" src="<%=path %>/FRAMEWORK/jquery-easyui/jquery.min.js"></script>
 	<script type="text/javascript" src="<%=path %>/FRAMEWORK/jquery-easyui/jquery.easyui.min.js"></script>
+	
+	<script type="text/javascript" src="<%=path %>/FRAMEWORK/My97DatePicker/WdatePicker.js"></script>
 	
 	<script type="text/javascript" src="<%=path %>/FRAMEWORK/js/myjs.js"></script>
 	<link rel="stylesheet" type="text/css" href="<%=path %>/FRAMEWORK/css/mycss.css">
@@ -82,83 +84,95 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   
   <body>
     
-    <div class="easyui-panel" title="管理电脑统计" style="padding: 5px;display: none;" data-options="tools:'#tt'">
-    <div style="background-color:white;margin-bottom: 5px;padding: 5px;border: 1px solid #224466; ">
-    	快速查询
-    	<br/>
-    	<form action="<%=path %>/computer!queryOfFenye" method="post">
-    		编号:<input name="id" type="text" value="${id }"/>
-    		&nbsp;&nbsp;&nbsp;&nbsp;
-    		部门：<input name="section" type="text" value="${section }"/>
-    		&nbsp;&nbsp;&nbsp;&nbsp;
-    		姓名:<input name="name" type="text" value="${name }"/>
-    		&nbsp;&nbsp;&nbsp;&nbsp;
-    		工号:<input name="num" type="text" value="${num }"/>
-    		<br/>
-    		<input type="submit" value="查询"/>
-    	</form>	
+    <div class="easyui-panel" title="公司电脑信息" style="padding: 5px;display: none;" data-options="tools:'#tt'">
+   	
+   	<div class="kscx">
+   		<div class="inp">
+	    	<form id="ks" action="<%=path %>/computer!queryOfFenye" method="post">
+	    		<div>
+		    		<div>
+			    		编号:<input name="id" type="text" value="${id }"/>
+		    		</div>
+	    			<div>
+	    				部门：<input name="section" type="text" value="${section }"/>
+	    			</div>
+	    		</div>
+	    		<div>
+		    		<div>
+			    		工号:<input name="num" type="text" value="${num }"/>
+		    		</div>
+	    			<div>
+	    				姓名:<input name="name" type="text" value="${name }"/>
+	    			</div>
+	    		</div>
+	    	</form>
+   		</div>
+   		<div  class="btn">
+   			<input type="submit" value="查询" onclick="$('.kscx .inp form').submit();"/>
+   		</div>
+   		<div style="clear:both;"></div>
     </div>
+   
     <div style="margin-bottom: 5px;">
-    
-    <table border="1" id="eidtASubjectWindow1" style="font-size: 12px;">
-    <tr>
-    	<th rowspan="2">编号</th>
-    	<th rowspan="2">部门</th>
-    	<th rowspan="2">姓名</th>
-    	<th rowspan="2">工号</th>
-    	<th rowspan="2">职位</th>
-    	<th rowspan="2">位置</th>
-    	<th rowspan="2">电脑用户(AD)</th>
-    	<th rowspan="2">IP</th>
-    	<th rowspan="2">MAC</th>
-    	<th colspan="2">cpu</th>
-    	<th colspan="2">主板</th>
-    	<th colspan="2">内存</th>
-    	<th rowspan="2">硬盘</th>
-    	<th colspan="2">显示器</th>
-    	<th rowspan="2">是否可报废</th>
-    	<th rowspan="2">备注说明</th>
-    	<th rowspan="2">操作</th>
-    </tr>
-    <tr>
-    	<th>品牌</th>
-    	<th>型号</th>
-    	<th>品牌</th>
-    	<th>芯片组</th>
-    	<th>容量</th>
-    	<th>频率</th>
-    	<th>品牌</th>
-    	<th>尺寸</th>
-    </tr>
-    <c:forEach items="${cs}" var="c">
-    <tr>
-		<td width="">${c.CId }</td>
-		<td width="">${c.CSection }</td>
-		<td width="">${c.CMaster }</td>
-		<td width="">${c.CNum }</td>
-		<td width="">${c.CPosition }</td>
-		<td width="">${c.CAddress }</td>
-		<td width="">${c.CAd }</td>
-		<td width="">${c.CIp }</td>
-		<td width="">${c.CMac }</td>
-		<td width="">${c.CCpuBrand }</td>
-		<td width="">${c.CCpuModel }</td>
-		<td width="">${c.CBoardBrand }</td>
-		<td width="">${c.CBoardChip }</td>
-		<td width="">${c.CMemoryC }</td>
-		<td width="">${c.CMemoryF }</td>
-		<td width="">${c.CDisk }</td>
-		<td width="">${c.CDisplayBrand }</td>
-		<td width="">${c.CDisplayC }</td>
-		<td width="">${c.CIsScrap }</td>
-		<td width="">${c.CNote }</td>
-		<td width="5%" align="center">
-			<a onclick="update('${c.CId }','${c.CSection }','${c.CMaster }','${c.CNum }','${c.CPosition }','${c.CAddress }','${c.CAd }','${c.CIp }','${c.CMac }','${c.CCpuBrand }','${c.CCpuModel }','${c.CBoardBrand }','${c.CBoardChip }','${c.CMemoryC }','${c.CMemoryF }','${c.CDisk }','${c.CDisplayBrand }','${c.CDisplayC }','${c.CIsScrap }','${c.CNote }','${c.CDate }')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-edit'" title="修改"></a>
-			<a href="<%=path %>/computer!delete?id=${c.CId}" onclick="return confirm('确定删除吗?')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-delete'" title="删除"></a>
-		</td>
-    </tr>
-    </c:forEach>
-    </table>
+	    <table border="1" id="eidtASubjectWindow1" style="font-size: 12px;">
+	    <tr>
+	    	<th rowspan="2">编号</th>
+	    	<th rowspan="2">部门</th>
+	    	<th rowspan="2">姓名</th>
+	    	<th rowspan="2">工号</th>
+	    	<th rowspan="2">职位</th>
+	    	<th rowspan="2">位置</th>
+	    	<th rowspan="2">电脑用户(AD)</th>
+	    	<th rowspan="2">IP</th>
+	    	<th rowspan="2">MAC</th>
+	    	<th colspan="2">cpu</th>
+	    	<th colspan="2">主板</th>
+	    	<th colspan="2">内存</th>
+	    	<th rowspan="2">硬盘</th>
+	    	<th colspan="2">显示器</th>
+	    	<th rowspan="2">是否可报废</th>
+	    	<th rowspan="2">备注说明</th>
+	    	<th rowspan="2">操作</th>
+	    </tr>
+	    <tr>
+	    	<th>品牌</th>
+	    	<th>型号</th>
+	    	<th>品牌</th>
+	    	<th>芯片组</th>
+	    	<th>容量</th>
+	    	<th>频率</th>
+	    	<th>品牌</th>
+	    	<th>尺寸</th>
+	    </tr>
+	    <c:forEach items="${cs}" var="c">
+	    <tr>
+			<td width="">${c.CId }</td>
+			<td width="">${c.CSection }</td>
+			<td width="">${c.CMaster }</td>
+			<td width="">${c.CNum }</td>
+			<td width="">${c.CPosition }</td>
+			<td width="">${c.CAddress }</td>
+			<td width="">${c.CAd }</td>
+			<td width="">${c.CIp }</td>
+			<td width="">${c.CMac }</td>
+			<td width="">${c.CCpuBrand }</td>
+			<td width="">${c.CCpuModel }</td>
+			<td width="">${c.CBoardBrand }</td>
+			<td width="">${c.CBoardChip }</td>
+			<td width="">${c.CMemoryC }</td>
+			<td width="">${c.CMemoryF }</td>
+			<td width="">${c.CDisk }</td>
+			<td width="">${c.CDisplayBrand }</td>
+			<td width="">${c.CDisplayC }</td>
+			<td width="">${c.CIsScrap }</td>
+			<td width="">${c.CNote }</td>
+			<td width="5%" align="center">
+				<a onclick="update('${c.CId }','${c.CSection }','${c.CMaster }','${c.CNum }','${c.CPosition }','${c.CAddress }','${c.CAd }','${c.CIp }','${c.CMac }','${c.CCpuBrand }','${c.CCpuModel }','${c.CBoardBrand }','${c.CBoardChip }','${c.CMemoryC }','${c.CMemoryF }','${c.CDisk }','${c.CDisplayBrand }','${c.CDisplayC }','${c.CIsScrap }','${c.CNote }','${c.CDate }')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-edit'" title="修改"></a>
+				<a href="<%=path %>/computer!delete?id=${c.CId}" onclick="return confirm('确定删除吗?')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-delete'" title="删除"></a>
+			</td>
+	    </tr>
+	    </c:forEach>
+	    </table>
 	</div>
 	
 	<div class="easyui-panel" style="padding:5px;width: 100%;display: none;background-color: white;">

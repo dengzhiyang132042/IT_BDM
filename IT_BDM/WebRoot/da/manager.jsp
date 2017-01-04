@@ -27,6 +27,7 @@ String beforeTime= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Calendar.g
 	<link rel="stylesheet" type="text/css" href="<%=path %>/FRAMEWORK/jquery-easyui/demo/demo.css">
 	<script type="text/javascript" src="<%=path %>/FRAMEWORK/jquery-easyui/jquery.min.js"></script>
 	<script type="text/javascript" src="<%=path %>/FRAMEWORK/jquery-easyui/jquery.easyui.min.js"></script>
+	
 	<script type="text/javascript" src="<%=path %>/FRAMEWORK/My97DatePicker/WdatePicker.js"></script>
 	
 	<script type="text/javascript" src="<%=path %>/FRAMEWORK/js/myjs.js"></script>
@@ -149,65 +150,77 @@ String beforeTime= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Calendar.g
   <body>
     
     <div class="easyui-panel" title="故障管理" style="padding: 5px;display: none;" data-options="tools:'#tt'">
-    <div style="background-color:white;margin-bottom: 5px;padding: 5px;border: 1px solid #224466; ">
-    	快速查询
-    	<br/>
-    	<form action="<%=path %>/daManager!queryOfFenye" method="post">
-    		编号:<input name="id" type="text" value="${id }"/>
-    		&nbsp;&nbsp;&nbsp;&nbsp;
-    		故障类型:
-    		<select id="type_sel" name="type">
-    			<option value="">--请选择类型--</option>
-				<option value="桌面组">桌面组</option>
-				<option value="开发组">开发组</option>
-				<option value="维护组">维护组</option>
-				<option value="系统组">系统组</option>
-				<option value="硬件组">硬件组</option>
-				<option value="其他">其他</option>		
-			</select>
-    		&nbsp;&nbsp;&nbsp;&nbsp;
-    		创建日期:<input name="dates" type="date" value="${dates }"/>
-    		~
-    		<input name="datee" type="date" value="${datee }"/>
-    		<br/>
-    		<input type="submit" value="查询"/>
-    	</form>	
+    
+   	<div class="kscx">
+   		<div class="inp">
+	    	<form id="ks" action="<%=path %>/daManager!queryOfFenye" method="post">
+	    		<div>
+		    		<div>
+			    		创建开始日期：<input name="dates" id="d4311" class="Wdate" type="text" onFocus="WdatePicker({maxDate:'#F{$dp.$D(\'d4312\')}'})" value="${dates }"/>
+		    		</div>
+		    		<div>
+		    			创建结束日期：<input name="datee" id="d4312" class="Wdate" type="text" onFocus="WdatePicker({minDate:'#F{$dp.$D(\'d4311\')}'})" value="${datee }"/>
+		    		</div>
+	    		</div>
+	    		<div>
+		    		<div>
+			    		编号:<input name="id" type="text" value="${id }"/>
+		    		</div>
+	    			<div>
+	    				故障类型：
+	    				<select id="type_sel" name="type">
+			    			<option value="">--请选择类型--</option>
+							<option value="桌面组">桌面组</option>
+							<option value="开发组">开发组</option>
+							<option value="维护组">维护组</option>
+							<option value="系统组">系统组</option>
+							<option value="硬件组">硬件组</option>
+							<option value="其他">其他</option>		
+						</select>
+	    			</div>
+	    		</div>
+	    	</form>
+   		</div>
+   		<div  class="btn">
+   			<input type="submit" value="查询" onclick="$('.kscx .inp form').submit();"/>
+   		</div>
+   		<div style="clear:both;"></div>
     </div>
     
-    <div style="margin-bottom: 5px;">
     
-    <table id="tab1" border="1">
-    <tr>
-    	<th width="150">编号</th>
-    	<th width="150">发起人</th>
-    	<th width="300">故障描述</th>
-    	<th width="90">故障类型</th>
-    	<th>创建时间</th>
-    	<th>当前处理人</th>
-    	<th>超时时间</th>
-    	<th>状态</th>
-    	<th>操作</th>
-    </tr>
-    <c:forEach items="${demPers}" var="dp" varStatus="status">
-    <tr>
-    	<td>${dp.demand.DId }</td>
-    	<td>${dp.demand.DApplicant }</td>
-    	<td>${dp.demand.DContent }</td>
-    	<td>${dp.demand.DType }</td>
-    	<td>${dp.demand.DTime }</td>
-    	<td>${dp.performs[0].UName }</td>
-    	<td>${dp.demand.DTimeExpect }</td>
-    	<td>${dp.performs[0].PState }</td>
-    	<td style="text-align: left;padding-left: 15px;">
-			<a onclick="forward('${dp.demand.DId }','${dp.demand.DApplicant }','${dp.demand.DContent }','${dp.demand.DType }','${dp.demand.DTime }','${dp.performs[0].UName }','${dp.performs[0].PState }')" class="easyui-linkbutton" title="转发">转发</a>
-			<a onclick="queryDetails('${status.index}')" class="easyui-linkbutton" title="查看详情">查看详情</a>
-			<c:if test="${dp.demand.outTime==1}">
-				<a class="easyui-linkbutton" href="<%=path %>/daManager!addTimeOut?timeId=${dp.demand.DId }" title="增加超时加一天">加一天</a>
-			</c:if>
-		</td>
-    </tr>
-    </c:forEach>
-    </table>
+    <div style="margin-bottom: 5px;">
+	    <table id="tab1" border="1">
+	    <tr>
+	    	<th width="150">编号</th>
+	    	<th width="150">发起人</th>
+	    	<th width="300">故障描述</th>
+	    	<th width="90">故障类型</th>
+	    	<th>创建时间</th>
+	    	<th>当前处理人</th>
+	    	<th>超时时间</th>
+	    	<th>状态</th>
+	    	<th width="160">操作</th>
+	    </tr>
+	    <c:forEach items="${demPers}" var="dp" varStatus="status">
+	    <tr>
+	    	<td>${dp.demand.DId }</td>
+	    	<td>${dp.demand.DApplicant }</td>
+	    	<td>${dp.demand.DContent }</td>
+	    	<td>${dp.demand.DType }</td>
+	    	<td>${dp.demand.DTime }</td>
+	    	<td>${dp.performs[0].UName }</td>
+	    	<td>${dp.demand.DTimeExpect }</td>
+	    	<td>${dp.performs[0].PState }</td>
+	    	<td style="text-align: left;padding-left: 15px;">
+				<a onclick="forward('${dp.demand.DId }','${dp.demand.DApplicant }','${dp.demand.DContent }','${dp.demand.DType }','${dp.demand.DTime }','${dp.performs[0].UName }','${dp.performs[0].PState }')" class="easyui-linkbutton" title="转发" data-options="plain:true">转发</a>
+				<a onclick="queryDetails('${status.index}')" class="easyui-linkbutton" title="查看详情" data-options="plain:true">查看详情</a>
+				<c:if test="${dp.demand.outTime==1}">
+					<a class="easyui-linkbutton" href="<%=path %>/daManager!addTimeOut?timeId=${dp.demand.DId }" title="增加超时加一天" data-options="plain:true">加一天</a>
+				</c:if>
+			</td>
+	    </tr>
+	    </c:forEach>
+	    </table>
 	</div>
 	
 	<div class="easyui-panel" style="padding:5px;width: 100%;display: none;background-color: white;">

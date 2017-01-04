@@ -25,6 +25,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<link rel="stylesheet" type="text/css" href="<%=path %>/FRAMEWORK/jquery-easyui/demo/demo.css">
 	<script type="text/javascript" src="<%=path %>/FRAMEWORK/jquery-easyui/jquery.min.js"></script>
 	<script type="text/javascript" src="<%=path %>/FRAMEWORK/jquery-easyui/jquery.easyui.min.js"></script>
+	
 	<script type="text/javascript" src="<%=path %>/FRAMEWORK/My97DatePicker/WdatePicker.js"></script>
 	
 	<script type="text/javascript" src="<%=path %>/FRAMEWORK/js/myjs.js"></script>
@@ -32,32 +33,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 	<script type="text/javascript">
 	$(function(){
-		if('${filtrate}'=='D'){
-			var date ="<input name='dates' id='d4311' class='Wdate' type='text' onFocus=\"WdatePicker({maxDate:'#F{$dp.$D(\\'d4312\\')||\\'2020-10-01\\'}'})\" value='${dates }'/>~<input name='datee' id=\"d4312\" class=\"Wdate\" type=\"text\" onFocus=\"WdatePicker({minDate:'#F{$dp.$D(\\'d4311\\')}'})\" value='${datee }' />";
-			$('#datearea').html(date);
-		}
-		if('${filtrate}'=='W'){
-			var date ="<input name='dates' id='d4311' class='Wdate' type='text' onFocus=\"WdatePicker({maxDate:'#F{$dp.$D(\\'d4312\\')||\\'2020-10-01\\'}'})\" value='${dates }'/>~<input name='datee' id=\"d4312\" class=\"Wdate\" type=\"text\" onFocus=\"WdatePicker({minDate:'#F{$dp.$D(\\'d4311\\')}'})\" value='${datee }' />";
-			$('#datearea').html(date);
-		}
-		if('${filtrate}'=='M'){
-			var monthdate ="<input name='dates' type='month' value ='${dates}'/>~<input name='datee' type='month' value='${datee}'/>"
-			$('#datearea').html(monthdate);
-		}
-		if('${filtrate}'=='Y'){
-			var ydate = "<input name='dates' type='number' min='1900' max='2199' value='${dates}'/>~<input name='datee' type='number' min='1900' max='2199' value='${datee}'/>"
-			$('#datearea').html(ydate);
-		}
 		$("#sel_dt option[value='${filtrate}']").attr("selected",true);
 		$("#eidtASubjectWindow1").show();
 		$('#tt').show();
+		changeDate();
 	});
-	</script>
-	<script type="text/javascript">
 	function queryDetails(status) {
-		/*
-		console.log(${json}[status].demPer.length);
-		*/
 		var table1="<table border=\"1\" style=\"font-size: 12px;margin-top: 10px;\">";
 		table1=table1+
 		"<tr><th>编号</th><th>发起人</th><th>故障描述</th><th>故障类型</th><th>创建时间</th><th>当前处理人</th><th>超时时间</th><th>状态</th></tr>";
@@ -78,21 +59,21 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		$("#q").window('open');
 	}
 	function changeDate(){
-		if($('#sel_dt').val()=='D'){
-			var date ="<input name='dates' id='d4311' class='Wdate' type='text' onFocus=\"WdatePicker({maxDate:'#F{$dp.$D(\\'d4312\\')||\\'2020-10-01\\'}'})\" value='${dates }'/>~<input name='datee' id=\"d4312\" class=\"Wdate\" type=\"text\" onFocus=\"WdatePicker({minDate:'#F{$dp.$D(\\'d4311\\')}'})\" value='${datee }' />";
-			$('#datearea').html(date);
-		}
-		if($('#sel_dt').val()=='W'){
-			var date ="<input name='dates' id='d4311' class='Wdate' type='text' onFocus=\"WdatePicker({maxDate:'#F{$dp.$D(\\'d4312\\')||\\'2020-10-01\\'}'})\" value='${dates }'/>~<input name='datee' id=\"d4312\" class=\"Wdate\" type=\"text\" onFocus=\"WdatePicker({minDate:'#F{$dp.$D(\\'d4311\\')}'})\" value='${datee }' />";
-			$('#datearea').html(date);
-		}
-		if($('#sel_dt').val()=='M'){
-			var monthdate ="<input name='dates' type='month' value ='${dates}'/>~<input name='datee' type='month' value='${datee}'/>"
-			$('#datearea').html(monthdate);
-		}
-		if($('#sel_dt').val()=='Y'){
-			var ydate = "<input name='dates' type='number' min='1900' max='2199' value='${dates}'/>~<input name='datee' type='number' min='1900' max='2199' value='${datee}'/>"
-			$('#datearea').html(ydate);
+		if($('#sel_dt').val()=='D' || $('#sel_dt').val()=='W'){
+			var date1 ="开始日期：<input name=\"dates\" id=\"d4311\" class=\"Wdate\" type=\"text\" onFocus=\"WdatePicker({maxDate:'#F{$dp.$D(\\'d4312\\')}'})\" value=\"${dates }\"/>";
+			$('#datearea_1').html(date1);
+			var date2 ="结束日期：<input name=\"datee\" id=\"d4312\" class=\"Wdate\" type=\"text\" onFocus=\"WdatePicker({minDate:'#F{$dp.$D(\\'d4311\\')}'})\" value=\"${datee }\"/>";
+			$('#datearea_2').html(date2);
+		}else if($('#sel_dt').val()=='M'){
+			var monthdate1 ="开始日期：<input name='dates' type='month' value ='${dates}'/>";
+			$('#datearea_1').html(monthdate1);
+			var monthdate2 ="结束日期：<input name='datee' type='month' value='${datee}'/>";
+			$('#datearea_2').html(monthdate2);
+		}else if($('#sel_dt').val()=='Y'){
+			var ydate1 = "开始日期：<input name='dates' type='number' min='1900' max='2199' value='${dates}'/>年";
+			$('#datearea_1').html(ydate1);
+			var ydate2 = "结束日期：<input name='datee' type='number' min='1900' max='2199' value='${datee}'/>年";
+			$('#datearea_2').html(ydate2);
 		}
 	}
 	</script>
@@ -124,22 +105,38 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
  	<br/>
  	<div style="text-align: center;color: white;background-color:#17B4FF;padding: 5px;font-size: 14px;font-weight:bold;">客服统计</div>
  	
- 	
-	<div style="background-color:white;margin-bottom: 5px;padding: 5px;border: 1px solid #224466;margin-top: 10px;">
-    	<form action="<%=path %>/count!queryOfFenye" method="post">
-    		当前查询条件:
-    		<select id="sel_dt" name="filtrate" onchange="changeDate()">
-    			<option value="D">日</option>
-    			<option value="W">周</option>
-    			<option value="M">月</option>
-    			<option value="Y">年</option>
-    		</select>
-    		&nbsp;&nbsp;&nbsp;&nbsp;
-    		选择日期:<span id ="datearea"></span>
-    		<br/>
-    		<input type="submit" value="查询"/>
-    	</form>	
+ 	<div class="kscx">
+   		<div class="inp">
+	    	<form id="ks" action="<%=path %>/count!queryOfFenye" method="post">
+	    		<div>
+		    		<div id="datearea_1">
+			    		开始日期：<input name="dates" id="d4311" class="Wdate" type="text" onFocus="WdatePicker({maxDate:'#F{$dp.$D(\'d4312\')}'})" value="${dates }"/>
+		    		</div>
+		    		<div id="datearea_2">
+		    			结束日期：<input name="datee" id="d4312" class="Wdate" type="text" onFocus="WdatePicker({minDate:'#F{$dp.$D(\'d4311\')}'})" value="${datee }"/>
+		    		</div>
+	    		</div>
+	    		<div>
+		    		<div>
+			    		筛选条件:
+			    		<select id="sel_dt" name="filtrate" onchange="changeDate()">
+			    			<option value="D">日</option>
+			    			<option value="W">周</option>
+			    			<option value="M">月</option>
+			    			<option value="Y">年</option>
+			    		</select>
+		    		</div>
+	    			<div>
+	    			</div>
+	    		</div>
+	    	</form>
+   		</div>
+   		<div  class="btn">
+   			<input type="submit" value="查询" onclick="$('.kscx .inp form').submit();"/>
+   		</div>
+   		<div style="clear:both;"></div>
     </div>
+ 	
     
     <div style="margin-bottom: 5px;">
 	</div>
@@ -164,14 +161,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    	<td>${count.daSuc }</td>
 	    	<td>${count.ratioSuc }%</td>
 	    	<td>
-				<a onclick="queryDetails('${status.index}')" class="easyui-linkbutton" title="查看详情">查看详情</a>
+				<a onclick="queryDetails('${status.index}')" class="easyui-linkbutton" title="查看详情" data-options="plain:true">查看详情</a>
 			</td>
 	    </tr>
 	    </c:forEach>
     </table>
   	
 	   
-	<div id="q" class="easyui-window" title="查看详情" data-options="modal:true,closed:true" style="width:1400px;height:600px;padding:10px;display: none;">
+	<div id="q" class="easyui-window" title="查看详情" data-options="modal:true,closed:true" style="width:100%;height:400px;padding:10px;display: none;">
 	</div>
 	
 	

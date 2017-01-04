@@ -12,7 +12,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <head>
     <base href="<%=basePath%>">
     
-    <title>哲盟数据检查登记</title>
+    <title>哲盟数据检查</title>
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
 	<meta http-equiv="expires" content="0">    
@@ -71,60 +71,71 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   </head>
   <body>
     
-    <div class="easyui-panel" title="哲盟数据检查登记" style="padding: 5px;display: none;" data-options="tools:'#tt'">
+    <div class="easyui-panel" title="哲盟数据检查" style="padding: 5px;display: none;" data-options="tools:'#tt'">
     
     <div class="kscx">
-   		<h1>快速查询</h1>
+   		<div class="inp">
+	    	<form id="ks" action="<%=path %>/zmd!queryOfFenye" method="post">
+	    		<div>
+		    		<div>
+			    		开始日期：<input name="dates" id="d4311" class="Wdate" type="text" onFocus="WdatePicker({maxDate:'#F{$dp.$D(\'d4312\')}'})" value="${dates }"/>
+		    		</div>
+		    		<div>
+		    			结束日期：<input name="datee" id="d4312" class="Wdate" type="text" onFocus="WdatePicker({minDate:'#F{$dp.$D(\'d4311\')}'})" value="${datee }"/>
+		    		</div>
+	    		</div>
+	    		<div>
+		    		<div>
+			    		编号:<input name="id" type="text" value="${id }"/>
+		    		</div>
+	    			<div>
+	    			</div>
+	    		</div>
+	    	</form>
+   		</div>
    		<div  class="btn">
    			<input type="submit" value="查询" onclick="$('.kscx .inp form').submit();"/>
    		</div>
-   		<div class="inp">
-	    	<form action="<%=path %>/zmd!queryOfFenye" method="post">
-		    		编号:<input name="id" type="text" value="${id }"/>
-		    		&nbsp;&nbsp;&nbsp;&nbsp;
-		    		日期:<input name="dates" type="date" value="${dates }"/>
-		    		~
-		    		<input name="datee" type="date" value="${datee }"/>
-	    	</form>	
-   		</div>
+   		<div style="clear:both;"></div>
     </div>
     
+    
     <div style="margin-bottom: 5px;">
-    <table border="1" id="eidtASubjectWindow1" style="font-size: 12px;">
-    <tr>
-    	<th>编号</th>
-    	<th>日期</th>
-    	<th>9点末上传数据</th>
-    	<th>18点末上传数据</th>
-    	<th>深圳公司离线扫描</th>
-    	<th>集包到件</th>
-    	<th>集包未到件</th>
-    	<th>集包数据</th>
-    	<th>装车数据</th>
-    	<th>备注</th>
-    	<th>操作类型</th>
-    	<th>操作</th>
-    </tr>
-    <c:forEach items="${zmds}" var="zmd">
-    <tr>
-		<td width="">${zmd.DId }</td>
-		<td width=""><fmt:formatDate value="${zmd.DDate }" pattern="yyyy/M/d" /></td>
-		<td width="">${zmd.DNoUpload9 }</td>
-		<td width="">${zmd.DNoUpload18 }</td>
-		<td width="">${zmd.DOffline }</td>
-		<td width="">${zmd.DPackage }</td>
-		<td width="">${zmd.DNoPackage }</td>
-		<td width="">${zmd.DDataPackage }</td>
-		<td width="">${zmd.DDataCar }</td>
-		<td width="">${zmd.DNote }</td>
-		<td width="">${zmd.DType }</td>
-		<td width="5%" align="center">
-			<a onclick="update('${zmd.DId }','${zmd.DDate }','${zmd.DNoUpload9 }','${zmd.DNoUpload18 }','${zmd.DOffline }','${zmd.DPackage }','${zmd.DNoPackage }','${zmd.DDataPackage }','${zmd.DDataCar }','${zmd.DNote }')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-edit'" title="修改"></a>
-			<a href="<%=path %>/zmd!delete?id=${zmd.DId}" onclick="return confirm('确定删除吗?')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-delete'" title="删除"></a>
-		</td>
-    </tr>
-    </c:forEach>
-    </table>
+	    <table border="1" id="eidtASubjectWindow1" style="font-size: 12px;">
+	    <tr>
+	    	<th>编号</th>
+	    	<th>日期</th>
+	    	<th>9点末上传数据</th>
+	    	<th>18点末上传数据</th>
+	    	<th>深圳公司离线扫描</th>
+	    	<th>集包到件</th>
+	    	<th>集包未到件</th>
+	    	<th>集包数据</th>
+	    	<th>装车数据</th>
+	    	<th>备注</th>
+	    	<th>操作类型</th>
+	    	<th>操作</th>
+	    </tr>
+	    <c:forEach items="${zmds}" var="zmd">
+	    <tr>
+			<td width="">${zmd.DId }</td>
+			<td width=""><fmt:formatDate value="${zmd.DDate }" pattern="yyyy/M/d" /></td>
+			<td width="">${zmd.DNoUpload9 }</td>
+			<td width="">${zmd.DNoUpload18 }</td>
+			<td width="">${zmd.DOffline }</td>
+			<td width="">${zmd.DPackage }</td>
+			<td width="">${zmd.DNoPackage }</td>
+			<td width="">${zmd.DDataPackage }</td>
+			<td width="">${zmd.DDataCar }</td>
+			<td width="">${zmd.DNote }</td>
+			<td width="">${zmd.DType }</td>
+			<td width="5%" align="center">
+				<a onclick="update('${zmd.DId }','${zmd.DDate }','${zmd.DNoUpload9 }','${zmd.DNoUpload18 }','${zmd.DOffline }','${zmd.DPackage }','${zmd.DNoPackage }','${zmd.DDataPackage }','${zmd.DDataCar }','${zmd.DNote }')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-edit'" title="修改"></a>
+				<a href="<%=path %>/zmd!delete?id=${zmd.DId}" onclick="return confirm('确定删除吗?')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-delete'" title="删除"></a>
+			</td>
+	    </tr>
+	    </c:forEach>
+	    </table>
 	</div>
 	
 	<div class="easyui-panel" style="padding:5px;width: 100%;display: none;">

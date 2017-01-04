@@ -26,6 +26,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script type="text/javascript" src="<%=path %>/FRAMEWORK/jquery-easyui/jquery.min.js"></script>
 	<script type="text/javascript" src="<%=path %>/FRAMEWORK/jquery-easyui/jquery.easyui.min.js"></script>
 	
+	<script type="text/javascript" src="<%=path %>/FRAMEWORK/My97DatePicker/WdatePicker.js"></script>
+	
 	<script type="text/javascript" src="<%=path %>/FRAMEWORK/js/myjs.js"></script>
 	<link rel="stylesheet" type="text/css" href="<%=path %>/FRAMEWORK/css/mycss.css">
 
@@ -133,31 +135,44 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <body>
     
     <div class="easyui-panel" title="故障处理" style="padding: 5px;display: none;">
-	    <div style="background-color:white;margin-bottom: 5px;padding: 5px;border: 1px solid #224466; ">
-    	快速查询
-    	<br/>
-    	<form action="<%=path %>/handle!queryOfFenye" method="post">
-    		编号:<input name="id" type="text" value="${id }"/>
-    		&nbsp;&nbsp;&nbsp;&nbsp;
-    		故障类型:
-    		<select id="type_sel" name="type">
-    			<option value="">--请选择类型--</option>
-				<option value="电脑">电脑</option>
-				<option value="VPN">VPN</option>
-				<option value="哲盟">哲盟</option>
-				<option value="IMO">IMO</option>				
-				<option value="其他">其他</option>				
-			</select>
-    		&nbsp;&nbsp;&nbsp;&nbsp;
-    		创建日期:<input name="dates" type="date" value="${dates }"/>
-    		~
-    		<input name="datee" type="date" value="${datee }"/>
-    		<br/>
-    		<input type="submit" value="查询"/>
-    	</form>	
-   		</div>
-	    <div style="margin-bottom: 5px;">
 	    
+	    <div class="kscx">
+	   		<div class="inp">
+		    	<form id="ks" action="<%=path %>/handle!queryOfFenye" method="post">
+		    		<div>
+			    		<div>
+				    		创建开始日期：<input name="dates" id="d4311" class="Wdate" type="text" onFocus="WdatePicker({maxDate:'#F{$dp.$D(\'d4312\')}'})" value="${dates }"/>
+			    		</div>
+			    		<div>
+			    			创建结束日期：<input name="datee" id="d4312" class="Wdate" type="text" onFocus="WdatePicker({minDate:'#F{$dp.$D(\'d4311\')}'})" value="${datee }"/>
+			    		</div>
+		    		</div>
+		    		<div>
+			    		<div>
+				    		编号:<input name="id" type="text" value="${id }"/>
+			    		</div>
+		    			<div>
+		    				故障类型：
+		    				<select id="type_sel" name="type">
+				    			<option value="">--请选择类型--</option>
+								<option value="桌面组">桌面组</option>
+								<option value="开发组">开发组</option>
+								<option value="维护组">维护组</option>
+								<option value="系统组">系统组</option>
+								<option value="硬件组">硬件组</option>
+								<option value="其他">其他</option>		
+							</select>
+		    			</div>
+		    		</div>
+		    	</form>
+	   		</div>
+	   		<div  class="btn">
+	   			<input type="submit" value="查询" onclick="$('.kscx .inp form').submit();"/>
+	   		</div>
+	   		<div style="clear:both;"></div>
+	    </div>
+	    
+	    <div style="margin-bottom: 5px;">
 		    <table border="1" id="" style="font-size: 12px;">
 		    <tr>
 		    	<th width="150">编号</th>
@@ -187,7 +202,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<option value="complete">已完成</option>
 						<option value="forward">转发</option>
 					</select>
-					<a onclick="queryDetails('${status.index}')"  class="easyui-linkbutton"  title="查看详情">查看详情</a>
+					<a onclick="queryDetails('${status.index}')"  class="easyui-linkbutton"  title="查看详情" data-options="plain:true">查看详情</a>
 				</td>
 		    </tr>
 		    </c:forEach>

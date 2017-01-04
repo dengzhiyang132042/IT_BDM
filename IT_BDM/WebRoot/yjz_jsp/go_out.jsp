@@ -26,6 +26,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script type="text/javascript" src="<%=path %>/FRAMEWORK/jquery-easyui/jquery.min.js"></script>
 	<script type="text/javascript" src="<%=path %>/FRAMEWORK/jquery-easyui/jquery.easyui.min.js"></script>
 	
+	<script type="text/javascript" src="<%=path %>/FRAMEWORK/My97DatePicker/WdatePicker.js"></script>
+	
 	<script type="text/javascript" src="<%=path %>/FRAMEWORK/js/myjs.js"></script>
 	<link rel="stylesheet" type="text/css" href="<%=path %>/FRAMEWORK/css/mycss.css">
 
@@ -78,72 +80,84 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   
   <body>
     
-    <div class="easyui-panel" title="硬件组外出登记" style="padding: 5px;display: none;" data-options="tools:'#tt'">
-    <div style="background-color:white;margin-bottom: 5px;padding: 5px;border: 1px solid #224466; ">
-    	快速查询
-    	<br/>
-    	<form action="<%=path %>/go!queryOfFenyeGo" method="post">
-    		编号:<input name="id" type="text" value="${id }"/>
-    		&nbsp;&nbsp;&nbsp;&nbsp;
-    		申请人：<input name="csMasterApplicant" type="text" value="${csMasterApplicant }"/>
-    		&nbsp;&nbsp;&nbsp;&nbsp;
-    		完成日期：<input name="Dates " type="date" value="${Dates }"/>
-    		~
-    		<input name="Datee " type="date" value="${Datee }"/>
-    		<br/>
-    		<input type="submit" value="查询" style="margin:5px;"/>
-    	</form>	
+    <div class="easyui-panel" title="员工外出登记" style="padding: 5px;display: none;" data-options="tools:'#tt'">
+    
+    <div class="kscx">
+   		<div class="inp">
+	    	<form id="ks" action="<%=path %>/go!queryOfFenyeGo" method="post">
+	    		<div>
+		    		<div>
+			    		完成开始日期：<input name="dates" id="d4311" class="Wdate" type="text" onFocus="WdatePicker({maxDate:'#F{$dp.$D(\'d4312\')}'})" value="${dates }"/>
+		    		</div>
+		    		<div>
+		    			完成结束日期：<input name="datee" id="d4312" class="Wdate" type="text" onFocus="WdatePicker({minDate:'#F{$dp.$D(\'d4311\')}'})" value="${datee }"/>
+		    		</div>
+	    		</div>
+	    		<div>
+		    		<div>
+			    		编号:<input name="id" type="text" value="${id }"/>
+		    		</div>
+	    			<div>
+	    				申请人：<input name="csMasterApplicant" type="text" value="${csMasterApplicant }"/>
+	    			</div>
+	    		</div>
+	    	</form>
+   		</div>
+   		<div  class="btn">
+   			<input type="submit" value="查询" onclick="$('.kscx .inp form').submit();"/>
+   		</div>
+   		<div style="clear:both;"></div>
     </div>
     
-    <table border="1" id="eidtASubjectWindow1" style="font-size: 12px;">
-    <tr align="center" style="height: 28px;background-color: #E6E6E6;">
-    	<th>编号</th>
-    	<th>受理日期</th>
-    	<th>受理周数</th>
-    	<th>目的地</th>
-    	<th>申请人</th>
-    	<th>处理类型</th>
-    	<th>登记人</th>
-    	<th>预计日期</th>
-    	<th>故障描述</th>
-    	<th>维修人</th>
-    	<th>完成日期</th>
-    	<th>完成周数</th>
-    	<th>超时数(天)</th>
-    	<th>餐费(元)</th>
-    	<th>工作量(天)</th>
-    	<th>交通费(元)</th>
-    	<th>备注</th>
-    	<th>操作</th>
-    </tr>
-    <c:forEach items="${gos}" var="go">
-    <tr>
-		<td width="">${go.goId }</td>
-		<td width=""><fmt:formatDate value="${go.goDateAccept }" pattern="yyyy/M/d" /></td>
-		<td width="">${go.goNumberAccept }</td>
-		<td width="">${go.goDestination }</td>
-		<td width="">${go.csMasterApplicant }</td>
-		<td width="">${go.goType }</td>
-		<td width="">${go.csMasterRegiste }</td>
-		<td width=""><fmt:formatDate value="${go.goDateExpect }" pattern="yyyy/M/d" /></td>
-		<td width="">${go.goDescriptionFault }</td>
-		<td width="">${go.csMasterService }</td>
-		<td width=""><fmt:formatDate value="${go.goDateComplete }" pattern="yyyy/M/d" /></td>
-		<td width="">${go.goNumberComplete }</td>
-		<td width="">${go.goTimeout }</td>
-		<td width="">${go.goFeeMeal }</td>
-		<td width="">${go.goWork }</td>
-		<td width="">${go.goFeeTraffic }</td>
-		<td width="">${go.goNote }</td>
-		<td width="5%" align="center">
-			<a onclick="update('${go.goId }','${go.goDateAccept }','${go.goNumberAccept }','${go.csMasterApplicant }','${go.goType }','${go.csMasterRegiste }','${go.goDateExpect }','${go.goDescriptionFault }','${go.csMasterService }','${go.goDateComplete }','${go.goNumberComplete }','${go.goTimeout }','${go.goFeeMeal }','${go.goWork }','${go.goFeeTraffic }','${go.goNote }','${go.goDestination }')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-edit'" title="修改"></a>
-			<a href="<%=path %>/go!deleteGo?id=${go.goId}" onclick="return confirm('确定删除吗?')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-delete'" title="删除"></a>
-		</td>
-    </tr>
-    </c:forEach>
-    </table>
+    <div style="margin-bottom: 5px;">
+	    <table border="1" id="eidtASubjectWindow1">
+	    <tr>
+	    	<th>编号</th>
+	    	<th>受理日期</th>
+	    	<th>受理周数</th>
+	    	<th>目的地</th>
+	    	<th>申请人</th>
+	    	<th>处理类型</th>
+	    	<th>登记人</th>
+	    	<th>预计日期</th>
+	    	<th>故障描述</th>
+	    	<th>维修人</th>
+	    	<th>完成日期</th>
+	    	<th>完成周数</th>
+	    	<th>超时数(天)</th>
+	    	<th>餐费(元)</th>
+	    	<th>工作量(天)</th>
+	    	<th>交通费(元)</th>
+	    	<th>备注</th>
+	    	<th>操作</th>
+	    </tr>
+	    <c:forEach items="${gos}" var="go">
+	    <tr>
+			<td width="">${go.goId }</td>
+			<td width=""><fmt:formatDate value="${go.goDateAccept }" pattern="yyyy/M/d" /></td>
+			<td width="">${go.goNumberAccept }</td>
+			<td width="">${go.goDestination }</td>
+			<td width="">${go.csMasterApplicant }</td>
+			<td width="">${go.goType }</td>
+			<td width="">${go.csMasterRegiste }</td>
+			<td width=""><fmt:formatDate value="${go.goDateExpect }" pattern="yyyy/M/d" /></td>
+			<td width="">${go.goDescriptionFault }</td>
+			<td width="">${go.csMasterService }</td>
+			<td width=""><fmt:formatDate value="${go.goDateComplete }" pattern="yyyy/M/d" /></td>
+			<td width="">${go.goNumberComplete }</td>
+			<td width="">${go.goTimeout }</td>
+			<td width="">${go.goFeeMeal }</td>
+			<td width="">${go.goWork }</td>
+			<td width="">${go.goFeeTraffic }</td>
+			<td width="">${go.goNote }</td>
+			<td width="5%" align="center">
+				<a onclick="update('${go.goId }','${go.goDateAccept }','${go.goNumberAccept }','${go.csMasterApplicant }','${go.goType }','${go.csMasterRegiste }','${go.goDateExpect }','${go.goDescriptionFault }','${go.csMasterService }','${go.goDateComplete }','${go.goNumberComplete }','${go.goTimeout }','${go.goFeeMeal }','${go.goWork }','${go.goFeeTraffic }','${go.goNote }','${go.goDestination }')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-edit'" title="修改"></a>
+				<a href="<%=path %>/go!deleteGo?id=${go.goId}" onclick="return confirm('确定删除吗?')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-delete'" title="删除"></a>
+			</td>
+	    </tr>
+	    </c:forEach>
+	    </table>
 	</div>
-	<br/>
 	
 	<div class="easyui-panel" style="padding:5px;width: 100%;display: none;">
 		<form id="f1" action="<%=path %>/go!queryOfFenyeGo?id=${id }&csMasterApplicant=${csMasterApplicant }&Dates=${Dates }&Datee${Datee }" method="post">

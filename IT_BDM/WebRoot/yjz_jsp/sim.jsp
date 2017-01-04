@@ -26,6 +26,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script type="text/javascript" src="<%=path %>/FRAMEWORK/jquery-easyui/jquery.min.js"></script>
 	<script type="text/javascript" src="<%=path %>/FRAMEWORK/jquery-easyui/jquery.easyui.min.js"></script>
 	
+	<script type="text/javascript" src="<%=path %>/FRAMEWORK/My97DatePicker/WdatePicker.js"></script>
+	
 	<script type="text/javascript" src="<%=path %>/FRAMEWORK/js/myjs.js"></script>
 	<link rel="stylesheet" type="text/css" href="<%=path %>/FRAMEWORK/css/mycss.css">
 
@@ -103,47 +105,55 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <body>
     
     <div class="easyui-panel" title="SIM费用报销" style="padding: 5px;display: none;" data-options="tools:'#tt'">
-    <div style="background-color:white;margin-bottom: 5px;padding: 5px;border: 1px solid #224466; ">
-    	快速查询
-    	<br/>
-    	<form action="<%=path %>/sim!queryOfFenyeSIM" method="post">
-    		编号:<input name="id" type="text" value="${id }"/>
-    		&nbsp;&nbsp;&nbsp;&nbsp;
-    		部门：<input name="csName" type="text" value="${csName }"/>
-    		<br/>
-    		<input type="submit" value="查询" style="margin:5px;"/>
-    	</form>	
+    
+    <div class="kscx">
+   		<div class="inp">
+	    	<form id="ks" action="<%=path %>/sim!queryOfFenyeSIM" method="post">
+	    		<div>
+		    		<div>
+			    		编号:<input name="id" type="text" value="${id }"/>
+		    		</div>
+	    			<div>
+	    				部门：<input name="csName" type="text" value="${csName }"/>
+	    			</div>
+	    		</div>
+	    	</form>
+   		</div>
+   		<div  class="btn">
+   			<input type="submit" value="查询" onclick="$('.kscx .inp form').submit();"/>
+   		</div>
+   		<div style="clear:both;"></div>
     </div>
     
-    <table border="1" id="eidtASubjectWindow1" style="font-size: 12px;">
-    <tr>
-    	<th>编号</th>
-    	<th>部门</th>
-    	<th>SIM数量 </th>
-    	<th>月数</th>
-    	<th>公司总费用</th>
-    	<th>登记时间</th>
-    	<th>备注</th>
-    	<th>操作</th>
-    </tr>
-    <c:forEach items="${sims}" var="sim">
-    <tr>
-		<td width="">${sim.SId }</td>
-		<td width="">${sim.csName }</td>
-		<td width="">${sim.SNumber }</td>
-		<td width="">${sim.SMonth }</td>
-		<td width="">${sim.SFeeSum }</td>
-		<td width=""><fmt:formatDate value="${sim.SDate }" pattern="yyyy/M/d" /></td>
-		<td width="">${sim.SNote }</td>
-		<td width="5%" align="center">
-			<a onclick="update('${sim.SId }','${sim.csName }','${sim.SNumber }','${sim.SMonth }','${sim.SFeeSum }','${sim.SDate }','${sim.SNote }')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-edit'" title="修改"></a>
-			<a href="<%=path %>/sim!deleteSIM?id=${sim.SId}" onclick="return confirm('确定删除吗?')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-delete'" title="删除"></a>
-		</td>
-    </tr>
-    </c:forEach>
-    </table>
+    <div style="margin-bottom: 5px;">
+	    <table border="1" id="eidtASubjectWindow1">
+	    <tr>
+	    	<th>编号</th>
+	    	<th>部门</th>
+	    	<th>SIM数量 </th>
+	    	<th>月数</th>
+	    	<th>公司总费用</th>
+	    	<th>登记时间</th>
+	    	<th>备注</th>
+	    	<th>操作</th>
+	    </tr>
+	    <c:forEach items="${sims}" var="sim">
+	    <tr>
+			<td width="">${sim.SId }</td>
+			<td width="">${sim.csName }</td>
+			<td width="">${sim.SNumber }</td>
+			<td width="">${sim.SMonth }</td>
+			<td width="">${sim.SFeeSum }</td>
+			<td width=""><fmt:formatDate value="${sim.SDate }" pattern="yyyy/M/d" /></td>
+			<td width="">${sim.SNote }</td>
+			<td width="5%" align="center">
+				<a onclick="update('${sim.SId }','${sim.csName }','${sim.SNumber }','${sim.SMonth }','${sim.SFeeSum }','${sim.SDate }','${sim.SNote }')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-edit'" title="修改"></a>
+				<a href="<%=path %>/sim!deleteSIM?id=${sim.SId}" onclick="return confirm('确定删除吗?')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-delete'" title="删除"></a>
+			</td>
+	    </tr>
+	    </c:forEach>
+	    </table>
 	</div>
-	<br/>
 	
 	<div class="easyui-panel" style="padding:5px;width: 100%;display: none;">
 		<form id="f1" action="<%=path %>/sim!queryOfFenyeSIM?id=${id}&csName=${csName}" method="post">
@@ -173,7 +183,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</span>
 		</form>
 	</div>
-
+	</div>
+	
 	
 	<div id="u" class="easyui-window" title="修改" data-options="modal:true,closed:true" style="width:400px;height:auto;padding:10px;display: none;top: 200px;">
 		<form action="<%=path %>/sim!updateSIM" method="post">

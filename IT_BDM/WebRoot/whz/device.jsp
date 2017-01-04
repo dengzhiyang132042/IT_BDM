@@ -27,6 +27,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<link rel="stylesheet" type="text/css" href="<%=path %>/FRAMEWORK/jquery-easyui/demo/demo.css">
 	<script type="text/javascript" src="<%=path %>/FRAMEWORK/jquery-easyui/jquery.min.js"></script>
 	<script type="text/javascript" src="<%=path %>/FRAMEWORK/jquery-easyui/jquery.easyui.min.js"></script>
+	
 	<script type="text/javascript" src="<%=path %>/FRAMEWORK/My97DatePicker/WdatePicker.js"></script>
 	
 	<script type="text/javascript" src="<%=path %>/FRAMEWORK/js/myjs.js"></script>
@@ -82,59 +83,70 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     
     <div class="easyui-panel" title="操作设备巡检" style="padding: 5px;display: none;" data-options="tools:'#tt'">
     
-    <div style="background-color:white;margin-bottom: 5px;padding: 5px;border: 1px solid #224466; ">
-    	快速查询
-    	<br/>
-    	<form action="<%=path %>/device!queryOfFenye" method="post">
-    		编号:<input name="id" type="text" value="${id }"/>
-    		&nbsp;&nbsp;&nbsp;&nbsp;
-    		日期:
-    		<input name="dates" id="d4311" class="Wdate" type="text" onFocus="WdatePicker({maxDate:'#F{$dp.$D(\'d4312\')}'})" value="${dates }"/> 
-    		~
-			<input name="datee" id="d4312" class="Wdate" type="text" onFocus="WdatePicker({minDate:'#F{$dp.$D(\'d4311\')}'})" value="${datee }"/>	
-    		<br/>
-    		<input type="submit" value="查询"/>
-    	</form>	
+    <div class="kscx">
+   		<div class="inp">
+	    	<form id="ks" action="<%=path %>/device!queryOfFenye" method="post">
+	    		<div>
+		    		<div>
+			    		开始日期：<input name="dates" id="d4311" class="Wdate" type="text" onFocus="WdatePicker({maxDate:'#F{$dp.$D(\'d4312\')}'})" value="${dates }"/>
+		    		</div>
+		    		<div>
+		    			结束日期：<input name="datee" id="d4312" class="Wdate" type="text" onFocus="WdatePicker({minDate:'#F{$dp.$D(\'d4311\')}'})" value="${datee }"/>
+		    		</div>
+	    		</div>
+	    		<div>
+		    		<div>
+			    		编号:<input name="id" type="text" value="${id }"/>
+		    		</div>
+	    			<div>
+	    			</div>
+	    		</div>
+	    	</form>
+   		</div>
+   		<div  class="btn">
+   			<input type="submit" value="查询" onclick="$('.kscx .inp form').submit();"/>
+   		</div>
+   		<div style="clear:both;"></div>
     </div>
     
-    <div style="margin-bottom: 5px;">
     
-    <table border="1" id="eidtASubjectWindow1" style="font-size: 12px;">
-    <tr>
-    	<th width="130px">编号</th>
-    	<th>日期</th>
-    	<th>巡检时间</th>
-    	<th>巡检IT</th>
-    	<th>电子称较称</th>
-    	<th>称平台是否平稳</th>
-    	<th>异常描述</th>
-    	<th>处理结果</th>
-    	<th>周保养</th>
-    	<th>月保养</th>
-    	<th>备注</th>
-    	<th>操作</th>
-    </tr>
-    <c:forEach items="${devices}" var="d">
-    <tr>
-		<td width="">${d.DId }</td>
-		<td width=""><fmt:formatDate value="${d.DDate }" pattern="yyyy-MM-dd" /></td>
-		<td width=""><fmt:formatDate value="${d.DTime }" pattern="HH:mm" /></td>
-		<td width="">${d.DIt }</td>
-		<td width="">${d.DFit }</td>
-		<td width="">${d.DFitFirm }</td>
-		<td width="">${d.DAbnormalNote }</td>
-		<td width="">${d.DResult }</td>
-		<td width="">${d.DWeekMaintain }</td>
-		<td width="">${d.DMonthMaintain }</td>
-		<td width="">${d.DNote }</td>
-		<td width="5%" align="center">
-			<a onclick="update('${d.DId }','<fmt:formatDate value="${d.DDate }" pattern="yyyy-M-d" />','<fmt:formatDate value="${d.DTime }" pattern="HH:mm" />','${d.DFit }',
-			'${d.DFitFirm }','${d.DAbnormalNote}','${d.DResult }','${d.DIt }','${d.DWeekMaintain }','${d.DMonthMaintain }','${d.DNote }' )" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-edit'" title="修改"></a>
-			<a href="<%=path %>/device!delete?id=${d.DId}" onclick="return confirm('确定删除吗?')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-delete'" title="删除"></a>
-		</td>
-    </tr>
-    </c:forEach>
-    </table>
+    <div style="margin-bottom: 5px;">
+	    <table border="1" id="eidtASubjectWindow1" style="font-size: 12px;">
+	    <tr>
+	    	<th width="130px">编号</th>
+	    	<th>日期</th>
+	    	<th>巡检时间</th>
+	    	<th>巡检IT</th>
+	    	<th>电子称较称</th>
+	    	<th>称平台是否平稳</th>
+	    	<th>异常描述</th>
+	    	<th>处理结果</th>
+	    	<th>周保养</th>
+	    	<th>月保养</th>
+	    	<th>备注</th>
+	    	<th>操作</th>
+	    </tr>
+	    <c:forEach items="${devices}" var="d">
+	    <tr>
+			<td width="">${d.DId }</td>
+			<td width=""><fmt:formatDate value="${d.DDate }" pattern="yyyy-MM-dd" /></td>
+			<td width=""><fmt:formatDate value="${d.DTime }" pattern="HH:mm" /></td>
+			<td width="">${d.DIt }</td>
+			<td width="">${d.DFit }</td>
+			<td width="">${d.DFitFirm }</td>
+			<td width="">${d.DAbnormalNote }</td>
+			<td width="">${d.DResult }</td>
+			<td width="">${d.DWeekMaintain }</td>
+			<td width="">${d.DMonthMaintain }</td>
+			<td width="">${d.DNote }</td>
+			<td width="5%" align="center">
+				<a onclick="update('${d.DId }','<fmt:formatDate value="${d.DDate }" pattern="yyyy-M-d" />','<fmt:formatDate value="${d.DTime }" pattern="HH:mm" />','${d.DFit }',
+				'${d.DFitFirm }','${d.DAbnormalNote}','${d.DResult }','${d.DIt }','${d.DWeekMaintain }','${d.DMonthMaintain }','${d.DNote }' )" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-edit'" title="修改"></a>
+				<a href="<%=path %>/device!delete?id=${d.DId}" onclick="return confirm('确定删除吗?')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-delete'" title="删除"></a>
+			</td>
+	    </tr>
+	    </c:forEach>
+    	</table>
 	</div>
 	
 	<div class="easyui-panel" style="padding:5px;width: 100%;display: none;">

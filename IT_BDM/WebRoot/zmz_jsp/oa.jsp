@@ -26,6 +26,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script type="text/javascript" src="<%=path %>/FRAMEWORK/jquery-easyui/jquery.min.js"></script>
 	<script type="text/javascript" src="<%=path %>/FRAMEWORK/jquery-easyui/jquery.easyui.min.js"></script>
 	
+	<script type="text/javascript" src="<%=path %>/FRAMEWORK/My97DatePicker/WdatePicker.js"></script>
+	
 	<script type="text/javascript" src="<%=path %>/FRAMEWORK/js/myjs.js"></script>
 	<link rel="stylesheet" type="text/css" href="<%=path %>/FRAMEWORK/css/mycss.css">
 
@@ -75,77 +77,98 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <body>
     
     <div class="easyui-panel" title="oa账号" style="padding: 5px;display: none;" data-options="tools:'#tt'">
-    <div style="background-color:white;margin-bottom: 5px;padding: 5px;border: 1px solid #224466; ">
-    	快速查询
-    	<br/>
-    	<form action="<%=path %>/oa!queryOfFenye" method="post">
-    		编号:<input name="id" type="text" value="${id }"/>
-    		&nbsp;&nbsp;&nbsp;&nbsp;
-    		申请人:<input name="apply" type="text" value="${apply }"/>
-    		&nbsp;&nbsp;&nbsp;&nbsp;
-    		OA账号:<input name="num" type="text" value="${num }"/>
-    		&nbsp;&nbsp;&nbsp;&nbsp;
-    		部门:<input name="section" type="text" value="${section }"/>
-    		&nbsp;&nbsp;&nbsp;&nbsp;
-    		在职情况:<input name="job" type="text" value="${job }"/>
-    		&nbsp;&nbsp;&nbsp;&nbsp;
-    		登记时间:<input name="dates" type="date" value="${dates }"/>
-    		~
-    		<input name="datee" type="date" value="${datee }"/>
-    		<br/>
-    		<input type="submit" value="查询"/>
-    	</form>	
-    </div>
-    <div style="margin-bottom: 5px;">
     
-    <table border="1" id="eidtASubjectWindow1" style="font-size: 12px;">
-    <tr>
-    	<th>编号</th>
-    	<th>OA登记日期</th>
-    	<th>维护周数</th>
-    	<th>部门</th>
-    	<th>申请人</th>
-    	<th>员工岗位</th>
-    	<th>OA</th>
-    	<th>维护IT</th>
-    	<!-- 
-    	<th>维护日期</th>
-    	<th>维护用时</th>
-    	 -->
-    	
-    	<th>在职情况</th>
-    	<!-- 
-    	<th>是否及时</th>
-    	 -->
-    	<th>备注</th>
-    	<th>操作</th>
-    </tr>
-    <c:forEach items="${oas}" var="oa">
-    <tr>
-		<td width="">${oa.OId }</td>
-		<td width=""><fmt:formatDate value="${oa.ODate }" pattern="yyyy/M/d" /></td>
-		<td width="">${oa.OServiceWeek }</td>
-		<td width="">${oa.OSection }</td>
-		<td width="">${oa.OApply }</td>
-		<td width="">${oa.OPosition }</td>
-		<td width="">${oa.OOa }</td>
-		<td width="">${oa.OService }</td>
-		<!-- 
-		<td width="">${oa.OServiceDate }</td>
-		<td width="">${oa.OServiceTime }</td>
-		 -->
-		<td width="">${oa.OOnJob }</td>
-		<!-- 
-		<td width="">${oa.OIsTimely }</td>
-		 -->
-		<td width="">${oa.ONote }</td>
-		<td width="5%" align="center">
-			<a onclick="update('${oa.OId }','${oa.ODate }','${oa.OServiceWeek }','${oa.OSection }','${oa.OApply }','${oa.OPosition }','${oa.OOa }','${oa.OService }','${oa.OServiceDate }','${oa.OServiceTime }','${oa.OOnJob }','${oa.OIsTimely }','${oa.ONote }')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-edit'" title="修改"></a>
-			<a href="<%=path %>/oa!delete?id=${oa.OId}" onclick="return confirm('确定删除吗?')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-delete'" title="删除"></a>
-		</td>
-    </tr>
-    </c:forEach>
-    </table>
+    <div class="kscx">
+   		<div class="inp">
+	    	<form id="ks" action="<%=path %>/oa!queryOfFenye" method="post">
+	    		<div>
+		    		<div>
+			    		登记开始日期：<input name="dates" id="d4311" class="Wdate" type="text" onFocus="WdatePicker({maxDate:'#F{$dp.$D(\'d4312\')}'})" value="${dates }"/>
+		    		</div>
+		    		<div>
+		    			登记结束日期：<input name="datee" id="d4312" class="Wdate" type="text" onFocus="WdatePicker({minDate:'#F{$dp.$D(\'d4311\')}'})" value="${datee }"/>
+		    		</div>
+	    		</div>
+	    		<div>
+		    		<div>
+			    		编号:<input name="id" type="text" value="${id }"/>
+		    		</div>
+	    			<div>
+	    				申请人:<input name="apply" type="text" value="${apply }"/>
+	    			</div>
+	    		</div>
+	    		<div>
+		    		<div>
+			    		OA账号:<input name="num" type="text" value="${num }"/>
+		    		</div>
+	    			<div>
+	    				部门:<input name="section" type="text" value="${section }"/>
+	    			</div>
+	    		</div>
+	    		<div>
+		    		<div>
+			    		在职情况:<input name="job" type="text" value="${job }"/>
+		    		</div>
+	    			<div>
+	    			</div>
+	    		</div>
+	    	</form>
+   		</div>
+   		<div  class="btn">
+   			<input type="submit" value="查询" onclick="$('.kscx .inp form').submit();"/>
+   		</div>
+   		<div style="clear:both;"></div>
+    </div>
+    
+    <div style="margin-bottom: 5px;">
+	    <table border="1" id="eidtASubjectWindow1" style="font-size: 12px;">
+	    <tr>
+	    	<th>编号</th>
+	    	<th>OA登记日期</th>
+	    	<th>维护周数</th>
+	    	<th>部门</th>
+	    	<th>申请人</th>
+	    	<th>员工岗位</th>
+	    	<th>OA</th>
+	    	<th>维护IT</th>
+	    	<!-- 
+	    	<th>维护日期</th>
+	    	<th>维护用时</th>
+	    	 -->
+	    	
+	    	<th>在职情况</th>
+	    	<!-- 
+	    	<th>是否及时</th>
+	    	 -->
+	    	<th>备注</th>
+	    	<th>操作</th>
+	    </tr>
+	    <c:forEach items="${oas}" var="oa">
+	    <tr>
+			<td width="">${oa.OId }</td>
+			<td width=""><fmt:formatDate value="${oa.ODate }" pattern="yyyy/M/d" /></td>
+			<td width="">${oa.OServiceWeek }</td>
+			<td width="">${oa.OSection }</td>
+			<td width="">${oa.OApply }</td>
+			<td width="">${oa.OPosition }</td>
+			<td width="">${oa.OOa }</td>
+			<td width="">${oa.OService }</td>
+			<!-- 
+			<td width="">${oa.OServiceDate }</td>
+			<td width="">${oa.OServiceTime }</td>
+			 -->
+			<td width="">${oa.OOnJob }</td>
+			<!-- 
+			<td width="">${oa.OIsTimely }</td>
+			 -->
+			<td width="">${oa.ONote }</td>
+			<td width="5%" align="center">
+				<a onclick="update('${oa.OId }','${oa.ODate }','${oa.OServiceWeek }','${oa.OSection }','${oa.OApply }','${oa.OPosition }','${oa.OOa }','${oa.OService }','${oa.OServiceDate }','${oa.OServiceTime }','${oa.OOnJob }','${oa.OIsTimely }','${oa.ONote }')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-edit'" title="修改"></a>
+				<a href="<%=path %>/oa!delete?id=${oa.OId}" onclick="return confirm('确定删除吗?')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-delete'" title="删除"></a>
+			</td>
+	    </tr>
+	    </c:forEach>
+	    </table>
 	</div>
 	
 	<div class="easyui-panel" style="padding:5px;width: 100%;display: none;background-color: white;">

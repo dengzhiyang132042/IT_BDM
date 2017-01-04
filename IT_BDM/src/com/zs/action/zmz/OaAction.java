@@ -217,10 +217,10 @@ public class OaAction extends MyBaseAction implements IMyBaseAction{
 		id=getRequest().getParameter("id");
 		String cz=getRequest().getParameter("cz");//用于判断是否清理page，yes清理，no不清理
 		if (page==null) {
-			page=new Page(1, 0, 15);
+			page=new Page(1, 0, 10);
 		}
 		if (cz!=null && cz.equals("yes")) {
-			page=new Page(1, 0, 15);
+			page=new Page(1, 0, 10);
 			clearOptions();
 		}
 		clearSpace();
