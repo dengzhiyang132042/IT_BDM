@@ -376,7 +376,7 @@
      <result>/index.jsp</result>
      <result name="resetPass">/oneself/resetPass.jsp</result>
      <result name="succ">/success.jsp</result>
-     <result name="fail">/fail.jsp</result>
+     <result name="queryInfo">/oneself/query_information.jsp</result>
   </action>
   <!-- **************故障报修处理跟进系统***************** -->
   <action name="daManager" class="zs_manager_da">	

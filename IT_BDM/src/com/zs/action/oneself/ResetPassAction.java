@@ -3,6 +3,7 @@ package com.zs.action.oneself;
 import java.io.UnsupportedEncodingException;
 
 import com.zs.action.MyBaseAction;
+import com.zs.entity.Role;
 import com.zs.entity.Users;
 import com.zs.service.IService;
 
@@ -10,8 +11,9 @@ public class ResetPassAction extends MyBaseAction{
 
 	private IService ser;
 	String result="resetPass";
-	String succ="succ";
+	String result_info="queryInfo";
 	private Users u;
+	
 	
 	public IService getSer() {
 		return ser;
@@ -45,6 +47,26 @@ public class ResetPassAction extends MyBaseAction{
 		String newPass = getRequest().getParameter("newPass");
 		user.setUPass(newPass);
 		ser.update(user);
-		return succ;
+		user=null;
+		return "succ";
 	}
+	
+	/***********************个人信息模块*******************************/
+	
+	public String queryInfo (){
+		u=null;
+		Users user = (Users) getSession().getAttribute("user");
+		Role r = (Role) ser.get(Role.class, user.getRId());
+		user.setR(r);
+		return result_info;
+	}
+	
+	public String updateInfo(){
+		Users user = (Users) getSession().getAttribute("user");
+		user.setUName(u.getUName());
+		user.setUMail(u.getUMail());
+		ser.update(user);
+		return result_info;
+	}
+	
 }

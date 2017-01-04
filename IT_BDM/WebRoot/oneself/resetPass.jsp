@@ -84,10 +84,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				</div>
 				<div style="margin-bottom:20px">
 					<div><span>确认密码:</span><span id="error_affirm_pass" style="color:red;padding-left:10px;"></span></div><br/>
-					<input id="affirm_pass" type="password" onblur="affirm()" name="affirmPass" style="width:100%;height:32px;border-radius: 6px;">
+					<input id="affirm_pass" type="password"  name="affirmPass" style="width:100%;height:32px;border-radius: 6px;">
 				</div>
 				<div>
-					<input class="easyui-linkbutton" iconCls="icon-ok" onclik="affirm()" type="button" value="提 交" style="width:30%;height:32px; margin-left:90px;"/>
+					<input class="easyui-linkbutton" iconCls="icon-ok" onclick="affirm()" type="button" value="提 交" style="width:30%;height:32px; margin-left:90px;"/>
 				</div>
 			</form>
    		</div>
