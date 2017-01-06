@@ -106,10 +106,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    <table border="1" id="eidtASubjectWindow1" style="font-size: 12px;">
 	    <tr>
 	    	<th>编号</th>
+	    	<!-- 
 	    	<th>节点A</th>
 	    	<th>节点B</th>
 	    	<th>节点C</th>
-	    	<!-- 
 	    	<th>节点D</th>
 	    	<th>节点E</th>
 	    	 -->
@@ -123,10 +123,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    <c:forEach items="${phones}" var="p">
 	    <tr>
 			<td width="">${p.PId }</td>
+			<!-- 
 			<td width="">${p.PA }</td>
 			<td width="">${p.PB }</td>
 			<td width="">${p.PC }</td>
-			<!-- 
 			<td width="">${p.PD }</td>
 			<td width="">${p.PE }</td>
 			-->

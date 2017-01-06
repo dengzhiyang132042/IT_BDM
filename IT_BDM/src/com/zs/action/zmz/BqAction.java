@@ -39,6 +39,7 @@ public class BqAction extends MyBaseAction implements IMyBaseAction{
 	String BNum;
 	String BSn;
 	String BMac;
+	String cz;
 	
 	private Logger logger=Logger.getLogger(BqAction.class);
 	private File fileExcel;
@@ -165,7 +166,13 @@ public class BqAction extends MyBaseAction implements IMyBaseAction{
 	public void setBqs(List<ZmBq> bqs) {
 		this.bqs = bqs;
 	}
-
+	public String getCz() {
+		return cz;
+	}
+	public void setCz(String cz) {
+		this.cz = cz;
+	}
+	
 	//**********************************************
 	public void clearOptions() {
 		id=null;
@@ -175,6 +182,14 @@ public class BqAction extends MyBaseAction implements IMyBaseAction{
 		BNum=null;
 		BSn=null;
 		BMac=null;
+		bq=null;
+		bqs=null;
+		cz=null;
+		if (page==null) {
+			page=new Page(1, 0, 10);
+		}else {
+			page.setPageOn(1);
+		}
 	}
 	
 	private void clearSpace(){
@@ -199,47 +214,40 @@ public class BqAction extends MyBaseAction implements IMyBaseAction{
 		if(BMac!=null){
 			BMac=BMac.trim();
 		}
+		if(cz!=null){
+			cz=cz.trim();
+		}
 	}
 	
 	public String queryOfFenye() throws UnsupportedEncodingException {
-		id=getRequest().getParameter("id");
-		String cz=getRequest().getParameter("cz");//用于判断是否清理page，yes清理，no不清理
-		
-		if (page==null) {
-			page=new Page(1, 0, 5);
-		}
+		clearSpace();
 		if (cz!=null && cz.equals("yes")) {
-			page=new Page(1, 0, 5);
 			clearOptions();
 		}
-		clearSpace();
-		if(id!=null){
-			String hql2="from ZmBq where BId like '%"+id+"%'";
-			if(BPda!=null){
-				hql2=hql2+" and BPda like '%"+BPda+"%'";
-			}
-			if(BModel!=null){
-				hql2=hql2+" and BModel like '%"+BModel+"%'";
-			}
-			if(BType!=null){
-				hql2=hql2+" and BType like '%"+BType+"%'";
-			}
-			if(BNum!=null){
-				hql2=hql2+" and BNum like '%"+BNum+"%'";
-			}
-			if(BSn!=null){
-				hql2=hql2+" and BSn like '%"+BSn+"%'";
-			}
-			if(BMac!=null){
-				hql2=hql2+" and BMac like '%"+BMac+"%'";
-			}
-			bqs=ser.query(hql2, null, hql2, page, ser);
-		}else {
-			String hql="from ZmBq order by BDate desc";
-			String ss[]={};
-			String hql2="from ZmBq order by BDate desc";
-			bqs=ser.query(hql, ss, hql2, page, ser);
+		String hql2="from ZmBq where BState='有效'";
+		if(id!=null&&!id.equals("")){
+			hql2=hql2+" and BId like '%"+id+"%'";
 		}
+		if(BPda!=null&&!BPda.equals("")){
+			hql2=hql2+" and BPda like '%"+BPda+"%'";
+		}
+		if(BModel!=null&&!BModel.equals("")){
+			hql2=hql2+" and BModel like '%"+BModel+"%'";
+		}
+		if(BType!=null&&!BType.equals("")){
+			hql2=hql2+" and BType like '%"+BType+"%'";
+		}
+		if(BNum!=null&&!BNum.equals("")){
+			hql2=hql2+" and BNum like '%"+BNum+"%'";
+		}
+		if(BSn!=null&&!BSn.equals("")){
+			hql2=hql2+" and BSn like '%"+BSn+"%'";
+		}
+		if(BMac!=null&&!BMac.equals("")){
+			hql2=hql2+" and BMac like '%"+BMac+"%'";
+		}
+		hql2=hql2+" order by BCreateTime desc BDate desc";
+		bqs=ser.query(hql2, null, hql2, page, ser);
 		ser.receiveStructure(getRequest());
 		return result;
 	}
@@ -249,10 +257,14 @@ public class BqAction extends MyBaseAction implements IMyBaseAction{
 			bq.setBId("b"+NameOfDate.getNum());
 			Date date=new Date();
 			bq.setBDate(new Timestamp(date.getTime()));
+			bq.setBCreateTime(new Timestamp(new Date().getTime()));
+			bq.setBState("有效");
+			Users users=(Users) getSession().getAttribute("user"); 
+			bq.setBServiceMan(users.getUName());
+			bq.setUNum(users.getUNum());
 			ser.save(bq);
 			getRequest().setAttribute("bq", bq);
 		}
-		bq=null;
 		return gotoQuery();
 	}
 
@@ -262,16 +274,13 @@ public class BqAction extends MyBaseAction implements IMyBaseAction{
 			bq=(ZmBq) ser.get(ZmBq.class, id);
 			ser.delete(bq);
 		}
-		bq=null;
 		return gotoQuery();
 	}
 
 	public String gotoQuery() throws UnsupportedEncodingException {
 		clearOptions();
-		String hql="from ZmBq order by BDate desc";
-		String ss[]={};
-		String hql2="from ZmBq order by BDate desc";
-		bqs=ser.query(hql, ss, hql2, page, ser);
+		String hql="from ZmBq where BState='有效' order by BCreateTime desc BDate desc";
+		bqs=ser.query(hql, null, hql, page, ser);
 		ser.receiveStructure(getRequest());
 		return result;
 	}
@@ -279,11 +288,19 @@ public class BqAction extends MyBaseAction implements IMyBaseAction{
 	public String update() throws Exception {
 		if(bq!=null && bq.getBId()!=null && !"".equals(bq.getBId().trim())){
 			ZmBq zmBq=(ZmBq) ser.get(ZmBq.class, bq.getBId());
-			bq.setBDate(zmBq.getBDate());
-			ser.update(bq);
+			zmBq.setBState("无效");
+			ser.update(zmBq);
+			
+			bq.setBId("b"+NameOfDate.getNum());
+			bq.setBCreateTime(new Timestamp(new Date().getTime()));
+			bq.setBState("有效");
+			Users users=(Users) getSession().getAttribute("user"); 
+			bq.setUNum(users.getUNum());
+			bq.setBDate(new Date());
+			bq.setBServiceMan(users.getUName());
+			ser.save(bq);
 			getRequest().setAttribute("bq", bq);
 		}
-		bq=null;
 		return gotoQuery();
 	}
 	public String importExcel() throws InterruptedException, IOException, ParseException {

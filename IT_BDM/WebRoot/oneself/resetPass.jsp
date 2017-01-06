@@ -30,8 +30,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script type="text/javascript">
 		function pass(){
 			var newpass=$('#new_pass').val();
+			var oldpass=$('#old_pass').val();
 			if(newpass==""){
 				error_new_pass.innerText="*密码不能为空";
+			}else if(newpass==oldpass){
+				error_new_pass.innerText="*新密码和旧密码相同";	
 			}else{
 				error_new_pass.innerText="";
 			}
@@ -39,11 +42,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		function affirm(){
 			var newpass=$('#new_pass').val();
 			var affirmpass=$('#affirm_pass').val();
-			if(newpass!=affirmpass){
-				error_affirm_pass.innerText="*两次密码输入不一致";
-			}else{
+			sub();
+			if(newpass==affirmpass){
 				error_affirm_pass.innerText="";
-				$('#f1').submit();
+				if($('#error_pass').text() == "" && $('#old_pass').val() != ""){
+					if($('#new_pass').val() != ""){
+						$('#f1').submit();
+					}else{
+						error_new_pass.innerText="*密码不能为空";
+					}
+				}
+			}else{
+				error_affirm_pass.innerText="*两次密码输入不一致";
 			}
 		}
 		function sub(){
