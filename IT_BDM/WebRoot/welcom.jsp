@@ -3,7 +3,7 @@
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 %>
-
+<%session.setAttribute("theme","bootstrap");//设置一个默认值 %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
   <head>
@@ -42,7 +42,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		}, 3000);
 	});
 	</script>
-	
   </head>
   
   <body style="padding: 6px;">
@@ -104,22 +103,21 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<div class="easyui-layout" data-options="fit:true,border:false">
   				<div class="easyui-layout" data-options="fit:true,border:false">
   					<div data-options="region:'north',split:true" title="新闻" style="height:50%;padding:5px">
-  						
   						<div id="tt" class="easyui-tabs" style="width:100%;height:100%;">
-							<div title="Shirt1" style="padding:5px 5px;">
-								<img src="FRAMEWORK/image/bag5.png">
+							<div title="Shirt1" style="padding:5px 5px;overflow: hidden;">
+								<img src="FRAMEWORK/image/bag5.png" style="width: 100%;height: 100%;">
 							</div>
-							<div title="Shirt2" style="padding:5px 5px;">
-								<img src="FRAMEWORK/image/bag1.png">
+							<div title="Shirt2" style="padding:5px 5px;overflow: hidden;">
+								<img src="FRAMEWORK/image/bag1.png" style="width: 100%;height: 100%;">
 							</div>
-							<div title="Shirt3" style="padding:5px 5px;">
-								<img src="FRAMEWORK/image/bag2.png">
+							<div title="Shirt3" style="padding:5px 5px;overflow: hidden;">
+								<img src="FRAMEWORK/image/bag2.png" style="width: 100%;height: 100%;">
 							</div>
-							<div title="Shirt4" style="padding:5px 5px;">
-								<img src="FRAMEWORK/image/bag3.png">
+							<div title="Shirt4" style="padding:5px 5px;overflow: hidden;">
+								<img src="FRAMEWORK/image/bag3.png" style="width: 100%;height: 100%;">
 							</div>
-							<div title="Shirt5" style="padding:5px 5px;">
-								<img src="FRAMEWORK/image/bag4.png">
+							<div title="Shirt5" style="padding:5px 5px;overflow: hidden;">
+								<img src="FRAMEWORK/image/bag4.png" style="width: 100%;height: 100%;">
 							</div>
 						</div>
   						
