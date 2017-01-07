@@ -1,5 +1,6 @@
 package com.zs.entity;
 
+import java.sql.Timestamp;
 import java.util.Date;
 
 /**
@@ -21,6 +22,11 @@ public class ZmVpn implements java.io.Serializable {
 	private String VVpnPass;
 	private String VNote;
 	private Date VDate;
+	private String VIt;
+	private Timestamp VCreateTime;
+	private String VType;
+	private String VState;
+	private String UNum;
 
 	// Constructors
 
@@ -36,7 +42,8 @@ public class ZmVpn implements java.io.Serializable {
 	/** full constructor */
 	public ZmVpn(String VId, String VNum, String VPass, String VName,
 			String VSection, String VCard, String VPhone, String VSoaPass,
-			String VVpnPass, String VNote, Date VDate) {
+			String VVpnPass, String VNote, Date VDate, String VIt,
+			Timestamp VCreateTime, String VType, String VState, String UNum) {
 		this.VId = VId;
 		this.VNum = VNum;
 		this.VPass = VPass;
@@ -48,6 +55,11 @@ public class ZmVpn implements java.io.Serializable {
 		this.VVpnPass = VVpnPass;
 		this.VNote = VNote;
 		this.VDate = VDate;
+		this.VIt = VIt;
+		this.VCreateTime = VCreateTime;
+		this.VType = VType;
+		this.VState = VState;
+		this.UNum = UNum;
 	}
 
 	// Property accessors
@@ -138,6 +150,46 @@ public class ZmVpn implements java.io.Serializable {
 
 	public void setVDate(Date VDate) {
 		this.VDate = VDate;
+	}
+
+	public String getVIt() {
+		return this.VIt;
+	}
+
+	public void setVIt(String VIt) {
+		this.VIt = VIt;
+	}
+
+	public Timestamp getVCreateTime() {
+		return this.VCreateTime;
+	}
+
+	public void setVCreateTime(Timestamp VCreateTime) {
+		this.VCreateTime = VCreateTime;
+	}
+
+	public String getVType() {
+		return this.VType;
+	}
+
+	public void setVType(String VType) {
+		this.VType = VType;
+	}
+
+	public String getVState() {
+		return this.VState;
+	}
+
+	public void setVState(String VState) {
+		this.VState = VState;
+	}
+
+	public String getUNum() {
+		return this.UNum;
+	}
+
+	public void setUNum(String UNum) {
+		this.UNum = UNum;
 	}
 
 }

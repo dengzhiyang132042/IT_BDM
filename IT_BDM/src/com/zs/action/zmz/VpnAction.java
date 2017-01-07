@@ -46,6 +46,7 @@ public class VpnAction extends MyBaseAction{
 	String section;
 	String dates;
 	String datee;
+	String cz;
 	private File fileExcel;
 	private String fileExcelContentType;
 	private String fileExcelFileName; 
@@ -137,7 +138,13 @@ public class VpnAction extends MyBaseAction{
 	public void setVpns(List<ZmVpn> vpns) {
 		this.vpns = vpns;
 	}
-
+	public String getCz() {
+		return cz;
+	}
+	public void setCz(String cz) {
+		this.cz = cz;
+	}
+	
 	//------------------------------------------------
 	private void clearOptions() {
 		id=null;     
@@ -146,6 +153,14 @@ public class VpnAction extends MyBaseAction{
 		section=null;
 		dates=null;  
 		datee=null;  
+		cz=null;
+		vpn=null;
+		vpns=null;
+		if (page==null) {
+			page=new Page(1, 0, 10);
+		}else {
+			page.setPageOn(1);
+		}
 	}
 	
 	private void clearSpace(){
@@ -161,62 +176,56 @@ public class VpnAction extends MyBaseAction{
 		if(section!=null){
 			section=section.trim();
 		}
-		
+		if(dates!=null){
+			dates=dates.trim();
+		}
+		if(datee!=null){
+			datee=datee.trim();
+		}
+		if(cz!=null){
+			cz=cz.trim();
+		}
 	}
 	
 	public String queryOfFenye() throws UnsupportedEncodingException, ParseException {
-		id=getRequest().getParameter("id");
-		String cz=getRequest().getParameter("cz");//用于判断是否清理page，yes清理，no不清理
-		
-		if (page==null) {
-			page=new Page(1, 0, 5);
-		}
+		clearSpace();
 		if (cz!=null && cz.equals("yes")) {
-			page=new Page(1, 0, 5);
 			clearOptions();
 		}
-		clearSpace();
-		if (id!=null) {
-			String hql="from ZmVpn where VId like '%"+id+"%'";
-			if (num!=null && !num.trim().equals("")) {
-				hql=hql+" and VNum like '%"+num+"%'";
-			}
-			if (name!=null && !name.trim().equals("")) {
-				hql=hql+" and VName like '%"+name+"%'";
-			}
-			if (section!=null && !section.trim().equals("")) {
-				hql=hql+" and VSection like '%"+section+"%'";
-			}
-			if (dates!=null && !dates.trim().equals("")) {
-				hql=hql+" and VDate >= '"+dates+"'";
-			}
-			if (datee!=null && !datee.trim().equals("")) {
-				hql=hql+" and VDate <= '"+datee+"'";
-			}
-			hql=hql+" order by VDate desc";
-			vpns=ser.query(hql, null, hql, page, ser);
-		}else {
-			String hql="from ZmVpn order by VDate desc";
-			String ss[]={};
-			String hql2="from ZmVpn order by VDate desc";
-			vpns=ser.query(hql, ss, hql2, page, ser);
+		String hql="from ZmVpn where VState='有效'";
+		if (id!=null&&!id.equals("")) {
+			hql=hql+" VId like '%"+id+"%'";
 		}
+		if (num!=null && !num.equals("")) {
+			hql=hql+" and VNum like '%"+num+"%'";
+		}
+		if (name!=null && !name.equals("")) {
+			hql=hql+" and VName like '%"+name+"%'";
+		}
+		if (section!=null && !section.equals("")) {
+			hql=hql+" and VSection like '%"+section+"%'";
+		}
+		if (dates!=null && !dates.equals("")) {
+			hql=hql+" and VDate >= '"+dates+"'";
+		}
+		if (datee!=null && !datee.equals("")) {
+			hql=hql+" and VDate <= '"+datee+"'";
+		}
+		hql=hql+" order by VCreateTime desc VDate desc";
+		vpns=ser.query(hql, null, hql, page, ser);
 		ser.receiveStructure(getRequest());
 		return result;
 	}
 	
 	private String gotoQuery() throws UnsupportedEncodingException {
 		clearOptions();
-		String hql="from ZmVpn order by VDate desc";
-		String ss[]={};
-		String hql2="from ZmVpn order by VDate desc";
-		vpns=ser.query(hql, ss, hql2, page, ser);
+		String hql="from ZmVpn where VState='有效' order by VCreateTime desc VDate desc";
+		vpns=ser.query(hql, null, hql, page, ser);
 		ser.receiveStructure(getRequest());
 		return result;
 	}
 	
 	public String delete() throws Exception {
-		String id=getRequest().getParameter("id");
 		if (id!=null) {
 			vpn=(ZmVpn) ser.get(ZmVpn.class, id);
 			ser.delete(vpn);
@@ -228,8 +237,17 @@ public class VpnAction extends MyBaseAction{
 	public String update() throws Exception {
 		if(vpn!=null && vpn.getVId()!=null && !"".equals(vpn.getVId().trim())){
 			ZmVpn zmVpn=(ZmVpn) ser.get(ZmVpn.class, vpn.getVId());
-			vpn.setVDate(zmVpn.getVDate());
-			ser.update(vpn);
+			zmVpn.setVState("无效");
+			ser.update(zmVpn);
+			
+			Users users=(Users) getSession().getAttribute("user");
+			vpn.setVId("v"+NameOfDate.getNum());
+			vpn.setVDate(new Date());
+			vpn.setVCreateTime(new Timestamp(new Date().getTime()));
+			vpn.setUNum(users.getUNum());
+			vpn.setVIt(users.getUName());
+			vpn.setVState("有效");
+			ser.save(vpn);
 			getRequest().setAttribute("vpn", vpn);
 		}
 		vpn=null;
@@ -241,6 +259,11 @@ public class VpnAction extends MyBaseAction{
 			vpn.setVId("v"+NameOfDate.getNum());
 			Date date=new Date();
 			vpn.setVDate(new Timestamp(date.getTime()));
+			Users users=(Users) getSession().getAttribute("user"); 
+			vpn.setVCreateTime(new Timestamp(new Date().getTime()));
+			vpn.setUNum(users.getUNum());
+			vpn.setVIt(users.getUName());
+			vpn.setVState("有效");
 			ser.save(vpn);
 			getRequest().setAttribute("vpn", vpn);
 		}
