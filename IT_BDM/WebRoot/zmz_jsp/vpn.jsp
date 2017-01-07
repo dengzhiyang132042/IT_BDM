@@ -38,7 +38,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		$('#tt').show();
 	});
 	
-	function update(u1,u2,u3,u4,u5,u6,u7,u8,u9,u10){
+	function update(u1,u2,u3,u4,u5,u6,u7,u8,u9){
 		$('#u').window('open');
 		$('#u_1').val(u1);
 		$('#u_2').val(u2);
@@ -49,7 +49,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		$('#u_7').val(u7);
 		$('#u_8').val(u8);
 		$('#u_9').val(u9);
-		$('#u_10').val(u10);
 	}
 	function page(no,cz){
 		var num1=$('#page').val();
@@ -113,7 +112,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <div style="margin-bottom: 5px;">
 	    <table border="1" id="eidtASubjectWindow1" style="font-size: 12px;">
 	    <tr>
-	    	<th>编号</th>
+	    	<th width="120">编号</th>
 	    	<th>账号</th>
 	    	<th>修改密码(后)</th>
 	    	<th>姓名</th>
@@ -121,9 +120,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    	<th>注册身份证</th>
 	    	<th>注册手机号</th>
 	    	<th>SOA密码</th>
-	    	<th>VPN密码</th>
 	    	<th>登记时间</th>
 	    	<th>备注说明</th>
+	    	<th>维护人</th>
+	    	<th>操作类型</th>
 	    	<th>操作</th>
 	    </tr>
 	    <c:forEach items="${vpns}" var="vpn">
@@ -136,11 +136,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<td width="">${vpn.VCard }</td>
 			<td width="">${vpn.VPhone }</td>
 			<td width="">${vpn.VSoaPass }</td>
-			<td width="">${vpn.VVpnPass }</td>
 			<td width=""><fmt:formatDate value="${vpn.VDate }" pattern="yyyy/M/d" /></td>
 			<td width="">${vpn.VNote }</td>
+			<td width="">${vpn.VIt }</td>
+			<td width="">${vpn.VType }</td>
 			<td width="5%" align="center">
-				<a onclick="update('${vpn.VId }','${vpn.VNum }','${vpn.VPass }','${vpn.VName }','${vpn.VSection }','${vpn.VCard }','${vpn.VPhone }','${vpn.VSoaPass }','${vpn.VVpnPass }','${vpn.VNote }')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-edit'" title="修改"></a>
+				<a onclick="update('${vpn.VId }','${vpn.VNum }','${vpn.VPass }','${vpn.VName }','${vpn.VSection }','${vpn.VCard }','${vpn.VPhone }','${vpn.VSoaPass }','${vpn.VNote }')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-edit'" title="修改"></a>
 				<a href="<%=path %>/vpn!delete?id=${vpn.VId}" onclick="return confirm('确定删除吗?')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-delete'" title="删除"></a>
 			</td>
 	    </tr>
@@ -230,15 +231,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				</td>
 			</tr>
 			<tr>
-				<td>VPN密码：</td>
+				<td>备注说明：</td>
 				<td>
-					<input id="u_9" name="vpn.VVpnPass" type="text" style="width: 100%;"/>
+					<input id="u_9" name="vpn.VNote" type="text" style="width: 100%;"/>
 				</td>
 			</tr>
 			<tr>
-				<td>备注说明：</td>
+				<td>操作类型</td>
 				<td>
-					<input id="u_10" name="vpn.VNote" type="text" style="width: 100%;"/>
+					<select name="vpn.VType" style="width:80px;">
+						<option value="维护">维 护</option>
+						<option value="注册">注 册</option>
+						<option value="注销">注 销</option>
+					</select>
 				</td>
 			</tr>
 			<tr>
@@ -296,15 +301,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				</td>
 			</tr>
 			<tr>
-				<td>VPN密码：</td>
-				<td>
-					<input name="vpn.VVpnPass" type="text" style="width: 100%;"/>
-				</td>
-			</tr>
-			<tr>
 				<td>备注说明：</td>
 				<td>
 					<input name="vpn.VNote" type="text" style="width: 100%;"/>
+				</td>
+			</tr>
+			<tr>
+				<td>操作类型</td>
+				<td>
+					<select name="vpn.VType" style="width:80px;">
+						<option value="注册">注 册</option>
+						<option value="维护">维 护</option>
+						<option value="注销">注 销</option>
+					</select>
 				</td>
 			</tr>
 			<tr>

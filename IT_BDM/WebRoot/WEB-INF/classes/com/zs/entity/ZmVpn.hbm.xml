@@ -40,5 +40,20 @@
         <property name="VDate" type="java.util.Date">
             <column name="v_date" length="10" />
         </property>
+        <property name="VIt" type="java.lang.String">
+            <column name="v_it" />
+        </property>
+        <property name="VCreateTime" type="java.sql.Timestamp">
+            <column name="v_create_time" length="19" />
+        </property>
+        <property name="VType" type="java.lang.String">
+            <column name="v_type" />
+        </property>
+        <property name="VState" type="java.lang.String">
+            <column name="v_state" />
+        </property>
+        <property name="UNum" type="java.lang.String">
+            <column name="u_num" />
+        </property>
     </class>
 </hibernate-mapping>
