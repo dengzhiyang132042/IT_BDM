@@ -38,7 +38,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		$('#tt').show();
 	});
 	
-	function update(u1,u2,u3,u4,u5,u6,u7,u8,u9,u10){
+	function update(u1,u2,u3,u4,u5,u6,u7,u8,u9,u10,u11){
 		$('#u').window('open');
 		$('#u_1').val(u1);
 		$('#u_2').val(u2);
@@ -50,6 +50,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		$('#u_8').val(u8);
 		$('#u_9').val(u9);
 		$('#u_10').val(u10);
+		$('#u_11').val(u11);
 	}
 	function page(no,cz){
 		var num1=$('#page').val();
@@ -121,15 +122,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <div style="margin-bottom: 5px;">
 	    <table border="1" id="eidtASubjectWindow1" style="font-size: 12px;">
 	    <tr>
-	    	<th>编号</th>
-	    	<th>PDA品牌</th>
-	    	<th>型号</th>
+	    	<th width="120">编号</th>
+	    	<th width="80">PDA品牌</th>
+	    	<th width="70">型号</th>
 	    	<th>组别</th>
 	    	<th>巴枪编号</th>
 	    	<th>SN</th>
 	    	<th>MAC</th>
+	    	<th>IP地址</th>
 	    	<th>分配WIFI</th>
 	    	<th>WIFI密码</th>
+	    	<th>维护人</th>
+	    	<th>操作类型</th>
 	    	<th>备注说明</th>
 	    	<th>操作</th>
 	    </tr>
@@ -142,11 +146,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<td width="">${bq.BNum }</td>
 			<td width="">${bq.BSn }</td>
 			<td width="">${bq.BMac }</td>
+			<td width="">${bq.BIp }</td>
 			<td width="">${bq.BWifi }</td>
 			<td width="">${bq.BWifiPass }</td>
+			<td width="">${bq.BServiceMan }</td>
+			<td width="">${bq.BServiceType }</td>
 			<td width="">${bq.BNote }</td>
 			<td width="5%" align="center">
-				<a onclick="update('${bq.BId }','${bq.BPda }','${bq.BModel }','${bq.BType }','${bq.BNum }','${bq.BSn }','${bq.BMac }','${bq.BWifi }','${bq.BWifiPass }','${bq.BNote }')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-edit'" title="修改"></a>
+				<a onclick="update('${bq.BId }','${bq.BPda }','${bq.BModel }','${bq.BType }','${bq.BNum }','${bq.BSn }','${bq.BMac }','${bq.BIp }','${bq.BWifi }','${bq.BWifiPass }','${bq.BNote }')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-edit'" title="修改"></a>
 				<a href="<%=path %>/bq!delete?id=${bq.BId}" onclick="return confirm('确定删除吗?')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-delete'" title="删除"></a>
 			</td>
 	    </tr>
@@ -184,11 +191,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</div>
 	</div>
 	
-	<div id="u" class="easyui-window" title="修改" data-options="modal:true,closed:true" style="width:400px;height:auto;padding:10px;display: none;">
+	<div id="u" class="easyui-window" title="修改" data-options="modal:true,closed:true" style="width:350px;height:auto;padding:10px;display: none;">
 		<form action="<%=path %>/bq!update" method="post">
 		<table border="0" class="table1">
 			<tr>
-				<td>编号：</td>
+				<td width="80">编号：</td>
 				<td>
 					<input id="u_1" name="bq.BId" type="text" style="width: 100%;" readonly="readonly"/>
 				</td>
@@ -230,21 +237,37 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				</td>
 			</tr>
 			<tr>
+				<td>IP地址：</td>
+				<td>
+					<input id="u_8" name="bq.BIp" type="text" style="width: 100%;"/>
+				</td>
+			</tr>
+			<tr>
 				<td>分配WIFI：</td>
 				<td>
-					<input id="u_8" name="bq.BWifi" type="text" style="width: 100%;"/>
+					<input id="u_9" name="bq.BWifi" type="text" style="width: 100%;"/>
 				</td>
 			</tr>
 			<tr>
 				<td>WIFI密码：</td>
 				<td>
-					<input id="u_9" name="bq.BWifiPass" type="text" style="width: 100%;"/>
+					<input id="u_10" name="bq.BWifiPass" type="text" style="width: 100%;"/>
 				</td>
 			</tr>
 			<tr>
 				<td>备注说明：</td>
 				<td>
-					<input id="u_10" name="bq.BNote" type="text" style="width: 100%;"/>
+					<input id="u_11" name="bq.BNote" type="text" style="width: 100%;"/>
+				</td>
+			</tr>
+			<tr>
+				<td>操作类型</td>
+				<td>
+					<select name="bq.BServiceType" style="width:80px;">
+						<option value="维护">维 护</option>
+						<option value="注册">注 册</option>
+						<option value="注销">注 销</option>
+					</select>
 				</td>
 			</tr>
 			<tr>
@@ -256,11 +279,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</form>
 	</div>
 	
-	<div id="a" class="easyui-window" title="添加" data-options="modal:true,closed:true" style="width:400px;height:auto;padding:10px;display: none;">
+	<div id="a" class="easyui-window" title="添加" data-options="modal:true,closed:true" style="width:350px;height:auto;padding:10px;display: none;">
 		<form action="<%=path %>/bq!add" method="post">
 		<table border="0" class="table1">
 			<tr>
-				<td>PDA品牌：</td>
+				<td width="80">PDA品牌：</td>
 				<td>
 					<input name="bq.BPda" type="text" style="width: 100%;"/>
 				</td>
@@ -296,6 +319,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				</td>
 			</tr>
 			<tr>
+				<td>IP地址：</td>
+				<td>
+					<input name="bq.BIp" type="text" style="width: 100%;"/>
+				</td>
+			</tr>
+			<tr>
 				<td>分配WIFI：</td>
 				<td>
 					<input name="bq.BWifi" type="text" style="width: 100%;"/>
@@ -311,6 +340,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<td>备注说明：</td>
 				<td>
 					<input name="bq.BNote" type="text" style="width: 100%;"/>
+				</td>
+			</tr>
+			<tr>
+				<td>操作类型</td>
+				<td>
+					<select name="bq.BServiceType" style="width:80px;">
+						<option value="注册">注 册</option>
+						<option value="维护">维 护</option>
+						<option value="注销">注 销</option>
+					</select>
 				</td>
 			</tr>
 			<tr>

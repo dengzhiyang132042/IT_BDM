@@ -1,5 +1,6 @@
 package com.zs.entity;
 
+import java.sql.Timestamp;
 import java.util.Date;
 
 /**
@@ -21,6 +22,12 @@ public class ZmBq implements java.io.Serializable {
 	private String BWifiPass;
 	private String BNote;
 	private Date BDate;
+	private String BIp;
+	private Timestamp BCreateTime;
+	private String BServiceType;
+	private String BServiceMan;
+	private String BState;
+	private String UNum;
 
 	// Constructors
 
@@ -36,7 +43,9 @@ public class ZmBq implements java.io.Serializable {
 	/** full constructor */
 	public ZmBq(String BId, String BPda, String BModel, String BType,
 			String BNum, String BSn, String BMac, String BWifi,
-			String BWifiPass, String BNote, Date BDate) {
+			String BWifiPass, String BNote, Date BDate, String BIp,
+			Timestamp BCreateTime, String BServiceType, String BServiceMan,
+			String BState, String UNum) {
 		this.BId = BId;
 		this.BPda = BPda;
 		this.BModel = BModel;
@@ -48,6 +57,12 @@ public class ZmBq implements java.io.Serializable {
 		this.BWifiPass = BWifiPass;
 		this.BNote = BNote;
 		this.BDate = BDate;
+		this.BIp = BIp;
+		this.BCreateTime = BCreateTime;
+		this.BServiceType = BServiceType;
+		this.BServiceMan = BServiceMan;
+		this.BState = BState;
+		this.UNum = UNum;
 	}
 
 	// Property accessors
@@ -138,6 +153,54 @@ public class ZmBq implements java.io.Serializable {
 
 	public void setBDate(Date BDate) {
 		this.BDate = BDate;
+	}
+
+	public String getBIp() {
+		return this.BIp;
+	}
+
+	public void setBIp(String BIp) {
+		this.BIp = BIp;
+	}
+
+	public Timestamp getBCreateTime() {
+		return this.BCreateTime;
+	}
+
+	public void setBCreateTime(Timestamp BCreateTime) {
+		this.BCreateTime = BCreateTime;
+	}
+
+	public String getBServiceType() {
+		return this.BServiceType;
+	}
+
+	public void setBServiceType(String BServiceType) {
+		this.BServiceType = BServiceType;
+	}
+
+	public String getBServiceMan() {
+		return this.BServiceMan;
+	}
+
+	public void setBServiceMan(String BServiceMan) {
+		this.BServiceMan = BServiceMan;
+	}
+
+	public String getBState() {
+		return this.BState;
+	}
+
+	public void setBState(String BState) {
+		this.BState = BState;
+	}
+
+	public String getUNum() {
+		return this.UNum;
+	}
+
+	public void setUNum(String UNum) {
+		this.UNum = UNum;
 	}
 
 }

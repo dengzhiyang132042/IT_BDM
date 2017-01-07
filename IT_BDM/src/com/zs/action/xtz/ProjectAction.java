@@ -51,8 +51,8 @@ public class ProjectAction extends MyBaseAction implements IMyBaseAction{
 	String id;
 	String cz;
 	String pname;
-	String year;
-	String month;
+	String dates;
+	String datee;
 	String result="project";
 	private File fileExcel;
 	private String fileExcelContentType;
@@ -151,18 +151,6 @@ public class ProjectAction extends MyBaseAction implements IMyBaseAction{
 	public void setPname(String pname) {
 		this.pname = pname;
 	}
-	public String getYear() {
-		return year;
-	}
-	public void setYear(String year) {
-		this.year = year;
-	}
-	public String getMonth() {
-		return month;
-	}
-	public void setMonth(String month) {
-		this.month = month;
-	}
 	public File getFileExcel() {
 		return fileExcel;
 	}
@@ -181,6 +169,18 @@ public class ProjectAction extends MyBaseAction implements IMyBaseAction{
 	public void setFileExcelFileName(String fileExcelFileName) {
 		this.fileExcelFileName = fileExcelFileName;
 	}
+	public String getDates() {
+		return dates;
+	}
+	public void setDates(String dates) {
+		this.dates = dates;
+	}
+	public String getDatee() {
+		return datee;
+	}
+	public void setDatee(String datee) {
+		this.datee = datee;
+	}
 	
 	
 	
@@ -196,8 +196,8 @@ public class ProjectAction extends MyBaseAction implements IMyBaseAction{
 		pds=null;
 		id=null;
 		pname=null;
-		year=null;
-		month=null;
+		dates=null;
+		datee=null;
 		cz=null;
 	}
 	public void clearSpace(){
@@ -210,11 +210,11 @@ public class ProjectAction extends MyBaseAction implements IMyBaseAction{
 		if(pname!=null){
 			pname=pname.trim();
 		}
-		if(year!=null){
-			year=year.trim();
+		if(dates!=null){
+			dates=dates.trim();
 		}
-		if(month!=null){
-			month=month.trim();
+		if(datee!=null){
+			datee=datee.trim();
 		}
 	}
 	
@@ -314,14 +314,11 @@ public class ProjectAction extends MyBaseAction implements IMyBaseAction{
 			if(pname!=null){
 				hql=hql+" and PProject like '%"+pname+"%'";
 			}
-			if(year!=null&&month!=null&&!year.equals("")&&!month.equals("")){
-				String sym =year+"-"+month+"-1";
-				String eym =year+"-"+month+"-28";
-				hql=hql+" and PDate >='"+sym+"' and PDate <='"+eym+"'";
-			}else if(year!=null&&!year.equals("")){
-				String syear = year+"-1-1";
-				String eyear = year+"-12-31";
-				hql=hql+" and PDate >='"+syear+"' and PDate <='"+eyear+"'";
+			if(dates!=null&&!dates.equals("")){
+				hql=hql+" and PDate >='"+dates+"'";
+			}
+			if(datee!=null&&!datee.equals("")){
+				hql=hql+" and PDate <='"+datee+"'";
 			}
 			hql=hql+" order by PDate desc";
 			ps =ser.query(hql, null, hql, page, ser);

@@ -79,10 +79,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    	<form id="ks" action="<%=path %>/project!queryOfFenye" method="post">
 	    		<div>
 		    		<div>
-			    		项目开始日期：<input name="dates" id="d4311" class="Wdate" type="text" onFocus="WdatePicker({maxDate:'#F{$dp.$D(\'d4312\')}'})" value="${dates }"/>
+			    		项目开始日期：<input name="dates" id="d4311" class="Wdate" type="text" onFocus="WdatePicker({dateFmt:'yyyy-MM',maxDate:'#F{$dp.$D(\'d4312\')}'})" value="${dates }"/>
 		    		</div>
 		    		<div>
-		    			项目结束日期：<input name="datee" id="d4312" class="Wdate" type="text" onFocus="WdatePicker({minDate:'#F{$dp.$D(\'d4311\')}'})" value="${datee }"/>
+		    			项目结束日期：<input name="datee" id="d4312" class="Wdate" type="text" onFocus="WdatePicker({dateFmt:'yyyy-MM',minDate:'#F{$dp.$D(\'d4311\')}'})" value="${datee }"/>
 		    		</div>
 	    		</div>
 	    		<div>
@@ -194,7 +194,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</div>
 	
 	<div class="easyui-panel" style="padding:5px;width: 100%;display: none;">
-		<form id="f1" action="<%=path %>/project!queryOfFenye?id=${id}&pname=${pname}&year=${year}&month=${month}" method="post">
+		<form id="f1" action="<%=path %>/project!queryOfFenye?id=${id}&pname=${pname}&dates=${dates}&datee=${datee}" method="post">
 		<select id="sele" style="float: left;margin-top: 3px;margin-left: 5px;" name="page.size" onchange="$('#f1').submit();">
 			<option value="1">1</option>
 		</select>

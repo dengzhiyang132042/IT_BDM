@@ -40,5 +40,23 @@
         <property name="BDate" type="java.util.Date">
             <column name="b_date" length="10" />
         </property>
+        <property name="BIp" type="java.lang.String">
+            <column name="b_ip" />
+        </property>
+        <property name="BCreateTime" type="java.sql.Timestamp">
+            <column name="b_create_time" length="19" />
+        </property>
+        <property name="BServiceType" type="java.lang.String">
+            <column name="b_service_type" />
+        </property>
+        <property name="BServiceMan" type="java.lang.String">
+            <column name="b_service_man" />
+        </property>
+        <property name="BState" type="java.lang.String">
+            <column name="b_state" />
+        </property>
+        <property name="UNum" type="java.lang.String">
+            <column name="u_num" />
+        </property>
     </class>
 </hibernate-mapping>
