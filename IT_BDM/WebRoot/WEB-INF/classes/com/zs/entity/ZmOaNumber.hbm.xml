@@ -46,5 +46,17 @@
         <property name="ONote" type="java.lang.String">
             <column name="o_note" />
         </property>
+        <property name="OCreateTime" type="java.sql.Timestamp">
+            <column name="o_create_time" length="19" />
+        </property>
+        <property name="OType" type="java.lang.String">
+            <column name="o_type" />
+        </property>
+        <property name="OState" type="java.lang.String">
+            <column name="o_state" />
+        </property>
+        <property name="UNum" type="java.lang.String">
+            <column name="u_num" />
+        </property>
     </class>
 </hibernate-mapping>
