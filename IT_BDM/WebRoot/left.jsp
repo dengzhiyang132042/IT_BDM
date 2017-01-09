@@ -61,7 +61,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<li><span><a href="<%=path %>/hitches!queryOfFenye?cz=yes" target="right">哲盟异常登记</a></span></li>
 						<li><span><a href="<%=path %>/bqq!queryOfFenye?cz=yes" target="right">公司BQQ登记</a></span></li>
 						<li><span><a href="<%=path %>/netImo!queryOfFenye?cz=yes" target="right">网点IMO登记</a></span></li>
-						<li><span><a href="<%=path %>/project!queryOfFenye?cz=yes" target="right">系统开发登记</a></span></li>
+						<li><span><a href="<%=path %>/develop_error.jsp" target="right">系统开发登记</a></span></li>
         			</ul>
         		</li>
         		<li><span>硬件组</span>
@@ -133,13 +133,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         		</li>
         		<li><span>硬件组</span>
         			<ul>
-						<li><span><a href="<%=path %>/fbd_asdl!queryOfFenyeAsdl?cz=yes" target="right">ASDL宽带登记</a></span></li>
-						<li><span><a href="<%=path %>/fbd_m!queryOfFenyeM?cz=yes" target="right">监控信息登记</a></span></li>
-						<li><span><a href="<%=path %>/fbd_c!queryOfFenyeC?cz=yes" target="right">电脑信息登记</a></span></li>
-						<li><span><a href="<%=path %>/fbd_ll!queryOfFenyeLL?cz=yes" target="right">监控材料清单</a></span></li>
-						<li><span><a href="<%=path %>/sim!queryOfFenyeSIM?cz=yes" target="right">SIM费用报销</a></span></li>
-						<li><span><a href="<%=path %>/goods!queryOfFenyeGoods?cz=yes" target="right">内件收发登记</a></span></li>
-						<li><span><a href="<%=path %>/go!queryOfFenyeGo?cz=yes" target="right">员工外出登记</a></span></li>        			
+						<li><span><a href="<%=path %>/develop_error.jsp" target="right">ASDL宽带登记</a></span></li>
+						<li><span><a href="<%=path %>/develop_error.jsp" target="right">监控信息登记</a></span></li>
+						<li><span><a href="<%=path %>/develop_error.jsp" target="right">电脑信息登记</a></span></li>
+						<li><span><a href="<%=path %>/develop_error.jsp" target="right">监控材料清单</a></span></li>
+						<li><span><a href="<%=path %>/develop_error.jsp" target="right">SIM费用报销</a></span></li>
+						<li><span><a href="<%=path %>/develop_error.jsp" target="right">内件收发登记</a></span></li>
+						<li><span><a href="<%=path %>/develop_error.jsp" target="right">员工外出登记</a></span></li>        			
         			</ul>
         		</li>
         		<li><span>桌面组</span>
@@ -148,8 +148,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<li><span><a href="<%=path %>/byNumberCount!queryOfFenye?cz=yes" target="right">IMO邮箱账号</a></span></li>
 						<li><span><a href="<%=path %>/computerCount!queryOfFenye?cz=yes" target="right">公司管理信息</a></span></li>
 						<li><span><a href="<%=path %>/callCount!queryOfFenye?cz=yes" target="right">总部呼叫系统</a></span></li>
-						<li><span><a href="<%=path %>/bqCount!queryOfFenye?cz=yes" target="right">骏达设备登记</a></span></li>
-						<li><span><a href="<%=path %>/allianceCallCount!queryOfFenye?cz=yes" target="right">网点呼叫系统</a></span></li>
+						<li><span><a href="<%=path %>/develop_error.jsp" target="right">骏达设备登记</a></span></li>
+						<li><span><a href="<%=path %>/develop_error.jsp" target="right">网点呼叫系统</a></span></li>
 						<li><span><a href="<%=path %>/oaCount!queryOfFenye?cz=yes" target="right">oa账号登记</a></span></li>
 						<li><span><a href="<%=path %>/printCount!queryOfFenye?cz=yes" target="right">打印机登记</a></span></li>
         			</ul>
