@@ -210,6 +210,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<input id="u_1" name="oa.OId" type="text" style="width: 100%;" readonly="readonly"/>
 				</td>
 			</tr>
+			<!-- 
 			<tr>
 				<td>OA登记日期：</td>
 				<td>
@@ -222,6 +223,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<input id="u_3" name="oa.OServiceWeek" type="number" style="width: 100%;"/>
 				</td>
 			</tr>
+			 -->
 			<tr>
 				<td>部门：</td>
 				<td>
@@ -246,13 +248,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<input id="u_7" name="oa.OOa" type="text" style="width: 100%;"/>
 				</td>
 			</tr>
+			<!-- 
 			<tr>
 				<td>维护IT：</td>
 				<td>
 					<input id="u_8" name="oa.OService" type="text" style="width: 100%;"/>
 				</td>
 			</tr>
-			<!-- 
 			<tr>
 				<td>维护日期：</td>
 				<td>
@@ -268,8 +270,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			 -->
 			<tr>
 				<td>在职情况：</td>
-				<td>
-					<input id="u_11" name="oa.OOnJob" type="text" style="width: 100%;"/>
+				<td width="80">
+					<select name ="oa.OOnJob" >
+						<option value="离职">离 职</option>
+						<option value="停用">停 用</option>
+						<option value="入职">入 职</option>
+					</select>
 				</td>
 			</tr>
 			<!-- 
@@ -295,9 +301,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</form>
 	</div>
 	
-	<div id="a" class="easyui-window" title="添加" data-options="modal:true,closed:true" style="width:400px;height:auto;padding:10px;display: none;">
+	<div id="a" class="easyui-window" title="添加" data-options="modal:true,closed:true" style="width:300px;height:auto;padding:10px;display: none;">
 		<form action="<%=path %>/oa!add" method="post">
 		<table border="0" class="table1">
+			<!-- 
 			<tr>
 				<td>OA登记日期：</td>
 				<td>
@@ -310,8 +317,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<input name="oa.OServiceWeek" type="number" style="width: 100%;"/>
 				</td>
 			</tr>
+			 -->
 			<tr>
-				<td>部门：</td>
+				<td width="80">部门：</td>
 				<td>
 					<input name="oa.OSection" type="text" style="width: 100%;"/>
 				</td>
@@ -334,13 +342,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<input name="oa.OOa" type="text" style="width: 100%;"/>
 				</td>
 			</tr>
+			<!-- 
 			<tr>
 				<td>维护IT：</td>
 				<td>
 					<input name="oa.OService" type="text" style="width: 100%;"/>
 				</td>
 			</tr>
-			<!-- 
 			<tr>
 				<td>维护日期：</td>
 				<td>
@@ -353,13 +361,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<input name="oa.OServiceTime" type="text" style="width: 100%;"/>
 				</td>
 			</tr>
-			 -->
 			<tr>
 				<td>在职情况：</td>
 				<td>
 					<input name="oa.OOnJob" type="text" style="width: 100%;"/>
 				</td>
 			</tr>
+			 -->
 			<!-- 
 			<tr>
 				<td>是否及时：</td>
@@ -372,6 +380,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<td>备注：</td>
 				<td>
 					<input name="oa.ONote" type="text" style="width: 100%;"/>
+				</td>
+			</tr>
+			<tr>
+				<td>在职情况：</td>
+				<td width="80">
+					<select name ="oa.OOnJob" >
+						<option value="入职">入 职</option>
+						<option value="离职">离 职</option>
+						<option value="停用">停 用</option>
+					</select>
 				</td>
 			</tr>
 			<tr>

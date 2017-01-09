@@ -1,5 +1,6 @@
 package com.zs.entity;
 
+import java.sql.Timestamp;
 import java.util.Date;
 
 /**
@@ -23,6 +24,10 @@ public class ZmOaNumber implements java.io.Serializable {
 	private String OOnJob;
 	private String OIsTimely;
 	private String ONote;
+	private Timestamp OCreateTime;
+	private String OType;
+	private String OState;
+	private String UNum;
 
 	// Constructors
 
@@ -39,7 +44,8 @@ public class ZmOaNumber implements java.io.Serializable {
 	public ZmOaNumber(String OId, Date ODate, Integer OServiceWeek,
 			String OSection, String OApply, String OPosition, String OOa,
 			String OService, Date OServiceDate, String OServiceTime,
-			String OOnJob, String OIsTimely, String ONote) {
+			String OOnJob, String OIsTimely, String ONote,
+			Timestamp OCreateTime, String OType, String OState, String UNum) {
 		this.OId = OId;
 		this.ODate = ODate;
 		this.OServiceWeek = OServiceWeek;
@@ -53,6 +59,10 @@ public class ZmOaNumber implements java.io.Serializable {
 		this.OOnJob = OOnJob;
 		this.OIsTimely = OIsTimely;
 		this.ONote = ONote;
+		this.OCreateTime = OCreateTime;
+		this.OType = OType;
+		this.OState = OState;
+		this.UNum = UNum;
 	}
 
 	// Property accessors
@@ -159,6 +169,38 @@ public class ZmOaNumber implements java.io.Serializable {
 
 	public void setONote(String ONote) {
 		this.ONote = ONote;
+	}
+
+	public Timestamp getOCreateTime() {
+		return this.OCreateTime;
+	}
+
+	public void setOCreateTime(Timestamp OCreateTime) {
+		this.OCreateTime = OCreateTime;
+	}
+
+	public String getOType() {
+		return this.OType;
+	}
+
+	public void setOType(String OType) {
+		this.OType = OType;
+	}
+
+	public String getOState() {
+		return this.OState;
+	}
+
+	public void setOState(String OState) {
+		this.OState = OState;
+	}
+
+	public String getUNum() {
+		return this.UNum;
+	}
+
+	public void setUNum(String UNum) {
+		this.UNum = UNum;
 	}
 
 }

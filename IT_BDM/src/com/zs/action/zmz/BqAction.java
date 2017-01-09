@@ -269,7 +269,6 @@ public class BqAction extends MyBaseAction implements IMyBaseAction{
 	}
 
 	public String delete() throws Exception {
-		String id=getRequest().getParameter("id");
 		if (id!=null) {
 			bq=(ZmBq) ser.get(ZmBq.class, id);
 			ser.delete(bq);
