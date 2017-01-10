@@ -61,7 +61,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<li><span><a href="<%=path %>/hitches!queryOfFenye?cz=yes" target="right">哲盟异常登记</a></span></li>
 						<li><span><a href="<%=path %>/bqq!queryOfFenye?cz=yes" target="right">公司BQQ登记</a></span></li>
 						<li><span><a href="<%=path %>/netImo!queryOfFenye?cz=yes" target="right">网点IMO登记</a></span></li>
-						<li><span><a href="<%=path %>/develop_error.jsp" target="right">系统开发登记</a></span></li>
+						<li><span><a href="<%=path %>/project!queryOfFenye?cz=yes" target="right">系统开发登记</a></span></li>
         			</ul>
         		</li>
         		<li><span>硬件组</span>

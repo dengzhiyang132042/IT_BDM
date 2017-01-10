@@ -20,6 +20,9 @@ public class WhOutRepair implements java.io.Serializable {
 	private String ONote;
 	private Integer OPeriod;
 	private Timestamp OCreateDatetime;
+	private String OCzType;
+	private String OState;
+	private String UNum;
 
 	// Constructors
 
@@ -35,7 +38,8 @@ public class WhOutRepair implements java.io.Serializable {
 	/** full constructor */
 	public WhOutRepair(String OId, Date ODate, String OPage, String OType,
 			String ONum, String OSn, String ONote, Integer OPeriod,
-			Timestamp OCreateDatetime) {
+			Timestamp OCreateDatetime, String OCzType, String OState,
+			String UNum) {
 		this.OId = OId;
 		this.ODate = ODate;
 		this.OPage = OPage;
@@ -45,6 +49,9 @@ public class WhOutRepair implements java.io.Serializable {
 		this.ONote = ONote;
 		this.OPeriod = OPeriod;
 		this.OCreateDatetime = OCreateDatetime;
+		this.OCzType = OCzType;
+		this.OState = OState;
+		this.UNum = UNum;
 	}
 
 	// Property accessors
@@ -119,6 +126,30 @@ public class WhOutRepair implements java.io.Serializable {
 
 	public void setOCreateDatetime(Timestamp OCreateDatetime) {
 		this.OCreateDatetime = OCreateDatetime;
+	}
+
+	public String getOCzType() {
+		return this.OCzType;
+	}
+
+	public void setOCzType(String OCzType) {
+		this.OCzType = OCzType;
+	}
+
+	public String getOState() {
+		return this.OState;
+	}
+
+	public void setOState(String OState) {
+		this.OState = OState;
+	}
+
+	public String getUNum() {
+		return this.UNum;
+	}
+
+	public void setUNum(String UNum) {
+		this.UNum = UNum;
 	}
 
 }

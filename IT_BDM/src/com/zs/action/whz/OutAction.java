@@ -119,9 +119,14 @@ public class OutAction extends MyBaseAction implements IMyBaseAction{
 	//-------------------------------------------
 	public String add() throws Exception {
 		clearSpace();
-		if (ot!=null && ot.getODate()!=null) {
+		Users user=(Users) getSession().getAttribute("user");
+		if (ot!=null && ot.getODate()!=null && user!=null) {
 			ot.setOId("o"+NameOfDate.getNum());
 			ot.setOCreateDatetime(new Timestamp(new Date().getTime()));
+			//------2017-1-10，张顺，新加字段------------------------
+			ot.setOCzType("维护");
+			ot.setOState("有效");
+			ot.setUNum(user.getUNum());
 			ser.save(ot);
 		}
 		return gotoQuery();
@@ -134,6 +139,11 @@ public class OutAction extends MyBaseAction implements IMyBaseAction{
 		datee=null;
 		ot=null;
 		ots=null;
+		if (page==null) {
+			page=new Page(1, 0, 10);
+		}else {
+			page.setPageOn(1);
+		}
 	}
 
 	public String delete() throws Exception {
@@ -150,7 +160,7 @@ public class OutAction extends MyBaseAction implements IMyBaseAction{
 	public String gotoQuery() throws UnsupportedEncodingException {
 		clearSpace();
 		clearOptions();
-		String hql="from WhOutRepair order by OCreateDatetime desc";
+		String hql="from WhOutRepair where OState='有效' order by OCreateDatetime desc";
 		ots=ser.query(hql, null, hql, page, ser);
 		return result;
 	}
@@ -159,25 +169,17 @@ public class OutAction extends MyBaseAction implements IMyBaseAction{
 		clearSpace();
 		if (cz!=null && cz.equals("yes")) {
 			clearOptions();
-			page=new Page(1, 0, 5);
 		}
-		if (page==null) {
-			page=new Page(1, 0, 5);
+		String hql="from WhOutRepair where OState='有效' ";
+		if (id!=null)
+			hql=hql+"and OId like '%"+id+"%' ";
+		if(dates!=null && !dates.equals(""))
+			hql=hql+"and ODate >='"+dates+"' ";
+		if(datee!=null && !datee.equals("")){
+			hql=hql+"and ODate <='"+datee+"' ";
 		}
-		if (id!=null) {
-			String hql="from WhOutRepair where OId like '%"+id+"%'";
-			if(dates!=null&&!dates.equals("")){
-				hql=hql+" and ODate >='"+dates+"'";
-			}
-			if(datee!=null&&!datee.equals("")){
-				hql=hql+" and ODate <='"+datee+"'";
-			}
-			hql=hql+" order by OCreateDatetime desc";
-			ots=ser.query(hql, null, hql, page, ser);
-		}else {
-			String hql="from WhOutRepair order by OCreateDatetime desc";
-			ots=ser.query(hql, null, hql, page, ser);
-		}
+		hql=hql+"order by OCreateDatetime desc";
+		ots=ser.query(hql, null, hql, page, ser);
 		return result;
 	}
 
@@ -198,11 +200,22 @@ public class OutAction extends MyBaseAction implements IMyBaseAction{
 
 	public String update() throws Exception {
 		clearSpace();
+		Users user=(Users) getSession().getAttribute("user");
 		if (ot!=null) {
- 			ser.update(ot);
+ 			//--2017-1-10，张顺，修改----------------------------
+			WhOutRepair outRepair=(WhOutRepair) ser.get(WhOutRepair.class, ot.getOId());
+			outRepair.setOState("无效");
+			ser.update(outRepair);
+			ot.setOId("o"+NameOfDate.getNum());
+			ot.setOCzType("维护");
+			ot.setOState("有效");
+			ot.setUNum(user.getUNum());
+			ser.save(ot);
 		}
 		return gotoQuery();
 	}
+	
+	
 	public String importExcel() throws UnsupportedEncodingException {
 		Users users=(Users) getSession().getAttribute("user");
 		importSer.importExcelData(fileExcelFileName, fileExcel,users.getUNum());
