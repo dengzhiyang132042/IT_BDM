@@ -39,6 +39,8 @@ public class DaManagerAction extends MyBaseAction implements IMyBaseAction{
 	List demPers;
 	
 	String id;
+	String cz;
+	
 	String dates;
 	String datee;
 	String type;
@@ -101,17 +103,35 @@ public class DaManagerAction extends MyBaseAction implements IMyBaseAction{
 	public void setDatee(String datee) {
 		this.datee = datee;
 	}
-
+	public String getCz() {
+		return cz;
+	}
+	public void setCz(String cz) {
+		this.cz = cz;
+	}
 	//----------------------------------------------------------
 	public void clearOptions() {
 		id=null;
+		cz=null;
 		dates=null;
 		datee=null;
 		type=null;
+		d=null;
+		p=null;
+		demPers=null;
+		if (page==null) {
+			page=new Page(1, 0, 10);
+		}else {
+			page.setPageOn(1);
+		}
 	}
+	
 	private void clearSpace() {
 		if (id!=null) {
 			id=id.trim();
+		}
+		if (cz!=null) {
+			cz=cz.trim();
 		}
 		if (dates!=null) {
 			dates=dates.trim();
@@ -125,45 +145,23 @@ public class DaManagerAction extends MyBaseAction implements IMyBaseAction{
 	}
 	
 	
-	
 	public String queryOfFenye() throws UnsupportedEncodingException {
-		id=getRequest().getParameter("id");
-		String cz=getRequest().getParameter("cz");//用于判断是否清理page，yes清理，no不清理
-		if (page==null) {
-			page=new Page(1, 0, 5);
-		}
-		if (cz!=null && cz.equals("yes")) {
-			page=new Page(1, 0, 5);
-//			clearOptions();
-		}
 		clearSpace();
-		if(id!=null){
-			/*
-			logger.debug(id);
-			logger.debug(type);
-			logger.debug(dates);
-			logger.debug(datee);
-			*/
-			String hql="from DaDemand where DId like '%"+id+"%'";
-			if (type!=null && !type.equals("")) {
-				hql=hql+" and DType = '"+type+"'";
-			}
-			if(dates!=null && !dates.equals("")){
-				hql=hql+" and DTime >= '"+dates+" 0:0:0'";
-			}
-			if(datee!=null && !datee.equals("")){
-				hql=hql+" and DTime <= '"+datee+" 23:59:59'";
-			}
-			hql=hql+" order by DTime desc";
-			List dems=ser.query(hql, null, hql, page, ser);
-			demPers=ser.initDemPers(dems);
-		}else {
-			String hql="from DaDemand order by DTime desc";
-			String ss[]={};
-			String hql2="from DaDemand order by DTime desc";
-			List dems=ser.query(hql, ss, hql2, page, ser);
-			demPers=ser.initDemPers(dems);
+		if (cz!=null && cz.equals("yes")) {
+			clearOptions();
 		}
+		String hql="from DaDemand where 1=1 ";
+		if(id!=null)
+			hql=hql+"and DId like '%"+id+"%' ";
+		if (type!=null && !type.equals(""))
+			hql=hql+"and DType = '"+type+"' ";
+		if(dates!=null && !dates.equals(""))
+			hql=hql+" and DTime >= '"+dates+" 0:0:0' ";
+		if(datee!=null && !datee.equals(""))
+			hql=hql+" and DTime <= '"+datee+" 23:59:59' ";
+		hql=hql+"order by DTime desc";
+		List dems=ser.query(hql, null, hql, page, ser);
+		demPers=ser.initDemPers(dems);
 		ser.bringUsers(getRequest());
 		JSONArray json=JSONArray.fromObject(demPers);
 		getRequest().setAttribute("json", json);
@@ -184,8 +182,104 @@ public class DaManagerAction extends MyBaseAction implements IMyBaseAction{
 	}
     
 	
+	public String add() throws Exception {
+		String dTimeExpect = getRequest().getParameter("DTimeExpect");
+		Users um = (Users) ser.get(Users.class, p.getUNum());
+		if (d!=null) {
+			d.setDId("d"+NameOfDate.getNum());
+//			d.setDTime(new Timestamp(new Date().getTime()));
+			if (dTimeExpect!=null && !dTimeExpect.trim().equals("")) {
+				Timestamp  ts= Timestamp.valueOf(dTimeExpect);
+				d.setDTimeExpect(ts);
+				ser.save(d);
+				getRequest().setAttribute("d", d);
+//			new Thread(new AutoTransState(d, getSer())).start();  
+				p.setPId("p"+NameOfDate.getNum());
+				p.setDId(d.getDId());
+				p.setPTime(new Timestamp(new Date().getTime()));
+				p.setPState("进行中");
+				ser.save(p);
+				getRequest().setAttribute("p",p);
+				String sj=um.getUMail();
+				if(outMailFromAdd(um,d)==false){
+					//日后换成邮件错误界面
+					getResponse().getWriter().write("邮件发送错误!请手动发送邮件");
+					logger.error("邮件发送错误!请手动发送邮件,错误单号"+d.getDId());
+					return null;
+				}
+			}else {
+				return result_fail;
+			}
+		}
+		cleardap();
+		return gotoQuery();
+	}
+
+	
+	private void cleardap() {
+		d=null;
+		p=null;
+	}
+	
+	public String delete() throws Exception {
+		return null;
+	}
 	
 	
+	public String update() throws Exception {
+		//邮件发送所需数据
+		Users um = null;
+		Users umnext=null;
+		if (d!=null && !"".equals(d.getDId())) {
+			d=(DaDemand) ser.get(DaDemand.class, d.getDId());
+			//找到当前执行表数据
+			List templi=ser.find("from DaPerform where DId=? order by PTime desc", new String[]{d.getDId()});
+			if (templi.size()>0) {
+				DaPerform tmpper=(DaPerform) templi.get(0);
+				tmpper.setPTime(new Timestamp(new Date().getTime()));
+				tmpper.setUNumNext(p.getUNumNext());
+				tmpper.setPState("转发");
+				tmpper.setPNote(p.getPNote());
+				ser.update(tmpper);
+				getRequest().setAttribute("p1",tmpper);
+				
+				DaPerform daPerform=new DaPerform();
+				daPerform.setPId("p"+NameOfDate.getNum());
+				daPerform.setDId(d.getDId());
+				daPerform.setUNum(p.getUNumNext());
+				Date date1=new Date();
+				Date date2=new Date(date1.getYear(), date1.getMonth(), date1.getDate(), date1.getHours(), date1.getMinutes(), date1.getSeconds()+1);
+				daPerform.setPTime(new Timestamp(date2.getTime()));
+				daPerform.setPState("进行中");
+				ser.save(daPerform);
+				getRequest().setAttribute("p2",tmpper);
+				
+				//邮件模块需要带的数据
+				um = (Users) ser.get(Users.class, tmpper.getUNum());
+				umnext = (Users) ser.get(Users.class, tmpper.getUNumNext());
+				
+				if(outMailFromUpdate(um, umnext, d)==false){
+					//日后换成邮件错误界面
+					getResponse().getWriter().write("邮件发送错误!请手动发送邮件");
+					logger.error("邮件发送错误!请手动发送邮件,错误单号"+d.getDId());
+					return null;
+				}
+			}
+		}
+		cleardap();
+		return gotoQuery();
+	}
+	public String addTimeOut() throws Exception{
+		String timeId= getRequest().getParameter("timeId");
+		List templi=ser.find("from DaDemand where DId=? ", new String[]{timeId});
+		if(templi.size()!=0){
+			DaDemand dad = (DaDemand) templi.get(0);
+			dad.setDTimeExpect(new Timestamp(dad.getDTimeExpect().getTime()+1000*60*60*24));
+			ser.update(dad);
+		}
+		return gotoQuery();
+	}
+
 	public static boolean outMailFromAdd(Users um,DaDemand d){
 		//邮件
 		String title="故障处理提醒";
@@ -250,107 +344,4 @@ public class DaManagerAction extends MyBaseAction implements IMyBaseAction{
 		}
 		return true;
 	}
-	
-	public String add() throws Exception {
-		String dTimeExpect = getRequest().getParameter("DTimeExpect");
-		Users um = (Users) ser.get(Users.class, p.getUNum());
-		if (d!=null) {
-			d.setDId("d"+NameOfDate.getNum());
-//			d.setDTime(new Timestamp(new Date().getTime()));
-			if (dTimeExpect!=null && !dTimeExpect.trim().equals("")) {
-				Timestamp  ts= Timestamp.valueOf(dTimeExpect);
-				d.setDTimeExpect(ts);
-				ser.save(d);
-				getRequest().setAttribute("d", d);
-//			new Thread(new AutoTransState(d, getSer())).start();  
-				
-				p.setPId("p"+NameOfDate.getNum());
-				p.setDId(d.getDId());
-				p.setPTime(new Timestamp(new Date().getTime()));
-				p.setPState("进行中");
-				ser.save(p);
-				getRequest().setAttribute("p",p);
-				
-				String sj=um.getUMail();
-				if(outMailFromAdd(um,d)==false){
-					//日后换成邮件错误界面
-					getResponse().getWriter().write("邮件发送错误!请手动发送邮件");
-					logger.error("邮件发送错误!请手动发送邮件,错误单号"+d.getDId());
-					return null;
-				}
-			}else {
-				return result_fail;
-			}
-		}
-		cleardap();
-		return gotoQuery();
-	}
-
-	
-	private void cleardap() {
-		d=null;
-		p=null;
-	}
-	
-	public String delete() throws Exception {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	
-	
-	public String update() throws Exception {
-		//邮件发送所需数据
-		Users um = null;
-		Users umnext=null;
-		if (d!=null && !"".equals(d.getDId())) {
-			d=(DaDemand) ser.get(DaDemand.class, d.getDId());
-			//找到当前执行表数据
-			List templi=ser.find("from DaPerform where DId=? order by PTime desc", new String[]{d.getDId()});
-			if (templi.size()>0) {
-				DaPerform tmpper=(DaPerform) templi.get(0);
-				tmpper.setPTime(new Timestamp(new Date().getTime()));
-				tmpper.setUNumNext(p.getUNumNext());
-				tmpper.setPState("转发");
-				tmpper.setPNote(p.getPNote());
-				ser.update(tmpper);
-				getRequest().setAttribute("p1",tmpper);
-				
-				DaPerform daPerform=new DaPerform();
-				daPerform.setPId("p"+NameOfDate.getNum());
-				daPerform.setDId(d.getDId());
-				daPerform.setUNum(p.getUNumNext());
-				Date date1=new Date();
-				Date date2=new Date(date1.getYear(), date1.getMonth(), date1.getDate(), date1.getHours(), date1.getMinutes(), date1.getSeconds()+1);
-				daPerform.setPTime(new Timestamp(date2.getTime()));
-				daPerform.setPState("进行中");
-				ser.save(daPerform);
-				getRequest().setAttribute("p2",tmpper);
-				
-				//邮件模块需要带的数据
-				um = (Users) ser.get(Users.class, tmpper.getUNum());
-				umnext = (Users) ser.get(Users.class, tmpper.getUNumNext());
-				
-				if(outMailFromUpdate(um, umnext, d)==false){
-					//日后换成邮件错误界面
-					getResponse().getWriter().write("邮件发送错误!请手动发送邮件");
-					logger.error("邮件发送错误!请手动发送邮件,错误单号"+d.getDId());
-					return null;
-				}
-			}
-		}
-		cleardap();
-		return gotoQuery();
-	}
-	public String addTimeOut() throws Exception{
-		String timeId= getRequest().getParameter("timeId");
-		List templi=ser.find("from DaDemand where DId=? ", new String[]{timeId});
-		if(templi.size()!=0){
-			DaDemand dad = (DaDemand) templi.get(0);
-			dad.setDTimeExpect(new Timestamp(dad.getDTimeExpect().getTime()+1000*60*60*24));
-			ser.update(dad);
-		}
-		return gotoQuery();
-	}
-
 }

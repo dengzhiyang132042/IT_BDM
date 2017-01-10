@@ -34,5 +34,14 @@
         <property name="OCreateDatetime" type="java.sql.Timestamp">
             <column name="o_create_datetime" length="19" />
         </property>
+        <property name="OCzType" type="java.lang.String">
+            <column name="o_cz_type" />
+        </property>
+        <property name="OState" type="java.lang.String">
+            <column name="o_state" />
+        </property>
+        <property name="UNum" type="java.lang.String">
+            <column name="u_num" />
+        </property>
     </class>
 </hibernate-mapping>
