@@ -36,6 +36,7 @@ public class MonitorAction extends MyBaseAction{
 	String id;
 	String dates;
 	String datee;
+	String cz;
 	private File fileExcel;
 	private String fileExcelContentType;
 	private String fileExcelFileName; 
@@ -107,7 +108,13 @@ public class MonitorAction extends MyBaseAction{
 	public void setId(String id) {
 		this.id = id;
 	}
-
+	public String getCz() {
+		return cz;
+	}
+	public void setCz(String cz) {
+		this.cz = cz;
+	}
+	
 	//------------------------------------------------
 	private void clearOptions() {
 		id=null;
@@ -115,6 +122,14 @@ public class MonitorAction extends MyBaseAction{
 		monis=null;
 		dates=null;
 		datee=null;
+		cz=null;
+		moni=null;
+		monis=null;
+		if (page==null) {
+			page=new Page(1, 0, 10);
+		}else {
+			page.setPageOn(1);
+		}
 	}
 	
 	private void clearSpace(){
@@ -127,20 +142,18 @@ public class MonitorAction extends MyBaseAction{
 		if(datee!=null){
 			datee=datee.trim();
 		}
+		if(cz!=null){
+			cz=cz.trim();
+		}
 	}
 	
 	public String queryOfFenye() throws UnsupportedEncodingException {
-		String cz=getRequest().getParameter("cz");//用于判断是否清理page，yes清理，no不清理
-		if (page==null) {
-			page=new Page(1, 0, 5);
-		}
+		clearSpace();
 		if (cz!=null && cz.equals("yes")) {
 			clearOptions();
-			page=new Page(1, 0, 5);
 		}
-		clearSpace();
-		String hql="from WhMonitorScout where 1=1";
-		if (id!=null) {
+		String hql="from WhMonitorScout where MState='有效' ";
+		if (id!=null && !id.equals("")) {
 			hql=hql+" and MId like '%"+id+"%'";
 		}
 		if (dates!=null && !dates.equals("")) {
@@ -149,19 +162,20 @@ public class MonitorAction extends MyBaseAction{
 		if (datee!=null && !datee.equals("")) {
 			hql=hql+" and MDate <= '"+datee+"'";
 		}
-		hql=hql+" order by MTime desc";
+		hql=hql+" order by MCreateTime desc MTime desc";
 		monis=ser.query(hql, null, hql, page, ser);
 		return result;
 	}
 	
 	private String gotoQuery() throws UnsupportedEncodingException {
 		clearOptions();
-		String hql="from WhMonitorScout order by MTime desc";
+		String hql="from WhMonitorScout where MState='有效' order by MCreateTime desc MTime desc";
 		monis=ser.query(hql, null, hql, page, ser);
 		return result;
 	}
 	
 	public String delete() throws Exception {
+		clearSpace();
 		if (id!=null) {
 			moni= (WhMonitorScout) ser.get(WhMonitorScout.class, id);
 			if (moni!=null) {
@@ -172,18 +186,31 @@ public class MonitorAction extends MyBaseAction{
 	}
 	
 	public String update() throws Exception {
+		clearSpace();
 		String time=getRequest().getParameter("time");
+		Users user=(Users) getSession().getAttribute("user");
+		WhMonitorScout wms = (WhMonitorScout) ser.get(WhMonitorScout.class, moni.getMId());
+		wms.setMState("无效");
+		ser.update(wms);
+		
+		moni.setMId("m"+NameOfDate.getNum());
+		moni.setMIt(user.getUName());
 		if (moni!=null && time!=null) {
  			String da1=new SimpleDateFormat("yyyy-MM-dd").format(moni.getMDate());
  			Timestamp tit=new Timestamp(new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(da1+" "+time).getTime());
  			moni.setMTime(tit);
- 			ser.update(moni);
+ 			moni.setMCreateTime(new Timestamp(new Date().getTime()));
+ 			moni.setMType("维护");
+ 			moni.setMState("有效");
+ 			moni.setUNum(user.getUNum());
+ 			ser.save(moni);
  			getRequest().setAttribute("moni", moni);
 		}
 		return gotoQuery();
 	}
 	
 	public String add() throws Exception {
+		clearSpace();
 		Users user=(Users) getSession().getAttribute("user");
 		String time=getRequest().getParameter("time");
 		if(moni!=null && user!=null && time!=null){
@@ -194,6 +221,10 @@ public class MonitorAction extends MyBaseAction{
 	 			String da1=new SimpleDateFormat("yyyy-MM-dd").format(moni.getMDate());
 	 			Timestamp tit=new Timestamp(new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(da1+" "+time).getTime());
 	 			moni.setMTime(tit);
+	 			moni.setMCreateTime(new Timestamp(new Date().getTime()));
+	 			moni.setMType("维护");
+	 			moni.setMState("有效");
+	 			moni.setUNum(user.getUNum());
 	 			ser.save(moni);
 			}
 			getRequest().setAttribute("moni", moni);

@@ -1,6 +1,7 @@
 package com.zs.entity;
 
 import java.sql.Timestamp;
+import java.util.Date;
 
 /**
  * WhMeetingScout entity. @author MyEclipse Persistence Tools
@@ -18,6 +19,10 @@ public class WhMeetingScout implements java.io.Serializable {
 	private String MProjector;
 	private String MYdSoftware;
 	private String MNote;
+	private Date MCreateTime;
+	private String MType;
+	private String MState;
+	private String UNum;
 
 	// Constructors
 
@@ -33,7 +38,8 @@ public class WhMeetingScout implements java.io.Serializable {
 	/** full constructor */
 	public WhMeetingScout(String MId, Timestamp MDate, String MIt,
 			String MComputer, String MMouseKeyboard, String MProjector,
-			String MYdSoftware, String MNote) {
+			String MYdSoftware, String MNote, Date MCreateTime, String MType,
+			String MState, String UNum) {
 		this.MId = MId;
 		this.MDate = MDate;
 		this.MIt = MIt;
@@ -42,6 +48,10 @@ public class WhMeetingScout implements java.io.Serializable {
 		this.MProjector = MProjector;
 		this.MYdSoftware = MYdSoftware;
 		this.MNote = MNote;
+		this.MCreateTime = MCreateTime;
+		this.MType = MType;
+		this.MState = MState;
+		this.UNum = UNum;
 	}
 
 	// Property accessors
@@ -108,6 +118,38 @@ public class WhMeetingScout implements java.io.Serializable {
 
 	public void setMNote(String MNote) {
 		this.MNote = MNote;
+	}
+
+	public Date getMCreateTime() {
+		return this.MCreateTime;
+	}
+
+	public void setMCreateTime(Date MCreateTime) {
+		this.MCreateTime = MCreateTime;
+	}
+
+	public String getMType() {
+		return this.MType;
+	}
+
+	public void setMType(String MType) {
+		this.MType = MType;
+	}
+
+	public String getMState() {
+		return this.MState;
+	}
+
+	public void setMState(String MState) {
+		this.MState = MState;
+	}
+
+	public String getUNum() {
+		return this.UNum;
+	}
+
+	public void setUNum(String UNum) {
+		this.UNum = UNum;
 	}
 
 }

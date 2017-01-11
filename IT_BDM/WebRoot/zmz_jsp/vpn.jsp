@@ -114,14 +114,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    <tr>
 	    	<th width="120">编号</th>
 	    	<th>账号</th>
-	    	<th>修改密码(后)</th>
+	    	<th>VPN密码</th>
+	    	<th>SOA密码</th>
 	    	<th>姓名</th>
 	    	<th>部门</th>
-	    	<th>注册身份证</th>
+	    	<th width="135">注册身份证</th>
 	    	<th>注册手机号</th>
-	    	<th>SOA密码</th>
-	    	<th>登记时间</th>
 	    	<th>备注说明</th>
+	    	<th>登记时间</th>
 	    	<th>维护人</th>
 	    	<th>操作类型</th>
 	    	<th>操作</th>
@@ -131,13 +131,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<td width="">${vpn.VId }</td>
 			<td width="">${vpn.VNum }</td>
 			<td width="">${vpn.VPass }</td>
+			<td width="">${vpn.VSoaPass }</td>
 			<td width="">${vpn.VName }</td>
 			<td width="">${vpn.VSection }</td>
 			<td width="">${vpn.VCard }</td>
 			<td width="">${vpn.VPhone }</td>
-			<td width="">${vpn.VSoaPass }</td>
-			<td width=""><fmt:formatDate value="${vpn.VDate }" pattern="yyyy/M/d" /></td>
 			<td width="">${vpn.VNote }</td>
+			<td width=""><fmt:formatDate value="${vpn.VDate }" pattern="yyyy/M/d" /></td>
 			<td width="">${vpn.VIt }</td>
 			<td width="">${vpn.VType }</td>
 			<td width="5%" align="center">
@@ -195,9 +195,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				</td>
 			</tr>
 			<tr>
-				<td>修改密码(后)：</td>
+				<td>VPN密码：</td>
 				<td>
 					<input id="u_3" name="vpn.VPass" type="text" style="width: 100%;"/>
+				</td>
+			</tr>
+			<tr>
+				<td>SOA密码：</td>
+				<td>
+					<input id="u_8" name="vpn.VSoaPass" type="text" style="width: 100%;"/>
 				</td>
 			</tr>
 			<tr>
@@ -222,12 +228,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<td>注册手机号：</td>
 				<td>
 					<input id="u_7" name="vpn.VPhone" type="text" style="width: 100%;"/>
-				</td>
-			</tr>
-			<tr>
-				<td>SOA密码：</td>
-				<td>
-					<input id="u_8" name="vpn.VSoaPass" type="text" style="width: 100%;"/>
 				</td>
 			</tr>
 			<tr>
@@ -265,9 +265,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				</td>
 			</tr>
 			<tr>
-				<td>修改密码(后)：</td>
+				<td>VPN密码：</td>
 				<td>
 					<input name="vpn.VPass" type="text" style="width: 100%;"/>
+				</td>
+			</tr>
+			<tr>
+				<td>SOA密码：</td>
+				<td>
+					<input name="vpn.VSoaPass" type="text" style="width: 100%;"/>
 				</td>
 			</tr>
 			<tr>
@@ -292,12 +298,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<td>注册手机号：</td>
 				<td>
 					<input name="vpn.VPhone" type="text" style="width: 100%;"/>
-				</td>
-			</tr>
-			<tr>
-				<td>SOA密码：</td>
-				<td>
-					<input name="vpn.VSoaPass" type="text" style="width: 100%;"/>
 				</td>
 			</tr>
 			<tr>

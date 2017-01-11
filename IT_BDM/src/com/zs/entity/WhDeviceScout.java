@@ -22,6 +22,10 @@ public class WhDeviceScout implements java.io.Serializable {
 	private String DWeekMaintain;
 	private String DMonthMaintain;
 	private String DNote;
+	private Timestamp DCreateTime;
+	private String DType;
+	private String DState;
+	private String UNum;
 
 	// Constructors
 
@@ -37,7 +41,8 @@ public class WhDeviceScout implements java.io.Serializable {
 	/** full constructor */
 	public WhDeviceScout(String DId, Date DDate, Timestamp DTime, String DFit,
 			String DFitFirm, String DAbnormalNote, String DResult, String DIt,
-			String DWeekMaintain, String DMonthMaintain, String DNote) {
+			String DWeekMaintain, String DMonthMaintain, String DNote,
+			Timestamp DCreateTime, String DType, String DState, String UNum) {
 		this.DId = DId;
 		this.DDate = DDate;
 		this.DTime = DTime;
@@ -49,6 +54,10 @@ public class WhDeviceScout implements java.io.Serializable {
 		this.DWeekMaintain = DWeekMaintain;
 		this.DMonthMaintain = DMonthMaintain;
 		this.DNote = DNote;
+		this.DCreateTime = DCreateTime;
+		this.DType = DType;
+		this.DState = DState;
+		this.UNum = UNum;
 	}
 
 	// Property accessors
@@ -139,6 +148,38 @@ public class WhDeviceScout implements java.io.Serializable {
 
 	public void setDNote(String DNote) {
 		this.DNote = DNote;
+	}
+
+	public Timestamp getDCreateTime() {
+		return this.DCreateTime;
+	}
+
+	public void setDCreateTime(Timestamp DCreateTime) {
+		this.DCreateTime = DCreateTime;
+	}
+
+	public String getDType() {
+		return this.DType;
+	}
+
+	public void setDType(String DType) {
+		this.DType = DType;
+	}
+
+	public String getDState() {
+		return this.DState;
+	}
+
+	public void setDState(String DState) {
+		this.DState = DState;
+	}
+
+	public String getUNum() {
+		return this.UNum;
+	}
+
+	public void setUNum(String UNum) {
+		this.UNum = UNum;
 	}
 
 }
