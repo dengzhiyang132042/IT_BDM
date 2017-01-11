@@ -41,6 +41,7 @@ public class MassageAction extends MyBaseAction{
 	List<WhMassageReceive> massages;
 	String result="massage";
 	String id;
+	String cz;
 	String dates;
 	String datee;
 	String type;
@@ -50,6 +51,12 @@ public class MassageAction extends MyBaseAction{
 	
 	
 	
+	public String getCz() {
+		return cz;
+	}
+	public void setCz(String cz) {
+		this.cz = cz;
+	}
 	public iWhTimelineService getTlSer() {
 		return tlSer;
 	}
@@ -131,16 +138,25 @@ public class MassageAction extends MyBaseAction{
 	//------------------------------------------------
 	private void clearOptions() {
 		id=null;
+		cz=null;
 		massage=null;
 		massages=null;
 		type=null;
 		dates=null;
 		datee=null;
+		if (page==null) {
+			page=new Page(1, 0, 5);
+		}else {
+			page.setPageOn(1);
+		}
 	}
 	
 	private void clearSpace(){
 		if(id!=null){
 			id=id.trim();
+		}
+		if (cz!=null) {
+			cz=cz.trim();
 		}
 		if(type!=null){
 			type=type.trim();
@@ -154,16 +170,11 @@ public class MassageAction extends MyBaseAction{
 	}
 	
 	public String queryOfFenye() throws UnsupportedEncodingException {
-		String cz=getRequest().getParameter("cz");//用于判断是否清理page，yes清理，no不清理
-		if (page==null) {
-			page=new Page(1, 0, 5);
-		}
+		clearSpace();
 		if (cz!=null && cz.equals("yes")) {
 			clearOptions();
-			page=new Page(1, 0, 5);
 		}
-		clearSpace();
-		String hql="from WhMassageReceive where 1=1";
+		String hql="from WhMassageReceive where MState='有效' ";
 		if (id!=null) {
 			hql=hql+" and MId like '%"+id+"%'";
 		}
@@ -183,12 +194,13 @@ public class MassageAction extends MyBaseAction{
 	
 	private String gotoQuery() throws UnsupportedEncodingException {
 		clearOptions();
-		String hql="from WhMassageReceive order by MCreateDatetime desc";
+		String hql="from WhMassageReceive where MState='有效' order by MCreateDatetime desc";
 		massages=ser.query(hql, null, hql, page, ser);
 		return result;
 	}
 	
 	public String delete() throws Exception {
+		clearSpace();
 		if (id!=null) {
 			massage= (WhMassageReceive) ser.get(WhMassageReceive.class, id);
 			if (massage!=null) {
@@ -199,19 +211,33 @@ public class MassageAction extends MyBaseAction{
 	}
 	
 	public String update() throws Exception {
-		if(massage!=null){
-			ser.update(massage);
+		clearSpace();
+		Users user=(Users) getSession().getAttribute("user");
+		if(massage!=null && user!=null){
+			WhMassageReceive mr=(WhMassageReceive) ser.get(WhMassageReceive.class, massage.getMId());
+			mr.setMState("无效");
+			ser.update(mr);
+			massage.setMId("m"+NameOfDate.getNum());
+			massage.setMCreateDatetime(new Timestamp(new Date().getTime()));
+			massage.setMState("有效");
+			massage.setMCzType("维护");
+			massage.setUNum(user.getUNum());
+			ser.save(massage);
 			getRequest().setAttribute("massage", massage);
 		}
 		return gotoQuery();
 	}
 	
 	public String add() throws Exception {
+		clearSpace();
 		Users user=(Users) getSession().getAttribute("user");
 		if(massage!=null && user!=null){
 			massage.setMId("m"+NameOfDate.getNum());
 			massage.setMIt(user.getUName());
 			massage.setMCreateDatetime(new Timestamp(new Date().getTime()));
+			massage.setMCzType("注册");
+			massage.setMState("有效");
+			massage.setUNum(user.getUNum());
 			ser.save(massage);
 			getRequest().setAttribute("massage", massage);
 		}

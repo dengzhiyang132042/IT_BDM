@@ -46,5 +46,14 @@
         <property name="MCreateDatetime" type="java.sql.Timestamp">
             <column name="m_create_datetime" length="19" />
         </property>
+        <property name="MCzType" type="java.lang.String">
+            <column name="m_cz_type" />
+        </property>
+        <property name="MState" type="java.lang.String">
+            <column name="m_state" />
+        </property>
+        <property name="UNum" type="java.lang.String">
+            <column name="u_num" />
+        </property>
     </class>
 </hibernate-mapping>

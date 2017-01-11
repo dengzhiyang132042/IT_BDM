@@ -25,7 +25,7 @@ public class WhMassageServiceImpl extends BaseService implements iDataImportServ
 				try {
 					WhMassageReceive massage=new WhMassageReceive("m"+NameOfDate.getNum(), list.get(i)[0], transToDate(list.get(i)[1]), 
 							list.get(i)[2],list.get(i)[3], list.get(i)[4],list.get(i)[5].replace(",", ""), list.get(i)[6], list.get(i)[7],
-							list.get(i)[8], list.get(i)[9],list.get(i)[10], new Timestamp(new Date().getTime()));
+							list.get(i)[8], list.get(i)[9],list.get(i)[10], new Timestamp(new Date().getTime()),"维护","有效",unum);
 					save(massage);
 				} catch (Exception e) {
 					log.error("数据格式错误:请注意填写的数据格式，另外不要留空，数字类型的没有就写0，文本类型的没有可以不写，时间类型的一定要写");

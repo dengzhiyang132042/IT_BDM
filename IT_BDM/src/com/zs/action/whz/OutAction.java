@@ -207,6 +207,7 @@ public class OutAction extends MyBaseAction implements IMyBaseAction{
 			outRepair.setOState("无效");
 			ser.update(outRepair);
 			ot.setOId("o"+NameOfDate.getNum());
+			ot.setOCreateDatetime(new Timestamp(new Date().getTime()));
 			ot.setOCzType("维护");
 			ot.setOState("有效");
 			ot.setUNum(user.getUNum());
