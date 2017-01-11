@@ -179,6 +179,7 @@ public class ZmDataAction extends MyBaseAction{
 			XtZmData data=(XtZmData) ser.get(XtZmData.class, zmd.getDId());
 			data.setDState("无效");
 			ser.update(data);
+			getRequest().setAttribute("data", data);
 			
 			zmd.setDId(NameOfDate.getNum());
 			zmd.setDDate(data.getDDate());

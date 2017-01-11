@@ -40,9 +40,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	});
 	
 	function trans_radio(str){
-		if (str=="是") {
+		if (str=="正常") {
 			return 0;
-		}else if (str=="否") {
+		}else if (str=="异常") {
 			return 1;
 		}
 	}
@@ -155,9 +155,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<div class="easyui-panel" style="padding:5px;width: 100%;display: none;">
 		<form id="f1" action="<%=path %>/monitor!queryOfFenye?id=${id}&sn=${sn }&dates=${dates}&datee=${datee}" method="post">
 		<select id="sele" style="float: left;margin-top: 3px;margin-left: 5px;" name="page.size" onchange="$('#f1').submit();">
-			<option value="5">5</option>
 			<option value="10">10</option>
 			<option value="15">15</option>
+			<option value="20">20</option>
 		</select>
 		
 		<span style="float: left;margin-left: 5px;">

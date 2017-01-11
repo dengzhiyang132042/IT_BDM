@@ -357,6 +357,7 @@ public class ProjectAction extends MyBaseAction implements IMyBaseAction{
 				
 			}
 			ser.update(pd);
+			getRequest().setAttribute("pd", pd);
 			XtProject up =(XtProject) ser.get(XtProject.class, pd.getPId());
 			
 			//更新效率表

@@ -219,6 +219,8 @@ public class BqqAction extends MyBaseAction{
 			XtBqq ob = (XtBqq) ser.get(XtBqq.class, b.getBId());
 			ob.setBState("无效");
 			ser.update(ob);
+			getRequest().setAttribute("ob",ob);
+			
 			b.setBId("b"+NameOfDate.getNum());
 			Users users=(Users) getSession().getAttribute("user");
 			b.setBIt(users.getUName());
@@ -226,6 +228,7 @@ public class BqqAction extends MyBaseAction{
 			b.setBServiceDate(new Timestamp(new Date().getTime()));
 			b.setBState("有效");
 			ser.save(b);
+			getRequest().setAttribute("b",b);
 		}
 		return gotoQuery();
 	}

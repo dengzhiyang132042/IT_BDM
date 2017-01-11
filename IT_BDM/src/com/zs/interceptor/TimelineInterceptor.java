@@ -620,7 +620,15 @@ public class TimelineInterceptor extends AbstractInterceptor{
 			
 			else if ((PRO_NAME+"/information!query").equals(path)) {//消息提醒查看
 				addTimeline(u, "查看", "个人中心-消息提醒", request.getParameter("id"));
+			
+			}else if ((PRO_NAME+"/resetPass!reset").equals(path)) {//密码修改
+				Users user=(Users) request.getAttribute("user");
+				addTimeline(u, "修改", "个人中心-密码修改", user.getUNum());
+			}else if ((PRO_NAME+"/resetPass!updateInfo").equals(path)) {//密码修改
+				Users user=(Users) request.getAttribute("user");
+				addTimeline(u, "修改", "个人中心-个人信息修改", user.getUNum());
 			}
+			
 			//------------------------------通讯录---------------------------------------
 			else if ((PRO_NAME+"/section!queryOfFenyeQb").equals(path)) {//区部信息查看
 				addTimeline(u, "查看", "通讯录-区部信息", request.getParameter("id"));

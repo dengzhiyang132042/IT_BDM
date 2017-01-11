@@ -253,6 +253,7 @@ public class BranchesAction extends MyBaseAction{
 			XtBranches branches=(XtBranches) ser.get(XtBranches.class, b.getBId());
 			branches.setBState("无效");
 			ser.update(branches);
+			getRequest().setAttribute("branches", branches);
 			
 			b.setBId(NameOfDate.getNum());
 			b.setBDate(branches.getBDate());

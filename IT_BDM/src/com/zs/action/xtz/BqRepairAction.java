@@ -209,6 +209,7 @@ public class BqRepairAction extends MyBaseAction{
 			XtBqRepair bqrepair=(XtBqRepair) ser.get(XtBqRepair.class, bq.getRId());
 			bqrepair.setRState("无效");
 			ser.update(bqrepair);
+			getRequest().setAttribute("bqrepair",bqrepair);
 			
 			bq.setRId("R"+NameOfDate.getNum());
 			bq.setRCreateTime(new Timestamp(new Date().getTime()));

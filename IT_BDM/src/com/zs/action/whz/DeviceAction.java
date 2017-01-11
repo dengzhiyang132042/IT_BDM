@@ -130,6 +130,7 @@ public class DeviceAction extends MyBaseAction implements IMyBaseAction{
  			device.setDState("有效");
  			device.setUNum(user.getUNum());
  			ser.save(device);
+ 			getRequest().setAttribute("device", device);
 		}
 		return gotoQuery();
 	}
@@ -204,6 +205,7 @@ public class DeviceAction extends MyBaseAction implements IMyBaseAction{
 		WhDeviceScout device2=(WhDeviceScout) ser.get(WhDeviceScout.class, device.getDId());
 		device2.setDState("无效");
 		ser.update(device2);
+		getRequest().setAttribute("device2", device2);
 		
 		device.setDId("d"+NameOfDate.getNum());
 		String dTime=getRequest().getParameter("d_time");
@@ -220,6 +222,7 @@ public class DeviceAction extends MyBaseAction implements IMyBaseAction{
  			device.setDState("有效");
  			device.setUNum(user.getUNum());
  			ser.save(device);
+ 			getRequest().setAttribute("device", device);
 		}
 		return gotoQuery();
 	}

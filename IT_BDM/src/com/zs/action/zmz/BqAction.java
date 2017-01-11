@@ -289,6 +289,7 @@ public class BqAction extends MyBaseAction implements IMyBaseAction{
 			ZmBq zmBq=(ZmBq) ser.get(ZmBq.class, bq.getBId());
 			zmBq.setBState("无效");
 			ser.update(zmBq);
+			getRequest().setAttribute("zmBq", zmBq);
 			
 			bq.setBId("b"+NameOfDate.getNum());
 			bq.setBCreateTime(new Timestamp(new Date().getTime()));

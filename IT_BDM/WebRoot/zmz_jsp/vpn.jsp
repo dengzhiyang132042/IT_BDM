@@ -179,11 +179,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</div>
 	</div>
 	
-	<div id="u" class="easyui-window" title="修改" data-options="modal:true,closed:true" style="width:400px;height:auto;padding:10px;display: none;">
+	<div id="u" class="easyui-window" title="修改" data-options="modal:true,closed:true" style="width:300px;height:auto;padding:10px;display: none;">
 		<form action="<%=path %>/vpn!update" method="post">
 		<table border="0" class="table1">
 			<tr>
-				<td>编号：</td>
+				<td width="80">编号：</td>
 				<td>
 					<input id="u_1" name="vpn.VId" type="text" style="width: 100%;" readonly="readonly"/>
 				</td>
@@ -255,11 +255,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</form>
 	</div>
 	
-	<div id="a" class="easyui-window" title="添加" data-options="modal:true,closed:true" style="width:400px;height:auto;padding:10px;display: none;">
+	<div id="a" class="easyui-window" title="添加" data-options="modal:true,closed:true" style="width:300px;height:auto;padding:10px;display: none;">
 		<form action="<%=path %>/vpn!add" method="post">
 		<table border="0" class="table1">
 			<tr>
-				<td>账号：</td>
+				<td width="80">账号：</td>
 				<td>
 					<input name="vpn.VNum" type="text" style="width: 100%;"/>
 				</td>

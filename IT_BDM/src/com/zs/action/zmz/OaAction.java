@@ -274,6 +274,7 @@ public class OaAction extends MyBaseAction implements IMyBaseAction{
 			ZmOaNumber zmOa = (ZmOaNumber) ser.get(ZmOaNumber.class, oa.getOId());
 			zmOa.setOState("无效");
 			ser.update(zmOa);
+			getRequest().setAttribute("zmOa", zmOa);
 			
 			oa.setOId("o"+NameOfDate.getNum());
 			Date date = new Date();

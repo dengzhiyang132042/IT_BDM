@@ -122,7 +122,12 @@ public class ThreeMeetAction extends MyBaseAction implements IMyBaseAction{
 		if (user!=null && tm!=null && tm.getTDate()!=null) {
 			tm.setTId("t"+NameOfDate.getNum());
 			tm.setTIt(user.getUName());
+			tm.setTCreateTime(new Timestamp(new Date().getTime()));
+			tm.setTType("维护");
+			tm.setTState("有效");
+			tm.setUNum(user.getUNum());
 			ser.save(tm);
+			getRequest().setAttribute("tm",tm);
 		}
 		return gotoQuery();
 	}
@@ -134,6 +139,11 @@ public class ThreeMeetAction extends MyBaseAction implements IMyBaseAction{
 		datee=null;
 		tm=null;
 		tms=null;
+		if (page==null) {
+			page=new Page(1, 0, 10);
+		}else {
+			page.setPageOn(1);
+		}
 	}
 
 	public String delete() throws Exception {
@@ -150,7 +160,7 @@ public class ThreeMeetAction extends MyBaseAction implements IMyBaseAction{
 	public String gotoQuery() throws UnsupportedEncodingException {
 		clearSpace();
 		clearOptions();
-		String hql="from WhThreeMeetingScout order by TDate desc";
+		String hql="from WhThreeMeetingScout where TState =  '有效' order by TCreateTime desc TDate desc";
 		tms=ser.query(hql, null, hql, page, ser);
 		return result;
 	}
@@ -159,25 +169,19 @@ public class ThreeMeetAction extends MyBaseAction implements IMyBaseAction{
 		clearSpace();
 		if (cz!=null && cz.equals("yes")) {
 			clearOptions();
-			page=new Page(1, 0, 5);
 		}
-		if (page==null) {
-			page=new Page(1, 0, 5);
+		String hql="from WhThreeMeetingScout where TState =  '有效' ";
+		if (id!=null&&!id.equals("")) {
+			hql=hql+" and TId like '%"+id+"%'";
 		}
-		if (id!=null) {
-			String hql="from WhThreeMeetingScout where TId like '%"+id+"%'";
-			if(dates!=null&&!dates.equals("")){
-				hql=hql+" and TDate >='"+dates+"'";
-			}
-			if(datee!=null&&!datee.equals("")){
-				hql=hql+" and TDate <='"+datee+" 23:59:59'";
-			}
-			hql=hql+" order by TDate desc";
-			tms=ser.query(hql, null, hql, page, ser);
-		}else {
-			String hql="from WhThreeMeetingScout order by TDate desc";
-			tms=ser.query(hql, null, hql, page, ser);
+		if(dates!=null&&!dates.equals("")){
+			hql=hql+" and TDate >='"+dates+"'";
 		}
+		if(datee!=null&&!datee.equals("")){
+			hql=hql+" and TDate <='"+datee+" 23:59:59'";
+		}
+		hql=hql+" order by TCreateTime desc TDate desc";
+		tms=ser.query(hql, null, hql, page, ser);
 		return result;
 	}
 
@@ -198,8 +202,21 @@ public class ThreeMeetAction extends MyBaseAction implements IMyBaseAction{
 
 	public String update() throws Exception {
 		clearSpace();
+		WhThreeMeetingScout tmp = (WhThreeMeetingScout) ser.get(WhThreeMeetingScout.class, tm.getTId());
+		tmp.setTState("无效");
+		ser.update(tmp);
+		getRequest().setAttribute("tmp",tmp);
+		
+		Users user=(Users) getSession().getAttribute("user");
 		if (tm!=null) {
- 			ser.update(tm);
+			tm.setTId("t"+NameOfDate.getNum());
+			tm.setTIt(user.getUName());
+			tm.setTCreateTime(new Timestamp(new Date().getTime()));
+			tm.setTType("维护");
+			tm.setTState("有效");
+			tm.setUNum(user.getUNum());
+			ser.save(tm);
+			getRequest().setAttribute("tm",tm);
 		}
 		return gotoQuery();
 	}

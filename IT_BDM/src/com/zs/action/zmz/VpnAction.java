@@ -239,6 +239,7 @@ public class VpnAction extends MyBaseAction{
 			ZmVpn zmVpn=(ZmVpn) ser.get(ZmVpn.class, vpn.getVId());
 			zmVpn.setVState("无效");
 			ser.update(zmVpn);
+			getRequest().setAttribute("zmVpn", zmVpn);
 			
 			Users users=(Users) getSession().getAttribute("user");
 			vpn.setVId("v"+NameOfDate.getNum());

@@ -40,9 +40,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		$('#tt').show();
 	});
 	function trans_radio(str){
-		if (str=="是") {
+		if (str=="正常") {
 			return 0;
-		}else if (str=="否") {
+		}else if (str=="异常") {
 			return 1;
 		}
 	}
@@ -51,10 +51,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		$('#u_1').val(u1);
 		$('#u_2').val(u2);
 		$('#u_3').val(u3);
-		$('#u_4').val(u4);
-		$('#u_5').val(u5);
-		$('#u_6').val(u6);
-		$('#u_7').val(u7);
+		$("#u_4_"+trans_radio(u4)).click();
+		$("#u_5_"+trans_radio(u5)).click();
+		$("#u_6_"+trans_radio(u6)).click();
+		$("#u_7_"+trans_radio(u7)).click();
 		$('#u_8').val(u8);
 	}
 	function page(no,cz){
@@ -143,9 +143,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<div class="easyui-panel" style="padding:5px;width: 100%;display: none;">
 		<form id="f1" action="<%=path %>/meet!queryOfFenye?id=${id}&dates=${dates}&datee=${datee}" method="post">
 		<select id="sele" style="float: left;margin-top: 3px;margin-left: 5px;" name="page.size" onchange="$('#f1').submit();">
-			<option value="5">5</option>
 			<option value="10">10</option>
 			<option value="15">15</option>
+			<option value="20">20</option>
 		</select>
 		
 		<span style="float: left;margin-left: 5px;">
@@ -186,33 +186,31 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				</td>
 			</tr>
 			<tr>
-				<td>巡检IT：</td>
-				<td> 
-					<input id="u_3" name="m.MIt" type="text" style="width: 100%;" readonly="readonly"/>
-				</td>
-			</tr>
-			<tr>
 				<td>电脑主机：</td>
 				<td>
-					<input id="u_4" name="m.MComputer" type="text" style="width: 100%;"/>
+					<input id="u_4_0" name="m.MComputer" type="radio" value="正常" checked="checked"/>正常
+					<input id="u_4_1" name="m.MComputer" type="radio" value="异常"/>异常
 				</td>
 			</tr>
 			<tr>
 				<td>键盘鼠标：</td>
 				<td>
-					<input id="u_5" name="m.MMouseKeyboard" type="text" style="width: 100%;"/>
+					<input id="u_5_0" name="m.MMouseKeyboard" type="radio" value="正常" checked="checked"/>正常
+					<input id="u_5_1" name="m.MMouseKeyboard" type="radio" value="异常"/>异常
 				</td>
 			</tr>
 			<tr>
 				<td>投影仪：</td>
 				<td>
-					<input id="u_6" name="m.MProjector" type="text" style="width: 100%;"/>
+					<input id="u_6_0" name="m.MProjector" type="radio" value="正常" checked="checked"/>正常
+					<input id="u_6_1" name="m.MProjector" type="radio" value="异常"/>异常
 				</td>
 			</tr>
 			<tr>
 				<td>韵达软件：</td>
 				<td>
-					<input id="u_7" name="m.MYdSoftware" type="text" style="width: 100%;"/>
+					<input id="u_7_0" name="m.MYdSoftware" type="radio" value="正常" checked="checked"/>正常
+					<input id="u_7_1" name="m.MYdSoftware" type="radio" value="异常"/>异常
 				</td>
 			</tr>
 			<tr>
@@ -242,25 +240,29 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<tr>
 				<td>电脑主机：</td>
 				<td>
-					<input name="m.MComputer" type="text" style="width: 100%;"/>
+					<input name="m.MComputer" type="radio" value="正常" checked="checked"/>正常
+					<input name="m.MComputer" type="radio" value="异常"/>异常
 				</td>
 			</tr>
 			<tr>
 				<td>键盘鼠标：</td>
 				<td>
-					<input name="m.MMouseKeyboard" type="text" style="width: 100%;"/>
+					<input name="m.MMouseKeyboard" type="radio" value="正常" checked="checked"/>正常
+					<input name="m.MMouseKeyboard" type="radio" value="异常"/>异常
 				</td>
 			</tr>
 			<tr>
 				<td>投影仪：</td>
 				<td>
-					<input name="m.MProjector" type="text" style="width: 100%;"/>
+					<input name="m.MProjector" type="radio" value="正常" checked="checked"/>正常
+					<input name="m.MProjector" type="radio" value="异常"/>异常
 				</td>
 			</tr>
 			<tr>
 				<td>韵达软件：</td>
 				<td>
-					<input name="m.MYdSoftware" type="text" style="width: 100%;"/>
+					<input name="m.MYdSoftware" type="radio" value="正常" checked="checked"/>正常
+					<input name="m.MYdSoftware" type="radio" value="异常"/>异常
 				</td>
 			</tr>
 			<tr>

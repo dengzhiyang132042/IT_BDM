@@ -1,4 +1,5 @@
 <%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
+<%@page import="java.text.SimpleDateFormat"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%
@@ -62,15 +63,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			$('#page').val(${page.pageMax});
 		}
 		$('#f1').submit();
-	}
-	function addWindow(){
-		var today = new Date();   
-	    var day = today.getDate();   
-	    var month = today.getMonth() + 1;   
-	    var year = today.getYear()+1900;    
-	    var date = year + "-" + month + "-" + day;   
-	    $('#serdate').val(date);
-	    $('#a').window('open'); 
 	}
 	</script>
 	
@@ -250,7 +242,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<tr>
 				<td width="80">维护日期：</td>
 				<td>
-					<input id="serdate" name="by.byServiceDate" type="date" style="width: 100%;"/>
+					<input name="by.byServiceDate" type="text" style="width: 100%;" onfocus="WdatePicker({readOnly:true,dateFmt:'yyyy-MM-dd'})" class="Wdate" value="<%=new SimpleDateFormat("yyyy-MM-dd").format(new Date())%>"/>
 				</td>
 			</tr>
 			<tr>
@@ -305,7 +297,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	
 	<div id="tt" style="display: none;">
 		<a class="icon-zs-import" onclick="$('#in').window('open')" style="margin-left: 10px;" title="excel导入"></a>
-		<a class="icon-add" onclick="addWindow();defualtOutTime()" style="margin-left: 10px;" title="添加"></a>
+		<a class="icon-add" onclick="$('#a').window('open')" style="margin-left: 10px;" title="添加"></a>
 	</div>
 	
 	

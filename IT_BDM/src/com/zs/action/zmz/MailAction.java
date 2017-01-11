@@ -228,6 +228,7 @@ public class MailAction extends MyBaseAction implements IMyBaseAction{
 			ZmMail zm=(ZmMail) ser.get(ZmMail.class, m.getMId());
 			zm.setMState("无效");
 			ser.update(zm);
+			getRequest().setAttribute("zm", zm);
 			
 			m.setMId("m"+NameOfDate.getNum());
 			Users user=(Users) getSession().getAttribute("user");
