@@ -24,6 +24,9 @@ public class WhMassageReceive implements java.io.Serializable {
 	private String EId;
 	private String MNote;
 	private Timestamp MCreateDatetime;
+	private String MCzType;
+	private String MState;
+	private String UNum;
 
 	// Constructors
 
@@ -40,7 +43,8 @@ public class WhMassageReceive implements java.io.Serializable {
 	public WhMassageReceive(String MId, String MIt, Date MDate, String MType,
 			String MName, String MNum, String MSn, String MSim,
 			String MHitchType, String MHitchNote, String EId, String MNote,
-			Timestamp MCreateDatetime) {
+			Timestamp MCreateDatetime, String MCzType, String MState,
+			String UNum) {
 		this.MId = MId;
 		this.MIt = MIt;
 		this.MDate = MDate;
@@ -54,6 +58,9 @@ public class WhMassageReceive implements java.io.Serializable {
 		this.EId = EId;
 		this.MNote = MNote;
 		this.MCreateDatetime = MCreateDatetime;
+		this.MCzType = MCzType;
+		this.MState = MState;
+		this.UNum = UNum;
 	}
 
 	// Property accessors
@@ -160,6 +167,30 @@ public class WhMassageReceive implements java.io.Serializable {
 
 	public void setMCreateDatetime(Timestamp MCreateDatetime) {
 		this.MCreateDatetime = MCreateDatetime;
+	}
+
+	public String getMCzType() {
+		return this.MCzType;
+	}
+
+	public void setMCzType(String MCzType) {
+		this.MCzType = MCzType;
+	}
+
+	public String getMState() {
+		return this.MState;
+	}
+
+	public void setMState(String MState) {
+		this.MState = MState;
+	}
+
+	public String getUNum() {
+		return this.UNum;
+	}
+
+	public void setUNum(String UNum) {
+		this.UNum = UNum;
 	}
 
 }

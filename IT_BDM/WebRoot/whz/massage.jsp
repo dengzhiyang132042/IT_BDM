@@ -86,7 +86,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				console.log(data);
 				console.log(hint.html());
 				if(data=="null"){
-					hint.append("<center style='color: red;'>数据不全，还无法计算出</center>");
+					hint.html("<center style='color: red;'>数据不全，还无法计算出</center>");
 				}else{
 					var json = eval('(' + data + ')'); 
 					$("#tls_1").val(json.MId);
