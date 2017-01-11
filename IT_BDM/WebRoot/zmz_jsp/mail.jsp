@@ -70,6 +70,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    var year = today.getYear()+1900;    
 	    var date = year + "-" + month + "-" + day;   
 	    $('#serdate').val(date);
+	    alert(date);
 	    $('#a').window('open'); 
 	}
 	</script>

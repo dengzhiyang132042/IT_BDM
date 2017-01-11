@@ -43,5 +43,17 @@
         <property name="MNote" type="java.lang.String">
             <column name="m_note" />
         </property>
+        <property name="MCreateTime" type="java.sql.Timestamp">
+            <column name="m_create_time" length="19" />
+        </property>
+        <property name="MType" type="java.lang.String">
+            <column name="m_type" />
+        </property>
+        <property name="MState" type="java.lang.String">
+            <column name="m_state" />
+        </property>
+        <property name="UNum" type="java.lang.String">
+            <column name="u_num" />
+        </property>
     </class>
 </hibernate-mapping>

@@ -21,6 +21,10 @@ public class WhThreeMeetingScout implements java.io.Serializable {
 	private String TProjector;
 	private String TYdSoftware;
 	private String TNote;
+	private Timestamp TCreateTime;
+	private String TType;
+	private String TState;
+	private String UNum;
 
 	// Constructors
 
@@ -37,7 +41,8 @@ public class WhThreeMeetingScout implements java.io.Serializable {
 	public WhThreeMeetingScout(String TId, Timestamp TDate, String TIt,
 			String TComputer, String TMonitor, String TVideo,
 			String TMonitorScreen, String TMouseKeyboard, String TProjector,
-			String TYdSoftware, String TNote) {
+			String TYdSoftware, String TNote, Timestamp TCreateTime,
+			String TType, String TState, String UNum) {
 		this.TId = TId;
 		this.TDate = TDate;
 		this.TIt = TIt;
@@ -49,6 +54,10 @@ public class WhThreeMeetingScout implements java.io.Serializable {
 		this.TProjector = TProjector;
 		this.TYdSoftware = TYdSoftware;
 		this.TNote = TNote;
+		this.TCreateTime = TCreateTime;
+		this.TType = TType;
+		this.TState = TState;
+		this.UNum = UNum;
 	}
 
 	// Property accessors
@@ -141,14 +150,36 @@ public class WhThreeMeetingScout implements java.io.Serializable {
 		this.TNote = TNote;
 	}
 
-	@Override
-	public String toString() {
-		return "WhThreeMeetingScout [TComputer=" + TComputer + ", TDate="
-				+ TDate + ", TId=" + TId + ", TIt=" + TIt + ", TMonitor="
-				+ TMonitor + ", TMonitorScreen=" + TMonitorScreen
-				+ ", TMouseKeyboard=" + TMouseKeyboard + ", TNote=" + TNote
-				+ ", TProjector=" + TProjector + ", TVideo=" + TVideo
-				+ ", TYdSoftware=" + TYdSoftware + "]";
+	public Timestamp getTCreateTime() {
+		return this.TCreateTime;
+	}
+
+	public void setTCreateTime(Timestamp TCreateTime) {
+		this.TCreateTime = TCreateTime;
+	}
+
+	public String getTType() {
+		return this.TType;
+	}
+
+	public void setTType(String TType) {
+		this.TType = TType;
+	}
+
+	public String getTState() {
+		return this.TState;
+	}
+
+	public void setTState(String TState) {
+		this.TState = TState;
+	}
+
+	public String getUNum() {
+		return this.UNum;
+	}
+
+	public void setUNum(String UNum) {
+		this.UNum = UNum;
 	}
 
 }

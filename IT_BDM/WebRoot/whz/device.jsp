@@ -119,10 +119,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    	<th>巡检IT</th>
 	    	<th>电子称较称</th>
 	    	<th>称平台是否平稳</th>
-	    	<th>异常描述</th>
-	    	<th>处理结果</th>
 	    	<th>周保养</th>
 	    	<th>月保养</th>
+	    	<th>异常描述</th>
+	    	<th>处理结果</th>
 	    	<th>备注</th>
 	    	<th>操作</th>
 	    </tr>
@@ -134,10 +134,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<td width="">${d.DIt }</td>
 			<td width="">${d.DFit }</td>
 			<td width="">${d.DFitFirm }</td>
-			<td width="">${d.DAbnormalNote }</td>
-			<td width="">${d.DResult }</td>
 			<td width="">${d.DWeekMaintain }</td>
 			<td width="">${d.DMonthMaintain }</td>
+			<td width="">${d.DAbnormalNote }</td>
+			<td width="">${d.DResult }</td>
 			<td width="">${d.DNote }</td>
 			<td width="5%" align="center">
 				<a onclick="update('${d.DId }','<fmt:formatDate value="${d.DDate }" pattern="yyyy-M-d" />','<fmt:formatDate value="${d.DTime }" pattern="HH:mm" />','${d.DFit }',
@@ -152,9 +152,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<div class="easyui-panel" style="padding:5px;width: 100%;display: none;">
 		<form id="f1" action="<%=path %>/device!queryOfFenye?id=${id}&sn=${sn }&num=${num }&dates=${dates}&datee=${datee}" method="post">
 		<select id="sele" style="float: left;margin-top: 3px;margin-left: 5px;" name="page.size" onchange="$('#f1').submit();">
-			<option value="5">5</option>
 			<option value="10">10</option>
 			<option value="15">15</option>
+			<option value="20">20</option>
 		</select>
 		
 		<span style="float: left;margin-left: 5px;">
@@ -179,7 +179,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</div>
 	</div>
 	
-	<div id="u" class="easyui-window" title="修改" data-options="modal:true,closed:true" style="width:500px;height:auto;padding:10px;display: none;">
+	<div id="u" class="easyui-window" title="修改" data-options="modal:true,closed:true" style="width:350px;height:auto;padding:10px;display: none;">
 		<form action="<%=path %>/device!update" method="post">
 		<table border="0" class="table1">
 			<tr>
@@ -249,11 +249,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</form>
 	</div>
 	
-	<div id="a" class="easyui-window" title="添加" data-options="modal:true,closed:true" style="width:500px;height:auto;padding:10px;display: none;">
+	<div id="a" class="easyui-window" title="添加" data-options="modal:true,closed:true" style="width:300px;height:auto;padding:10px;display: none;">
 		<form action="<%=path %>/device!add" method="post">
 		<table border="0" class="table1">
 			<tr>
-				<td width="120">巡检时间：</td>
+				<td width="100">巡检时间：</td>
 				<td>
 					<input name="d_time" type="text" onfocus="WdatePicker({dateFmt:'HH:mm'})" class="Wdate" style="width: 100%;" value="<%=new SimpleDateFormat("HH:mm").format(new Date()) %>"/>
 				</td>

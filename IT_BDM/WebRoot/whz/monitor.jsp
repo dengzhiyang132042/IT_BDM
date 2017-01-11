@@ -46,20 +46,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			return 1;
 		}
 	}
-	
 	function update(u1,u2,u3,u4,u5,u6,u7,u8,u9,u10,u11,u12){
 		$('#u').window('open');
 		$('#u_1').val(u1);
 		$('#u_2').val(u2);
 		$('#u_3').val(u3);
-		$('#u_4').val(u4);
+		$("#u_4_"+trans_radio(u4)).click();
 		$('#u_5').val(u5);
-		$('#u_6').val(u6);
-		$('#u_7').val(u7);
-		$('#u_8').val(u8);
-		$('#u_9').val(u9);
-		$('#u_10').val(u10);
-		$('#u_11').val(u11);
+		$("#u_6_"+trans_radio(u6)).click();
+		$("#u_7_"+trans_radio(u7)).click();
+		$("#u_8_"+trans_radio(u8)).click();
+		$("#u_9_"+trans_radio(u9)).click();
+		$("#u_10_"+trans_radio(u10)).click();
+		$("#u_11_"+trans_radio(u11)).click();
 		$('#u_12').val(u12);
 	}
 	function page(no,cz){
@@ -199,57 +198,58 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				</td>
 			</tr>
 			<tr>
-				<td>巡检IT：</td>
-				<td>
-					<input id="u_3" name="moni.MIt" type="text" style="width: 100%;" readonly="readonly"/>
-				</td>
-			</tr>
-			<tr>
-				<td>监控主机：</td>
-				<td>
-					<input id="u_4" name="moni.MMonitorMaster" type="text" style="width: 100%;"/>
-				</td>
-			</tr>
-			<tr>
 				<td>时间：</td>
 				<td>
 					<input id="u_5" name="time" type="text" style="width: 100%;" onfocus="WdatePicker({dateFmt:'HH:mm'})" class="Wdate"/>
 				</td>
 			</tr>
 			<tr>
+				<td>监控主机：</td>
+				<td>
+					<input id="u_4_0" name="moni.MMonitorMaster"  type="radio" value="正常" checked="checked"/>正常
+					<input id="u_4_1" name="moni.MMonitorMaster"  type="radio" value="正常" />正常
+				</td>
+			</tr>
+			<tr>
 				<td>录像：</td>
 				<td>
-					<input id="u_6" name="moni.MVideo" type="text" style="width: 100%;"/>
+					<input id="u_6_0" name="moni.MVideo" type="radio" value="正常" checked="checked"/>正常
+					<input id="u_6_1" name="moni.MVideo" type="radio" value="异常"/>异常
 				</td>
 			</tr>
 			<tr>
 				<td>空间：</td>
 				<td>
-					<input id="u_7" name="moni.MRoom" type="text" style="width: 100%;"/>
+					<input id="u_7_0" name="moni.MRoom" type="radio" value="正常" checked="checked"/>正常
+					<input id="u_7_1" name="moni.MRoom" type="radio" value="异常" />异常
 				</td>
 			</tr>
 			<tr>
 				<td>服务器：</td>
 				<td>
-					<input id="u_8" name="moni.MService" type="text" style="width: 100%;"/>
+					<input id="u_8_0" name="moni.MService" type="radio" value="正常" checked="checked"/>正常
+					<input id="u_8_1" name="moni.MService" type="radio" value="异常"/>异常
 				</td>
 			</tr>
 			<tr>
 				<td>机房网络设备：</td>
 				<td>
-					<input id="u_9" name="moni.MGeneratorDevice" type="text" style="width: 100%;"/>
+					<input id="u_9_0" name="moni.MGeneratorDevice" type="radio" value="正常" checked="checked"/>正常
+					<input id="u_9_1" name="moni.MGeneratorDevice" type="radio" value="异常" />异常
 				</td>
 			</tr>
 			<tr>
 				<td>仓库摄像头：</td>
 				<td>
-					<input id="u_10" name="moni.MDepotCamera" type="text" style="width: 100%;"/>
+					<input id="u_10_0" name="moni.MDepotCamera" type="radio" value="正常" checked="checked"/>正常
+					<input id="u_10_1" name="moni.MDepotCamera" type="radio" value="异常" />异常
 				</td>
 			</tr>
 			<tr>
 				<td>仓库网络设备：</td>
 				<td>
-					<input id="u_11" name="moni.MDepotDevice" type="text" style="width: 100%;"/>
+					<input id="u_11_0" name="moni.MDepotDevice" type="radio" value="正常" checked="checked"/>正常
+					<input id="u_11_1" name="moni.MDepotDevice" type="radio" value="异常" />异常
 				</td>
 			</tr>
 			<tr>
@@ -267,55 +267,62 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</form>
 	</div>
 	
-	<div id="a" class="easyui-window" title="添加" data-options="modal:true,closed:true" style="width:500px;height:auto;padding:10px;display: none;">
+	<div id="a" class="easyui-window" title="添加" data-options="modal:true,closed:true" style="width:300px;height:auto;padding:10px;display: none;">
 		<form action="<%=path %>/monitor!add" method="post">
 		<table border="0" class="table1">
 			<tr>
-				<td>监控主机：</td>
-				<td>
-					<input name="moni.MMonitorMaster" type="text" style="width: 100%;"/>
-				</td>
-			</tr>
-			<tr>
-				<td>时间：</td>
+				<td width="90">时间：</td>
 				<td>
 					<input name="time" type="text" style="width: 100%;" onfocus="WdatePicker({dateFmt:'HH:mm'})" class="Wdate"/>
 				</td>
 			</tr>
 			<tr>
+				<td>监控主机：</td>
+				<td>
+					<input name="moni.MMonitorMaster" type="radio" value="正常" checked="checked"/>正常
+					<input name="moni.MMonitorMaster" type="radio" value="异常" />异常
+				</td>
+			</tr>
+			<tr>
 				<td>录像：</td>
 				<td>
-					<input name="moni.MVideo" type="text" style="width: 100%;"/>
+					<input name="moni.MVideo" type="radio" value="正常" checked="checked"/>正常
+					<input name="moni.MVideo" type="radio" value="异常" />异常
 				</td>
 			</tr>
 			<tr>
 				<td>空间：</td>
 				<td>
-					<input name="moni.MRoom" type="text" style="width: 100%;"/>
+					<input name="moni.MRoom" type="radio" value="正常" checked="checked"/>正常
+					<input name="moni.MRoom" type="radio" value="异常" />异常
 				</td>
 			</tr>
 			<tr>
 				<td>服务器：</td>
 				<td>
-					<input name="moni.MService" type="text" style="width: 100%;"/>
+					<input name="moni.MService" type="radio" value="正常" checked="checked"/>正常
+					<input name="moni.MService" type="radio" value="异常"/>异常
 				</td>
 			</tr>
 			<tr>
 				<td>机房网络设备：</td>
 				<td>
-					<input name="moni.MGeneratorDevice" type="text" style="width: 100%;"/>
+					<input name="moni.MGeneratorDevice" type="radio" value="正常" checked="checked"/>正常
+					<input name="moni.MGeneratorDevice" type="radio" value="异常"/>异常
 				</td>
 			</tr>
 			<tr>
 				<td>仓库摄像头：</td>
 				<td>
-					<input name="moni.MDepotCamera" type="text" style="width: 100%;"/>
+					<input name="moni.MDepotCamera" type="radio" value="正常" checked="checked"/>正常
+					<input name="moni.MDepotCamera" type="radio" value="异常" />异常
 				</td>
 			</tr>
 			<tr>
 				<td>仓库网络设备：</td>
 				<td>
-					<input name="moni.MDepotDevice" type="text" style="width: 100%;"/>
+					<input name="moni.MDepotDevice" type="radio" value="正常" checked="checked"/>正常
+					<input name="moni.MDepotDevice" type="radio" value="异常" />异常
 				</td>
 			</tr>
 			<tr>

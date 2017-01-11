@@ -40,5 +40,17 @@
         <property name="TNote" type="java.lang.String">
             <column name="t_note" />
         </property>
+        <property name="TCreateTime" type="java.sql.Timestamp">
+            <column name="t_create_time" length="19" />
+        </property>
+        <property name="TType" type="java.lang.String">
+            <column name="t_type" />
+        </property>
+        <property name="TState" type="java.lang.String">
+            <column name="t_state" />
+        </property>
+        <property name="UNum" type="java.lang.String">
+            <column name="u_num" />
+        </property>
     </class>
 </hibernate-mapping>

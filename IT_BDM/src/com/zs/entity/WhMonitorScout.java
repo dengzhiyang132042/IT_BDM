@@ -23,6 +23,10 @@ public class WhMonitorScout implements java.io.Serializable {
 	private String MDepotCamera;
 	private String MDepotDevice;
 	private String MNote;
+	private Timestamp MCreateTime;
+	private String MType;
+	private String MState;
+	private String UNum;
 
 	// Constructors
 
@@ -39,7 +43,8 @@ public class WhMonitorScout implements java.io.Serializable {
 	public WhMonitorScout(String MId, Date MDate, String MIt,
 			String MMonitorMaster, Timestamp MTime, String MVideo,
 			String MRoom, String MService, String MGeneratorDevice,
-			String MDepotCamera, String MDepotDevice, String MNote) {
+			String MDepotCamera, String MDepotDevice, String MNote,
+			Timestamp MCreateTime, String MType, String MState, String UNum) {
 		this.MId = MId;
 		this.MDate = MDate;
 		this.MIt = MIt;
@@ -52,6 +57,10 @@ public class WhMonitorScout implements java.io.Serializable {
 		this.MDepotCamera = MDepotCamera;
 		this.MDepotDevice = MDepotDevice;
 		this.MNote = MNote;
+		this.MCreateTime = MCreateTime;
+		this.MType = MType;
+		this.MState = MState;
+		this.UNum = UNum;
 	}
 
 	// Property accessors
@@ -150,6 +159,38 @@ public class WhMonitorScout implements java.io.Serializable {
 
 	public void setMNote(String MNote) {
 		this.MNote = MNote;
+	}
+
+	public Timestamp getMCreateTime() {
+		return this.MCreateTime;
+	}
+
+	public void setMCreateTime(Timestamp MCreateTime) {
+		this.MCreateTime = MCreateTime;
+	}
+
+	public String getMType() {
+		return this.MType;
+	}
+
+	public void setMType(String MType) {
+		this.MType = MType;
+	}
+
+	public String getMState() {
+		return this.MState;
+	}
+
+	public void setMState(String MState) {
+		this.MState = MState;
+	}
+
+	public String getUNum() {
+		return this.UNum;
+	}
+
+	public void setUNum(String UNum) {
+		this.UNum = UNum;
 	}
 
 }

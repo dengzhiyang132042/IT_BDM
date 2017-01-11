@@ -31,6 +31,7 @@ public class DeviceAction extends MyBaseAction implements IMyBaseAction{
 	private Page page;
 	private String result="device";
 	private String id;
+	private String cz;
 	private WhDeviceScout device;
 	private List<WhDeviceScout> devices;
 	private String dates;
@@ -107,6 +108,12 @@ public class DeviceAction extends MyBaseAction implements IMyBaseAction{
 	public void setPage(Page page) {
 		this.page = page;
 	}
+	public String getCz() {
+		return cz;
+	}
+	public void setCz(String cz) {
+		this.cz = cz;
+	}
 	//-------------------------------------------
 	public String add() throws Exception {
 		String dTime=getRequest().getParameter("d_time");
@@ -118,26 +125,30 @@ public class DeviceAction extends MyBaseAction implements IMyBaseAction{
  			String da1=new SimpleDateFormat("yyyy-MM-dd").format(device.getDDate());
  			Timestamp tit=new Timestamp(new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(da1+" "+dTime).getTime());
  			device.setDTime(tit);
-			ser.save(device);
+ 			device.setDCreateTime(new Timestamp(new Date().getTime()));
+ 			device.setDType("维护");
+ 			device.setDState("有效");
+ 			device.setUNum(user.getUNum());
+ 			ser.save(device);
 		}
-		device=null;
 		return gotoQuery();
 	}
 
 	public void clearOptions() {
-		if (id!=null) {
-			id=null;
-		}
-		if (dates!=null) {
-			dates=null;
-		}
-		if (datee!=null) {
-			datee=null;
+		id=null;
+		dates=null;
+		datee=null;
+		cz=null;
+		device=null;
+		devices=null;
+		if (page==null) {
+			page=new Page(1, 0, 10);
+		}else {
+			page.setPageOn(1);
 		}
 	}
 
 	public String delete() throws Exception {
-		String id=getRequest().getParameter("id");
 		device=(WhDeviceScout) ser.get(WhDeviceScout.class, id);
 		if (device!=null) {
 			ser.delete(device);
@@ -148,36 +159,29 @@ public class DeviceAction extends MyBaseAction implements IMyBaseAction{
 	}
 
 	public String gotoQuery() throws UnsupportedEncodingException {
-		String hql="from WhDeviceScout order by DTime desc";
+		clearOptions();
+		String hql="from WhDeviceScout where DState = '有效' order by DCreateTime desc DTime desc";
 		devices=ser.query(hql, null, hql, page, ser);
 		return result;
 	}
 
 	public String queryOfFenye() throws UnsupportedEncodingException {
-		id=getRequest().getParameter("id");
-		String cz=getRequest().getParameter("cz");//用于判断是否清理page，yes清理，no不清理
-		if (page==null) {
-			page=new Page(1, 0, 5);
-		}
+		clearSpace();
 		if (cz!=null && cz.equals("yes")) {
-			page=new Page(1, 0, 5);
 			clearOptions();
 		}
-		clearSpace();
-		if (id!=null) {
-			String hql="from WhDeviceScout where DId like '%"+id+"%'";
-			if(dates!=null&&!dates.equals("")){
-				hql=hql+" and DDate >='"+dates+"'";
-			}
-			if(datee!=null&&!datee.equals("")){
-				hql=hql+" and DDate <='"+datee+"'";
-			}
-			hql=hql+" order by DTime desc";
-			devices=ser.query(hql, null, hql, page, ser);
-		}else {
-			String hql="from WhDeviceScout order by DTime desc";
-			devices=ser.query(hql, null, hql, page, ser);
+		String hql="from WhDeviceScout where DState = '有效' ";
+		if (id!=null&&!id.equals("")) {
+			hql=hql+" and DId like '%"+id+"%'";
 		}
+		if(dates!=null&&!dates.equals("")){
+			hql=hql+" and DDate >='"+dates+"'";
+		}
+		if(datee!=null&&!datee.equals("")){
+			hql=hql+" and DDate <='"+datee+"'";
+		}
+		hql=hql+" order by DCreateTime desc DTime desc";
+		devices=ser.query(hql, null, hql, page, ser);
 		return result;
 	}
 
@@ -191,20 +195,32 @@ public class DeviceAction extends MyBaseAction implements IMyBaseAction{
 		if (datee!=null) {
 			datee=datee.trim();
 		}
+		if (cz!=null){
+			cz=cz.trim();
+		}
 	}
 
 	public String update() throws Exception {
 		WhDeviceScout device2=(WhDeviceScout) ser.get(WhDeviceScout.class, device.getDId());
+		device2.setDState("无效");
+		ser.update(device2);
+		
+		device.setDId("d"+NameOfDate.getNum());
 		String dTime=getRequest().getParameter("d_time");
 		device.setDDate(device2.getDDate());
 		device.setDIt(device2.getDIt());
+		Users user=(Users) getSession().getAttribute("user");
 		if (dTime!=null) {
  			String da1=new SimpleDateFormat("yyyy-MM-dd").format(device.getDDate());
  			Timestamp tit=new Timestamp(new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(da1+" "+dTime).getTime());
+ 			device.setDIt(user.getUName());
  			device.setDTime(tit);
- 			ser.update(device);
+ 			device.setDCreateTime(new Timestamp(new Date().getTime()));
+ 			device.setDType("维护");
+ 			device.setDState("有效");
+ 			device.setUNum(user.getUNum());
+ 			ser.save(device);
 		}
-		device=null;
 		return gotoQuery();
 	}
 	public String importExcel() throws UnsupportedEncodingException {
