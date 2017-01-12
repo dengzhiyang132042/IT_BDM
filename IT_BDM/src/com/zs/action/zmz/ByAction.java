@@ -227,6 +227,7 @@ public class ByAction extends MyBaseAction implements IMyBaseAction{
 			ZmByNumber zmby=(ZmByNumber) ser.get(ZmByNumber.class, by.getById());
 			zmby.setByState("无效");
 			ser.update(zmby);
+			getRequest().setAttribute("zmby", zmby);
 			
 			by.setById("by"+NameOfDate.getNum());
 			Users user=(Users) getSession().getAttribute("user");

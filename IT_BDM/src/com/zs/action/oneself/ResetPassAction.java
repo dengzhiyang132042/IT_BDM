@@ -47,6 +47,7 @@ public class ResetPassAction extends MyBaseAction{
 		String newPass = getRequest().getParameter("newPass");
 		user.setUPass(newPass);
 		ser.update(user);
+		getRequest().setAttribute("user",user);
 		user=null;
 		return "succ";
 	}
@@ -61,11 +62,12 @@ public class ResetPassAction extends MyBaseAction{
 		return result_info;
 	}
 	
-	public String updateInfo(){
+	public String updateInfo() throws UnsupportedEncodingException{
 		Users user = (Users) getSession().getAttribute("user");
 		user.setUName(u.getUName());
 		user.setUMail(u.getUMail());
 		ser.update(user);
+		getRequest().setAttribute("user", user);
 		return result_info;
 	}
 	

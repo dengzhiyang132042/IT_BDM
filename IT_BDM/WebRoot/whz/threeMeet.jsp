@@ -40,9 +40,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		$('#tt').show();
 	});
 	function trans_radio(str){
-		if (str=="是") {
+		if (str=="正常") {
 			return 0;
-		}else if (str=="否") {
+		}else if (str=="异常") {
 			return 1;
 		}
 	}
@@ -51,13 +51,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		$('#u_1').val(u1);
 		$('#u_2').val(u2);
 		$('#u_3').val(u3);
-		$('#u_4').val(u4);
-		$('#u_5').val(u5);
-		$('#u_6').val(u6);
-		$('#u_7').val(u7);
-		$('#u_8').val(u8);
-		$('#u_9').val(u9);
-		$('#u_10').val(u10);
+		$("#u_4_"+trans_radio(u4)).click();
+		$("#u_5_"+trans_radio(u5)).click();
+		$("#u_6_"+trans_radio(u6)).click();
+		$("#u_7_"+trans_radio(u7)).click();
+		$("#u_8_"+trans_radio(u8)).click();
+		$("#u_9_"+trans_radio(u9)).click();
+		$("#u_10_"+trans_radio(u10)).click();
 		$('#u_11').val(u11);
 	}
 	function page(no,cz){
@@ -152,9 +152,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<div class="easyui-panel" style="padding:5px;width: 100%;display: none;">
 		<form id="f1" action="<%=path %>/threeMeet!queryOfFenye?id=${id}&dates=${dates}&datee=${datee}" method="post">
 		<select id="sele" style="float: left;margin-top: 3px;margin-left: 5px;" name="page.size" onchange="$('#f1').submit();">
-			<option value="5">5</option>
 			<option value="10">10</option>
 			<option value="15">15</option>
+			<option value="20">20</option>
 		</select>
 		
 		<span style="float: left;margin-left: 5px;">
@@ -179,11 +179,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</div>
 	</div>
 	
-	<div id="u" class="easyui-window" title="修改" data-options="modal:true,closed:true" style="width:500px;height:auto;padding:10px;display: none;">
+	<div id="u" class="easyui-window" title="修改" data-options="modal:true,closed:true" style="width:300px;height:auto;padding:10px;display: none;">
 		<form action="<%=path %>/threeMeet!update" method="post">
 		<table border="0" class="table1">
 			<tr>
-				<td width="120">编号：</td>
+				<td width="80">编号：</td>
 				<td>
 					<input id="u_1" name="tm.TId" type="text" style="width: 100%;" readonly="readonly"/>
 				</td>
@@ -195,51 +195,52 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				</td>
 			</tr>
 			<tr>
-				<td>巡检IT：</td>
-				<td> 
-					<input id="u_3" name="tm.TIt" type="text" style="width: 100%;" readonly="readonly"/>
-				</td>
-			</tr>
-			<tr>
 				<td>电脑主机：</td>
 				<td>
-					<input id="u_4" name="tm.TComputer" type="text" style="width: 100%;"/>
+					<input id="u_4_0" name="tm.TComputer" type="radio" value="正常" checked="checked"/>正常
+					<input id="u_4_1" name="tm.TComputer" type="radio" value="异常" />异常
 				</td>
 			</tr>
 			<tr>
 				<td>监控时间：</td>
 				<td>
-					<input id="u_5" name="tm.TMonitor" type="text" style="width: 100%;"/>
+					<input id="u_5_0" name="tm.TMonitor" type="radio" value="正常" checked="checked"/>正常
+					<input id="u_5_1" name="tm.TMonitor" type="radio" value="异常" />异常
 				</td>
 			</tr>
 			<tr>
 				<td>录像：</td>
 				<td>
-					<input id="u_6" name="tm.TVideo" type="text" style="width: 100%;"/>
+					<input id="u_6_0" name="tm.TVideo" type="radio" value="正常" checked="checked"/>正常
+					<input id="u_6_1" name="tm.TVideo" type="radio" value="异常" />异常
 				</td>
 			</tr>
 			<tr>
 				<td>监控屏：</td>
 				<td>
-					<input id="u_7" name="tm.TMonitorScreen" type="text" style="width: 100%;"/>
+					<input id="u_7_0" name="tm.TMonitorScreen" type="radio" value="正常" checked="checked"/>正常
+					<input id="u_7_1" name="tm.TMonitorScreen" type="radio" value="异常" />异常
 				</td>
 			</tr>
 			<tr>
 				<td>键盘鼠标：</td>
 				<td>
-					<input id="u_8" name="tm.TMouseKeyboard" type="text" style="width: 100%;"/>
+					<input id="u_8_0" name="tm.TMouseKeyboard" type="radio" value="正常" checked="checked"/>正常
+					<input id="u_8_1" name="tm.TMouseKeyboard" type="radio" value="异常" />异常
 				</td>
 			</tr>
 			<tr>
 				<td>投影仪：</td>
 				<td>
-					<input id="u_9" name="tm.TProjector" type="text" style="width: 100%;"/>
+					<input id="u_9_0" name="tm.TProjector" type="radio" value="正常" checked="checked"/>正常
+					<input id="u_9_1" name="tm.TProjector" type="radio" value="异常" />异常
 				</td>
 			</tr>
 			<tr>
 				<td>韵达软件：</td>
 				<td>
-					<input id="u_10" name="tm.TYdSoftware" type="text" style="width: 100%;"/>
+					<input id="u_10_0" name="tm.TYdSoftware" type="radio" value="正常" checked="checked"/>正常
+					<input id="u_10_1" name="tm.TYdSoftware" type="radio" value="异常" />异常
 				</td>
 			</tr>
 			<tr>
@@ -257,11 +258,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</form>
 	</div>
 	
-	<div id="a" class="easyui-window" title="添加" data-options="modal:true,closed:true" style="width:500px;height:auto;padding:10px;display: none;">
+	<div id="a" class="easyui-window" title="添加" data-options="modal:true,closed:true" style="width:300px;height:auto;padding:10px;display: none;">
 		<form action="<%=path %>/threeMeet!add" method="post">
 		<table border="0" class="table1">
 			<tr>
-				<td width="120">日期：</td>
+				<td width="80">日期：</td>
 				<td>
 					<input name="tm.TDate" type="text" style="width: 100%;" onfocus="WdatePicker({readOnly:true,dateFmt:'yyyy-MM-dd'})" class="Wdate" value="<%=new SimpleDateFormat("yyyy-MM-dd").format(new Date())%>"/>
 				</td>
@@ -269,43 +270,50 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<tr>
 				<td>电脑主机：</td>
 				<td>
-					<input name="tm.TComputer" type="text" style="width: 100%;"/>
+					<input name="tm.TComputer" type="radio" value="正常" checked="checked"/>正常
+					<input name="tm.TComputer" type="radio" value="异常" />异常
 				</td>
 			</tr>
 			<tr>
 				<td>监控时间：</td>
 				<td>
-					<input name="tm.TMonitor" type="text" style="width: 100%;"/>
+					<input name="tm.TMonitor" type="radio" value="正常" checked="checked"/>正常
+					<input name="tm.TMonitor" type="radio" value="异常" />异常
 				</td>
 			</tr>
 			<tr>
 				<td>录像：</td>
 				<td>
-					<input name="tm.TVideo" type="text" style="width: 100%;"/>
+					<input name="tm.TVideo" type="radio" value="正常" checked="checked"/>正常
+					<input name="tm.TVideo" type="radio" value="异常" />异常
 				</td>
 			</tr>
 			<tr>
 				<td>监控屏：</td>
 				<td>
-					<input name="tm.TMonitorScreen" type="text" style="width: 100%;"/>
+					<input name="tm.TMonitorScreen" type="radio" value="正常" checked="checked"/>正常
+					<input name="tm.TMonitorScreen" type="radio" value="异常" />异常
 				</td>
 			</tr>
 			<tr>
 				<td>键盘鼠标：</td>
 				<td>
-					<input name="tm.TMouseKeyboard" type="text" style="width: 100%;"/>
+					<input name="tm.TMouseKeyboard" type="radio" value="正常" checked="checked"/>正常
+					<input name="tm.TMouseKeyboard" type="radio" value="异常" />异常
 				</td>
 			</tr>
 			<tr>
 				<td>投影仪：</td>
 				<td>
-					<input name="tm.TProjector" type="text" style="width: 100%;"/>
+					<input name="tm.TProjector" type="radio" value="正常" checked="checked"/>正常
+					<input name="tm.TProjector" type="radio" value="异常" />异常
 				</td>
 			</tr>
 			<tr>
 				<td>韵达软件：</td>
 				<td>
-					<input name="tm.TYdSoftware" type="text" style="width: 100%;"/>
+					<input name="tm.TYdSoftware" type="radio" value="正常" checked="checked"/>正常
+					<input name="tm.TYdSoftware" type="radio" value="异常" />异常
 				</td>
 			</tr>
 			<tr>

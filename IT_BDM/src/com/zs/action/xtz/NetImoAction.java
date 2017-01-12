@@ -250,6 +250,8 @@ public class NetImoAction extends MyBaseAction{
 			XtNetImo uimo = (XtNetImo) ser.get(XtNetImo.class, imo.getIId());
 			uimo.setIState("无效");
 			ser.update(uimo);
+			getRequest().setAttribute("uimo", uimo);
+			
 			imo.setIId("i"+NameOfDate.getNum());
 			Users users=(Users) getSession().getAttribute("user");
 			imo.setIIt(users.getUName());
@@ -257,6 +259,8 @@ public class NetImoAction extends MyBaseAction{
 			imo.setIServiceDate(new Timestamp(new Date().getTime()));
 			imo.setIState("有效");
 			ser.save(imo);
+			getRequest().setAttribute("imo", imo);
+			
 			if(childNumStart!=null&&!childNumStart.equals("")){
 				ChildNum cn = new ChildNum();
 				cn.setNId(NameOfDate.getNum());

@@ -190,6 +190,7 @@ public class HitchesAction extends MyBaseAction{
 			XtHitches xh = (XtHitches) ser.get(XtHitches.class, h.getHId());
 			xh.setHState("无效");
 			ser.update(xh);
+			getRequest().setAttribute("xh",xh);
 			
 			h.setHId(NameOfDate.getNum());
 			SimpleDateFormat format=new SimpleDateFormat("yyyy-MM-dd HH:mm");

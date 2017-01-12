@@ -192,6 +192,7 @@ public class MonitorAction extends MyBaseAction{
 		WhMonitorScout wms = (WhMonitorScout) ser.get(WhMonitorScout.class, moni.getMId());
 		wms.setMState("无效");
 		ser.update(wms);
+		getRequest().setAttribute("wms",wms);
 		
 		moni.setMId("m"+NameOfDate.getNum());
 		moni.setMIt(user.getUName());
@@ -226,6 +227,7 @@ public class MonitorAction extends MyBaseAction{
 	 			moni.setMState("有效");
 	 			moni.setUNum(user.getUNum());
 	 			ser.save(moni);
+	 			getRequest().setAttribute("moni",moni);
 			}
 			getRequest().setAttribute("moni", moni);
 		}

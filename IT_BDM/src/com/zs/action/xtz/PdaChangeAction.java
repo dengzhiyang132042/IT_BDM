@@ -215,6 +215,7 @@ public class PdaChangeAction extends MyBaseAction{
 			XtPdaChange pdachange=(XtPdaChange) ser.get(XtPdaChange.class, pda.getCId());
 			pdachange.setCState("无效");
 			ser.update(pdachange);
+			getRequest().setAttribute("pdachange", pdachange);
 			
 			pda.setCId("c"+NameOfDate.getNum());
 			pda.setCDate(pdachange.getCDate());

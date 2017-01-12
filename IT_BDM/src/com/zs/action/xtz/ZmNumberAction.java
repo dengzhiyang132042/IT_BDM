@@ -213,6 +213,7 @@ public class ZmNumberAction extends MyBaseAction{
 			XtZmNumber number=(XtZmNumber) ser.get(XtZmNumber.class, zmn.getZmId());
 			number.setZmState("无效");
 			ser.update(number);
+			getRequest().setAttribute("number", number);
 			
 			zmn.setZmId(NameOfDate.getNum());
 			zmn.setZmServiceMaster(number.getZmServiceMaster());

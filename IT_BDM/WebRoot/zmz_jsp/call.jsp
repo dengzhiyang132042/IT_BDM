@@ -1,4 +1,5 @@
 <%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
+<%@page import="java.text.SimpleDateFormat"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%
@@ -66,15 +67,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			$('#page').val(${page.pageMax});
 		}
 		$('#f1').submit();
-	}
-	function defualtTime(){
-		//初始化时间控件
-	    var now = new Date() ;
-	    var nowYear = now.getFullYear() ; //年
-	    var nowMonth = now.getMonth()+1<10?"0"+(now.getMonth()+1):now.getMonth() ; //月
-	    var nowDay = now.getDate()<10?"0"+now.getDate():now.getDate() ; //日期
-	    var nowDate = nowYear+"-"+nowMonth+"-"+nowDay ;
-	    $("#ctime").val(nowDate) ;
 	}
 	</script>
 	
@@ -193,11 +185,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</div>
 	</div>
 	
-	<div id="u" class="easyui-window" title="修改" data-options="modal:true,closed:true" style="width:400px;height:auto;padding:10px;display: none;">
+	<div id="u" class="easyui-window" title="修改" data-options="modal:true,closed:true" style="width:300px;height:auto;padding:10px;display: none;">
 		<form action="<%=path %>/call!update" method="post">
 		<table border="0" class="table1">
 			<tr>
-				<td>编号：</td>
+				<td width="80">编号：</td>
 				<td>
 					<input id="u_1" name="call.CId" type="text" style="width: 100%;" readonly="readonly"/>
 				</td>
@@ -271,13 +263,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</form>
 	</div>
 	
-	<div id="a" class="easyui-window" title="添加" data-options="modal:true,closed:true" style="width:400px;height:auto;padding:10px;display: none;">
+	<div id="a" class="easyui-window" title="添加" data-options="modal:true,closed:true" style="width:300px;height:auto;padding:10px;display: none;">
 		<form action="<%=path %>/call!add" method="post">
 		<table border="0" class="table1">
 			<tr>
-				<td>维护日期：</td>
+				<td width="80">维护日期：</td>
 				<td>
-					<input id="ctime" name="call.CDate" type="date" style="width: 100%;"/>
+					<input name="call.CDate" type="text" style="width: 100%;" onfocus="WdatePicker({readOnly:true,dateFmt:'yyyy-MM-dd'})" class="Wdate" value="<%=new SimpleDateFormat("yyyy-MM-dd").format(new Date())%>"/>
 				</td>
 			</tr>
 			<tr>

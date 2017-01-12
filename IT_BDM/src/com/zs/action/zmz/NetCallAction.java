@@ -242,6 +242,8 @@ public class NetCallAction extends MyBaseAction{
 			ZmNetCall znc = (ZmNetCall) ser.get(ZmNetCall.class, c.getNId());
 			znc.setNState("无效");
 			ser.update(znc);
+			getRequest().setAttribute("znc", znc);
+			
 			c.setNId("i"+NameOfDate.getNum());
 			c.setNCreateDate(new Timestamp(new Date().getTime()));
 			Calendar ca = Calendar.getInstance();
@@ -254,6 +256,7 @@ public class NetCallAction extends MyBaseAction{
 			}
 			c.setNState("有效");
 			ser.save(c);
+			getRequest().setAttribute("c", c);
 		}
 		return gotoQuery();
 	}
@@ -273,6 +276,7 @@ public class NetCallAction extends MyBaseAction{
 			}
 			c.setNState("有效");
 			ser.save(c);
+			getRequest().setAttribute("c", c);
 		}
 		return gotoQuery();
 	}	

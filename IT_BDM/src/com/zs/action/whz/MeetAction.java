@@ -123,7 +123,12 @@ public class MeetAction extends MyBaseAction implements IMyBaseAction{
 		if (user!=null && m!=null && m.getMDate()!=null) {
 			m.setMId("m"+NameOfDate.getNum());
 			m.setMIt(user.getUName());
+			m.setMCreateTime(new Timestamp(new Date().getTime()));
+			m.setMType("维护");
+			m.setMState("有效");
+			m.setUNum(user.getUNum());
 			ser.save(m);
+			getRequest().setAttribute("m",m);
 		}
 		return gotoQuery();
 	}
@@ -135,6 +140,11 @@ public class MeetAction extends MyBaseAction implements IMyBaseAction{
 		datee=null;
 		m=null;
 		ms=null;
+		if (page==null) {
+			page=new Page(1, 0, 10);
+		}else {
+			page.setPageOn(1);
+		}
 	}
 
 	public String delete() throws Exception {
@@ -151,7 +161,7 @@ public class MeetAction extends MyBaseAction implements IMyBaseAction{
 	public String gotoQuery() throws UnsupportedEncodingException {
 		clearSpace();
 		clearOptions();
-		String hql="from WhMeetingScout order by MDate desc";
+		String hql="from WhMeetingScout where MState ='有效' order by MCreateTime desc MDate desc";
 		ms=ser.query(hql, null, hql, page, ser);
 		return result;
 	}
@@ -160,25 +170,19 @@ public class MeetAction extends MyBaseAction implements IMyBaseAction{
 		clearSpace();
 		if (cz!=null && cz.equals("yes")) {
 			clearOptions();
-			page=new Page(1, 0, 5);
 		}
-		if (page==null) {
-			page=new Page(1, 0, 5);
+		String hql="from WhMeetingScout where MState ='有效' ";
+		if (id!=null&&!id.equals("")) {
+			hql=hql+" and  MId like '%"+id+"%'";
 		}
-		if (id!=null) {
-			String hql="from WhMeetingScout where MId like '%"+id+"%'";
-			if(dates!=null&&!dates.equals("")){
-				hql=hql+" and MDate >='"+dates+"'";
-			}
-			if(datee!=null&&!datee.equals("")){
-				hql=hql+" and MDate <='"+datee+" 23:59:59'";
-			}
-			hql=hql+" order by MDate desc";
-			ms=ser.query(hql, null, hql, page, ser);
-		}else {
-			String hql="from WhMeetingScout order by MDate desc";
-			ms=ser.query(hql, null, hql, page, ser);
+		if(dates!=null&&!dates.equals("")){
+			hql=hql+" and MDate >='"+dates+"'";
 		}
+		if(datee!=null&&!datee.equals("")){
+			hql=hql+" and MDate <='"+datee+" 23:59:59'";
+		}
+		hql=hql+" order by MCreateTime desc MDate desc";
+		ms=ser.query(hql, null, hql, page, ser);
 		return result;
 	}
 
@@ -199,8 +203,21 @@ public class MeetAction extends MyBaseAction implements IMyBaseAction{
 
 	public String update() throws Exception {
 		clearSpace();
+		WhMeetingScout tmp = (WhMeetingScout) ser.get(WhMeetingScout.class, m.getMId());
+		tmp.setMState("无效");
+		ser.update(tmp);
+		getRequest().setAttribute("tmp",tmp);
+		
+		Users user=(Users) getSession().getAttribute("user");
 		if (m!=null) {
- 			ser.update(m);
+			m.setMId("m"+NameOfDate.getNum());
+			m.setMIt(user.getUName());
+			m.setMCreateTime(new Timestamp(new Date().getTime()));
+			m.setMType("维护");
+			m.setMState("有效");
+			m.setUNum(user.getUNum());
+			ser.save(m);
+			getRequest().setAttribute("m",m);
 		}
 		return gotoQuery();
 	}

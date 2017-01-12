@@ -258,6 +258,7 @@ public class SiteAction extends MyBaseAction{
 			xtSite.setSState("无效");
 			ser.update(xtSite);
 			ser.save(site);
+			getRequest().setAttribute("xtSite", xtSite);
 			getRequest().setAttribute("site", site);
 		}
 		return gotoQuery();

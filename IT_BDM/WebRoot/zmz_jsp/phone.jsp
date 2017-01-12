@@ -183,6 +183,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<input id="u_1" name="phone.PId" type="text" style="width: 100%;" readonly="readonly"/>
 				</td>
 			</tr>
+			<!-- 
 			<tr>
 				<td>节点A：</td>
 				<td>
@@ -201,6 +202,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<input id="u_4" name="phone.PC" type="text" style="width: 100%;"/>
 				</td>
 			</tr>
+			 -->
 			<!-- 
 			<tr>
 				<td>节点D：</td>
@@ -257,6 +259,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<div id="a" class="easyui-window" title="添加" data-options="modal:true,closed:true" style="width:400px;height:auto;padding:10px;display: none;">
 		<form action="<%=path %>/phone!add" method="post">
 		<table border="0" class="table1">
+			<!-- 
 			<tr>
 				<td>节点A：</td>
 				<td>
@@ -275,7 +278,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<input name="phone.PC" type="text" style="width: 100%;"/>
 				</td>
 			</tr>
-			<!-- 
 			<tr>
 				<td>节点D：</td>
 				<td>
