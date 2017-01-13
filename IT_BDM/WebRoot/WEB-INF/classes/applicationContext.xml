@@ -307,6 +307,9 @@
 	<bean id="zs_interceptor_timeline" class="com.zs.interceptor.TimelineInterceptor">
 		<property name="ser" ref="zs_ser"></property>
 	</bean>
+	<bean id="zs_interceptor_SCT" class="com.zs.interceptor.SCTInterceptor">
+		<property name="ser" ref="zs_ser"></property>
+	</bean>
 	<!-- 
 	<bean id="zs_interceptor_cache" class="com.zs.interceptor.CacheInterceptor">
 		<property name="ser" ref="zs_ser"></property>
