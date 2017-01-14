@@ -33,6 +33,7 @@ public class FbdAsdlAction extends MyBaseAction{
 	String asdlInput;
 	String asdlNum;
 	String asdlState;
+	String cz;
 	
 	private Logger logger=Logger.getLogger(FbdAsdlAction.class);
 	
@@ -97,6 +98,13 @@ public class FbdAsdlAction extends MyBaseAction{
 	public void setSer(IService ser) {
 		this.ser = ser;
 	}
+	public String getCz() {
+		return cz;
+	}
+	public void setCz(String cz) {
+		this.cz = cz;
+	}
+	
 	//--------------------------------------------------
 	private void clearOptions() {
 		id=null;
@@ -105,6 +113,12 @@ public class FbdAsdlAction extends MyBaseAction{
 		asdlInput=null;
 		asdlNum=null;
 		asdlState=null;
+		cz=null;
+		if (page==null) {
+			page=new Page(1, 0, 10);
+		}else {
+			page.setPageOn(1);
+		}
 	}
 	
 	private void clearSpace() {
@@ -130,44 +144,48 @@ public class FbdAsdlAction extends MyBaseAction{
 	
 	
 	public String queryOfFenyeAsdl() throws UnsupportedEncodingException {
-		id=getRequest().getParameter("id");
-		String cz=getRequest().getParameter("cz");//用于判断是否清理page，yes清理，no不清理
-		if (page==null) {
-			page=new Page(1, 0, 5);
-		}
+		clearSpace();
 		if (cz!=null && cz.equals("yes")) {
-			page=new Page(1, 0, 5);
 			clearOptions();
 		}
 		if (asdl==null) {
 			asdl=new FbdAsdl("");
 		}
-		
-		clearSpace();
+		String hql2="from FbdAsdl where 1=1 ";
 		if (id!=null) {
-			String hql2="from FbdAsdl where asdlId like '%"+id+"%'";
-			if (fbdName!=null && !fbdName.trim().equals("")) {
-				hql2="from FbdAsdl where fbdId in (select fbdId from SectionFenbodian where fbdName like '%"+fbdName+"%')";
-			}
-			if (fbdMaster!=null &&!fbdMaster.trim().equals("")){
-				hql2="from FbdAsdl where fbdId in (select fbdId from SectionFenbodian where fbdMaster like'%"+fbdMaster+"%')";
-			}
-			if (asdlInput!=null &&!asdlInput.trim().equals("")){
-				hql2 = hql2 + " and asdlInput like '%"+asdlInput+"%'";
-			}
-			if (asdlNum != null && !asdlNum.trim().equals("")){
-				hql2 = hql2 + "and asdlNum like '%"+asdlNum+"%'";
-			}
-			if (asdlState != null && !asdlState.trim().equals("")){
-				hql2 = hql2 + "and asdlState like '%"+asdlState+"%'";
-			}
-			asdls=ser.query(hql2, null, hql2, page, ser);
-		}else {
-			String hql="from FbdAsdl";
-			String ss[]={};
-			String hql2="from FbdAsdl";
-			asdls=ser.query(hql, ss, hql2, page, ser);
+			hql2=hql2+" and asdlId like '%"+id+"%'";
 		}
+		if (fbdName!=null && !fbdName.trim().equals("")) {
+			hql2="from FbdAsdl where fbdId in (select fbdId from SectionFenbodian where fbdName like '%"+fbdName+"%')";
+		}
+		if (fbdMaster!=null &&!fbdMaster.trim().equals("")){
+			hql2="from FbdAsdl where fbdId in (select fbdId from SectionFenbodian where fbdMaster like'%"+fbdMaster+"%')";
+		}
+		if (asdlInput!=null &&!asdlInput.trim().equals("")){
+			hql2 = hql2 + " and asdlInput like '%"+asdlInput+"%'";
+		}
+		if (asdlNum != null && !asdlNum.trim().equals("")){
+			hql2 = hql2 + "and asdlNum like '%"+asdlNum+"%'";
+		}
+		if (asdlState != null && !asdlState.trim().equals("")){
+			hql2 = hql2 + "and asdlState like '%"+asdlState+"%'";
+		}
+		asdls=ser.query(hql2, null, hql2, page, ser);
+		//带上分部区部分拨点信息
+		for (int i = 0; i < asdls.size(); i++) {
+			SectionFenbodian fbd=(SectionFenbodian) ser.get(SectionFenbodian.class, asdls.get(i).getFbdId());
+			SectionFenbu fb=(SectionFenbu) ser.get(SectionFenbu.class, fbd.getFbId());
+			SectionQubu qb=(SectionQubu) ser.get(SectionQubu.class, fb.getQbId());
+			fb.setQb(qb);
+			fbd.setFb(fb);
+			asdls.get(i).setFbd(fbd);
+		}
+		ser.receiveStructure(getRequest());
+		return result_asdl;
+	}
+	public String gotoQuery() throws UnsupportedEncodingException{
+		String hql2="from FbdAsdl";
+		asdls=ser.query(hql2, null, hql2, page, ser);
 		//带上分部区部分拨点信息
 		for (int i = 0; i < asdls.size(); i++) {
 			SectionFenbodian fbd=(SectionFenbodian) ser.get(SectionFenbodian.class, asdls.get(i).getFbdId());
@@ -188,7 +206,7 @@ public class FbdAsdlAction extends MyBaseAction{
 			ser.delete(asdl);
 		}
 		asdl=null;
-		return result_succ;
+		return gotoQuery();
 	}
 	
 	public String updateAsdl() throws Exception {
@@ -197,7 +215,7 @@ public class FbdAsdlAction extends MyBaseAction{
 		}
 		getRequest().setAttribute("asdl", asdl); 
 		asdl=null;
-		return result_succ;
+		return gotoQuery();
 	}
 	
 	public String addAsdl() throws Exception {
@@ -208,7 +226,7 @@ public class FbdAsdlAction extends MyBaseAction{
 		getRequest().setAttribute("asdl", asdl);
 		System.out.println("1111  "+asdl.getAsdlId());
 		asdl=null;
-		return result_succ;
+		return gotoQuery();
 	}
 	
 	

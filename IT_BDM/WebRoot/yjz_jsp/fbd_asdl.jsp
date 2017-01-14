@@ -87,8 +87,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		    		</div>
 	    		</div>
 	    		<div>
-		    		<div>
-			    		编号:<input name="id" type="text" value="${id }"/>
+	    			<div>
+			    		状态：<input name="asdlState" type="text" value="${asdlState }"/>
 		    		</div>
 	    			<div>
 	    				承包人：<input name="fbdMaster" type="text" value="${fbdMaster }"/>
@@ -100,13 +100,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		    		</div>
 	    			<div>
 	    				账号：<input name="asdlNum" type="text" value="${asdlNum }"/>
-	    			</div>
-	    		</div>
-	    		<div>
-		    		<div>
-			    		状态：<input name="asdlState" type="text" value="${asdlState }"/>
-		    		</div>
-	    			<div>
 	    			</div>
 	    		</div>
 	    	</form>
@@ -123,18 +116,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    <table border="1" id="eidtASubjectWindow1">
 	    <tr>
 	    	<th>编号</th>
-	    	<th>区部</th>
-	    	<th>分部</th>
-	    	<th>分部经理</th>
-	    	<th>联系电话</th>
-	    	<th>分拨点</th>
+	    	<th width="50">区部</th>
+	    	<th width="60">分部</th>
+	    	<th width="40">分部经理</th>
+	    	<th width="85">联系电话</th>
+	    	<th width="40">分拨点</th>
 	    	<th>承包人</th>
 	    	<th>联系电话</th>
-	    	<th>地址</th>
+	    	<th width="200">地址</th>
 	    	<th>接入号</th>
 	    	<th>账号</th>
 	    	<th>密码</th>
-	    	<th>包年资费</th>
+	    	<th width="60">包年资费</th>
 	    	<th>合约到期</th>
 	    	<th>续约提醒</th>
 	    	<th>备注</th>
@@ -161,7 +154,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<td width="">${asdl.asdlNote }</td>
 			<td width="">${asdl.asdlState }</td>
 			<td width="5%" align="center">
-				<a onclick="update('${asdl.fbd.fbdId }','${asdl.asdlInput }','${asdl.asdlNum }','${asdl.asdlPass }','${asdl.asdlFeeYear }','${asdl.asdlTimeExpire }','${asdl.asdlContract }','${asdl.asdlNote }','${asdl.asdlState }','${asdl.asdlId }')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-edit'" title="修改"></a>
+				<a onclick="update('${asdl.fbd.fbdId }','${asdl.asdlInput }','${asdl.asdlNum }','${asdl.asdlPass }',
+				'${asdl.asdlFeeYear }','<fmt:formatDate value="${asdl.asdlTimeExpire }" pattern="yyyy-MM-dd" />',
+				'${asdl.asdlContract }','${asdl.asdlNote }','${asdl.asdlState }','${asdl.asdlId }')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-edit'" title="修改"></a>
 				<a href="<%=path %>/fbd_asdl!deleteAsdl?id=${asdl.asdlId}" onclick="return confirm('确定删除吗?')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-delete'" title="删除"></a>
 			</td>
 	    </tr>
