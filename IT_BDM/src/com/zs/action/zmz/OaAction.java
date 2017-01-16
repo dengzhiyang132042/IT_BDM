@@ -231,7 +231,7 @@ public class OaAction extends MyBaseAction implements IMyBaseAction{
 	}
 
 	public String gotoQuery() throws UnsupportedEncodingException {
-		String hql="from ZmOaNumber where OState ='有效' order by OCreateTime desc ODate desc";
+		String hql="from ZmOaNumber where OState ='有效' order by OCreateTime desc,ODate desc";
 		oas=ser.query(hql, null, hql, page, ser);
 		return result;
 	}
@@ -263,7 +263,7 @@ public class OaAction extends MyBaseAction implements IMyBaseAction{
 		if(datee!=null && !"".equals(datee)){
 			hql=hql+" and ODate <= '"+datee+"'";
 		}
-		hql=hql+" order by OCreateTime desc ODate desc";
+		hql=hql+" order by OCreateTime desc,ODate desc";
 		oas=ser.query(hql, null, hql, page, ser);
 		return result;
 	}

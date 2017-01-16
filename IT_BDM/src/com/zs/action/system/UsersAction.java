@@ -118,6 +118,7 @@ public class UsersAction extends MyBaseAction{
 	public String add() throws UnsupportedEncodingException {
 		if(u!=null){
 			u.setUStartTime(new Timestamp(new Date().getTime()));
+			u.setUState("在职");
 			ser.save(u);
 		}
 		getRequest().setAttribute("u", u);

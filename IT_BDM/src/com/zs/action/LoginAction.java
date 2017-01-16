@@ -44,7 +44,13 @@ public class LoginAction extends MyBaseAction{
 			if (user==null) {
 				hint="用户不存在";
 				return result_login;
-			}else if (user.getUPass().equals(u.getUPass())) {
+			}else if (!user.getUPass().equals(u.getUPass())) {
+				hint="密码错误";
+				return result_login;
+			}else if(user.getUState()!=null && user.getUState().equals("离职")){
+				hint="该用户已离职";
+				return result_login;
+			}else {
 				hint="登录成功";
 				Role r=(Role) ser.get(Role.class, user.getRId());
 				List<Permission> ps=ser.find("from Permission where PId in(select PId from RolePermission where RId=?)", new String[]{r.getRId()});
@@ -55,9 +61,6 @@ public class LoginAction extends MyBaseAction{
 				//存主题
 				getSession().setAttribute("theme", "bootstrap");
 				return SUCCESS;
-			}else {
-				hint="密码错误";
-				return result_login;
 			}
 		}else {
 			return result_fail; 

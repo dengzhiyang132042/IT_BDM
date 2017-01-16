@@ -2,6 +2,8 @@ package com.zs.entity;
 
 import java.sql.Timestamp;
 
+import org.apache.poi.ss.formula.ptg.PowerPtg;
+
 /**
  * Users entity. @author MyEclipse Persistence Tools
  */
@@ -18,32 +20,31 @@ public class Users implements java.io.Serializable {
 	private Timestamp UStartTime;
 	private String RId;
 	private String UMail;
-	
+	private String UState;
+
+	// Constructors
 	private Role r;
 	
-	public String getUMail() {
-		return UMail;
-	}
-	public void setUMail(String uMail) {
-		UMail = uMail;
-	}
-	// Constructors
 	public Role getR() {
 		return r;
 	}
 	public void setR(Role r) {
 		this.r = r;
 	}
+
 	/** default constructor */
 	public Users() {
 	}
+
 	/** minimal constructor */
 	public Users(String UNum) {
 		this.UNum = UNum;
 	}
+
 	/** full constructor */
 	public Users(String UNum, String UPass, String UName, String UCs,
-			String UJob, Timestamp UStartTime, String RId,String UMail) {
+			String UJob, Timestamp UStartTime, String RId, String UMail,
+			String UState) {
 		this.UNum = UNum;
 		this.UPass = UPass;
 		this.UName = UName;
@@ -51,7 +52,8 @@ public class Users implements java.io.Serializable {
 		this.UJob = UJob;
 		this.UStartTime = UStartTime;
 		this.RId = RId;
-		this.UMail=UMail;
+		this.UMail = UMail;
+		this.UState = UState;
 	}
 
 	// Property accessors
@@ -111,11 +113,21 @@ public class Users implements java.io.Serializable {
 	public void setRId(String RId) {
 		this.RId = RId;
 	}
-	
-	@Override
-	public String toString() {
-		// TODO Auto-generated method stub
-		return getUNum()+" "+getUPass()+" "+getUName();
+
+	public String getUMail() {
+		return this.UMail;
+	}
+
+	public void setUMail(String UMail) {
+		this.UMail = UMail;
+	}
+
+	public String getUState() {
+		return this.UState;
+	}
+
+	public void setUState(String UState) {
+		this.UState = UState;
 	}
 
 }

@@ -508,7 +508,11 @@ public class BaseService implements IService{
 				perform.setPTimeString(perform.getPTime().toString());
 				if (perform.getUNum()!=null && !"".equals(perform.getUNum())) {
 					Users u1=(Users) this.get(Users.class, perform.getUNum());
-					perform.setUName(u1.getUName());
+					if (u1==null) {
+						perform.setUName("该用户已被删除，无法获取:"+perform.getUNum());
+					}else {
+						perform.setUName(u1.getUName());
+					}
 				}
 				if (perform.getUNumNext()!=null && !"".equals(perform.getUNumNext())) {
 					Users u2=(Users) this.get(Users.class, perform.getUNumNext());

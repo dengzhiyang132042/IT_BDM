@@ -34,12 +34,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		padding: 3px;
 	}
 	</style>
+	<script type="text/javascript">
+	$(function(){
+		$("#sele option[value='${userid }']").attr("selected",true);
+	});
+	</script>
   </head>
   
   <body>
   	<div style="color: blue;font-weight: bold;">今天的时间轴:${username }</div>
   	<form action="<%=path %>/timeline!query" method="post">
-  	<select name="userid">
+  	<select id="sele" name="userid">
   		<c:forEach items="${listUsers}" var="u">
   		<option value="${u.UNum }">${u.UName }</option>
   		</c:forEach>

@@ -1,8 +1,7 @@
 a{ text-decoration:none;}
 body{
-	margin:0px;
+	margin: 0px;
 	padding: 3px;
-	padding-right: 10px;
 }
 table{
 	border: #cccccc;
@@ -194,4 +193,7 @@ form{
 	text-align: right;
 	width: 250px;
 	float: left;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
 }
