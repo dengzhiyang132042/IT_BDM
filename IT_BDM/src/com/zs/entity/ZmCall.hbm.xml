@@ -40,5 +40,17 @@
         <property name="CNote" type="java.lang.String">
             <column name="c_note" />
         </property>
+        <property name="CCreateTime" type="java.sql.Timestamp">
+            <column name="c_create_time" length="19" />
+        </property>
+        <property name="CType" type="java.lang.String">
+            <column name="c_type" />
+        </property>
+        <property name="CState" type="java.lang.String">
+            <column name="c_state" />
+        </property>
+        <property name="UNum" type="java.lang.String">
+            <column name="u_num" />
+        </property>
     </class>
 </hibernate-mapping>

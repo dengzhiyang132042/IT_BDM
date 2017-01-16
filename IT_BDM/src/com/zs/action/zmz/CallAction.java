@@ -5,23 +5,17 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.sql.Timestamp;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-import javax.xml.registry.infomodel.User;
 
 import org.apache.log4j.Logger;
 
 import com.zs.action.IMyBaseAction;
 import com.zs.action.MyBaseAction;
-import com.zs.entity.GoOut;
 import com.zs.entity.Users;
-import com.zs.entity.XtSite;
-import com.zs.entity.ZmByNumber;
 import com.zs.entity.ZmCall;
-import com.zs.entity.ZmVpn;
 import com.zs.service.IService;
 import com.zs.service.iDataImportService;
 import com.zs.tools.NameOfDate;
@@ -46,6 +40,7 @@ public class CallAction extends MyBaseAction implements IMyBaseAction{
 	String phone;
 	String dates;
 	String datee;
+	String cz;
 	
 	
 	private Logger logger=Logger.getLogger(CallAction.class);
@@ -144,6 +139,12 @@ public class CallAction extends MyBaseAction implements IMyBaseAction{
 	public void setPhone(String phone) {
 		this.phone = phone;
 	}
+	public String getCz() {
+		return cz;
+	}
+	public void setCz(String cz) {
+		this.cz = cz;
+	}
 	
 	//------------------------------------------------
 	public void clearOptions() {
@@ -154,6 +155,12 @@ public class CallAction extends MyBaseAction implements IMyBaseAction{
 		phone= null;
 		dates=null;  
 		datee=null;  
+		cz=null;
+		call=null;
+		calls=null;
+		if (page==null) {
+			page=new Page(1, 0, 10);
+		}
 	}
 	
 	private void clearSpace(){
@@ -175,60 +182,49 @@ public class CallAction extends MyBaseAction implements IMyBaseAction{
 	}
 	
 	public String queryOfFenye() throws UnsupportedEncodingException {
-		id=getRequest().getParameter("id");
-		String cz=getRequest().getParameter("cz");//用于判断是否清理page，yes清理，no不清理
-		if (page==null) {
-			page=new Page(1, 0, 5);
-		}
+		clearSpace();
 		if (cz!=null && cz.equals("yes")) {
-			page=new Page(1, 0, 5);
 			clearOptions();
 		}
 		clearSpace();
+		String hql="from ZmCall where CState= '有效' ";
 		if (id!=null) {
-			String hql="from ZmCall where CId like '%"+id+"%'";
-			if (name!=null && !name.trim().equals("")) {
-				hql=hql+" and CName like '%"+name+"%'";
-			}
-			if (section!=null && !section.trim().equals("")) {
-				hql=hql+" and CSection like '%"+section+"%'";
-			}
-			if (cnum!=null && !cnum.trim().equals("")) {
-				hql=hql+" and CNum like '%"+cnum+"%'";
-			}
-			if (phone!=null && !phone.trim().equals("")) {
-				hql=hql+" and CPhone like '%"+phone+"%'";
-			}
-			if (dates!=null && !dates.trim().equals("")) {
-				hql=hql+" and CDate >= '"+dates+"'";
-			}
-			if (datee!=null && !datee.trim().equals("")) {
-				hql=hql+" and CDate <= '"+datee+"'";
-			}
-			hql=hql+" order by CDate desc";
-			calls=ser.query(hql, null, hql, page, ser);
-		}else {
-			String hql="from ZmCall order by CDate desc";
-			String ss[]={};
-			String hql2="from ZmCall order by CDate desc";
-			calls=ser.query(hql, ss, hql2, page, ser);
+			hql=hql+" and CId like '%"+id+"%'";
 		}
+		if (name!=null && !name.trim().equals("")) {
+			hql=hql+" and CName like '%"+name+"%'";
+		}
+		if (section!=null && !section.trim().equals("")) {
+			hql=hql+" and CSection like '%"+section+"%'";
+		}
+		if (cnum!=null && !cnum.trim().equals("")) {
+			hql=hql+" and CNum like '%"+cnum+"%'";
+		}
+		if (phone!=null && !phone.trim().equals("")) {
+			hql=hql+" and CPhone like '%"+phone+"%'";
+		}
+		if (dates!=null && !dates.trim().equals("")) {
+			hql=hql+" and CDate >= '"+dates+"'";
+		}
+		if (datee!=null && !datee.trim().equals("")) {
+			hql=hql+" and CDate <= '"+datee+"'";
+		}
+		hql=hql+" order by CCreateTime desc CDate desc";
+		calls=ser.query(hql, null, hql, page, ser);
 		ser.receiveStructure(getRequest());
 		return result;
 	}
 	
 	public String gotoQuery() throws UnsupportedEncodingException {
 		clearOptions();
-		String hql="from ZmCall order by CDate desc";
-		String ss[]={};
-		String hql2="from ZmCall order by CDate desc";
-		calls=ser.query(hql, ss, hql2, page, ser);
+		String hql="from ZmCall where CState= '有效' order by CCreateTime desc CDate desc";
+		calls=ser.query(hql, null, hql, page, ser);
 		ser.receiveStructure(getRequest());
 		return result;
 	}
 	
 	public String delete() throws Exception {
-		String id=getRequest().getParameter("id");
+		clearSpace();
 		if (id!=null) {
 			call=(ZmCall) ser.get(ZmCall.class, id);
 			ser.delete(call);
@@ -239,8 +235,28 @@ public class CallAction extends MyBaseAction implements IMyBaseAction{
 	
 	public String update() throws Exception {
 		if(call!=null && call.getCId()!=null && !"".equals(call.getCId().trim())){
-			ZmByNumber zmby=(ZmByNumber) ser.get(ZmByNumber.class, call.getCId());
-			ser.update(call);
+			ZmCall zc=(ZmCall) ser.get(ZmCall.class, call.getCId());
+			zc.setCState("无效");
+			ser.update(zc);
+			getRequest().setAttribute("zc", zc);
+			
+			call.setCId("c"+NameOfDate.getNum());
+			Users user=(Users) getSession().getAttribute("user");
+			if(user!=null){
+				call.setCIt(user.getUName());
+			}
+			call.setCWeek(zc.getCWeek());
+			call.setCCreateTime(new Timestamp(new Date().getTime()));
+			if(call.getCJob().equals("入职")){
+				call.setCType("注册");
+			}else if(call.getCJob().equals("离职")){
+				call.setCType("注销");
+			}else{
+				call.setCType("维护");
+			}
+			call.setCState("有效");
+			call.setUNum(user.getUNum());
+			ser.save(call);
 			getRequest().setAttribute("call", call);
 		}
 		call=null;
@@ -257,6 +273,16 @@ public class CallAction extends MyBaseAction implements IMyBaseAction{
 			Calendar ca = Calendar.getInstance();
 			ca.setTime(call.getCDate());
 			call.setCWeek(ca.get(Calendar.WEEK_OF_YEAR));
+			call.setCCreateTime(new Timestamp(new Date().getTime()));
+			if(call.getCJob().equals("入职")){
+				call.setCType("注册");
+			}else if(call.getCJob().equals("离职")){
+				call.setCType("注销");
+			}else{
+				call.setCType("维护");
+			}
+			call.setCState("有效");
+			call.setUNum(user.getUNum());
 			ser.save(call);
 			getRequest().setAttribute("call", call);
 		}

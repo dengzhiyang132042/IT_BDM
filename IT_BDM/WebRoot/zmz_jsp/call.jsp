@@ -147,7 +147,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<td width="">${call.CWeek }</td>
 			<td width="">${call.CNote }</td>
 			<td width="5%" align="center">
-				<a onclick="update('${call.CId }','${call.CDate }','${call.CSection }','${call.CNum }','${call.CName }','${call.CPhone }','${call.CPass }','${call.CIt }','${call.CJob }','${call.CWeek }','${call.CNote }')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-edit'" title="修改"></a>
+				<a onclick="update('${call.CId }','<fmt:formatDate value="${call.CDate }" pattern="yyyy-MM-dd" />','${call.CSection }','${call.CNum }','${call.CName }','${call.CPhone }','${call.CPass }','${call.CIt }','${call.CJob }','${call.CWeek }','${call.CNote }')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-edit'" title="修改"></a>
 				<a href="<%=path %>/call!delete?id=${call.CId}" onclick="return confirm('确定删除吗?')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-delete'" title="删除"></a>
 			</td>
 	    </tr>
@@ -158,9 +158,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<div class="easyui-panel" style="padding:5px;width: 100%;display: none;background-color: white;">
 		<form id="f1" action="<%=path %>/call!queryOfFenye?id=${id}&name=${name }&section=${section }&cnum=${cnum}&phone=${phone }&dates=${dates}&datee=${datee}" method="post">
 		<select id="sele" style="float: left;margin-top: 3px;margin-left: 5px;" name="page.size" onchange="$('#f1').submit();">
-			<option value="5">5</option>
 			<option value="10">10</option>
 			<option value="15">15</option>
+			<option value="20">20</option>
 		</select>
 		
 		<span style="float: left;margin-left: 5px;">
@@ -231,21 +231,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				</td>
 			</tr>
 			<tr>
-				<td>维护IT：</td>
-				<td>
-					<input id="u_8" name="call.CIt" type="text" style="width: 100%;"/>
-				</td>
-			</tr>
-			<tr>
 				<td>入职情况：</td>
 				<td>
-					<input id="u_9" name="call.CJob" type="text" style="width: 100%;"/>
-				</td>
-			</tr>
-			<tr>
-				<td>维护周数：</td>
-				<td>
-					<input id="u_10" name="call.CWeek" type="number" style="width: 100%;"/>
+					<select name="call.CJob" style="width: 80px;">
+						<option value="离职">离 职</option>
+						<option value="入职">入 职</option>
+						<option value="停用">停 用</option>
+					</select>
 				</td>
 			</tr>
 			<tr>
@@ -305,7 +297,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<tr>
 				<td>入职情况：</td>
 				<td>
-					<input name="call.CJob" type="text" style="width: 100%;"/>
+					<select name="call.CJob" style="width: 80px;">
+						<option value="入职">入 职</option>
+						<option value="离职">离 职</option>
+						<option value="停用">停 用</option>
+					</select>
 				</td>
 			</tr>
 			<tr>
