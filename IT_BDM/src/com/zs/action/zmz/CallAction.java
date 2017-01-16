@@ -209,7 +209,7 @@ public class CallAction extends MyBaseAction implements IMyBaseAction{
 		if (datee!=null && !datee.trim().equals("")) {
 			hql=hql+" and CDate <= '"+datee+"'";
 		}
-		hql=hql+" order by CCreateTime desc CDate desc";
+		hql=hql+" order by CCreateTime desc , CDate desc";
 		calls=ser.query(hql, null, hql, page, ser);
 		ser.receiveStructure(getRequest());
 		return result;
@@ -217,7 +217,7 @@ public class CallAction extends MyBaseAction implements IMyBaseAction{
 	
 	public String gotoQuery() throws UnsupportedEncodingException {
 		clearOptions();
-		String hql="from ZmCall where CState= '有效' order by CCreateTime desc CDate desc";
+		String hql="from ZmCall where CState= '有效' order by CCreateTime desc , CDate desc";
 		calls=ser.query(hql, null, hql, page, ser);
 		ser.receiveStructure(getRequest());
 		return result;

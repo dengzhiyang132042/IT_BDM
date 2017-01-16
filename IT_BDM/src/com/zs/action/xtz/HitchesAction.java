@@ -151,7 +151,7 @@ public class HitchesAction extends MyBaseAction{
 		if (datee!=null && !datee.equals("")) {
 			hql=hql+" and HTimeStart <= '"+datee+" 23:59:59'";
 		}
-		hql=hql+" order by HCreateTime desc HTimeStart desc";
+		hql=hql+" order by HCreateTime desc , HTimeStart desc";
 		hs=ser.query(hql, null, hql, page, ser);
 		for(int i = 0 ; i< hs.size(); i++){
 			int interval =  (int) ((hs.get(i).getHTimeEnd().getTime()-hs.get(i).getHTimeStart().getTime())/(1000*60));
@@ -162,7 +162,7 @@ public class HitchesAction extends MyBaseAction{
 	
 	private String gotoQuery() throws UnsupportedEncodingException {
 		clearOptions();
-		String hql="from XtHitches where HState ='有效' order by HCreateTime desc HTimeStart desc";
+		String hql="from XtHitches where HState ='有效' order by HCreateTime desc , HTimeStart desc";
 		hs=ser.query(hql, null, hql, page, ser);
 		for(int i = 0 ; i< hs.size(); i++){
 			int interval =  (int) ((hs.get(i).getHTimeEnd().getTime()-hs.get(i).getHTimeStart().getTime())/(1000*60));

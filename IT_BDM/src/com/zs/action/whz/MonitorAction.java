@@ -162,14 +162,14 @@ public class MonitorAction extends MyBaseAction{
 		if (datee!=null && !datee.equals("")) {
 			hql=hql+" and MDate <= '"+datee+"'";
 		}
-		hql=hql+" order by MCreateTime desc MTime desc";
+		hql=hql+" order by MCreateTime desc , MTime desc";
 		monis=ser.query(hql, null, hql, page, ser);
 		return result;
 	}
 	
 	private String gotoQuery() throws UnsupportedEncodingException {
 		clearOptions();
-		String hql="from WhMonitorScout where MState='有效' order by MCreateTime desc MTime desc";
+		String hql="from WhMonitorScout where MState='有效' order by MCreateTime desc , MTime desc";
 		monis=ser.query(hql, null, hql, page, ser);
 		return result;
 	}

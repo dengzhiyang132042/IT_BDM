@@ -17,38 +17,23 @@ public class FbdMonitoring implements java.io.Serializable {
 	private String MDiskCapacity;
 	private String MNum;
 	private String MPass;
-	private Integer MDisplayer;
+	private String MDisplayer;
 	private String MMainframeBrand;
 	private String MMainframeNumber;
 	private Integer MInterface;
 	private Date MTimeStart;
 	private Double MUsedYear;
 	private String MScrap;
-	private Integer MPeriod;
+	private String MPeriod;
 	private String MNote;
 	private String MState;
 	
-	private SectionFenbodian fbd;
-	public SectionFenbodian getFbd() {
-		return fbd;
-	}
-
-	public void setFbd(SectionFenbodian fbd) {
-		this.fbd = fbd;
-	}
 	
+	private SectionFenbodian fbd;
 	// Constructors
 
 	/** default constructor */
 	public FbdMonitoring() {
-	}
-
-	public String getMDiskCapacity() {
-		return MDiskCapacity;
-	}
-
-	public void setMDiskCapacity(String mDiskCapacity) {
-		MDiskCapacity = mDiskCapacity;
 	}
 
 	/** minimal constructor */
@@ -58,14 +43,15 @@ public class FbdMonitoring implements java.io.Serializable {
 
 	/** full constructor */
 	public FbdMonitoring(String MId, String fbdId, Integer MCamera,
-			Integer MDisk, String MNum, String MPass, Integer MDisplayer,
-			String MMainframeBrand, String MMainframeNumber,
+			Integer MDisk, String MDiskCapacity, String MNum, String MPass,
+			String MDisplayer, String MMainframeBrand, String MMainframeNumber,
 			Integer MInterface, Date MTimeStart, Double MUsedYear,
-			String MScrap, Integer MPeriod, String MNote, String MState) {
+			String MScrap, String MPeriod, String MNote, String MState) {
 		this.MId = MId;
 		this.fbdId = fbdId;
 		this.MCamera = MCamera;
 		this.MDisk = MDisk;
+		this.MDiskCapacity = MDiskCapacity;
 		this.MNum = MNum;
 		this.MPass = MPass;
 		this.MDisplayer = MDisplayer;
@@ -114,6 +100,14 @@ public class FbdMonitoring implements java.io.Serializable {
 		this.MDisk = MDisk;
 	}
 
+	public String getMDiskCapacity() {
+		return this.MDiskCapacity;
+	}
+
+	public void setMDiskCapacity(String MDiskCapacity) {
+		this.MDiskCapacity = MDiskCapacity;
+	}
+
 	public String getMNum() {
 		return this.MNum;
 	}
@@ -130,11 +124,11 @@ public class FbdMonitoring implements java.io.Serializable {
 		this.MPass = MPass;
 	}
 
-	public Integer getMDisplayer() {
+	public String getMDisplayer() {
 		return this.MDisplayer;
 	}
 
-	public void setMDisplayer(Integer MDisplayer) {
+	public void setMDisplayer(String MDisplayer) {
 		this.MDisplayer = MDisplayer;
 	}
 
@@ -186,11 +180,11 @@ public class FbdMonitoring implements java.io.Serializable {
 		this.MScrap = MScrap;
 	}
 
-	public Integer getMPeriod() {
+	public String getMPeriod() {
 		return this.MPeriod;
 	}
 
-	public void setMPeriod(Integer MPeriod) {
+	public void setMPeriod(String MPeriod) {
 		this.MPeriod = MPeriod;
 	}
 
@@ -210,4 +204,12 @@ public class FbdMonitoring implements java.io.Serializable {
 		this.MState = MState;
 	}
 
+	public SectionFenbodian getFbd() {
+		return fbd;
+	}
+
+	public void setFbd(SectionFenbodian fbd) {
+		this.fbd = fbd;
+	}
+	
 }

@@ -161,7 +161,7 @@ public class MeetAction extends MyBaseAction implements IMyBaseAction{
 	public String gotoQuery() throws UnsupportedEncodingException {
 		clearSpace();
 		clearOptions();
-		String hql="from WhMeetingScout where MState ='有效' order by MCreateTime desc MDate desc";
+		String hql="from WhMeetingScout where MState ='有效' order by MCreateTime desc , MDate desc";
 		ms=ser.query(hql, null, hql, page, ser);
 		return result;
 	}
@@ -181,7 +181,7 @@ public class MeetAction extends MyBaseAction implements IMyBaseAction{
 		if(datee!=null&&!datee.equals("")){
 			hql=hql+" and MDate <='"+datee+" 23:59:59'";
 		}
-		hql=hql+" order by MCreateTime desc MDate desc";
+		hql=hql+" order by MCreateTime desc , MDate desc";
 		ms=ser.query(hql, null, hql, page, ser);
 		return result;
 	}

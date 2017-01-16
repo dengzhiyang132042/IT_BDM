@@ -199,7 +199,7 @@ public class MailAction extends MyBaseAction implements IMyBaseAction{
 		if (datee!=null && !datee.trim().equals("")) {
 			hql=hql+" and MServiceDate <= '"+datee+"'";
 		}
-		hql=hql+" order by MServiceDate desc MCreateTime desc";
+		hql=hql+" order by MServiceDate desc , MCreateTime desc";
 		ms=ser.query(hql, null, hql, page, ser);
 		ser.receiveStructure(getRequest());
 		return result;
@@ -207,7 +207,7 @@ public class MailAction extends MyBaseAction implements IMyBaseAction{
 	
 	public String gotoQuery() throws UnsupportedEncodingException {
 		clearOptions();
-		String hql="from ZmMail where MState='有效' order by MServiceDate desc MCreateTime desc";
+		String hql="from ZmMail where MState='有效' order by MServiceDate desc , MCreateTime desc";
 		ms=ser.query(hql, null, hql, page, ser);
 		ser.receiveStructure(getRequest());
 		return result;

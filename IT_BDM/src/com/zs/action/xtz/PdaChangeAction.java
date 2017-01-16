@@ -186,7 +186,7 @@ public class PdaChangeAction extends MyBaseAction{
 			hql=hql+" and CChangeDate >='"+dates+"'";
 		if(datee!=null&&!dates.equals(""))
 			hql=hql+" and CChangeDate <='"+datee+"'";
-		hql=hql+" order by CCreateTime desc CChangeDate desc";
+		hql=hql+" order by CCreateTime desc , CDate desc";
 		pdas=ser.query(hql, null, hql, page, ser);
 		ser.receiveStructure(getRequest());
 		return result_pda;
@@ -194,7 +194,7 @@ public class PdaChangeAction extends MyBaseAction{
 	
 	private String gotoQuery() throws UnsupportedEncodingException {
 		clearOptions();
-		String hql="from XtPdaChange where CState = '有效'  order by CCreateTime desc CChangeDate desc";
+		String hql="from XtPdaChange where CState = '有效'  order by CCreateTime desc , CDate desc";
 		pdas=ser.query(hql, null, hql, page, ser);
 		ser.receiveStructure(getRequest());
 		return result_pda;
