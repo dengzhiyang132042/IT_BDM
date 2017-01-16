@@ -33,9 +33,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		$("#sele option[value='"+${page.size}+"']").attr("selected",true);
 		$("#eidtASubjectWindow1").show();
 		$('#tt').show();
-		
 		$('.easyui-tree').tree('collapseAll');
-		
 		$('#cc1').combo({
 			required:true,
 			editable:false
@@ -46,10 +44,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			var t = $(this).find('.tree-title');
 			var str=$("<span>"+t.html()+"</span>");
 			str.find('font').remove();
-			//alert(f+"*"+str.text() );
 			$('#cc1').combo('setValue', f).combo('setText', str.text());
 		});
-		
 		$('#cc2').combo({
 			required:true,
 			editable:false
@@ -60,25 +56,27 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			var t = $(this).find('.tree-title');
 			var str=$("<span>"+t.html()+"</span>");
 			str.find('font').remove();
-			//alert(f+"*"+str.text() );
 			$('#cc2').combo('setValue', f).combo('setText', str.text());
 		});
-		
-		
 	});
-	
-	function update(u1,u2,u3,u4,u5,u6,u7){
+	function trans_radio(str){
+		if (str=="在职") {
+			return 0;
+		}else if (str=="离职") {
+			return 1;
+		}
+	}
+	function update(u1,u2,u3,u4,u5,u6,u7,u8){
 		$('#u').window('open');
 		$('#u_1').val(u1);
 		$('#u_2').val(u2);
 		$('#u_3').val(u3);
-		
 		$('#cc2').combo('setText',u4);
 		$('#cc2').combo('setValue',u4);
-		
 		$('#u_5').val(u5);
 		$("#u_6 option[value='"+u6+"']").attr("selected",true);
 		$('#u_7').val(u7);
+		$("#u_8_"+trans_radio(u8)).click();
 	}
 	function page(no,cz){
 		var num1=$('#page').val();
@@ -121,6 +119,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    	<th>邮箱</th>
 	    	<th>创建时间</th>
 	    	<th>角色</th>
+	    	<th>状态</th>
 	    	<th>操作</th>
 	    </tr>
 	    <c:forEach items="${us}" var="u">
@@ -133,8 +132,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<td width="">${u.UMail }</td>
 			<td width="">${u.UStartTime }</td>
 			<td width="">${u.r.RName }</td>
+			<td width="">${u.UState }</td>
 			<td width="5%" align="center">
-				<a onclick="update('${u.UNum }','${u.UPass }','${u.UName }','${u.UCs }','${u.UJob }','${u.RId }','${u.UMail }')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-edit'" title="修改"></a>
+				<a onclick="update('${u.UNum }','${u.UPass }','${u.UName }','${u.UCs }','${u.UJob }','${u.RId }','${u.UMail }','${u.UState }')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-edit'" title="修改"></a>
 				<a href="<%=path %>/users!delete?id=${u.UNum}" onclick="return confirm('确定删除吗?')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-delete'" title="删除"></a>
 			</td>
 	    </tr>
@@ -223,6 +223,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<option value="${r.RId }">${r.RName}</option>
 						</c:forEach>
 					</select>
+				</td>
+			</tr>
+			<tr>
+				<td>状态</td>
+				<td>
+					<input id="u_8_0" type="radio" name="u.UState" value="在职"/>在职
+					<input id="u_8_1" type="radio" name="u.UState" value="离职"/>离职
 				</td>
 			</tr>
 			<tr>

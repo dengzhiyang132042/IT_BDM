@@ -176,7 +176,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	        	<ul>
 					<li><span><a href="<%=path %>/resetPass!queryInfo" target="right">个人信息</a></span></li>
 					<li><span><a href="<%=path %>/resetPass!query" target="right">修改密码</a></span></li>
-			        <li><span><a href="<%=path %>/timeline!query" target="right">操作日志</a></span></li>
+			        <li><span><a href="<%=path %>/timeline!query?cz=yes" target="right">操作日志</a></span></li>
 					<li><span><a href="<%=path %>/information!query" target="right">任务提醒</a></span></li>
 					<li><span><a href="<%=path %>/jobLog!gotoJob" target="right">工作日志</a></span></li>
 	        	</ul>

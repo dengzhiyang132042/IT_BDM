@@ -44,7 +44,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</script>
   </head>
   
-  <body style="padding: 6px;">
+  <body>
   	<div class="easyui-layout" data-options="border:false" style="width: 100%;height: 100%;">
   	
   		<div data-options="region:'west',split:true,border:false" style="width:50%;">
