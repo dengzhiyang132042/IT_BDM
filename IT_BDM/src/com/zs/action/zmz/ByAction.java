@@ -198,7 +198,7 @@ public class ByAction extends MyBaseAction implements IMyBaseAction{
 		if (datee!=null && !datee.trim().equals("")) {
 			hql=hql+" and byServiceDate <= '"+datee+"'";
 		}
-		hql=hql+" order by byServiceDate desc byCreateTime desc";
+		hql=hql+" order by byServiceDate desc , byCreateTime desc";
 		bys=ser.query(hql, null, hql, page, ser);
 		ser.receiveStructure(getRequest());
 		return result;
@@ -206,7 +206,7 @@ public class ByAction extends MyBaseAction implements IMyBaseAction{
 	
 	public String gotoQuery() throws UnsupportedEncodingException {
 		clearOptions();
-		String hql="from ZmByNumber where byState='有效' order by byServiceDate desc byCreateTime desc";
+		String hql="from ZmByNumber where byState='有效' order by byServiceDate desc , byCreateTime desc";
 		bys=ser.query(hql, null, hql, page, ser);
 		ser.receiveStructure(getRequest());
 		return result;

@@ -160,7 +160,7 @@ public class ThreeMeetAction extends MyBaseAction implements IMyBaseAction{
 	public String gotoQuery() throws UnsupportedEncodingException {
 		clearSpace();
 		clearOptions();
-		String hql="from WhThreeMeetingScout where TState =  '有效' order by TCreateTime desc TDate desc";
+		String hql="from WhThreeMeetingScout where TState =  '有效' order by TCreateTime desc , TDate desc";
 		tms=ser.query(hql, null, hql, page, ser);
 		return result;
 	}
@@ -180,7 +180,7 @@ public class ThreeMeetAction extends MyBaseAction implements IMyBaseAction{
 		if(datee!=null&&!datee.equals("")){
 			hql=hql+" and TDate <='"+datee+" 23:59:59'";
 		}
-		hql=hql+" order by TCreateTime desc TDate desc";
+		hql=hql+" order by TCreateTime desc , TDate desc";
 		tms=ser.query(hql, null, hql, page, ser);
 		return result;
 	}

@@ -25,7 +25,6 @@ public class FbdMAction extends MyBaseAction{
 	Page page;
 	
 	String result_m="m";
-	String result_succ="succ";
 	String result_fail="fail";
 	
 	String id;
@@ -33,6 +32,7 @@ public class FbdMAction extends MyBaseAction{
 	String MNum;
 	String MScrap;
 	String MState;
+	String cz;
 	
 	public String getMScrap() {
 		return MScrap;
@@ -91,6 +91,12 @@ public class FbdMAction extends MyBaseAction{
 	public void setPage(Page page) {
 		this.page = page;
 	}
+	public String getCz() {
+		return cz;
+	}
+	public void setCz(String cz) {
+		this.cz = cz;
+	}
 	
 	//------------------------------------------------
 	private void clearOptions() {
@@ -99,6 +105,14 @@ public class FbdMAction extends MyBaseAction{
 		MNum =null;
 		MScrap =null;
 		MState =null;
+		cz=null;
+		m=null;
+		ms=null;
+		if (page==null) {
+			page=new Page(1, 0, 10);
+		}else {
+			page.setPageOn(1);
+		}
 	}
 	
 	private void clearSpace(){
@@ -117,40 +131,33 @@ public class FbdMAction extends MyBaseAction{
 		if(MState!=null){
 			MState=MState.trim();
 		}
+		if(cz!=null){
+			cz=cz.trim();
+		}
 	}
 	
 	public String queryOfFenyeM() throws UnsupportedEncodingException {
-		id=getRequest().getParameter("id");
-		String cz=getRequest().getParameter("cz");//用于判断是否清理page，yes清理，no不清理
-		if (page==null) {
-			page=new Page(1, 0, 5);
-		}
+		clearSpace();
 		if (cz!=null && cz.equals("yes")) {
-			page=new Page(1, 0, 5);
 			clearOptions();
 		}
-		clearSpace();
+		String hql2="from FbdMonitoring where 1=1 ";
 		if (id!=null) {
-			String hql2="from FbdMonitoring where MId like '%"+id+"%'";
-			if(fbdName != null && !"".equals(fbdName)){
-				hql2="from FbdMonitoring where fbdId in (select fbdId from SectionFenbodian where fbdName like '%"+fbdName+"%')";
-			}
-			if(MNum != null && !"".equals(MNum)){
-				hql2=hql2+" and MNum like '%"+MNum+"%'";
-			}
-			if(MScrap!=null && ! "".equals(MScrap)){
-				hql2=hql2+" and MScrap like '%"+MScrap+"%'";
-			}
-			if(MState!=null && ! "".equals(MState)){
-				hql2=hql2+" and MState like '%"+MState+"%'";
-			}
-			ms=ser.query(hql2, null, hql2, page, ser);
-		}else {
-			String hql="from FbdMonitoring";
-			String ss[]={};
-			String hql2="from FbdMonitoring";
-			ms=ser.query(hql, ss, hql2, page, ser);
+			hql2 =hql2+" and MId like '%"+id+"%'";
 		}
+		if(fbdName != null && !"".equals(fbdName)){
+			hql2="from FbdMonitoring where fbdId in (select fbdId from SectionFenbodian where fbdName like '%"+fbdName+"%')";
+		}
+		if(MNum != null && !"".equals(MNum)){
+			hql2=hql2+" and MNum like '%"+MNum+"%'";
+		}
+		if(MScrap!=null && ! "".equals(MScrap)){
+			hql2=hql2+" and MScrap like '%"+MScrap+"%'";
+		}
+		if(MState!=null && ! "".equals(MState)){
+			hql2=hql2+" and MState like '%"+MState+"%'";
+		}
+		ms=ser.query(hql2, null, hql2, page, ser);
 		//带上分部区部分拨点信息
 		for (int i = 0; i < ms.size(); i++) {
 			SectionFenbodian fbd=(SectionFenbodian) ser.get(SectionFenbodian.class, ms.get(i).getFbdId());
@@ -171,7 +178,22 @@ public class FbdMAction extends MyBaseAction{
 			ser.delete(m);
 		}
 		m=null;
-		return result_succ;
+		return gotoQuery();
+	}
+	
+	public String gotoQuery() throws UnsupportedEncodingException{
+		String hql="from FbdMonitoring";
+		ms=ser.query(hql, null, hql, page, ser);
+		for (int i = 0; i < ms.size(); i++) {
+			SectionFenbodian fbd=(SectionFenbodian) ser.get(SectionFenbodian.class, ms.get(i).getFbdId());
+			SectionFenbu fb=(SectionFenbu) ser.get(SectionFenbu.class, fbd.getFbId());
+			SectionQubu qb=(SectionQubu) ser.get(SectionQubu.class, fb.getQbId());
+			fb.setQb(qb);
+			fbd.setFb(fb);
+			ms.get(i).setFbd(fbd);
+		}
+		ser.receiveStructure(getRequest());
+		return result_m;
 	}
 	
 	public String updateM() throws Exception {
@@ -180,7 +202,7 @@ public class FbdMAction extends MyBaseAction{
 		}
 		getRequest().setAttribute("m", m);
 		m=null;
-		return result_succ;
+		return gotoQuery();
 	}
 	
 	public String addM() throws Exception {
@@ -190,7 +212,7 @@ public class FbdMAction extends MyBaseAction{
 		}
 		getRequest().setAttribute("m", m);
 		m=null;
-		return result_succ;
+		return gotoQuery();
 	}
 	
 	

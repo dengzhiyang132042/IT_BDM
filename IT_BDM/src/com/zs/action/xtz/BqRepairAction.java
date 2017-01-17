@@ -180,7 +180,7 @@ public class BqRepairAction extends MyBaseAction{
 				hql=hql+" and RDate >='"+dates+"'";
 			if(datee!=null&&!datee.equals(""))
 				hql=hql+" and RDate <='"+datee+"'";
-			hql=hql+" order by RCreateTime desc RDate desc";
+			hql=hql+" order by RCreateTime desc , RDate desc";
 			bqs=ser.query(hql, null, hql, page, ser);
 		}
 		ser.receiveStructure(getRequest());
@@ -189,7 +189,7 @@ public class BqRepairAction extends MyBaseAction{
 	
 	private String gotoQuery() throws UnsupportedEncodingException {
 		clearOptions();
-		String hql="from XtBqRepair where RState ='有效' order by RDate desc";
+		String hql="from XtBqRepair where RState ='有效' order by RCreateTime desc , RDate desc";
 		bqs=ser.query(hql, null, hql, page, ser);
 		ser.receiveStructure(getRequest());
 		return result_bq;

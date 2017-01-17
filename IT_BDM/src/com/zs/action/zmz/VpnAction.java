@@ -211,7 +211,7 @@ public class VpnAction extends MyBaseAction{
 		if (datee!=null && !datee.equals("")) {
 			hql=hql+" and VDate <= '"+datee+"'";
 		}
-		hql=hql+" order by VCreateTime desc VDate desc";
+		hql=hql+" order by VCreateTime desc , VDate desc";
 		vpns=ser.query(hql, null, hql, page, ser);
 		ser.receiveStructure(getRequest());
 		return result;
@@ -219,7 +219,7 @@ public class VpnAction extends MyBaseAction{
 	
 	private String gotoQuery() throws UnsupportedEncodingException {
 		clearOptions();
-		String hql="from ZmVpn where VState='有效' order by VCreateTime desc VDate desc";
+		String hql="from ZmVpn where VState='有效' order by VCreateTime desc , VDate desc";
 		vpns=ser.query(hql, null, hql, page, ser);
 		ser.receiveStructure(getRequest());
 		return result;

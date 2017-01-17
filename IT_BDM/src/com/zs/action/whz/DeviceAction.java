@@ -161,7 +161,7 @@ public class DeviceAction extends MyBaseAction implements IMyBaseAction{
 
 	public String gotoQuery() throws UnsupportedEncodingException {
 		clearOptions();
-		String hql="from WhDeviceScout where DState = '有效' order by DCreateTime desc DTime desc";
+		String hql="from WhDeviceScout where DState = '有效' order by DCreateTime desc , DTime desc";
 		devices=ser.query(hql, null, hql, page, ser);
 		return result;
 	}
@@ -181,7 +181,7 @@ public class DeviceAction extends MyBaseAction implements IMyBaseAction{
 		if(datee!=null&&!datee.equals("")){
 			hql=hql+" and DDate <='"+datee+"'";
 		}
-		hql=hql+" order by DCreateTime desc DTime desc";
+		hql=hql+" order by DCreateTime desc , DTime desc";
 		devices=ser.query(hql, null, hql, page, ser);
 		return result;
 	}

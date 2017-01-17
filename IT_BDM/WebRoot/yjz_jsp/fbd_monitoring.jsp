@@ -167,7 +167,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<td width="">${m.MNote }</td>
 			<td width="">${m.MState }</td>
 			<td width="5%" align="center">
-				<a onclick="update('${m.MId }','${m.fbd.fbdId }','${m.MCamera }','${m.MDisk }','${m.MDiskCapacity }','${m.MNum }','${m.MPass }','${m.MDisplayer }','${m.MMainframeBrand }','${m.MMainframeNumber }','${m.MInterface }','${m.MTimeStart }','${m.MUsedYear }','${m.MScrap }','${m.MPeriod }','${m.MNote }','${m.MState }')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-edit'" title="修改"></a>
+				<a onclick="update('${m.MId }','${m.fbd.fbdId }','${m.MCamera }','${m.MDisk }',
+				'${m.MDiskCapacity }','${m.MNum }','${m.MPass }','${m.MDisplayer }','${m.MMainframeBrand }',
+				'${m.MMainframeNumber }','${m.MInterface }','<fmt:formatDate value="${m.MTimeStart }" pattern="yyyy-MM-dd" />',
+				'${m.MUsedYear }','${m.MScrap }','${m.MPeriod }','${m.MNote }','${m.MState }')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-edit'" title="修改"></a>
 				<a href="<%=path %>/fbd_m!deleteM?id=${m.MId}" onclick="return confirm('确定删除吗?')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-delete'" title="删除"></a>
 			</td>
 	    </tr>
@@ -205,17 +208,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</div>
 	</div>
 	
-	<div id="u" class="easyui-window" title="修改" data-options="modal:true,closed:true" style="width:400px;height:auto;padding:10px;display: none;">
+	<div id="u" class="easyui-window" title="修改" data-options="modal:true,closed:true" style="width:500px;height:auto;padding:10px;display: none;">
 		<form action="<%=path %>/fbd_m!updateM" method="post">
 		<table border="0" class="table1">
 			<tr>
-				<td>编号</td>
+				<td width="80">编号</td>
 				<td>
-					<input id="u_1" name="m.MId" type="text" readonly="readonly"/>
+					<input id="u_1" name="m.MId" type="text" readonly="readonly" style="width: 100%;"/>
 				</td>
-			</tr>
-			<tr>
-				<td>分拨点：</td>
+				<td width="80">分拨点：</td>
 				<td>
 					<select id="u_2" name="m.fbdId">
 						<c:forEach items="${structure}" var="qb">
@@ -233,8 +234,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<td>
 					<input id="u_3" name="m.MCamera" type="number" style="width: 100%;"/>
 				</td>
-			</tr>
-			<tr>
 				<td>硬盘数：</td>
 				<td>
 					<input id="u_4" name="m.MDisk" type="number" style="width: 100%;"/>
@@ -245,8 +244,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<td>
 					<input id="u_5" name="m.MDiskCapacity" type="text" style="width: 100%;"/>
 				</td>
-			</tr>
-			<tr>
 				<td>监控账号：</td>
 				<td>
 					<input id="u_6" name="m.MNum" type="text" style="width: 100%;"/>
@@ -257,8 +254,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<td>
 					<input id="u_7" name="m.MPass" type="text" style="width: 100%;"/>
 				</td>
-			</tr>
-			<tr>
 				<td>显示器数量：</td>
 				<td>
 					<input id="u_8" name="m.MDisplayer" type="number" style="width: 100%;"/>
@@ -269,8 +264,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<td>
 					<input id="u_9" name="m.MMainframeBrand" type="text" style="width: 100%;"/>
 				</td>
-			</tr>
-			<tr>
 				<td>主机型号：</td>
 				<td>
 					<input id="u_10" name="m.MMainframeNumber" type="text" style="width: 100%;"/>
@@ -281,8 +274,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<td>
 					<input id="u_11" name="m.MInterface" type="number" style="width: 100%;"/>
 				</td>
-			</tr>
-			<tr>
 				<td>主机开始使用时间：</td>
 				<td>
 					<input id="u_12" name="m.MTimeStart" type="date" style="width: 100%;"/>
@@ -293,8 +284,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<td>
 					<input id="u_13" name="m.MUsedYear" type="text" style="width: 100%;"/>
 				</td>
-			</tr>
-			<tr>
 				<td>是否可报废：</td>
 				<td>
 					<input id="u_14" name="m.MScrap" type="text" style="width: 100%;"/>
@@ -305,8 +294,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<td>
 					<input id="u_15" name="m.MPeriod" type="number" style="width: 100%;"/>
 				</td>
-			</tr>
-			<tr>
 				<td>备注说明：</td>
 				<td>
 					<input id="u_16" name="m.MNote" type="text" style="width: 100%;"/>
@@ -319,19 +306,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				</td>
 			</tr>
 			<tr>
-				<td colspan="2" align="center">
-					<input class="easyui-linkbutton" type="submit" style="width: 95%;padding: 5px;" value="提交"/>
+				<td colspan="4" align="center">
+					<input class="easyui-linkbutton" type="submit" style="width: 150px;padding: 5px;margin-left: 160px;" value="提 交"/>
 				</td>			
 			</tr>
 		</table>
 		</form>
 	</div>
 	
-	<div id="a" class="easyui-window" title="添加" data-options="modal:true,closed:true" style="width:400px;height:auto;padding:10px;display: none;">
+	<div id="a" class="easyui-window" title="添加" data-options="modal:true,closed:true" style="width:500px;height:auto;padding:10px;display: none;">
 		<form action="<%=path %>/fbd_m!addM" method="post">
 		<table border="0" class="table1">
 			<tr>
-				<td>分拨点：</td>
+				<td width="80">分拨点：</td>
 				<td>
 					<select name="m.fbdId">
 						<c:forEach items="${structure}" var="qb">
@@ -343,9 +330,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						</c:forEach>
 					</select>
 				</td>
-			</tr>
-			<tr>
-				<td>摄像头数量：</td>
+				<td width="80">摄像头数量：</td>
 				<td>
 					<input name="m.MCamera" type="number" style="width: 100%;"/>
 				</td>
@@ -355,8 +340,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<td>
 					<input name="m.MDisk" type="number" style="width: 100%;"/>
 				</td>
-			</tr>
-			<tr>
 				<td>硬盘容量：</td>
 				<td>
 					<input name="m.MDiskCapacity" type="text" style="width: 100%;"/>
@@ -367,8 +350,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<td>
 					<input name="m.MNum" type="text" style="width: 100%;"/>
 				</td>
-			</tr>
-			<tr>
 				<td>监控密码：</td>
 				<td>
 					<input name="m.MPass" type="text" style="width: 100%;"/>
@@ -379,8 +360,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<td>
 					<input name="m.MDisplayer" type="number" style="width: 100%;"/>
 				</td>
-			</tr>
-			<tr>
 				<td>主机（品牌）：</td>
 				<td>
 					<input name="m.MMainframeBrand" type="text" style="width: 100%;"/>
@@ -391,8 +370,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<td>
 					<input name="m.MMainframeNumber" type="text" style="width: 100%;"/>
 				</td>
-			</tr>
-			<tr>
 				<td>监控总接口数：</td>
 				<td>
 					<input name="m.MInterface" type="number" style="width: 100%;"/>
@@ -403,8 +380,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<td>
 					<input name="m.MTimeStart" type="date" style="width: 100%;"/>
 				</td>
-			</tr>
-			<tr>
 				<td>使用年限：</td>
 				<td>
 					<input name="m.MUsedYear" type="text" style="width: 100%;"/>
@@ -415,8 +390,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<td>
 					<input name="m.MScrap" type="text" style="width: 100%;"/>
 				</td>
-			</tr>
-			<tr>
 				<td>监控周期（天数）：</td>
 				<td>
 					<input name="m.MPeriod" type="number" style="width: 100%;"/>
@@ -427,16 +400,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<td>
 					<input name="m.MNote" type="text" style="width: 100%;"/>
 				</td>
-			</tr>
-			<tr>
 				<td>状态：</td>
 				<td>
 					<input name="m.MState" type="text" style="width: 100%;"/>
 				</td>
 			</tr>
 			<tr>
-				<td colspan="2" align="center">
-					<input class="easyui-linkbutton" type="submit" style="width: 95%;padding: 5px;" value="提交"/>
+				<td colspan="4" align="center">
+					<input class="easyui-linkbutton" type="submit" style="width: 150px;padding: 5px;margin-left: 160px;" value="提 交"/>
 				</td>			
 			</tr>
 		</table>

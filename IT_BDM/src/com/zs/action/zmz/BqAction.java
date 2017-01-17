@@ -246,7 +246,7 @@ public class BqAction extends MyBaseAction implements IMyBaseAction{
 		if(BMac!=null&&!BMac.equals("")){
 			hql2=hql2+" and BMac like '%"+BMac+"%'";
 		}
-		hql2=hql2+" order by BCreateTime desc BDate desc";
+		hql2=hql2+" order by BCreateTime desc , BDate desc";
 		bqs=ser.query(hql2, null, hql2, page, ser);
 		ser.receiveStructure(getRequest());
 		return result;
@@ -278,7 +278,7 @@ public class BqAction extends MyBaseAction implements IMyBaseAction{
 
 	public String gotoQuery() throws UnsupportedEncodingException {
 		clearOptions();
-		String hql="from ZmBq where BState='有效' order by BCreateTime desc BDate desc";
+		String hql="from ZmBq where BState='有效' order by BCreateTime desc , BDate desc";
 		bqs=ser.query(hql, null, hql, page, ser);
 		ser.receiveStructure(getRequest());
 		return result;
