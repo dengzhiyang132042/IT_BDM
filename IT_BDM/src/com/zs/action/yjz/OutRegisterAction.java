@@ -117,6 +117,11 @@ public class OutRegisterAction extends MyBaseAction implements IMyBaseAction{
 		dates=null;
 		datee=null;
 		itman=null;
+		if (page==null) {
+			page=new Page(1, 0, 10);
+		}else {
+			page.setPageOn(1);
+		}
 	}
 	
 	private void clearSpace(){
@@ -150,16 +155,10 @@ public class OutRegisterAction extends MyBaseAction implements IMyBaseAction{
 	}
 	
 	public String queryOfFenye() throws UnsupportedEncodingException {
-		id=getRequest().getParameter("id");
-		cz=getRequest().getParameter("cz");//用于判断是否清理page，yes清理，no不清理
-		if (page==null) {
-			page=new Page(1, 0, 5);
-		}
+		clearSpace();
 		if (cz!=null && cz.equals("yes")) {
-			page=new Page(1, 0, 5);
 			clearOptions();
 		}
-		clearSpace();
 		if (id!=null) {
 			String hql2="from YjOut where OId like '%"+id+"%'";
 			if(fbdName!=null){
@@ -190,7 +189,6 @@ public class OutRegisterAction extends MyBaseAction implements IMyBaseAction{
 	}
 	
 	public String delete() throws Exception {
-		id=getRequest().getParameter("id");
 		if (id!=null) {
 			o=(YjOut) ser.get(YjOut.class, id);
 			ser.delete(o);
@@ -200,14 +198,18 @@ public class OutRegisterAction extends MyBaseAction implements IMyBaseAction{
 	}
 	
 	public String update() throws Exception {
-		return result_succ;
+		if(o.getOId()!=null&&o!=null){
+			ser.update(o);
+			getRequest().setAttribute("o",o);
+		}
+		return gotoQuery();
 	}
 	
 	public String add() throws Exception {
 		if(o!=null){
-			System.out.println(JSONObject.fromObject(o));
 			o.setOId("o"+NameOfDate.getNum());
 			ser.save(o);
+			getRequest().setAttribute("o",o);
 		}
 		return gotoQuery();
 	}
