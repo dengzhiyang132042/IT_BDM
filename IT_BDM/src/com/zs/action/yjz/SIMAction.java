@@ -36,6 +36,7 @@ public class SIMAction extends MyBaseAction{
 	
 	String id;
 	String csName;
+	String cz;
 	
 	public String getId() {
 		return id;
@@ -73,12 +74,26 @@ public class SIMAction extends MyBaseAction{
 	public void setSims(List<Sim> sims) {
 		this.sims = sims;
 	}
+	public String getCz() {
+		return cz;
+	}
+	public void setCz(String cz) {
+		this.cz = cz;
+	}
 	
 	//------------------------------------------------
 	
 	private void clearOption(){
 		id=null;
 		csName=null;
+		cz=null;
+		sim=null;
+		sims=null;
+		if (page==null) {
+			page=new Page(1, 0, 10);
+		}else {
+			page.setPageOn(1);
+		}
 	}
 	
 	private void clearSpace(){
@@ -91,28 +106,27 @@ public class SIMAction extends MyBaseAction{
 	}
 	
 	public String queryOfFenyeSIM() throws UnsupportedEncodingException {
-		id=getRequest().getParameter("id");
-		String cz=getRequest().getParameter("cz");//用于判断是否清理page，yes清理，no不清理
-		if (page==null) {
-			page=new Page(1, 0, 5);
-		}
+		clearSpace();
 		if (cz!=null && cz.equals("yes")) {
-			page=new Page(1, 0, 5);
 			clearOption();
 		}
-		clearSpace();
-		if (id!=null) {
-			String hql2="from Sim where SId like '%"+id+"%'";
-			if(csName!=null){
-				hql2=hql2+" and csName like '%"+csName+"%'";
-			}
-			sims=ser.query(hql2, null, hql2, page, ser);
-		}else {
-			String hql="from Sim";
-			String ss[]={};
-			String hql2="from Sim";
-			sims=ser.query(hql, ss, hql2, page, ser);
+		String hql2="from Sim where 1=1";
+		if (id!=null&&!id.endsWith("")) {
+			hql2=hql2+" and SId like '%"+id+"%'";
 		}
+		if(csName!=null){
+			hql2=hql2+" and csName like '%"+csName+"%'";
+		}
+		sims=ser.query(hql2, null, hql2, page, ser);
+		//带上部门
+		CompanySection cs=ser.queryFirst();
+		getRequest().setAttribute("html",ser.fitting1(cs));
+		return result_sim;
+	}
+	
+	public String gotoQuery() throws UnsupportedEncodingException{
+		String hql2 = "from Sim";
+		sims=ser.query(hql2, null, hql2, page, ser);
 		//带上部门
 		CompanySection cs=ser.queryFirst();
 		getRequest().setAttribute("html",ser.fitting1(cs));
@@ -126,7 +140,7 @@ public class SIMAction extends MyBaseAction{
 			ser.delete(sim);
 		}
 		sim=null;
-		return result_succ;
+		return gotoQuery();
 	}
 	
 	public String updateSIM() throws Exception {
@@ -135,7 +149,7 @@ public class SIMAction extends MyBaseAction{
 		}
 		getRequest().setAttribute("sim", sim);
 		sim=null;
-		return result_succ;
+		return gotoQuery();
 	}
 	
 	public String addSIM() throws Exception {
@@ -145,7 +159,7 @@ public class SIMAction extends MyBaseAction{
 		}
 		getRequest().setAttribute("sim", sim);
 		sim=null;
-		return result_succ;
+		return gotoQuery();
 	}
 	
 	
