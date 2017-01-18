@@ -116,7 +116,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   </head>
   
   <body>
-    <div class="easyui-panel" title="站点资料" style="padding: 5px;display: none;" data-options="tools:'#tt'">
+    <div class="easyui-panel" title="站点资料" style="width: 100%;padding: 5px;display: none;" data-options="tools:'#tt'">
     
     <div class="kscx">
    		<div class="inp">
@@ -193,7 +193,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     </table>
 	</div>
 	
-	<div class="easyui-panel" style="padding:5px;width: 100%;display: none;background-color: white;">
+	<div class="easyui-panel" style="width: 100%;padding:5px;display: none;background-color: white;">
 		<form id="f1" action="<%=path %>/site!queryOfFenye?id=${id}&num=${num}&dates=${dates}&datee=${datee}&it=${it}&type=${type}" method="post">
 		<select id="sele" style="float: left;margin-top: 3px;margin-left: 5px;" name="page.size" onchange="$('#f1').submit();">
 			<option value="5">5</option>

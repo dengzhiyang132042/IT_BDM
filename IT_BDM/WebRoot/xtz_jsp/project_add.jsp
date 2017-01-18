@@ -33,7 +33,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   
   <body>
     
-    <div class="easyui-panel" title="开发录入" style="padding: 5px;display: none;" data-options="tools:'#tt'">
+    <div class="easyui-panel" title="开发录入" style="width: 100%;padding: 5px;display: none;" data-options="tools:'#tt'">
     	<div>
 			<form id="ff1" action="<%=path %>/project!add">
 				<table border="1">

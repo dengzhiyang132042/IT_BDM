@@ -2,6 +2,7 @@ a{ text-decoration:none;}
 body{
 	margin: 0px;
 	padding: 3px;
+	padding-right: 20px;
 }
 table{
 	border: #cccccc;
