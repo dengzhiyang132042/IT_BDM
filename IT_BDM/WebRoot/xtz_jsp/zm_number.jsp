@@ -130,7 +130,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     
 	
     
-    <div class="easyui-panel" title="哲盟职能用户" style="padding: 5px;display: none;" data-options="tools:'#tt'">
+    <div class="easyui-panel" title="哲盟职能用户" style="width: 100%;padding: 5px;display: none;" data-options="tools:'#tt'">
     
     <div class="kscx">
    		<div class="inp">
