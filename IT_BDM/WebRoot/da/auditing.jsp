@@ -111,7 +111,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   
   <body>
     
-      <div class="easyui-panel" title="故障处理" style="padding: 5px;display: none;">
+      <div class="easyui-panel" title="故障处理" style="width:100%;padding: 5px;display: none;">
 	    
 	    <div class="kscx">
 	   		<div class="inp">
