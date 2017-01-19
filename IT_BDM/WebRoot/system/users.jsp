@@ -107,9 +107,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   
   <body>
     
-    <div class="easyui-panel" title="用户管理" style="padding: 5px;display: none;" data-options="tools:'#tt'">
+    <div class="easyui-panel" title="用户管理" style="width:100%;padding: 5px;display: none;" data-options="tools:'#tt'">
     
-    <table border="1" id="eidtASubjectWindow1">
+    <div style="margin-bottom: 5px;">
+    <table border="1" style="font-size: 12px;">
 	    <tr>
 	    	<th>账号</th>
 	    	<th>密码</th>
@@ -140,9 +141,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    </tr>
 	    </c:forEach>
     </table>
-	<br/>
+	</div>
 	
-	<div class="easyui-panel" style="padding:5px;width: 100%;display: none;">
+	<div class="easyui-panel" style="width: 100%;padding:5px;display: none;background-color: white;">
 		<form id="f1" action="<%=path %>/users!queryOfFenye" method="post">
 		<select id="sele" style="float: left;margin-top: 3px;margin-left: 5px;" name="page.size" onchange="$('#f1').submit();">
 			<option value="5">5</option>

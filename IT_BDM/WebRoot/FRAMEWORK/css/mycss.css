@@ -2,7 +2,7 @@ a{ text-decoration:none;}
 body{
 	margin: 0px;
 	padding: 3px;
-	padding-right: 20px;
+	overflow-x:hidden; 
 }
 table{
 	border: #cccccc;
@@ -36,7 +36,9 @@ form{
 	margin: 0px;
 	display: inline;
 }
+/*
 #eidtASubjectWindow1 {display:none;}
+*/
 #eidtASubjectWindow2 {display:none;}
 #eidtASubjectWindow3 {display:none;}
 #eidtASubjectWindow4 {display:none;}

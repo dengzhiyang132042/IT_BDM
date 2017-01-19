@@ -74,7 +74,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   
   <body>
     
-    <div class="easyui-panel" title="骏达设备登记" style="padding: 5px;display: none;" data-options="tools:'#tt'">
+    <div class="easyui-panel" title="骏达设备登记" style="width:100%;padding: 5px;display: none;" data-options="tools:'#tt'">
     
     <div class="kscx">
    		<div class="inp">

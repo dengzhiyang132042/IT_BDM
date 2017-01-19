@@ -123,8 +123,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   
   <body>
     
-    <div class="easyui-panel" title="角色管理" style="padding: 5px;display: none;" data-options="tools:'#tt'">
-    
+    <div class="easyui-panel" title="角色管理" style="width: 100%;padding: 5px;display: none;" data-options="tools:'#tt'">
+    	
+   		<div style="margin-bottom: 5px;">
 	    <table border="1" id="eidtASubjectWindow1" style="font-size: 12px;">
 		    <tr align="center" style="height: 28px;background-color: #E6E6E6;">
 		    	<th width="150">编号</th>
@@ -149,7 +150,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		    </tr>
 		    </c:forEach>
 	    </table>
-		<br/>
+		</div>	
 			
 		<div class="easyui-panel" style="padding:5px;width: 100%;display: none;">
 			<form id="f1" action="<%=path %>/role!queryOfFenye" method="post">

@@ -149,7 +149,7 @@ String beforeTime= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Calendar.g
   
   <body>
     
-    <div class="easyui-panel" title="故障管理" style="padding: 5px;display: none;" data-options="tools:'#tt'">
+    <div class="easyui-panel" title="故障管理" style="width:100%;padding: 5px;display: none;" data-options="tools:'#tt'">
     
    	<div class="kscx">
    		<div class="inp">
@@ -189,7 +189,7 @@ String beforeTime= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Calendar.g
     
     
     <div style="margin-bottom: 5px;">
-	    <table id="tab1" border="1">
+	    <table border="1" style="font-size: 12px;">
 	    <tr>
 	    	<th width="150">编号</th>
 	    	<th width="150">发起人</th>
