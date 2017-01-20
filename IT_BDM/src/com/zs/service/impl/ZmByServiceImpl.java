@@ -40,7 +40,10 @@ public class ZmByServiceImpl extends BaseService implements iZmByService{
 					}else{
 						week = transToInt(list.get(i)[7]);
 					}
-					ZmByNumber byNumber=new ZmByNumber("by"+NameOfDate.getNum(), transToDate(list.get(i)[0]), list.get(i)[1], list.get(i)[2], list.get(i)[3], list.get(i)[4], "", "", list.get(i)[5], list.get(i)[6], transToDate(list.get(i)[0]), week, null, null, list.get(i)[8],new Timestamp(new Date().getTime()),"有效",type,unum);
+					ZmByNumber byNumber=new ZmByNumber("by"+NameOfDate.getNum(), transToDate(list.get(i)[0]), 
+							list.get(i)[1], list.get(i)[2], list.get(i)[3], list.get(i)[4], "", "", 
+							list.get(i)[5], list.get(i)[6], transToDate(list.get(i)[0]), week, null, null, 
+							list.get(i)[8],new Timestamp(new Date().getTime()),"有效",type,unum);
 					save(byNumber);
 				} catch (Exception e) {
 					log.error("数据格式错误:请注意填写的数据格式，另外不要留空，数字类型的没有就写0，文本类型的没有可以不写，时间类型的一定要写");

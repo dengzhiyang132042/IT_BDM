@@ -1,5 +1,6 @@
 package com.zs.test;
 
+import java.io.UnsupportedEncodingException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -72,7 +73,12 @@ public class Test {
 		Calendar ca = t.getWeekFirst(2016, 45);
 		System.out.println(ca.getTime());
 		*/
-		
+		try {
+			String str="你好";
+			System.out.println(str.getBytes("utf-8").length);
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
 		
 		
 		

@@ -21,7 +21,8 @@ public class ZmPhoneServiceImpl extends BaseService implements iDataImportServic
 			List<String[]> list=ExcelImport.getDataFromExcel(fileName,file);
 			for (int i = 1; i < list.size(); i++) {
 				try {
-					ZmPhoneLine phoneLine=new ZmPhoneLine("p"+NameOfDate.getNum(), list.get(i)[0], list.get(i)[1], list.get(i)[2], null, null, list.get(i)[3], list.get(i)[4],
+					ZmPhoneLine phoneLine=new ZmPhoneLine("p"+NameOfDate.getNum(), list.get(i)[0], list.get(i)[1], 
+							list.get(i)[2], null, null, list.get(i)[3], list.get(i)[4],
 							list.get(i)[5], list.get(i)[6], list.get(i)[7], new Date());
 					save(phoneLine);
 				} catch (Exception e) {
