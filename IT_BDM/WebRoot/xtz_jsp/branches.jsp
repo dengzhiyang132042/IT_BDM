@@ -117,7 +117,31 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		}
 		$('#f1').submit();
 	}
-	
+	function netNum(){
+		var n1 = $('#netNum1').val();
+		var reg=/^\d{6}$/;
+		if(reg.test(n1)){
+			errortext.innerText="";
+		}else{
+			errortext.innerText="*请输入正确的一级网点条码";
+		}
+	}
+	function numProving(){
+		var n1 = $('#netNum1').val();
+		var n2 = $('#netNum2').val();
+		var n3 = n2.substring(0,6);
+		var reg=/^\d{8}$/;
+		if(reg.test(n2)){
+			if(n1==n3){
+				errortext.innerText="";
+				$('#addForm').submit();
+			}else{
+				errortext.innerText="*二级条码前6位需和一级条码对应";
+			}
+		}else{
+			errortext.innerText="*请输入正确的二级网点条码";
+		}
+	}
 	</script>
 	
   </head>
@@ -302,13 +326,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</form>
 	</div>
 	
-	<div id="a" class="easyui-window" title="添加" data-options="modal:true,closed:true" style="width:500px;height:auto;padding:10px;display: none;">
-		<form action="<%=path %>/branches!add" method="post">
+	<div id="a" class="easyui-window" title="添加" data-options="modal:true,closed:true" style="width:400px;height:auto;padding:10px;display: none;">
+		<div id="errortext" style="color:red;padding-left:150px;"></div>
+		<form action="<%=path %>/branches!add" method="post" id="addForm">
 		<table border="0" class="table1">
 			<tr>
 				<td width="120">一级网点条码：</td>
 				<td>
-					<input name="b.BNum1" type="text" style="width: 100%;"/>
+					<input id="netNum1" name="b.BNum1" onblur="netNum()" type="text" style="width: 100%;"/>
 				</td>
 			</tr>
 			<tr>
@@ -326,7 +351,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<tr>
 				<td>二级网点条码：</td>
 				<td>
-					<input name="b.BNum2" type="text" style="width: 100%;"/>
+					<input id="netNum2"  name="b.BNum2"  type="text" style="width: 100%;"/>
 				</td>
 			</tr>
 			<tr>
@@ -353,7 +378,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</tr>
 			<tr>
 				<td colspan="2" align="center">
-					<input class="easyui-linkbutton" type="submit" style="width: 95%;padding: 5px;" value="提交"/>
+					<input class="easyui-linkbutton" onclick="numProving()" type="button " style="width: 95%;padding: 5px;" value="提交"/>
 				</td>			
 			</tr>
 		</table>

@@ -181,7 +181,7 @@ public class ZmDataAction extends MyBaseAction{
 			ser.update(data);
 			getRequest().setAttribute("data", data);
 			
-			zmd.setDId(NameOfDate.getNum());
+			zmd.setDId("d"+NameOfDate.getNum());
 			zmd.setDDate(data.getDDate());
 			zmd.setDCreateTime(new Timestamp(new Date().getTime()));
 			zmd.setDState("有效");

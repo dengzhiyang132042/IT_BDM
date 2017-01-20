@@ -255,7 +255,7 @@ public class BranchesAction extends MyBaseAction{
 			ser.update(branches);
 			getRequest().setAttribute("branches", branches);
 			
-			b.setBId(NameOfDate.getNum());
+			b.setBId("b"+NameOfDate.getNum());
 			b.setBDate(branches.getBDate());
 			b.setBMaintainDate(branches.getBMaintainDate());
 			b.setBMaintainWeek(branches.getBMaintainWeek());
