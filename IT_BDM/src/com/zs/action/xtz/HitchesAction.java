@@ -217,7 +217,7 @@ public class HitchesAction extends MyBaseAction{
 			SimpleDateFormat format=new SimpleDateFormat("yyyy-MM-dd HH:mm");
 			Date date1=format.parse(date+" "+times);
 			Date date2=format.parse(date+" "+timee);
-			h.setHId(NameOfDate.getNum());
+			h.setHId("h"+NameOfDate.getNum());
 			h.setHTimeStart(new Timestamp(date1.getTime()));
 			h.setHTimeEnd(new Timestamp(date2.getTime()));
 			h.setHCreateTime(new Timestamp(new Date().getTime()));

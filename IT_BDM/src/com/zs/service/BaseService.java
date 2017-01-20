@@ -618,7 +618,7 @@ public class BaseService implements IService{
 		try {
 			return str==null||str.trim().equals("")?new Date():new SimpleDateFormat("yyyy-MM-dd").parse(str);
 		} catch (ParseException e) {
-			log.error("String转换Date错误，错误的字符串是："+str);
+			log.error("String转换Date错误，错误的字符串是："+str+",为防止流程失败故返回一个当前时间。");
 			return new Date();
 		}
 	}
@@ -626,7 +626,7 @@ public class BaseService implements IService{
 		try {
 			return str==null||str.trim().equals("")?null:Integer.valueOf(str);
 		} catch (Exception e) {
-			log.error("String转换Integer错误，错误的字符串是："+str);
+			log.error("String转换Integer错误，错误的字符串是："+str+",为防止流程失败故返回null。");
 			return null;
 		}
 	}
@@ -635,7 +635,7 @@ public class BaseService implements IService{
 		try {
 			return str==null||str.trim().equals("")?new Timestamp(new Date().getTime()):new Timestamp(new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(str).getTime());
 		} catch (Exception e) {
-			log.error("String转换Timestamp错误，错误的字符串是："+str);
+			log.error("String转换Timestamp错误，错误的字符串是："+str+",为防止流程失败故返回一个当前时间。");
 			return new Timestamp(new Date().getTime());
 		}
 	}

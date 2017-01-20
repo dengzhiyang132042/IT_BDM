@@ -24,8 +24,10 @@ public class XtHitchesServiceImpl extends BaseService implements iDataImportServ
 			List<String[]> list=ExcelImport.getDataFromExcel(fileName,file);
 			for (int i = 1; i < list.size(); i++) {
 				try {
-					XtHitches hitches=new XtHitches(NameOfDate.getNum(), transToTimestamp(list.get(i)[0]+" "+list.get(i)[1]),
-							transToTimestamp(list.get(i)[0]+" "+list.get(i)[2]), list.get(i)[3], list.get(i)[4], list.get(i)[5],
+					XtHitches hitches=new XtHitches("h"+NameOfDate.getNum(), 
+							transToTimestamp(list.get(i)[0]+" "+list.get(i)[1]),
+							transToTimestamp(list.get(i)[0]+" "+list.get(i)[2]), 
+							list.get(i)[3], list.get(i)[4], list.get(i)[5],
 							new Timestamp(new Date().getTime()),"有效","维护",unum);
 					save(hitches);
 				} catch (Exception e) {

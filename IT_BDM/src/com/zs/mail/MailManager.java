@@ -5,6 +5,8 @@ import java.util.Vector;
 
 import javax.mail.MessagingException;
 
+import org.apache.log4j.Logger;
+
 import com.zs.entity.custom.MailModel;
 
 
@@ -19,6 +21,7 @@ public class MailManager {
 	private boolean isIng=false;//是否在发送的一个标志
 	private Vector<MailModel> mails;//模拟邮件体集合
 	private static MailManager factory=new MailManager();//一个自己的实例
+	private Logger logger=Logger.getLogger(MailManager.class);
 	
 	private MailManager() {
 		mails=new Vector<MailModel>();
@@ -50,7 +53,7 @@ public class MailManager {
 			for (int i = 0; i < mails.size(); i++) {
 				try {
 					isSend=true;
-					System.out.println("--------[邮件管理者发送邮件]-----"+new Date().toLocaleString()+"-------------");
+					logger.info("--------[邮件管理者发送邮件]-----"+new Date().toLocaleString()+"-------------");
 					MailTest.outputMail(mails.get(i));
 					mails.remove(i);//发完就删掉
 					//休眠10分钟
@@ -62,7 +65,7 @@ public class MailManager {
 				}
 			} 
 			if (isSend) {
-				System.out.println("----------邮件全部发完----------");
+				logger.info("----------邮件全部发完----------");
 			}
 			isIng=false;
 		}

@@ -1,5 +1,6 @@
 package com.zs.interceptor;
 
+import java.io.UnsupportedEncodingException;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
@@ -18,6 +19,7 @@ import com.zs.service.IService;
  * @author 张顺
  *<br>2017-1-12
  *<br>特殊字符转换拦截器（前拦截器）
+ *<br>2017-1-20，张顺，字符长度限制
  */
 public class SCTInterceptor extends AbstractInterceptor{
 
@@ -70,7 +72,13 @@ public class SCTInterceptor extends AbstractInterceptor{
                 while(iters.hasNext()){  
                     Object key = iters.next();  
                     Object value = map.get(key);  
-                    map.put(key, transfer((String[])value));  
+                    String a[]=transfer((String[])value);
+                    if (a==null) {
+						response.sendRedirect("error3.jsp");
+						return null;
+					}else {
+						map.put(key,a);  
+					}
                 }  
         return arg0.invoke();  
 	}
@@ -80,6 +88,14 @@ public class SCTInterceptor extends AbstractInterceptor{
             if(StringUtils.isEmpty(params[i]))continue;  
             params[i]=params[i].trim();  
             params[i]=HtmlUtils.htmlEscape(params[i]);
+            try {
+				if (params[i].getBytes("utf-8").length>255) {
+					return null;
+				}
+			} catch (UnsupportedEncodingException e) {
+				logger.error("输入字符超过最大长度255字节："+params[i]);
+				e.printStackTrace();
+			}
         }  
         return params;  
     }    
