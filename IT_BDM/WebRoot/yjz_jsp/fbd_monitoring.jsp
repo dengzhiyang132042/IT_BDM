@@ -34,8 +34,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script type="text/javascript">
 	$(function(){
 		$("#sele option[value='"+${page.size}+"']").attr("selected",true);
-		$("#eidtASubjectWindow1").show();
-		$('#tt').show();
 	});
 	
 	function update(u1,u2,u3,u4,u5,u6,u7,u8,u9,u10,u11,u12,u13,u14,u15,u16,u17){
@@ -73,7 +71,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		}
 		$('#f1').submit();
 	}
-	
 	</script>
 	
   </head>
@@ -118,7 +115,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     
     
     <div style="margin-bottom: 5px;">
-	    <table border="1" id="eidtASubjectWindow1">
+	    <table border="1">
 	    <tr>
 	    	<th>编号</th>
 	    	<th>区部</th>
@@ -145,28 +142,28 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    </tr>
 	    <c:forEach items="${ms}" var="m">
 	    <tr>
-			<td width="">${m.MId }</td>
-			<td width="">${m.fbd.fb.qb.qbName }</td>
-			<td width="">${m.fbd.fb.fbName }</td>
-			<td width="">${m.fbd.fb.fbMaster }</td>
-			<td width="">${m.fbd.fb.fbPhonePrivate }</td>
-			<td width="">${m.fbd.fbdName }</td>
-			<td width="">${m.MCamera }</td>
-			<td width="">${m.MDisk }</td>
-			<td width="">${m.MDiskCapacity }</td>
-			<td width="">${m.MNum }</td>
-			<td width="">${m.MPass }</td>
-			<td width="">${m.MDisplayer }</td>
-			<td width="">${m.MMainframeBrand }</td>
-			<td width="">${m.MMainframeNumber }</td>
-			<td width="">${m.MInterface }</td>
-			<td width=""><fmt:formatDate value="${m.MTimeStart }" pattern="yyyy/M/d" /></td>
-			<td width="">${m.MUsedYear }</td>
-			<td width="">${m.MScrap }</td>
-			<td width="">${m.MPeriod }</td>
-			<td width="">${m.MNote }</td>
-			<td width="">${m.MState }</td>
-			<td width="5%" align="center">
+			<td>${m.MId }</td>
+			<td>${m.fbd.fb.qb.qbName }</td>
+			<td>${m.fbd.fb.fbName }</td>
+			<td>${m.fbd.fb.fbMaster }</td>
+			<td>${m.fbd.fb.fbPhonePrivate }</td>
+			<td>${m.fbd.fbdName }</td>
+			<td>${m.MCamera }</td>
+			<td>${m.MDisk }</td>
+			<td>${m.MDiskCapacity }</td>
+			<td>${m.MNum }</td>
+			<td>${m.MPass }</td>
+			<td>${m.MDisplayer }</td>
+			<td>${m.MMainframeBrand }</td>
+			<td>${m.MMainframeNumber }</td>
+			<td>${m.MInterface }</td>
+			<td><fmt:formatDate value="${m.MTimeStart }" pattern="yyyy/M/d" /></td>
+			<td>${m.MUsedYear }</td>
+			<td>${m.MScrap }</td>
+			<td>${m.MPeriod }</td>
+			<td>${m.MNote }</td>
+			<td>${m.MState }</td>
+			<td align="center">
 				<a onclick="update('${m.MId }','${m.fbd.fbdId }','${m.MCamera }','${m.MDisk }',
 				'${m.MDiskCapacity }','${m.MNum }','${m.MPass }','${m.MDisplayer }','${m.MMainframeBrand }',
 				'${m.MMainframeNumber }','${m.MInterface }','<fmt:formatDate value="${m.MTimeStart }" pattern="yyyy-MM-dd" />',
@@ -419,10 +416,5 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</div>
 	
 	
-	<script>
-		function doSearch(value){
-			$('#f2').submit();
-		}
-	</script>
   </body>
 </html>

@@ -100,6 +100,9 @@ public class SIMAction extends MyBaseAction{
 		if(id!=null){
 			id=id.trim();
 		}
+		if (cz!=null) {
+			cz=cz.trim();
+		}
 		if(csName!=null){
 			csName=csName.trim();
 		}
@@ -111,7 +114,7 @@ public class SIMAction extends MyBaseAction{
 			clearOption();
 		}
 		String hql2="from Sim where 1=1";
-		if (id!=null&&!id.endsWith("")) {
+		if (id!=null) {
 			hql2=hql2+" and SId like '%"+id+"%'";
 		}
 		if(csName!=null){
