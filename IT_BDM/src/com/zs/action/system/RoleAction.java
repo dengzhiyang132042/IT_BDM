@@ -20,13 +20,27 @@ public class RoleAction extends MyBaseAction{
 	IService ser;
 	Role r;
 	List<Role> rs;
- 	
+ 	String cz;
+ 	String id;
+	
 	Page page;
 	
 	String result_role="role";
 	String result_succ="succ";
 	String result_fail="fail";
 	
+	public String getCz() {
+		return cz;
+	}
+	public void setCz(String cz) {
+		this.cz = cz;
+	}
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
+	}
 	public IService getSer() {
 		return ser;
 	}
@@ -52,26 +66,37 @@ public class RoleAction extends MyBaseAction{
 		this.page = page;
 	}
 	//------------------------------------------------
-	public String queryOfFenye() throws UnsupportedEncodingException {
-		String id=getRequest().getParameter("id");
-		String cz=getRequest().getParameter("cz");//用于判断是否清理page，yes清理，no不清理
-		if (page==null) {
-			page=new Page(1, 0, 5);
-		}
-		if (cz!=null && cz.equals("yes")) {
-			page=new Page(1, 0, 5);
+	private void clearSpace() {
+		if (cz!=null) {
+			cz=cz.trim();
 		}
 		if (id!=null) {
-			String hql="from Role where RId  = ?";
-			String ss[]={id};
-			String hql2="from Role where RId = '"+id+"'";
-			rs=ser.query(hql, ss, hql2, page, ser);
-		}else {
-			String hql="from Role";
-			String ss[]={};
-			String hql2="from Role";
-			rs=ser.query(hql, ss, hql2, page, ser);
+			id=id.trim();
 		}
+	}
+	
+	private void clearOptions() {
+		id=null;
+		cz=null;
+		r=null;
+		rs=null;
+		if (page==null) {
+			page=new Page(1, 0, 10);
+		}else {
+			page.setPageOn(1);
+		}
+	}
+	
+	
+	public String queryOfFenye() throws UnsupportedEncodingException {
+		clearSpace();
+		if (cz!=null && cz.equals("yes")) {
+			clearOptions();
+		}
+		String hql="from Role where 1=1 ";
+		if (id!=null) 
+			hql=hql+"and RId like '%"+id+"%' ";
+		rs=ser.query(hql, null, hql, page, ser);
 		//带上该角色的权限
 		for (int i = 0; i < rs.size(); i++) {
 			List<Permission> permissions=ser.find("from Permission where PId in(select PId from RolePermission where RId=?)", new String[]{rs.get(i).getRId()});
