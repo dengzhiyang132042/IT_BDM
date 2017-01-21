@@ -65,7 +65,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		}
 		$('#f1').submit();
 	}
-	
+	function sub(){
+		var name = $('#filename').val();
+		if(name=="" || name==null){
+			alert("请选择文件");
+		}else{
+			show_hint(['in']);
+			$('#ff').submit();
+		}
+	}
 	</script>
 	
   </head>
@@ -284,7 +292,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	
 	
 	<div id="in" class="easyui-window" title="数据导入" data-options="modal:true,closed:true" style="width:400px;height:auto;padding:10px;display: none;overflow-x:hidden;">
-		<form action="<%=path %>/wifi!importExcel" method="post" enctype="multipart/form-data">
+		<form id="ff" action="<%=path %>/wifi!importExcel" method="post" enctype="multipart/form-data">
 		<table border="1">
 			<tr>
 				<td>Excel模板</td>
@@ -295,12 +303,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<tr>
 				<td>导入Excel数据</td>
 				<td>
-					<input type="file" name="fileExcel"/>
+					<input id="filename" type="file" name="fileExcel"/>
 				</td>
 			</tr>
 			<tr>
 				<td colspan="2">
-					<input type="submit" value="导入" onclick="return show_hint(['in'])"/>	
+					<input type="button" value="导入" onclick="return sub()"/>	
 				</td>
 			</tr>
 		</table>
