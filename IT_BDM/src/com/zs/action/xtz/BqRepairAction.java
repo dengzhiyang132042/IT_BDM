@@ -168,21 +168,19 @@ public class BqRepairAction extends MyBaseAction{
 		if (cz!=null && cz.equals("yes")) {
 			clearOptions();
 		}
-		if (id!=null) {
-			String hql="from XtBqRepair where RState ='有效'";
-			if(id!=null&&!id.equals(""))
-				hql=hql+" RId like '%"+id+"%'";
-			if(sn!=null)
-				hql=hql+" and RSn like '%"+sn+"%'";
-			if(num!=null)
-				hql=hql+" and RNum like '%"+num+"%'";
-			if(dates!=null&&!dates.equals(""))
-				hql=hql+" and RDate >='"+dates+"'";
-			if(datee!=null&&!datee.equals(""))
-				hql=hql+" and RDate <='"+datee+"'";
-			hql=hql+" order by RCreateTime desc , RDate desc";
-			bqs=ser.query(hql, null, hql, page, ser);
-		}
+		String hql="from XtBqRepair where RState ='有效'";
+		if(id!=null)
+			hql=hql+" and RId like '%"+id+"%'";
+		if(sn!=null)
+			hql=hql+" and RSn like '%"+sn+"%'";
+		if(num!=null)
+			hql=hql+" and RNum like '%"+num+"%'";
+		if(dates!=null&&!dates.equals(""))
+			hql=hql+" and RDate >='"+dates+"'";
+		if(datee!=null&&!datee.equals(""))
+			hql=hql+" and RDate <='"+datee+"'";
+		hql=hql+" order by RCreateTime desc , RDate desc";
+		bqs=ser.query(hql, null, hql, page, ser);
 		ser.receiveStructure(getRequest());
 		return result_bq;
 	}

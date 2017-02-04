@@ -34,7 +34,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script type="text/javascript">
 	$(function(){
 		$("#sele option[value='"+${page.size}+"']").attr("selected",true);
-		$("#eidtASubjectWindow1").show();
 		$('#tt').show();
 	});
 	
@@ -73,7 +72,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   
   <body>
     
-    <div class="easyui-panel" title="监控材料清单" style="width:100%;padding: 5px;display: none;" data-options="tools:'#tt'">
+    <div class="easyui-panel" title="监控材料清单" style="width:100p%;padding: 5px;display: none;" data-options="tools:'#tt'">
     
     <div class="kscx">
    		<div class="inp">
@@ -104,7 +103,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     
     
     <div style="margin-bottom: 5px;">
-	    <table border="1" id="eidtASubjectWindow1">
+	    <table border="1">
 	    <tr>
 	    	<th>编号</th>
 	    	<th>分部</th>
@@ -123,21 +122,25 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    </tr>
 	    <c:forEach items="${lls}" var="ll">
 	    <tr>
-			<td width="">${ll.llId }</td>
-			<td width="">${ll.fbd.fb.fbName }</td>
-			<td width="">${ll.fbd.fbdName }</td>
-			<td width="">${ll.csMaster }</td>
-			<td width=""><fmt:formatDate value="${ll.llDateNeed }" pattern="yyyy/M/d" /></td>
-			<td width=""><fmt:formatDate value="${ll.llDateCommit }" pattern="yyyy/M/d" /></td>
-			<td width="">${ll.llName }</td>
-			<td width="">${ll.llNumber }</td>
-			<td width="">${ll.llUnit }</td>
-			<td width="">${ll.llNorms }</td>
-			<td width=""><a href="${ll.llLink }" target="blant">${ll.llLink }</a></td>
-			<td width="">${ll.llNote }</td>
-			<td width="">${ll.llState }</td>
-			<td width="5%" align="center">
-				<a onclick="update('${ll.llId }','${ll.fbd.fbdId }','${ll.csMaster }','${ll.llDateNeed }','${ll.llDateCommit }','${ll.llName }','${ll.llNumber }','${ll.llUnit }','${ll.llNorms }','${ll.llLink }','${ll.llNote }','${ll.llState }')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-edit'" title="修改"></a>
+			<td>${ll.llId }</td>
+			<td>${ll.fbd.fb.fbName }</td>
+			<td>${ll.fbd.fbdName }</td>
+			<td>${ll.csMaster }</td>
+			<td><fmt:formatDate value="${ll.llDateNeed }" pattern="yyyy/M/d" /></td>
+			<td><fmt:formatDate value="${ll.llDateCommit }" pattern="yyyy/M/d" /></td>
+			<td>${ll.llName }</td>
+			<td>${ll.llNumber }</td>
+			<td>${ll.llUnit }</td>
+			<td>${ll.llNorms }</td>
+			<td><a href="${ll.llLink }" target="blant">${ll.llLink }</a></td>
+			<td>${ll.llNote }</td>
+			<td>${ll.llState }</td>
+			<td align="center">
+				<a onclick="update('${ll.llId }','${ll.fbd.fbdId }','${ll.csMaster }',
+					'${ll.llDateNeed }','${ll.llDateCommit }',
+					'${ll.llName }','${ll.llNumber }','${ll.llUnit }','${ll.llNorms }',
+					'${ll.llLink }','${ll.llNote }','${ll.llState }')" 
+					class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-edit'" title="修改"></a>
 				<a href="<%=path %>/fbd_ll!deleteLL?id=${ll.llId}" onclick="return confirm('确定删除吗?')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-delete'" title="删除"></a>
 			</td>
 	    </tr>
@@ -145,7 +148,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    </table>
 	</div>
 	
-	<div class="easyui-panel" style="padding:5px;width: 100%;display: none;">
+	<div class="easyui-panel" style="width: 100%;padding:5px;display: none;">
 		<form id="f1" action="<%=path %>/fbd_ll!queryOfFenyeLL?id=${id }&fbdName=${fbdName }&llName=${llName }&llState=${llState }" method="post">
 		<select id="sele" style="float: left;margin-top: 3px;margin-left: 5px;" name="page.size" onchange="$('#f1').submit();">
 			<option value="5">5</option>
@@ -179,9 +182,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<form action="<%=path %>/fbd_ll!updateLL" method="post">
 		<table border="0" class="table1">
 			<tr>
-				<td>编号</td>
+				<td width="100">编号</td>
 				<td>
-					<input id="u_1" name="ll.llId" type="text"/>
+					<input id="u_1" name="ll.llId" type="text" readonly="readonly"/>
 				</td>
 			</tr>
 			<tr>
@@ -207,13 +210,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<tr>
 				<td>需求日期：</td>
 				<td>
-					<input id="u_4" name="ll.llDateNeed" type="date" style="width: 100%;"/>
+					<input id="u_4" name="ll.llDateNeed" class="Wdate" type="text" style="width: 100%;" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})"/>
 				</td>
 			</tr>
 			<tr>
 				<td>提交日期：</td>
 				<td>
-					<input id="u_5" name="ll.llDateCommit" type="date" style="width: 100%;"/>
+					<input id="u_5" name="ll.llDateCommit" class="Wdate" type="text" style="width: 100%;" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})"/>
 				</td>
 			</tr>
 			<tr>
@@ -271,7 +274,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<form action="<%=path %>/fbd_ll!addLL" method="post">
 		<table border="0" class="table1">
 			<tr>
-				<td>分拨点：</td>
+				<td width="100">分拨点：</td>
 				<td>
 					<select name="ll.fbdId">
 						<c:forEach items="${structure}" var="qb">
@@ -293,13 +296,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<tr>
 				<td>需求日期：</td>
 				<td>
-					<input name="ll.llDateNeed" type="date" style="width: 100%;"/>
+					<input name="ll.llDateNeed" class="Wdate" type="text" style="width: 100%;" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})"/>
 				</td>
 			</tr>
 			<tr>
 				<td>提交日期：</td>
 				<td>
-					<input name="ll.llDateCommit" type="date" style="width: 100%;"/>
+					<input name="ll.llDateCommit" class="Wdate" type="text" style="width: 100%;" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})"/>
 				</td>
 			</tr>
 			<tr>

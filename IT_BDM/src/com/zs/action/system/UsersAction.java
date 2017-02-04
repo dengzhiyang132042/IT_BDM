@@ -18,6 +18,8 @@ public class UsersAction extends MyBaseAction{
 	IService ser;
 	Users u;
 	List<Users> us;
+ 	String cz;
+ 	String id;
  	
 	Page page;
 	
@@ -25,6 +27,18 @@ public class UsersAction extends MyBaseAction{
 	String result_succ="succ";
 	String result_fail="fail";
 	
+	public String getCz() {
+		return cz;
+	}
+	public void setCz(String cz) {
+		this.cz = cz;
+	}
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
+	}
 	public IService getSer() {
 		return ser;
 	}
@@ -50,26 +64,32 @@ public class UsersAction extends MyBaseAction{
 		this.page = page;
 	}
 	//------------------------------------------------
-	public String queryOfFenye() throws UnsupportedEncodingException {
-		String id=getRequest().getParameter("id");
-		String cz=getRequest().getParameter("cz");//用于判断是否清理page，yes清理，no不清理
+	private void clearSpace() {
+		id=id==null?null:id.trim();
+		cz=cz==null?null:cz.trim();
+	}
+	
+	private void clearOptions() {
+		id=null;
+		cz=null;
+		u=null;
+		us=null;
 		if (page==null) {
-			page=new Page(1, 0, 5);
-		}
-		if (cz!=null && cz.equals("yes")) {
-			page=new Page(1, 0, 5);
-		}
-		if (id!=null) {
-			String hql="from Users where UNum  = ?";
-			String ss[]={id};
-			String hql2="from Users where UNum = '"+id+"'";
-			us=ser.query(hql, ss, hql2, page, ser);
+			page=new Page(1, 0, 10);
 		}else {
-			String hql="from Users";
-			String ss[]={};
-			String hql2="from Users";
-			us=ser.query(hql, ss, hql2, page, ser);
+			page.setPageOn(1);
 		}
+	}
+	
+	public String queryOfFenye() throws UnsupportedEncodingException {
+		clearSpace();
+		if (cz!=null && cz.equals("yes")) {
+			clearOptions();
+		}
+		String hql="from Users where 1=1 ";
+		if (id!=null)
+			hql=hql+"and UNum like '%"+id+"%' ";
+		us=ser.query(hql, null, hql, page, ser);
 		//带上角色信息
 		for (int i = 0; i < us.size(); i++) {
 			Role r=(Role) ser.get(Role.class, us.get(i).getRId());

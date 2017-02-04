@@ -190,9 +190,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<form action="<%=path %>/sim!updateSIM" method="post">
 		<table border="0" class="table1">
 			<tr>
-				<td>编号</td>
+				<td width="100">编号</td>
 				<td>
-					<input id="u_1" name="sim.SId" type="text"/>
+					<input id="u_1" name="sim.SId" type="text" readonly="readonly"/>
 				</td>
 			</tr>
 			<tr>
@@ -226,7 +226,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<tr>
 				<td>登记时间：</td>
 				<td>
-					<input id="u_6" name="sim.SDate" type="date" style="width: 100%;"/>
+					<input id="u_6" name="sim.SDate" type="text" style="width: 100%;" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})" class="Wdate"/>
 				</td>
 			</tr>
 			<tr>
@@ -248,7 +248,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<form action="<%=path %>/sim!addSIM" method="post">
 		<table border="0" class="table1">
 			<tr>
-				<td>部门：</td>
+				<td width="100">部门：</td>
 				<td>
 					<select name="sim.csName" id="cc2" style="width:100%;"></select>
 					<div id="sp2">
@@ -278,7 +278,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<tr>
 				<td>登记时间：</td>
 				<td>
-					<input name="sim.SDate" type="date" style="width: 100%;"/>
+					<input name="sim.SDate" type="text" style="width: 100%;" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})" class="Wdate"/>
 				</td>
 			</tr>
 			<tr>

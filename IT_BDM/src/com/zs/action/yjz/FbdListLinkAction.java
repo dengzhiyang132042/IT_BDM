@@ -1,9 +1,12 @@
 package com.zs.action.yjz;
 
+import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
 import java.util.List;
 
+import com.zs.action.IMyBaseAction;
 import com.zs.action.MyBaseAction;
+import com.zs.dao.IBaseDaoOfSpring;
 import com.zs.entity.CompanySection;
 import com.zs.entity.CompanySection1;
 import com.zs.entity.CompanySection2;
@@ -24,6 +27,10 @@ import com.zs.tools.Page;
 
 public class FbdListLinkAction extends MyBaseAction{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	IService ser;
 	Page page;
 	
@@ -35,18 +42,24 @@ public class FbdListLinkAction extends MyBaseAction{
 	String result_fail="fail";
 	
 	String id;
+	String cz;
 	String fbdName;
 	String llName;
 	String llState;
 	
 	
+	public String getCz() {
+		return cz;
+	}
+	public void setCz(String cz) {
+		this.cz = cz;
+	}
 	public String getId() {
 		return id;
 	}
 	public void setId(String id) {
 		this.id = id;
 	}
-	
 	public String getFbdName() {
 		return fbdName;
 	}
@@ -65,7 +78,6 @@ public class FbdListLinkAction extends MyBaseAction{
 	public void setLlState(String llState) {
 		this.llState = llState;
 	}
-
 	public IService getSer() {
 		return ser;
 	}
@@ -94,14 +106,23 @@ public class FbdListLinkAction extends MyBaseAction{
 	//------------------------------------------------
 	private void clearOptions() {
 		id=null;
+		cz=null;
 		fbdName=null;
 		llName=null;
 		llState=null;
+		if (page==null) {
+			page=new Page(1, 0, 10);
+		}else {
+			page.setPageOn(1);
+		}
 	}
 	
 	private void clearSpace(){
 		if(id!=null){
 			id=id.trim();
+		}
+		if (cz!=null) {
+			cz=cz.trim();
 		}
 		if(fbdName!=null){
 			fbdName=fbdName.trim();
@@ -114,77 +135,86 @@ public class FbdListLinkAction extends MyBaseAction{
 		}
 	}
 	
-	public String queryOfFenyeLL() throws UnsupportedEncodingException {
-		id=getRequest().getParameter("id");
-		String cz=getRequest().getParameter("cz");//用于判断是否清理page，yes清理，no不清理
-		if (page==null) {
-			page=new Page(1, 0, 5);
+	public String gotoQuery() throws UnsupportedEncodingException {
+		clearOptions();
+		String hql="from FbdListLink";
+		lls=ser.query(hql, null, hql, page, ser);
+		for (int i = 0; i < lls.size(); i++) {
+			if (lls.get(i).getFbdId()!=null) {
+				//带上分部区部分拨点信息
+				SectionFenbodian fbd=(SectionFenbodian) ser.get(SectionFenbodian.class, lls.get(i).getFbdId());
+				SectionFenbu fb=(SectionFenbu) ser.get(SectionFenbu.class, fbd.getFbId());
+				SectionQubu qb=(SectionQubu) ser.get(SectionQubu.class, fb.getQbId());
+				fb.setQb(qb);
+				fbd.setFb(fb);
+				lls.get(i).setFbd(fbd);
+			}
 		}
+		ser.receiveStructure(getRequest());
+		return result_ll;
+	}
+	
+	
+	public String queryOfFenyeLL() throws UnsupportedEncodingException {
+		clearSpace();
 		if (cz!=null && cz.equals("yes")) {
-			page=new Page(1, 0, 5);
 			clearOptions();
 		}
-		clearSpace();
-		if (id!=null) {
-			String hql2="from FbdListLink where llId like '%"+id+"%'";
-			if(fbdName!=null&&!"".equals(fbdName)){
-				hql2="from FbdListLink where fbdId in (select fbdId from SectionFenbodian where fbdName like '%"+fbdName+"%')";
-			}
-			if(llName!=null&&!"".equals(llName)){
-				hql2=hql2+ " and llName like '%"+llName+"%'";
-			}
-			if(llState!=null&&!"".equals(llState)){
-				hql2=hql2+" and llState like '%"+llState+"%'";
-			}
-			lls=ser.query(hql2, null, hql2, page, ser);
-		}else {
-			String hql="from FbdListLink";
-			String ss[]={};
-			String hql2="from FbdListLink";
-			lls=ser.query(hql, ss, hql2, page, ser);
-		}
+		String hql="from FbdListLink where 1=1 ";
+		if (id!=null && !id.equals(""))
+			hql=hql+"and llId like '%"+id+"%' ";
+		if(fbdName!=null && !fbdName.equals(""))
+			hql=hql+"and fbdId in (select fbdId from SectionFenbodian where fbdName like '%"+fbdName+"%') ";
+		if(llName!=null && !llName.equals(""))
+			hql=hql+"and llName like '%"+llName+"%' ";
+		if(llState!=null && !llState.equals(""))
+			hql=hql+"and llState like '%"+llState+"%' ";
+		lls=ser.query(hql, null, hql, page, ser);
 		for (int i = 0; i < lls.size(); i++) {
-			//带上分部区部分拨点信息
-			SectionFenbodian fbd=(SectionFenbodian) ser.get(SectionFenbodian.class, lls.get(i).getFbdId());
-			SectionFenbu fb=(SectionFenbu) ser.get(SectionFenbu.class, fbd.getFbId());
-			SectionQubu qb=(SectionQubu) ser.get(SectionQubu.class, fb.getQbId());
-			fb.setQb(qb);
-			fbd.setFb(fb);
-			lls.get(i).setFbd(fbd);
+			if (lls.get(i).getFbdId()!=null) {
+				//带上分部区部分拨点信息
+				SectionFenbodian fbd=(SectionFenbodian) ser.get(SectionFenbodian.class, lls.get(i).getFbdId());
+				SectionFenbu fb=(SectionFenbu) ser.get(SectionFenbu.class, fbd.getFbId());
+				SectionQubu qb=(SectionQubu) ser.get(SectionQubu.class, fb.getQbId());
+				fb.setQb(qb);
+				fbd.setFb(fb);
+				lls.get(i).setFbd(fbd);
+			}
 		}
 		ser.receiveStructure(getRequest());
 		return result_ll;
 	}
 	
 	public String deleteLL() throws Exception {
-		String id=getRequest().getParameter("id");
+		clearSpace();
 		if (id!=null) {
 			ll=(FbdListLink) ser.get(FbdListLink.class, id);
 			ser.delete(ll);
 		}
 		ll=null;
-		return result_succ;
+		return gotoQuery();
 	}
 	
 	public String updateLL() throws Exception {
+		clearSpace();
 		if(ll!=null && ll.getLlId()!=null && !"".equals(ll.getLlId().trim())){
 			ser.update(ll);
 		}
 		getRequest().setAttribute("ll", ll);
 		ll=null;
-		return result_succ;
+		return gotoQuery();
 	}
 	
 	public String addLL() throws Exception {
+		clearSpace();
 		if(ll!=null){
 			ll.setLlId("ll"+NameOfDate.getNum());
 			ser.save(ll);
 		}
 		getRequest().setAttribute("ll", ll);
 		ll=null;
-		return result_succ;
+		return gotoQuery();
 	}
-	
 	
 	
 }
