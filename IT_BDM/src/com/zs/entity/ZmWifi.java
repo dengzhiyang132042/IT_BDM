@@ -1,5 +1,6 @@
 package com.zs.entity;
 
+import java.sql.Timestamp;
 import java.util.Date;
 
 /**
@@ -19,6 +20,10 @@ public class ZmWifi implements java.io.Serializable {
 	private String WPass;
 	private String WNote;
 	private Date WDate;
+	private String WType;
+	private Timestamp WCreateTime;
+	private String WState;
+	private String UNum;
 
 	// Constructors
 
@@ -34,7 +39,8 @@ public class ZmWifi implements java.io.Serializable {
 	/** full constructor */
 	public ZmWifi(String WId, String WAddress, String WIp, String WManagerNum,
 			String WManagerPass, String WSsid, String WPass, String WNote,
-			Date WDate) {
+			Date WDate, String WType, Timestamp WCreateTime, String WState,
+			String UNum) {
 		this.WId = WId;
 		this.WAddress = WAddress;
 		this.WIp = WIp;
@@ -44,6 +50,10 @@ public class ZmWifi implements java.io.Serializable {
 		this.WPass = WPass;
 		this.WNote = WNote;
 		this.WDate = WDate;
+		this.WType = WType;
+		this.WCreateTime = WCreateTime;
+		this.WState = WState;
+		this.UNum = UNum;
 	}
 
 	// Property accessors
@@ -118,6 +128,38 @@ public class ZmWifi implements java.io.Serializable {
 
 	public void setWDate(Date WDate) {
 		this.WDate = WDate;
+	}
+
+	public String getWType() {
+		return this.WType;
+	}
+
+	public void setWType(String WType) {
+		this.WType = WType;
+	}
+
+	public Timestamp getWCreateTime() {
+		return this.WCreateTime;
+	}
+
+	public void setWCreateTime(Timestamp WCreateTime) {
+		this.WCreateTime = WCreateTime;
+	}
+
+	public String getWState() {
+		return this.WState;
+	}
+
+	public void setWState(String WState) {
+		this.WState = WState;
+	}
+
+	public String getUNum() {
+		return this.UNum;
+	}
+
+	public void setUNum(String UNum) {
+		this.UNum = UNum;
 	}
 
 }

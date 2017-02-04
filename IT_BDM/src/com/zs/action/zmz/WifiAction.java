@@ -33,6 +33,7 @@ public class WifiAction extends MyBaseAction implements IMyBaseAction{
 	String result_succ="succ";
 	String result_fail="fail";
 	
+	String cz;
 	String id;
 	String WIp;
 	String WAddress;
@@ -139,6 +140,14 @@ public class WifiAction extends MyBaseAction implements IMyBaseAction{
 		this.wifis = wifis;
 	}
 
+	public String getCz() {
+		return cz;
+	}
+
+	public void setCz(String cz) {
+		this.cz = cz;
+	}
+
 	private Logger logger=Logger.getLogger(WifiAction.class);
 	
 	
@@ -148,6 +157,14 @@ public class WifiAction extends MyBaseAction implements IMyBaseAction{
 		WAddress=null;
 		WIp=null;
 		WSsid=null;
+		cz=null;
+		wifi=null;
+		wifis=null;
+		if (page==null) {
+			page=new Page(1, 0, 10);
+		}else {
+			page.setPageOn(1);
+		}
 	}
 	
 	private void clearSpace(){
@@ -163,38 +180,32 @@ public class WifiAction extends MyBaseAction implements IMyBaseAction{
 		if(WSsid!=null){
 			WSsid=WSsid.trim();
 		}
+		if(cz!=null){
+			cz = cz.trim();
+		}
 	}
 	
 	public String queryOfFenye() throws UnsupportedEncodingException {
-		id=getRequest().getParameter("id");
-		String cz=getRequest().getParameter("cz");//用于判断是否清理page，yes清理，no不清理
-		
-		if (page==null) {
-			page=new Page(1, 0, 5);
-		}
+		clearSpace();
 		if (cz!=null && cz.equals("yes")) {
-			page=new Page(1, 0, 5);
 			clearOptions();
 		}
-		clearSpace();
-		if(id!=null){
-			String hql2="from ZmWifi where WId like '%"+id+"%'";
-			if(WAddress!=null){
-				hql2=hql2+" and WAddress like '%"+WAddress+"%'";
-			}
-			if(WIp!=null){
-				hql2=hql2+" and WIp like '%"+WIp+"%'";
-			}
-			if(WSsid!=null){
-				hql2=hql2+" and WSsid like '%"+WSsid+"%'";
-			}
-			wifis=ser.query(hql2, null, hql2, page, ser);
-		}else {
-			String hql="from ZmWifi order by WDate desc";
-			String ss[]={};
-			String hql2="from ZmWifi order by WDate desc";
-			wifis=ser.query(hql, ss, hql2, page, ser);
+		
+		String hql2="from ZmWifi where WState='有效'";
+		if(id!=null&&!id.equals("")){
+			 hql2=hql2 + " and WId like '%"+id+"%'";
 		}
+		if(WAddress!=null&&!WAddress.equals("")){
+			hql2=hql2+" and WAddress like '%"+WAddress+"%'";
+		}
+		if(WIp!=null&&!WIp.equals("")){
+			hql2=hql2+" and WIp like '%"+WIp+"%'";
+		}
+		if(WSsid!=null&&!WSsid.equals("")){
+			hql2=hql2+" and WSsid like '%"+WSsid+"%'";
+		}
+		hql2=hql2+" order by WCreateTime desc , WDate desc";
+		wifis=ser.query(hql2, null, hql2, page, ser);
 		ser.receiveStructure(getRequest());
 		return result;
 	}
@@ -204,6 +215,11 @@ public class WifiAction extends MyBaseAction implements IMyBaseAction{
 			wifi.setWId("w"+NameOfDate.getNum());
 			Date date=new Date();
 			wifi.setWDate(new Timestamp(date.getTime()));
+			wifi.setWType("注册");
+			wifi.setWCreateTime(new Timestamp(new Date().getTime()));
+			wifi.setWState("有效");
+			Users us = (Users) getSession().getAttribute("user");
+			wifi.setUNum(us.getUNum());
 			ser.save(wifi);
 			getRequest().setAttribute("wifi", wifi);
 		}
@@ -223,10 +239,8 @@ public class WifiAction extends MyBaseAction implements IMyBaseAction{
 
 	public String gotoQuery() throws UnsupportedEncodingException {
 		clearOptions();
-		String hql="from ZmWifi order by WDate desc";
-		String ss[]={};
-		String hql2="from ZmWifi order by WDate desc";
-		wifis=ser.query(hql, ss, hql2, page, ser);
+		String hql2="from ZmWifi where WState='有效'  order by WCreateTime desc , WDate desc";
+		wifis=ser.query(hql2, null, hql2, page, ser);
 		ser.receiveStructure(getRequest());
 		return result;
 	}
@@ -234,8 +248,18 @@ public class WifiAction extends MyBaseAction implements IMyBaseAction{
 	public String update() throws Exception {
 		if(wifi!=null && wifi.getWId()!=null && !"".equals(wifi.getWId().trim())){
 			ZmWifi ZmWifi=(ZmWifi) ser.get(ZmWifi.class, wifi.getWId());
+			ZmWifi.setWState("无效");
+			ser.update(ZmWifi);
+			
+			wifi.setWId("w"+NameOfDate.getNum());
 			wifi.setWDate(ZmWifi.getWDate());
-			ser.update(wifi);
+			wifi.setWType("维护");
+			wifi.setWCreateTime(new Timestamp(new Date().getTime()));
+			wifi.setWState("有效");
+			Users us = (Users) getSession().getAttribute("user");
+			wifi.setUNum(us.getUNum());
+			ser.save(wifi);
+			
 			getRequest().setAttribute("wifi", wifi);
 		}
 		wifi=null;

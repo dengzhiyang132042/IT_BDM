@@ -34,5 +34,17 @@
         <property name="WDate" type="java.util.Date">
             <column name="w_date" length="10" />
         </property>
+        <property name="WType" type="java.lang.String">
+            <column name="w_type" />
+        </property>
+        <property name="WCreateTime" type="java.sql.Timestamp">
+            <column name="w_create_time" length="19" />
+        </property>
+        <property name="WState" type="java.lang.String">
+            <column name="w_state" />
+        </property>
+        <property name="UNum" type="java.lang.String">
+            <column name="u_num" />
+        </property>
     </class>
 </hibernate-mapping>

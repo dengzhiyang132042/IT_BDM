@@ -160,7 +160,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<td width="">${p.PLast }</td>
 			<td width="">${p.PNext }</td>
 			<td width="5%" align="center">
-				<a onclick="update('${p.PId }','${p.PBrand }','${p.PNumber }','${p.PArea }','${p.PAddress }','${p.PType }','${p.PPort }','${p.PIp }','${p.PCartridge }','${p.PToner }','${p.PTrait }','${p.PFunction }','${p.PPage }','${p.PAdd }','${p.PLast }','${p.PNext }')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-edit'" title="修改"></a>
+				<a onclick="update('${p.PId }','${p.PBrand }',
+				'${p.PNumber }','${p.PArea }','${p.PAddress }',
+				'${p.PType }','${p.PPort }','${p.PIp }','${p.PCartridge }',
+				'${p.PToner }','${p.PTrait }','${p.PFunction }','${p.PPage }',
+				'${p.PAdd }','<fmt:formatDate value="${p.PLast }" pattern="yyyy-MM-dd" />','<fmt:formatDate value="${p.PNext }" pattern="yyyy-MM-dd" />')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-edit'" title="修改"></a>
 				<a href="<%=path %>/print!delete?id=${p.PId}" onclick="return confirm('确定删除吗?')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-delete'" title="删除"></a>
 			</td>
 	    </tr>
@@ -171,9 +175,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<div class="easyui-panel" style="padding:5px;width: 100%;display: none;background-color: white;">
 		<form id="f1" action="<%=path %>/print!queryOfFenye?id=${id}&brand=${brand}&area=${address}&ip${ip}" method="post">
 		<select id="sele" style="float: left;margin-top: 3px;margin-left: 5px;" name="page.size" onchange="$('#f1').submit();">
-			<option value="5">5</option>
 			<option value="10">10</option>
 			<option value="15">15</option>
+			<option value="20">20</option>
 		</select>
 		
 		<span style="float: left;margin-left: 5px;">

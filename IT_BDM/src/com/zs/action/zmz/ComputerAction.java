@@ -5,25 +5,16 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.sql.Timestamp;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-import javax.xml.registry.infomodel.User;
 
 import org.apache.log4j.Logger;
 
 import com.zs.action.IMyBaseAction;
 import com.zs.action.MyBaseAction;
-import com.zs.entity.GoOut;
 import com.zs.entity.Users;
-import com.zs.entity.XtSite;
-import com.zs.entity.ZmBq;
 import com.zs.entity.ZmComputer;
-import com.zs.entity.ZmOaNumber;
-import com.zs.entity.ZmPrinter;
-import com.zs.entity.ZmVpn;
 import com.zs.service.IService;
 import com.zs.service.iDataImportService;
 import com.zs.tools.NameOfDate;
@@ -42,6 +33,7 @@ public class ComputerAction extends MyBaseAction implements IMyBaseAction{
 	String result_fail="fail";
 	
 	String id;
+	String cz;
 	String section;
 	String name;
 	String num;
@@ -125,6 +117,14 @@ public class ComputerAction extends MyBaseAction implements IMyBaseAction{
 	public void setNum(String num) {
 		this.num = num;
 	}
+	public String getCz() {
+		return cz;
+	}
+	public void setCz(String cz) {
+		this.cz = cz;
+	}
+	
+	
 	//----------------------------------------------------------------------------------
 
 	public void clearOptions() {
@@ -132,6 +132,14 @@ public class ComputerAction extends MyBaseAction implements IMyBaseAction{
 		section=null;
 		name=null;
 		num=null;
+		cz=null;
+		c=null;
+		cs=null;
+		if (page==null) {
+			page=new Page(1, 0, 10);
+		}else {
+			page.setPageOn(1);
+		}
 	}
 
 	private void clearSpace() {
@@ -147,12 +155,20 @@ public class ComputerAction extends MyBaseAction implements IMyBaseAction{
 		if(num!=null){
 			num=num.trim();
 		}
+		if(cz!=null){
+			cz=cz.trim();
+		}
 	}
 	
 	public String add() throws Exception {
 		if (c!=null) {
 			c.setCId("c"+NameOfDate.getNum());
 			c.setCDate(new Date());
+			c.setCType("注册");
+			c.setCState("有效");
+			c.setCCreateTime(new Timestamp(new Date().getTime()));
+			Users us = (Users) getSession().getAttribute("user");
+			c.setUNum(us.getUNum());
 			ser.save(c);
 			getRequest().setAttribute("c", c);
 		}
@@ -162,7 +178,6 @@ public class ComputerAction extends MyBaseAction implements IMyBaseAction{
 	}
 	
 	public String delete() throws Exception {
-		String id=getRequest().getParameter("id");
 		if (id!=null) {
 			c=(ZmComputer) ser.get(ZmComputer.class, id);
 			ser.delete(c);
@@ -173,53 +188,50 @@ public class ComputerAction extends MyBaseAction implements IMyBaseAction{
 	}
 
 	public String gotoQuery() throws UnsupportedEncodingException {
-		String hql="from ZmComputer order by CDate desc";
-		String ss[]={};
-		String hql2="from ZmComputer order by CDate desc";
-		cs=ser.query(hql, ss, hql2, page, ser);
+		String hql="from ZmComputer where CState = '有效' order by CCreateTime desc , CDate desc";
+		cs=ser.query(hql, null, hql, page, ser);
 		return result;
 	}
 
 	public String queryOfFenye() throws UnsupportedEncodingException {
-		id=getRequest().getParameter("id");
-		String cz=getRequest().getParameter("cz");//用于判断是否清理page，yes清理，no不清理
-		if (page==null) {
-			page=new Page(1, 0, 5);
-		}
+		clearSpace();
 		if (cz!=null && cz.equals("yes")) {
-			page=new Page(1, 0, 5);
 			clearOptions();
 		}
-		clearSpace();
-		if(id!=null){
-			String hql="from ZmComputer where CId like '%"+id+"%'";
-			if(section!=null){
-				hql=hql+"and CSection like '%"+section+"%'";
-			}
-			if(name!=null){
-				hql=hql+"and CMaster like '%"+name+"%'";
-			}
-			if(num!=null){
-				hql=hql+"and CNum like '%"+num+"%'";
-			}
-			hql=hql+" order by CDate desc";
-			cs=ser.query(hql, null, hql, page, ser);
-		}else {
-			String hql="from ZmComputer order by CDate desc";
-			String ss[]={};
-			String hql2="from ZmComputer order by CDate desc";
-			cs=ser.query(hql, ss, hql2, page, ser);
+		String hql="from ZmComputer where CState='有效' ";
+		if(id!=null&&!id.equals("")){
+			hql=hql+" and CId like '%"+id+"%'";
 		}
+		if(section!=null&&!section.equals("")){
+			hql=hql+" and CSection like '%"+section+"%'";
+		}
+		if(name!=null&&!name.equals("")){
+			hql=hql+" and CMaster like '%"+name+"%'";
+		}
+		if(num!=null&&!num.equals("")){
+			hql=hql+" and CNum like '%"+num+"%'";
+		}
+		hql=hql+" order by CCreateTime desc , CDate desc";
+		cs=ser.query(hql, null, hql, page, ser);
 		return result;
 	}
 
 
 	public String update() throws Exception {
 		if(c!=null && c.getCId()!=null && !"".equals(c.getCId().trim())){
-			ser.update(c);
+			ZmComputer zc = (ZmComputer) ser.get(ZmComputer.class, c.getCId());
+			zc.setCState("无效");
+			ser.update(zc);
+			
+			c.setCId("c"+NameOfDate.getNum());
+			c.setCType("维护");
+			c.setCState("有效");
+			c.setCCreateTime(new Timestamp(new Date().getTime()));
+			Users us = (Users) getSession().getAttribute("user");
+			c.setUNum(us.getUNum());
+			ser.save(c);
 			getRequest().setAttribute("c", c);
 		}
-		c=null;
 		clearOptions();
 		return gotoQuery();
 	}

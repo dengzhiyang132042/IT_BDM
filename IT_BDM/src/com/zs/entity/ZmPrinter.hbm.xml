@@ -55,5 +55,17 @@
         <property name="PNext" type="java.util.Date">
             <column name="p_next" length="10" />
         </property>
+        <property name="PServiceType" type="java.lang.String">
+            <column name="p_service_type" />
+        </property>
+        <property name="PCreateTime" type="java.sql.Timestamp">
+            <column name="p_create_time" length="19" />
+        </property>
+        <property name="PState" type="java.lang.String">
+            <column name="p_state" />
+        </property>
+        <property name="UNum" type="java.lang.String">
+            <column name="u_num" />
+        </property>
     </class>
 </hibernate-mapping>

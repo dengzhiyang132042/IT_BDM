@@ -34,6 +34,7 @@ public class PhoneAction extends MyBaseAction implements IMyBaseAction{
 	String id;
 	String PNumber;
 	String PSection;
+	String cz;
 	
 	private Logger logger=Logger.getLogger(PhoneAction.class);
 	private File fileExcel;
@@ -129,11 +130,28 @@ public class PhoneAction extends MyBaseAction implements IMyBaseAction{
 		this.phones = phones;
 	}
 
+	public String getCz() {
+		return cz;
+	}
+
+	public void setCz(String cz) {
+		this.cz = cz;
+	}
+
 	//**********************************************
 	public void clearOptions() {
 		id=null;
 		PNumber=null;
 		PSection=null;
+		cz=null;
+		phone=null;
+		phones=null;
+		if (page==null) {
+			page=new Page(1, 0, 10);
+		}else {
+			page.setPageOn(1);
+		}
+		
 	}
 	
 	private void clearSpace(){
@@ -146,35 +164,28 @@ public class PhoneAction extends MyBaseAction implements IMyBaseAction{
 		if(PSection!=null){
 			PSection=PSection.trim();
 		}
+		if(cz!=null){
+			cz = cz.trim();
+		}
 	}
 	
 	public String queryOfFenye() throws UnsupportedEncodingException {
-		id=getRequest().getParameter("id");
-		String cz=getRequest().getParameter("cz");//用于判断是否清理page，yes清理，no不清理
-		
-		if (page==null) {
-			page=new Page(1, 0, 5);
-		}
+		clearSpace();
 		if (cz!=null && cz.equals("yes")) {
-			page=new Page(1, 0, 5);
 			clearOptions();
 		}
-		clearSpace();
-		if(id!=null){
-			String hql2="from ZmPhoneLine where PId like '%"+id+"%'";
-			if(PNumber!=null){
-				hql2=hql2+" and PNumber like '%"+PNumber+"%'";
-			}
-			if(PSection!=null){
-				hql2=hql2+" and PSection like '%"+PSection+"%'";
-			}
-			phones=ser.query(hql2, null, hql2, page, ser);
-		}else {
-			String hql="from ZmPhoneLine order by PDate desc";
-			String ss[]={};
-			String hql2="from ZmPhoneLine order by PDate desc";
-			phones=ser.query(hql, ss, hql2, page, ser);
+		String hql2="from ZmPhoneLine where PState='有效'";
+		if(id!=null&&!id.equals("")){
+			hql2=hql2+" and PId like '%"+id+"%'";
 		}
+		if(PNumber!=null&&!PNumber.equals("")){
+			hql2=hql2+" and PNumber like '%"+PNumber+"%'";
+		}
+		if(PSection!=null&&!PSection.equals("")){
+			hql2=hql2+" and PSection like '%"+PSection+"%'";
+		}
+		hql2=hql2+" order by PCreateTime desc , PDate desc";
+		phones=ser.query(hql2, null, hql2, page, ser);
 		ser.receiveStructure(getRequest());
 		return result;
 	}
@@ -184,6 +195,11 @@ public class PhoneAction extends MyBaseAction implements IMyBaseAction{
 			phone.setPId("p"+NameOfDate.getNum());
 			Date date=new Date();
 			phone.setPDate(new Timestamp(date.getTime()));
+			phone.setPCreateTime(new Timestamp(date.getTime()));
+			phone.setPType("注册");
+			phone.setPState("有效");
+			Users us = (Users) getSession().getAttribute("user");
+			phone.setUNum(us.getUNum());
 			ser.save(phone);
 			getRequest().setAttribute("phone", phone);
 		}
@@ -203,10 +219,8 @@ public class PhoneAction extends MyBaseAction implements IMyBaseAction{
 
 	public String gotoQuery() throws UnsupportedEncodingException {
 		clearOptions();
-		String hql="from ZmPhoneLine order by PDate desc";
-		String ss[]={};
-		String hql2="from ZmPhoneLine order by PDate desc";
-		phones=ser.query(hql, ss, hql2, page, ser);
+		String hql="from ZmPhoneLine where PState='有效' order by PCreateTime desc , PDate desc";
+		phones=ser.query(hql,null, hql, page, ser);
 		ser.receiveStructure(getRequest());
 		return result;
 	}
@@ -214,8 +228,18 @@ public class PhoneAction extends MyBaseAction implements IMyBaseAction{
 	public String update() throws Exception {
 		if(phone!=null && phone.getPId()!=null && !"".equals(phone.getPId().trim())){
 			ZmPhoneLine phoneline=(ZmPhoneLine) ser.get(ZmPhoneLine.class, phone.getPId());
+			phoneline.setPState("无效");
+			ser.update(phoneline);
+			getRequest().setAttribute("phoneline", phoneline);
+			
+			phone.setPId("p"+NameOfDate.getNum());
 			phone.setPDate(phoneline.getPDate());
-			ser.update(phone);
+			phone.setPCreateTime(new Timestamp(new Date().getTime()));
+			phone.setPType("维护");
+			phone.setPState("有效");
+			Users us = (Users) getSession().getAttribute("user");
+			phone.setUNum(us.getUNum());
+			ser.save(phone);
 			getRequest().setAttribute("phone", phone);
 		}
 		phone=null;
