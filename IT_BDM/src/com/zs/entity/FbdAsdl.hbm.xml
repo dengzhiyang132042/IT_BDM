@@ -37,5 +37,17 @@
         <property name="asdlState" type="java.lang.String">
             <column name="asdl_state" />
         </property>
+        <property name="asdlType" type="java.lang.String">
+            <column name="asdl_type" />
+        </property>
+        <property name="asdlCreateTime" type="java.sql.Timestamp">
+            <column name="asdl_create_time" length="19" />
+        </property>
+        <property name="asdlStateRealy" type="java.lang.String">
+            <column name="asdl_state_realy" />
+        </property>
+        <property name="UNum" type="java.lang.String">
+            <column name="u_num" />
+        </property>
     </class>
 </hibernate-mapping>
