@@ -1,5 +1,6 @@
 package com.zs.entity;
 
+import java.sql.Timestamp;
 import java.util.Date;
 
 /**
@@ -22,6 +23,10 @@ public class ZmPhoneLine implements java.io.Serializable {
 	private String PBill;
 	private String PNote;
 	private Date PDate;
+	private String PType;
+	private Timestamp PCreateTime;
+	private String PState;
+	private String UNum;
 
 	// Constructors
 
@@ -37,7 +42,8 @@ public class ZmPhoneLine implements java.io.Serializable {
 	/** full constructor */
 	public ZmPhoneLine(String PId, String PA, String PB, String PC, String PD,
 			String PE, String PNumber, String PSection, String PFunction,
-			String PBill, String PNote, Date PDate) {
+			String PBill, String PNote, Date PDate, String PType,
+			Timestamp PCreateTime, String PState, String UNum) {
 		this.PId = PId;
 		this.PA = PA;
 		this.PB = PB;
@@ -50,6 +56,10 @@ public class ZmPhoneLine implements java.io.Serializable {
 		this.PBill = PBill;
 		this.PNote = PNote;
 		this.PDate = PDate;
+		this.PType = PType;
+		this.PCreateTime = PCreateTime;
+		this.PState = PState;
+		this.UNum = UNum;
 	}
 
 	// Property accessors
@@ -148,6 +158,38 @@ public class ZmPhoneLine implements java.io.Serializable {
 
 	public void setPDate(Date PDate) {
 		this.PDate = PDate;
+	}
+
+	public String getPType() {
+		return this.PType;
+	}
+
+	public void setPType(String PType) {
+		this.PType = PType;
+	}
+
+	public Timestamp getPCreateTime() {
+		return this.PCreateTime;
+	}
+
+	public void setPCreateTime(Timestamp PCreateTime) {
+		this.PCreateTime = PCreateTime;
+	}
+
+	public String getPState() {
+		return this.PState;
+	}
+
+	public void setPState(String PState) {
+		this.PState = PState;
+	}
+
+	public String getUNum() {
+		return this.UNum;
+	}
+
+	public void setUNum(String UNum) {
+		this.UNum = UNum;
 	}
 
 }

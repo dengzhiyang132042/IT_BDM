@@ -1,5 +1,6 @@
 package com.zs.entity;
 
+import java.sql.Timestamp;
 import java.util.Date;
 
 /**
@@ -31,6 +32,10 @@ public class ZmComputer implements java.io.Serializable {
 	private String CIsScrap;
 	private String CNote;
 	private Date CDate;
+	private String CType;
+	private Timestamp CCreateTime;
+	private String CState;
+	private String UNum;
 
 	// Constructors
 
@@ -49,7 +54,8 @@ public class ZmComputer implements java.io.Serializable {
 			String CMac, String CCpuBrand, String CCpuModel,
 			String CBoardBrand, String CBoardChip, String CMemoryC,
 			String CMemoryF, String CDisk, String CDisplayBrand,
-			String CDisplayC, String CIsScrap, String CNote, Date CDate) {
+			String CDisplayC, String CIsScrap, String CNote, Date CDate,
+			String CType, Timestamp CCreateTime, String CState, String UNum) {
 		this.CId = CId;
 		this.CSection = CSection;
 		this.CMaster = CMaster;
@@ -71,6 +77,10 @@ public class ZmComputer implements java.io.Serializable {
 		this.CIsScrap = CIsScrap;
 		this.CNote = CNote;
 		this.CDate = CDate;
+		this.CType = CType;
+		this.CCreateTime = CCreateTime;
+		this.CState = CState;
+		this.UNum = UNum;
 	}
 
 	// Property accessors
@@ -241,6 +251,38 @@ public class ZmComputer implements java.io.Serializable {
 
 	public void setCDate(Date CDate) {
 		this.CDate = CDate;
+	}
+
+	public String getCType() {
+		return this.CType;
+	}
+
+	public void setCType(String CType) {
+		this.CType = CType;
+	}
+
+	public Timestamp getCCreateTime() {
+		return this.CCreateTime;
+	}
+
+	public void setCCreateTime(Timestamp CCreateTime) {
+		this.CCreateTime = CCreateTime;
+	}
+
+	public String getCState() {
+		return this.CState;
+	}
+
+	public void setCState(String CState) {
+		this.CState = CState;
+	}
+
+	public String getUNum() {
+		return this.UNum;
+	}
+
+	public void setUNum(String UNum) {
+		this.UNum = UNum;
 	}
 
 }

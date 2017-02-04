@@ -44,6 +44,7 @@ public class PrintAction extends MyBaseAction implements IMyBaseAction{
 	String brand;
 	String ip;
 	String address;
+	String cz;
 	
 	private Logger logger=Logger.getLogger(PrintAction.class);
 	private File fileExcel;
@@ -123,14 +124,24 @@ public class PrintAction extends MyBaseAction implements IMyBaseAction{
 	public void setIp(String ip) {
 		this.ip = ip;
 	}
-//----------------------------------------------------------------------------------
+	public String getCz() {
+		return cz;
+	}
+	public void setCz(String cz) {
+		this.cz = cz;
+	}
+	//----------------------------------------------------------------------------------
 	public String add() throws Exception {
 		if (p!=null) {
 			p.setPId("p"+NameOfDate.getNum());
+			p.setPCreateTime(new Timestamp(new Date().getTime()));
+			p.setPServiceType("注册");
+			p.setPState("有效");
+			Users us = (Users) getSession().getAttribute("user");
+			p.setUNum(us.getUNum());
 			ser.save(p);
 			getRequest().setAttribute("p", p);
 		}
-		p=null;
 		clearOptions();
 		return gotoQuery();
 	}
@@ -140,6 +151,14 @@ public class PrintAction extends MyBaseAction implements IMyBaseAction{
 		brand=null;
 		address=null;
 		ip=null;
+		p=null;
+		ps=null;
+		cz=null;
+		if (page==null) {
+			page=new Page(1, 0, 10);
+		}else {
+			page.setPageOn(1);
+		}
 	}
 
 	public String delete() throws Exception {
@@ -148,49 +167,36 @@ public class PrintAction extends MyBaseAction implements IMyBaseAction{
 			p=(ZmPrinter) ser.get(ZmPrinter.class, id);
 			ser.delete(p);
 		}
-		p=null;
 		clearOptions();
 		return gotoQuery();
 	}
 
 	public String gotoQuery() throws UnsupportedEncodingException {
-		String hql="from ZmPrinter order by PLast desc";
-		String ss[]={};
-		String hql2="from ZmPrinter order by PLast desc";
-		ps=ser.query(hql, ss, hql2, page, ser);
+		String hql="from ZmPrinter where PState='有效' order by PCreateTime desc , PLast desc";
+		ps=ser.query(hql, null, hql, page, ser);
 		return result;
 	}
 
 	public String queryOfFenye() throws UnsupportedEncodingException {
-		id=getRequest().getParameter("id");
-		String cz=getRequest().getParameter("cz");//用于判断是否清理page，yes清理，no不清理
-		if (page==null) {
-			page=new Page(1, 0, 5);
-		}
+		clearSpace();
 		if (cz!=null && cz.equals("yes")) {
-			page=new Page(1, 0, 5);
 			clearOptions();
 		}
-		clearSpace();
-		if(id!=null){
-			String hql="from ZmPrinter where PId like '%"+id+"%'";
-			if(brand!=null){
-				hql=hql+" and PBrand like '%"+brand+"%'";
-			}
-			if(address!=null){
-				hql=hql+" and PAddress like '%"+address+"%'";
- 			}
-			if(ip!=null){
-				hql=hql+" and PIp like '%"+ip+"%'";
-			}
-			hql=hql+" order by PLast desc";
-			ps=ser.query(hql, null, hql, page, ser);
-		}else {
-			String hql="from ZmPrinter order by PLast desc";
-			String ss[]={};
-			String hql2="from ZmPrinter order by PLast desc";
-			ps=ser.query(hql, ss, hql2, page, ser);
+		String hql="from ZmPrinter where PState='有效'";
+		if(id!=null&&!id.equals("")){
+			hql=hql+" and PId like '%"+id+"%'";
 		}
+		if(brand!=null&&!brand.equals("")){
+			hql=hql+" and PBrand like '%"+brand+"%'";
+		}
+		if(address!=null&&!address.equals("")){
+			hql=hql+" and PAddress like '%"+address+"%'";
+		}
+		if(ip!=null&&!ip.equals("")){
+			hql=hql+" and PIp like '%"+ip+"%'";
+		}
+		hql=hql+" order by PCreateTime desc , PLast desc";
+		ps=ser.query(hql, null, hql, page, ser);
 		return result;
 	}
 
@@ -207,14 +213,27 @@ public class PrintAction extends MyBaseAction implements IMyBaseAction{
 		if (ip!=null) {
 			ip=ip.trim();
 		}
+		if(cz!=null){
+			cz = cz.trim();
+		}
 	}
 
 	public String update() throws Exception {
 		if(p!=null && p.getPId()!=null && !"".equals(p.getPId().trim())){
-			ser.update(p);
+			ZmPrinter zp = (ZmPrinter) ser.get(ZmPrinter.class, p.getPId());
+			zp.setPState("无效");
+			ser.update(zp);
+			getRequest().setAttribute("zp", zp);
+			
+			p.setPId("p"+NameOfDate.getNum());
+			p.setPCreateTime(new Timestamp(new Date().getTime()));
+			p.setPServiceType("维护");
+			p.setPState("有效");
+			Users us = (Users) getSession().getAttribute("user");
+			p.setUNum(us.getUNum());
+			ser.save(p);
 			getRequest().setAttribute("p", p);
 		}
-		p=null;
 		clearOptions();
 		return gotoQuery();
 	}

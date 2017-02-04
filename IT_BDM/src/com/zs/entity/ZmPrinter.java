@@ -1,5 +1,6 @@
 package com.zs.entity;
 
+import java.sql.Timestamp;
 import java.util.Date;
 
 /**
@@ -26,6 +27,10 @@ public class ZmPrinter implements java.io.Serializable {
 	private String PAdd;
 	private Date PLast;
 	private Date PNext;
+	private String PServiceType;
+	private Timestamp PCreateTime;
+	private String PState;
+	private String UNum;
 
 	// Constructors
 
@@ -42,7 +47,9 @@ public class ZmPrinter implements java.io.Serializable {
 	public ZmPrinter(String PId, String PBrand, String PNumber, String PArea,
 			String PAddress, String PType, String PPort, String PIp,
 			String PCartridge, String PToner, String PTrait, String PFunction,
-			String PPage, String PAdd, Date PLast, Date PNext) {
+			String PPage, String PAdd, Date PLast, Date PNext,
+			String PServiceType, Timestamp PCreateTime, String PState,
+			String UNum) {
 		this.PId = PId;
 		this.PBrand = PBrand;
 		this.PNumber = PNumber;
@@ -59,6 +66,10 @@ public class ZmPrinter implements java.io.Serializable {
 		this.PAdd = PAdd;
 		this.PLast = PLast;
 		this.PNext = PNext;
+		this.PServiceType = PServiceType;
+		this.PCreateTime = PCreateTime;
+		this.PState = PState;
+		this.UNum = UNum;
 	}
 
 	// Property accessors
@@ -189,6 +200,38 @@ public class ZmPrinter implements java.io.Serializable {
 
 	public void setPNext(Date PNext) {
 		this.PNext = PNext;
+	}
+
+	public String getPServiceType() {
+		return this.PServiceType;
+	}
+
+	public void setPServiceType(String PServiceType) {
+		this.PServiceType = PServiceType;
+	}
+
+	public Timestamp getPCreateTime() {
+		return this.PCreateTime;
+	}
+
+	public void setPCreateTime(Timestamp PCreateTime) {
+		this.PCreateTime = PCreateTime;
+	}
+
+	public String getPState() {
+		return this.PState;
+	}
+
+	public void setPState(String PState) {
+		this.PState = PState;
+	}
+
+	public String getUNum() {
+		return this.UNum;
+	}
+
+	public void setUNum(String UNum) {
+		this.UNum = UNum;
 	}
 
 }
