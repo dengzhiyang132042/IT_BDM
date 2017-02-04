@@ -1,5 +1,6 @@
 package com.zs.entity;
 
+import java.sql.Timestamp;
 import java.util.Date;
 
 /**
@@ -20,8 +21,13 @@ public class FbdAsdl implements java.io.Serializable {
 	private String asdlContract;
 	private String asdlNote;
 	private String asdlState;
+	private String asdlType;
+	private Timestamp asdlCreateTime;
+	private String asdlStateRealy;
+	private String UNum;
 
 	private SectionFenbodian fbd;
+	
 	public SectionFenbodian getFbd() {
 		return fbd;
 	}
@@ -30,8 +36,6 @@ public class FbdAsdl implements java.io.Serializable {
 		this.fbd = fbd;
 	}
 	// Constructors
-
-	
 
 	/** default constructor */
 	public FbdAsdl() {
@@ -46,7 +50,8 @@ public class FbdAsdl implements java.io.Serializable {
 	public FbdAsdl(String asdlId, String fbdId, String asdlInput,
 			String asdlNum, String asdlPass, Double asdlFeeYear,
 			Date asdlTimeExpire, String asdlContract, String asdlNote,
-			String asdlState) {
+			String asdlState, String asdlType, Timestamp asdlCreateTime,
+			String asdlStateRealy, String UNum) {
 		this.asdlId = asdlId;
 		this.fbdId = fbdId;
 		this.asdlInput = asdlInput;
@@ -57,6 +62,10 @@ public class FbdAsdl implements java.io.Serializable {
 		this.asdlContract = asdlContract;
 		this.asdlNote = asdlNote;
 		this.asdlState = asdlState;
+		this.asdlType = asdlType;
+		this.asdlCreateTime = asdlCreateTime;
+		this.asdlStateRealy = asdlStateRealy;
+		this.UNum = UNum;
 	}
 
 	// Property accessors
@@ -139,6 +148,38 @@ public class FbdAsdl implements java.io.Serializable {
 
 	public void setAsdlState(String asdlState) {
 		this.asdlState = asdlState;
+	}
+
+	public String getAsdlType() {
+		return this.asdlType;
+	}
+
+	public void setAsdlType(String asdlType) {
+		this.asdlType = asdlType;
+	}
+
+	public Timestamp getAsdlCreateTime() {
+		return this.asdlCreateTime;
+	}
+
+	public void setAsdlCreateTime(Timestamp asdlCreateTime) {
+		this.asdlCreateTime = asdlCreateTime;
+	}
+
+	public String getAsdlStateRealy() {
+		return this.asdlStateRealy;
+	}
+
+	public void setAsdlStateRealy(String asdlStateRealy) {
+		this.asdlStateRealy = asdlStateRealy;
+	}
+
+	public String getUNum() {
+		return this.UNum;
+	}
+
+	public void setUNum(String UNum) {
+		this.UNum = UNum;
 	}
 
 }

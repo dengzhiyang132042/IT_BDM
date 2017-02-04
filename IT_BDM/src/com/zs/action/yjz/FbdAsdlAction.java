@@ -1,9 +1,12 @@
 package com.zs.action.yjz;
 
 import java.io.UnsupportedEncodingException;
+import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 
 import org.apache.log4j.Logger;
+import org.omg.CORBA.Request;
 
 import com.zs.action.MyBaseAction;
 import com.zs.action.xtz.SiteAction;
@@ -11,6 +14,7 @@ import com.zs.entity.FbdAsdl;
 import com.zs.entity.SectionFenbodian;
 import com.zs.entity.SectionFenbu;
 import com.zs.entity.SectionQubu;
+import com.zs.entity.Users;
 import com.zs.service.IService;
 import com.zs.tools.NameOfDate;
 import com.zs.tools.Page;
@@ -148,28 +152,26 @@ public class FbdAsdlAction extends MyBaseAction{
 		if (cz!=null && cz.equals("yes")) {
 			clearOptions();
 		}
-		if (asdl==null) {
-			asdl=new FbdAsdl("");
-		}
-		String hql2="from FbdAsdl where 1=1 ";
-		if (id!=null) {
+		String hql2="from FbdAsdl where asdlStateRealy='有效' ";
+		if (id!=null && !id.equals("")) {
 			hql2=hql2+" and asdlId like '%"+id+"%'";
 		}
 		if (fbdName!=null && !fbdName.trim().equals("")) {
-			hql2="from FbdAsdl where fbdId in (select fbdId from SectionFenbodian where fbdName like '%"+fbdName+"%')";
+			hql2="from FbdAsdl where fbdId in (select fbdId from SectionFenbodian where fbdName like '%"+fbdName+"%') ";
 		}
 		if (fbdMaster!=null &&!fbdMaster.trim().equals("")){
-			hql2="from FbdAsdl where fbdId in (select fbdId from SectionFenbodian where fbdMaster like'%"+fbdMaster+"%')";
+			hql2="from FbdAsdl where fbdId in (select fbdId from SectionFenbodian where fbdMaster like'%"+fbdMaster+"%') ";
 		}
 		if (asdlInput!=null &&!asdlInput.trim().equals("")){
-			hql2 = hql2 + " and asdlInput like '%"+asdlInput+"%'";
+			hql2 = hql2 + " and asdlInput like '%"+asdlInput+"%' ";
 		}
 		if (asdlNum != null && !asdlNum.trim().equals("")){
-			hql2 = hql2 + "and asdlNum like '%"+asdlNum+"%'";
+			hql2 = hql2 + "and asdlNum like '%"+asdlNum+"%' ";
 		}
 		if (asdlState != null && !asdlState.trim().equals("")){
-			hql2 = hql2 + "and asdlState like '%"+asdlState+"%'";
+			hql2 = hql2 + "and asdlState like '%"+asdlState+"%' ";
 		}
+		hql2=hql2+"order by asdlTimeExpire desc,asdlCreateTime desc ";
 		asdls=ser.query(hql2, null, hql2, page, ser);
 		//带上分部区部分拨点信息
 		for (int i = 0; i < asdls.size(); i++) {
@@ -184,7 +186,8 @@ public class FbdAsdlAction extends MyBaseAction{
 		return result_asdl;
 	}
 	public String gotoQuery() throws UnsupportedEncodingException{
-		String hql2="from FbdAsdl";
+		clearOptions();
+		String hql2="from FbdAsdl where asdlStateRealy='有效' order by asdlTimeExpire desc,asdlCreateTime desc ";
 		asdls=ser.query(hql2, null, hql2, page, ser);
 		//带上分部区部分拨点信息
 		for (int i = 0; i < asdls.size(); i++) {
@@ -200,32 +203,47 @@ public class FbdAsdlAction extends MyBaseAction{
 	}
 	
 	public String deleteAsdl() throws Exception {
-		String id=getRequest().getParameter("id");
+		clearSpace();
 		if (id!=null) {
 			asdl=(FbdAsdl) ser.get(FbdAsdl.class, id);
 			ser.delete(asdl);
+			getRequest().setAttribute("asdl", asdl);
 		}
-		asdl=null;
 		return gotoQuery();
 	}
 	
 	public String updateAsdl() throws Exception {
+		clearSpace();
+		Users u=(Users) getSession().getAttribute("user");
 		if(asdl!=null && asdl.getAsdlId()!=null && !"".equals(asdl.getAsdlId().trim())){
-			ser.update(asdl);
+			FbdAsdl asdltmp=(FbdAsdl) ser.get(FbdAsdl.class, asdl.getAsdlId());
+			asdltmp.setAsdlStateRealy("无效");
+			ser.update(asdltmp);
+			//---------------------
+			asdl.setAsdlId("asdl"+NameOfDate.getNum());
+			asdl.setAsdlCreateTime(new Timestamp(new Date().getTime()));
+			asdl.setAsdlStateRealy("有效");
+			asdl.setUNum(u.getUNum());
+			ser.save(asdl);
+			
+			getRequest().setAttribute("asdl", asdl); 
 		}
-		getRequest().setAttribute("asdl", asdl); 
-		asdl=null;
 		return gotoQuery();
 	}
 	
 	public String addAsdl() throws Exception {
+		clearSpace();
+		Users u=(Users) getSession().getAttribute("user");
 		if(asdl!=null){
 			asdl.setAsdlId("asdl"+NameOfDate.getNum());
+			//------------------
+			asdl.setAsdlCreateTime(new Timestamp(new Date().getTime()));
+			asdl.setAsdlStateRealy("有效");
+			asdl.setUNum(u.getUNum());
+			
 			ser.save(asdl);
+			getRequest().setAttribute("asdl", asdl);
 		}
-		getRequest().setAttribute("asdl", asdl);
-		System.out.println("1111  "+asdl.getAsdlId());
-		asdl=null;
 		return gotoQuery();
 	}
 	

@@ -267,6 +267,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				</td>
 			</tr>
 			<tr>
+				<td>操作类型：</td>
+				<td>
+					<select name="asdl.asdlType">
+						<option value="维护">维护</option>
+						<option value="注册">注册</option>
+						<option value="注销">注销</option>
+					</select>
+				</td>
+			</tr>
+			<tr>
 				<td colspan="2" align="center">
 					<input class="easyui-linkbutton" type="submit" style="width: 95%;padding: 5px;" value="提交"/>
 				</td>			
@@ -338,6 +348,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<td>状态：</td>
 				<td>
 					<input name="asdl.asdlState" type="text" style="width: 100%;"/>
+				</td>
+			</tr>
+			<tr>
+				<td>操作类型：</td>
+				<td>
+					<select name="asdl.asdlType">
+						<option value="注册">注册</option>
+						<option value="维护">维护</option>
+						<option value="注销">注销</option>
+					</select>
 				</td>
 			</tr>
 			<tr>
