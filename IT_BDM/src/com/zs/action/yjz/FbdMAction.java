@@ -1,6 +1,8 @@
 package com.zs.action.yjz;
 
 import java.io.UnsupportedEncodingException;
+import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -11,12 +13,18 @@ import com.zs.entity.FbdMonitoring;
 import com.zs.entity.SectionFenbodian;
 import com.zs.entity.SectionFenbu;
 import com.zs.entity.SectionQubu;
+import com.zs.entity.Users;
 import com.zs.service.IService;
 import com.zs.tools.NameOfDate;
 import com.zs.tools.Page;
 
 public class FbdMAction extends MyBaseAction{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	IService ser;
 	
 	FbdMonitoring m;
@@ -141,22 +149,23 @@ public class FbdMAction extends MyBaseAction{
 		if (cz!=null && cz.equals("yes")) {
 			clearOptions();
 		}
-		String hql2="from FbdMonitoring where 1=1 ";
+		String hql2="from FbdMonitoring where MStateRealy='有效' ";
 		if (id!=null) {
-			hql2 =hql2+" and MId like '%"+id+"%'";
+			hql2 =hql2+" and MId like '%"+id+"%' ";
 		}
 		if(fbdName != null && !"".equals(fbdName)){
-			hql2="from FbdMonitoring where fbdId in (select fbdId from SectionFenbodian where fbdName like '%"+fbdName+"%')";
+			hql2="from FbdMonitoring where fbdId in (select fbdId from SectionFenbodian where fbdName like '%"+fbdName+"%') ";
 		}
 		if(MNum != null && !"".equals(MNum)){
-			hql2=hql2+" and MNum like '%"+MNum+"%'";
+			hql2=hql2+" and MNum like '%"+MNum+"%' ";
 		}
 		if(MScrap!=null && ! "".equals(MScrap)){
-			hql2=hql2+" and MScrap like '%"+MScrap+"%'";
+			hql2=hql2+" and MScrap like '%"+MScrap+"%' ";
 		}
 		if(MState!=null && ! "".equals(MState)){
-			hql2=hql2+" and MState like '%"+MState+"%'";
+			hql2=hql2+" and MState like '%"+MState+"%' ";
 		}
+		hql2=hql2+" order by MTimeStart desc,MCreateTime desc ";
 		ms=ser.query(hql2, null, hql2, page, ser);
 		//带上分部区部分拨点信息
 		for (int i = 0; i < ms.size(); i++) {
@@ -171,18 +180,9 @@ public class FbdMAction extends MyBaseAction{
 		return result_m;
 	}
 	
-	public String deleteM() throws Exception {
-		String id=getRequest().getParameter("id");
-		if (id!=null) {
-			m=(FbdMonitoring) ser.get(FbdMonitoring.class, id);
-			ser.delete(m);
-		}
-		m=null;
-		return gotoQuery();
-	}
-	
 	public String gotoQuery() throws UnsupportedEncodingException{
-		String hql="from FbdMonitoring";
+		clearOptions();
+		String hql="from FbdMonitoring where  MStateRealy='有效' order by MTimeStart desc,MCreateTime desc ";
 		ms=ser.query(hql, null, hql, page, ser);
 		for (int i = 0; i < ms.size(); i++) {
 			SectionFenbodian fbd=(SectionFenbodian) ser.get(SectionFenbodian.class, ms.get(i).getFbdId());
@@ -196,22 +196,48 @@ public class FbdMAction extends MyBaseAction{
 		return result_m;
 	}
 	
-	public String updateM() throws Exception {
-		if(m!=null && m.getMId()!=null && !"".equals(m.getMId().trim())){
-			ser.update(m);
+	public String deleteM() throws Exception {
+		clearSpace();
+		if (id!=null) {
+			m=(FbdMonitoring) ser.get(FbdMonitoring.class, id);
+			ser.delete(m);
+			getRequest().setAttribute("m", m);
 		}
-		getRequest().setAttribute("m", m);
-		m=null;
+		return gotoQuery();
+	}
+	
+	public String updateM() throws Exception {
+		clearSpace();
+		Users u=(Users) getSession().getAttribute("user");
+		if(m!=null && m.getMId()!=null && !"".equals(m.getMId().trim())){
+			FbdMonitoring mtmp=(FbdMonitoring) ser.get(FbdMonitoring.class, m.getMId());
+			mtmp.setMStateRealy("无效");
+			ser.update(mtmp);
+			//-----------------------
+			m.setMId("m"+NameOfDate.getNum());
+			m.setMCreateTime(new Timestamp(new Date().getTime()));
+			m.setMStateRealy("有效");
+			m.setUNum(u.getUNum());
+			ser.save(m);
+			
+			getRequest().setAttribute("m", m);
+		}
 		return gotoQuery();
 	}
 	
 	public String addM() throws Exception {
+		clearSpace();
+		Users u=(Users) getSession().getAttribute("user");
 		if(m!=null){
 			m.setMId("m"+NameOfDate.getNum());
+			//------------------
+			m.setMCreateTime(new Timestamp(new Date().getTime()));
+			m.setMStateRealy("有效");
+			m.setUNum(u.getUNum());
+			
 			ser.save(m);
+			getRequest().setAttribute("m", m);
 		}
-		getRequest().setAttribute("m", m);
-		m=null;
 		return gotoQuery();
 	}
 	
