@@ -114,7 +114,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    		</div>
 	    		<div>
 		    		<div>
-			    		姓名：<input name="name" type="text" value="${name }"/>
+			    		申请人姓名：<input name="name" type="text" value="${name }"/>
 		    		</div>
 	    			<div>
 	    				所属网点名称：<input name="netName" type="text" value="${netName }"/>

@@ -39,7 +39,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		$('#tt').show();
 	});
 	
-	function update(u1,u2,u3,u4,u5,u6,u7){
+	function update(u1,u2,u3,u4,u5,u6,u7,u8){
 		$('#u').window('open');
 		$('#u_1').val(u1);
 		$('#u_2').val(u2);
@@ -48,6 +48,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		$('#u_5').val(u5);
 		$('#u_6').val(u6);
 		$('#u_7').val(u7);
+		$('#u_8').val(u8);
 	}
 	function page(no,cz){
 		var num1=$('#page').val();
@@ -125,9 +126,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    	<th>邮箱账号</th>
 	    	<th>默认密码</th>
 	    	<th>维护IT</th>
-	    	<th>维护类型</th>
+	    	<th>入职情况</th>
 	    	<th>维护周数</th>
 	    	<th>备注说明</th>
+	    	<th>操作类型</th>
 	    	<th>操作</th>
 	    </tr>
 	    <c:forEach items="${ms}" var="m">
@@ -142,8 +144,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<td width="">${m.MOnJob }</td>
 			<td width="">${m.MServiceWeek }</td>
 			<td width="">${m.MNote }</td>
+			<td width="">${m.MType }</td>
 			<td width="5%" align="center">
-				<a onclick="update('${m.MId }','<fmt:formatDate value="${m.MServiceDate }" pattern="yyyy-MM-dd" />','${m.MSection }','${m.MName }','${m.MMail }','${m.MMailPass }','${m.MNote }')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-edit'" title="修改"></a>
+				<a onclick="update('${m.MId }','<fmt:formatDate value="${m.MServiceDate }" pattern="yyyy-MM-dd" />',
+					'${m.MSection }','${m.MName }','${m.MMail }','${m.MMailPass }','${m.MNote }','${m.MOnJob }')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-edit'" title="修改"></a>
 				<a href="<%=path %>/mail!delete?id=${m.MId}" onclick="return confirm('确定删除吗?')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-delete'" title="删除"></a>
 			</td>
 	    </tr>
@@ -223,10 +227,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<tr>
 				<td>入职情况：</td>
 				<td>
-					<select name="m.MOnJob" >
-						<option value="维护">维 护</option>
-						<option value="停用">停 用</option>
-						<option value="离职">离 职</option>
+					<select id="u_8" name="m.MOnJob" >
+						<option value="入职">入职</option>
+						<option value="停用">停用</option>
+						<option value="离职">离职</option>
 					</select>
 				</td>
 			</tr>
@@ -282,10 +286,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<td>入职情况：</td>
 				<td>
 					<select name="m.MOnJob" >
-						<option value="入职">入 职</option>
-						<option value="维护">维 护</option>
-						<option value="停用">停 用</option>
-						<option value="离职">离 职</option>
+						<option value="入职">入职</option>
+						<option value="停用">停用</option>
+						<option value="离职">离职</option>
 					</select>
 				</td>
 			</tr>
