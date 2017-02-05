@@ -1,6 +1,8 @@
 package com.zs.action.yjz;
 
 import java.io.UnsupportedEncodingException;
+import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 
 import com.zs.action.MyBaseAction;
@@ -18,6 +20,7 @@ import com.zs.entity.SectionFenbodian;
 import com.zs.entity.SectionFenbu;
 import com.zs.entity.SectionQubu;
 import com.zs.entity.Sim;
+import com.zs.entity.Users;
 import com.zs.service.IService;
 import com.zs.tools.NameOfDate;
 import com.zs.tools.Page;
@@ -113,13 +116,14 @@ public class SIMAction extends MyBaseAction{
 		if (cz!=null && cz.equals("yes")) {
 			clearOption();
 		}
-		String hql2="from Sim where 1=1";
-		if (id!=null) {
+		String hql2="from Sim where SState ='有效'";
+		if (id!=null&&!id.equals("")) {
 			hql2=hql2+" and SId like '%"+id+"%'";
 		}
-		if(csName!=null){
+		if(csName!=null&&!csName.equals("")){
 			hql2=hql2+" and csName like '%"+csName+"%'";
 		}
+		hql2 =hql2 +" order by SCreateTime desc";
 		sims=ser.query(hql2, null, hql2, page, ser);
 		//带上部门
 		CompanySection cs=ser.queryFirst();
@@ -128,7 +132,8 @@ public class SIMAction extends MyBaseAction{
 	}
 	
 	public String gotoQuery() throws UnsupportedEncodingException{
-		String hql2 = "from Sim";
+		clearOption();
+		String hql2 = "from Sim where SState ='有效' order by SCreateTime desc";
 		sims=ser.query(hql2, null, hql2, page, ser);
 		//带上部门
 		CompanySection cs=ser.queryFirst();
@@ -148,20 +153,34 @@ public class SIMAction extends MyBaseAction{
 	
 	public String updateSIM() throws Exception {
 		if(sim!=null && sim.getSId()!=null && !"".equals(sim.getSId().trim())){
-			ser.update(sim);
+			Sim s = (Sim) ser.get(Sim.class, sim.getSId());
+			s.setSState("无效");
+			ser.update(s);
+			getRequest().setAttribute("s", s);
+			
+			sim.setSId("sim"+NameOfDate.getNum());
+			sim.setSCreateTime(new Timestamp(new Date().getTime()));
+			sim.setSState("有效");
+			sim.setSType("维护");
+			Users us = (Users) getSession().getAttribute("user");
+			sim.setUNum(us.getUNum());
+			ser.save(sim);
+			getRequest().setAttribute("sim", sim);
 		}
-		getRequest().setAttribute("sim", sim);
-		sim=null;
 		return gotoQuery();
 	}
 	
 	public String addSIM() throws Exception {
 		if(sim!=null){
 			sim.setSId("sim"+NameOfDate.getNum());
+			sim.setSCreateTime(new Timestamp(new Date().getTime()));
+			sim.setSState("有效");
+			sim.setSType("注册");
+			Users us = (Users) getSession().getAttribute("user");
+			sim.setUNum(us.getUNum());
 			ser.save(sim);
 		}
 		getRequest().setAttribute("sim", sim);
-		sim=null;
 		return gotoQuery();
 	}
 	

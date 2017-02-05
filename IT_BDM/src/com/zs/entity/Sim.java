@@ -1,5 +1,6 @@
 package com.zs.entity;
 
+import java.sql.Timestamp;
 import java.util.Date;
 
 /**
@@ -17,6 +18,10 @@ public class Sim implements java.io.Serializable {
 	private Double SFeeSum;
 	private Date SDate;
 	private String SNote;
+	private String SType;
+	private Timestamp SCreateTime;
+	private String SState;
+	private String UNum;
 
 	// Constructors
 
@@ -31,7 +36,8 @@ public class Sim implements java.io.Serializable {
 
 	/** full constructor */
 	public Sim(String SId, String csName, Integer SNumber, Integer SMonth,
-			Double SFeeSum, Date SDate, String SNote) {
+			Double SFeeSum, Date SDate, String SNote, String SType,
+			Timestamp SCreateTime, String SState, String UNum) {
 		this.SId = SId;
 		this.csName = csName;
 		this.SNumber = SNumber;
@@ -39,6 +45,10 @@ public class Sim implements java.io.Serializable {
 		this.SFeeSum = SFeeSum;
 		this.SDate = SDate;
 		this.SNote = SNote;
+		this.SType = SType;
+		this.SCreateTime = SCreateTime;
+		this.SState = SState;
+		this.UNum = UNum;
 	}
 
 	// Property accessors
@@ -97,6 +107,38 @@ public class Sim implements java.io.Serializable {
 
 	public void setSNote(String SNote) {
 		this.SNote = SNote;
+	}
+
+	public String getSType() {
+		return this.SType;
+	}
+
+	public void setSType(String SType) {
+		this.SType = SType;
+	}
+
+	public Timestamp getSCreateTime() {
+		return this.SCreateTime;
+	}
+
+	public void setSCreateTime(Timestamp SCreateTime) {
+		this.SCreateTime = SCreateTime;
+	}
+
+	public String getSState() {
+		return this.SState;
+	}
+
+	public void setSState(String SState) {
+		this.SState = SState;
+	}
+
+	public String getUNum() {
+		return this.UNum;
+	}
+
+	public void setUNum(String UNum) {
+		this.UNum = UNum;
 	}
 
 }

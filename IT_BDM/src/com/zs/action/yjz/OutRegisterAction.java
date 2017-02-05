@@ -1,6 +1,8 @@
 package com.zs.action.yjz;
 
 import java.io.UnsupportedEncodingException;
+import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 
 import net.sf.json.JSONArray;
@@ -10,6 +12,7 @@ import org.apache.log4j.Logger;
 
 import com.zs.action.IMyBaseAction;
 import com.zs.action.MyBaseAction;
+import com.zs.entity.Users;
 import com.zs.entity.XtBranches;
 import com.zs.entity.YjOut;
 import com.zs.service.IService;
@@ -146,10 +149,8 @@ public class OutRegisterAction extends MyBaseAction implements IMyBaseAction{
 	}
 	public String gotoQuery() throws UnsupportedEncodingException {
 		clearOptions();
-		String hql="from YjOut order by ODjrq desc";
-		String ss[]={};
-		String hql2="from YjOut order by ODjrq desc";
-		outs=ser.query(hql, ss, hql2, page, ser);
+		String hql="from YjOut where OState = '有效' order by OCreateTime desc , ODjrq desc";
+		outs=ser.query(hql, null, hql, page, ser);
 		ser.receiveStructure(getRequest());
 		return result;
 	}
@@ -159,31 +160,27 @@ public class OutRegisterAction extends MyBaseAction implements IMyBaseAction{
 		if (cz!=null && cz.equals("yes")) {
 			clearOptions();
 		}
-		if (id!=null) {
-			String hql2="from YjOut where OId like '%"+id+"%'";
-			if(fbdName!=null){
-				hql2=hql2+" and OFbd like '%"+fbdName+"%'";
-			}
-			if(itman!=null){
-				hql2=hql2+" and OGjr like '%"+itman+"%'";
-			}
-			if(area!=null){
-				hql2=hql2+" and OArea like '%"+area+"%'";
-			}
-			if(dates!=null&&!dates.trim().equals("")){
-				hql2=hql2+" and ODjrq >= '"+dates+"'";
-			}
-			if(datee!=null&&!datee.trim().equals("")){
-				hql2=hql2+" and ODjrq <= '"+datee+"'";
-			}
-			hql2 = hql2+" order by ODjrq desc";
-			outs=ser.query(hql2, null, hql2, page, ser);
-		}else {
-			String hql="from YjOut order by ODjrq desc";
-			String ss[]={};
-			String hql2="from YjOut order by ODjrq desc";
-			outs=ser.query(hql, ss, hql2, page, ser);
+		String hql2="from YjOut where OState ='有效'";
+		if (id!=null&&!id.equals("")) {
+			hql2=hql2+" and OId like '%"+id+"%'";
 		}
+		if(fbdName!=null&&!fbdName.equals("")){
+			hql2=hql2+" and OFbd like '%"+fbdName+"%'";
+		}
+		if(itman!=null&&!itman.equals("")){
+			hql2=hql2+" and OGjr like '%"+itman+"%'";
+		}
+		if(area!=null&&!area.equals("")){
+			hql2=hql2+" and OArea like '%"+area+"%'";
+		}
+		if(dates!=null&&!dates.trim().equals("")){
+			hql2=hql2+" and ODjrq >= '"+dates+"'";
+		}
+		if(datee!=null&&!datee.trim().equals("")){
+			hql2=hql2+" and ODjrq <= '"+datee+"'";
+		}
+		hql2 = hql2+" order by OCreateTime desc , ODjrq desc";
+		outs=ser.query(hql2, null, hql2, page, ser);
 		ser.receiveStructure(getRequest());
 		return result;
 	}
@@ -199,7 +196,18 @@ public class OutRegisterAction extends MyBaseAction implements IMyBaseAction{
 	
 	public String update() throws Exception {
 		if(o.getOId()!=null&&o!=null){
-			ser.update(o);
+			YjOut yo = (YjOut) ser.get(YjOut.class, o.getOId());
+			yo.setOState("无效");
+			ser.update(yo);
+			getRequest().setAttribute("yo",yo);
+			
+			o.setOId("o"+NameOfDate.getNum());
+			o.setOCreateTime(new Timestamp(new Date().getTime()));
+			o.setOType("维护");
+			o.setOState("有效");
+			Users us = (Users) getSession().getAttribute("user");
+			o.setUNum(us.getUNum());
+			ser.save(o);
 			getRequest().setAttribute("o",o);
 		}
 		return gotoQuery();
@@ -208,6 +216,11 @@ public class OutRegisterAction extends MyBaseAction implements IMyBaseAction{
 	public String add() throws Exception {
 		if(o!=null){
 			o.setOId("o"+NameOfDate.getNum());
+			o.setOCreateTime(new Timestamp(new Date().getTime()));
+			o.setOType("注册");
+			o.setOState("有效");
+			Users us = (Users) getSession().getAttribute("user");
+			o.setUNum(us.getUNum());
 			ser.save(o);
 			getRequest().setAttribute("o",o);
 		}
