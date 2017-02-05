@@ -138,6 +138,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    	<th>录像周期（天）</th>
 	    	<th>备注说明</th>
 	    	<th>状态</th>
+	    	<th>操作类型</th>
 	    	<th>操作</th>
 	    </tr>
 	    <c:forEach items="${ms}" var="m">
@@ -163,6 +164,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<td>${m.MPeriod }</td>
 			<td>${m.MNote }</td>
 			<td>${m.MState }</td>
+			<td>${m.MType }</td>
 			<td align="center">
 				<a onclick="update('${m.MId }','${m.fbd.fbdId }','${m.MCamera }','${m.MDisk }',
 				'${m.MDiskCapacity }','${m.MNum }','${m.MPass }','${m.MDisplayer }','${m.MMainframeBrand }',
@@ -301,6 +303,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<td>
 					<input id="u_17" name="m.MState" type="text" style="width: 100%;"/>
 				</td>
+				<td>操作类型：</td>
+				<td>
+					<select name="m.MType">
+						<option value="维护">维护</option>
+						<option value="注册">注册</option>
+						<option value="注销">注销</option>
+					</select>
+				</td>
 			</tr>
 			<tr>
 				<td colspan="4" align="center">
@@ -400,6 +410,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<td>状态：</td>
 				<td>
 					<input name="m.MState" type="text" style="width: 100%;"/>
+				</td>
+			</tr>
+			<tr>
+				<td>操作类型：</td>
+				<td>
+					<select name="m.MType">
+						<option value="注册">注册</option>
+						<option value="维护">维护</option>
+						<option value="注销">注销</option>
+					</select>
 				</td>
 			</tr>
 			<tr>
