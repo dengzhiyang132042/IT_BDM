@@ -1,5 +1,6 @@
 package com.zs.entity;
 
+import java.sql.Timestamp;
 import java.util.Date;
 
 /**
@@ -60,6 +61,10 @@ public class YjOut implements java.io.Serializable {
 	private String OWcqk;
 	private Date OJhsj;
 	private Date OSjsj;
+	private String OType;
+	private Timestamp OCreateTime;
+	private String OState;
+	private String UNum;
 
 	// Constructors
 
@@ -85,7 +90,8 @@ public class YjOut implements java.io.Serializable {
 			Integer OYwcSxt, Integer OYwcJkzj, Integer OYwcZj, Integer OYwcXc,
 			Date OYwcSj, Integer OWwcSxt, Integer OWwcJkzj, Integer OWwcZj,
 			Integer OWwcXc, Date OWwcSj, String OSgyj, String OGjr,
-			String OWcqk, Date OJhsj, Date OSjsj) {
+			String OWcqk, Date OJhsj, Date OSjsj, String OType,
+			Timestamp OCreateTime, String OState, String UNum) {
 		this.OId = OId;
 		this.OFbd = OFbd;
 		this.OArea = OArea;
@@ -136,6 +142,10 @@ public class YjOut implements java.io.Serializable {
 		this.OWcqk = OWcqk;
 		this.OJhsj = OJhsj;
 		this.OSjsj = OSjsj;
+		this.OType = OType;
+		this.OCreateTime = OCreateTime;
+		this.OState = OState;
+		this.UNum = UNum;
 	}
 
 	// Property accessors
@@ -538,6 +548,38 @@ public class YjOut implements java.io.Serializable {
 
 	public void setOSjsj(Date OSjsj) {
 		this.OSjsj = OSjsj;
+	}
+
+	public String getOType() {
+		return this.OType;
+	}
+
+	public void setOType(String OType) {
+		this.OType = OType;
+	}
+
+	public Timestamp getOCreateTime() {
+		return this.OCreateTime;
+	}
+
+	public void setOCreateTime(Timestamp OCreateTime) {
+		this.OCreateTime = OCreateTime;
+	}
+
+	public String getOState() {
+		return this.OState;
+	}
+
+	public void setOState(String OState) {
+		this.OState = OState;
+	}
+
+	public String getUNum() {
+		return this.UNum;
+	}
+
+	public void setUNum(String UNum) {
+		this.UNum = UNum;
 	}
 
 }

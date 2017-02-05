@@ -43,5 +43,17 @@
         <property name="llState" type="java.lang.String">
             <column name="ll_state" />
         </property>
+        <property name="llType" type="java.lang.String">
+            <column name="ll_type" />
+        </property>
+        <property name="llCreateTime" type="java.sql.Timestamp">
+            <column name="ll_create_time" length="19" />
+        </property>
+        <property name="llValidState" type="java.lang.String">
+            <column name="ll_valid_state" />
+        </property>
+        <property name="UNum" type="java.lang.String">
+            <column name="u_num" />
+        </property>
     </class>
 </hibernate-mapping>

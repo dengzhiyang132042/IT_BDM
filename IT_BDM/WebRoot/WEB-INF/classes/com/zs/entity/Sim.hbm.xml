@@ -28,5 +28,17 @@
         <property name="SNote" type="java.lang.String">
             <column name="s_note" />
         </property>
+        <property name="SType" type="java.lang.String">
+            <column name="s_type" />
+        </property>
+        <property name="SCreateTime" type="java.sql.Timestamp">
+            <column name="s_create_time" length="19" />
+        </property>
+        <property name="SState" type="java.lang.String">
+            <column name="s_state" />
+        </property>
+        <property name="UNum" type="java.lang.String">
+            <column name="u_num" />
+        </property>
     </class>
 </hibernate-mapping>

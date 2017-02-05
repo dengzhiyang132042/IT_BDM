@@ -1,5 +1,6 @@
 package com.zs.entity;
 
+import java.sql.Timestamp;
 import java.util.Date;
 
 /**
@@ -22,8 +23,11 @@ public class FbdListLink implements java.io.Serializable {
 	private String llLink;
 	private String llNote;
 	private String llState;
+	private String llType;
+	private Timestamp llCreateTime;
+	private String llValidState;
+	private String UNum;
 
-	
 	private SectionFenbodian fbd;
 
 	// Constructors
@@ -35,7 +39,6 @@ public class FbdListLink implements java.io.Serializable {
 	public void setFbd(SectionFenbodian fbd) {
 		this.fbd = fbd;
 	}
-
 	/** default constructor */
 	public FbdListLink() {
 	}
@@ -49,7 +52,8 @@ public class FbdListLink implements java.io.Serializable {
 	public FbdListLink(String llId, String fbdId, String csMaster,
 			Date llDateNeed, Date llDateCommit, String llName,
 			Integer llNumber, String llUnit, String llNorms, String llLink,
-			String llNote, String llState) {
+			String llNote, String llState, String llType,
+			Timestamp llCreateTime, String llValidState, String UNum) {
 		this.llId = llId;
 		this.fbdId = fbdId;
 		this.csMaster = csMaster;
@@ -62,6 +66,10 @@ public class FbdListLink implements java.io.Serializable {
 		this.llLink = llLink;
 		this.llNote = llNote;
 		this.llState = llState;
+		this.llType = llType;
+		this.llCreateTime = llCreateTime;
+		this.llValidState = llValidState;
+		this.UNum = UNum;
 	}
 
 	// Property accessors
@@ -160,6 +168,38 @@ public class FbdListLink implements java.io.Serializable {
 
 	public void setLlState(String llState) {
 		this.llState = llState;
+	}
+
+	public String getLlType() {
+		return this.llType;
+	}
+
+	public void setLlType(String llType) {
+		this.llType = llType;
+	}
+
+	public Timestamp getLlCreateTime() {
+		return this.llCreateTime;
+	}
+
+	public void setLlCreateTime(Timestamp llCreateTime) {
+		this.llCreateTime = llCreateTime;
+	}
+
+	public String getLlValidState() {
+		return this.llValidState;
+	}
+
+	public void setLlValidState(String llValidState) {
+		this.llValidState = llValidState;
+	}
+
+	public String getUNum() {
+		return this.UNum;
+	}
+
+	public void setUNum(String UNum) {
+		this.UNum = UNum;
 	}
 
 }
