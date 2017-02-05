@@ -39,7 +39,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		$('#tt').show();
 	});
 	
-	function update(u1,u2,u3,u4,u5,u6,u7){
+	function update(u1,u2,u3,u4,u5,u6,u7,u8,u9){
 		$('#u').window('open');
 		$('#u_1').val(u1);
 		$('#u_2').val(u2);
@@ -48,6 +48,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		$('#u_5').val(u5);
 		$('#u_6').val(u6);
 		$('#u_7').val(u7);
+		$('#u_8').val(u8);
 	}
 	function page(no,cz){
 		var num1=$('#page').val();
@@ -125,9 +126,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    	<th>IMO</th>
 	    	<th>IMO默认密码</th>
 	    	<th>维护IT</th>
-	    	<th>维护类型</th>
+	    	<th>入职情况</th>
 	    	<th>维护周数</th>
 	    	<th>备注说明</th>
+	    	<th>维护类型</th>
 	    	<th>操作</th>
 	    </tr>
 	    <c:forEach items="${bys}" var="by">
@@ -142,8 +144,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<td width="">${by.byOnJob }</td>
 			<td width="">${by.byServiceWeek }</td>
 			<td width="">${by.byNote }</td>
+			<td width="">${by.byType }</td>
 			<td width="5%" align="center">
-				<a onclick="update('${by.byId }','<fmt:formatDate value="${by.byOaDate }" pattern="yyyy-MM-dd" />','${by.bySection }','${by.byName }','${by.byBgn }','${by.byImoPass }','${by.byNote }')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-edit'" title="修改"></a>
+				<a onclick="update('${by.byId }','<fmt:formatDate value="${by.byOaDate }" pattern="yyyy-MM-dd" />',
+					'${by.bySection }','${by.byName }','${by.byBgn }','${by.byImoPass }','${by.byNote }',
+					'${by.byOnJob }')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-edit'" title="修改"></a>
 				<a href="<%=path %>/by!delete?id=${by.byId}" onclick="return confirm('确定删除吗?')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-delete'" title="删除"></a>
 			</td>
 	    </tr>
@@ -223,10 +228,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<tr>
 				<td>入职情况：</td>
 				<td>
-					<select name="by.byOnJob" >
-						<option value="维护">维 护</option>
-						<option value="停用">停 用</option>
-						<option value="离职">离 职</option>
+					<select id="u_8" name="by.byOnJob" >
+						<option value="入职">入职</option>
+						<option value="停用">停用</option>
+						<option value="离职">离职</option>
 					</select>
 				</td>
 			</tr>
@@ -282,10 +287,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<td>入职情况：</td>
 				<td>
 					<select name="by.byOnJob" >
-						<option value="入职">入 职</option>
-						<option value="维护">维 护</option>
-						<option value="停用">停 用</option>
-						<option value="离职">离 职</option>
+						<option value="入职">入职</option>
+						<option value="停用">停用</option>
+						<option value="离职">离职</option>
 					</select>
 				</td>
 			</tr>
