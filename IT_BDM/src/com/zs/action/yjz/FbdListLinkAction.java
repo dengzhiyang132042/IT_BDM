@@ -2,6 +2,8 @@ package com.zs.action.yjz;
 
 import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
+import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 
 import com.zs.action.IMyBaseAction;
@@ -21,6 +23,7 @@ import com.zs.entity.FbdListLink;
 import com.zs.entity.SectionFenbodian;
 import com.zs.entity.SectionFenbu;
 import com.zs.entity.SectionQubu;
+import com.zs.entity.Users;
 import com.zs.service.IService;
 import com.zs.tools.NameOfDate;
 import com.zs.tools.Page;
@@ -110,6 +113,8 @@ public class FbdListLinkAction extends MyBaseAction{
 		fbdName=null;
 		llName=null;
 		llState=null;
+		ll=null;
+		lls=null;
 		if (page==null) {
 			page=new Page(1, 0, 10);
 		}else {
@@ -137,7 +142,7 @@ public class FbdListLinkAction extends MyBaseAction{
 	
 	public String gotoQuery() throws UnsupportedEncodingException {
 		clearOptions();
-		String hql="from FbdListLink";
+		String hql="from FbdListLink where llValidState = '有效' order by llCreateTime desc";
 		lls=ser.query(hql, null, hql, page, ser);
 		for (int i = 0; i < lls.size(); i++) {
 			if (lls.get(i).getFbdId()!=null) {
@@ -160,7 +165,7 @@ public class FbdListLinkAction extends MyBaseAction{
 		if (cz!=null && cz.equals("yes")) {
 			clearOptions();
 		}
-		String hql="from FbdListLink where 1=1 ";
+		String hql="from FbdListLink where llValidState = '有效' ";
 		if (id!=null && !id.equals(""))
 			hql=hql+"and llId like '%"+id+"%' ";
 		if(fbdName!=null && !fbdName.equals(""))
@@ -169,6 +174,7 @@ public class FbdListLinkAction extends MyBaseAction{
 			hql=hql+"and llName like '%"+llName+"%' ";
 		if(llState!=null && !llState.equals(""))
 			hql=hql+"and llState like '%"+llState+"%' ";
+		hql=hql+" order by llCreateTime desc";
 		lls=ser.query(hql, null, hql, page, ser);
 		for (int i = 0; i < lls.size(); i++) {
 			if (lls.get(i).getFbdId()!=null) {
@@ -191,17 +197,27 @@ public class FbdListLinkAction extends MyBaseAction{
 			ll=(FbdListLink) ser.get(FbdListLink.class, id);
 			ser.delete(ll);
 		}
-		ll=null;
 		return gotoQuery();
 	}
 	
 	public String updateLL() throws Exception {
 		clearSpace();
 		if(ll!=null && ll.getLlId()!=null && !"".equals(ll.getLlId().trim())){
-			ser.update(ll);
+			FbdListLink fll = (FbdListLink) ser.get(FbdListLink.class, ll.getLlId());
+			fll.setLlValidState("无效");
+			ser.update(fll);
+			getRequest().setAttribute("fll", fll);
+			
+			ll.setLlId("ll"+NameOfDate.getNum());
+			ll.setLlCreateTime(new Timestamp(new Date().getTime()));
+			ll.setLlType("维护");
+			ll.setLlValidState("有效");
+			Users us = (Users) getSession().getAttribute("user");
+			ll.setUNum(us.getUNum());
+			ser.save(ll);
+			getRequest().setAttribute("ll", ll);
 		}
 		getRequest().setAttribute("ll", ll);
-		ll=null;
 		return gotoQuery();
 	}
 	
@@ -209,10 +225,14 @@ public class FbdListLinkAction extends MyBaseAction{
 		clearSpace();
 		if(ll!=null){
 			ll.setLlId("ll"+NameOfDate.getNum());
+			ll.setLlCreateTime(new Timestamp(new Date().getTime()));
+			ll.setLlType("注册");
+			ll.setLlValidState("有效");
+			Users us = (Users) getSession().getAttribute("user");
+			ll.setUNum(us.getUNum());
 			ser.save(ll);
 		}
 		getRequest().setAttribute("ll", ll);
-		ll=null;
 		return gotoQuery();
 	}
 	

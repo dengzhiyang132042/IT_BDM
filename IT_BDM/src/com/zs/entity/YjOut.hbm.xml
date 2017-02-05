@@ -157,5 +157,17 @@
         <property name="OSjsj" type="java.util.Date">
             <column name="o_sjsj" length="10" />
         </property>
+        <property name="OType" type="java.lang.String">
+            <column name="o_type" />
+        </property>
+        <property name="OCreateTime" type="java.sql.Timestamp">
+            <column name="o_create_time" length="19" />
+        </property>
+        <property name="OState" type="java.lang.String">
+            <column name="o_state" />
+        </property>
+        <property name="UNum" type="java.lang.String">
+            <column name="u_num" />
+        </property>
     </class>
 </hibernate-mapping>
