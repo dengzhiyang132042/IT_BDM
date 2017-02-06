@@ -1,6 +1,7 @@
-#Thu Jan 12 10:07:06 CST 2017
+#Mon Feb 06 15:36:14 CST 2017
 eclipse.preferences.version=1
 encoding//src/com/zs/interceptor/CacheInterceptor.java=UTF-8
+encoding//src/com/zs/interceptor/QuotaInterceptor.java=UTF-8
 encoding//src/com/zs/interceptor/RoleInterceptor.java=UTF-8
 encoding//src/com/zs/interceptor/SCTInterceptor.java=UTF-8
 encoding//src/com/zs/interceptor/TimelineInterceptor.java=UTF-8

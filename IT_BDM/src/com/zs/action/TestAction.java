@@ -6,6 +6,10 @@ import java.util.List;
 
 public class TestAction extends MyBaseAction implements IMyBaseAction{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	String str;//测试用的属性
 	List<String> sengMail=new ArrayList<String>();
 	

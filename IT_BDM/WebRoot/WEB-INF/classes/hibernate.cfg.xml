@@ -101,6 +101,7 @@
 		<mapping resource="com/zs/entity/XtNetImo.hbm.xml" />
 		<mapping resource="com/zs/entity/ZmNetCall.hbm.xml" />
 		<mapping resource="com/zs/entity/ZmMail.hbm.xml" />
+		<mapping resource="com/zs/entity/QuotaMan.hbm.xml" />
 	</session-factory>
 
 </hibernate-configuration>
