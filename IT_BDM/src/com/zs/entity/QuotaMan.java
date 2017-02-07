@@ -18,6 +18,9 @@ public class QuotaMan implements java.io.Serializable {
 	private Date qmDate;
 	private String qmTable;
 
+	private int count;
+	private double productivity;
+	private String uName;
 	// Constructors
 
 	/** default constructor */
@@ -97,6 +100,30 @@ public class QuotaMan implements java.io.Serializable {
 
 	public void setQmTable(String qmTable) {
 		this.qmTable = qmTable;
+	}
+
+	public int getCount() {
+		return count;
+	}
+
+	public void setCount(int count) {
+		this.count = count;
+	}
+
+	public double getProductivity() {
+		return productivity;
+	}
+
+	public void setProductivity(double productivity) {
+		this.productivity = productivity;
+	}
+
+	public String getuName() {
+		return uName;
+	}
+
+	public void setuName(String uName) {
+		this.uName = uName;
 	}
 
 }

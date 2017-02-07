@@ -34,8 +34,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   </head>
   
   <body>
- 	<div style="text-align: center;margin-right: 17px;color: white;background-color:#17B4FF;padding: 5px;font-size: 14px;font-weight:bold;">日统计报表式样</div>
-   	<div class="kscx">
+ 	<div class="bread_head" style="width:99%;margin:5px;font-size:18px;">
+		<span>当前位置：</span>
+		<span>数据统计报表</span>
+		<span>></span>
+		<span>信息与流程管理部</span>
+ 		<span>></span>
+ 		<span>日统计报表式样</span>
+ 	</div>
+   	<div class="kscx" style="width:99%;margin:5px;">
     	<div class="inp">
 	    	<form id="ks" action="<%=path %>/bqq!queryOfFenye" method="post">
 	    		<div>
@@ -62,41 +69,64 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
    		<div style="clear:both;"></div>
     </div>
     
-    <div id="tt" class="easyui-tabs" style="width:100%;height:100%;">
+    <div id="tt" class="easyui-tabs" style="width:99%;height:500px;margin:5px;">
 	    <div title="组统计">
 		    <div style="margin-bottom: 5px;">
-			 	<div style="margin-right: 17px;">
-				    <table border="1" id="" style="font-size: 12px;">
-					    <tr>
-					    	<th>编号</th>
-					    	<th>时间</th>
-					    	<th>统计业务</th>
-					    	<th>主要负责</th>
-					    	<th>注册</th>
-					    	<th>维护</th>
-					    	<th>注销</th>
-					    	<th>合计</th>
-					    	<th>录入率</th>
-					    </tr>
-					    <tr>
-					    	<td>111111</td>
-					    	<td>2017/02/05</td>
-					    	<td>一级站点</td>
-					    	<td>胡越</td>
-					    	<td>5</td>
-					    	<td>6</td>
-					    	<td>0</td>
-					    	<td>11</td>
-					    	<td>0%</td>
-					    </tr>
-				    </table>
-				</div>
+			    <table border="1" id="" style="font-size: 12px;">
+				    <tr>
+				    	<th>编号</th>
+				    	<th>时间</th>
+				    	<th>组别</th>
+				    	<th>负责主管</th>
+				    	<th>注册</th>
+				    	<th>维护</th>
+				    	<th>注销</th>
+				    	<th>合计</th>
+				    	<th>录入率</th>
+				    </tr>
+				    <tr>
+				    	<td>111111</td>
+				    	<td>2017/02/05</td>
+				    	<td>系统组</td>
+				    	<td>徐迪军</td>
+				    	<td>5</td>
+				    	<td>6</td>
+				    	<td>0</td>
+				    	<td>11</td>
+				    	<td>0%</td>
+				    </tr>
+			    </table>
 		  	</div>
 	  	</div>
 	  	<div title="明细">
-	  		<div>
-	  			11111111111111
-	  		</div>
+	  		<div style="margin-bottom: 5px;">
+			    <table border="1" id="" style="font-size: 12px;">
+				    <tr>
+				    	<th>编号</th>
+				    	<th>时间</th>
+				    	<th>统计业务</th>
+				    	<th>主要负责</th>
+				    	<th>注册</th>
+				    	<th>维护</th>
+				    	<th>注销</th>
+				    	<th>合计</th>
+				    	<th>录入率</th>
+				    </tr>
+				    <c:forEach items="${qms}" var="q">
+					    <tr>
+					    	<td>${q.qmId }</td>
+					    	<td><fmt:formatDate value="${q.qmDate }" pattern="yyyy/MM/dd"/></td>
+					    	<td>${q.qmTable }</td>
+					    	<td>${q.uName }</td>
+					    	<td>${q.qmTypeZc }</td>
+					    	<td>${q.qmTypeWh }</td>
+					    	<td>${q.qmTypeZx }</td>
+					    	<td>${q.count }</td>
+					    	<td>${q.productivity*100 }%</td>
+					    </tr>
+				    </c:forEach>
+			    </table>
+		  	</div>
 	  	</div>
   	</div>
   </body>
