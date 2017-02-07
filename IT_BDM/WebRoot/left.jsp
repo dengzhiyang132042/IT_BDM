@@ -98,8 +98,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<li><span><a href="<%=path %>/threeMeet!queryOfFenye?cz=yes" target="right">观澜3楼巡检</a></span></li>
 						<li><span><a href="<%=path %>/meet!queryOfFenye?cz=yes" target="right">新仓仓库巡检</a></span></li>
 						<li><span><a href="<%=path %>/massage!queryOfFenye?cz=yes" target="right">巴枪维修登记</a></span></li>
+						<!-- 
 						<li><span><a href="<%=path %>/exp!queryOfFenye?cz=yes" target="right">快递单号登记</a></span></li>
 						<li><span><a href="<%=path %>/bqDraw!queryOfFenye?cz=yes" target="right">巴枪领取登记</a></span></li>
+						 -->
 						<li><span><a href="<%=path %>/out!queryOfFenye?cz=yes" target="right">设备外修登记</a></span></li>
         			</ul>
         		</li>
@@ -110,9 +112,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<div title="故障报修登记" data-options="iconCls:'icon-large-smartart'" style="padding:10px;">
 		<ul id="tt" class="easyui-tree" data-options="animate:true,lines:true">
        		<li><span><a href="<%=path %>/daManager!queryOfFenye?cz=yes" target="right">故障报修管理</a></span></li>
-       		<li><span><a href="<%=path %>/auditing!queryOfFenye?cz=yes" target="right">故障报修转发审核</a></span></li>
        		<li><span><a href="<%=path %>/count!queryOfFenye?cz=yes" target="right">故障报修统计</a></span></li>
        		<li><span><a href="<%=path %>/handle!queryOfFenye?cz=yes" target="right">故障报修处理</a></span></li>
+       		<li><span><a href="<%=path %>/auditing!queryOfFenye?cz=yes" target="right">故障报修转发审核</a></span></li>
         </ul>
 	</div>
 	<div title="数据统计报表" data-options="iconCls:'icon-large-shapes'" style="padding:10px;">

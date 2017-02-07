@@ -213,17 +213,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</div>
 	</div>
 	
-	<div id="u" class="easyui-window" title="修改" data-options="modal:true,closed:true" style="width:400px;height:auto;padding:10px;display: none;">
+	<div id="u" class="easyui-window" title="修改" data-options="modal:true,closed:true" style="width:600px;height:auto;padding:10px;display: none;">
 		<form action="<%=path %>/computer!update" method="post">
 		<table border="0" class="table1">
 			<tr>
-				<td>编号：</td>
+				<td width="100">编号：</td>
 				<td>
 					<input id="u_1" name="c.CId" type="text" style="width: 100%;" readonly="readonly"/>
 				</td>
-			</tr>
-			<tr>
-				<td>部门：</td>
+				<td width="100">部门：</td>
 				<td>
 					<input id="u_2" name="c.CSection" type="text" style="width: 100%;"/>
 				</td>
@@ -233,8 +231,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<td>
 					<input id="u_3" name="c.CMaster" type="text" style="width: 100%;"/>
 				</td>
-			</tr>
-			<tr>
 				<td>工号：</td>
 				<td>
 					<input id="u_4" name="c.CNum" type="text" style="width: 100%;"/>
@@ -245,8 +241,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<td>
 					<input id="u_5" name="c.CPosition" type="text" style="width: 100%;"/>
 				</td>
-			</tr>
-			<tr>
 				<td>位置：</td>
 				<td>
 					<input id="u_6" name="c.CAddress" type="text" style="width: 100%;"/>
@@ -257,8 +251,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<td>
 					<input id="u_7" name="c.CAd" type="text" style="width: 100%;"/>
 				</td>
-			</tr>
-			<tr>
 				<td>IP：</td>
 				<td>
 					<input id="u_8" name="c.CIp" type="text" style="width: 100%;"/>
@@ -269,8 +261,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<td>
 					<input id="u_9" name="c.CMac" type="text" style="width: 100%;"/>
 				</td>
-			</tr>
-			<tr>
 				<td>CPU-品牌：</td>
 				<td>
 					<input id="u_10" name="c.CCpuBrand" type="text" style="width: 100%;"/>
@@ -281,8 +271,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<td>
 					<input id="u_11" name="c.CCpuModel" type="text" style="width: 100%;"/>
 				</td>
-			</tr>
-			<tr>
 				<td>主板—品牌：</td>
 				<td>
 					<input id="u_12" name="c.CBoardBrand" type="text" style="width: 100%;"/>
@@ -293,8 +281,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<td>
 					<input id="u_13" name="c.CBoardChip" type="text" style="width: 100%;"/>
 				</td>
-			</tr>
-			<tr>
 				<td>内存-容量：</td>
 				<td>
 					<input id="u_14" name="c.CMemoryC" type="text" style="width: 100%;"/>
@@ -305,8 +291,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<td>
 					<input id="u_15" name="c.CMemoryF" type="text" style="width: 100%;"/>
 				</td>
-			</tr>
-			<tr>
 				<td>硬盘：</td>
 				<td>
 					<input id="u_16" name="c.CDisk" type="text" style="width: 100%;"/>
@@ -317,8 +301,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<td>
 					<input id="u_17" name="c.CDisplayBrand" type="text" style="width: 100%;"/>
 				</td>
-			</tr>
-			<tr>
 				<td>显示器-尺寸：</td>
 				<td>
 					<input id="u_18" name="c.CDisplayC" type="text" style="width: 100%;"/>
@@ -329,21 +311,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<td>
 					<input id="u_19" name="c.CIsScrap" type="text" style="width: 100%;"/>
 				</td>
-			</tr>
-			<tr>
 				<td>备注说明：</td>
 				<td>
 					<input id="u_20" name="c.CNote" type="text" style="width: 100%;"/>
 				</td>
 			</tr>
-			<tr style="display: none;">
+			<tr>
 				<td>创建时间：</td>
-				<td>
+				<td colspan="3">
 					<input id="u_21" name="c.CDate" type="text" style="width: 100%;"/>
 				</td>
 			</tr>
 			<tr>
-				<td colspan="2" align="center">
+				<td colspan="4" align="center">
 					<input class="easyui-linkbutton" type="submit" style="width: 95%;padding: 5px;" value="提交"/>
 				</td>			
 			</tr>
@@ -351,17 +331,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</form>
 	</div>
 	
-	<div id="a" class="easyui-window" title="添加" data-options="modal:true,closed:true" style="width:400px;height:auto;padding:10px;display: none;">
+	<div id="a" class="easyui-window" title="添加" data-options="modal:true,closed:true" style="width:600px;height:auto;padding:10px;display: none;">
 		<form action="<%=path %>/computer!add" method="post">
 		<table border="0" class="table1">
 			<tr>
-				<td>部门：</td>
+				<td width="100">部门：</td>
 				<td>
 					<input name="c.CSection" type="text" style="width: 100%;"/>
 				</td>
-			</tr>
-			<tr>
-				<td>姓名：</td>
+				<td width="100">姓名：</td>
 				<td>
 					<input name="c.CMaster" type="text" style="width: 100%;"/>
 				</td>
@@ -371,8 +349,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<td>
 					<input name="c.CNum" type="text" style="width: 100%;"/>
 				</td>
-			</tr>
-			<tr>
 				<td>职位：</td>
 				<td>
 					<input name="c.CPosition" type="text" style="width: 100%;"/>
@@ -383,8 +359,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<td>
 					<input name="c.CAddress" type="text" style="width: 100%;"/>
 				</td>
-			</tr>
-			<tr>
 				<td>电脑用户(AD)：</td>
 				<td>
 					<input name="c.CAd" type="text" style="width: 100%;"/>
@@ -395,8 +369,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<td>
 					<input name="c.CIp" type="text" style="width: 100%;"/>
 				</td>
-			</tr>
-			<tr>
 				<td>MAC：</td>
 				<td>
 					<input name="c.CMac" type="text" style="width: 100%;"/>
@@ -407,8 +379,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<td>
 					<input name="c.CCpuBrand" type="text" style="width: 100%;"/>
 				</td>
-			</tr>
-			<tr>
 				<td>CPU-型号：</td>
 				<td>
 					<input name="c.CCpuModel" type="text" style="width: 100%;"/>
@@ -419,8 +389,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<td>
 					<input name="c.CBoardBrand" type="text" style="width: 100%;"/>
 				</td>
-			</tr>
-			<tr>
 				<td>主板-芯片组：</td>
 				<td>
 					<input name="c.CBoardChip" type="text" style="width: 100%;"/>
@@ -431,8 +399,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<td>
 					<input name="c.CMemoryC" type="text" style="width: 100%;"/>
 				</td>
-			</tr>
-			<tr>
 				<td>内存-频率：</td>
 				<td>
 					<input name="c.CMemoryF" type="text" style="width: 100%;"/>
@@ -443,8 +409,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<td>
 					<input name="c.CDisk" type="text" style="width: 100%;"/>
 				</td>
-			</tr>
-			<tr>
 				<td>显示器-品牌：</td>
 				<td>
 					<input name="c.CDisplayBrand" type="text" style="width: 100%;"/>
@@ -455,8 +419,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<td>
 					<input name="c.CDisplayC" type="text" style="width: 100%;"/>
 				</td>
-			</tr>
-			<tr>
 				<td>是否可报废：</td>
 				<td>
 					<input name="c.CIsScrap" type="text" style="width: 100%;"/>
@@ -464,12 +426,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</tr>
 			<tr>
 				<td>备注说明：</td>
-				<td>
+				<td colspan="3">
 					<input name="c.CNote" type="text" style="width: 100%;"/>
 				</td>
 			</tr>
 			<tr>
-				<td colspan="2" align="center">
+				<td colspan="4" align="center">
 					<input class="easyui-linkbutton" type="submit" style="width: 95%;padding: 5px;" value="提交"/>
 				</td>			
 			</tr>

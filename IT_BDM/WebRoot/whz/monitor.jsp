@@ -216,7 +216,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<td>监控主机：</td>
 				<td>
 					<input id="u_4_0" name="moni.MMonitorMaster"  type="radio" value="正常" checked="checked"/>正常
-					<input id="u_4_1" name="moni.MMonitorMaster"  type="radio" value="正常" />正常
+					<input id="u_4_1" name="moni.MMonitorMaster"  type="radio" value="异常" />异常
 				</td>
 			</tr>
 			<tr>

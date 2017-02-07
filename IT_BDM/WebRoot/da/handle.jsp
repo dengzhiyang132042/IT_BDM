@@ -72,10 +72,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		*/
 		var table1="<table border=\"1\" class=\"table1\">";
 		table1=table1+
-		"<tr><td style=\"width:70px;\">编号：</td><td>"+${json}[status].demand.DId+"</td></tr>"+
+		"<tr><td style=\"width:90px;\">编号：</td><td>"+${json}[status].demand.DId+"</td></tr>"+
 		"<tr><td>发起人：</td><td>"+${json}[status].demand.DApplicant+"</td></tr>"+
 		"<tr><td>故障描述：</td><td>"+${json}[status].demand.DContent+"</td></tr>"+
-		"<tr><td>故障类型：</td><td>"+${json}[status].demand.DType+"</td></tr>"+
+		"<tr><td>故障处理组：</td><td>"+${json}[status].demand.DType+"</td></tr>"+
 		"<tr><td>创建时间：</td><td>"+${json}[status].demand.DTimeString+"</td></tr>"+
 		"<tr><td>超时时间：</td><td>"+${json}[status].demand.DTimeExpectString+"</td></tr>";
 		table1=table1+"</table>";
@@ -152,9 +152,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				    		编号:<input name="id" type="text" value="${id }"/>
 			    		</div>
 		    			<div>
-		    				故障类型：
+		    				故障处理组：
 		    				<select id="type_sel" name="type">
-				    			<option value="">--请选择类型--</option>
+				    			<option value="">--请选择组--</option>
 								<option value="桌面组">桌面组</option>
 								<option value="开发组">开发组</option>
 								<option value="维护组">维护组</option>
@@ -178,7 +178,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		    	<th width="150">编号</th>
 		    	<th width="150">发起人</th>
 		    	<th width="300">故障描述</th>
-		    	<th width="90">故障类型</th>
+		    	<th width="90">故障处理组</th>
 		    	<th>创建时间</th>
 		    	<th>当前处理人</th>
 		    	<th>超时时间</th>
@@ -197,7 +197,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		    	<td>${dp.performs[0].PState }</td>
 				<td>
 					<select onchange="forward('${dp.demand.DId }','${dp.demand.DApplicant }','${dp.demand.DContent }','${dp.demand.DType }','${dp.demand.DTime }','${dp.performs[0].UName }','select_id${status.index}')" id="select_id${status.index}" name="select_id">
-						<option value="">状态...</option>
+						<option value="">--状态--</option>
 						<option value="notComplete">未完成</option>
 						<option value="complete">已完成</option>
 						<option value="forward">转发</option>
@@ -243,7 +243,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<form action="<%=path %>/handle!update" method="post">
 		<table border="0" class="table1">
 			<tr>
-				<td width="75px">编号：</td>
+				<td width="90">编号：</td>
 				<td>
 					<input id="u_1" name="d.DId" type="text" style="width: 100%;" readonly="readonly"/>
 				</td>
@@ -261,7 +261,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				</td>
 			</tr>
 			<tr>
-				<td>故障类型：</td>
+				<td>故障处理组：</td>
 				<td>
 					<input id="u_4" name="d.DContent" type="text" style="width: 100%;" readonly="readonly"/>
 				</td>
