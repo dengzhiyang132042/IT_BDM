@@ -186,6 +186,11 @@
 	
 	
 	<!-- *****************数据分析************************  -->
+	<!-- 报表系统 -->
+	<bean id="hgh_quota_man_day" class="com.zs.action.quota.QuotaDayAction">
+		<property name="ser" ref="zs_ser"></property>
+	</bean>
+	
 	<!--系统组	-->
 	<bean id="hgh_count_site" class="com.zs.action.xtz.count.SiteCountAction">
 		<property name="ser" ref="zs_ser"></property>

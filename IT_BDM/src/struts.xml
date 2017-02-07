@@ -418,6 +418,15 @@
      <result name="fail">/fail.jsp</result>
   </action>
   <!-- **************数据分析***************** -->
+  <!-- 数据报表       -->
+  <action name="quotaMan" class="hgh_quota_man_day">	
+  	 <interceptor-ref name="mydefault" />
+     <result>/index.jsp</result>
+     <result name="quotaMan">/quota_jsp/quota_day_test.jsp</result>
+     <result name="succ">/success.jsp</result>
+     <result name="fail">/fail.jsp</result>
+  </action>
+  
   <!--系统组  -->
   <action name="siteCount" class="hgh_count_site">	
   	 <interceptor-ref name="mydefault" />
