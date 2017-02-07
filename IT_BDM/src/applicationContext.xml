@@ -315,6 +315,9 @@
 		<property name="ser" ref="zs_ser"></property>
 	</bean>
 	 -->
+	<bean id="zs_interceptor_quota" class="com.zs.interceptor.QuotaInterceptor">
+		<property name="ser" ref="zs_ser"></property>
+	</bean>
 	
 	<!-- ***************Service********************** -->
 	<bean id="zs_dao" class="com.zs.dao.BaseDaoOfSpring">

@@ -13,7 +13,9 @@
       <!-- 
       <interceptor name="cache_inter" class="zs_interceptor_cache"> 
       </interceptor>
-      --> 
+      -->
+      <interceptor name="quota_inter" class="zs_interceptor_quota"> 
+      </interceptor> 
       <interceptor name="SCT_inter" class="zs_interceptor_SCT">
       </interceptor>
       <!-- 拦截器栈 -->  
@@ -24,6 +26,7 @@
           <!--   
           <interceptor-ref name="cache_inter" />
           --> 
+          <interceptor-ref name="quota_inter" />
           <interceptor-ref name="defaultStack" />  
       </interceptor-stack>  
   </interceptors>  
