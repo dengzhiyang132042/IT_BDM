@@ -119,6 +119,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<ul id="tt" class="easyui-tree" data-options="animate:true,lines:true">
         <li><span>信息与流程管理部</span>
         	<ul>
+        		<li>
+        			<span><a href="<%=path %>/quota_jsp/quota_day_test.jsp" target="right">日统计报表式样</a></span>
+        		</li>
         		<li><span>系统组</span>
         			<ul>
 						<li><span><a href="<%=path %>/siteCount!queryOfFenye?cz=yes" target="right">站点资料登记</a></span></li>
