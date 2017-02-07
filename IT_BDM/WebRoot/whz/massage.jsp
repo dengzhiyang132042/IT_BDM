@@ -87,8 +87,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				console.log(hint.html());
 				if(data=="null"){
 					hint.html("<center style='color: red;'>数据不全，还无法计算出</center>");
+					$("#tls_1").val("");
+					$("#tls_2").val("");
+					$("#tls_3").val("");
+					$("#tls_4").val("");
+					$("#tls_5").val("");
+					$("#tls_6").val("");
+					$("#tls_7").val("");
 				}else{
 					var json = eval('(' + data + ')'); 
+					hint.html("");
 					$("#tls_1").val(json.MId);
 					$("#tls_2").val(json.TNetPoint);
 					$("#tls_3").val(json.TIt);
@@ -107,6 +115,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		}else{
 			show_hint(['in']);
 			$('#ff').submit();
+		}
+	}
+	function noNull(temp){
+		if(temp.length<=0){
+			alert("单号为空,无法跳转.");
+			return false;
+		}else{
+			return true;
 		}
 	}
 	</script>
@@ -177,7 +193,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<td width="">${m.EId }</td>
 			<td width="">${m.MNote }</td>
 			<td style="" align="center">
-				<a href="<%=path %>/exp!queryOfFenye?id=${m.EId}&idlike=no" class="easyui-linkbutton" data-options="plain:true">送修单号</a>
+				<a href="<%=path %>/exp!queryOfFenye?id=${m.EId}&idlike=no" class="easyui-linkbutton" data-options="plain:true" onclick="return noNull('${m.EId }')">送修单号</a>
 				<a href="<%=path %>/bqDraw!queryOfFenye?id=${m.MId}&idlike=no" class="easyui-linkbutton" data-options="plain:true">巴枪领取</a>
 				<a onclick="getTimeliness('${m.MId}')" class="easyui-linkbutton" data-options="plain:true">查看时效</a>
 				<a onclick="update('${m.MId }','${m.MIt }','<fmt:formatDate value="${m.MDate }" pattern="yyyy-MM-dd" />','${m.MType }','${m.MName }',

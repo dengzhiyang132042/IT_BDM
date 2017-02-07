@@ -71,6 +71,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		}
 		$('#f1').submit();
 	}
+	function noNull(temp){
+		if(temp.length<=0){
+			alert("单号为空,无法跳转.");
+			return false;
+		}else{
+			return true;
+		}
+	}
 	</script>
 	
   </head>
@@ -130,7 +138,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<td width="">${d.DAppendix }</td>
 			<td width="">${d.DIt }</td>
 			<td width="5%" align="center">
-				<a href="<%=path %>/exp!queryOfFenye?id=${d.EId}&idlike=no" class="easyui-linkbutton">返回单号</a>
+				<a href="<%=path %>/exp!queryOfFenye?id=${d.EId}&idlike=no" class="easyui-linkbutton" data-options="plain:true" onclick="return noNull('${d.EId }')">返回单号</a>
 				<a onclick="update('${d.MId }','${d.EId }','${d.DDraw }','${d.DMan }',
 				'${d.DPhone }','${d.DDate}','${d.DAppendix }','${d.DIt }')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-edit'" title="修改"></a>
 				<a href="<%=path %>/bqDraw!delete?id=${d.MId}" onclick="return confirm('确定删除吗?')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-delete'" title="删除"></a>

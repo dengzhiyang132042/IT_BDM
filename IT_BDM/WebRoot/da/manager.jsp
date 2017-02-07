@@ -75,10 +75,10 @@ String beforeTime= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Calendar.g
 		*/
 		var table1="<table border=\"1\" class=\"table1\">";
 		table1=table1+
-		"<tr><td width='70'>编号：</td><td>"+${json}[status].demand.DId+"</td></tr>"+
+		"<tr><td width='90'>编号：</td><td>"+${json}[status].demand.DId+"</td></tr>"+
 		"<tr><td>发起人：</td><td>"+${json}[status].demand.DApplicant+"</td></tr>"+
 		"<tr><td>故障描述：</td><td>"+${json}[status].demand.DContent+"</td></tr>"+
-		"<tr><td>故障类型：</td><td>"+${json}[status].demand.DType+"</td></tr>"+
+		"<tr><td>故障处理组：</td><td>"+${json}[status].demand.DType+"</td></tr>"+
 		"<tr><td>创建时间：</td><td>"+${json}[status].demand.DTimeString+"</td></tr>"+
 		"<tr><td>超时时间：</td><td>"+${json}[status].demand.DTimeExpectString+"</td></tr>";
 		table1=table1+"</table>";
@@ -167,9 +167,9 @@ String beforeTime= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Calendar.g
 			    		编号:<input name="id" type="text" value="${id }"/>
 		    		</div>
 	    			<div>
-	    				故障类型：
+	    				故障处理组：
 	    				<select id="type_sel" name="type">
-			    			<option value="">--请选择类型--</option>
+			    			<option value="">--请选择组--</option>
 							<option value="桌面组">桌面组</option>
 							<option value="开发组">开发组</option>
 							<option value="维护组">维护组</option>
@@ -194,7 +194,7 @@ String beforeTime= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Calendar.g
 	    	<th width="150">编号</th>
 	    	<th width="150">发起人</th>
 	    	<th width="300">故障描述</th>
-	    	<th width="90">故障类型</th>
+	    	<th width="90">故障处理组</th>
 	    	<th>创建时间</th>
 	    	<th>当前处理人</th>
 	    	<th>超时时间</th>
@@ -257,7 +257,7 @@ String beforeTime= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Calendar.g
 		<form action="<%=path %>/daManager!update" method="post">
 		<table border="0" class="table1">
 			<tr>
-				<td width="75px">编号：</td>
+				<td width="90">编号：</td>
 				<td>
 					<input id="u_1" name="d.DId" type="text" style="width: 100%;" readonly="readonly"/>
 				</td>
@@ -275,7 +275,7 @@ String beforeTime= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Calendar.g
 				</td>
 			</tr>
 			<tr>
-				<td>故障类型：</td>
+				<td>故障处理组：</td>
 				<td>
 					<input id="u_4" name="d.DContent" type="text" style="width: 100%;" readonly="readonly"/>
 				</td>
@@ -328,7 +328,7 @@ String beforeTime= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Calendar.g
 		<form action="<%=path %>/daManager!add" method="post">
 		<table border="0" class="table1">
 			<tr>
-				<td width="70">发起人：</td>
+				<td width="90">发起人：</td>
 				<td>
 					<input name="d.DApplicant" type="text" style="width: 100%;"/>
 				</td>
@@ -340,7 +340,7 @@ String beforeTime= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Calendar.g
 				</td>
 			</tr>
 			<tr>
-				<td>故障类型：</td>
+				<td>故障处理组：</td>
 				<td>
 					<select name="d.DType">
 						<option value="桌面组">桌面组</option>
