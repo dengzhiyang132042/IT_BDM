@@ -218,6 +218,60 @@ public class ProjectAction extends MyBaseAction implements IMyBaseAction{
 		}
 	}
 	
+	public String gotoQuery() throws UnsupportedEncodingException {
+		clearOptions();
+			String hql="from XtProject order by PDate desc";
+			String ss[]={};
+			ps=ser.query(hql, ss, hql, page, ser);
+			for(int i = 0;i<ps.size();i++){
+				String hql2="from XtProjectDetail where PId=?";
+				pds = ser.find(hql2,new Object[]{ps.get(i).getPId()});
+				ps.get(i).setProjectDetails(pds);
+			}
+		return result;
+	}
+	public String queryOfFenye() throws UnsupportedEncodingException {
+		id=getRequest().getParameter("id");
+		cz=getRequest().getParameter("cz");//用于判断是否清理page，yes清理，no不清理
+		if (page==null) {
+			page=new Page(1, 0, 1);
+		}
+		if (cz!=null && cz.equals("yes")) {
+			page=new Page(1, 0, 1);
+			clearOptions();
+		}
+		clearSpace();
+		if (id!=null) {
+			String hql="from XtProject where PId like '%"+id+"%'";
+			if(pname!=null){
+				hql=hql+" and PProject like '%"+pname+"%'";
+			}
+			if(dates!=null&&!dates.equals("")){
+				hql=hql+" and PDate >='"+dates+"'";
+			}
+			if(datee!=null&&!datee.equals("")){
+				hql=hql+" and PDate <='"+datee+"'";
+			}
+			hql=hql+" order by PDate desc";
+			ps =ser.query(hql, null, hql, page, ser);
+			for(int i = 0;i<ps.size();i++){
+				String hql2="from XtProjectDetail where PId=?";
+				pds = ser.find(hql2,new Object[]{ps.get(i).getPId()});
+				ps.get(i).setProjectDetails(pds);
+			}
+		}else {
+			String hql="from XtProject order by PDate desc";
+			String ss[]={};
+			ps=ser.query(hql, ss, hql, page, ser);
+			for(int i = 0;i<ps.size();i++){
+				String hql2="from XtProjectDetail where PId=?";
+				pds = ser.find(hql2,new Object[]{ps.get(i).getPId()});
+				ps.get(i).setProjectDetails(pds);
+			}
+		}
+		return result;
+	}
+
 	public String add() throws Exception {
 		String year = getRequest().getParameter("pyear");
 		String month = getRequest().getParameter("pmonth");
@@ -286,60 +340,7 @@ public class ProjectAction extends MyBaseAction implements IMyBaseAction{
 		}
 		return gotoQuery();
 	}
-	public String gotoQuery() throws UnsupportedEncodingException {
-		clearOptions();
-			String hql="from XtProject order by PDate desc";
-			String ss[]={};
-			ps=ser.query(hql, ss, hql, page, ser);
-			for(int i = 0;i<ps.size();i++){
-				String hql2="from XtProjectDetail where PId=?";
-				pds = ser.find(hql2,new Object[]{ps.get(i).getPId()});
-				ps.get(i).setProjectDetails(pds);
-			}
-		return result;
-	}
-	public String queryOfFenye() throws UnsupportedEncodingException {
-		id=getRequest().getParameter("id");
-		cz=getRequest().getParameter("cz");//用于判断是否清理page，yes清理，no不清理
-		if (page==null) {
-			page=new Page(1, 0, 1);
-		}
-		if (cz!=null && cz.equals("yes")) {
-			page=new Page(1, 0, 1);
-			clearOptions();
-		}
-		clearSpace();
-		if (id!=null) {
-			String hql="from XtProject where PId like '%"+id+"%'";
-			if(pname!=null){
-				hql=hql+" and PProject like '%"+pname+"%'";
-			}
-			if(dates!=null&&!dates.equals("")){
-				hql=hql+" and PDate >='"+dates+"'";
-			}
-			if(datee!=null&&!datee.equals("")){
-				hql=hql+" and PDate <='"+datee+"'";
-			}
-			hql=hql+" order by PDate desc";
-			ps =ser.query(hql, null, hql, page, ser);
-			for(int i = 0;i<ps.size();i++){
-				String hql2="from XtProjectDetail where PId=?";
-				pds = ser.find(hql2,new Object[]{ps.get(i).getPId()});
-				ps.get(i).setProjectDetails(pds);
-			}
-		}else {
-			String hql="from XtProject order by PDate desc";
-			String ss[]={};
-			ps=ser.query(hql, ss, hql, page, ser);
-			for(int i = 0;i<ps.size();i++){
-				String hql2="from XtProjectDetail where PId=?";
-				pds = ser.find(hql2,new Object[]{ps.get(i).getPId()});
-				ps.get(i).setProjectDetails(pds);
-			}
-		}
-		return result;
-	}
-
+	
 	public String update() throws Exception {
 		if(pd!=null){
 			XtProjectDetail proDetail = (XtProjectDetail) ser.get(XtProjectDetail.class, pd.getDId());
