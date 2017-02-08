@@ -30,7 +30,23 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	
 	<script type="text/javascript" src="<%=path %>/FRAMEWORK/js/myjs.js"></script>
 	<link rel="stylesheet" type="text/css" href="<%=path %>/FRAMEWORK/css/mycss.css">
-
+	<script type="text/javascript">
+		function page(no,cz){
+		var num1=$('#page').val();
+		if(cz==1){//上下页
+			$('#page').val(num1*1+no*1);
+		}else if(cz==2){//首末页
+			$('#page').val(no);
+		}else{
+		}
+		if($('#page').val()*1<1){
+			$('#page').val(1);
+		}else if($('#page').val()*1>${page.pageMax}*1){
+			$('#page').val(${page.pageMax});
+		}
+		$('#f1').submit();
+	}
+	</script>
   </head>
   
   <body>
@@ -44,7 +60,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
  	</div>
    	<div class="kscx" style="width:99%;margin:5px;">
     	<div class="inp">
-	    	<form id="ks" action="<%=path %>/bqq!queryOfFenye" method="post">
+	    	<form id="ks" action="<%=path %>/quotaMan!queryOfFenye" method="post">
 	    		<div>
 		    		<div>
 			    		开始日期：<input name="dates" id="d4311" class="Wdate" type="text" onFocus="WdatePicker({maxDate:'#F{$dp.$D(\'d4312\')}'})" value="${dates }"/>
@@ -58,7 +74,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			    		编号:<input name="id" type="text" value="${id }"/>
 		    		</div>
 	    			<div>
-	    				主要负责：<input name="num" type="text" value="${num }"/>
+	    				主要负责：<input name="name" type="text" value="${name }"/>
 	    			</div>
 	    		</div>
 	    	</form>
@@ -127,6 +143,33 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				    </c:forEach>
 			    </table>
 		  	</div>
+		  	<div class="easyui-panel" style="padding:5px;width: 100%;display: none;">
+				<form id="f1" action="<%=path %>/quotaMan!queryOfFenye?id=${id}&name=${name}&dates=${dates}&datee=${datee}" method="post">
+				<select id="sele" style="float: left;margin-top: 3px;margin-left: 5px;" name="page.size" onchange="$('#f1').submit();">
+					<option value="15">15</option>
+					<option value="20">20</option>
+				</select>
+				
+				<span style="float: left;margin-left: 5px;">
+				<span style="color: #A5A5A5;">|</span>
+				<a onclick="page(1,2)" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-last'" title="首页"></a>
+				<a onclick="page(-1,1)" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-l'" title="上一页"></a>
+				<span style="color: #A5A5A5;">|</span>
+				</span>
+				
+				<span style="float: left;margin-top: 3px;margin-left: 5px;">
+				<input id="page" name="page.pageOn" type="number" style="width: 50px;height: 20px;" value="${page.pageOn }" min="1" max="${page.pageMax }" onchange="$('#f1').submit();"/>
+				</span>
+				
+				<span style="float: left;margin-top: 5px;margin-left: 5px;">/${page.pageMax }</span>
+				
+				<span style="float: left;margin-left: 5px;">
+				<span style="color: #A5A5A5;">|</span>
+				<a onclick="page(1,1)" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-n'" title="下一页"></a>
+				<a onclick="page('${page.pageMax}',2)" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-next'" title="末页"></a>
+				</span>
+				</form>
+			</div>
 	  	</div>
   	</div>
   </body>
