@@ -90,14 +90,20 @@ public class UsersAction extends MyBaseAction{
 		if (id!=null)
 			hql=hql+"and UNum like '%"+id+"%' ";
 		us=ser.query(hql, null, hql, page, ser);
+		
+		
 		//带上角色信息
 		for (int i = 0; i < us.size(); i++) {
 			Role r=(Role) ser.get(Role.class, us.get(i).getRId());
 			us.get(i).setR(r);
+			CompanySection coms = (CompanySection) ser.get(CompanySection.class, us.get(i).getCsId());
+			if(coms!=null){
+				us.get(i).setCsGroup(coms.getCsName());
+			}
 		}
 		//带上通讯录信息
 		CompanySection cs=ser.queryFirst();
-		getRequest().setAttribute("html",ser.fitting1(cs));
+		getRequest().setAttribute("html",ser.fitting2(cs));
 		//带上角色列表
 		List<Role> rs=ser.find("from Role", new String[]{});
 		getRequest().setAttribute("rs", rs);

@@ -128,14 +128,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<td width="">${u.UNum }</td>
 			<td width="">${u.UPass }</td>
 			<td width="">${u.UName }</td>
-			<td width="">${u.UCs }</td>
+			<td width="">${u.csGroup }</td>
 			<td width="">${u.UJob }</td>
 			<td width="">${u.UMail }</td>
 			<td width="">${u.UStartTime }</td>
 			<td width="">${u.r.RName }</td>
 			<td width="">${u.UState }</td>
 			<td width="5%" align="center">
-				<a onclick="update('${u.UNum }','${u.UPass }','${u.UName }','${u.UCs }','${u.UJob }','${u.RId }','${u.UMail }','${u.UState }')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-edit'" title="修改"></a>
+				<a onclick="update('${u.UNum }','${u.UPass }','${u.UName }','${u.csId }','${u.UJob }','${u.RId }','${u.UMail }','${u.UState }')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-edit'" title="修改"></a>
 				<a href="<%=path %>/users!delete?id=${u.UNum}" onclick="return confirm('确定删除吗?')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-delete'" title="删除"></a>
 			</td>
 	    </tr>
@@ -197,7 +197,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<tr>
 				<td>部门：</td>
 				<td>
-					<select name="u.UCs" id="cc2" style="width:100%;"></select>
+					<select name="u.csId" id="cc2" style="width:100%;"></select>
 					<div id="sp2">
 						<div style="color:#99BBE8;background:#fafafa;padding:5px;">选择公司组织架构</div>
 						${html }
@@ -266,7 +266,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<tr>
 				<td>部门：</td>
 				<td>
-					<select name="u.UCs" id="cc1" style="width:100%;"></select>
+					<select name="u.csId" id="cc1" style="width:100%;"></select>
 					<div id="sp1">
 						<div style="color:#99BBE8;background:#fafafa;padding:5px;">选择公司组织架构</div>
 						${html }
