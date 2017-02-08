@@ -2,8 +2,6 @@ package com.zs.entity;
 
 import java.sql.Timestamp;
 
-import org.apache.poi.ss.formula.ptg.PowerPtg;
-
 /**
  * Users entity. @author MyEclipse Persistence Tools
  */
@@ -15,7 +13,7 @@ public class Users implements java.io.Serializable {
 	private String UNum;
 	private String UPass;
 	private String UName;
-	private String UCs;
+	private String csId;
 	private String UJob;
 	private Timestamp UStartTime;
 	private String RId;
@@ -24,14 +22,8 @@ public class Users implements java.io.Serializable {
 
 	// Constructors
 	private Role r;
+	private String csGroup;
 	
-	public Role getR() {
-		return r;
-	}
-	public void setR(Role r) {
-		this.r = r;
-	}
-
 	/** default constructor */
 	public Users() {
 	}
@@ -42,13 +34,13 @@ public class Users implements java.io.Serializable {
 	}
 
 	/** full constructor */
-	public Users(String UNum, String UPass, String UName, String UCs,
+	public Users(String UNum, String UPass, String UName, String csId,
 			String UJob, Timestamp UStartTime, String RId, String UMail,
 			String UState) {
 		this.UNum = UNum;
 		this.UPass = UPass;
 		this.UName = UName;
-		this.UCs = UCs;
+		this.csId = csId;
 		this.UJob = UJob;
 		this.UStartTime = UStartTime;
 		this.RId = RId;
@@ -82,12 +74,12 @@ public class Users implements java.io.Serializable {
 		this.UName = UName;
 	}
 
-	public String getUCs() {
-		return this.UCs;
+	public String getCsId() {
+		return this.csId;
 	}
 
-	public void setUCs(String UCs) {
-		this.UCs = UCs;
+	public void setCsId(String csId) {
+		this.csId = csId;
 	}
 
 	public String getUJob() {
@@ -130,4 +122,20 @@ public class Users implements java.io.Serializable {
 		this.UState = UState;
 	}
 
+	public Role getR() {
+		return r;
+	}
+
+	public void setR(Role r) {
+		this.r = r;
+	}
+
+	public String getCsGroup() {
+		return csGroup;
+	}
+
+	public void setCsGroup(String csGroup) {
+		this.csGroup = csGroup;
+	}
+	
 }

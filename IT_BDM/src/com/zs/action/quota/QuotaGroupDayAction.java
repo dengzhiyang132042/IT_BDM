@@ -15,7 +15,7 @@ import com.zs.entity.Users;
 import com.zs.service.IService;
 import com.zs.tools.Page;
 
-public class QuotaDayAction extends MyBaseAction implements IMyBaseAction{
+public class QuotaGroupDayAction extends MyBaseAction implements IMyBaseAction{
 	private QuotaMan qm ;
 	private List<QuotaMan> qms;
 	private IService ser;

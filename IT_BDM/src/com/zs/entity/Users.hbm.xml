@@ -16,8 +16,8 @@
         <property name="UName" type="java.lang.String">
             <column name="u_name" />
         </property>
-        <property name="UCs" type="java.lang.String">
-            <column name="u_cs" />
+        <property name="csId" type="java.lang.String">
+            <column name="cs_id" />
         </property>
         <property name="UJob" type="java.lang.String">
             <column name="u_job" />
