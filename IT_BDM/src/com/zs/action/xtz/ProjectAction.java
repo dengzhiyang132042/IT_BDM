@@ -6,6 +6,7 @@ package com.zs.action.xtz;
 import java.io.File;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.sql.Timestamp;
 import java.text.ParseException;
 import java.util.Date;
 import java.util.List;
@@ -17,6 +18,7 @@ import net.sf.json.JSONObject;
 
 import com.zs.action.IMyBaseAction;
 import com.zs.action.MyBaseAction;
+import com.zs.entity.Users;
 import com.zs.entity.XtDevelopEfficiency;
 import com.zs.entity.XtProject;
 import com.zs.entity.XtProjectDetail;
@@ -199,6 +201,11 @@ public class ProjectAction extends MyBaseAction implements IMyBaseAction{
 		dates=null;
 		datee=null;
 		cz=null;
+		if (page==null) {
+			page=new Page(1, 0, 1);
+		}else {
+			page.setPageOn(1);
+		}
 	}
 	public void clearSpace(){
 		if(id!=null){
@@ -220,59 +227,47 @@ public class ProjectAction extends MyBaseAction implements IMyBaseAction{
 	
 	public String gotoQuery() throws UnsupportedEncodingException {
 		clearOptions();
-			String hql="from XtProject order by PDate desc";
-			String ss[]={};
-			ps=ser.query(hql, ss, hql, page, ser);
-			for(int i = 0;i<ps.size();i++){
-				String hql2="from XtProjectDetail where PId=?";
-				pds = ser.find(hql2,new Object[]{ps.get(i).getPId()});
-				ps.get(i).setProjectDetails(pds);
-			}
+		String hql="from XtProject where PState='有效' order by PDate desc,PCreateTime desc ";
+		ps=ser.query(hql, null, hql, page, ser);
+		for(int i = 0;i<ps.size();i++){
+			String hql2="from XtProjectDetail where PId=?";
+			pds = ser.find(hql2,new Object[]{ps.get(i).getPId()});
+			ps.get(i).setProjectDetails(pds);
+		}
 		return result;
 	}
+	
 	public String queryOfFenye() throws UnsupportedEncodingException {
-		id=getRequest().getParameter("id");
-		cz=getRequest().getParameter("cz");//用于判断是否清理page，yes清理，no不清理
-		if (page==null) {
-			page=new Page(1, 0, 1);
-		}
+		clearSpace();
 		if (cz!=null && cz.equals("yes")) {
-			page=new Page(1, 0, 1);
 			clearOptions();
 		}
-		clearSpace();
-		if (id!=null) {
-			String hql="from XtProject where PId like '%"+id+"%'";
-			if(pname!=null){
-				hql=hql+" and PProject like '%"+pname+"%'";
-			}
-			if(dates!=null&&!dates.equals("")){
-				hql=hql+" and PDate >='"+dates+"'";
-			}
-			if(datee!=null&&!datee.equals("")){
-				hql=hql+" and PDate <='"+datee+"'";
-			}
-			hql=hql+" order by PDate desc";
-			ps =ser.query(hql, null, hql, page, ser);
-			for(int i = 0;i<ps.size();i++){
-				String hql2="from XtProjectDetail where PId=?";
-				pds = ser.find(hql2,new Object[]{ps.get(i).getPId()});
-				ps.get(i).setProjectDetails(pds);
-			}
-		}else {
-			String hql="from XtProject order by PDate desc";
-			String ss[]={};
-			ps=ser.query(hql, ss, hql, page, ser);
-			for(int i = 0;i<ps.size();i++){
-				String hql2="from XtProjectDetail where PId=?";
-				pds = ser.find(hql2,new Object[]{ps.get(i).getPId()});
-				ps.get(i).setProjectDetails(pds);
-			}
+		String hql="from XtProject where PState='有效' ";
+		if (id!=null && !id.equals("")) {
+			hql=hql+"and PId like '%"+id+"%' ";
+		}	
+		if(pname!=null && !pname.equals("")){
+			hql=hql+" and PProject like '%"+pname+"%'";
+		}
+		if(dates!=null && !dates.equals("")){
+			hql=hql+"and PDate >='"+dates+"' ";
+		}
+		if(datee!=null && !datee.equals("")){
+			hql=hql+"and PDate <='"+datee+"' ";
+		}
+		hql=hql+"order by PDate desc,PCreateTime desc ";
+		ps =ser.query(hql, null, hql, page, ser);
+		for(int i = 0;i<ps.size();i++){
+			String hql2="from XtProjectDetail where PId=?";
+			pds = ser.find(hql2,new Object[]{ps.get(i).getPId()});
+			ps.get(i).setProjectDetails(pds);
 		}
 		return result;
 	}
 
 	public String add() throws Exception {
+		clearSpace();
+		Users u=(Users) getSession().getAttribute("user");
 		String year = getRequest().getParameter("pyear");
 		String month = getRequest().getParameter("pmonth");
 		if(p!=null){
@@ -280,6 +275,11 @@ public class ProjectAction extends MyBaseAction implements IMyBaseAction{
 			Date pdate = new Date(Integer.parseInt(year)-1900,Integer.parseInt(month)-1, 20);
 			System.out.println(pdate);
 			p.setPDate(pdate);
+			//----------------------
+			p.setPType("注册");
+			p.setPCreateTime(new Timestamp(new Date().getTime()));
+			p.setPState("有效");
+			p.setUNum(u.getUNum());
 			ser.save(p);
 			getRequest().setAttribute("p", p);
 			if(pd1!=null){
@@ -320,16 +320,10 @@ public class ProjectAction extends MyBaseAction implements IMyBaseAction{
 		}
 		List<XtProject> pros=ser.find("from XtProject where PDate=?", new Object[]{p.getPDate()});
 		proSer.createTable(pros);
-		
-		p=null;
-		pd1=null;
-		pd2=null;
-		pd3=null;
-		pd4=null;
-		pd5=null;
 		return gotoQuery();
 	}
 	public String delete() throws Exception {
+		clearSpace();
 		if(id!=null){
 			XtProject dproject = (XtProject) ser.get(XtProject.class, id);
 			ser.delete(dproject);
@@ -342,6 +336,8 @@ public class ProjectAction extends MyBaseAction implements IMyBaseAction{
 	}
 	
 	public String update() throws Exception {
+		clearSpace();
+		Users u=(Users) getSession().getAttribute("user");
 		if(pd!=null){
 			XtProjectDetail proDetail = (XtProjectDetail) ser.get(XtProjectDetail.class, pd.getDId());
 			pd.setPId(proDetail.getPId());
@@ -360,6 +356,12 @@ public class ProjectAction extends MyBaseAction implements IMyBaseAction{
 			ser.update(pd);
 			getRequest().setAttribute("pd", pd);
 			XtProject up =(XtProject) ser.get(XtProject.class, pd.getPId());
+			//张顺，2017-2-9，这里不会产生记录数据，因为关联太多，代价太大
+			up.setPType("维护");
+			up.setPCreateTime(new Timestamp(new Date().getTime()));
+			up.setUNum(u.getUNum());
+			ser.update(up);
+			getRequest().setAttribute("p", up);
 			
 			//更新效率表
 			List<XtDevelopEfficiency> xdes  =ser.find("from XtDevelopEfficiency where EMonth=?", new Object[]{up.getPDate()});
@@ -369,14 +371,11 @@ public class ProjectAction extends MyBaseAction implements IMyBaseAction{
 			List<XtProject> pros=ser.find("from XtProject where PDate=?", new Object[]{up.getPDate()});
 			proSer.createTable(pros);
 		}
-		pd=null;
 		return gotoQuery();
 	}
 	public String importExcel() throws InterruptedException, IOException, ParseException {
-		logger.debug(fileExcel);
-		logger.debug(fileExcelContentType);
-		logger.debug(fileExcelFileName);
-		proSer.ExcelImport(fileExcelFileName, fileExcel);
+		Users u=(Users) getSession().getAttribute("user");
+		proSer.ExcelImport(fileExcelFileName, fileExcel,u.getUNum());
 		return gotoQuery();
 	}
 }

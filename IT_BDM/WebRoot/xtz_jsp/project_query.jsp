@@ -281,7 +281,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<a class="icon-add" onclick="add()" style="margin-left: 10px;" title="添加">
 	</div>
 	<div id="in" class="easyui-window" title="数据导入" data-options="modal:true,closed:true" style="width:400px;height:auto;padding:10px;display: none;overflow-x:hidden;">
-		<form id="tt" action="<%=path %>/project!importExcel" method="post" enctype="multipart/form-data">
+		<form id="ff" action="<%=path %>/project!importExcel" method="post" enctype="multipart/form-data">
 		<table border="1">
 			<tr>
 				<td>Excel模板</td>

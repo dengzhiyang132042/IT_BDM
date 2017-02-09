@@ -5,15 +5,19 @@ package com.zs.service.impl;
 
 import java.io.File;
 import java.io.IOException;
+import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+import javax.transaction.Transaction;
+
 import net.sf.json.JSONObject;
 
 import org.apache.log4j.Logger;
 
+import com.zs.entity.WhOutRepair;
 import com.zs.entity.XtDevelopEfficiency;
 import com.zs.entity.XtProject;
 import com.zs.entity.XtProjectDetail;
@@ -207,23 +211,37 @@ public class XtProjectCountServiceImpl extends BaseService implements iXtProject
 	}
 
 
-	public void ExcelImport(String fileName, File file) throws IOException, NumberFormatException, ParseException {
-		List<String[]> list=ExcelImport.getDataFromExcel(fileName,file);
-		XtProject p = null;
-		for (int i = 1; i < list.size(); i++) {
-			System.out.println(list.get(i)[6].toString().substring(0,8)+"20");
-			if(!list.get(i)[0].toString().equals("")){
-				p = new XtProject("p"+NameOfDate.getNum(),new SimpleDateFormat("yyyy-MM-dd").parse(list.get(i)[6].toString().substring(0,8)+"20") , list.get(i)[0].toString(), list.get(i)[1].toString());
-				save(p);
+	public void ExcelImport(String fileName, File file,String unum){
+		try {
+			List<String[]> list=ExcelImport.getDataFromExcel(fileName,file);
+			XtProject p=null;
+			for (int i = 1; i < list.size(); i++) {
+				try {
+					if(!list.get(i)[0].equals("")){
+						p=new XtProject("p"+NameOfDate.getNum(),
+								transToDate(list.get(i)[6].substring(0,8)+"20"),
+								list.get(i)[0], list.get(i)[1],"注册",new Timestamp(new Date().getTime()),
+								"有效",unum);
+						save(p);
+					}
+					if (p!=null) {
+						XtProjectDetail pd = new XtProjectDetail(NameOfDate.getNum(),p.getPId() , 
+								list.get(i)[2], list.get(i)[3], list.get(i)[4], list.get(i)[5], 
+								transToDate(list.get(i)[6]),transToDate(list.get(i)[7]), 
+								transToDate(list.get(i)[8]), Double.parseDouble(list.get(i)[9]),
+								transToInt(list.get(i)[9]));
+						save(pd);
+					}
+				} catch (Exception e) {
+					log.error("数据格式错误:请注意填写的数据格式，另外不要留空，数字类型的没有就写0，文本类型的没有可以不写，时间类型的一定要写");
+				}
 			}
-			System.out.println(p.getPId());
-			XtProjectDetail pd = new XtProjectDetail(NameOfDate.getNum(),p.getPId() , list.get(i)[2].toString(), list.get(i)[3].toString(), list.get(i)[4].toString(), list.get(i)[5].toString(), new SimpleDateFormat("yyyy-MM-dd").parse(list.get(i)[6].toString()), new SimpleDateFormat("yyyy-MM-dd").parse(list.get(i)[7].toString()), new SimpleDateFormat("yyyy-MM-dd").parse(list.get(i)[8].toString()), Double.parseDouble(list.get(i)[9].toString()),Integer.parseInt(list.get(i)[9].toString()));
-			System.out.println(JSONObject.fromObject(p));
-			System.out.println(JSONObject.fromObject(pd));
-			save(pd);
+		} catch (Exception e) {
+			log.error("文件错误：请确认是否使用了正确的模板");
 		}
 	}
 
 
+	
 	
 }
