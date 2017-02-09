@@ -31,21 +31,36 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script type="text/javascript" src="<%=path %>/FRAMEWORK/js/myjs.js"></script>
 	<link rel="stylesheet" type="text/css" href="<%=path %>/FRAMEWORK/css/mycss.css">
 	<script type="text/javascript">
+		$(function(){
+			detail();
+		});
+		
+		function groupHide(){
+			var t = $('#tt');
+			var tabs = t.tabs('tabs');
+			t.tabs('select', "组统计");
+		}
+		function detail(){
+			var t = $('#tt');
+			var tabs = t.tabs('tabs');
+			t.tabs('select', "明细");
+		}
+		
 		function page(no,cz){
-		var num1=$('#page').val();
-		if(cz==1){//上下页
-			$('#page').val(num1*1+no*1);
-		}else if(cz==2){//首末页
-			$('#page').val(no);
-		}else{
+			var num1=$('#page').val();
+			if(cz==1){//上下页
+				$('#page').val(num1*1+no*1);
+			}else if(cz==2){//首末页
+				$('#page').val(no);
+			}else{
+			}
+			if($('#page').val()*1<1){
+				$('#page').val(1);
+			}else if($('#page').val()*1>${page.pageMax}*1){
+				$('#page').val(${page.pageMax});
+			}
+			$('#f1').submit();
 		}
-		if($('#page').val()*1<1){
-			$('#page').val(1);
-		}else if($('#page').val()*1>${page.pageMax}*1){
-			$('#page').val(${page.pageMax});
-		}
-		$('#f1').submit();
-	}
 	</script>
   </head>
   
@@ -86,7 +101,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     </div>
     
     <div id="tt" class="easyui-tabs" style="width:99%;height:500px;margin:5px;">
-	    <div title="组统计">
+	    <div title="组统计" style="overflow: hidden;">
 		    <div style="margin-bottom: 5px;">
 			    <table border="1" id="" style="font-size: 12px;">
 				    <tr>
@@ -114,7 +129,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			    </table>
 		  	</div>
 	  	</div>
-	  	<div title="明细">
+	  	<div title="明细" style="overflow: hidden;">
 	  		<div style="margin-bottom: 5px;">
 			    <table border="1" id="" style="font-size: 12px;">
 				    <tr>
