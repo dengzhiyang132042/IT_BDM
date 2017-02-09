@@ -55,5 +55,5 @@ public interface iXtProjectCountService{
 	 * @param fileExcelFileName
 	 * @param fileExcel
 	 */
-	public void ExcelImport(String fileName,File file)throws NumberFormatException, ParseException, IOException;
+	public void ExcelImport(String fileName,File file,String unum);
 }

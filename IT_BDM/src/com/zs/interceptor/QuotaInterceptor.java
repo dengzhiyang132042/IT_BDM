@@ -278,6 +278,14 @@ public class QuotaInterceptor extends AbstractInterceptor{
 				String unum=imo.getIUnum();
 				saveQuota(unum, time, type, "网点IMO登记");
 			}
+		}else if (actionName.equals("project")) {
+			XtProject p=(XtProject) request.getAttribute("p");
+			if (p!=null) {
+				String type=p.getPType();
+				Timestamp time=removeTime(p.getPCreateTime());
+				String unum=p.getUNum();
+				saveQuota(unum, time, type, "系统开发登记");
+			}
 		}
 		
 		

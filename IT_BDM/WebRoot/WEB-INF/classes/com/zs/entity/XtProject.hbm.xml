@@ -19,5 +19,17 @@
         <property name="PTarget" type="java.lang.String">
             <column name="p_target" />
         </property>
+        <property name="PType" type="java.lang.String">
+            <column name="p_type" />
+        </property>
+        <property name="PCreateTime" type="java.sql.Timestamp">
+            <column name="p_create_time" length="19" />
+        </property>
+        <property name="PState" type="java.lang.String">
+            <column name="p_state" />
+        </property>
+        <property name="UNum" type="java.lang.String">
+            <column name="u_num" />
+        </property>
     </class>
 </hibernate-mapping>

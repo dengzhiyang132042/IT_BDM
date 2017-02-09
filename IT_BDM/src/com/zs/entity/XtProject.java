@@ -1,5 +1,6 @@
 package com.zs.entity;
 
+import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
 
@@ -15,21 +16,25 @@ public class XtProject implements java.io.Serializable {
 	private Date PDate;
 	private String PProject;
 	private String PTarget;
+	private String PType;
+	private Timestamp PCreateTime;
+	private String PState;
+	private String UNum;
+
 	private List<XtProjectDetail> projectDetails; //方便数据的传输
 	// Constructors
-	
-	
-	/** default constructor */
-	public XtProject() {
-	}
 
 	public List<XtProjectDetail> getProjectDetails() {
 		return projectDetails;
 	}
-
 	public void setProjectDetails(List<XtProjectDetail> projectDetails) {
 		this.projectDetails = projectDetails;
 	}
+	
+	/** default constructor */
+	public XtProject() {
+	}
+	
 
 	/** minimal constructor */
 	public XtProject(String PId) {
@@ -37,11 +42,16 @@ public class XtProject implements java.io.Serializable {
 	}
 
 	/** full constructor */
-	public XtProject(String PId, Date PDate, String PProject, String PTarget) {
+	public XtProject(String PId, Date PDate, String PProject, String PTarget,
+			String PType, Timestamp PCreateTime, String PState, String UNum) {
 		this.PId = PId;
 		this.PDate = PDate;
 		this.PProject = PProject;
 		this.PTarget = PTarget;
+		this.PType = PType;
+		this.PCreateTime = PCreateTime;
+		this.PState = PState;
+		this.UNum = UNum;
 	}
 
 	// Property accessors
@@ -76,6 +86,38 @@ public class XtProject implements java.io.Serializable {
 
 	public void setPTarget(String PTarget) {
 		this.PTarget = PTarget;
+	}
+
+	public String getPType() {
+		return this.PType;
+	}
+
+	public void setPType(String PType) {
+		this.PType = PType;
+	}
+
+	public Timestamp getPCreateTime() {
+		return this.PCreateTime;
+	}
+
+	public void setPCreateTime(Timestamp PCreateTime) {
+		this.PCreateTime = PCreateTime;
+	}
+
+	public String getPState() {
+		return this.PState;
+	}
+
+	public void setPState(String PState) {
+		this.PState = PState;
+	}
+
+	public String getUNum() {
+		return this.UNum;
+	}
+
+	public void setUNum(String UNum) {
+		this.UNum = UNum;
 	}
 
 }
