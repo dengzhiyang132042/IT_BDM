@@ -251,7 +251,6 @@ public class VpnAction extends MyBaseAction{
 			ser.save(vpn);
 			getRequest().setAttribute("vpn", vpn);
 		}
-		vpn=null;
 		return gotoQuery();
 	}
 	
@@ -268,7 +267,6 @@ public class VpnAction extends MyBaseAction{
 			ser.save(vpn);
 			getRequest().setAttribute("vpn", vpn);
 		}
-		vpn=null;
 		return gotoQuery();
 	}	
 	

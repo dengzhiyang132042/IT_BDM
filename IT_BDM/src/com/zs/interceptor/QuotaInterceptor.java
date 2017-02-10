@@ -204,7 +204,7 @@ public class QuotaInterceptor extends AbstractInterceptor{
 				String type=site.getSMaintainType();
 				Timestamp time=removeTime(site.getSCreateTime());
 				String unum=site.getUNum();
-				saveQuota(unum, time, type, "站点资料");
+				saveQuota(unum, time, type, "站点资料登记");
 			}
 		}else if (actionName.equals("branches")) {//二级站点资料
 			XtBranches branches=(XtBranches) request.getAttribute("b");
@@ -212,7 +212,7 @@ public class QuotaInterceptor extends AbstractInterceptor{
 				String type=branches.getBType();
 				Timestamp time=removeTime(branches.getBCreateTime());
 				String unum=branches.getUNum();
-				saveQuota(unum, time, type, "二级站点资料");
+				saveQuota(unum, time, type, "二级站点登记");
 			}
 		}else if (actionName.equals("zmn")) {
 			XtZmNumber zmn=(XtZmNumber) request.getAttribute("zmn");
@@ -252,7 +252,7 @@ public class QuotaInterceptor extends AbstractInterceptor{
 				String type=h.getHType();
 				Timestamp time=removeTime(h.getHCreateTime());
 				String unum=h.getUNum();
-				saveQuota(unum, time, type, "设备异常登记");
+				saveQuota(unum, time, type, "哲盟异常登记");
 			}
 		}else if (actionName.equals("bqq")) {
 			XtBqq b=(XtBqq) request.getAttribute("b");
@@ -261,14 +261,6 @@ public class QuotaInterceptor extends AbstractInterceptor{
 				Timestamp time=removeTime(b.getBServiceDate());
 				String unum=b.getUNum();
 				saveQuota(unum, time, type, "公司BQQ登记");
-			}
-		}else if (actionName.equals("netImo")) {
-			XtNetImo imo=(XtNetImo) request.getAttribute("imo");
-			if (imo!=null) {
-				String type=imo.getIType();
-				Timestamp time=removeTime(imo.getIServiceDate());
-				String unum=imo.getIUnum();
-				saveQuota(unum, time, type, "网点IMO登记");
 			}
 		}else if (actionName.equals("netImo")) {
 			XtNetImo imo=(XtNetImo) request.getAttribute("imo");
@@ -287,6 +279,139 @@ public class QuotaInterceptor extends AbstractInterceptor{
 				saveQuota(unum, time, type, "系统开发登记");
 			}
 		}
+		/*硬件组*/
+		else if (actionName.equals("fbd_asdl")) {
+			FbdAsdl asdl=(FbdAsdl) request.getAttribute("asdl");
+			if (asdl!=null) {
+				String type=asdl.getAsdlType();
+				Timestamp time=removeTime(asdl.getAsdlCreateTime());
+				String unum=asdl.getUNum();
+				saveQuota(unum, time, type, "ASDL宽带登记");
+			}
+		}else if (actionName.equals("fbd_m")) {
+			FbdMonitoring m=(FbdMonitoring) request.getAttribute("m");
+			if (m!=null) {
+				String type=m.getMType();
+				Timestamp time=removeTime(m.getMCreateTime());
+				String unum=m.getUNum();
+				saveQuota(unum, time, type, "监控信息登记");
+			}
+		}else if (actionName.equals("fbd_ll")) {
+			FbdListLink ll=(FbdListLink) request.getAttribute("ll");
+			if (ll!=null) {
+				String type=ll.getLlType();
+				Timestamp time=removeTime(ll.getLlCreateTime());
+				String unum=ll.getUNum();
+				saveQuota(unum, time, type, "监控材料清单");
+			}
+		}else if (actionName.equals("sim")) {
+			Sim sim=(Sim) request.getAttribute("sim");
+			if (sim!=null) {
+				String type=sim.getSType();
+				Timestamp time=removeTime(sim.getSCreateTime());
+				String unum=sim.getUNum();
+				saveQuota(unum, time, type, "SIM费用报销");
+			}
+		}else if (actionName.equals("outRegister")) {
+			YjOut o=(YjOut) request.getAttribute("0");
+			if (o!=null) {
+				String type=o.getOType();
+				Timestamp time=removeTime(o.getOCreateTime());
+				String unum=o.getUNum();
+				saveQuota(unum, time, type, "外出登记新");
+			}
+		}
+		/*桌面组*/
+		else if (actionName.equals("vpn")) {
+			ZmVpn v=(ZmVpn) request.getAttribute("vpn");
+			if (v!=null) {
+				String type=v.getVType();
+				Timestamp time=removeTime(v.getVCreateTime());
+				String unum=v.getUNum();
+				saveQuota(unum, time, type, "VPN账号登记");
+			}
+		}else if (actionName.equals("by")) {
+			ZmByNumber by=(ZmByNumber) request.getAttribute("by");
+			if (by!=null) {
+				String type=by.getByType();
+				Timestamp time=removeTime(by.getByCreateTime());
+				String unum=by.getUNum();
+				saveQuota(unum, time, type, "IMO账号登记");
+			}
+		}else if (actionName.equals("mail")) {
+			ZmMail m=(ZmMail) request.getAttribute("m");
+			if (m!=null) {
+				String type=m.getMType();
+				Timestamp time=removeTime(m.getMCreateTime());
+				String unum=m.getUNum();
+				saveQuota(unum, time, type, "邮箱账号登记");
+			}
+		}else if (actionName.equals("computer")) {
+			ZmComputer c=(ZmComputer) request.getAttribute("c");
+			if (c!=null) {
+				String type=c.getCType();
+				Timestamp time=removeTime(c.getCCreateTime());
+				String unum=c.getUNum();
+				saveQuota(unum, time, type, "公司电脑信息");
+			}
+		}else if (actionName.equals("bq")) {
+			ZmBq bq=(ZmBq) request.getAttribute("bq");
+			if (bq!=null) {
+				String type=bq.getBType();
+				Timestamp time=removeTime(bq.getBCreateTime());
+				String unum=bq.getUNum();
+				saveQuota(unum, time, type, "骏达设备登记");
+			}
+		}else if (actionName.equals("wifi")) {
+			ZmWifi w=(ZmWifi) request.getAttribute("wifi");
+			if (w!=null) {
+				String type=w.getWType();
+				Timestamp time=removeTime(w.getWCreateTime());
+				String unum=w.getUNum();
+				saveQuota(unum, time, type, "公司wifi管理");
+			}
+		}else if (actionName.equals("call")) {
+			ZmCall c=(ZmCall) request.getAttribute("call");
+			if (c!=null) {
+				String type=c.getCType();
+				Timestamp time=removeTime(c.getCCreateTime());
+				String unum=c.getUNum();
+				saveQuota(unum, time, type, "总部呼叫系统");
+			}
+		}else if (actionName.equals("netCall")) {
+			ZmNetCall c=(ZmNetCall) request.getAttribute("c");
+			if (c!=null) {
+				String type=c.getNType();
+				Timestamp time=removeTime(c.getNCreateDate());
+				String unum=c.getUNum();
+				saveQuota(unum, time, type, "网点呼叫系统");
+			}
+		}else if (actionName.equals("oa")) {
+			ZmOaNumber obj=(ZmOaNumber) request.getAttribute("oa");
+			if (obj!=null) {
+				String type=obj.getOType();
+				Timestamp time=removeTime(obj.getOCreateTime());
+				String unum=obj.getUNum();
+				saveQuota(unum, time, type, "OA账号登记");
+			}
+		}else if (actionName.equals("print")) {
+			ZmPrinter obj=(ZmPrinter) request.getAttribute("p");
+			if (obj!=null) {
+				String type=obj.getPType();
+				Timestamp time=removeTime(obj.getPCreateTime());
+				String unum=obj.getUNum();
+				saveQuota(unum, time, type, "打印机登记");
+			}
+		}else if (actionName.equals("phone")) {
+			ZmPhoneLine obj=(ZmPhoneLine) request.getAttribute("phone");
+			if (obj!=null) {
+				String type=obj.getPType();
+				Timestamp time=removeTime(obj.getPCreateTime());
+				String unum=obj.getUNum();
+				saveQuota(unum, time, type, "电话线分布");
+			}
+		}
+		/*维护组*/
 		
 		
 		

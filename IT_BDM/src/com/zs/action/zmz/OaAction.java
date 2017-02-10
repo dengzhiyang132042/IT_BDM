@@ -194,43 +194,9 @@ public class OaAction extends MyBaseAction implements IMyBaseAction{
 		}
 	}
 	
-	public String add() throws Exception {
-		if (oa!=null) {
-			oa.setOId("o"+NameOfDate.getNum());
-			Date date = new Date();
-			oa.setOCreateTime(new Timestamp(date.getTime()));
-			oa.setODate(date);
-			Calendar ca = Calendar.getInstance();
-			ca.setTime(date);
-			oa.setOServiceWeek(ca.get(Calendar.WEEK_OF_YEAR));
-			Users users=(Users) getSession().getAttribute("user"); 
-			oa.setOService(users.getUName());
-			oa.setUNum(users.getUNum());
-			oa.setOState("有效");
-			String type="";
-			if(oa.getOOnJob().equals("入职")){
-				type = "注册";
-			}else if(oa.getOOnJob().equals("离职")){
-				type = "注销";
-			}else{
-				type="维护";
-			}
-			oa.setOType(type);
-			ser.save(oa);
-			getRequest().setAttribute("oa", oa);
-		}
-		return gotoQuery();
-	}
-	
-	public String delete() throws Exception {
-		if (id!=null) {
-			oa=(ZmOaNumber) ser.get(ZmOaNumber.class, id);
-			ser.delete(oa);
-		}
-		return gotoQuery();
-	}
 
 	public String gotoQuery() throws UnsupportedEncodingException {
+		clearOptions();
 		String hql="from ZmOaNumber where OState ='有效' order by OCreateTime desc , ODate desc";
 		oas=ser.query(hql, null, hql, page, ser);
 		return result;
@@ -268,8 +234,46 @@ public class OaAction extends MyBaseAction implements IMyBaseAction{
 		return result;
 	}
 
+	public String add() throws Exception {
+		clearSpace();
+		if (oa!=null) {
+			oa.setOId("o"+NameOfDate.getNum());
+			Date date = new Date();
+			oa.setOCreateTime(new Timestamp(date.getTime()));
+			oa.setODate(date);
+			Calendar ca = Calendar.getInstance();
+			ca.setTime(date);
+			oa.setOServiceWeek(ca.get(Calendar.WEEK_OF_YEAR));
+			Users users=(Users) getSession().getAttribute("user"); 
+			oa.setOService(users.getUName());
+			oa.setUNum(users.getUNum());
+			oa.setOState("有效");
+			String type="";
+			if(oa.getOOnJob().equals("入职")){
+				type = "注册";
+			}else if(oa.getOOnJob().equals("离职")){
+				type = "注销";
+			}else{
+				type="维护";
+			}
+			oa.setOType(type);
+			ser.save(oa);
+			getRequest().setAttribute("oa", oa);
+		}
+		return gotoQuery();
+	}
+	
+	public String delete() throws Exception {
+		clearSpace();
+		if (id!=null) {
+			oa=(ZmOaNumber) ser.get(ZmOaNumber.class, id);
+			ser.delete(oa);
+		}
+		return gotoQuery();
+	}
 	
 	public String update() throws Exception {
+		clearSpace();
 		if(oa!=null && oa.getOId()!=null && !"".equals(oa.getOId().trim())){
 			ZmOaNumber zmOa = (ZmOaNumber) ser.get(ZmOaNumber.class, oa.getOId());
 			zmOa.setOState("无效");
@@ -299,7 +303,6 @@ public class OaAction extends MyBaseAction implements IMyBaseAction{
 			ser.save(oa);
 			getRequest().setAttribute("oa", oa);
 		}
-		clearOptions();
 		return gotoQuery();
 	}
 	

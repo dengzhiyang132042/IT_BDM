@@ -9,6 +9,7 @@ import java.util.Date;
 import java.util.List;
 
 import org.apache.log4j.Logger;
+import org.apache.struts2.interceptor.ClearSessionInterceptor;
 
 import com.zs.action.IMyBaseAction;
 import com.zs.action.MyBaseAction;
@@ -169,6 +170,13 @@ public class PhoneAction extends MyBaseAction implements IMyBaseAction{
 		}
 	}
 	
+	public String gotoQuery() throws UnsupportedEncodingException {
+		clearOptions();
+		String hql="from ZmPhoneLine where PState='有效' order by PCreateTime desc , PDate desc";
+		phones=ser.query(hql,null, hql, page, ser);
+		return result;
+	}
+	
 	public String queryOfFenye() throws UnsupportedEncodingException {
 		clearSpace();
 		if (cz!=null && cz.equals("yes")) {
@@ -186,11 +194,11 @@ public class PhoneAction extends MyBaseAction implements IMyBaseAction{
 		}
 		hql2=hql2+" order by PCreateTime desc , PDate desc";
 		phones=ser.query(hql2, null, hql2, page, ser);
-		ser.receiveStructure(getRequest());
 		return result;
 	}
 	
 	public String add() throws Exception {
+		clearSpace();
 		if(phone!=null){
 			phone.setPId("p"+NameOfDate.getNum());
 			Date date=new Date();
@@ -203,29 +211,21 @@ public class PhoneAction extends MyBaseAction implements IMyBaseAction{
 			ser.save(phone);
 			getRequest().setAttribute("phone", phone);
 		}
-		phone=null;
 		return gotoQuery();
 	}
 
 	public String delete() throws Exception {
-		String id=getRequest().getParameter("id");
+		clearSpace();
 		if (id!=null) {
 			phone=(ZmPhoneLine) ser.get(ZmPhoneLine.class, id);
 			ser.delete(phone);
 		}
-		phone=null;
 		return gotoQuery();
 	}
 
-	public String gotoQuery() throws UnsupportedEncodingException {
-		clearOptions();
-		String hql="from ZmPhoneLine where PState='有效' order by PCreateTime desc , PDate desc";
-		phones=ser.query(hql,null, hql, page, ser);
-		ser.receiveStructure(getRequest());
-		return result;
-	}
 
 	public String update() throws Exception {
+		clearSpace();
 		if(phone!=null && phone.getPId()!=null && !"".equals(phone.getPId().trim())){
 			ZmPhoneLine phoneline=(ZmPhoneLine) ser.get(ZmPhoneLine.class, phone.getPId());
 			phoneline.setPState("无效");
@@ -242,7 +242,6 @@ public class PhoneAction extends MyBaseAction implements IMyBaseAction{
 			ser.save(phone);
 			getRequest().setAttribute("phone", phone);
 		}
-		phone=null;
 		return gotoQuery();
 	}
 	

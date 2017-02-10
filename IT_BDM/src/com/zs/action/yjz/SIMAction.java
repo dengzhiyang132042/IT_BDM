@@ -179,8 +179,8 @@ public class SIMAction extends MyBaseAction{
 			Users us = (Users) getSession().getAttribute("user");
 			sim.setUNum(us.getUNum());
 			ser.save(sim);
+			getRequest().setAttribute("sim", sim);
 		}
-		getRequest().setAttribute("sim", sim);
 		return gotoQuery();
 	}
 	

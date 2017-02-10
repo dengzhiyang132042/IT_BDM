@@ -249,7 +249,6 @@ public class ByAction extends MyBaseAction implements IMyBaseAction{
 			ser.save(by);
 			getRequest().setAttribute("by", by);
 		}
-		by=null;
 		return gotoQuery();
 	}
 	
@@ -278,7 +277,6 @@ public class ByAction extends MyBaseAction implements IMyBaseAction{
 			ser.save(by);
 			getRequest().setAttribute("by", by);
 		}
-		by=null;
 		return gotoQuery();
 	}
 	

@@ -131,21 +131,25 @@ public class PrintAction extends MyBaseAction implements IMyBaseAction{
 		this.cz = cz;
 	}
 	//----------------------------------------------------------------------------------
-	public String add() throws Exception {
-		if (p!=null) {
-			p.setPId("p"+NameOfDate.getNum());
-			p.setPCreateTime(new Timestamp(new Date().getTime()));
-			p.setPServiceType("注册");
-			p.setPState("有效");
-			Users us = (Users) getSession().getAttribute("user");
-			p.setUNum(us.getUNum());
-			ser.save(p);
-			getRequest().setAttribute("p", p);
-		}
-		clearOptions();
-		return gotoQuery();
-	}
 
+	private void clearSpace() {
+		if (id!=null) {
+			id=id.trim();
+		}
+		if (brand!=null) {
+			brand=brand.trim();
+		}
+		if (address!=null) {
+			address=address.trim();
+ 		}
+		if (ip!=null) {
+			ip=ip.trim();
+		}
+		if(cz!=null){
+			cz = cz.trim();
+		}
+	}
+	
 	public void clearOptions() {
 		id=null;
 		brand=null;
@@ -161,17 +165,8 @@ public class PrintAction extends MyBaseAction implements IMyBaseAction{
 		}
 	}
 
-	public String delete() throws Exception {
-		String id=getRequest().getParameter("id");
-		if (id!=null) {
-			p=(ZmPrinter) ser.get(ZmPrinter.class, id);
-			ser.delete(p);
-		}
-		clearOptions();
-		return gotoQuery();
-	}
-
 	public String gotoQuery() throws UnsupportedEncodingException {
+		clearOptions();
 		String hql="from ZmPrinter where PState='有效' order by PCreateTime desc , PLast desc";
 		ps=ser.query(hql, null, hql, page, ser);
 		return result;
@@ -199,26 +194,34 @@ public class PrintAction extends MyBaseAction implements IMyBaseAction{
 		ps=ser.query(hql, null, hql, page, ser);
 		return result;
 	}
-
-	private void clearSpace() {
+	
+	public String add() throws Exception {
+		clearSpace();
+		if (p!=null) {
+			p.setPId("p"+NameOfDate.getNum());
+			p.setPCreateTime(new Timestamp(new Date().getTime()));
+			p.setPServiceType("注册");
+			p.setPState("有效");
+			Users us = (Users) getSession().getAttribute("user");
+			p.setUNum(us.getUNum());
+			ser.save(p);
+			getRequest().setAttribute("p", p);
+		}
+		return gotoQuery();
+	}
+	
+	public String delete() throws Exception {
+		clearSpace();
 		if (id!=null) {
-			id=id.trim();
+			p=(ZmPrinter) ser.get(ZmPrinter.class, id);
+			ser.delete(p);
 		}
-		if (brand!=null) {
-			brand=brand.trim();
-		}
-		if (address!=null) {
-			address=address.trim();
- 		}
-		if (ip!=null) {
-			ip=ip.trim();
-		}
-		if(cz!=null){
-			cz = cz.trim();
-		}
+		return gotoQuery();
 	}
 
+
 	public String update() throws Exception {
+		clearSpace();
 		if(p!=null && p.getPId()!=null && !"".equals(p.getPId().trim())){
 			ZmPrinter zp = (ZmPrinter) ser.get(ZmPrinter.class, p.getPId());
 			zp.setPState("无效");
@@ -234,7 +237,6 @@ public class PrintAction extends MyBaseAction implements IMyBaseAction{
 			ser.save(p);
 			getRequest().setAttribute("p", p);
 		}
-		clearOptions();
 		return gotoQuery();
 	}
 	

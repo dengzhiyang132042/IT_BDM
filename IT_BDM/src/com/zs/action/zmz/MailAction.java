@@ -250,7 +250,6 @@ public class MailAction extends MyBaseAction implements IMyBaseAction{
 			ser.save(m);
 			getRequest().setAttribute("m", m);
 		}
-		m=null;
 		return gotoQuery();
 	}
 	
@@ -279,7 +278,6 @@ public class MailAction extends MyBaseAction implements IMyBaseAction{
 			ser.save(m);
 			getRequest().setAttribute("m", m);
 		}
-		m=null;
 		return gotoQuery();
 	}
 	
