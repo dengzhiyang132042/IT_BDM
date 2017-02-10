@@ -160,39 +160,6 @@ public class ComputerAction extends MyBaseAction implements IMyBaseAction{
 		}
 	}
 	
-	public String add() throws Exception {
-		if (c!=null) {
-			c.setCId("c"+NameOfDate.getNum());
-			c.setCDate(new Date());
-			c.setCType("注册");
-			c.setCState("有效");
-			c.setCCreateTime(new Timestamp(new Date().getTime()));
-			Users us = (Users) getSession().getAttribute("user");
-			c.setUNum(us.getUNum());
-			ser.save(c);
-			getRequest().setAttribute("c", c);
-		}
-		c=null;
-		clearOptions();
-		return gotoQuery();
-	}
-	
-	public String delete() throws Exception {
-		if (id!=null) {
-			c=(ZmComputer) ser.get(ZmComputer.class, id);
-			ser.delete(c);
-		}
-		c=null;
-		clearOptions();
-		return gotoQuery();
-	}
-
-	public String gotoQuery() throws UnsupportedEncodingException {
-		String hql="from ZmComputer where CState = '有效' order by CCreateTime desc , CDate desc";
-		cs=ser.query(hql, null, hql, page, ser);
-		return result;
-	}
-
 	public String queryOfFenye() throws UnsupportedEncodingException {
 		clearSpace();
 		if (cz!=null && cz.equals("yes")) {
@@ -215,9 +182,42 @@ public class ComputerAction extends MyBaseAction implements IMyBaseAction{
 		cs=ser.query(hql, null, hql, page, ser);
 		return result;
 	}
+	
+	public String gotoQuery() throws UnsupportedEncodingException {
+		clearOptions();
+		String hql="from ZmComputer where CState = '有效' order by CCreateTime desc , CDate desc";
+		cs=ser.query(hql, null, hql, page, ser);
+		return result;
+	}
+	
+	public String add() throws Exception {
+		clearSpace();
+		if (c!=null) {
+			c.setCId("c"+NameOfDate.getNum());
+			c.setCDate(new Date());
+			c.setCType("注册");
+			c.setCState("有效");
+			c.setCCreateTime(new Timestamp(new Date().getTime()));
+			Users us = (Users) getSession().getAttribute("user");
+			c.setUNum(us.getUNum());
+			ser.save(c);
+			getRequest().setAttribute("c", c);
+		}
+		return gotoQuery();
+	}
+	
+	public String delete() throws Exception {
+		clearSpace();
+		if (id!=null) {
+			c=(ZmComputer) ser.get(ZmComputer.class, id);
+			ser.delete(c);
+		}
+		return gotoQuery();
+	}
 
 
 	public String update() throws Exception {
+		clearSpace();
 		if(c!=null && c.getCId()!=null && !"".equals(c.getCId().trim())){
 			ZmComputer zc = (ZmComputer) ser.get(ZmComputer.class, c.getCId());
 			zc.setCState("无效");
@@ -232,7 +232,6 @@ public class ComputerAction extends MyBaseAction implements IMyBaseAction{
 			ser.save(c);
 			getRequest().setAttribute("c", c);
 		}
-		clearOptions();
 		return gotoQuery();
 	}
 	

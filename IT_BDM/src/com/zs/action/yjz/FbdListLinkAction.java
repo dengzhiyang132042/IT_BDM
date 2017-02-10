@@ -217,7 +217,6 @@ public class FbdListLinkAction extends MyBaseAction{
 			ser.save(ll);
 			getRequest().setAttribute("ll", ll);
 		}
-		getRequest().setAttribute("ll", ll);
 		return gotoQuery();
 	}
 	
@@ -231,8 +230,8 @@ public class FbdListLinkAction extends MyBaseAction{
 			Users us = (Users) getSession().getAttribute("user");
 			ll.setUNum(us.getUNum());
 			ser.save(ll);
+			getRequest().setAttribute("ll", ll);
 		}
-		getRequest().setAttribute("ll", ll);
 		return gotoQuery();
 	}
 	

@@ -455,13 +455,13 @@ public class RoleInterceptor extends AbstractInterceptor{
 				return roleControl(arg0, r, "74");
 			}
 			
-			else if ((PRO_NAME+"/by!queryOfFenye").equals(path)) {//布谷鸟邮箱账号登记查看
+			else if ((PRO_NAME+"/by!queryOfFenye").equals(path)) {//IMO账号登记查看
 				return roleControl(arg0, r, "75");
-			}else if ((PRO_NAME+"/by!delete").equals(path)) {//布谷鸟邮箱账号登记删除
+			}else if ((PRO_NAME+"/by!delete").equals(path)) {//IMO账号登记删除
 				return roleControl(arg0, r, "76");
-			}else if ((PRO_NAME+"/by!update").equals(path)) {//布谷鸟邮箱账号登记修改
+			}else if ((PRO_NAME+"/by!update").equals(path)) {//IMO账号登记修改
 				return roleControl(arg0, r, "77");
-			}else if ((PRO_NAME+"/by!add").equals(path)) {//布谷鸟邮箱账号登记添加
+			}else if ((PRO_NAME+"/by!add").equals(path)) {//IMO登记添加
 				return roleControl(arg0, r, "78");
 			}
 			
@@ -544,6 +544,18 @@ public class RoleInterceptor extends AbstractInterceptor{
 			}else if ((PRO_NAME+"/netCall!add").equals(path)) {//网点呼叫系统添加
 				return roleControl(arg0, r, "3008");
 			}
+			
+			else if ((PRO_NAME+"/mail!queryOfFenye").equals(path)) {//邮箱账号查看
+				return roleControl(arg0, r, "3009");
+			}else if ((PRO_NAME+"/mail!delete").equals(path)) {//邮箱账号删除
+				return roleControl(arg0, r, "3010");
+			}else if ((PRO_NAME+"/mail!update").equals(path)) {//邮箱账号修改
+				return roleControl(arg0, r, "3011");
+			}else if ((PRO_NAME+"/mail!add").equals(path)) {//邮箱账号添加
+				return roleControl(arg0, r, "3012");
+			}
+			
+			
 			//-----------统计报表----------------
 			else if ((PRO_NAME+"/vpnCount!queryOfFenye").equals(path)) {//VPN账号登记统计查看
 				return roleControl(arg0, r, "3101");

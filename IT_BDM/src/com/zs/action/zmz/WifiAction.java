@@ -185,12 +185,19 @@ public class WifiAction extends MyBaseAction implements IMyBaseAction{
 		}
 	}
 	
+	public String gotoQuery() throws UnsupportedEncodingException {
+		clearOptions();
+		String hql2="from ZmWifi where WState='有效'  order by WCreateTime desc , WDate desc";
+		wifis=ser.query(hql2, null, hql2, page, ser);
+		ser.receiveStructure(getRequest());
+		return result;
+	}
+	
 	public String queryOfFenye() throws UnsupportedEncodingException {
 		clearSpace();
 		if (cz!=null && cz.equals("yes")) {
 			clearOptions();
 		}
-		
 		String hql2="from ZmWifi where WState='有效'";
 		if(id!=null&&!id.equals("")){
 			 hql2=hql2 + " and WId like '%"+id+"%'";
@@ -223,29 +230,20 @@ public class WifiAction extends MyBaseAction implements IMyBaseAction{
 			ser.save(wifi);
 			getRequest().setAttribute("wifi", wifi);
 		}
-		wifi=null;
 		return gotoQuery();
 	}
 
 	public String delete() throws Exception {
-		String id=getRequest().getParameter("id");
+		clearSpace();
 		if (id!=null) {
 			wifi=(ZmWifi) ser.get(ZmWifi.class, id);
 			ser.delete(wifi);
 		}
-		wifi=null;
 		return gotoQuery();
 	}
 
-	public String gotoQuery() throws UnsupportedEncodingException {
-		clearOptions();
-		String hql2="from ZmWifi where WState='有效'  order by WCreateTime desc , WDate desc";
-		wifis=ser.query(hql2, null, hql2, page, ser);
-		ser.receiveStructure(getRequest());
-		return result;
-	}
-
 	public String update() throws Exception {
+		clearSpace();
 		if(wifi!=null && wifi.getWId()!=null && !"".equals(wifi.getWId().trim())){
 			ZmWifi ZmWifi=(ZmWifi) ser.get(ZmWifi.class, wifi.getWId());
 			ZmWifi.setWState("无效");
@@ -262,7 +260,6 @@ public class WifiAction extends MyBaseAction implements IMyBaseAction{
 			
 			getRequest().setAttribute("wifi", wifi);
 		}
-		wifi=null;
 		return gotoQuery();
 	}
 

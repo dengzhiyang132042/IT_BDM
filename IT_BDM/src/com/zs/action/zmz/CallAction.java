@@ -229,11 +229,11 @@ public class CallAction extends MyBaseAction implements IMyBaseAction{
 			call=(ZmCall) ser.get(ZmCall.class, id);
 			ser.delete(call);
 		}
-		call=null;
 		return gotoQuery();
 	}
 	
 	public String update() throws Exception {
+		clearSpace();
 		if(call!=null && call.getCId()!=null && !"".equals(call.getCId().trim())){
 			ZmCall zc=(ZmCall) ser.get(ZmCall.class, call.getCId());
 			zc.setCState("无效");
@@ -259,11 +259,11 @@ public class CallAction extends MyBaseAction implements IMyBaseAction{
 			ser.save(call);
 			getRequest().setAttribute("call", call);
 		}
-		call=null;
 		return gotoQuery();
 	}
 	
 	public String add() throws Exception {
+		clearSpace();
 		if(call!=null){
 			call.setCId("c"+NameOfDate.getNum());
 			Users user=(Users) getSession().getAttribute("user");
@@ -286,7 +286,6 @@ public class CallAction extends MyBaseAction implements IMyBaseAction{
 			ser.save(call);
 			getRequest().setAttribute("call", call);
 		}
-		call=null;
 		return gotoQuery();
 	}
 	public String importExcel() throws InterruptedException, IOException, ParseException {

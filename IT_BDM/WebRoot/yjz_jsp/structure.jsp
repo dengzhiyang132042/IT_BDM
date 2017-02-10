@@ -34,7 +34,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   
   <body>
 	<ul id="tt" class="easyui-tree" data-options="animate:true,lines:true">
-		<li><span><a href="<%=path%>/index!contacts" target="left">刷新</a></span></li>
+		<li><span><a href="<%=path%>/index!contacts" target="right">刷新</a></span></li>
         <li><span><a href="<%=path %>/section!gotoAdd" target="right">添加</a></span></li>
         <li><span>移动</span></li>
         <li>

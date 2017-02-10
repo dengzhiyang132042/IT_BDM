@@ -219,6 +219,14 @@ public class BqAction extends MyBaseAction implements IMyBaseAction{
 		}
 	}
 	
+	public String gotoQuery() throws UnsupportedEncodingException {
+		clearOptions();
+		String hql="from ZmBq where BState='有效' order by BCreateTime desc , BDate desc";
+		bqs=ser.query(hql, null, hql, page, ser);
+		ser.receiveStructure(getRequest());
+		return result;
+	}
+	
 	public String queryOfFenye() throws UnsupportedEncodingException {
 		clearSpace();
 		if (cz!=null && cz.equals("yes")) {
@@ -253,6 +261,7 @@ public class BqAction extends MyBaseAction implements IMyBaseAction{
 	}
 	
 	public String add() throws Exception {
+		clearSpace();
 		if(bq!=null){
 			bq.setBId("b"+NameOfDate.getNum());
 			Date date=new Date();
@@ -269,6 +278,7 @@ public class BqAction extends MyBaseAction implements IMyBaseAction{
 	}
 
 	public String delete() throws Exception {
+		clearSpace();
 		if (id!=null) {
 			bq=(ZmBq) ser.get(ZmBq.class, id);
 			ser.delete(bq);
@@ -276,15 +286,10 @@ public class BqAction extends MyBaseAction implements IMyBaseAction{
 		return gotoQuery();
 	}
 
-	public String gotoQuery() throws UnsupportedEncodingException {
-		clearOptions();
-		String hql="from ZmBq where BState='有效' order by BCreateTime desc , BDate desc";
-		bqs=ser.query(hql, null, hql, page, ser);
-		ser.receiveStructure(getRequest());
-		return result;
-	}
+	
 
 	public String update() throws Exception {
+		clearSpace();
 		if(bq!=null && bq.getBId()!=null && !"".equals(bq.getBId().trim())){
 			ZmBq zmBq=(ZmBq) ser.get(ZmBq.class, bq.getBId());
 			zmBq.setBState("无效");
