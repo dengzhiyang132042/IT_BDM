@@ -429,6 +429,13 @@
      <result name="succ">/success.jsp</result>
      <result name="fail">/fail.jsp</result>
   </action>
+  <action name="quotaGroup" class="hgh_quota_group_day">	
+  	 <interceptor-ref name="mydefault" />
+     <result>/index.jsp</result>
+     <result name="quotaGroup">/quota_jsp/quota_day_test.jsp</result>
+     <result name="succ">/success.jsp</result>
+     <result name="fail">/fail.jsp</result>
+  </action>
   
   <!--系统组  -->
   <action name="siteCount" class="hgh_count_site">	

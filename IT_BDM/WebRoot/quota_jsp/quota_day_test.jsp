@@ -32,7 +32,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<link rel="stylesheet" type="text/css" href="<%=path %>/FRAMEWORK/css/mycss.css">
 	<script type="text/javascript">
 		$(function(){
-			detail();
+			if('${option}'=='group'){
+				groupHide();
+			}
+			if('${option}'=='detail'){
+				detail();
+			}
 		});
 		
 		function groupHide(){
@@ -96,6 +101,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
    		</div>
    		<div  class="btn">
    			<input type="submit" value="查询" onclick="$('.kscx .inp form').submit();"/>
+   			<a href="<%=path %>/quotaGroup!queryOfFenye">测试按钮</a>
    		</div>
    		<div style="clear:both;"></div>
     </div>
@@ -124,7 +130,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				    	<td>6</td>
 				    	<td>0</td>
 				    	<td>11</td>
-				    	<td>0%</td>
+				    	<td>80%</td>
 				    </tr>
 			    </table>
 		  	</div>
