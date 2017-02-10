@@ -27,6 +27,8 @@ public class QuotaDayAction extends MyBaseAction implements IMyBaseAction{
 	String name;
 	String dates;
 	String datee;
+	String option;
+	
 	
 	public QuotaMan getQm() {
 		return qm;
@@ -82,6 +84,12 @@ public class QuotaDayAction extends MyBaseAction implements IMyBaseAction{
 	public void setDatee(String datee) {
 		this.datee = datee;
 	}
+	public String getOption() {
+		return option;
+	}
+	public void setOption(String option) {
+		this.option = option;
+	}
 	
 	
 	public void clearOptions() {
@@ -92,6 +100,9 @@ public class QuotaDayAction extends MyBaseAction implements IMyBaseAction{
 		name=null;
 		id=null;
 		cz=null;
+		if(option==null||option.equals("")){
+			option = "detail";
+		}
 		if (page==null) {
 			page=new Page(1, 0, 15);
 		}else {

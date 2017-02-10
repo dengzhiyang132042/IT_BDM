@@ -19,6 +19,10 @@ public class QuotaGroupDay {
 	private int count;
 	private double  productivity;
 	
+	public QuotaGroupDay(){
+		
+	}
+	
 	public QuotaGroupDay(Date date, String group, String functionary, int zc,
 			int wh, int zx, int count, double productivity) {
 		super();
