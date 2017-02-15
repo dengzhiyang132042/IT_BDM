@@ -3,6 +3,7 @@ package com.zs.action.oneself;
 import java.io.UnsupportedEncodingException;
 
 import com.zs.action.MyBaseAction;
+import com.zs.entity.CompanySection;
 import com.zs.entity.Role;
 import com.zs.entity.Users;
 import com.zs.service.IService;
@@ -59,6 +60,8 @@ public class ResetPassAction extends MyBaseAction{
 		Users user = (Users) getSession().getAttribute("user");
 		Role r = (Role) ser.get(Role.class, user.getRId());
 		user.setR(r);
+		CompanySection cs = (CompanySection) ser.get(CompanySection.class, user.getCsId());
+		user.setCsGroup(cs.getCsName());
 		return result_info;
 	}
 	

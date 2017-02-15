@@ -92,4 +92,14 @@ public class MyBaseAction extends ActionSupport{
 		}
 	}
 	
+	public void sendString(String str) {
+		try {
+			getOut().print(str);
+			getOut().flush();
+			getOut().close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
 }
