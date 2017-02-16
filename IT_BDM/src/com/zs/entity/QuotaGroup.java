@@ -20,6 +20,8 @@ public class QuotaGroup implements java.io.Serializable {
 	private Integer qgCount;
 	private Double qgProductivity;
 
+	private String quantum;
+	private String weekNum;
 	// Constructors
 
 	/** default constructor */
@@ -130,4 +132,20 @@ public class QuotaGroup implements java.io.Serializable {
 		this.qgProductivity = qgProductivity;
 	}
 
+	public String getQuantum() {
+		return quantum;
+	}
+
+	public void setQuantum(String quantum) {
+		this.quantum = quantum;
+	}
+
+	public String getWeekNum() {
+		return weekNum;
+	}
+
+	public void setWeekNum(String weekNum) {
+		this.weekNum = weekNum;
+	}
+	
 }
