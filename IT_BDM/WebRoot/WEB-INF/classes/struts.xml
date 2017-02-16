@@ -436,6 +436,20 @@
      <result name="succ">/success.jsp</result>
      <result name="fail">/fail.jsp</result>
   </action>
+  <action name="quotaManWeek" class="hgh_quota_man_week">	
+  	 <interceptor-ref name="mydefault" />
+     <result>/index.jsp</result>
+     <result name="quotaManWeek">/quota_jsp/quota_week_quantum.jsp</result>
+     <result name="succ">/success.jsp</result>
+     <result name="fail">/fail.jsp</result>
+  </action>
+  <action name="quotaGroupWeek" class="hgh_quota_group_week">	
+  	 <interceptor-ref name="mydefault" />
+     <result>/index.jsp</result>
+     <result name="quotaGroupWeek">/quota_jsp/quota_week_quantum.jsp</result>
+     <result name="succ">/success.jsp</result>
+     <result name="fail">/fail.jsp</result>
+  </action>
   
   <!--系统组  -->
   <action name="siteCount" class="hgh_count_site">	

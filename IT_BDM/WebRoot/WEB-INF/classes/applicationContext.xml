@@ -192,6 +192,14 @@
 	</bean>
 	<bean id="hgh_quota_group_day" class="com.zs.action.quota.QuotaGroupDayAction">
 		<property name="ser" ref="zs_ser"></property>
+		<property name="quser" ref="hgh_ser_quota"></property>
+	</bean>
+	<bean id="hgh_quota_man_week" class="com.zs.action.quota.QuotaManWeekAction">
+		<property name="ser" ref="zs_ser"></property>
+	</bean>
+	<bean id="hgh_quota_group_week" class="com.zs.action.quota.QuotaGroupWeekAction">
+		<property name="ser" ref="zs_ser"></property>
+		<property name="quser" ref="hgh_ser_quota"></property>
 	</bean>
 	
 	<!--系统组	-->
@@ -428,6 +436,9 @@
 		<property name="dao" ref="zs_dao"></property>
 	</bean>
 	<bean id="hgh_ser_mail" class="com.zs.service.impl.ZmMailServiceImpl">
+		<property name="dao" ref="zs_dao"></property>
+	</bean>
+	<bean id="hgh_ser_quota" class="com.zs.service.impl.QuotaServiceImpl">
 		<property name="dao" ref="zs_dao"></property>
 	</bean>
 	<!-- ******************工具******************* -->
