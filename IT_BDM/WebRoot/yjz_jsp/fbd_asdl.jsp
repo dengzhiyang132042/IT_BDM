@@ -239,7 +239,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<tr>
 				<td>包年资费：</td>
 				<td>
-					<input id="u_5" name="asdl.asdlFeeYear" type="text" style="width: 100%;"/>
+					<input id="u_5" name="asdl.asdlFeeYear" type="number" style="width: 100%;"/>
 				</td>
 			</tr>
 			<tr>
@@ -323,7 +323,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<tr>
 				<td>包年资费：</td>
 				<td>
-					<input name="asdl.asdlFeeYear" type="text" style="width: 100%;"/>
+					<input name="asdl.asdlFeeYear" type="number" style="width: 100%;"/>
 				</td>
 			</tr>
 			<tr>

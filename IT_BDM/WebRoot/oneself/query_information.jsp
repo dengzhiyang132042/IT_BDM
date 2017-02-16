@@ -56,8 +56,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<td style="text-align: left;"><input id="name" name="u.UName" type="text" readonly="readonly" value="${user.UName }"/></td>
 					</tr>
 					<tr>
-						<td>部门:</td>
-						<td style="text-align: left;">${user.UCs }</td>
+						<td>组别:</td>
+						<td style="text-align: left;">${user.csGroup }</td>
 					</tr>
 					<tr>
 						<td>职位:</td>

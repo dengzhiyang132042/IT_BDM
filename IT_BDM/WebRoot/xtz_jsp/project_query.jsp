@@ -39,7 +39,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		$("#eidtASubjectWindow1").show();
 		$('#tt').show();
 	});
-	function update(u1,u2,u3,u4,u5,u6){
+	function update(u1,u2,u3,u4,u5,u6,u7){
 		$('#u').window('open');
 		$('#u_1').val(u1);
 		$('#u_2').val(u2);
@@ -47,6 +47,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		$('#u_4').val(u4);
 		$('#u_5').val(u5);
 		$('#u_6').val(u6*100);
+		var s1 = u7.replace("<br/>","\r\n");
+		var s2 = s1.replace("<br/>","\r\n");
+		var s3 = s2.replace("<br/>","\r\n");
+		$('#u_7').val(s3);
+		
 	}
 	function page(no,cz){
 		var num1=$('#page').val();
@@ -168,11 +173,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						'<fmt:formatDate value="${ps[0].projectDetails[0].DStartDate }" pattern="yyyy-MM-dd" />',
 						'<fmt:formatDate value="${ps[0].projectDetails[0].DPlanDate }" pattern="yyyy-MM-dd" />',
 						'<fmt:formatDate value="${ps[0].projectDetails[0].DRealityDate }" pattern="yyyy-MM-dd" />',
-						'${ps[0].projectDetails[0].DSchedule }')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-edit'"
+						'${ps[0].projectDetails[0].DSchedule }','${ps[0].projectDetails[0].DSituation }')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-edit'"
 						 title="修改"></a>
 				</td>
 				<td rowspan="5">
 					<a href="<%=path %>/project!delete?id=${ps[0].PId}" onclick="return confirm('确定删除整个项目吗?')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-delete'" title="删除"></a>
+					
 				</td>
 			</tr>			
 			<c:forEach items="${ps[0].projectDetails}" var="pd" begin="1">
@@ -191,7 +197,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						'<fmt:formatDate value="${pd.DStartDate }" pattern="yyyy-MM-dd" />',
 						'<fmt:formatDate value="${pd.DPlanDate }" pattern="yyyy-MM-dd" />',
 						'<fmt:formatDate value="${pd.DRealityDate }" pattern="yyyy-MM-dd" />',
-						'${pd.DSchedule }')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-edit'"
+						'${pd.DSchedule }','${pd.DSituation }')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-edit'"
 						 title="修改"></a>
 				</td>
 			</tr>
@@ -241,6 +247,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<td>工作内容：</td>
 				<td>
 					<input id="u_2" name="pd.DContent" type="text" style="width: 100%;" readonly="readonly"/>
+				</td>
+			</tr>
+			<tr>
+				<td>进展情况</td>
+				<td>
+					<textarea id="u_7" name="pd.DSituation" rows="5" cols="35" style="overflow-x:hidden">
+					
+					</textarea>
 				</td>
 			</tr>
 			<tr>

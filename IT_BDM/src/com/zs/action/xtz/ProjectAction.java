@@ -12,6 +12,7 @@ import java.util.Date;
 import java.util.List;
 
 import org.apache.log4j.Logger;
+import org.apache.poi.ss.formula.functions.Replace;
 
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
@@ -285,31 +286,31 @@ public class ProjectAction extends MyBaseAction implements IMyBaseAction{
 			if(pd1!=null){
 				pd1.setDId(NameOfDate.getNum());
 				pd1.setPId(p.getPId());
-				pd1.setDSituation(pd1.getDSituation().replaceAll("\n", "<br/>"));
+				pd1.setDSituation(pd1.getDSituation().replaceAll("\r\n", "<br/>"));
 				ser.save(pd1);
 			}
 			if(pd2!=null){
 				pd2.setDId(NameOfDate.getNum());
 				pd2.setPId(p.getPId());
-				pd2.setDSituation(pd2.getDSituation().replaceAll("\n", "<br/>"));
+				pd2.setDSituation(pd2.getDSituation().replaceAll("\r\n", "<br/>"));
 				ser.save(pd2);
 			}
 			if(pd3!=null){
 				pd3.setDId(NameOfDate.getNum());
 				pd3.setPId(p.getPId());
-				pd3.setDSituation(pd3.getDSituation().replaceAll("\n", "<br/>"));
+				pd3.setDSituation(pd3.getDSituation().replaceAll("\r\n", "<br/>"));
 				ser.save(pd3);
 			}
 			if(pd4!=null){
 				pd4.setDId(NameOfDate.getNum());
 				pd4.setPId(p.getPId());
-				pd4.setDSituation(pd4.getDSituation().replaceAll("\n", "<br/>"));
+				pd4.setDSituation(pd4.getDSituation().replaceAll("\r\n", "<br/>"));
 				ser.save(pd4);
 			}
 			if(pd5!=null){
 				pd5.setDId(NameOfDate.getNum());
 				pd5.setPId(p.getPId());
-				pd5.setDSituation(pd5.getDSituation().replaceAll("\n", "<br/>"));
+				pd5.setDSituation(pd5.getDSituation().replaceAll("\r\n", "<br/>"));
 				ser.save(pd5);
 			}
 		}
@@ -342,7 +343,7 @@ public class ProjectAction extends MyBaseAction implements IMyBaseAction{
 			XtProjectDetail proDetail = (XtProjectDetail) ser.get(XtProjectDetail.class, pd.getDId());
 			pd.setPId(proDetail.getPId());
 			pd.setDDetail(proDetail.getDDetail());
-			pd.setDSituation(proDetail.getDSituation());
+			pd.setDSituation(pd.getDSituation().replaceAll("\r\n", "<br/>"));
 			pd.setDMan(proDetail.getDMan());
 			pd.setDSchedule(pd.getDSchedule()/100);
 			if(pd.getDStartDate()!=null&&pd.getDRealityDate()!=null){
@@ -377,5 +378,20 @@ public class ProjectAction extends MyBaseAction implements IMyBaseAction{
 		Users u=(Users) getSession().getAttribute("user");
 		proSer.ExcelImport(fileExcelFileName, fileExcel,u.getUNum());
 		return gotoQuery();
+	}
+	
+	public void aaaaa(){
+		String hql="from XtProject";
+		List<XtProject> list = ser.find(hql, null);
+		for (int i = 0; i < list.size(); i++) {
+			String hql1 = "from XtProjectDetail where PId = ?";
+			List<XtProjectDetail> xpd = ser.find(hql1,new Object[]{list.get(i).getPId()});
+			for (int j = 0; j < xpd.size(); j++) {
+				xpd.get(j).setDSituation(xpd.get(j).getDSituation().replace("\r\n", "<br/>"));
+				xpd.get(j).setDSituation(xpd.get(j).getDSituation().replace("\r", "<br/>"));
+				xpd.get(j).setDSituation(xpd.get(j).getDSituation().replace("\n", "<br/>"));
+				ser.update(xpd.get(j));
+			}
+		}
 	}
 }

@@ -4,12 +4,15 @@
 package com.zs.action.quota;
 
 import java.io.UnsupportedEncodingException;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 import net.sf.json.JSONArray;
 
 import com.zs.action.IMyBaseAction;
 import com.zs.action.MyBaseAction;
+import com.zs.entity.CompanySection;
+import com.zs.entity.QuotaGroup;
 import com.zs.entity.QuotaMan;
 import com.zs.entity.Users;
 import com.zs.service.IService;
@@ -28,6 +31,7 @@ public class QuotaDayAction extends MyBaseAction implements IMyBaseAction{
 	String dates;
 	String datee;
 	String option;
+	String qmid;
 	
 	
 	public QuotaMan getQm() {
@@ -90,6 +94,12 @@ public class QuotaDayAction extends MyBaseAction implements IMyBaseAction{
 	public void setOption(String option) {
 		this.option = option;
 	}
+	public String getQmid() {
+		return qmid;
+	}
+	public void setQmid(String qmid) {
+		this.qmid = qmid;
+	}
 	
 	
 	public void clearOptions() {
@@ -100,9 +110,6 @@ public class QuotaDayAction extends MyBaseAction implements IMyBaseAction{
 		name=null;
 		id=null;
 		cz=null;
-		if(option==null||option.equals("")){
-			option = "detail";
-		}
 		if (page==null) {
 			page=new Page(1, 0, 15);
 		}else {
@@ -134,13 +141,36 @@ public class QuotaDayAction extends MyBaseAction implements IMyBaseAction{
 	}
 	
 	public String queryOfFenye() throws UnsupportedEncodingException {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		clearSpace();
 		if (cz!=null && cz.equals("yes")) {
 			clearOptions();
 		}
+		option = "detail";
+		String str = "";
+		if(qmid!=null&&!qmid.equals("")){
+			QuotaGroup qg;
+			qg = (QuotaGroup) ser.get(QuotaGroup.class,qmid);
+			dates=sdf.format(qg.getQgDate());
+			datee=sdf.format(qg.getQgDate());
+			String cshql = "from CompanySection where csMaster = ?";
+			List<CompanySection> cs = ser.find(cshql,new Object[]{ qg.getQgFunctionary()});
+			String userhql ="select UNum from Users where csId = ?";
+			List list = ser.find(userhql,new Object[]{ cs.get(0).getCsId()});
+			for (int i = 0; i < list.size(); i++) {
+				if(i==list.size()-1){
+					str = str+"'"+list.get(i)+"'";
+				}else{
+					str = str+"'"+list.get(i)+"'"+",";
+				}
+			}
+		}
 		String hql = "from QuotaMan where 1=1 ";
 		if(id!=null&&!id.equals("")){
 			hql=hql+" and qmId like '%"+id+"%' ";
+		}
+		if(qmid!=null&&!qmid.equals("")){
+			hql=hql+" and UNum in ("+str+")";
 		}
 		if(name!=null&&!name.equals("")){
 			hql=hql+" and UNum in (select UNum from Users where UName like '%"+name+"%') ";
@@ -161,9 +191,11 @@ public class QuotaDayAction extends MyBaseAction implements IMyBaseAction{
 				qms.get(i).setProductivity(1);
 			}
 		}
+		qmid=null;
+		dates=null;
+		datee=null;
 		return result;
 	}
-	
 	public String add() throws Exception {
 		
 		return gotoQuery();

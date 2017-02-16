@@ -5,6 +5,9 @@ import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
 
+import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
+
 import com.zs.action.MyBaseAction;
 import com.zs.entity.CompanySection;
 import com.zs.entity.Role;
@@ -111,12 +114,10 @@ public class UsersAction extends MyBaseAction{
 	}
 	
 	public String delete() throws Exception {
-		String id=getRequest().getParameter("id");
 		if (id!=null) {
 			u=(Users) ser.get(Users.class, id);
 			ser.delete(u);
 		}
-		u=null;
 		return result_succ;
 	}
 	

@@ -122,7 +122,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         <li><span>信息与流程管理部</span>
         	<ul>
         		<li>
-        			<span><a href="<%=path %>/quotaMan!queryOfFenye?cz=yes" target="right">日统计报表式样</a></span>
+        			<span><a href="<%=path %>/quotaGroup!queryOfFenye?cz=yes" target="right">日统计报表式样</a></span>
         		</li>
         		<li><span>系统组</span>
         			<ul>
