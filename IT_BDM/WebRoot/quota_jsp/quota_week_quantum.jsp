@@ -38,17 +38,24 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				$('#mxid').attr("style","background-color:#e8e8e8;");
 				$('#mxfz').attr("readonly","readonly");
 				$('#mxfz').attr("style","background-color:#e8e8e8;");
-				$('#ks').attr("action","<%=path%>/quotaGroup!queryOfFenye");
+				$('#ks').attr("action","<%=path%>/quotaGroupWeek!queryOfFenye");
 			}
 			if('${option}'=='detail'){
 				detail();
+			}
+			if('${timeType}'=='W'){
+				$('#rw').attr("checked","checked");
+			}else if('${timeType}'=='M'){
+				$('#rm').attr("checked","checked");
+			}else if('${timeType}'=='Y'){
+				$('#ry').attr("checked","checked");
 			}
 			$('#tt').tabs({
 			    border:false,
 			    onSelect:function(title,index){
 					var path;
 					if(title == '组统计'){
-						path="<%=path%>/quotaGroup!queryOfFenye";
+						path="<%=path%>/quotaGroupWeek!queryOfFenye";
 					}
 					if(title == '明细'){
 						path="<%=path%>/quotaMan!queryOfFenye?cz=yes";
@@ -106,7 +113,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    		</div>
 	    		<div>
 	    			<div style="width:65%;font-size:14px;">
-	    				<input name="timeType" type="radio" checked="checked" value="W" /> 周<input name="timeType" type="radio" value="M"/> 月<input name="timeType" type="radio" value="Y"/> 年
+	    				<input id="rw" name="timeType" type="radio" value="W" /> 周<input  id="rm" name="timeType" type="radio" value="M"/> 月<input  id="ry" name="timeType" type="radio" value="Y"/> 年
 	    			</div>
 	    		</div>
 	    	</form>
@@ -144,9 +151,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					    	<td style="display: none">${qd.qgId }</td>
 					    	<c:if test="${qd.quantum != null}">
 					    		<c:set var="a" value="${a+1}"/>
-				    			<td rowspan="4">${a }</td>
-					    		<td rowspan="4">${qd.quantum }</td>
-					    		<td rowspan="4">${qd.weekNum }</td>
+				    			<td rowspan="3">${a }</td>
+					    		<td rowspan="3">${qd.quantum }</td>
+					    		<td rowspan="3">${qd.weekNum }</td>
 					    	</c:if>
 					    	<td>${qd.qgGroup }</td>
 					    	<td>${qd.qgFunctionary }</td>

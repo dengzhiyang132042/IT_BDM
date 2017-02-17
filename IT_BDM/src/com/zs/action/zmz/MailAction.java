@@ -273,6 +273,7 @@ public class MailAction extends MyBaseAction implements IMyBaseAction{
 			}else{
 				m.setMType("维护");
 			}
+			m.setMMail(m.getMMail()+"@szexpress.com.cn");
 			m.setMState("有效");
 			m.setMCreateTime(new Timestamp(date.getTime()));
 			ser.save(m);
