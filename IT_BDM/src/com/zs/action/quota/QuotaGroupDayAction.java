@@ -108,7 +108,7 @@ public class QuotaGroupDayAction extends MyBaseAction implements IMyBaseAction{
 		String hql = "from QuotaGroup order by qgDate desc";
 		qgds = ser.query(hql, null, hql, page, ser);
 		for (int i = 0; i < qgds.size(); i++) {
-			if(i%4!=0){
+			if(i%3!=0){
 				qgds.get(i).setQgDate(null);
 			}
 		}
@@ -133,7 +133,7 @@ public class QuotaGroupDayAction extends MyBaseAction implements IMyBaseAction{
 		hql = hql +" order by qgDate desc";
 		qgds = ser.query(hql, null, hql, page, ser);
 		for (int i = 0; i < qgds.size(); i++) {
-			if(i%4!=0){ 
+			if(i%3!=0){ 
 				qgds.get(i).setQgDate(null);
 			}
 		}

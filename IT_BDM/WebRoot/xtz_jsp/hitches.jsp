@@ -56,7 +56,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		$('#u_4').val(u4);
 		$('#u_5').val(u5);
 		$('#u_6').val(u6);
-		$('#u_7').val(u7);
 	}
 	function page(no,cz){
 		var num1=$('#page').val();
@@ -121,7 +120,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <table border="1" id="eidtASubjectWindow1" style="font-size: 12px;">
     <tr>
     	<th width="130px">编号</th>
-    	<th>日期</th>
     	<th>开始时间</th>
     	<th>结束时间</th>
     	<th>时间间隔</th>
@@ -134,17 +132,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <c:forEach items="${hs}" var="h">
     <tr>
 		<td width="">${h.HId }</td>
-		<td width=""><fmt:formatDate value="${h.HTimeStart }" pattern="yyyy-MM-dd" /></td>
-		<td width=""><fmt:formatDate value="${h.HTimeStart }" pattern="HH:mm" /></td>
-		<td width=""><fmt:formatDate value="${h.HTimeEnd }" pattern="HH:mm" /></td>
+		<td width=""><fmt:formatDate value="${h.HTimeStart }" pattern="yyyy-MM-dd HH:mm" /></td>
+		<td width=""><fmt:formatDate value="${h.HTimeEnd }" pattern="yyyy-MM-dd HH:mm" /></td>
 		<td width="">${h.HTimeInterval }</td>
 		<td width="">${h.HDesc }</td>
 		<td width="">${h.HType }</td>
 		<td width="">${h.HNote }</td>
 		<td width="">${h.HSolve }</td>
 		<td width="5%" align="center">
-			<a onclick="update('${h.HId }','<fmt:formatDate value="${h.HTimeStart }" pattern="yyyy-MM-dd" />','<fmt:formatDate value="${h.HTimeStart }" pattern="HH:mm" />',
-			'<fmt:formatDate value="${h.HTimeEnd }" pattern="HH:mm" />','${h.HDesc }','${h.HNote }','${h.HSolve}')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-edit'" title="修改"></a>
+			<a onclick="update('${h.HId }','<fmt:formatDate value="${h.HTimeStart }" pattern="yyyy-MM-dd HH:mm" />',
+			'<fmt:formatDate value="${h.HTimeEnd }" pattern="yyyy-MM-dd HH:mm" />','${h.HDesc }','${h.HNote }','${h.HSolve}')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-edit'" title="修改"></a>
 			<a href="<%=path %>/hitches!delete?id=${h.HId}" onclick="return confirm('确定删除吗?')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-delete'" title="删除"></a>
 		</td>
     </tr>
@@ -192,39 +189,33 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				</td>
 			</tr>
 			<tr>
-				<td>日期：</td>
-				<td>
-					<input id="u_2" name="h_date" type="text" style="width: 100%;" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})" class="Wdate"/>
-				</td>
-			</tr>
-			<tr>
 				<td>开始时间：</td>
 				<td>
-					<input id="u_3" name="h_time_s" type="text" style="width: 100%;" onfocus="WdatePicker({dateFmt:'HH:mm',maxDate:'#F{$dp.$D(\'u_4\')}'})" class="Wdate"/>
+					<input id="u_2" name="h_time_s" type="text" style="width: 100%;" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm',maxDate:'#F{$dp.$D(\'u_4\')}'})" class="Wdate"/>
 				</td>
 			</tr>
 			<tr>
 				<td>结束时间：</td>
 				<td>
-					<input id="u_4" name="h_time_e" type="text" style="width: 100%;" onfocus="WdatePicker({dateFmt:'HH:mm',minDate:'#F{$dp.$D(\'u_3\')}'})" class="Wdate"/>
+					<input id="u_3" name="h_time_e" type="text" style="width: 100%;" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm',minDate:'#F{$dp.$D(\'u_3\')}'})" class="Wdate"/>
 				</td>
 			</tr>
 			<tr>
 				<td>故障描述：</td>
 				<td>
-					<input id="u_5" name="h.HDesc" type="text" style="width: 100%;"/>
+					<input id="u_4" name="h.HDesc" type="text" style="width: 100%;"/>
 				</td>
 			</tr>
 			<tr>
 				<td>备注：</td>
 				<td>
-					<input id="u_6" name="h.HNote" type="text" style="width: 100%;"/>
+					<input id="u_5" name="h.HNote" type="text" style="width: 100%;"/>
 				</td>
 			</tr>
 			<tr>
 				<td>解决路径：</td>
 				<td>
-					<input id="u_7" name="h.HSolve" type="text" style="width: 100%;"/>
+					<input id="u_6" name="h.HSolve" type="text" style="width: 100%;"/>
 				</td>
 			</tr>
 			<tr>
@@ -236,25 +227,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</form>
 	</div>
 	
-	<div id="a" class="easyui-window" title="添加" data-options="modal:true,closed:true" style="width:500px;height:auto;padding:10px;display: none;">
+	<div id="a" class="easyui-window" title="添加" data-options="modal:true,closed:true" style="width:300px;height:auto;padding:10px;display: none;">
 		<form action="<%=path %>/hitches!add" method="post">
 		<table border="0" class="table1">
 			<tr>
-				<td width="120">日期：</td>
+				<td width="80">开始时间：</td>
 				<td>
-					<input name="h_date" type="text" style="width: 100%;" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})" class="Wdate"/>
-				</td>
-			</tr>
-			<tr>
-				<td>开始时间：</td>
-				<td>
-					<input name="h_time_s" id="a_time_s" type="text" style="width: 100%;" onfocus="WdatePicker({dateFmt:'HH:mm',maxDate:'#F{$dp.$D(\'a_time_e\')}'})" class="Wdate"/>
+					<input name="h_time_s" id="a_time_s" type="text" style="width: 100%;" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm',maxDate:'#F{$dp.$D(\'a_time_e\')}'})" class="Wdate"/>
 				</td>
 			</tr>
 			<tr>
 				<td>结束时间：</td>
 				<td>
-					<input name="h_time_e" id="a_time_e" type="text" style="width: 100%;" onfocus="WdatePicker({dateFmt:'HH:mm',minDate:'#F{$dp.$D(\'a_time_s\')}'})" class="Wdate"/>
+					<input name="h_time_e" id="a_time_e" type="text" style="width: 100%;" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm',minDate:'#F{$dp.$D(\'a_time_s\')}'})" class="Wdate"/>
 				</td>
 			</tr>
 			<tr>

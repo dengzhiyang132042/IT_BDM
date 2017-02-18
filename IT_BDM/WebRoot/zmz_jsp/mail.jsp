@@ -249,7 +249,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</form>
 	</div>
 	
-	<div id="a" class="easyui-window" title="添加" data-options="modal:true,closed:true" style="width:300px;height:auto;padding:10px;display: none;">
+	<div id="a" class="easyui-window" title="添加" data-options="modal:true,closed:true" style="width:380px;height:auto;padding:10px;display: none;">
 		<form action="<%=path %>/mail!add" method="post">
 		<table border="0" class="table1">
 			<tr>
@@ -273,13 +273,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<tr>
 				<td>邮箱账号：</td>
 				<td>
-					<input name="m.MMail" type="text" style="width: 100%;"/>
+					<input name="m.MMail" type="text" style="width: 50%;"/>@szexpress.com.cn
 				</td>
 			</tr>
 			<tr>
 				<td>默认密码：</td>
 				<td>
-					<input name="m.MMailPass" type="text" style="width: 100%;"/>
+					<input name="m.MMailPass" type="text" style="width: 100%;" value="Yd112233"/>
 				</td>
 			</tr>
 			<tr>

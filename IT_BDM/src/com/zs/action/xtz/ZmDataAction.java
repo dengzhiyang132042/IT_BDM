@@ -197,8 +197,6 @@ public class ZmDataAction extends MyBaseAction{
 		Users user=(Users) getSession().getAttribute("user");
 		if(zmd!=null){
 			zmd.setDId("d"+NameOfDate.getNum());
-			zmd.setDDate(new Timestamp(new Date().getTime()));
-			
 			zmd.setDCreateTime(new Timestamp(new Date().getTime()));
 			zmd.setDState("有效");
 			zmd.setUNum(user.getUNum());

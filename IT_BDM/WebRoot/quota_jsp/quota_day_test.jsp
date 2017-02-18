@@ -166,8 +166,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					    	<td style="display: none">${qd.qgId }</td>
 					    	<c:if test="${qd.qgDate != null}">
 					    		<c:set var="a" value="${a+1}"/>
-				    			<td rowspan="4">${a }</td>
-					    		<td rowspan="4"><fmt:formatDate value="${qd.qgDate }" pattern="yyyy/MM/dd"/></td>
+				    			<td rowspan="3">${a }</td>
+					    		<td rowspan="3"><fmt:formatDate value="${qd.qgDate }" pattern="yyyy/MM/dd"/></td>
 					    	</c:if>
 					    	<td>${qd.qgGroup }</td>
 					    	<td>${qd.qgFunctionary }</td>
@@ -242,7 +242,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		  	<div class="easyui-panel" style="padding:5px;width: 100%;display: none;">
 				<form id="f2" action="<%=path %>/quotaMan!queryOfFenye?id=${id}&name=${name}&dates=${dates}&datee=${datee}" method="post">
 				<select id="sele" style="float: left;margin-top: 3px;margin-left: 5px;" name="page.size" onchange="$('#f2').submit();">
-					<option value="15">15</option>
+					<option value="12">12</option>
 				</select>
 				
 				<span style="float: left;margin-left: 5px;">

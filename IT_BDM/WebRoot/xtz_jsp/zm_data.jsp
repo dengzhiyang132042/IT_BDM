@@ -1,4 +1,5 @@
 <%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
+<%@page import="java.text.SimpleDateFormat"%>
 <%@page import="com.zs.tools.Constant"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
@@ -76,6 +77,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			$('#ff').submit();
 		}
 	}
+	function showDate(){   
+	   var today = new Date();   
+	   var day = today.getDate()-1;   
+	   var month = today.getMonth() + 1;   
+	   var year = today.getYear()+1900;    
+	   var date = year + "-" + month + "-" + day;   
+	   $('#serDate').val(date);  
+	   $('#a').window('open')
+   } 
 	</script>
   </head>
   <body>
@@ -253,9 +263,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</form>
 	</div>
 	
-	<div id="a" class="easyui-window" title="添加" data-options="modal:true,closed:true" style="width:500px;height:auto;padding:10px;display: none;">
+	<div id="a" class="easyui-window" title="添加" data-options="modal:true,closed:true" style="width:350px;height:auto;padding:10px;display: none;">
 		<form action="<%=path %>/zmd!add" method="post">
 		<table border="0" class="table1">
+			<tr>
+				<td width="110">日期：</td>
+				<td>
+					<input id="serDate" name="zmd.DDate" type="text" style="width: 100%;" onfocus="WdatePicker({readOnly:true,dateFmt:'yyyy-MM-dd'})" class="Wdate" />
+				</td>
+			</tr>
 			<tr>
 				<td width="100">9点末上传数据：</td>
 				<td>
@@ -325,7 +341,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	
 	<div id="tt" style="display: none;">
 		<a class="icon-zs-import" onclick="$('#in').window('open')" style="margin-left: 10px;" title="excel导入"></a>
-		<a class="icon-add" onclick="$('#a').window('open')" style="margin-left: 10px;" title="添加"></a>
+		<a class="icon-add" onclick="showDate()" style="margin-left: 10px;" title="添加"></a>
 	</div>
 	
 	

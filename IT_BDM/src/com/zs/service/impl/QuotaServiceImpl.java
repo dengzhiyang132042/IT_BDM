@@ -35,7 +35,7 @@ public class QuotaServiceImpl extends BaseService implements iQuotaService{
 		if(qgTime.size()>0){
 			qgTime.get(0).getQgDate();
 			//将当天的数据先删除再重新计算
-			for (int i = 0; i < 4; i++) {
+			for (int i = 0; i < 3; i++) {
 				delete(qgTime.get(i));
 			}
 			tabUpdate(sdf.format(qgTime.get(0).getQgDate()));
@@ -66,8 +66,7 @@ public class QuotaServiceImpl extends BaseService implements iQuotaService{
 	public List<QuotaGroup>  initCount(String date){
 		List<QuotaGroup> tmpQms = new ArrayList<QuotaGroup>();
 		QuotaGroup xtz = new QuotaGroup("qg"+NameOfDate.getNum(),0,0,0,0,0.0);
-		QuotaGroup yjz = new QuotaGroup("qg"+NameOfDate.getNum(),0,0,0,0,0.0);
-		QuotaGroup zmz = new QuotaGroup("qg"+NameOfDate.getNum(),0,0,0,0,0.0);
+		QuotaGroup ywz = new QuotaGroup("qg"+NameOfDate.getNum(),0,0,0,0,0.0);
 		QuotaGroup whz = new QuotaGroup("qg"+NameOfDate.getNum(),0,0,0,0,0.0);
 		String hql1="from QuotaMan where qmDate = '"+date+"'";
 		List<QuotaMan> lqms = find(hql1, null);
@@ -84,20 +83,15 @@ public class QuotaServiceImpl extends BaseService implements iQuotaService{
 			}
 			if(lqms.get(i).getQmTable().equals("ADSL宽带登记")||lqms.get(i).getQmTable().equals("监控信息登记")||
 				lqms.get(i).getQmTable().equals("监控材料清单")||lqms.get(i).getQmTable().equals("SIM费用报销")||
-				lqms.get(i).getQmTable().equals("外出登记新表")){
-				yjz.setQgTypeZc(lqms.get(i).getQmTypeZc()+yjz.getQgTypeZc());
-				yjz.setQgTypeWh(lqms.get(i).getQmTypeWh()+yjz.getQgTypeWh());
-				yjz.setQgTypeZx(lqms.get(i).getQmTypeZx()+yjz.getQgTypeZx());
-			}
-			if(lqms.get(i).getQmTable().equals("VPN账号登记")||lqms.get(i).getQmTable().equals("IMO账号登记")||
-				lqms.get(i).getQmTable().equals("邮箱账号登记")||lqms.get(i).getQmTable().equals("公司电脑信息")||
-				lqms.get(i).getQmTable().equals("骏达设备登记")||lqms.get(i).getQmTable().equals("公司wifi管理")||
+				lqms.get(i).getQmTable().equals("外出登记新表")||lqms.get(i).getQmTable().equals("VPN账号登记")||
+				lqms.get(i).getQmTable().equals("IMO账号登记")||lqms.get(i).getQmTable().equals("邮箱账号登记")||
+				lqms.get(i).getQmTable().equals("公司电脑信息")||lqms.get(i).getQmTable().equals("骏达设备登记")||
 				lqms.get(i).getQmTable().equals("总部呼叫系统")||lqms.get(i).getQmTable().equals("网点呼叫系统")||
 				lqms.get(i).getQmTable().equals("oa账号登记")||lqms.get(i).getQmTable().equals("打印机登记")||
-				lqms.get(i).getQmTable().equals("电话线分布")){
-				zmz.setQgTypeZc(lqms.get(i).getQmTypeZc()+zmz.getQgTypeZc());
-				zmz.setQgTypeWh(lqms.get(i).getQmTypeZc()+zmz.getQgTypeWh());
-				zmz.setQgTypeZx(lqms.get(i).getQmTypeZx()+zmz.getQgTypeZx());
+				lqms.get(i).getQmTable().equals("公司wifi管理")||lqms.get(i).getQmTable().equals("电话线分布")){
+				ywz.setQgTypeZc(lqms.get(i).getQmTypeZc()+ywz.getQgTypeZc());
+				ywz.setQgTypeWh(lqms.get(i).getQmTypeZc()+ywz.getQgTypeWh());
+				ywz.setQgTypeZx(lqms.get(i).getQmTypeZx()+ywz.getQgTypeZx());
 			}
 			if(lqms.get(i).getQmTable().equals("操作设备巡检")||lqms.get(i).getQmTable().equals("监控设备巡检")||
 				lqms.get(i).getQmTable().equals("观澜3楼巡检")||lqms.get(i).getQmTable().equals("新仓仓库巡检")||
@@ -112,16 +106,12 @@ public class QuotaServiceImpl extends BaseService implements iQuotaService{
 		List<Users> ls = find("from Users where UJob like '%主管%'",null );
 		for (int i = 0; i < ls.size(); i++) {
 			if(ls.get(i).getCsId().equals("cs181701262302450")){
-				xtz.setQgGroup("系统应用组");
+				xtz.setQgGroup("系统组");
 				xtz.setQgFunctionary(ls.get(i).getUName());
 			}
 			if(ls.get(i).getCsId().equals("cs221045082233130")){
-				yjz.setQgGroup("硬件组");
-				yjz.setQgFunctionary(ls.get(i).getUName());
-			}
-			if(ls.get(i).getCsId().equals("cs221045082233130")){
-				zmz.setQgGroup("桌面组");
-				zmz.setQgFunctionary(ls.get(i).getUName());
+				ywz.setQgGroup("运维组");
+				ywz.setQgFunctionary(ls.get(i).getUName());
 			}
 			if(ls.get(i).getCsId().equals("cs181706154913403")){
 				whz.setQgGroup("维护组");
@@ -131,13 +121,11 @@ public class QuotaServiceImpl extends BaseService implements iQuotaService{
 		}
 		//加入合计
 		xtz.setQgCount(xtz.getQgTypeZc()+xtz.getQgTypeWh()+xtz.getQgTypeZx());
-		yjz.setQgCount(yjz.getQgTypeZc()+yjz.getQgTypeWh()+yjz.getQgTypeZx());
-		zmz.setQgCount(zmz.getQgTypeZc()+zmz.getQgTypeWh()+zmz.getQgTypeZx());
+		ywz.setQgCount(ywz.getQgTypeZc()+ywz.getQgTypeWh()+ywz.getQgTypeZx());
 		whz.setQgCount(whz.getQgTypeZc()+whz.getQgTypeWh()+whz.getQgTypeZx());
 		
 		tmpQms.add(xtz);
-		tmpQms.add(yjz);
-		tmpQms.add(zmz);
+		tmpQms.add(ywz);
 		tmpQms.add(whz);
 		return tmpQms;
 	}

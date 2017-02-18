@@ -183,10 +183,9 @@ public class HitchesAction extends MyBaseAction{
 	}
 	
 	public String update() throws Exception {
-		String date=getRequest().getParameter("h_date");
 		String times=getRequest().getParameter("h_time_s");
 		String timee=getRequest().getParameter("h_time_e");
-		if(h!=null && date!=null && times!=null && timee!=null && h.getHId()!=null){
+		if(h!=null  && times!=null && timee!=null && h.getHId()!=null){
 			XtHitches xh = (XtHitches) ser.get(XtHitches.class, h.getHId());
 			xh.setHState("无效");
 			ser.update(xh);
@@ -194,10 +193,8 @@ public class HitchesAction extends MyBaseAction{
 			
 			h.setHId(NameOfDate.getNum());
 			SimpleDateFormat format=new SimpleDateFormat("yyyy-MM-dd HH:mm");
-			Date date1=format.parse(date+" "+times);
-			Date date2=format.parse(date+" "+timee);
-			h.setHTimeStart(new Timestamp(date1.getTime()));
-			h.setHTimeEnd(new Timestamp(date2.getTime()));
+			h.setHTimeStart(new Timestamp(format.parse(times).getTime()));
+			h.setHTimeEnd(new Timestamp(format.parse(timee).getTime()));
 			h.setHCreateTime(new Timestamp(new Date().getTime()));
 			h.setHState("有效");
 			h.setHType("维护");
@@ -210,16 +207,13 @@ public class HitchesAction extends MyBaseAction{
 	}
 	
 	public String add() throws Exception {
-		String date=getRequest().getParameter("h_date");
 		String times=getRequest().getParameter("h_time_s");
 		String timee=getRequest().getParameter("h_time_e");
-		if(h!=null && date!=null && times!=null && timee!=null){
+		if(h!=null && times!=null && timee!=null){
 			SimpleDateFormat format=new SimpleDateFormat("yyyy-MM-dd HH:mm");
-			Date date1=format.parse(date+" "+times);
-			Date date2=format.parse(date+" "+timee);
 			h.setHId("h"+NameOfDate.getNum());
-			h.setHTimeStart(new Timestamp(date1.getTime()));
-			h.setHTimeEnd(new Timestamp(date2.getTime()));
+			h.setHTimeStart(new Timestamp(format.parse(times).getTime()));
+			h.setHTimeEnd(new Timestamp(format.parse(timee).getTime()));
 			h.setHCreateTime(new Timestamp(new Date().getTime()));
 			h.setHState("有效");
 			h.setHType("维护");

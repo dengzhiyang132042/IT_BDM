@@ -111,7 +111,7 @@ public class QuotaDayAction extends MyBaseAction implements IMyBaseAction{
 		id=null;
 		cz=null;
 		if (page==null) {
-			page=new Page(1, 0, 15);
+			page=new Page(1, 0, 12);
 		}else {
 			page.setPageOn(1);
 		}

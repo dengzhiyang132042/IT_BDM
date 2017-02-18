@@ -56,16 +56,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<li><span><a href="<%=path %>/zmn!queryOfFenye?cz=yes" target="right">哲盟职能用户</a></span></li>
 						<li><span><a href="<%=path %>/zmd!queryOfFenye?cz=yes" target="right">哲盟数据检查</a></span></li>
 						<li><span><a href="<%=path %>/pdachange!queryOfFenye?cz=yes" target="right">巴枪条码变更</a></span></li>
-						<li><span><a href="<%=path %>/bqrepair!queryOfFenye?cz=yes" target="right">设备维修登记</a></span></li>
 <!--						<li><span><a href="<%=path %>/pdaloss!queryOfFenye?cz=yes" target="right">巴枪挂失登记</a></span></li>     -->
 						<li><span><a href="<%=path %>/hitches!queryOfFenye?cz=yes" target="right">哲盟异常登记</a></span></li>
 						<li><span><a href="<%=path %>/bqq!queryOfFenye?cz=yes" target="right">公司BQQ登记</a></span></li>
-						<li><span><a href="<%=path %>/netImo!queryOfFenye?cz=yes" target="right">网点IMO登记</a></span></li>
+<!-- 						<li><span><a href="<%=path %>/netImo!queryOfFenye?cz=yes" target="right">网点IMO登记</a></span></li> -->
 						<li><span><a href="<%=path %>/project!queryOfFenye?cz=yes" target="right">系统开发登记</a></span></li>
         			</ul>
         		</li>
-        		<li><span>硬件组</span>
-        			<ul>
+        		<li><span>运维组</span>
+					<ul>
 						<li><span><a href="<%=path %>/fbd_asdl!queryOfFenyeAsdl?cz=yes" target="right">ASDL宽带登记</a></span></li>
 						<li><span><a href="<%=path %>/fbd_m!queryOfFenyeM?cz=yes" target="right">监控信息登记</a></span></li>
 <!--						<li><span><a href="<%=path %>/fbd_c!queryOfFenyeC?cz=yes" target="right">电脑信息登记</a></span></li>      -->
@@ -74,12 +73,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <!--						<li><span><a href="<%=path %>/goods!queryOfFenyeGoods?cz=yes" target="right">内件收发登记</a></span></li>
  						<li><span><a href="<%=path %>/go!queryOfFenyeGo?cz=yes" target="right">员工外出登记</a></span></li>            -->
 						<li><span><a href="<%=path %>/outRegister!queryOfFenye?cz=yes" target="right">外出登记新表</a></span></li>        			
-        			</ul>
-        		</li>
-        		<li><span>桌面组</span>
-        			<ul>
+						<li><span><a href="<%=path %>/bqrepair!queryOfFenye?cz=yes" target="right">设备维修登记</a></span></li>
 						<li><span><a href="<%=path %>/vpn!queryOfFenye?cz=yes" target="right">VPN账号登记</a></span></li>
-						<li><span><a href="<%=path %>/by!queryOfFenye?cz=yes" target="right">IMO账号登记</a></span></li>
+<!-- 						<li><span><a href="<%=path %>/by!queryOfFenye?cz=yes" target="right">IMO账号登记</a></span></li>  -->
 						<li><span><a href="<%=path %>/mail!queryOfFenye?cz=yes" target="right">邮箱账号登记</a></span></li>
 						<li><span><a href="<%=path %>/computer!queryOfFenye?cz=yes" target="right">公司电脑信息</a></span></li>
 						<li><span><a href="<%=path %>/bq!queryOfFenye?cz=yes" target="right">骏达设备登记</a></span></li>
