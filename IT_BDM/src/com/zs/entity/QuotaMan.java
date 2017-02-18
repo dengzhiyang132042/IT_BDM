@@ -21,6 +21,9 @@ public class QuotaMan implements java.io.Serializable {
 	private int count;
 	private double productivity;
 	private String uName;
+	private String quantum;
+	private String weekNum;
+	private int lineNum;
 	// Constructors
 
 	/** default constructor */
@@ -30,6 +33,23 @@ public class QuotaMan implements java.io.Serializable {
 	/** minimal constructor */
 	public QuotaMan(String qmId) {
 		this.qmId = qmId;
+	}
+	
+	/**
+	 * @param qmTypeZc
+	 * @param qmTypeWh
+	 * @param qmTypeZx
+	 * @param count
+	 * @param productivity
+	 */
+	public QuotaMan(Integer qmTypeZc, Integer qmTypeWh, Integer qmTypeZx,
+			int count, double productivity) {
+		super();
+		this.qmTypeZc = qmTypeZc;
+		this.qmTypeWh = qmTypeWh;
+		this.qmTypeZx = qmTypeZx;
+		this.count = count;
+		this.productivity = productivity;
 	}
 
 	/** full constructor */
@@ -126,4 +146,28 @@ public class QuotaMan implements java.io.Serializable {
 		this.uName = uName;
 	}
 
+	public String getQuantum() {
+		return quantum;
+	}
+
+	public void setQuantum(String quantum) {
+		this.quantum = quantum;
+	}
+
+	public String getWeekNum() {
+		return weekNum;
+	}
+
+	public void setWeekNum(String weekNum) {
+		this.weekNum = weekNum;
+	}
+
+	public int getLineNum() {
+		return lineNum;
+	}
+
+	public void setLineNum(int lineNum) {
+		this.lineNum = lineNum;
+	}
+	
 }

@@ -24,13 +24,13 @@ import com.zs.service.IService;
 import com.zs.service.iQuotaService;
 import com.zs.tools.NameOfDate;
 import com.zs.tools.Page;
+import com.zs.tools.WeekDateArea;
 
 public class QuotaGroupWeekAction extends MyBaseAction implements IMyBaseAction{
 	String result = "quotaGroupWeek";
 	private List<QuotaGroup> qgds;
 	private IService ser;
 	private iQuotaService quser;
-	private Page page;
 	String cz;
 	String option;
 	String dates;
@@ -48,12 +48,6 @@ public class QuotaGroupWeekAction extends MyBaseAction implements IMyBaseAction{
 	}
 	public void setSer(IService ser) {
 		this.ser = ser;
-	}
-	public Page getPage() {
-		return page;
-	}
-	public void setPage(Page page) {
-		this.page = page;
 	}
 	public String getCz() {
 		return cz;
@@ -102,11 +96,6 @@ public class QuotaGroupWeekAction extends MyBaseAction implements IMyBaseAction{
 		if(option==null){
 			option="group";
 		}
-		if (page==null) {
-			page=new Page(1, 0, 12);
-		}else {
-			page.setPageOn(1);
-		}
 	}
 	
 	public void clearSpace(){
@@ -117,13 +106,6 @@ public class QuotaGroupWeekAction extends MyBaseAction implements IMyBaseAction{
 	}
 	
 	public String gotoQuery() throws UnsupportedEncodingException {
-		String hql = "from QuotaGroup order by qgDate desc";
-		qgds = ser.query(hql, null, hql, page, ser);
-		for (int i = 0; i < qgds.size(); i++) {
-			if(i%3!=0){
-				qgds.get(i).setQgDate(null);
-			}
-		}
 		return result;
 	}
 	
@@ -135,11 +117,32 @@ public class QuotaGroupWeekAction extends MyBaseAction implements IMyBaseAction{
 		}
 		clearSpace();
 		//首先查找组表中的头尾时间
-		String hqltimes ="from QuotaGroup order by qgDate asc";
-		List list1 =  ser.find(hqltimes, null);
+		//为了显示效果和显示速度，此处采取先不查询所有数据而是采取，取前两周的数据进行一个筛选
+		String str ="from QuotaGroup ";
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		Date d = new Date();
+		if(timeType.equals("W")){
+			try {
+				dates=sdf.format(new Date(d.getYear(), d.getMonth(), d.getDate()-14));
+				datee=sdf.format(d);
+				List datelist = WeekDateArea.weekdate(dates, datee);
+				dates=datelist.get(1).toString();
+			} catch (ParseException e) {
+				System.out.println("周数据错误");
+			}
+		}else if(timeType.equals("M")){
+			dates=sdf.format(new Date(d.getYear(), d.getMonth()-1, 1));
+			datee=sdf.format(d);
+		}else if(timeType.equals("Y")){
+			dates=sdf.format(new Date(d.getYear()-1,1, 1));
+			datee=sdf.format(d);
+		}
+		str = str +" where qgDate >='"+dates+"' and qgDate <='"+datee+"'";
+		String str1 =str+" order by qgDate asc";
+		List list1 =  ser.find(str1, null);
 		QuotaGroup ls = (QuotaGroup) list1.get(0);
-		String hqltimee ="from QuotaGroup order by qgDate desc";
-		List list2 =  ser.find(hqltimee, null);
+		String str2 =str+" order by qgDate desc";
+		List list2 =  ser.find(str2, null);
 		QuotaGroup le = (QuotaGroup) list2.get(0);
 		//先对集合进行实例化 --方便组装数据的时候可以直接使用
 		qgds= new ArrayList<QuotaGroup>();

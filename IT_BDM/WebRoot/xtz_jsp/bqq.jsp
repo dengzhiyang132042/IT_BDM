@@ -1,4 +1,5 @@
 <%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
+<%@page import="java.text.SimpleDateFormat"%>
 <%@page import="com.zs.tools.Constant"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
@@ -268,7 +269,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<tr>
 				<td width="100">登记日期：</td>
 				<td>
-					<input id="serdate" name="b.BRegisterDate" type="date" style="width: 100%;"/>
+					<input name="m.MServiceDate" type="text" style="width: 100%;" onfocus="WdatePicker({readOnly:true,dateFmt:'yyyy-MM-dd'})" class="Wdate" value="<%=new SimpleDateFormat("yyyy-MM-dd").format(new Date())%>"/>
 				</td>
 			</tr>
 			<tr>
@@ -328,7 +329,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	
 	<div id="tt" style="display: none;">
 		<a class="icon-zs-import" onclick="$('#in').window('open')" style="margin-left: 10px;" title="excel导入"></a>
-		<a class="icon-add" onclick="addWindow();defualtOutTime()" style="margin-left: 10px;" title="添加"></a>
+		<a class="icon-add" onclick="$('#a').window('open');defualtOutTime()" style="margin-left: 10px;" title="添加"></a>
 	</div>
 	
 	<div id="in" class="easyui-window" title="数据导入" data-options="modal:true,closed:true" style="width:400px;height:auto;padding:10px;display: none;overflow-x:hidden;">
