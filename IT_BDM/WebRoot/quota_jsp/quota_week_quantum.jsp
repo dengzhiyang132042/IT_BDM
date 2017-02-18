@@ -58,7 +58,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						path="<%=path%>/quotaGroupWeek!queryOfFenye";
 					}
 					if(title == '明细'){
-						path="<%=path%>/quotaMan!queryOfFenye?cz=yes";
+						path="<%=path%>/quotaManWeek!queryOfFenye?cz=yes";
 					}
 					window.location.href=path;
 			    }
@@ -76,8 +76,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			t.tabs('select', "明细");
 		}
 		
-		function queryDetails(id) {
-			var path="<%=path%>/quotaMan!queryOfFenye?cz=yes&qmid="+id;
+		function queryDetails(group) {
+			var path="<%=path%>/quotaManWeek!queryOfFenye?group="+group;
 			window.location.href=path;
 		}
 	</script>
@@ -94,7 +94,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
  	</div>
    	<div class="kscx" style="width:99%;margin:5px;">
     	<div class="inp">
-	    	<form id="ks" action="<%=path %>/quotaMan!queryOfFenye" method="post">
+	    	<form id="ks" action="<%=path %>/quotaManWeek!queryOfFenye" method="post">
 	    		<div>
 		    		<div>
 			    		开始日期：<input name="dates" id="d4311" class="Wdate" type="text" onFocus="WdatePicker({maxDate:'#F{$dp.$D(\'d4312\')}'})" value="${dates }"/>
@@ -103,13 +103,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		    			结束日期：<input name="datee" id="d4312" class="Wdate" type="text" onFocus="WdatePicker({minDate:'#F{$dp.$D(\'d4311\')}'})" value="${datee }"/>
 		    		</div>
 	    		</div>
-	    		<div>
 		    		<div>
+<!-- 	    		<div>
 			    		编号：<input id="mxid" name="id" type="text" value="${id }"/>
 		    		</div>
 	    			<div>
 	    				主要负责：<input id="mxfz" name="name" type="text" value="${name }"/>
-	    			</div>
+	    			</div>        -->
 	    		</div>
 	    		<div>
 	    			<div style="width:65%;font-size:14px;">
@@ -124,7 +124,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
    		<div style="clear:both;"></div>
     </div>
     
-    <div id="tt" class="easyui-tabs" style="width:99%;height:500px;margin:5px;">
+    <div id="tt" class="easyui-tabs" style="width:99%;height:600px;margin:5px;overflow-y:scroll;">
 	    <div title="组统计" style="overflow: hidden;">
 		    <div style="margin-bottom: 5px;">
 			    <table border="1" id="" style="font-size: 12px;">
@@ -148,7 +148,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		   			<c:set var="a" value="0"/>
 			   		<c:forEach items="${qgds}" var="qd" varStatus="status">
 				   		<tr>
-					    	<td style="display: none">${qd.qgId }</td>
+					    	<td style="display: none">${status }</td>
 					    	<c:if test="${qd.quantum != null}">
 					    		<c:set var="a" value="${a+1}"/>
 				    			<td rowspan="3">${a }</td>
@@ -163,7 +163,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					    	<td>${qd.qgCount }</td>
 					    	<td>${qd.qgProductivity }</td>
 					    	<td>
-					    		<a onclick="queryDetails('${qd.qgId}')" class="easyui-linkbutton" title="查看详情">查看详情</a>
+					    		<a onclick="queryDetails('${qd.qgGroup }')" class="easyui-linkbutton" title="查看详情">查看详情</a>
 					    	</td>
 					    </tr>
 				    </c:forEach>
@@ -176,6 +176,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				    <tr>
 				    	<th>编号</th>
 				    	<th>时间</th>
+				    	<th>
+				    		<c:if test="${timeType=='W'}">周</c:if>
+				    		<c:if test="${timeType=='M'}">月</c:if>
+				    		<c:if test="${timeType=='Y'}">年</c:if>
+				    		数</th>
 				    	<th>统计业务</th>
 				    	<th>主要负责</th>
 				    	<th>注册</th>
@@ -184,10 +189,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				    	<th>合计</th>
 				    	<th>录入率</th>
 				    </tr>
-				    <c:forEach items="${qms}" var="q">
+				    <c:forEach items="${qms}" var="q" varStatus="status">
 					    <tr>
-					    	<td>${q.qmId }</td>
-						    <td><fmt:formatDate value="${q.qmDate }" pattern="yyyy/MM/dd"/></td>
+							<c:if test="${q.quantum != null}">
+					    		<c:set var="a" value="${a+1}"/>
+				    			<td rowspan="${q.lineNum }">${a }</td>
+					    		<td rowspan="${q.lineNum }">${q.quantum }</td>
+					    		<td rowspan="${q.lineNum }">${q.weekNum }</td>
+					    	</c:if>
 					    	<td>${q.qmTable }</td>
 					    	<td>${q.uName }</td>
 					    	<td>${q.qmTypeZc }</td>

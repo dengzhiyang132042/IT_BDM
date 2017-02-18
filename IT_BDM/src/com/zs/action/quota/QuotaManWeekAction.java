@@ -4,7 +4,11 @@
 package com.zs.action.quota;
 
 import java.io.UnsupportedEncodingException;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import net.sf.json.JSONArray;
@@ -17,6 +21,7 @@ import com.zs.entity.QuotaMan;
 import com.zs.entity.Users;
 import com.zs.service.IService;
 import com.zs.tools.Page;
+import com.zs.tools.WeekDateArea;
 
 public class QuotaManWeekAction extends MyBaseAction implements IMyBaseAction{
 	private QuotaMan qm ;
@@ -24,15 +29,13 @@ public class QuotaManWeekAction extends MyBaseAction implements IMyBaseAction{
 	private IService ser;
 	private Page page;
 	
-	String result = "quotaMan";
+	String result = "quotaManWeek";
 	String cz;
-	String id;
-	String name;
 	String dates;
 	String datee;
 	String option;
-	String qmid;
-	
+	String timeType;
+	String group;
 	
 	public QuotaMan getQm() {
 		return qm;
@@ -58,23 +61,11 @@ public class QuotaManWeekAction extends MyBaseAction implements IMyBaseAction{
 	public void setCz(String cz) {
 		this.cz = cz;
 	}
-	public String getId() {
-		return id;
-	}
-	public void setId(String id) {
-		this.id = id;
-	}
 	public Page getPage() {
 		return page;
 	}
 	public void setPage(Page page) {
 		this.page = page;
-	}
-	public String getName() {
-		return name;
-	}
-	public void setName(String name) {
-		this.name = name;
 	}
 	public String getDates() {
 		return dates;
@@ -94,11 +85,17 @@ public class QuotaManWeekAction extends MyBaseAction implements IMyBaseAction{
 	public void setOption(String option) {
 		this.option = option;
 	}
-	public String getQmid() {
-		return qmid;
+	public String getTimeType() {
+		return timeType;
 	}
-	public void setQmid(String qmid) {
-		this.qmid = qmid;
+	public void setTimeType(String timeType) {
+		this.timeType = timeType;
+	}
+	public String getGroup() {
+		return group;
+	}
+	public void setGroup(String group) {
+		this.group = group;
 	}
 	
 	
@@ -107,31 +104,28 @@ public class QuotaManWeekAction extends MyBaseAction implements IMyBaseAction{
 		qms=null;
 		dates=null;
 		datee=null;
-		name=null;
-		id=null;
+		group=null;
 		cz=null;
-		if (page==null) {
-			page=new Page(1, 0, 15);
-		}else {
-			page.setPageOn(1);
-		}
 	}
 	
 	public void clearSpace(){
-		if(name!=null){
-			name=name.trim();
-		}
 		if(dates!=null){
 			dates=dates.trim();
 		}
 		if(datee!=null){
 			datee=datee.trim();
 		}
-		if(id!=null){
-			id=id.trim();
-		}
 		if(cz!=null){
 			cz=cz.trim();
+		}
+		if(timeType==null||timeType.equals("")){
+			timeType = "W";
+		}
+		if(option==null||option.equals("")){
+			option = "detail";
+		}
+		if(group==null){
+			group="";
 		}
 	}
 	
@@ -141,61 +135,134 @@ public class QuotaManWeekAction extends MyBaseAction implements IMyBaseAction{
 	}
 	
 	public String queryOfFenye() throws UnsupportedEncodingException {
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-		clearSpace();
 		if (cz!=null && cz.equals("yes")) {
 			clearOptions();
 		}
-		option = "detail";
-		String str = "";
-		if(qmid!=null&&!qmid.equals("")){
-			QuotaGroup qg;
-			qg = (QuotaGroup) ser.get(QuotaGroup.class,qmid);
-			dates=sdf.format(qg.getQgDate());
-			datee=sdf.format(qg.getQgDate());
-			String cshql = "from CompanySection where csMaster = ?";
-			List<CompanySection> cs = ser.find(cshql,new Object[]{ qg.getQgFunctionary()});
-			String userhql ="select UNum from Users where csId = ?";
-			List list = ser.find(userhql,new Object[]{ cs.get(0).getCsId()});
-			for (int i = 0; i < list.size(); i++) {
-				if(i==list.size()-1){
-					str = str+"'"+list.get(i)+"'";
-				}else{
-					str = str+"'"+list.get(i)+"'"+",";
-				}
+		clearSpace();
+		//处理查看详情的问题
+		String gs="";
+		if(group.equals("系统组")){
+			gs="('站点资料登记','二级站点登记','哲盟职能用户','哲盟数据检查','巴枪条码变更','哲盟异常登记','公司BQQ登记','系统开发登记')";
+		}else if(group.equals("运维组")){
+			gs="('ASDL宽带登记','监控信息登记','监控材料清单','SIM费用报销','外出登记新表','设备维修登记','VPN账号登记','邮箱账号登记','公司电脑信息','骏达设备登记','公司wifi管理','总部呼叫系统','网点呼叫系统','oa账号登记','打印机登记','电话线分布')";
+		}else if(group.equals("维护组")){
+			gs="('操作设备巡检','监控设备巡检','观澜3楼巡检','新仓仓库巡检','巴枪维修登记','设备外修登记')";
+		}
+		//首先查找组表中的头尾时间
+		//为了显示效果和显示速度，此处采取先不查询所有数据而是采取，取前两周的数据进行一个筛选
+		String str ="from QuotaMan ";
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		Date d = new Date();
+		if(timeType.equals("W")){
+			try {
+				dates=sdf.format(new Date(d.getYear(), d.getMonth(), d.getDate()-14));
+				datee=sdf.format(d);
+				List datelist = WeekDateArea.weekdate(dates, datee);
+				dates=datelist.get(1).toString();
+			} catch (ParseException e) {
+				System.out.println("周数据错误");
+			}
+		}else if(timeType.equals("M")){
+			dates=sdf.format(new Date(d.getYear(), d.getMonth()-1, 1));
+			datee=sdf.format(d);
+		}else if(timeType.equals("Y")){
+			dates=sdf.format(new Date(d.getYear()-1,1, 1));
+			datee=sdf.format(d);
+		}
+		str = str +" where qmDate >='"+dates+"' and qmDate <='"+datee+"'";
+		String str1 =str+" order by qmDate asc";
+		List list1 =  ser.find(str1, null);
+		QuotaMan ls = (QuotaMan) list1.get(0);
+		String str2 =str+" order by qmDate desc";
+		List list2 =  ser.find(str2, null);
+		QuotaMan le = (QuotaMan) list2.get(0);
+		//先对集合进行实例化 --方便组装数据的时候可以直接使用
+		qms= new ArrayList<QuotaMan>();
+		//判断它属于哪一周
+		if (timeType.equals("W")) {
+			int weeknum =(int)((le.getQmDate().getTime()-ls.getQmDate().getTime())/(1000*60*60*24))/7;
+			for (int i = 0; i <= weeknum; i++) {
+				Date date = new Date(le.getQmDate().getYear(),le.getQmDate().getMonth(),le.getQmDate().getDate()-(7*i));
+				Date dateStart= ser.weekDate(date).get(ser.KEY_DATE_START);
+				Date dateEnd=ser.weekDate(date).get(ser.KEY_DATE_END);
+				Calendar ca3 = Calendar.getInstance();
+				ca3.setTime(dateStart);
+				int weekNum = ca3.get(ca3.WEEK_OF_YEAR);
+				String nums = "第"+weekNum+"周";
+				//将起始时间和周数传出来；
+				initCount(dateStart, dateEnd,nums,gs);
+			}
+		}else if(timeType.equals("M")){
+			int ms=(le.getQmDate().getYear()-ls.getQmDate().getYear())*12+(le.getQmDate().getMonth()-ls.getQmDate().getMonth());
+			for (int i = 0; i <= ms; i++) {
+				Date dateStart=new Date(le.getQmDate().getYear(), le.getQmDate().getMonth()-i, 1,0,0,0);
+				Calendar ca = Calendar.getInstance();    
+				ca.set(1900+le.getQmDate().getYear(), 1+le.getQmDate().getMonth()-i, 0);
+				Date dateTmp=ca.getTime();
+				Date dateEnd=new Date(dateTmp.getYear(), dateTmp.getMonth(), dateTmp.getDate(),23,59,59);
+				int m=dateStart.getMonth()+1;
+				String nums = "第"+m+"月";
+				initCount(dateStart, dateEnd,nums,gs);
+			}
+		}else if (timeType.equals("Y")) {
+			//设置序号初始值
+			int orderNumber = 0;
+			//获得相差年数
+			int ys=le.getQmDate().getYear()-ls.getQmDate().getYear();
+			for (int i = 0; i <= ys; i++) {
+				Date dateStart=new Date(le.getQmDate().getYear()-i, 0, 1,0,0,0);
+				Date dateEnd=new Date(le.getQmDate().getYear()-i, 11, 31,23,59,59);
+				int y=dateStart.getYear()+1900;
+				String ynum = y+"年";
+				initCount(dateStart, dateEnd,ynum,gs);
 			}
 		}
-		String hql = "from QuotaMan where 1=1 ";
-		if(id!=null&&!id.equals("")){
-			hql=hql+" and qmId like '%"+id+"%' ";
-		}
-		if(qmid!=null&&!qmid.equals("")){
-			hql=hql+" and UNum in ("+str+")";
-		}
-		if(name!=null&&!name.equals("")){
-			hql=hql+" and UNum in (select UNum from Users where UName like '%"+name+"%') ";
-		}
-		if (dates!=null && !dates.trim().equals("")) {
-			hql=hql+" and qmDate >= '"+dates+"'";
-		}
-		if (datee!=null && !datee.trim().equals("")) {
-			hql=hql+" and qmDate <= '"+datee+"'";
-		}
-		hql=hql+" order by qmDate desc";
-		qms = ser.query(hql, null, hql, page, ser);
-		for (int i = 0; i < qms.size(); i++) {
-			Users us = (Users) ser.get(Users.class,qms.get(i).getUNum() );
-			qms.get(i).setuName(us.getUName());
-			qms.get(i).setCount(qms.get(i).getQmTypeZc()+qms.get(i).getQmTypeWh()+qms.get(i).getQmTypeZx());
-			if(qms.get(i).getCount()>0){
-				qms.get(i).setProductivity(1);
-			}
-		}
-		qmid=null;
-		dates=null;
-		datee=null;
+		gs="";
+		
 		return result;
 	}
+	
+	//封装数据
+	public void initCount(Date dateStart,Date dateEnd,String Numbers,String gs){
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
+		String chql="";
+		
+		if(gs.equals("")){
+			chql = "select qmTable from QuotaMan where  qmDate >= ? and qmDate <= ? group by qmTable";
+		}else{
+			chql = "select qmTable from QuotaMan where qmTable in "+gs+" and qmDate >= ? and qmDate <= ? group by qmTable";
+		}
+		List li = ser.find(chql, new Object[]{dateStart,dateEnd});
+		for (int i = 0; i < li.size(); i++) {
+			QuotaMan qman = new QuotaMan(0,0,0,0,0.0);
+			if(i==0){
+				qman.setQuantum(sdf.format(dateStart)+"<br/>至<br/>"+sdf.format(dateEnd));
+				qman.setWeekNum(Numbers);
+				qman.setLineNum(li.size());
+			}else{
+				qman.setQuantum(null);
+				qman.setWeekNum(null);
+			}
+			qman.setQmTable(li.get(i).toString());
+			String hql = "from QuotaMan where qmDate >= ? and qmDate <= ? and qmTable = ?";
+			List<QuotaMan> lqm = ser.find(hql, new Object[]{dateStart,dateEnd,li.get(i).toString()});
+			for (int j = 0; j < lqm.size(); j++) {
+				Users us = (Users) ser.get(Users.class, lqm.get(j).getUNum());
+				qman.setuName(us.getUName());
+				qman.setQmTypeZc(lqm.get(j).getQmTypeZc()+qman.getQmTypeZc());
+				qman.setQmTypeWh(lqm.get(j).getQmTypeWh()+qman.getQmTypeWh());
+				qman.setQmTypeZx(lqm.get(j).getQmTypeZx()+qman.getQmTypeZx());
+			}
+			qman.setCount(qman.getQmTypeZc()+qman.getQmTypeWh()+qman.getQmTypeZx());
+			qman.setProductivity(lqm.size()/5);
+			if(qman.getProductivity()>1){
+				qman.setProductivity(1.0);
+			}
+			qms.add(qman);
+		}
+		
+	}
+	
 	public String add() throws Exception {
 		
 		return gotoQuery();
