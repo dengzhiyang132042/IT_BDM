@@ -81,6 +81,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			$('#ff').submit();
 		}
 	}
+	function btn(){
+		var path ="<%=path %>/projectCount!queryOfFenye?cz=yes";
+		window.location.href=path;
+	}
 	</script>
   </head>
   
@@ -111,6 +115,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
    		</div>
    		<div  class="btn">
    			<input type="submit" value="查询" onclick="$('.kscx .inp form').submit();"/>
+   			<input type="button" value="开发效率表" onclick="btn()"/>
    		</div>
    		<div style="clear:both;"></div>
     </div>

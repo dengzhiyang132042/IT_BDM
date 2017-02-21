@@ -87,11 +87,11 @@ public class QuotaServiceImpl extends BaseService implements iQuotaService{
 				lqms.get(i).getQmTable().equals("IMO账号登记")||lqms.get(i).getQmTable().equals("邮箱账号登记")||
 				lqms.get(i).getQmTable().equals("公司电脑信息")||lqms.get(i).getQmTable().equals("骏达设备登记")||
 				lqms.get(i).getQmTable().equals("总部呼叫系统")||lqms.get(i).getQmTable().equals("网点呼叫系统")||
-				lqms.get(i).getQmTable().equals("oa账号登记")||lqms.get(i).getQmTable().equals("打印机登记")||
+				lqms.get(i).getQmTable().equals("OA账号登记")||lqms.get(i).getQmTable().equals("打印机登记")||
 				lqms.get(i).getQmTable().equals("公司wifi管理")||lqms.get(i).getQmTable().equals("电话线分布")||
 				lqms.get(i).getQmTable().equals("设备维修登记")){
 				ywz.setQgTypeZc(lqms.get(i).getQmTypeZc()+ywz.getQgTypeZc());
-				ywz.setQgTypeWh(lqms.get(i).getQmTypeZc()+ywz.getQgTypeWh());
+				ywz.setQgTypeWh(lqms.get(i).getQmTypeWh()+ywz.getQgTypeWh());
 				ywz.setQgTypeZx(lqms.get(i).getQmTypeZx()+ywz.getQgTypeZx());
 			}
 			if(lqms.get(i).getQmTable().equals("操作设备巡检")||lqms.get(i).getQmTable().equals("监控设备巡检")||
@@ -124,6 +124,7 @@ public class QuotaServiceImpl extends BaseService implements iQuotaService{
 		xtz.setQgCount(xtz.getQgTypeZc()+xtz.getQgTypeWh()+xtz.getQgTypeZx());
 		ywz.setQgCount(ywz.getQgTypeZc()+ywz.getQgTypeWh()+ywz.getQgTypeZx());
 		whz.setQgCount(whz.getQgTypeZc()+whz.getQgTypeWh()+whz.getQgTypeZx());
+		
 		
 		tmpQms.add(xtz);
 		tmpQms.add(ywz);

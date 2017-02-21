@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.sql.Timestamp;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -363,10 +364,9 @@ public class ProjectAction extends MyBaseAction implements IMyBaseAction{
 			up.setUNum(u.getUNum());
 			ser.update(up);
 			getRequest().setAttribute("p", up);
-			
 			//更新效率表
 			List<XtDevelopEfficiency> xdes  =ser.find("from XtDevelopEfficiency where EMonth=?", new Object[]{up.getPDate()});
-			if(xdes!=null){
+			if(xdes!=null&&xdes.size()>0){
 				ser.delete(xdes.get(0));		
 			}
 			List<XtProject> pros=ser.find("from XtProject where PDate=?", new Object[]{up.getPDate()});

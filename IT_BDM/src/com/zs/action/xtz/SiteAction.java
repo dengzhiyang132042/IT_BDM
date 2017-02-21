@@ -12,6 +12,8 @@ import java.util.List;
 
 import javax.xml.registry.infomodel.User;
 
+import net.sf.json.JSONObject;
+
 import org.apache.log4j.Logger;
 
 import com.zs.action.MyBaseAction;

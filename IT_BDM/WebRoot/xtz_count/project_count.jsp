@@ -53,7 +53,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		}
 		$('#f1').submit();
 	}
-	
+	function btn(){
+		var path ="<%=path %>/project!queryOfFenye?cz=yes";
+		window.location.href=path;
+	}
 	</script>
 	
   </head>
@@ -61,17 +64,24 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <body>
     
     <div class="easyui-panel" title="系统开发统计" style="padding: 5px;display: none;" data-options="tools:'#tt'">
-    
-    <div style="background-color:white;margin-bottom: 5px;padding: 5px;border: 1px solid #224466; ">
-    	快速查询
-    	<br/>
-    	<form action="<%=path %>/projectCount!queryOfFenye" method="post">
-    		编号:<input name="id" type="text" value="${id }"/>
-    		&nbsp;&nbsp;&nbsp;&nbsp;
-    		年份：<input name="year" type="number" value="${year }"/>
-    		<br/>
-    		<input type="submit" value="查询"/>
-    	</form>	
+    <div class="kscx">
+   		<div class="inp">
+	    	<form id="ks" action="<%=path %>/projectCount!queryOfFenye" method="post">
+	    		<div>
+		    		<div>
+			    		编号：<input name="id" type="text" value="${id }"/>
+		    		</div>
+	    			<div>
+	    				年份：<input name="year" type="number" value="${year }"/>
+	    			</div>
+	    		</div>
+	    	</form>
+   		</div>
+   		<div  class="btn">
+   			<input type="submit" value="查询" onclick="$('.kscx .inp form').submit();"/>
+   			<input type="button" value="开发登记" onclick="btn()"/>
+   		</div>
+   		<div style="clear:both;"></div>
     </div>
     
     <div style="margin-bottom: 5px;">
