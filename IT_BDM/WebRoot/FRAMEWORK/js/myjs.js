@@ -44,10 +44,19 @@ function save() {
 	  	return true;
 	  }
 }
+function dateTypeChange(date){
+	year = date.getFullYear();
+	month = date.getMonth()+1;
+	day = date.getDate();
+	var ds = year+"-"+month+"-"+day;
+	return ds;
+}
+
 $(function(){
 	$("input[readonly]").each(function(){
 		$(this).addClass("read_only");
 	});
+	
 });
 
 

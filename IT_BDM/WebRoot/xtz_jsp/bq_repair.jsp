@@ -37,6 +37,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		$("#sele option[value='"+${page.size}+"']").attr("selected",true);
 		$("#eidtASubjectWindow1").show();
 		$('#tt').show();
+		var date = new Date(new Date().getTime() - 604800000);
+		var ds =dateTypeChange(date);
+		$('#d4311').val(ds);
+		var date2 = new Date();
+		var de =dateTypeChange(date2);
+		$('#d4312').val(de);
 	});
 	
 	function update(u1,u2,u3,u4,u5,u6,u7,u8,u9,u10){
@@ -86,10 +92,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    	<form id="ks" action="<%=path %>/bqrepair!queryOfFenye" method="post">
 	    		<div>
 		    		<div>
-			    		变更开始日期：<input name="dates" id="d4311" class="Wdate" type="text" onFocus="WdatePicker({maxDate:'#F{$dp.$D(\'d4312\')}'})" value="${dates }"/>
+			    		变更开始日期：<input name="dates" id="d4311" class="Wdate" type="text" onFocus="WdatePicker({maxDate:'#F{$dp.$D(\'d4312\')}'})" />
 		    		</div>
 		    		<div>
-		    			变更结束日期：<input name="datee" id="d4312" class="Wdate" type="text" onFocus="WdatePicker({minDate:'#F{$dp.$D(\'d4311\')}'})" value="${datee }"/>
+		    			变更结束日期：<input name="datee" id="d4312" class="Wdate" type="text" onFocus="WdatePicker({minDate:'#F{$dp.$D(\'d4311\')}'})"/>
 		    		</div>
 	    		</div>
 	    		<div>

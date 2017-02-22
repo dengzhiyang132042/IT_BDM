@@ -137,7 +137,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				    		<c:if test="${timeType=='Y'}">年</c:if>
 				    		数</th>
 				    	<th>组别</th>
-				    	<th>负责主管</th>
+				    	<th>组负责人</th>
 				    	<th>注册</th>
 				    	<th>维护</th>
 				    	<th>注销</th>
