@@ -148,7 +148,14 @@ public class QuotaGroupWeekAction extends MyBaseAction implements IMyBaseAction{
 		qgds= new ArrayList<QuotaGroup>();
 		//判断它属于哪一周
 		if (timeType.equals("W")) {
-			int weeknum =(int)((le.getQgDate().getTime()-ls.getQgDate().getTime())/(1000*60*60*24))/7;
+			int weeknum = 0 ;
+			try {
+				List lse =  WeekDateArea.weekdate(sdf.format(ls.getQgDate()), sdf.format(le.getQgDate()));
+				sdf.parse(lse.get(0).toString()).getTime();
+				weeknum =(int)((sdf.parse(lse.get(0).toString())).getTime()-(sdf.parse(lse.get(1).toString())).getTime())/(1000*60*60*24*7);
+			} catch (ParseException e) {
+				System.out.println("周数据统计按人时间转换错误");
+			}
 			for (int i = 0; i <= weeknum; i++) {
 				Date date = new Date(le.getQgDate().getYear(),le.getQgDate().getMonth(),le.getQgDate().getDate()-(7*i));
 				Date dateStart= ser.weekDate(date).get(ser.KEY_DATE_START);
@@ -206,9 +213,21 @@ public class QuotaGroupWeekAction extends MyBaseAction implements IMyBaseAction{
 				qg.setQgTypeZc(lqg.get(j).getQgTypeZc()+qg.getQgTypeZc());
 				qg.setQgTypeWh(lqg.get(j).getQgTypeWh()+qg.getQgTypeWh());
 				qg.setQgTypeZx(lqg.get(j).getQgTypeZx()+qg.getQgTypeZx());
+//				System.out.println(lqg.get(j).getQgProductivity()+"原");
+				qg.setQgProductivity(lqg.get(j).getQgProductivity()+qg.getQgProductivity());
+//				System.out.println(qg.getQgProductivity()+"计算后");
 			}
 			qg.setQgCount(qg.getQgTypeZc()+qg.getQgTypeWh()+qg.getQgTypeZx());
 			//录入率暂时没计算方法
+//			System.out.println("------>>>");
+//			System.out.println(qg.getQgProductivity());
+			qg.setQgProductivity(qg.getQgProductivity()/5);
+//			System.out.println("-------------result-----------");
+//			System.out.println(qg.getQgProductivity());
+//			System.out.println("+++++++++++++++++++++++++++++++");
+			if(qg.getQgProductivity()>100){
+				qg.setQgProductivity(100.00);
+			}
 			qgds.add(qg);
 		}
 		

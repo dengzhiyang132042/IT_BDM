@@ -175,7 +175,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					    	<td>${qd.qgTypeWh }</td>
 					    	<td>${qd.qgTypeZx }</td>
 					    	<td>${qd.qgCount }</td>
-					    	<td>${qd.qgProductivity }</td>
+					    	<td>${qd.qgProductivity }%</td>
 					    	<td>
 					    		<a onclick="queryDetails('${qd.qgId}')" class="easyui-linkbutton" title="查看详情">查看详情</a>
 					    	</td>

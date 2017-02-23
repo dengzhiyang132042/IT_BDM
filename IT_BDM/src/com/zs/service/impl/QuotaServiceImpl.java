@@ -71,6 +71,9 @@ public class QuotaServiceImpl extends BaseService implements iQuotaService{
 		String hql1="from QuotaMan where qmDate = '"+date+"'";
 		List<QuotaMan> lqms = find(hql1, null);
 		//计算所属分组，并进行合计
+		int xtnum = 0;
+		int ywnum = 0;
+		int whnum = 0;
 		for (int i = 0; i < lqms.size(); i++) {
 			if(lqms.get(i).getQmTable().equals("站点资料登记")||lqms.get(i).getQmTable().equals("二级站点登记")||
 				lqms.get(i).getQmTable().equals("哲盟职能用户")||lqms.get(i).getQmTable().equals("哲盟数据检查")||
@@ -80,6 +83,7 @@ public class QuotaServiceImpl extends BaseService implements iQuotaService{
 				xtz.setQgTypeZc(lqms.get(i).getQmTypeZc()+xtz.getQgTypeZc());
 				xtz.setQgTypeWh(lqms.get(i).getQmTypeWh()+xtz.getQgTypeWh());
 				xtz.setQgTypeZx(lqms.get(i).getQmTypeZx()+xtz.getQgTypeZx());
+				xtnum++;
 			}
 			if(lqms.get(i).getQmTable().equals("ADSL宽带登记")||lqms.get(i).getQmTable().equals("监控信息登记")||
 				lqms.get(i).getQmTable().equals("监控材料清单")||lqms.get(i).getQmTable().equals("SIM费用报销")||
@@ -93,6 +97,7 @@ public class QuotaServiceImpl extends BaseService implements iQuotaService{
 				ywz.setQgTypeZc(lqms.get(i).getQmTypeZc()+ywz.getQgTypeZc());
 				ywz.setQgTypeWh(lqms.get(i).getQmTypeWh()+ywz.getQgTypeWh());
 				ywz.setQgTypeZx(lqms.get(i).getQmTypeZx()+ywz.getQgTypeZx());
+				ywnum++;
 			}
 			if(lqms.get(i).getQmTable().equals("操作设备巡检")||lqms.get(i).getQmTable().equals("监控设备巡检")||
 				lqms.get(i).getQmTable().equals("观澜3楼巡检")||lqms.get(i).getQmTable().equals("新仓仓库巡检")||
@@ -100,6 +105,7 @@ public class QuotaServiceImpl extends BaseService implements iQuotaService{
 				whz.setQgTypeZc(lqms.get(i).getQmTypeZc()+whz.getQgTypeZc());
 				whz.setQgTypeWh(lqms.get(i).getQmTypeWh()+whz.getQgTypeWh());
 				whz.setQgTypeZx(lqms.get(i).getQmTypeZx()+whz.getQgTypeZx());
+				whnum++;
 			}
 		}
 		//添加组信息
@@ -125,6 +131,17 @@ public class QuotaServiceImpl extends BaseService implements iQuotaService{
 		ywz.setQgCount(ywz.getQgTypeZc()+ywz.getQgTypeWh()+ywz.getQgTypeZx());
 		whz.setQgCount(whz.getQgTypeZc()+whz.getQgTypeWh()+whz.getQgTypeZx());
 		
+//		System.out.println((double)xtnum/8*100);
+//		System.out.println((double)ywnum/16*100);
+//		System.out.println((double)xtnum/6*100);
+		
+		xtz.setQgProductivity((double)xtnum/8*100);
+		ywz.setQgProductivity((double)ywnum/16*100);
+		whz.setQgProductivity((double)whnum/6*100);
+//		System.out.println(xtz.getQgProductivity());
+//		System.out.println(ywz.getQgProductivity());
+//		System.out.println(whz.getQgProductivity());
+//		System.out.println("----->");
 		
 		tmpQms.add(xtz);
 		tmpQms.add(ywz);

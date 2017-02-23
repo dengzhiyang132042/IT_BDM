@@ -180,7 +180,14 @@ public class QuotaManWeekAction extends MyBaseAction implements IMyBaseAction{
 		qms= new ArrayList<QuotaMan>();
 		//判断它属于哪一周
 		if (timeType.equals("W")) {
-			int weeknum =(int)((le.getQmDate().getTime()-ls.getQmDate().getTime())/(1000*60*60*24))/7;
+			int weeknum = 0 ;
+			try {
+				List lse =  WeekDateArea.weekdate(sdf.format(ls.getQmDate()), sdf.format(le.getQmDate()));
+				sdf.parse(lse.get(0).toString()).getTime();
+				weeknum =(int)((sdf.parse(lse.get(0).toString())).getTime()-(sdf.parse(lse.get(1).toString())).getTime())/(1000*60*60*24*7);
+			} catch (ParseException e) {
+				System.out.println("周数据统计按人时间转换错误");
+			}
 			for (int i = 0; i <= weeknum; i++) {
 				Date date = new Date(le.getQmDate().getYear(),le.getQmDate().getMonth(),le.getQmDate().getDate()-(7*i));
 				Date dateStart= ser.weekDate(date).get(ser.KEY_DATE_START);
@@ -254,7 +261,7 @@ public class QuotaManWeekAction extends MyBaseAction implements IMyBaseAction{
 				qman.setQmTypeZx(lqm.get(j).getQmTypeZx()+qman.getQmTypeZx());
 			}
 			qman.setCount(qman.getQmTypeZc()+qman.getQmTypeWh()+qman.getQmTypeZx());
-			qman.setProductivity(lqm.size()/5);
+			qman.setProductivity((double)lqm.size()/5);
 			if(qman.getProductivity()>1){
 				qman.setProductivity(1.0);
 			}
