@@ -75,7 +75,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		"<tr><td style=\"width:90px;\">编号：</td><td>"+${json}[status].demand.DId+"</td></tr>"+
 		"<tr><td>发起人：</td><td>"+${json}[status].demand.DApplicant+"</td></tr>"+
 		"<tr><td>故障描述：</td><td>"+${json}[status].demand.DContent+"</td></tr>"+
-		"<tr><td>故障处理组：</td><td>"+${json}[status].demand.DType+"</td></tr>"+
+		"<tr><td>故障类型：</td><td>"+${json}[status].demand.DType+"</td></tr>"+
 		"<tr><td>创建时间：</td><td>"+${json}[status].demand.DTimeString+"</td></tr>"+
 		"<tr><td>超时时间：</td><td>"+${json}[status].demand.DTimeExpectString+"</td></tr>";
 		table1=table1+"</table>";
@@ -110,19 +110,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	
 		if($("#"+u7).val()=="notComplete"){
 			$('#uc_11').val(u1);
-			var span="<span style=\"font-size:15px;font-weight:bold;\">备注:</span>";
-			span=span +"<textarea name=\"p.PNote\" type=\"textarea\" style=\"width:100%;height:100px;\" />";
-			span=span+"<input id=\"uc_2\" name=\"p.PState\" type=\"text\" style=\"display:none;\" value=\"未完成\"/>";
-			$("#not_success").html(span);
 			$("#c1").window('open');
 		}
 		
 		if($("#"+u7).val()=="complete"){
 			$('#uc_1').val(u1);
-			var span1="<span style=\"font-size:15px;font-weight:bold;\">备注:</span>";
-			span1=span1+"<textarea name=\"p.PNote\" type=\"textarea\" style=\"width:100%;height:100px;\" />";
-			span1=span1+"<input id=\"uc_2\" name=\"p.PState\" type=\"text\" style=\"display:none;\" value=\"已完成\"/>";
-			$("#success").html(span1);
+			$("#sel_type option[value='"+u4+"']").attr("selected",true);
 			$("#c").window('open');
 		}
 	}
@@ -152,15 +145,50 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				    		编号:<input name="id" type="text" value="${id }"/>
 			    		</div>
 		    			<div>
-		    				故障处理组：
+		    				故障类型:
 		    				<select id="type_sel" name="type">
 				    			<option value="">--请选择组--</option>
-								<option value="桌面组">桌面组</option>
-								<option value="开发组">开发组</option>
-								<option value="维护组">维护组</option>
-								<option value="系统组">系统组</option>
-								<option value="硬件组">硬件组</option>
-								<option value="其他">其他</option>		
+								<optgroup label="网络电脑类">
+								  	<option value ="网络">网络</option>
+								    <option value ="电脑-硬件">电脑-硬件</option>
+								    <option value ="电脑-系统">电脑-系统</option>
+								  </optgroup>
+								  <optgroup label="设备-监控">
+								  	<option value ="服务器">服务器</option>
+								  	<option value ="机房辅助设备">机房辅助设备</option>
+								  	<option value ="监控-硬件 ">监控-硬件 </option>
+								  	<option value ="监控-系统">监控-系统</option>
+								  	<option value ="监控-网络">监控-网络</option>
+								  	<option value ="操作设备-巴枪">操作设备-巴枪 </option>
+								  	<option value ="操作设备-电子秤">操作设备-电子秤</option>
+								  	<option value ="二维码打印机">二维码打印机 </option>
+								  </optgroup>
+								  <optgroup label="周边设备">
+								    <option value ="周边设备-打印机">周边设备-打印机</option>
+								    <option value ="周边设备-扫描仪">周边设备-扫描仪</option>
+								    <option value ="周边设备-投影仪">周边设备-投影仪</option>
+								    <option value ="周边设备-交换机">周边设备-交换机</option>
+								    <option value ="周边设备-无线">周边设备-无线 </option>
+								    <option value ="周边设备-电话机">周边设备-电话机</option>
+								  </optgroup>
+								  <optgroup label="应用系统">
+								  	<option value ="应用系统-OA">应用系统-OA</option>
+								  	<option value ="应用系统-E7">应用系统-E7</option>
+								  	<option value ="应用系统-K3">应用系统-K3</option>
+								  	<option value ="应用系统-钉钉">应用系统-钉钉</option>
+								  	<option value ="应用系统-邮箱">应用系统-邮箱</option>
+								  	<option value ="应用系统-呼叫系统">应用系统-呼叫系统</option>
+								  	<option value ="应用系统-短信平台">应用系统-短信平台</option>
+								  </optgroup>
+								  <optgroup label="韵达-哲盟">
+								  	<option value ="哲盟-故障">哲盟-故障</option>
+								  	<option value ="哲盟-数据检查及维护">哲盟-数据检查及维护</option>
+								  	<option value ="韵达系统-VPN">韵达系统-VPN</option>
+								  	<option value ="韵达系统-企业微信">韵达系统-企业微信</option>
+								  	<option value ="韵达系统-北斗">韵达系统-北斗</option>
+								  	<option value ="韵达系统-网点客户端">韵达系统-网点客户端</option>
+								  	<option value ="韵达系统-二维码客户端">韵达系统-二维码客户端</option>
+								  </optgroup>	
 							</select>
 		    			</div>
 		    		</div>
@@ -178,7 +206,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		    	<th width="150">编号</th>
 		    	<th width="150">发起人</th>
 		    	<th width="300">故障描述</th>
-		    	<th width="90">故障处理组</th>
+		    	<th width="90">故障类型</th>
 		    	<th>创建时间</th>
 		    	<th>当前处理人</th>
 		    	<th>超时时间</th>
@@ -261,7 +289,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				</td>
 			</tr>
 			<tr>
-				<td>故障处理组：</td>
+				<td>故障类型：</td>
 				<td>
 					<input id="u_4" name="d.DContent" type="text" style="width: 100%;" readonly="readonly"/>
 				</td>
@@ -308,15 +336,90 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<div id="q" class="easyui-window" title="查看详情" data-options="modal:true,closed:true" style="width:500px;height:auto;display: none;padding:10px;top:210px;">
 		
 	</div>
-	<div id="c" class="easyui-window" title="提示窗口" data-options="modal:true,closed:true"  style="width:300px;height:auto;display: none;padding: 10px;">
+	<div id="c" class="easyui-window" title="提示窗口" data-options="modal:true,closed:true"  style="width:400px;height:auto;display: none;padding: 10px;">
 		<form action="<%=path %>/handle!update" method="post">
 			<input id="uc_1" name="d.DId" type="text" style="display: none;" />
-			<div id="success">
-			</div>
+			<table>
+				<tr>
+					<td width="60">故障类型:</td>
+					<td style="text-align:left;">
+						<select id="sel_type" name="d.DType">
+						  <optgroup label="网络电脑类">
+						  	<option value ="网络">网络</option>
+						    <option value ="电脑-硬件">电脑-硬件</option>
+						    <option value ="电脑-系统">电脑-系统</option>
+						  </optgroup>
+						  <optgroup label="设备-监控">
+						  	<option value ="服务器">服务器</option>
+						  	<option value ="机房辅助设备">机房辅助设备</option>
+						  	<option value ="监控-硬件 ">监控-硬件 </option>
+						  	<option value ="监控-系统">监控-系统</option>
+						  	<option value ="监控-网络">监控-网络</option>
+						  	<option value ="操作设备-巴枪">操作设备-巴枪 </option>
+						  	<option value ="操作设备-电子秤">操作设备-电子秤</option>
+						  	<option value ="二维码打印机">二维码打印机 </option>
+						  </optgroup>
+						  <optgroup label="周边设备">
+						    <option value ="周边设备-打印机">周边设备-打印机</option>
+						    <option value ="周边设备-扫描仪">周边设备-扫描仪</option>
+						    <option value ="周边设备-投影仪">周边设备-投影仪</option>
+						    <option value ="周边设备-交换机">周边设备-交换机</option>
+						    <option value ="周边设备-无线">周边设备-无线 </option>
+						    <option value ="周边设备-电话机">周边设备-电话机</option>
+						  </optgroup>
+						  <optgroup label="应用系统">
+						  	<option value ="应用系统-OA">应用系统-OA</option>
+						  	<option value ="应用系统-E7">应用系统-E7</option>
+						  	<option value ="应用系统-K3">应用系统-K3</option>
+						  	<option value ="应用系统-钉钉">应用系统-钉钉</option>
+						  	<option value ="应用系统-邮箱">应用系统-邮箱</option>
+						  	<option value ="应用系统-呼叫系统">应用系统-呼叫系统</option>
+						  	<option value ="应用系统-短信平台">应用系统-短信平台</option>
+						  </optgroup>
+						  <optgroup label="韵达-哲盟">
+						  	<option value ="哲盟-故障">哲盟-故障</option>
+						  	<option value ="哲盟-数据检查及维护">哲盟-数据检查及维护</option>
+						  	<option value ="韵达系统-VPN">韵达系统-VPN</option>
+						  	<option value ="韵达系统-企业微信">韵达系统-企业微信</option>
+						  	<option value ="韵达系统-北斗">韵达系统-北斗</option>
+						  	<option value ="韵达系统-网点客户端">韵达系统-网点客户端</option>
+						  	<option value ="韵达系统-二维码客户端">韵达系统-二维码客户端</option>
+						  </optgroup>
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						故障原因:
+					</td>
+					<td>
+						<textarea name="p.PReason" style="width:100%;height:80px;"></textarea>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						处理描述:
+					</td>
+					<td>
+						<textarea name="p.PDesc" style="width:100%;height:80px;"></textarea>
+					</td>
+				</tr>
+				<!-- 
+				<tr>
+					<td style="text-align:right;">
+						备注:&nbsp;
+					</td>
+					<td>
+						<textarea name="p.PNote" style="width:100%;height:60px;"></textarea>
+					</td>
+				</tr>
+				-->
+			</table>
+						<input id="uc_2" name="p.PState" type="text" style="display:none;" value="已完成"/>
 			<br/>
 			<center>
-				<input  type="submit" style="width:80px;height:30px;font-size:15px;" value="确 定" onclick="return show_hint(['c'])"/>
-				<input type="button" style="width:80px;height:30px;font-size:15px;margin-left: 30px;" value="取 消" onclick="Texit()"/>
+				<input  type="submit" style="width:60px;height:25px;font-size:14px;" value="确 定" onclick="return show_hint(['c'])"/>
+				<input type="button" style="width:60px;height:25px;font-size:14px;margin-left: 30px;" value="取 消" onclick="Texit()"/>
 			</center>
 		</form>
 	</div>
@@ -324,6 +427,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<form action="<%=path %>/handle!update" method="post">
 			<input id="uc_11" name="d.DId" type="text" style="display: none;" />
 			<div id="not_success">
+				<span style="font-size:15px;font-weight:bold;">备注:</span>
+				<textarea name="p.PNote" style="width:100%;height:100px;"></textarea>
+				<input id="uc_2" name="p.PState" type="text" style="display:none;" value="已完成"/>
 			</div>
 			<br/>
 			<center>

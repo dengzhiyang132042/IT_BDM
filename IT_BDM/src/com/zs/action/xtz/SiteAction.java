@@ -274,7 +274,6 @@ public class SiteAction extends MyBaseAction{
 			Date date=new Date();
 			Calendar ca = Calendar.getInstance();//创建一个日期实例
 			ca.setTime(date);//实例化一个日期
-			site.setSStartDate(new Timestamp(date.getTime()));
 			site.setSMaintainDate(new Timestamp(date.getTime()));
 			site.setSMaintainCycle(ca.get(Calendar.WEEK_OF_YEAR));
 			if (users!=null) {

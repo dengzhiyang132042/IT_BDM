@@ -1,5 +1,6 @@
 <%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
 <%@page import="com.zs.tools.Constant"%>
+<%@page import="java.text.SimpleDateFormat"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%
@@ -303,6 +304,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<div id="a" class="easyui-window" title="添加" data-options="modal:true,closed:true" style="width:400px;height:auto;padding:10px;display: none;">
 		<form action="<%=path %>/site!add" method="post">
 		<table border="0" class="table1">
+			<tr>
+				<td>开通时间：</td>
+				<td>
+					<input name="site.SStartDate" type="text" style="width: 100%;" onfocus="WdatePicker({readOnly:true,dateFmt:'yyyy-MM-dd'})" class="Wdate" value="<%=new SimpleDateFormat("yyyy-MM-dd").format(new Date())%>"/>
+				</td>
+			</tr>
 			<tr>
 				<td width="75">网点条码：</td>
 				<td>

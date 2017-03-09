@@ -36,12 +36,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		$("#sele option[value='"+${page.size}+"']").attr("selected",true);
 		$("#eidtASubjectWindow1").show();
 		$('#tt').show();
-		var date = new Date(new Date().getTime() - 604800000);
-		var ds =dateTypeChange(date);
-		$('#d4311').val(ds);
-		var date2 = new Date();
-		var de =dateTypeChange(date2);
-		$('#d4312').val(de);
 	});
 	
 	function update(u0,u1,u2,u3,u4,u5,u6,u7,u8,u9,u10,u11,u12,u13,u14,u15,u16,u17,u18,u19,u20,u21,u22,u23,u24,u25,u26,u27,u28,u29,u30,u31,u32,u33,u34,u35,u36,u37,u38,u39,u40,u41,u42,u43,u44,u45,u46,u47,u48,u49){
@@ -126,10 +120,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    	<form id="ks" action="<%=path %>/outRegister!queryOfFenye" method="post">
 	    		<div>
 		    		<div>
-			    		登记开始日期：<input name="dates" id="d4311" class="Wdate" type="text" onFocus="WdatePicker({maxDate:'#F{$dp.$D(\'d4312\')}'})" />
+			    		登记开始日期：<input name="dates" id="d4311" class="Wdate" type="text" onFocus="WdatePicker({maxDate:'#F{$dp.$D(\'d4312\')}'})" value="${dates }"/>
 		    		</div>
 		    		<div>
-		    			登记结束日期：<input name="datee" id="d4312" class="Wdate" type="text" onFocus="WdatePicker({minDate:'#F{$dp.$D(\'d4311\')}'})"/>
+		    			登记结束日期：<input name="datee" id="d4312" class="Wdate" type="text" onFocus="WdatePicker({minDate:'#F{$dp.$D(\'d4311\')}'})" value="${datee }"/>
 		    		</div>
 	    		</div>
 	    		<div>
@@ -204,7 +198,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<div class="easyui-panel" style="padding:5px;width: 100%;display: none;">
 		<form id="f1" action="<%=path %>/outRegister!queryOfFenye?id=${id }&fbdName=${fbdName }&area=${area }&itman=${itman }&dates=${dates }&datee=${datee }" method="post">
 		<select id="sele" style="float: left;margin-top: 3px;margin-left: 5px;" name="page.size" onchange="$('#f1').submit();">
-			<option value="5">5</option>
 			<option value="10">10</option>
 			<option value="15">15</option>
 		</select>
@@ -367,11 +360,5 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<div id="tt" style="display: none;">
 		<a class="icon-add" onclick="$('#a').window('open')" style="margin-left: 10px;" title="添加"></a>
 	</div>
-	
-	<script>
-		function doSearch(value){
-			$('#f2').submit();
-		}
-	</script>
   </body>
 </html>

@@ -78,18 +78,21 @@ String beforeTime= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Calendar.g
 		"<tr><td width='90'>编号：</td><td>"+${json}[status].demand.DId+"</td></tr>"+
 		"<tr><td>发起人：</td><td>"+${json}[status].demand.DApplicant+"</td></tr>"+
 		"<tr><td>故障描述：</td><td>"+${json}[status].demand.DContent+"</td></tr>"+
-		"<tr><td>故障处理组：</td><td>"+${json}[status].demand.DType+"</td></tr>"+
+		"<tr><td>故障类型：</td><td>"+${json}[status].demand.DType+"</td></tr>"+
 		"<tr><td>创建时间：</td><td>"+${json}[status].demand.DTimeString+"</td></tr>"+
 		"<tr><td>超时时间：</td><td>"+${json}[status].demand.DTimeExpectString+"</td></tr>";
 		table1=table1+"</table>";
 		table1=table1+"<table border=\"1\" style=\"font-size: 12px;margin-top: 10px;\">";
 		table1=table1+
-		"<tr><th width='50'>处理人</th><th width='52'>处理状态</th><th width='150'>最后处理时间</th><th width='52'>被转发人</th><th width='80'>备注</th></tr>";
+		"<tr><th width='50'>处理人</th><th width='52'>处理状态</th><th width='150'>最后处理时间</th><th width='80'>故障原因</th>";
+		table1=table1+"<th width='80'>处理描述</th><th width='52'>被转发人</th><th width='80'>备注</th></tr>";
 		for ( var i = 0; i < ${json}[status].performs.length; i++) {
 			table1=table1+"<tr>"+
 			"<td>"+${json}[status].performs[i].UName+"</td>"+
 			"<td>"+${json}[status].performs[i].PState+"</td>"+
 			"<td>"+${json}[status].performs[i].PTimeString+"</td>"+
+			"<td>"+${json}[status].performs[i].PReason+"</td>"+
+			"<td>"+${json}[status].performs[i].PDesc+"</td>"+
 			"<td>"+${json}[status].performs[i].UNameNext+"</td>"+
 			"<td>"+${json}[status].performs[i].PNote+"</td></tr>";
 		}
@@ -167,15 +170,50 @@ String beforeTime= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Calendar.g
 			    		编号:<input name="id" type="text" value="${id }"/>
 		    		</div>
 	    			<div>
-	    				故障处理组：
+	    				故障类型:
 	    				<select id="type_sel" name="type">
-			    			<option value="">--请选择组--</option>
-							<option value="桌面组">桌面组</option>
-							<option value="开发组">开发组</option>
-							<option value="维护组">维护组</option>
-							<option value="系统组">系统组</option>
-							<option value="硬件组">硬件组</option>
-							<option value="其他">其他</option>		
+						  <option value="">--请选择类型--</option>
+						  <optgroup label="网络电脑类">
+						  	<option value ="网络">网络</option>
+						    <option value ="电脑-硬件">电脑-硬件</option>
+						    <option value ="电脑-系统">电脑-系统</option>
+						  </optgroup>
+						  <optgroup label="设备-监控">
+						  	<option value ="服务器">服务器</option>
+						  	<option value ="机房辅助设备">机房辅助设备</option>
+						  	<option value ="监控-硬件 ">监控-硬件 </option>
+						  	<option value ="监控-系统">监控-系统</option>
+						  	<option value ="监控-网络">监控-网络</option>
+						  	<option value ="操作设备-巴枪">操作设备-巴枪 </option>
+						  	<option value ="操作设备-电子秤">操作设备-电子秤</option>
+						  	<option value ="二维码打印机">二维码打印机 </option>
+						  </optgroup>
+						  <optgroup label="周边设备">
+						    <option value ="周边设备-打印机">周边设备-打印机</option>
+						    <option value ="周边设备-扫描仪">周边设备-扫描仪</option>
+						    <option value ="周边设备-投影仪">周边设备-投影仪</option>
+						    <option value ="周边设备-交换机">周边设备-交换机</option>
+						    <option value ="周边设备-无线">周边设备-无线 </option>
+						    <option value ="周边设备-电话机">周边设备-电话机</option>
+						  </optgroup>
+						  <optgroup label="应用系统">
+						  	<option value ="应用系统-OA">应用系统-OA</option>
+						  	<option value ="应用系统-E7">应用系统-E7</option>
+						  	<option value ="应用系统-K3">应用系统-K3</option>
+						  	<option value ="应用系统-钉钉">应用系统-钉钉</option>
+						  	<option value ="应用系统-邮箱">应用系统-邮箱</option>
+						  	<option value ="应用系统-呼叫系统">应用系统-呼叫系统</option>
+						  	<option value ="应用系统-短信平台">应用系统-短信平台</option>
+						  </optgroup>
+						  <optgroup label="韵达-哲盟">
+						  	<option value ="哲盟-故障">哲盟-故障</option>
+						  	<option value ="哲盟-数据检查及维护">哲盟-数据检查及维护</option>
+						  	<option value ="韵达系统-VPN">韵达系统-VPN</option>
+						  	<option value ="韵达系统-企业微信">韵达系统-企业微信</option>
+						  	<option value ="韵达系统-北斗">韵达系统-北斗</option>
+						  	<option value ="韵达系统-网点客户端">韵达系统-网点客户端</option>
+						  	<option value ="韵达系统-二维码客户端">韵达系统-二维码客户端</option>
+						  </optgroup>
 						</select>
 	    			</div>
 	    		</div>
@@ -194,7 +232,7 @@ String beforeTime= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Calendar.g
 	    	<th width="150">编号</th>
 	    	<th width="150">发起人</th>
 	    	<th width="300">故障描述</th>
-	    	<th width="90">故障处理组</th>
+	    	<th width="90">故障类型</th>
 	    	<th>创建时间</th>
 	    	<th>当前处理人</th>
 	    	<th>超时时间</th>
@@ -318,7 +356,7 @@ String beforeTime= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Calendar.g
 	</div>
 	
 	   
-	<div id="q" class="easyui-window" title="查看详情" data-options="modal:true,closed:true" style="width:500px;height:auto;padding:10px;display: none;top:210px;">
+	<div id="q" class="easyui-window" title="查看详情" data-options="modal:true,closed:true" style="width:680px;height:auto;padding:10px;display: none;top:210px;">
 	</div>
 	
 	<div id="err" class="easyui-window" title="错误提示" data-options="modal:true,closed:true" style="width:300px;height:200px;padding:10px;display: none;">
@@ -340,15 +378,50 @@ String beforeTime= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Calendar.g
 				</td>
 			</tr>
 			<tr>
-				<td>故障处理组：</td>
+				<td>故障类型：</td>
 				<td>
 					<select name="d.DType">
-						<option value="桌面组">桌面组</option>
-						<option value="开发组">开发组</option>
-						<option value="维护组">维护组</option>
-						<option value="系统组">系统组</option>
-						<option value="硬件组">硬件组</option>
-						<option value="其他">其他</option>
+					  <optgroup label="网络电脑类">
+					  	<option value ="网络">网络</option>
+					    <option value ="电脑-硬件">电脑-硬件</option>
+					    <option value ="电脑-系统">电脑-系统</option>
+					  </optgroup>
+					  <optgroup label="设备-监控">
+					  	<option value ="服务器">服务器</option>
+					  	<option value ="机房辅助设备">机房辅助设备</option>
+					  	<option value ="监控-硬件 ">监控-硬件 </option>
+					  	<option value ="监控-系统">监控-系统</option>
+					  	<option value ="监控-网络">监控-网络</option>
+					  	<option value ="操作设备-巴枪">操作设备-巴枪 </option>
+					  	<option value ="操作设备-电子秤">操作设备-电子秤</option>
+					  	<option value ="二维码打印机">二维码打印机 </option>
+					  </optgroup>
+					  <optgroup label="周边设备">
+					    <option value ="周边设备-打印机">周边设备-打印机</option>
+					    <option value ="周边设备-扫描仪">周边设备-扫描仪</option>
+					    <option value ="周边设备-投影仪">周边设备-投影仪</option>
+					    <option value ="周边设备-交换机">周边设备-交换机</option>
+					    <option value ="周边设备-无线">周边设备-无线 </option>
+					    <option value ="周边设备-电话机">周边设备-电话机</option>
+					  </optgroup>
+					  <optgroup label="应用系统">
+					  	<option value ="应用系统-OA">应用系统-OA</option>
+					  	<option value ="应用系统-E7">应用系统-E7</option>
+					  	<option value ="应用系统-K3">应用系统-K3</option>
+					  	<option value ="应用系统-钉钉">应用系统-钉钉</option>
+					  	<option value ="应用系统-邮箱">应用系统-邮箱</option>
+					  	<option value ="应用系统-呼叫系统">应用系统-呼叫系统</option>
+					  	<option value ="应用系统-短信平台">应用系统-短信平台</option>
+					  </optgroup>
+					  <optgroup label="韵达-哲盟">
+					  	<option value ="哲盟-故障">哲盟-故障</option>
+					  	<option value ="哲盟-数据检查及维护">哲盟-数据检查及维护</option>
+					  	<option value ="韵达系统-VPN">韵达系统-VPN</option>
+					  	<option value ="韵达系统-企业微信">韵达系统-企业微信</option>
+					  	<option value ="韵达系统-北斗">韵达系统-北斗</option>
+					  	<option value ="韵达系统-网点客户端">韵达系统-网点客户端</option>
+					  	<option value ="韵达系统-二维码客户端">韵达系统-二维码客户端</option>
+					  </optgroup>
 					</select>
 				</td>
 			</tr>

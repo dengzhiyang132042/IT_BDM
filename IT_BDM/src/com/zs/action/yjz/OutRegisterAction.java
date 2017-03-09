@@ -152,7 +152,6 @@ public class OutRegisterAction extends MyBaseAction implements IMyBaseAction{
 		clearOptions();
 		String hql="from YjOut where OState = '有效' order by OCreateTime desc , ODjrq desc";
 		outs=ser.query(hql, null, hql, page, ser);
-		ser.receiveStructure(getRequest());
 		return result;
 	}
 	
@@ -182,7 +181,6 @@ public class OutRegisterAction extends MyBaseAction implements IMyBaseAction{
 		}
 		hql2 = hql2+" order by OCreateTime desc , ODjrq desc";
 		outs=ser.query(hql2, null, hql2, page, ser);
-		ser.receiveStructure(getRequest());
 		return result;
 	}
 	
