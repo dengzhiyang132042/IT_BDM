@@ -197,13 +197,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<tr>
 				<td>开始时间：</td>
 				<td>
-					<input id="u_2" name="h_time_s" type="text" style="width: 100%;" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm',maxDate:'#F{$dp.$D(\'u_4\')}'})" class="Wdate"/>
+					<input id="u_2" name="h_time_s" type="text" style="width: 100%;" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm',maxDate:'#F{$dp.$D(\'u_3\')}'})" class="Wdate"/>
 				</td>
 			</tr>
 			<tr>
 				<td>结束时间：</td>
 				<td>
-					<input id="u_3" name="h_time_e" type="text" style="width: 100%;" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm',minDate:'#F{$dp.$D(\'u_3\')}'})" class="Wdate"/>
+					<input id="u_3" name="h_time_e" type="text" style="width: 100%;" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm',minDate:'#F{$dp.$D(\'u_2\')}'})" class="Wdate"/>
 				</td>
 			</tr>
 			<tr>

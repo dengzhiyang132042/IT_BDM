@@ -35,7 +35,13 @@
      <result>/test.jsp</result>
   </action>
   
-  
+  <!-- ***************执照认证******************** -->
+   <action name="licence" class="hgh_licence">	
+  	 <!-- <interceptor-ref name="mydefault" />
+  	 -->
+     <result>/index.jsp</result>
+  </action>
+  <!-- *********************************** -->
   <action name="section" class="zs_section_yjz">	   
   	 <interceptor-ref name="mydefault" />
      <result>/index.jsp</result>

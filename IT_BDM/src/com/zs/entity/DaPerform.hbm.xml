@@ -28,5 +28,11 @@
         <property name="PNote" type="java.lang.String">
             <column name="p_note" />
         </property>
+        <property name="PReason" type="java.lang.String">
+            <column name="p_reason" />
+        </property>
+        <property name="PDesc" type="java.lang.String">
+            <column name="p_desc" />
+        </property>
     </class>
 </hibernate-mapping>

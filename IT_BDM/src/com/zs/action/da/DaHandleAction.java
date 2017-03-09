@@ -230,8 +230,8 @@ public class DaHandleAction extends MyBaseAction implements IMyBaseAction{
 	public String update() throws Exception {	
 		//邮件发送所需数据
 		DaPerform tmpper=null;
+		DaDemand ud=(DaDemand) ser.get(DaDemand.class, d.getDId());
 		if (d!=null && !"".equals(d.getDId())&& p.getPState().equals("转发")) {
-			d=(DaDemand) ser.get(DaDemand.class, d.getDId());
 			//找到当前执行表数据
 			List templi=ser.find("from DaPerform where DId=? order by PTime desc", new String[]{d.getDId()});
 			if (templi.size()>0) {
@@ -250,7 +250,11 @@ public class DaHandleAction extends MyBaseAction implements IMyBaseAction{
 				tmpper.setPTime(new Timestamp(new Date().getTime()));
 				tmpper.setPState(p.getPState());
 				tmpper.setPNote(p.getPNote());
+				tmpper.setPReason(p.getPReason());
+				tmpper.setPDesc(p.getPDesc());
 				ser.update(tmpper);
+				ud.setDType(d.getDType());
+				ser.update(ud);
 				getRequest().setAttribute("p", tmpper);
 			}
 		}else if(d!=null && !"".equals(d.getDId())&& p.getPState().equals("未完成")){
@@ -265,7 +269,7 @@ public class DaHandleAction extends MyBaseAction implements IMyBaseAction{
 				
 				//添加一个给主管发送邮件，并标明为什么未完成
 				//邮件模块需要带的数据
-				if(outMailFromUpdate(tmpper, d, getSer())==false){
+				if(outMailFromUpdate(tmpper, ud, getSer())==false){
 					//日后换成邮件错误界面
 					getResponse().getWriter().write("邮件发送错误!请手动发送邮件");
 					logger.error("邮件发送错误!请手动发送邮件,错误单号"+d.getDId());

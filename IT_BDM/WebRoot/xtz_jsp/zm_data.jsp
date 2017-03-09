@@ -84,12 +84,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		}
 	}
 	function showDate(){   
-	   var today = new Date();   
-	   var day = today.getDate()-1;   
-	   var month = today.getMonth() + 1;   
-	   var year = today.getYear()+1900;    
-	   var date = year + "-" + month + "-" + day;   
-	   $('#serDate').val(date);  
+	   var date = new Date(new Date().getTime() - 86400000);
+	   var ds =dateTypeChange(date);
+	   $('#serDate').val(ds);  
 	   $('#a').window('open')
    } 
 	</script>

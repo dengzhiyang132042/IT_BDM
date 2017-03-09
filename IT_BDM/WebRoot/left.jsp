@@ -123,6 +123,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         		<li>
         			<span><a href="<%=path %>/quotaGroupWeek!queryOfFenye?cz=yes" target="right">周月年统计报表</a></span>
         		</li>
+        		<li>
+        			<span><a href="<%=path %>/licence!licence?u_num=yd-4221&p_id=2" target="right">接口测试</a></span>
+        		</li>
  <!--        		<li><span>系统组</span>
         			<ul>
 						<li><span><a href="<%=path %>/siteCount!queryOfFenye?cz=yes" target="right">站点资料登记</a></span></li>

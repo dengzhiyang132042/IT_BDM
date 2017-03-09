@@ -16,13 +16,14 @@ public class DaPerform implements java.io.Serializable {
 	private String PState;
 	private String UNumNext;
 	private String DId;
+	private String PNote;
+	private String PReason;
+	private String PDesc;
+
+	// Constructors
 	private String UName;
 	private String UNameNext;
-	private String PNote;
-	
 	private String PTimeString;
-	
-	// Constructors
 
 	public String getPTimeString() {
 		return PTimeString;
@@ -31,25 +32,10 @@ public class DaPerform implements java.io.Serializable {
 	public void setPTimeString(String pTimeString) {
 		PTimeString = pTimeString;
 	}
-
+	
+	
 	/** default constructor */
 	public DaPerform() {
-	}
-
-	public String getUName() {
-		return UName;
-	}
-
-	public void setUName(String uName) {
-		UName = uName;
-	}
-
-	public String getUNameNext() {
-		return UNameNext;
-	}
-
-	public void setUNameNext(String uNameNext) {
-		UNameNext = uNameNext;
 	}
 
 	/** minimal constructor */
@@ -59,7 +45,8 @@ public class DaPerform implements java.io.Serializable {
 
 	/** full constructor */
 	public DaPerform(String PId, String UNum, Timestamp PTime, String PState,
-			String UNumNext, String DId ,String PNote) {
+			String UNumNext, String DId, String PNote, String PReason,
+			String PDesc) {
 		this.PId = PId;
 		this.UNum = UNum;
 		this.PTime = PTime;
@@ -67,20 +54,14 @@ public class DaPerform implements java.io.Serializable {
 		this.UNumNext = UNumNext;
 		this.DId = DId;
 		this.PNote = PNote;
+		this.PReason = PReason;
+		this.PDesc = PDesc;
 	}
 
 	// Property accessors
 
 	public String getPId() {
 		return this.PId;
-	}
-
-	public String getPNote() {
-		return PNote;
-	}
-
-	public void setPNote(String pNote) {
-		PNote = pNote;
 	}
 
 	public void setPId(String PId) {
@@ -125,6 +106,46 @@ public class DaPerform implements java.io.Serializable {
 
 	public void setDId(String DId) {
 		this.DId = DId;
+	}
+
+	public String getPNote() {
+		return this.PNote;
+	}
+
+	public void setPNote(String PNote) {
+		this.PNote = PNote;
+	}
+
+	public String getPReason() {
+		return this.PReason;
+	}
+
+	public void setPReason(String PReason) {
+		this.PReason = PReason;
+	}
+
+	public String getPDesc() {
+		return this.PDesc;
+	}
+
+	public void setPDesc(String PDesc) {
+		this.PDesc = PDesc;
+	}
+
+	public String getUName() {
+		return UName;
+	}
+
+	public void setUName(String uName) {
+		UName = uName;
+	}
+
+	public String getUNameNext() {
+		return UNameNext;
+	}
+
+	public void setUNameNext(String uNameNext) {
+		UNameNext = uNameNext;
 	}
 
 }
