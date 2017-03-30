@@ -11,7 +11,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <head>
     <base href="<%=basePath%>">
     
-    <title>故障统计</title>
+    <title>故障按组统计</title>
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
 	<meta http-equiv="expires" content="0">    
@@ -59,6 +59,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		$("#q").html(table1);
 		$("#q").window('open');
 	}
+	function forward() {
+		$("#u").window('open');
+	}
 	function changeDate(){
 		if($('#sel_dt').val()=='D' || $('#sel_dt').val()=='W'){
 			var date1 ="开始日期：<input name=\"dates\" id=\"d4311\" class=\"Wdate\" type=\"text\" onFocus=\"WdatePicker({maxDate:'#F{$dp.$D(\\'d4312\\')}'})\" value=\"${dates }\"/>";
@@ -92,22 +95,23 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	  }
 	</style>
   </head>
-  
+  <%boolean isAddColor=false; %>
   <body>
  	
+ 	<div class="tab" style="float: left;" onmousemove="this.style.background='#FF0202';" onmouseout="this.style.background='#B00000';" onclick="window.location.href='<%=path %>/count!queryOfFenye'">客服统计</div>
+    <div class="tab" style="float: left;margin-left: 10px;" onmousemove="this.style.background='#FF0202';" onmouseout="this.style.background='#B00000';" onclick="window.location.href='<%=path %>/countZy!queryOfFenye?cz=yes'">专员统计</div>
+    <div class="tab" style="float: left;background-color: #FF0202;color: white;font-weight: ;margin-left: 10px;">类型统计</div>
+    <div class="tab" style="float: left;margin-left: 10px;" onmousemove="this.style.background='#FF0202';" onmouseout="this.style.background='#B00000';" onclick="window.location.href='<%=path %>/countArea!queryOfFenye?cz=yes'">区域统计</div>
  	
-    <div class="tab" style="float: left;background-color: #FF0202;color: white;font-weight: ;">客服统计</div>
- 	<div class="tab" style="float: left;margin-left: 10px;" onmousemove="this.style.background='#FF0202';" onmouseout="this.style.background='#B00000';" onclick="window.location.href='<%=path %>/countZy!queryOfFenye?cz=yes'">专员统计</div>
- 	<div class="tab" style="float: left;margin-left: 10px;" onmousemove="this.style.background='#FF0202';" onmouseout="this.style.background='#B00000';" onclick="window.location.href='<%=path %>/countGroup!queryOfFenye?cz=yes'">类型统计</div>
- 	<div class="tab" style="float: left;margin-left: 10px;" onmousemove="this.style.background='#FF0202';" onmouseout="this.style.background='#B00000';" onclick="window.location.href='<%=path %>/countArea!queryOfFenye?cz=yes'">区域统计</div>
+ 	
  	<br/>
  	<br/>
  	<br/>
- 	<div style="text-align: center;color: white;background-color:#17B4FF;padding: 5px;font-size: 14px;font-weight:bold;">客服统计</div>
+ 	<div style="text-align: center;color: white;background-color:#17B4FF;padding: 5px;font-size: 14px;font-weight:bold;">类型统计</div>
  	
  	<div class="kscx">
    		<div class="inp">
-	    	<form id="ks" action="<%=path %>/count!queryOfFenye" method="post">
+	    	<form id="ks" action="<%=path %>/countGroup!queryOfFenye" method="post">
 	    		<div>
 		    		<div id="datearea_1">
 			    		开始日期：<input name="dates" id="d4311" class="Wdate" type="text" onFocus="WdatePicker({maxDate:'#F{$dp.$D(\'d4312\')}'})" value="${dates }"/>
@@ -138,25 +142,34 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     </div>
  	
     
-    <div style="margin-bottom: 5px;">
-	</div>
-	    
-	    
-    <table border="1" style="width: 100%;">
+    <div style="margin-bottom: 5px;"></div>
+    
+    <table border="1">
 	    <tr>
 	    	<th>序号</th>
 	    	<th>开始时间</th>
 	    	<th>结束时间</th>
+	    	<th>故障类型</th>
 	    	<th>故障报修量</th>
 	    	<th>故障完成量</th>
 	    	<th>完成率</th>
 	    	<th>操作</th>
 	    </tr>
 	    <c:forEach items="${counts}" var="count" varStatus="status">
+	    <c:if test="${count.rows!=0}">
+    		<%isAddColor=!isAddColor; %>
+   		</c:if>
+	   	<%if(isAddColor){ %>
+	    <tr class="odd_even_tr">
+	    <%}else{ %>
 	    <tr>
-	    	<td>${status.index+1 }</td>
-	    	<td>${count.sTime }</td>
-	    	<td>${count.eTime }</td>
+	    <%} %>
+	    	<c:if test="${count.rows!=0}">
+		    	<td rowspan="${count.rows}">${count.orderNum }</td>
+		    	<td rowspan="${count.rows}">${count.sTime }</td>
+		    	<td rowspan="${count.rows}">${count.eTime }</td>
+	    	</c:if>
+	    	<td>${count.type }</td>
 	    	<td>${count.daAll }</td>
 	    	<td>${count.daSuc }</td>
 	    	<td>${count.ratioSuc }%</td>
@@ -173,5 +186,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	
 	
 	
+	
+	
+	<script>
+		function doSearch(value){
+			$('#f2').submit();
+		}
+	</script>
   </body>
 </html>

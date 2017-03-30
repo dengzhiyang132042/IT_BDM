@@ -77,6 +77,7 @@ String beforeTime= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Calendar.g
 		table1=table1+
 		"<tr><td width='90'>编号：</td><td>"+${json}[status].demand.DId+"</td></tr>"+
 		"<tr><td>发起人：</td><td>"+${json}[status].demand.DApplicant+"</td></tr>"+
+		"<tr><td>故障区域：</td><td>"+${json}[status].demand.area+"</td></tr>"+
 		"<tr><td>故障描述：</td><td>"+${json}[status].demand.DContent+"</td></tr>"+
 		"<tr><td>故障类型：</td><td>"+${json}[status].demand.DType+"</td></tr>"+
 		"<tr><td>创建时间：</td><td>"+${json}[status].demand.DTimeString+"</td></tr>"+
@@ -100,7 +101,7 @@ String beforeTime= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Calendar.g
 		$("#q").html(table1);
 		$("#q").window('open');
 	}
-	function forward(u1,u2,u3,u4,u5,u6,u7) {
+	function forward(u1,u2,u3,u4,u5,u6,u7,u8) {
 		if(u7=="进行中"){
 			$('#u').window('open');
 			$('#u_1').val(u1);
@@ -109,6 +110,7 @@ String beforeTime= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Calendar.g
 			$('#u_4').val(u4);
 			$('#u_5').val(u5);
 			$('#u_6').val(u6);
+			$('#u_7').val(u8);
 		}else{
 			var errcon="<div style="+"text-align:center;font-size:18px;padding-top:55px;font-family:微软雅黑"+">当前状态下不能执行此操作</div>";
 			$("#err").html(errcon);
@@ -214,6 +216,20 @@ String beforeTime= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Calendar.g
 						  	<option value ="韵达系统-网点客户端">韵达系统-网点客户端</option>
 						  	<option value ="韵达系统-二维码客户端">韵达系统-二维码客户端</option>
 						  </optgroup>
+						  <optgroup label="其他">
+						  	<option value ="其他">其他</option>
+						  </optgroup>
+						</select>
+	    			</div>
+	    		</div>
+	    		<div>
+	    			<div>
+	    				故障区域:
+	    				<select name="area" style="width:100px;">
+								<option value="">-请选择区域-</option>
+							<c:forEach items="${listArea}" var="la">
+								<option value="${la.id }">${la.name }</option>
+							</c:forEach>
 						</select>
 	    			</div>
 	    		</div>
@@ -231,8 +247,9 @@ String beforeTime= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Calendar.g
 	    <tr>
 	    	<th width="150">编号</th>
 	    	<th width="150">发起人</th>
-	    	<th width="300">故障描述</th>
+	    	<th width="90">故障区域</th>
 	    	<th width="90">故障类型</th>
+	    	<th width="250">故障描述</th>
 	    	<th>创建时间</th>
 	    	<th>当前处理人</th>
 	    	<th>超时时间</th>
@@ -243,14 +260,15 @@ String beforeTime= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Calendar.g
 	    <tr>
 	    	<td>${dp.demand.DId }</td>
 	    	<td>${dp.demand.DApplicant }</td>
-	    	<td>${dp.demand.DContent }</td>
+	    	<td>${dp.demand.area }</td>
 	    	<td>${dp.demand.DType }</td>
+	    	<td>${dp.demand.DContent }</td>
 	    	<td>${dp.demand.DTime }</td>
 	    	<td>${dp.performs[0].UName }</td>
 	    	<td>${dp.demand.DTimeExpect }</td>
 	    	<td>${dp.performs[0].PState }</td>
 	    	<td style="text-align: left;padding-left: 15px;">
-				<a onclick="forward('${dp.demand.DId }','${dp.demand.DApplicant }','${dp.demand.DContent }','${dp.demand.DType }','${dp.demand.DTime }','${dp.performs[0].UName }','${dp.performs[0].PState }')" class="easyui-linkbutton" title="转发" data-options="plain:true">转发</a>
+				<a onclick="forward('${dp.demand.DId }','${dp.demand.DApplicant }','${dp.demand.DContent }','${dp.demand.DType }','${dp.demand.DTime }','${dp.performs[0].UName }','${dp.performs[0].PState }','${dp.demand.area }')" class="easyui-linkbutton" title="转发" data-options="plain:true">转发</a>
 				<a onclick="queryDetails('${status.index}')" class="easyui-linkbutton" title="查看详情" data-options="plain:true">查看详情</a>
 				<c:if test="${dp.demand.outTime==1}">
 					<a class="easyui-linkbutton" href="<%=path %>/daManager!addTimeOut?timeId=${dp.demand.DId }" title="增加超时加一天" data-options="plain:true">加一天</a>
@@ -304,6 +322,12 @@ String beforeTime= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Calendar.g
 				<td>发起人：</td>
 				<td>
 					<input id="u_2" name="d.DApplicant" type="text" style="width: 100%;" readonly="readonly"/>
+				</td>
+			</tr>
+			<tr>
+				<td>故障区域：</td>
+				<td>
+					<input id="u_7" name="d.area" type="text" style="width: 100%;" readonly="readonly"/>
 				</td>
 			</tr>
 			<tr>
@@ -372,6 +396,16 @@ String beforeTime= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Calendar.g
 				</td>
 			</tr>
 			<tr>
+				<td>故障区域：</td>
+				<td>
+					<select name="d.areaId">
+						<c:forEach items="${listArea}" var="la">
+							<option value="${la.id }">${la.name }</option>
+						</c:forEach>
+					</select>
+				</td>
+			</tr>
+			<tr>
 				<td>故障描述：</td>
 				<td>
 					<input name="d.DContent" type="text" style="width: 100%;"/>
@@ -421,6 +455,9 @@ String beforeTime= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Calendar.g
 					  	<option value ="韵达系统-北斗">韵达系统-北斗</option>
 					  	<option value ="韵达系统-网点客户端">韵达系统-网点客户端</option>
 					  	<option value ="韵达系统-二维码客户端">韵达系统-二维码客户端</option>
+					  </optgroup>
+					  <optgroup label="其他">
+					  	<option value ="其他">其他</option>
 					  </optgroup>
 					</select>
 				</td>

@@ -25,7 +25,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<link rel="stylesheet" type="text/css" href="<%=path %>/FRAMEWORK/jquery-easyui/demo/demo.css">
 	<script type="text/javascript" src="<%=path %>/FRAMEWORK/jquery-easyui/jquery.min.js"></script>
 	<script type="text/javascript" src="<%=path %>/FRAMEWORK/jquery-easyui/jquery.easyui.min.js"></script>
-	
+	<script type="text/javascript" src="<%=path %>/FRAMEWORK/jquery-easyui/locale/easyui-lang-zh_CN.js"></script>
 	<script type="text/javascript" src="<%=path %>/FRAMEWORK/My97DatePicker/WdatePicker.js"></script>
 	
 	<script type="text/javascript" src="<%=path %>/FRAMEWORK/js/myjs.js"></script>
@@ -74,6 +74,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		table1=table1+
 		"<tr><td style=\"width:90px;\">编号：</td><td>"+${json}[status].demand.DId+"</td></tr>"+
 		"<tr><td>发起人：</td><td>"+${json}[status].demand.DApplicant+"</td></tr>"+
+		"<tr><td>故障区域：</td><td>"+${json}[status].demand.area+"</td></tr>"+
 		"<tr><td>故障描述：</td><td>"+${json}[status].demand.DContent+"</td></tr>"+
 		"<tr><td>故障类型：</td><td>"+${json}[status].demand.DType+"</td></tr>"+
 		"<tr><td>创建时间：</td><td>"+${json}[status].demand.DTimeString+"</td></tr>"+
@@ -95,7 +96,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		$("#q").window('open');
 	}
 	
-	function forward(u1,u2,u3,u4,u5,u6,u7) {
+	function forward(u1,u2,u3,u4,u5,u6,u7,u8,u9) {
 		if($("#"+u7).val()=="forward"){
 			$("#u").window('open');
 			$('#u_1').val(u1);
@@ -104,6 +105,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			$('#u_4').val(u4);
 			$('#u_5').val(u5);
 			$('#u_6').val(u6);
+			$('#u_8').val(u8);
 			var state="转发";
 			$('#u_7').val(state);
 		}
@@ -116,6 +118,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		if($("#"+u7).val()=="complete"){
 			$('#uc_1').val(u1);
 			$("#sel_type option[value='"+u4+"']").attr("selected",true);
+			$("#sel_area option[value='"+u9+"']").attr("selected",true);
 			$("#c").window('open');
 		}
 	}
@@ -189,9 +192,23 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								  	<option value ="韵达系统-网点客户端">韵达系统-网点客户端</option>
 								  	<option value ="韵达系统-二维码客户端">韵达系统-二维码客户端</option>
 								  </optgroup>	
+								  <optgroup label="其他">
+								  	<option value ="其他">其他</option>
+								  </optgroup>
 							</select>
 		    			</div>
 		    		</div>
+		    		<div>
+	    			<div>
+	    				故障区域:
+	    				<select name="area" style="width:100px;">
+								<option value="">-请选择区域-</option>
+							<c:forEach items="${listArea}" var="la">
+								<option value="${la.id }">${la.name }</option>
+							</c:forEach>
+						</select>
+	    			</div>
+	    		</div>
 		    	</form>
 	   		</div>
 	   		<div  class="btn">
@@ -205,6 +222,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		    <tr>
 		    	<th width="150">编号</th>
 		    	<th width="150">发起人</th>
+		    	<th width="90">故障区域</th>
 		    	<th width="300">故障描述</th>
 		    	<th width="90">故障类型</th>
 		    	<th>创建时间</th>
@@ -217,6 +235,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		    <tr>
 				<td>${dp.demand.DId }</td>
 		    	<td>${dp.demand.DApplicant }</td>
+		    	<td>${dp.demand.area }</td>
 		    	<td>${dp.demand.DContent }</td>
 		    	<td>${dp.demand.DType }</td>
 		    	<td>${dp.demand.DTime }</td>
@@ -224,7 +243,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		    	<td>${dp.demand.DTimeExpect }</td>
 		    	<td>${dp.performs[0].PState }</td>
 				<td>
-					<select onchange="forward('${dp.demand.DId }','${dp.demand.DApplicant }','${dp.demand.DContent }','${dp.demand.DType }','${dp.demand.DTime }','${dp.performs[0].UName }','select_id${status.index}')" id="select_id${status.index}" name="select_id">
+					<select onchange="forward('${dp.demand.DId }','${dp.demand.DApplicant }','${dp.demand.DContent }','${dp.demand.DType }','${dp.demand.DTime }','${dp.performs[0].UName }','select_id${status.index}','${dp.demand.area }','${dp.demand.areaId }')" id="select_id${status.index}" name="select_id">
 						<option value="">--状态--</option>
 						<option value="notComplete">未完成</option>
 						<option value="complete">已完成</option>
@@ -283,6 +302,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				</td>
 			</tr>
 			<tr>
+				<td>故障区域：</td>
+				<td>
+					<input id="u_8" name="d.area" type="text" style="width: 100%;" readonly="readonly"/>
+				</td>
+			</tr>
+			<tr>
 				<td>故障描述：</td>
 				<td>
 					<input id="u_3" name="d.DContent" type="text" style="width: 100%;" readonly="readonly"/>
@@ -337,11 +362,23 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		
 	</div>
 	<div id="c" class="easyui-window" title="提示窗口" data-options="modal:true,closed:true"  style="width:400px;height:auto;display: none;padding: 10px;">
-		<form action="<%=path %>/handle!update" method="post">
+		<form id="ff" action="<%=path %>/handle!update" method="post">
 			<input id="uc_1" name="d.DId" type="text" style="display: none;" />
 			<table>
 				<tr>
-					<td width="60">故障类型:</td>
+					<td width="80">
+						故障区域:
+					</td>
+					<td style="text-align:left;">
+						<select name="d.areaId" id="sel_area">
+						<c:forEach items="${listArea}" var="la">
+							<option value="${la.id }">${la.name }</option>
+						</c:forEach>
+					</select>
+					</td>
+				</tr>
+				<tr>
+					<td>故障类型:</td>
 					<td style="text-align:left;">
 						<select id="sel_type" name="d.DType">
 						  <optgroup label="网络电脑类">
@@ -385,6 +422,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						  	<option value ="韵达系统-网点客户端">韵达系统-网点客户端</option>
 						  	<option value ="韵达系统-二维码客户端">韵达系统-二维码客户端</option>
 						  </optgroup>
+						  <optgroup label="其他">
+						  	<option value ="其他">其他</option>
+						  </optgroup>
 						</select>
 					</td>
 				</tr>
@@ -393,7 +433,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						故障原因:
 					</td>
 					<td>
-						<textarea name="p.PReason" style="width:100%;height:80px;"></textarea>
+						<textarea name="p.PReason" style="width:100%;height:80px;" class="easyui-validatebox" required="true"></textarea>
 					</td>
 				</tr>
 				<tr>
@@ -401,7 +441,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						处理描述:
 					</td>
 					<td>
-						<textarea name="p.PDesc" style="width:100%;height:80px;"></textarea>
+						<textarea name="p.PDesc" style="width:100%;height:80px;" class="easyui-validatebox" required="true"></textarea>
 					</td>
 				</tr>
 				<!-- 
@@ -415,10 +455,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				</tr>
 				-->
 			</table>
-						<input id="uc_2" name="p.PState" type="text" style="display:none;" value="已完成"/>
+				<input id="uc_2" name="p.PState" type="text" style="display:none;" value="已完成"/>
 			<br/>
 			<center>
-				<input  type="submit" style="width:60px;height:25px;font-size:14px;" value="确 定" onclick="return show_hint(['c'])"/>
+				<input  type="submit" style="width:60px;height:25px;font-size:14px;" value="确 定" onclick="return $('#ff').form('validate')&&show_hint(['c'])"/>
 				<input type="button" style="width:60px;height:25px;font-size:14px;margin-left: 30px;" value="取 消" onclick="Texit()"/>
 			</center>
 		</form>

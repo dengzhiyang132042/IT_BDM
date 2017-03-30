@@ -10,6 +10,7 @@ import net.sf.json.JSONArray;
 import org.apache.log4j.Logger;
 import com.zs.action.IMyBaseAction;
 import com.zs.action.MyBaseAction;
+import com.zs.entity.DaArea;
 import com.zs.entity.DaDemPer;
 import com.zs.entity.DaDemand;
 import com.zs.entity.DaPerform;
@@ -42,6 +43,7 @@ public class DaHandleAction extends MyBaseAction implements IMyBaseAction{
 	String dates;
 	String datee;
 	String type;
+	String area;
 	
 	//定义一个变量用来存储点击转发按钮时当前处理人的信息
 	String num_now="";
@@ -111,15 +113,18 @@ public class DaHandleAction extends MyBaseAction implements IMyBaseAction{
 	public void setType(String type) {
 		this.type = type;
 	}
-	
-	
-	
+	public String getArea() {
+		return area;
+	}
+	public void setArea(String area) {
+		this.area = area;
+	}
 	public void clearOptions() {
 		id=null;
 		datee=null;
 		dates=null;
 		type=null;
-		
+		area=null;
 	}
 	private void clearSpace() {
 		if (id!=null) {
@@ -133,6 +138,9 @@ public class DaHandleAction extends MyBaseAction implements IMyBaseAction{
 		}
 		if (type!=null) {
 			type=type.trim();
+		}
+		if (area!=null) {
+			area=area.trim();
 		}
 	}
 	
@@ -161,6 +169,9 @@ public class DaHandleAction extends MyBaseAction implements IMyBaseAction{
 			if(datee!=null && !datee.equals("")){
 				hql=hql+" and DTime <= '"+datee+"'";
 			}
+			if(area!=null && !area.equals("")){
+				hql=hql+" and areaId = "+area+"";
+			}
 			hql=hql+" order by DTime desc";
 			List dems=ser.query(hql, null, hql, page, ser);
 			demper=ser.initDemPers(dems);
@@ -169,35 +180,14 @@ public class DaHandleAction extends MyBaseAction implements IMyBaseAction{
 			String ss[]={};
 			String hql2="from DaDemand where DId in (select DId from DaPerform where UNum ='"+uu.getUNum()+"'  and PState = '进行中') order by DTime desc";
 			List dems=ser.query(hql, ss, hql2, page, ser);
-			initDemPers(dems);
+			demper=ser.initDemPers(dems);
 		}
 		ser.bringUsers(getRequest(),uu);
+		List<DaArea> listArea = ser.find("from DaArea", null);
+		getRequest().setAttribute("listArea", listArea);
 		JSONArray json=JSONArray.fromObject(demper);
 		getRequest().setAttribute("json", json);
 		return result;
-	}
-	
-	private void initDemPers(List dems) {
-		demper=new ArrayList<DaDemPer>();
-		for (int i = 0; i < dems.size(); i++) {
-			DaDemand d=(DaDemand) dems.get(i);
-			d.setDTimeString(d.getDTime().toString());
-			d.setDTimeExpectString(d.getDTimeExpect().toString());
-			List pers=ser.find("from DaPerform where DId = ? order by PTime desc", new Object[]{d.getDId()});
-			for (int j = 0; j < pers.size(); j++) {
-				DaPerform perform=(DaPerform) pers.get(j);
-				perform.setPTimeString(perform.getPTime().toString());
-				if (perform.getUNum()!=null && !"".equals(perform.getUNum())) {
-					Users u1=(Users) ser.get(Users.class, perform.getUNum());
-					perform.setUName(u1.getUName());
-				}
-				if (perform.getUNumNext()!=null && !"".equals(perform.getUNumNext())) {
-					Users u2=(Users) ser.get(Users.class, perform.getUNumNext());
-					perform.setUNameNext(u2.getUName());
-				}
-			}
-			demper.add(new DaDemPer(d, pers));
-		}
 	}
 	
 	public String add() throws Exception {
@@ -219,8 +209,10 @@ public class DaHandleAction extends MyBaseAction implements IMyBaseAction{
 		String ss[]={};
 		String hql2="from DaDemand where DId in (select DId from DaPerform where UNum ='"+uu.getUNum()+"'  and PState = '进行中') order by DTime desc";
 		List dems=ser.query(hql, ss, hql2, page, ser);
-		initDemPers(dems);
+		demper=ser.initDemPers(dems);
 		ser.bringUsers(getRequest(),uu);
+		List<DaArea> listArea = ser.find("from DaArea", null);
+		getRequest().setAttribute("listArea", listArea);
 		JSONArray json=JSONArray.fromObject(demper);
 		getRequest().setAttribute("json", json);
 		return result;

@@ -15,13 +15,19 @@ public class DaCount {
 	private int daAll;
 	private int daSuc;
 	private int ratioSuc;
-	
+	private String type;
 	private List<DaDemPer> demPer;
 	
 	private int rows;
 	private int orderNum;
 	
 	
+	public String getType() {
+		return type;
+	}
+	public void setType(String type) {
+		this.type = type;
+	}
 	public int getOrderNum() {
 		return orderNum;
 	}

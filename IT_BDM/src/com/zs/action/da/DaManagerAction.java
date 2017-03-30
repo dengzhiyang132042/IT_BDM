@@ -12,6 +12,7 @@ import net.sf.json.JSONArray;
 
 import com.zs.action.IMyBaseAction;
 import com.zs.action.MyBaseAction;
+import com.zs.entity.DaArea;
 import com.zs.entity.DaDemPer;
 import com.zs.entity.DaDemand;
 import com.zs.entity.DaPerform;
@@ -44,6 +45,7 @@ public class DaManagerAction extends MyBaseAction implements IMyBaseAction{
 	String dates;
 	String datee;
 	String type;
+	String area;
 	
 	Logger logger=Logger.getLogger(DaManagerAction.class);
 	private static MailManager mailManager=MailManager.getInstance();//邮件发送者
@@ -109,6 +111,13 @@ public class DaManagerAction extends MyBaseAction implements IMyBaseAction{
 	public void setCz(String cz) {
 		this.cz = cz;
 	}
+	public String getArea() {
+		return area;
+	}
+	public void setArea(String area) {
+		this.area = area;
+	}
+	
 	//----------------------------------------------------------
 	public void clearOptions() {
 		id=null;
@@ -116,6 +125,7 @@ public class DaManagerAction extends MyBaseAction implements IMyBaseAction{
 		dates=null;
 		datee=null;
 		type=null;
+		area=null;
 		d=null;
 		p=null;
 		demPers=null;
@@ -142,6 +152,9 @@ public class DaManagerAction extends MyBaseAction implements IMyBaseAction{
 		if (type!=null) {
 			type=type.trim();
 		}
+		if(area!=null){
+			area=area.trim();
+		}
 	}
 	
 	
@@ -159,10 +172,15 @@ public class DaManagerAction extends MyBaseAction implements IMyBaseAction{
 			hql=hql+" and DTime >= '"+dates+" 0:0:0' ";
 		if(datee!=null && !datee.equals(""))
 			hql=hql+" and DTime <= '"+datee+" 23:59:59' ";
-		hql=hql+"order by DTime desc";
+		if(area!=null && !area.equals("")){
+			hql=hql+" and areaId = "+area+"";
+		}
+		hql=hql+" order by DTime desc";
 		List dems=ser.query(hql, null, hql, page, ser);
 		demPers=ser.initDemPers(dems);
 		ser.bringUsers(getRequest());
+		List<DaArea> listArea = ser.find("from DaArea", null);
+		getRequest().setAttribute("listArea", listArea);
 		JSONArray json=JSONArray.fromObject(demPers);
 		getRequest().setAttribute("json", json);
 		return result;
@@ -176,6 +194,8 @@ public class DaManagerAction extends MyBaseAction implements IMyBaseAction{
 		List dems=ser.query(hql, ss, hql2, page, ser);
 		demPers=ser.initDemPers(dems);
 		ser.bringUsers(getRequest());
+		List<DaArea> listArea = ser.find("from DaArea", null);
+		getRequest().setAttribute("listArea", listArea);
 		JSONArray json=JSONArray.fromObject(demPers);
 		getRequest().setAttribute("json", json);
 		return result;

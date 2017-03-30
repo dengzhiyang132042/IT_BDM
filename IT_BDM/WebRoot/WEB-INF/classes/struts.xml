@@ -419,6 +419,20 @@
      <result name="succ">/success.jsp</result>
      <result name="fail">/fail.jsp</result>
   </action>
+  <action name="countGroup" class="hgh_count_group">	
+  	 <interceptor-ref name="mydefault" />
+     <result>/index.jsp</result>
+     <result name="countGroup">/da/count_group.jsp</result>
+     <result name="succ">/success.jsp</result>
+     <result name="fail">/fail.jsp</result>
+  </action>
+  <action name="countArea" class="hgh_count_area">	
+  	 <interceptor-ref name="mydefault" />
+     <result>/index.jsp</result>
+     <result name="countArea">/da/count_area.jsp</result>
+     <result name="succ">/success.jsp</result>
+     <result name="fail">/fail.jsp</result>
+  </action>
   <action name="auditing" class="zs_auditing_da">	
   	 <interceptor-ref name="mydefault" />
      <result>/index.jsp</result>
