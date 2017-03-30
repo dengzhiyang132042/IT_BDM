@@ -60,11 +60,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	function queryDetails(status) {
 		var table1="<table border=\"1\" style=\"font-size: 12px;margin-top: 10px;\">";
 		table1=table1+
-		"<tr><th>编号</th><th>发起人</th><th>故障描述</th><th>故障类型</th><th>创建时间</th><th>当前处理人</th><th>超时时间</th><th>状态</th></tr>";
+		"<tr><th>编号</th><th>发起人</th><th>故障区域</th><th>故障描述</th><th>故障类型</th><th>创建时间</th><th>当前处理人</th><th>超时时间</th><th>状态</th></tr>";
 		for ( var i = 0; i < ${json}[status].demPer.length; i++) {
 			table1=table1+"<tr>"+
 			"<td>"+${json}[status].demPer[i].demand.DId+"</td>"+
 			"<td>"+${json}[status].demPer[i].demand.DApplicant+"</td>"+
+			"<td>"+${json}[status].demPer[i].demand.area+"</td>"+
 			"<td>"+${json}[status].demPer[i].demand.DContent+"</td>"+
 			"<td>"+${json}[status].demPer[i].demand.DType+"</td>"+
 			"<td>"+${json}[status].demPer[i].demand.DTimeString+"</td>"+
@@ -118,7 +119,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
  	
  	<div class="tab" style="float: left;" onmousemove="this.style.background='#FF0202';" onmouseout="this.style.background='#B00000';" onclick="window.location.href='<%=path %>/count!queryOfFenye'">客服统计</div>
     <div class="tab" style="float: left;background-color: #FF0202;color: white;font-weight: ;margin-left: 10px;">专员统计</div>
- 	
+ 	<div class="tab" style="float: left;margin-left: 10px;" onmousemove="this.style.background='#FF0202';" onmouseout="this.style.background='#B00000';" onclick="window.location.href='<%=path %>/countGroup!queryOfFenye'">类型统计</div>
+    <div class="tab" style="float: left;margin-left: 10px;" onmousemove="this.style.background='#FF0202';" onmouseout="this.style.background='#B00000';" onclick="window.location.href='<%=path %>/countArea!queryOfFenye'">区域统计</div>
  	
  	<br/>
  	<br/>

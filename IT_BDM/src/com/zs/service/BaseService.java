@@ -37,6 +37,7 @@ import com.zs.entity.CompanySection5;
 import com.zs.entity.CompanySection6;
 import com.zs.entity.CompanySection7;
 import com.zs.entity.CompanySection8;
+import com.zs.entity.DaArea;
 import com.zs.entity.DaDemPer;
 import com.zs.entity.DaDemand;
 import com.zs.entity.DaPerform;
@@ -499,6 +500,10 @@ public class BaseService implements IService{
 		List demPers=new ArrayList<DaDemPer>();
 		for (int i = 0; i < dems.size(); i++) {
 			DaDemand d=(DaDemand) dems.get(i);
+			if(d.getAreaId()!=null && !d.getAreaId().equals("")){
+				DaArea area = (DaArea) this.get(DaArea.class, d.getAreaId());
+				d.setArea(area.getName());
+			}
 			d.setDTimeString(d.getDTime().toString());
 			d.setDTimeExpectString(d.getDTimeExpect().toString());
 			Date nDate = new Date();

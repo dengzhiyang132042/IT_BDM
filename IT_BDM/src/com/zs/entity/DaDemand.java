@@ -16,34 +16,14 @@ public class DaDemand implements java.io.Serializable {
 	private String DType;
 	private Timestamp DTime;
 	private Timestamp DTimeExpect;
+	private Integer areaId;
 	private String DTimeString;
 	private String DTimeExpectString;
-	private int outTime;//0表示还未到达超时时间   ，1表示到达超时时间前3小时
+	private int outTime;
 	
-	
-	public int getOutTime() {
-		return outTime;
-	}
+	private String area;
 
-	public void setOutTime(int outTime) {
-		this.outTime = outTime;
-	}
 	// Constructors
-	public String getDTimeExpectString() {
-		return DTimeExpectString;
-	}
-
-	public void setDTimeExpectString(String dTimeExpectString) {
-		DTimeExpectString = dTimeExpectString;
-	}
-	
-	public String getDTimeString() {
-		return DTimeString;
-	}
-
-	public void setDTimeString(String dTimeString) {
-		DTimeString = dTimeString;
-	}
 
 	/** default constructor */
 	public DaDemand() {
@@ -56,27 +36,20 @@ public class DaDemand implements java.io.Serializable {
 
 	/** full constructor */
 	public DaDemand(String DId, String DApplicant, String DContent,
-			String DType, Timestamp DTime ,Timestamp DTimeExpect) {
+			String DType, Timestamp DTime, Timestamp DTimeExpect, Integer areaId) {
 		this.DId = DId;
 		this.DApplicant = DApplicant;
 		this.DContent = DContent;
 		this.DType = DType;
 		this.DTime = DTime;
 		this.DTimeExpect = DTimeExpect;
+		this.areaId = areaId;
 	}
 
 	// Property accessors
 
 	public String getDId() {
 		return this.DId;
-	}
-
-	public Timestamp getDTimeExpect() {
-		return DTimeExpect;
-	}
-
-	public void setDTimeExpect(Timestamp dTimeExpect) {
-		DTimeExpect = dTimeExpect;
 	}
 
 	public void setDId(String DId) {
@@ -115,4 +88,52 @@ public class DaDemand implements java.io.Serializable {
 		this.DTime = DTime;
 	}
 
+	public Timestamp getDTimeExpect() {
+		return this.DTimeExpect;
+	}
+
+	public void setDTimeExpect(Timestamp DTimeExpect) {
+		this.DTimeExpect = DTimeExpect;
+	}
+
+	public Integer getAreaId() {
+		return this.areaId;
+	}
+
+	public void setAreaId(Integer areaId) {
+		this.areaId = areaId;
+	}
+
+	public String getDTimeString() {
+		return DTimeString;
+	}
+
+	public void setDTimeString(String dTimeString) {
+		DTimeString = dTimeString;
+	}
+
+	public String getDTimeExpectString() {
+		return DTimeExpectString;
+	}
+
+	public void setDTimeExpectString(String dTimeExpectString) {
+		DTimeExpectString = dTimeExpectString;
+	}
+
+	public int getOutTime() {
+		return outTime;
+	}
+
+	public void setOutTime(int outTime) {
+		this.outTime = outTime;
+	}
+
+	public String getArea() {
+		return area;
+	}
+
+	public void setArea(String area) {
+		this.area = area;
+	}
+	
 }

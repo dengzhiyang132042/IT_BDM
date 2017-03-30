@@ -6,6 +6,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -17,30 +18,32 @@ import com.zs.action.IMyBaseAction;
 import com.zs.action.MyBaseAction;
 import com.zs.entity.DaCount;
 import com.zs.entity.DaDemand;
+import com.zs.entity.DaPerform;
+import com.zs.entity.Users;
+import com.zs.entity.XtSite;
 import com.zs.service.IService;
 import com.zs.tools.Page;
 import com.zs.tools.WeekDateArea;
 
-public class DaCountAction extends MyBaseAction implements IMyBaseAction{
+public class DaCountGroupAction extends MyBaseAction implements IMyBaseAction{
 
 	IService ser;
 	Page page;
 	
 	
 	List<DaCount> counts;
-	
 	String filtrate;
-	
-	String result="count";
-	String result_succ="succ";
-	String result_fail="fail";
-	
-	String dates;
-	String datee;
 	String id;
 	String cz;
 	
-	Logger logger=Logger.getLogger(DaCountAction.class);
+	String result="countGroup";
+	String result_succ="succ";
+	String result_fail="fail";
+	String dates;
+	String datee;
+	
+	int number=0;
+	Logger logger=Logger.getLogger(DaCountGroupAction.class);
 //----------------------------------------------------	
 	
 	public IService getSer() {
@@ -93,10 +96,9 @@ public class DaCountAction extends MyBaseAction implements IMyBaseAction{
 	}
 	//----------------------------------------------------
 	public void clearOptions() {
-		page=null;
+		filtrate=null;
 		dates=null;
 		datee=null;
-		filtrate=null;
 		cz=null;
 		if (page==null) {
 			page=new Page(1, 0, 10);
@@ -123,31 +125,43 @@ public class DaCountAction extends MyBaseAction implements IMyBaseAction{
 	 * 组装count
 	 */
 	private void initCount(Date dateStart,Date dateEnd,List counts) {
-		//组装一个DaCount
-		DaCount count=new DaCount();
-		count.setsTime(new Timestamp(dateStart.getTime()));
-		count.seteTime(new Timestamp(dateEnd.getTime()));
-		//获取在该时间范围内故障报修总量
-		List list2=ser.find("from DaDemand where DTime>=? and DTime<=?", new Timestamp[]{count.getsTime(),count.geteTime()});
-		if (list2.size()!=0) {//如果为0就不要了
-			count.setDaAll(list2.size());
-			//获取在该时间范围内故障报修完成的量
-			List list3=ser.find("from DaDemand where DTime>=? and DTime<=? and DId in (select DId from DaPerform where PState='已完成')", new Timestamp[]{count.getsTime(),count.geteTime()});
-			count.setDaSuc(list3.size());
-			//计算完成率
-			if (list2.size()==0) {
-				count.setRatioSuc(0);
+		String ghql = "select DType from DaDemand where DTime >= ? and DTime <= ? group by DType";
+		List glist = ser.find(ghql, new Object[]{new Timestamp(dateStart.getTime()),new Timestamp(dateEnd.getTime())});
+		int ornum = 1;
+		for (int i = 0; i < glist.size(); i++) {
+			String datype= (String)glist.get(i);
+			DaCount count = new DaCount();
+			count.setsTime(new Timestamp(dateStart.getTime()));
+			count.seteTime(new Timestamp(dateEnd.getTime()));
+			count.setType(datype);
+			if (i==0) {//第一条设置0，其余设置合并数
+				number++;
+				count.setRows(glist.size());
+				count.setOrderNum(number);//设置序号
 			}else {
-				double ratio=(double)list3.size()/(double)list2.size()*100;
-				count.setRatioSuc((int)ratio);
+				count.setRows(0);
+				count.setOrderNum(0);//设置序号
 			}
-			//设置DemPer
-			if(list2.size()>0){
+			List list2=ser.find("from DaDemand where DType = ? and DId in(select DId from DaPerform where PState!='转发' and PTime >=? and PTime <=?)", new Object[]{datype,count.getsTime(),count.geteTime()});
+			if (list2.size()!=0) {//如果为0就不要了
+				count.setDaAll(list2.size());
+				//获取在该时间范围内故障报修完成的量
+				List list3=ser.find("from DaDemand where DType = ? and DId in(select DId from DaPerform where PState='已完成' and PTime >=? and PTime <=?)", new Object[]{datype,count.getsTime(),count.geteTime()});
+				count.setDaSuc(list3.size());
+				//计算完成率
+				if (list2.size()==0) {
+					count.setRatioSuc(0);
+				}else {
+					double ratio=(double)list3.size()/(double)list2.size()*100;
+					count.setRatioSuc((int)ratio);
+				}
+				//设置DemPer
 				List list4=ser.initDemPers(list2);
 				count.setDemPer(list4);
+				counts.add(count);
 			}
-			counts.add(count);
 		}
+	
 	}
 	
 	/**
@@ -158,8 +172,6 @@ public class DaCountAction extends MyBaseAction implements IMyBaseAction{
 	 */
 	private void initCounts(List<DaCount> counts,String dt) throws ParseException {
 		//获取两个头尾的时间
-//		logger.debug(dates);
-//		logger.debug(datee);
 		DaDemand d1 = null,d2=null;
 		String str="from DaDemand where DTime!=null ";
 		String str1="from DaDemand where DTime!=null ";
@@ -168,11 +180,12 @@ public class DaCountAction extends MyBaseAction implements IMyBaseAction{
 			Date d = new Date();
 			if(dt.equals("D")){
 				datee =	new SimpleDateFormat("yyyy-MM-dd").format(new Date(d.getYear(), d.getMonth(),d.getDate()+1));
-				dates =	new SimpleDateFormat("yyyy-MM-dd").format(new Date(d.getYear(), d.getMonth(),d.getDate()-7));
+				dates =	new SimpleDateFormat("yyyy-MM-dd").format(new Date(d.getYear(), d.getMonth(),d.getDate()-3));
 			}
 			if(dt.equals("W")){
-				datee =	new SimpleDateFormat("yyyy-MM-dd").format(new Date(d.getYear(), d.getMonth(),d.getDate()+1));
-				dates =	new SimpleDateFormat("yyyy-MM-dd").format(new Date(d.getYear(), d.getMonth(),d.getDate()-7));
+				datee =	new SimpleDateFormat("yyyy-MM-dd").format(new Date(d.getYear(), d.getMonth(),d.getDate()));
+				dates =	new SimpleDateFormat("yyyy-MM-dd").format(new Date(d.getYear(), d.getMonth(),d.getDate()-3));
+				System.out.println(dates);
 			}
 			if(dt.equals("M")){
 				datee =	new SimpleDateFormat("yyyy-MM").format(new Date(d.getYear(), d.getMonth(),d.getDate()));
@@ -223,17 +236,12 @@ public class DaCountAction extends MyBaseAction implements IMyBaseAction{
 				Date date1=sdf.parse(d1.getDTime().toLocaleString());
 				Date date2=sdf.parse(d2.getDTime().toLocaleString());
 				long days=(date1.getTime()-date2.getTime())/(1000*3600*24);
-				/*
-				logger.debug(date1.toLocaleString()+" "+date2.toLocaleString());
-				logger.debug(d1.getDTime().toLocaleString()+" "+d2.getDTime().toLocaleString());
-				logger.debug(d1.getDTime().getDate());
-				*/
 				//从第一天开始循环组装数据封装
-				for (int i = 0; i <=days; i++) {
-					Date dateStart=new Date(d1.getDTime().getYear(), d1.getDTime().getMonth(), d1.getDTime().getDate()-i,0,0,0);
-					Date dateEnd=new Date(d1.getDTime().getYear(), d1.getDTime().getMonth(), d1.getDTime().getDate()-i,23, 59, 59);
+				for (int k = 0; k <=days; k++) {
+					Date dateStart=new Date(d1.getDTime().getYear(), d1.getDTime().getMonth(), d1.getDTime().getDate()-k,0,0,0);
+					Date dateEnd=new Date(d1.getDTime().getYear(), d1.getDTime().getMonth(), d1.getDTime().getDate()-k,23, 59, 59);
 					initCount(dateStart, dateEnd, counts);
-				}
+				}				
 			}else if (dt.equals("W")) {
 				int weeknum =(int)((d1.getDTime().getTime()-d2.getDTime().getTime())/(1000*60*60*24))/7;
 				for (int i = 0; i <= weeknum; i++) {
@@ -247,26 +255,33 @@ public class DaCountAction extends MyBaseAction implements IMyBaseAction{
 			}else if (dt.equals("M")) {
 				//获取相差月数
 				long ms=(d1.getDTime().getYear()-d2.getDTime().getYear())*12+(d1.getDTime().getMonth()-d2.getDTime().getMonth());
-				//logger.debug(ms);
-				for (int i = 0; i <= ms; i++) {
-					Date dateStart=new Date(d1.getDTime().getYear(), d1.getDTime().getMonth()-i, 1,0,0,0);
+				for (int k = 0; k <= ms; k++) {
+					Date dateStart=new Date(d1.getDTime().getYear(), d1.getDTime().getMonth()-k, 1,0,0,0);
 					Calendar ca = Calendar.getInstance();    
-					ca.set(1900+d1.getDTime().getYear(), 1+d1.getDTime().getMonth()-i, 0);
+					ca.set(1900+d1.getDTime().getYear(), 1+d1.getDTime().getMonth()-k, 0);
 					Date dateTmp=ca.getTime();
-					//logger.debug(dateTmp.toLocaleString()+"  "+d2.getDTime().getYear()+"  "+d2.getDTime().getMonth());
 					Date dateEnd=new Date(dateTmp.getYear(), dateTmp.getMonth(), dateTmp.getDate(),23,59,59);
 					initCount(dateStart, dateEnd, counts);
-				}
+				}			
 			}else if (dt.equals("Y")) {
 				//获得相差年数
 				long ys=d1.getDTime().getYear()-d2.getDTime().getYear();
-				for (int i = 0; i <= ys; i++) {
-					Date dateStart=new Date(d1.getDTime().getYear()-i, 0, 1,0,0,0);
-					Date dateEnd=new Date(d1.getDTime().getYear()-i, 11, 31,23,59,59);
+				for (int k = 0; k <= ys; k++) {
+					Date dateStart=new Date(d1.getDTime().getYear()-k, 0, 1,0,0,0);
+					Date dateEnd=new Date(d1.getDTime().getYear()-k, 11, 31,23,59,59);
 					initCount(dateStart, dateEnd, counts);
-				}
+				}			
 			}
 		}
+		/*
+		//获取用户列表
+		List<Users> users=ser.find("from Users",null);
+		for (int i = 0; i < users.size(); i++) {
+			Users u=users.get(i);
+			//查找需求表，条件是最后执行人是u
+			
+		}
+		*/
 	}
 	
 	
@@ -282,6 +297,7 @@ public class DaCountAction extends MyBaseAction implements IMyBaseAction{
 			*/
 		}else {
 			try {
+				number=0;
 				initCounts(counts,filtrate);
 			} catch (ParseException e) {
 				e.printStackTrace();

@@ -25,5 +25,8 @@
         <property name="DTimeExpect" type="java.sql.Timestamp">
             <column name="d_time_expect" length="19" />
         </property>
+        <property name="areaId" type="java.lang.Integer">
+            <column name="area_id" />
+        </property>
     </class>
 </hibernate-mapping>

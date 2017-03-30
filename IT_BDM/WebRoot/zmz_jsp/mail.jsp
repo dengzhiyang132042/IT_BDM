@@ -230,6 +230,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<select id="u_8" name="m.MOnJob" >
 						<option value="入职">入职</option>
 						<option value="停用">停用</option>
+						<option value="维护">维护</option>
 						<option value="离职">离职</option>
 					</select>
 				</td>
@@ -288,6 +289,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<select name="m.MOnJob" >
 						<option value="入职">入职</option>
 						<option value="停用">停用</option>
+						<option value="维护">维护</option>
 						<option value="离职">离职</option>
 					</select>
 				</td>
@@ -337,6 +339,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</form>
 	</div>
 	
-	<jsp:include page="../hintModal.jsp"/>
+	i<jsp:include page="../hintModal.jsp"/>
   </body>
 </html>

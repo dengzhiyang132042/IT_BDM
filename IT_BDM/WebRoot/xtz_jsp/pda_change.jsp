@@ -171,8 +171,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<td width="">${pda.CWeek }</td>
 		<td width="">${pda.CMan }</td>
 		<td width="">${pda.CPage }</td>
-		<td width="">${pda.CNewNum }</td>
 		<td width="">${pda.COldNum }</td>
+		<td width="">${pda.CNewNum }</td>
 		<td width="">${pda.CSn }</td>
 		<td width="">${pda.CIt }</td>
 		<td width=""><fmt:formatDate value="${pda.CChangeDate }" pattern="yyyy/M/d"/></td>
@@ -181,7 +181,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<td width="">${pda.CType }</td>
 		<td width="">${pda.CNote }</td>
 		<td width="5%" align="center">
-			<a onclick="update('${pda.CId }','${pda.CDate }','${pda.CMan }','${pda.CPage }','${pda.CNewNum }','${pda.COldNum }','${pda.CSn }','${pda.CResult}','${pda.CReceiveMan }','${pda.CNote }' )" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-edit'" title="修改"></a>
+			<a onclick="update('${pda.CId }','${pda.CDate }','${pda.CMan }','${pda.CPage }','${pda.COldNum }','${pda.CNewNum }','${pda.CSn }','${pda.CResult}','${pda.CReceiveMan }','${pda.CNote }' )" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-edit'" title="修改"></a>
 			<a href="<%=path %>/pdachange!delete?id=${pda.CId}" onclick="return confirm('确定删除吗?')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-delete'" title="删除"></a>
 		</td>
     </tr>
