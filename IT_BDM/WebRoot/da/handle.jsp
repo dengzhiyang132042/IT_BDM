@@ -37,6 +37,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		$("#sele option[value='"+${page.size}+"']").attr("selected",true);
 		$("#eidtASubjectWindow1").show();
 		$('#tt').show();
+		$.extend($.fn.validatebox.defaults.rules, {
+		    must: {
+				validator: function(value,param){
+					return value.trim().length>0;
+				},
+				message: '该项不能为空'
+		    }
+		});
 	});
 	
 	function update(u1,u2,u3,u4,u5,u6){
@@ -433,7 +441,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						故障原因:
 					</td>
 					<td>
-						<textarea name="p.PReason" style="width:100%;height:80px;" class="easyui-validatebox" required="true"></textarea>
+						<textarea name="p.PReason" style="width:100%;height:80px;" class="easyui-validatebox" required="true" validType="must[]"></textarea>
 					</td>
 				</tr>
 				<tr>
@@ -441,7 +449,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						处理描述:
 					</td>
 					<td>
-						<textarea name="p.PDesc" style="width:100%;height:80px;" class="easyui-validatebox" required="true"></textarea>
+						<textarea name="p.PDesc" style="width:100%;height:80px;" class="easyui-validatebox" required="true" validType="must[]"></textarea>
 					</td>
 				</tr>
 				<!-- 
