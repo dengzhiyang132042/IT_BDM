@@ -235,7 +235,7 @@ public class DaHandleAction extends MyBaseAction implements IMyBaseAction{
 				ser.update(tmpper);
 				getRequest().setAttribute("p", tmpper);
 			}
-		}else if(d!=null && !"".equals(d.getDId())&& p.getPState().equals("已完成")){
+		}else if(d!=null && !"".equals(d.getDId())&& p.getPState().equals("已完成") && !p.getPReason().equals("") && !p.getPDesc().equals("")){
 			List templi=ser.find("from DaPerform where DId=? order by PTime desc", new String[]{d.getDId()});
 			if(templi.size()>0){
 				tmpper=(DaPerform) templi.get(0);
