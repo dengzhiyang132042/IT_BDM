@@ -130,9 +130,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    	<th>9点末上传数据</th>
 	    	<th>18点末上传数据</th>
 	    	<th>深圳公司离线扫描</th>
-	    	<th>集包到件</th>
-	    	<th>集包未到件</th>
-	    	<th>集包数据</th>
+	    	<th>有到件无集包</th>
+	    	<th>有集包无到件</th>
+	    	<th>有到件有集包</th>
 	    	<th>装车数据</th>
 	    	<th>备注</th>
 	    	<th>操作类型</th>
