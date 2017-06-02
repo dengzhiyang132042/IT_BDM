@@ -189,6 +189,7 @@ String beforeTime= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Calendar.g
 						  	<option value ="操作设备-巴枪">操作设备-巴枪 </option>
 						  	<option value ="操作设备-电子秤">操作设备-电子秤</option>
 						  	<option value ="二维码打印机">二维码打印机 </option>
+						  	<option value ="便携式打印机">便携式打印机 </option>
 						  </optgroup>
 						  <optgroup label="周边设备">
 						    <option value ="周边设备-打印机">周边设备-打印机</option>
@@ -429,6 +430,7 @@ String beforeTime= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Calendar.g
 					  	<option value ="操作设备-巴枪">操作设备-巴枪 </option>
 					  	<option value ="操作设备-电子秤">操作设备-电子秤</option>
 					  	<option value ="二维码打印机">二维码打印机 </option>
+					  	<option value ="便携式打印机">便携式打印机 </option>
 					  </optgroup>
 					  <optgroup label="周边设备">
 					    <option value ="周边设备-打印机">周边设备-打印机</option>
